@@ -1,0 +1,180 @@
+{
+  "config": {
+    "npz": "/Users/jonathanwang/Desktop/vocalizations_lab/release/zf_hubert_run11/data/run11_layersweep.npz",
+    "layer": 3,
+    "min_cluster_size": 20,
+    "out": "/Users/jonathanwang/.claude/jobs/fe6b885d/tmp/unsup_hdbscan_core.json"
+  },
+  "n_core": 1116,
+  "noise_frac": 0.603411513859275,
+  "n_clusters": 9,
+  "ami_core": 0.7743016964311185,
+  "composition": {
+    "Ag": {
+      "corpus": 196,
+      "core": 105,
+      "core_rate": 0.536
+    },
+    "DC": {
+      "corpus": 583,
+      "core": 424,
+      "core_rate": 0.727
+    },
+    "Ne": {
+      "corpus": 575,
+      "core": 193,
+      "core_rate": 0.336
+    },
+    "So": {
+      "corpus": 192,
+      "core": 109,
+      "core_rate": 0.568
+    },
+    "Te": {
+      "corpus": 577,
+      "core": 97,
+      "core_rate": 0.168
+    },
+    "Th": {
+      "corpus": 279,
+      "core": 58,
+      "core_rate": 0.208
+    },
+    "Tu": {
+      "corpus": 240,
+      "core": 29,
+      "core_rate": 0.121
+    },
+    "Wh": {
+      "corpus": 172,
+      "core": 101,
+      "core_rate": 0.587
+    }
+  },
+  "ami_core_excl_song": 0.7628807454437433,
+  "n_core_excl_song": 1007,
+  "ward_same_clips": {
+    "ami_calltype": 0.7385096256569199,
+    "ami_bird": 0.3327714248684941,
+    "ari_calltype": 0.520590995597868,
+    "hom": 0.7834206885420663,
+    "com": 0.7049677758184164,
+    "ami_within_bird": 0.8917504306809463,
+    "n_birds_used": 19,
+    "n_clusters_used": 9
+  },
+  "clusters": [
+    {
+      "cluster": 0,
+      "n": 23,
+      "top_type": "Te",
+      "purity": 1.0,
+      "n_birds": 3,
+      "bird_frac_top": 0.696,
+      "bird_entropy_norm": 0.749,
+      "mix": {
+        "Te": 23
+      }
+    },
+    {
+      "cluster": 1,
+      "n": 32,
+      "top_type": "Te",
+      "purity": 1.0,
+      "n_birds": 2,
+      "bird_frac_top": 0.875,
+      "bird_entropy_norm": 0.544,
+      "mix": {
+        "Te": 32
+      }
+    },
+    {
+      "cluster": 2,
+      "n": 29,
+      "top_type": "Te",
+      "purity": 1.0,
+      "n_birds": 2,
+      "bird_frac_top": 0.931,
+      "bird_entropy_norm": 0.362,
+      "mix": {
+        "Te": 29
+      }
+    },
+    {
+      "cluster": 3,
+      "n": 87,
+      "top_type": "Th",
+      "purity": 0.667,
+      "n_birds": 7,
+      "bird_frac_top": 0.402,
+      "bird_entropy_norm": 0.78,
+      "mix": {
+        "Th": 58,
+        "Tu": 29
+      }
+    },
+    {
+      "cluster": 4,
+      "n": 432,
+      "top_type": "DC",
+      "purity": 0.981,
+      "n_birds": 22,
+      "bird_frac_top": 0.102,
+      "bird_entropy_norm": 0.908,
+      "mix": {
+        "DC": 424,
+        "Te": 8
+      }
+    },
+    {
+      "cluster": 5,
+      "n": 32,
+      "top_type": "So",
+      "purity": 1.0,
+      "n_birds": 2,
+      "bird_frac_top": 0.969,
+      "bird_entropy_norm": 0.201,
+      "mix": {
+        "So": 32
+      }
+    },
+    {
+      "cluster": 6,
+      "n": 33,
+      "top_type": "So",
+      "purity": 1.0,
+      "n_birds": 3,
+      "bird_frac_top": 0.818,
+      "bird_entropy_norm": 0.506,
+      "mix": {
+        "So": 33
+      }
+    },
+    {
+      "cluster": 7,
+      "n": 407,
+      "top_type": "Ne",
+      "purity": 0.474,
+      "n_birds": 23,
+      "bird_frac_top": 0.187,
+      "bird_entropy_norm": 0.889,
+      "mix": {
+        "Ne": 193,
+        "Ag": 105,
+        "Wh": 101
+      }
+    },
+    {
+      "cluster": 8,
+      "n": 41,
+      "top_type": "So",
+      "purity": 1.0,
+      "n_birds": 1,
+      "bird_frac_top": 1.0,
+      "bird_entropy_norm": 0.0,
+      "mix": {
+        "So": 41
+      }
+    }
+  ]
+}

@@ -1,0 +1,462 @@
+{
+  "9": {
+    "scores": {
+      "ami_calltype": 0.6089816249956143,
+      "ami_bird": 0.16655939092396224,
+      "ari_calltype": 0.42532113439813557,
+      "hom": 0.6358547348337655,
+      "com": 0.5878498426158737,
+      "ami_within_bird": 0.7547395780947658,
+      "n_birds_used": 25,
+      "n_clusters_used": 9
+    },
+    "clusters": [
+      {
+        "cluster": 0,
+        "n": 404,
+        "top_type": "Te",
+        "purity": 0.95,
+        "n_birds": 18,
+        "bird_frac_top": 0.087,
+        "bird_entropy_norm": 0.966,
+        "mix": {
+          "Te": 384,
+          "DC": 15,
+          "Th": 5
+        }
+      },
+      {
+        "cluster": 1,
+        "n": 400,
+        "top_type": "Ne",
+        "purity": 0.308,
+        "n_birds": 19,
+        "bird_frac_top": 0.162,
+        "bird_entropy_norm": 0.865,
+        "mix": {
+          "Ne": 123,
+          "Te": 121,
+          "Wh": 94
+        }
+      },
+      {
+        "cluster": 2,
+        "n": 584,
+        "top_type": "Ne",
+        "purity": 0.368,
+        "n_birds": 21,
+        "bird_frac_top": 0.135,
+        "bird_entropy_norm": 0.9,
+        "mix": {
+          "Ne": 215,
+          "Th": 210,
+          "Tu": 139
+        }
+      },
+      {
+        "cluster": 3,
+        "n": 364,
+        "top_type": "DC",
+        "purity": 0.898,
+        "n_birds": 21,
+        "bird_frac_top": 0.148,
+        "bird_entropy_norm": 0.899,
+        "mix": {
+          "DC": 327,
+          "Te": 36,
+          "Tu": 1
+        }
+      },
+      {
+        "cluster": 4,
+        "n": 209,
+        "top_type": "DC",
+        "purity": 0.995,
+        "n_birds": 9,
+        "bird_frac_top": 0.225,
+        "bird_entropy_norm": 0.853,
+        "mix": {
+          "DC": 208,
+          "Th": 1
+        }
+      },
+      {
+        "cluster": 5,
+        "n": 302,
+        "top_type": "Ne",
+        "purity": 0.709,
+        "n_birds": 24,
+        "bird_frac_top": 0.225,
+        "bird_entropy_norm": 0.844,
+        "mix": {
+          "Ne": 214,
+          "Wh": 71,
+          "Te": 14
+        }
+      },
+      {
+        "cluster": 6,
+        "n": 190,
+        "top_type": "So",
+        "purity": 1.0,
+        "n_birds": 13,
+        "bird_frac_top": 0.221,
+        "bird_entropy_norm": 0.887,
+        "mix": {
+          "So": 190
+        }
+      },
+      {
+        "cluster": 7,
+        "n": 175,
+        "top_type": "Tu",
+        "purity": 0.526,
+        "n_birds": 15,
+        "bird_frac_top": 0.349,
+        "bird_entropy_norm": 0.808,
+        "mix": {
+          "Tu": 92,
+          "Th": 63,
+          "Ne": 17
+        }
+      },
+      {
+        "cluster": 8,
+        "n": 186,
+        "top_type": "Ag",
+        "purity": 0.919,
+        "n_birds": 22,
+        "bird_frac_top": 0.199,
+        "bird_entropy_norm": 0.88,
+        "mix": {
+          "Ag": 171,
+          "Wh": 7,
+          "Ne": 6
+        }
+      }
+    ],
+    "fate": {
+      "Ag": {
+        "n": 196,
+        "n_clusters_15pct": 1,
+        "n_clusters_any": 4,
+        "largest_cluster": 8,
+        "largest_frac": 0.872,
+        "largest_cluster_dominated_by": "Ag"
+      },
+      "DC": {
+        "n": 583,
+        "n_clusters_15pct": 2,
+        "n_clusters_any": 6,
+        "largest_cluster": 3,
+        "largest_frac": 0.561,
+        "largest_cluster_dominated_by": "DC"
+      },
+      "Ne": {
+        "n": 575,
+        "n_clusters_15pct": 3,
+        "n_clusters_any": 5,
+        "largest_cluster": 2,
+        "largest_frac": 0.374,
+        "largest_cluster_dominated_by": "Ne"
+      },
+      "So": {
+        "n": 192,
+        "n_clusters_15pct": 1,
+        "n_clusters_any": 2,
+        "largest_cluster": 6,
+        "largest_frac": 0.99,
+        "largest_cluster_dominated_by": "So"
+      },
+      "Te": {
+        "n": 577,
+        "n_clusters_15pct": 2,
+        "n_clusters_any": 7,
+        "largest_cluster": 0,
+        "largest_frac": 0.666,
+        "largest_cluster_dominated_by": "Te"
+      },
+      "Th": {
+        "n": 279,
+        "n_clusters_15pct": 2,
+        "n_clusters_any": 4,
+        "largest_cluster": 2,
+        "largest_frac": 0.753,
+        "largest_cluster_dominated_by": "Ne"
+      },
+      "Tu": {
+        "n": 240,
+        "n_clusters_15pct": 2,
+        "n_clusters_any": 4,
+        "largest_cluster": 2,
+        "largest_frac": 0.579,
+        "largest_cluster_dominated_by": "Ne"
+      },
+      "Wh": {
+        "n": 172,
+        "n_clusters_15pct": 2,
+        "n_clusters_any": 3,
+        "largest_cluster": 1,
+        "largest_frac": 0.547,
+        "largest_cluster_dominated_by": "Ne"
+      }
+    }
+  },
+  "13": {
+    "scores": {
+      "ami_calltype": 0.5906584896661765,
+      "ami_bird": 0.2397402404078513,
+      "ari_calltype": 0.3611619238954071,
+      "hom": 0.6715476215357101,
+      "com": 0.5316354502882622,
+      "ami_within_bird": 0.7467617853441694,
+      "n_birds_used": 25,
+      "n_clusters_used": 13
+    },
+    "clusters": [
+      {
+        "cluster": 0,
+        "n": 457,
+        "top_type": "Ne",
+        "purity": 0.46,
+        "n_birds": 21,
+        "bird_frac_top": 0.118,
+        "bird_entropy_norm": 0.919,
+        "mix": {
+          "Ne": 210,
+          "Th": 117,
+          "Tu": 110
+        }
+      },
+      {
+        "cluster": 1,
+        "n": 294,
+        "top_type": "Te",
+        "purity": 0.976,
+        "n_birds": 16,
+        "bird_frac_top": 0.116,
+        "bird_entropy_norm": 0.923,
+        "mix": {
+          "Te": 287,
+          "Th": 5,
+          "DC": 2
+        }
+      },
+      {
+        "cluster": 2,
+        "n": 215,
+        "top_type": "DC",
+        "purity": 0.851,
+        "n_birds": 12,
+        "bird_frac_top": 0.251,
+        "bird_entropy_norm": 0.843,
+        "mix": {
+          "DC": 183,
+          "Te": 31,
+          "Tu": 1
+        }
+      },
+      {
+        "cluster": 3,
+        "n": 313,
+        "top_type": "Ne",
+        "purity": 0.393,
+        "n_birds": 19,
+        "bird_frac_top": 0.208,
+        "bird_entropy_norm": 0.87,
+        "mix": {
+          "Ne": 123,
+          "Wh": 94,
+          "Te": 65
+        }
+      },
+      {
+        "cluster": 4,
+        "n": 110,
+        "top_type": "Te",
+        "purity": 0.882,
+        "n_birds": 5,
+        "bird_frac_top": 0.3,
+        "bird_entropy_norm": 0.879,
+        "mix": {
+          "Te": 97,
+          "DC": 13
+        }
+      },
+      {
+        "cluster": 5,
+        "n": 149,
+        "top_type": "DC",
+        "purity": 0.966,
+        "n_birds": 11,
+        "bird_frac_top": 0.228,
+        "bird_entropy_norm": 0.877,
+        "mix": {
+          "DC": 144,
+          "Te": 5
+        }
+      },
+      {
+        "cluster": 6,
+        "n": 190,
+        "top_type": "So",
+        "purity": 1.0,
+        "n_birds": 13,
+        "bird_frac_top": 0.221,
+        "bird_entropy_norm": 0.887,
+        "mix": {
+          "So": 190
+        }
+      },
+      {
+        "cluster": 7,
+        "n": 175,
+        "top_type": "Tu",
+        "purity": 0.526,
+        "n_birds": 15,
+        "bird_frac_top": 0.349,
+        "bird_entropy_norm": 0.808,
+        "mix": {
+          "Tu": 92,
+          "Th": 63,
+          "Ne": 17
+        }
+      },
+      {
+        "cluster": 8,
+        "n": 186,
+        "top_type": "Ag",
+        "purity": 0.919,
+        "n_birds": 22,
+        "bird_frac_top": 0.199,
+        "bird_entropy_norm": 0.88,
+        "mix": {
+          "Ag": 171,
+          "Wh": 7,
+          "Ne": 6
+        }
+      },
+      {
+        "cluster": 9,
+        "n": 209,
+        "top_type": "DC",
+        "purity": 0.995,
+        "n_birds": 9,
+        "bird_frac_top": 0.225,
+        "bird_entropy_norm": 0.853,
+        "mix": {
+          "DC": 208,
+          "Th": 1
+        }
+      },
+      {
+        "cluster": 10,
+        "n": 87,
+        "top_type": "Te",
+        "purity": 0.644,
+        "n_birds": 3,
+        "bird_frac_top": 0.552,
+        "bird_entropy_norm": 0.869,
+        "mix": {
+          "Te": 56,
+          "DC": 27,
+          "Tu": 4
+        }
+      },
+      {
+        "cluster": 11,
+        "n": 302,
+        "top_type": "Ne",
+        "purity": 0.709,
+        "n_birds": 24,
+        "bird_frac_top": 0.225,
+        "bird_entropy_norm": 0.844,
+        "mix": {
+          "Ne": 214,
+          "Wh": 71,
+          "Te": 14
+        }
+      },
+      {
+        "cluster": 12,
+        "n": 127,
+        "top_type": "Th",
+        "purity": 0.732,
+        "n_birds": 12,
+        "bird_frac_top": 0.37,
+        "bird_entropy_norm": 0.716,
+        "mix": {
+          "Th": 93,
+          "Tu": 29,
+          "Ne": 5
+        }
+      }
+    ],
+    "fate": {
+      "Ag": {
+        "n": 196,
+        "n_clusters_15pct": 1,
+        "n_clusters_any": 4,
+        "largest_cluster": 8,
+        "largest_frac": 0.872,
+        "largest_cluster_dominated_by": "Ag"
+      },
+      "DC": {
+        "n": 583,
+        "n_clusters_15pct": 3,
+        "n_clusters_any": 9,
+        "largest_cluster": 9,
+        "largest_frac": 0.357,
+        "largest_cluster_dominated_by": "DC"
+      },
+      "Ne": {
+        "n": 575,
+        "n_clusters_15pct": 3,
+        "n_clusters_any": 6,
+        "largest_cluster": 11,
+        "largest_frac": 0.372,
+        "largest_cluster_dominated_by": "Ne"
+      },
+      "So": {
+        "n": 192,
+        "n_clusters_15pct": 1,
+        "n_clusters_any": 2,
+        "largest_cluster": 6,
+        "largest_frac": 0.99,
+        "largest_cluster_dominated_by": "So"
+      },
+      "Te": {
+        "n": 577,
+        "n_clusters_15pct": 2,
+        "n_clusters_any": 10,
+        "largest_cluster": 1,
+        "largest_frac": 0.497,
+        "largest_cluster_dominated_by": "Te"
+      },
+      "Th": {
+        "n": 279,
+        "n_clusters_15pct": 3,
+        "n_clusters_any": 5,
+        "largest_cluster": 0,
+        "largest_frac": 0.419,
+        "largest_cluster_dominated_by": "Ne"
+      },
+      "Tu": {
+        "n": 240,
+        "n_clusters_15pct": 2,
+        "n_clusters_any": 6,
+        "largest_cluster": 0,
+        "largest_frac": 0.458,
+        "largest_cluster_dominated_by": "Ne"
+      },
+      "Wh": {
+        "n": 172,
+        "n_clusters_15pct": 2,
+        "n_clusters_any": 3,
+        "largest_cluster": 3,
+        "largest_frac": 0.547,
+        "largest_cluster_dominated_by": "Ne"
+      }
+    }
+  }
+}

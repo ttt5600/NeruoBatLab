@@ -1,0 +1,251 @@
+{
+  "config": {
+    "npz": "/Users/jonathanwang/Desktop/vocalizations_lab/release/zf_hubert_run11/data/run11_layersweep.npz",
+    "wav_dir": "/Users/jonathanwang/Desktop/vocalizations_lab/datasets/11905533/AdultVocalizations",
+    "layer": 3,
+    "ks": [
+      8,
+      9,
+      16
+    ],
+    "seed": 0,
+    "out": "/Users/jonathanwang/.claude/jobs/fe6b885d/tmp/unsup_baselines.json"
+  },
+  "n": 2814,
+  "missing": [],
+  "classes": [
+    "Ag",
+    "DC",
+    "Ne",
+    "So",
+    "Te",
+    "Th",
+    "Tu",
+    "Wh"
+  ],
+  "duration_stats": {
+    "mean": 0.32620795439711064,
+    "median": 0.12540816326530613,
+    "per_class": {
+      "Ag": 0.29791684020546993,
+      "DC": 0.21112639681372833,
+      "Ne": 0.24320646751454206,
+      "So": 2.311800595238095,
+      "Te": 0.10495014874811855,
+      "Th": 0.06803233121205472,
+      "Tu": 0.06823922902494331,
+      "Wh": 0.3305040078046723
+    }
+  },
+  "results": {
+    "duration": {
+      "8": {
+        "kmeans": {
+          "ami_calltype": 0.23962049501107643,
+          "ami_bird": 0.03891790725680594,
+          "ari_calltype": 0.07075086798249644,
+          "hom": 0.17405201312694138,
+          "com": 0.41030399623021896,
+          "ami_within_bird": 0.26787718274065614,
+          "n_birds_used": 25,
+          "n_clusters_used": 8
+        },
+        "ward": {
+          "ami_calltype": 0.3948844297233139,
+          "ami_bird": 0.03272268388719191,
+          "ari_calltype": 0.22762578249839108,
+          "hom": 0.3109411002015545,
+          "com": 0.554794948588375,
+          "ami_within_bird": 0.4589709732989541,
+          "n_birds_used": 25,
+          "n_clusters_used": 8
+        }
+      },
+      "9": {
+        "kmeans": {
+          "ami_calltype": 0.3554107555635192,
+          "ami_bird": 0.033975891412669865,
+          "ari_calltype": 0.18171179937258455,
+          "hom": 0.2827693840646203,
+          "com": 0.4938704338978325,
+          "ami_within_bird": 0.4273697311948259,
+          "n_birds_used": 25,
+          "n_clusters_used": 9
+        },
+        "ward": {
+          "ami_calltype": 0.3944725871718537,
+          "ami_bird": 0.032537331248725765,
+          "ari_calltype": 0.22762230077476853,
+          "hom": 0.3109411002015544,
+          "com": 0.5542963083572409,
+          "ami_within_bird": 0.4587154634140278,
+          "n_birds_used": 25,
+          "n_clusters_used": 9
+        }
+      },
+      "16": {
+        "kmeans": {
+          "ami_calltype": 0.364186873482789,
+          "ami_bird": 0.044757015355275036,
+          "ari_calltype": 0.202673666539469,
+          "hom": 0.32761296746333685,
+          "com": 0.4281235836067086,
+          "ami_within_bird": 0.4359884746855868,
+          "n_birds_used": 25,
+          "n_clusters_used": 16
+        },
+        "ward": {
+          "ami_calltype": 0.3596764269220946,
+          "ami_bird": 0.04458012501245023,
+          "ari_calltype": 0.20292538684054595,
+          "hom": 0.3218035339398647,
+          "com": 0.4262869537898071,
+          "ami_within_bird": 0.4307548696805139,
+          "n_birds_used": 25,
+          "n_clusters_used": 16
+        }
+      }
+    },
+    "spectrogram": {
+      "8": {
+        "kmeans": {
+          "ami_calltype": 0.40612689058735024,
+          "ami_bird": 0.10150170374751097,
+          "ari_calltype": 0.28629693154561653,
+          "hom": 0.41908718521222016,
+          "com": 0.3988621539441507,
+          "ami_within_bird": 0.5254138482235036,
+          "n_birds_used": 25,
+          "n_clusters_used": 8
+        },
+        "ward": {
+          "ami_calltype": 0.45485667935292756,
+          "ami_bird": 0.1313056067216183,
+          "ari_calltype": 0.3307133374467179,
+          "hom": 0.46555757540134435,
+          "com": 0.449251291194514,
+          "ami_within_bird": 0.6075336849856904,
+          "n_birds_used": 25,
+          "n_clusters_used": 8
+        }
+      },
+      "9": {
+        "kmeans": {
+          "ami_calltype": 0.41431171196644856,
+          "ami_bird": 0.11062565197445604,
+          "ari_calltype": 0.28258595376849416,
+          "hom": 0.44118646658716876,
+          "com": 0.39560128536946315,
+          "ami_within_bird": 0.5471515051871562,
+          "n_birds_used": 25,
+          "n_clusters_used": 9
+        },
+        "ward": {
+          "ami_calltype": 0.4613368523065394,
+          "ami_bird": 0.149097962411372,
+          "ari_calltype": 0.3269321162478421,
+          "hom": 0.4808299280950265,
+          "com": 0.4483229056201535,
+          "ami_within_bird": 0.6126527206621878,
+          "n_birds_used": 25,
+          "n_clusters_used": 9
+        }
+      },
+      "16": {
+        "kmeans": {
+          "ami_calltype": 0.4080441685186183,
+          "ami_bird": 0.17808103879062276,
+          "ari_calltype": 0.22927078061997927,
+          "hom": 0.4955927498662615,
+          "com": 0.3537331993805205,
+          "ami_within_bird": 0.569785786180484,
+          "n_birds_used": 25,
+          "n_clusters_used": 16
+        },
+        "ward": {
+          "ami_calltype": 0.44299339528056614,
+          "ami_bird": 0.2140132123480799,
+          "ari_calltype": 0.24831945460170587,
+          "hom": 0.5306444080930278,
+          "com": 0.3869630285473733,
+          "ami_within_bird": 0.6305680450608552,
+          "n_birds_used": 25,
+          "n_clusters_used": 16
+        }
+      }
+    },
+    "hubert_l3": {
+      "8": {
+        "kmeans": {
+          "ami_calltype": 0.46757307987115276,
+          "ami_bird": 0.17860357308915753,
+          "ari_calltype": 0.28636184280985705,
+          "hom": 0.4748915222016022,
+          "com": 0.46508774674086445,
+          "ami_within_bird": 0.6494775041056158,
+          "n_birds_used": 25,
+          "n_clusters_used": 8
+        },
+        "ward": {
+          "ami_calltype": 0.5867318791429463,
+          "ami_bird": 0.16182583474047113,
+          "ari_calltype": 0.39206919333187223,
+          "hom": 0.5930090012192814,
+          "com": 0.5842043152459662,
+          "ami_within_bird": 0.7342911987750956,
+          "n_birds_used": 25,
+          "n_clusters_used": 8
+        }
+      },
+      "9": {
+        "kmeans": {
+          "ami_calltype": 0.4764796970282357,
+          "ami_bird": 0.18993597237768062,
+          "ari_calltype": 0.3062152917797483,
+          "hom": 0.499749820864842,
+          "com": 0.460007925780681,
+          "ami_within_bird": 0.6608607594998784,
+          "n_birds_used": 25,
+          "n_clusters_used": 9
+        },
+        "ward": {
+          "ami_calltype": 0.6089816249956143,
+          "ami_bird": 0.16655939092396224,
+          "ari_calltype": 0.42532113439813557,
+          "hom": 0.6358547348337655,
+          "com": 0.5878498426158737,
+          "ami_within_bird": 0.7547395780947658,
+          "n_birds_used": 25,
+          "n_clusters_used": 9
+        }
+      },
+      "16": {
+        "kmeans": {
+          "ami_calltype": 0.5474642063297767,
+          "ami_bird": 0.2514592865411318,
+          "ari_calltype": 0.31121252108027414,
+          "hom": 0.6532891676278062,
+          "com": 0.47665990333171426,
+          "ami_within_bird": 0.7066528921057836,
+          "n_birds_used": 25,
+          "n_clusters_used": 16
+        },
+        "ward": {
+          "ami_calltype": 0.5664238714794545,
+          "ami_bird": 0.26253628531068907,
+          "ari_calltype": 0.3096243867577253,
+          "hom": 0.6794832467197531,
+          "com": 0.49082402691731647,
+          "ami_within_bird": 0.7305529278222954,
+          "n_birds_used": 25,
+          "n_clusters_used": 16
+        }
+      }
+    }
+  },
+  "partition_overlap": {
+    "hubert_vs_duration": 0.19907923962096205,
+    "hubert_vs_spectrogram": 0.395025585491515,
+    "spectrogram_vs_duration": 0.20143675678140563
+  }
+}
