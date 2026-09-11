@@ -1,0 +1,18 @@
+id: '004'
+title: Energy VAD collapses to chance on exhaustively annotated windows
+status: confirmed
+claim: A log-energy detector is at chance on 1 s windows of exhaustively annotated colony audio, while
+  HuBERT holds AUC 0.955 on the identical windows.
+evidence: Energy AUC 0.532 (accuracy 0.685, exactly the 0.676 majority rate); HuBERT 0.955. Measured loudness
+  gap between voc and non-voc windows is only +1.66 dB.
+method: 'Eval B: probe trained on the 3768 neg-pool windows, tested on 1801 one-second windows tiling
+  111021-000.'
+provenance: job 38678496
+caveats: Window-level and specific to the window length. At 20 ms frame level the same feature reaches
+  AUC 0.794, because a frame is either inside a call or not, whereas a 1 s window containing an 80 ms
+  call is ~92% background. Never quote 0.532 as 'energy does not work' without the frame-level number
+  beside it.
+tags:
+- baseline
+- energy
+date: '2026-09-09'

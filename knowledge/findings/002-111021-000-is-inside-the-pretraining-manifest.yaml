@@ -1,0 +1,18 @@
+id: '002'
+title: 111021-000 is inside the pretraining manifest
+status: confirmed
+claim: The recording used as the detection holdout was itself in the run11 pretraining file list, so every
+  detection number measured on it is a probe-level holdout and not an encoder-level one.
+evidence: 'Line 31 of 100 in the derived holdout manifest: preprocessed_audio/111021-000.wav with 77329020
+  frames, matching the file exactly.'
+method: Proven by derivation, not inference. slurm/00_build_tsv.sh reads run11's own spectrogram/tsv/ZF_test_pipeline_train.tsv
+  line by line and drops 11 dates; 111021 is not among them, so anything in the output was in the input.
+  train_lowprio.sh --dataset-path confirms which manifest the trainer reads.
+provenance: 00_build_tsv.sh; temp_files/holdout_lblred0613/data/spectrogram/tsv/; verified 2026-09-10
+caveats: The encoder heard the audio unlabeled via masked prediction; it never saw any annotation, and
+  the probe was trained on entirely different recordings. So the transfer result is real, but optimistic
+  relative to genuinely unseen audio by an unknown margin. Resolved by [016] and [017].
+tags:
+- contamination
+- holdout
+date: '2026-09-10'

@@ -1,0 +1,18 @@
+id: '015'
+title: Eval-B false positives are two distinct populations
+status: confirmed
+claim: The false positives split by confidence into loud broadband transients (genuine errors) and tonal
+  events indistinguishable from true calls (possibly unannotated calls).
+evidence: 'Marginal FPs (0.5<p<=0.944, n=117): spectral flatness 0.220 vs 0.111 for true positives, p=2.5e-10;
+  loud and non-tonal. High-confidence FPs (p>0.944, n=52): flatness 0.122, and no measure separates them
+  from true positives (flatness p=0.41, pitch p=0.25, peak dB p=0.13).'
+method: Acoustic statistics on the loudest 120 ms of each window. Over the full 1 s the same statistics
+  cannot separate even true positives from true negatives (p=0.84), so the window-level version of this
+  test has no power.
+provenance: analysis/evalB_fp_two_populations.json; analysis/evalB_errors.wav
+caveats: n=52 is underpowered; indistinguishable from true positives is not is a call. All 211 errors
+  exported as audio with the 52 high-confidence ones first, so a human can settle it.
+tags:
+- errors
+- annotation-quality
+date: '2026-09-10'

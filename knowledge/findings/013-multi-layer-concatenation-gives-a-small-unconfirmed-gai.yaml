@@ -1,0 +1,16 @@
+id: '013'
+title: Multi-layer concatenation gives a small unconfirmed gain
+status: open
+claim: Concatenating layers 0,2,4,6 with stronger regularization is the best configuration found, but
+  the improvement is not statistically distinguishable from the published baseline.
+evidence: 'Eval A 0.9774 -> 0.9789, eval B 0.9557 -> 0.9602. Paired bootstrap: eval A +0.0016 [-0.0003,
+  +0.0037]; eval B +0.0047 [-0.0007, +0.0100]. Both intervals include zero.'
+method: Configuration selected on eval A only; eval B reported but never used for selection. ~60 configurations
+  swept over pooling, scaling, regularization, layer sets and head type.
+provenance: analysis/head_sweep.json, analysis/improvement_significance.json
+caveats: Better or equal on both evals and never worse, so a reasonable default, but must not be reported
+  as a significant improvement. Confirming it needs more held-out recordings, not more tuning.
+tags:
+- head
+- accuracy
+date: '2026-09-10'

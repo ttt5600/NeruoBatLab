@@ -1,0 +1,19 @@
+id: '011'
+title: The detector is not a general bird-vocalization detector
+status: confirmed
+claim: Probed with signals of known structure, it accepts call-like harmonic and FM structure but also
+  brown noise, AM noise and pure tones, so it encodes a contrast against this colony's background rather
+  than a general notion of vocalization.
+evidence: 'Mean P(voc): harmonic stack 1.000, FM sweep 1.000, real call in silence 0.996, brown noise
+  0.993, pure tone 0.892, AM noise 0.840, click train 0.538, pink noise 0.325, white noise 0.120, real
+  background 0.384.'
+method: 940 synthetic 1 s clips; probe trained on real data only and never updated. Window-scope normalization
+  on both sides.
+provenance: job 38704952; analysis/synthetic_probe.png
+caveats: White and pink noise correctly rejected while brown noise is accepted suggests sensitivity to
+  spectral tilt, not harmonicity alone. Do not deploy on a new acoustic environment without re-measuring
+  the false-alarm rate.
+tags:
+- failure-mode
+- synthetic
+date: '2026-09-10'

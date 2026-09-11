@@ -1,0 +1,17 @@
+id: '010'
+title: The detector fires on digital silence with P=1.000
+status: confirmed
+claim: All-zero audio is classified as a vocalization with maximum confidence, because it lands far outside
+  the training distribution and the linear probe extrapolates.
+evidence: 20 all-zero clips all score P(voc)=1.000. Their feature vector is deterministic (spread 1.2e-6)
+  and sits 2.1 sd from the real-data mean on average, up to 9.9 sd, with 7% of layer-0 dimensions beyond
+  5 sd.
+method: Probe trained on real data only, applied frozen to synthetic clips.
+provenance: job 38704952; analysis/synthetic_probe.json
+caveats: 'FIX, verified: an energy floor at -80 dB rejects silence and touches zero real windows (quietest
+  real window is -68.6 dB). Recordings with dropouts or muted channels would otherwise produce confident
+  false detections.'
+tags:
+- failure-mode
+- robustness
+date: '2026-09-10'

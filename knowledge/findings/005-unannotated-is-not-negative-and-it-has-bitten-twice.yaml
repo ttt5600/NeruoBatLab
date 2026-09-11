@@ -1,0 +1,18 @@
+id: '005'
+title: Unannotated is not negative, and it has bitten twice
+status: confirmed
+claim: Treating unlistened audio as negative has corrupted this project's numbers twice, the second time
+  during the very session documenting the first.
+evidence: (1) The original benchmark's 4900 negatives were never listened to; 62.6% of the judged ones
+  contain a call. (2) The cross-dataset job initially scored all 80.6 min of 111021-000 against annotations
+  covering only the first 30.0 min, dropping ZF frame AUC from 0.968 to 0.849 and voiced fraction from
+  15.2% to 5.7%.
+method: Case 2 was caught only because the voiced-fraction printout did not match the known 15.2%.
+provenance: export_negatives_for_labeling.py; eval_crossdataset.py limit_to_annotated; job 38704761 (bad)
+  vs 38705017 (fixed)
+caveats: 'Standing rule: every dataset records which span was actually listened to, and scoring truncates
+  to it. labeled=0 means nobody listened and must never default to y=0.'
+tags:
+- methodology
+- labels
+date: '2026-09-10'

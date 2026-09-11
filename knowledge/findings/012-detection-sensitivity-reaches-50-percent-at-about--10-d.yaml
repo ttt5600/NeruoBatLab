@@ -1,0 +1,16 @@
+id: '012'
+title: Detection sensitivity reaches 50 percent at about -10 dB SNR
+status: confirmed
+claim: With real calls mixed into real background from the same recording, detection stays above the background
+  false-alarm floor down to roughly -10 dB call-to-background SNR.
+evidence: 'Fraction detected at P>0.5: +20 dB 0.97, +10 dB 1.00, 0 dB 0.88, -5 dB 0.68, -10 dB 0.55, -15
+  dB 0.38, -20 dB 0.35. Background alone sits at 0.32.'
+method: 40 mixtures per SNR level; calls 60-250 ms from annotated events, background from verified unvoiced
+  stretches of the same recording.
+provenance: job 38704952; analysis/synthetic_probe.json
+caveats: The 0.32 background false-alarm rate at threshold 0.5 is high and matches the independent eval-B
+  false-positive rate (169/584 = 29%). Read the curve as 'above floor', not as absolute detection rate.
+tags:
+- sensitivity
+- snr
+date: '2026-09-10'

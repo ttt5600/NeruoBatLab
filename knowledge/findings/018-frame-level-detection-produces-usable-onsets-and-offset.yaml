@@ -1,0 +1,25 @@
+id: 018
+title: Frame-level detection produces usable onsets and offsets
+status: confirmed
+claim: A 50 Hz frame probe on HuBERT features recovers 80% of annotated vocalization events at 88% precision
+  with onset timing at the frame grid, vastly outperforming a log-energy detector through the identical
+  decoder.
+evidence: 'Event level, layer 6: P=0.882 R=0.806 F1=0.842, 2039/2540 events found from 2317 emitted, onset
+  |error| 20 ms. Layer 0: P=0.922 R=0.755 F1=0.829 at 12 ms. Energy through the same pipeline: P=0.448
+  R=0.736 F1=0.553 from 4084 emitted. Frame level AUC/AP: L0 0.969/0.890, L6 0.960/0.871, energy 0.794/0.390.'
+method: Frames are 20 ms. Split is contiguous 6-minute blocks, NOT random frames -- adjacent frames are
+  near-identical so a random split leaks across the fold boundary. Decoder is median-smooth then threshold
+  then min-duration then gap-bridge, all four knobs tuned out of fold. Event matching is one-to-one by
+  overlap via a two-pointer sweep over sorted non-overlapping intervals.
+provenance: job 38704640; analysis/onset_events.json; analysis/onset_timeline.png; analysis/predicted_intervals_L6.csv
+caveats: 'Within-recording: trained and tested on different 6-minute blocks of 111021-000, so it measures
+  localization ability, not generalization to a new recording. The precision/recall trade runs along depth
+  -- layer 0 is the precise one (P 0.922) and layer 6 the sensitive one (R 0.806). A 20 ms onset error
+  IS the frame grid, so these are as well aligned as the representation can express. Two bugs were caught
+  by assertions here: each 20 s chunk yielded 999 frames not 1000, silently leaving 90 all-zero rows,
+  and the energy baseline''s grid search twice sat on a grid edge which made its F1 a floor rather than
+  a maximum.'
+tags:
+- onset-offset
+- frame-level
+date: '2026-09-10'

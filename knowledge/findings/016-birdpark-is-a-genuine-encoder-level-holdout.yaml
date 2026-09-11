@@ -1,0 +1,20 @@
+id: '016'
+title: BirdPark is a genuine encoder-level holdout
+status: confirmed
+claim: Zenodo record 20608098 (BirdPark, Hahnloser lab ETH Zurich) is zebra finch audio with exact onset/offset
+  annotations that cannot be in our pretraining corpus, giving the project its first encoder-level holdout.
+evidence: 720 valid annotations (1 NaN row dropped) merging to 532 events over 118.5 s; 52.2% of 20 ms
+  frames voiced. Recorded 2020-2021, published 2026-06-09, CC-BY-4.0.
+method: Downloaded via the open Zenodo API. Audio is the mean of wav channels 2-5 resampled 24414 -> 16000
+  Hz.
+provenance: ~/zf_labelset/external/birdpark; prep_birdpark.py
+caveats: 'Channel identification matters and is counterintuitive: channels 0-1 are the LOUDEST but have
+  spectral centroid ~500-650 Hz with 99% of energy below 4 kHz -- they are backpack accelerometers. Channels
+  2-6 are the microphones (centroid ~4 kHz). A lag scan confirms it: annotated regions exceed gaps by
+  18.9 dB on the mic mix and only 2.0 dB on the accelerometer mix. Channel 6 is excluded because it is
+  silent 52% of the time. Annotations verified approximately exhaustive: only 11.9% of unannotated 120
+  ms windows exceed the 25th percentile of annotated ones.'
+tags:
+- holdout
+- external-data
+date: '2026-09-10'

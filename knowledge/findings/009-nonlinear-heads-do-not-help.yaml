@@ -1,0 +1,13 @@
+id: 009
+title: Nonlinear heads do not help
+status: refuted
+claim: MLP and gradient-boosted heads are worse than plain logistic regression on these features.
+evidence: 'Eval B AUC: LR 0.9557, LinearSVC+calibration 0.9575, MLP-256 0.9547, MLP-512-128 0.9510, HistGradientBoosting
+  0.9497.'
+method: Best single layer, same splits, early stopping for the MLPs.
+provenance: analysis/head_sweep.json
+caveats: Not an exhaustive architecture search; it says the easy nonlinear wins are absent, not that none
+  exist.
+tags:
+- head
+date: '2026-09-10'

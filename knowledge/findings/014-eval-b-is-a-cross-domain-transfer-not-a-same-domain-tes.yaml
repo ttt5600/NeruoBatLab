@@ -1,0 +1,15 @@
+id: '014'
+title: Eval B is a cross-domain transfer, not a same-domain test
+status: confirmed
+claim: The two halves of the detection dataset are almost perfectly separable from the features alone,
+  so eval B measures transfer across a real domain gap.
+evidence: A probe predicting SOURCE (neg-pool 0.5 s windows vs 111021-000 1.0 s windows) from layer 6
+  reaches AUC 0.9989.
+method: 5-fold CV on the source label using the same features the detection probe consumes.
+provenance: analysis/evalB_threshold.json
+caveats: 'Makes eval B''s 0.955 stronger than it reads, and explains the miscalibrated 0.5 threshold:
+  accuracy 0.883 at 0.5, 0.892 prior-matched, 0.907 oracle, with AUC 0.955 throughout.'
+tags:
+- domain-shift
+- threshold
+date: '2026-09-10'

@@ -1,0 +1,17 @@
+id: '007'
+title: No pooling statistic beats the plain mean
+status: refuted
+claim: 'The hypothesis that mean-pooling dilutes the 80 ms call inside a 1 s window, and that a max or
+  percentile statistic would recover it, is wrong: mean wins at every layer.'
+evidence: 'At all 6 tested layers, max / p90 / std / top-20% mean all score below mean on both evals (L0:
+  mean A=0.9728 vs max 0.9691, p90 0.9604, std 0.9670, top20 0.9716). Concatenating all five gives only
+  +0.0017 on A and +0.0022 on B.'
+method: Five pooling statistics extracted per window per layer from the 24-49 HuBERT frames each window
+  contains; identical CV protocol.
+provenance: job 38704687; analysis/pooling_comparison.json
+caveats: The hypothesis was motivated by a correct observation and still turned out wrong. Frame-level
+  modelling is what actually exploits the short call, not a different window-level statistic.
+tags:
+- pooling
+- features
+date: '2026-09-10'

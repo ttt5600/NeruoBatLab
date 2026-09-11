@@ -1,0 +1,14 @@
+id: '001'
+title: The corpus is the public Elie and Theunissen release
+status: confirmed
+claim: All 120 pretraining recordings come from the publicly released Elie & Theunissen zebra finch corpus
+  (CC BY 4.0, figshare).
+evidence: 120 recordings, 26 birds, 2867 curated AdultVocalization clips across 64 dates.
+method: Provenance traced from the preprocessed_audio directory back to the published release.
+provenance: run5-4-26-full/data/spectrogram/preprocessed_audio; memory project_corpus_is_public_elie_theunissen
+caveats: 'Consequence: no online zebra finch dataset derived from this release can supply a holdout, because
+  it is the same audio. An external holdout must come from a different lab. See [016].'
+tags:
+- corpus
+- provenance
+date: '2026-08-22'

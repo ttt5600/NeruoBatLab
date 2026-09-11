@@ -1,0 +1,14 @@
+id: 008
+title: StandardScaler costs 0.005 AUC on these features
+status: confirmed
+claim: Standardizing HuBERT features before logistic regression consistently hurts detection accuracy.
+evidence: 'Layer 0 mean, eval A: 0.9774 unscaled vs 0.9728 scaled. float16 storage accounts for 0.0001
+  of that; the scaler accounts for the rest.'
+method: Same features, same CV, scaler toggled; confirmed across C in {0.03, 0.3, 1.0, 10.0}.
+provenance: analysis/head_sweep.json
+caveats: 'Mechanism: under a shared L2 penalty, leaving the natural variance in place gives high-variance
+  dimensions effectively weaker regularization, which is the better prior here. Recheck if the head changes.'
+tags:
+- head
+- preprocessing
+date: '2026-09-10'

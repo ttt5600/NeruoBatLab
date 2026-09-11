@@ -1,0 +1,17 @@
+id: '006'
+title: Iteration 2 helps in-distribution only
+status: confirmed
+claim: run12 (iteration-2, layer-6 teacher, k=500) is reliably better than run11 on the neg-pool windows
+  and not better on a held-out recording, so the gain does not transfer.
+evidence: 'Layer-matched paired bootstrap: eval A run12 better at 9/12 layers, worse at 0/12 (+0.003 to
+  +0.006). Eval B better at 0/12, worse at 3/12 (deep layers, to -0.018). Layer chosen on A and reported
+  on B: run12(L6)-run11(L0) = -0.0065 [-0.0164, +0.0029], not distinguishable. run13 (layer-3 teacher):
+  4/12 better on A, 0/12 either way on B.'
+method: Same layer compared to same layer, all 12, rather than each run's argmax. The argmax version said
+  +0.0044 SIGNIFICANT and was layer-selection bias.
+provenance: jobs 38704167, 38704168; analysis/run_comparison_fair.json
+caveats: run11 remains the release model; there is no held-out evidence for switching.
+tags:
+- pretraining
+- iteration
+date: '2026-09-10'

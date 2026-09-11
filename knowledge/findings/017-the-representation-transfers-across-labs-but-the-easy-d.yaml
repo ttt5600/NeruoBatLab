@@ -1,0 +1,22 @@
+id: '017'
+title: The representation transfers across labs, but the easy direction hides it
+status: confirmed
+claim: A frame-level probe transfers between the Berkeley colony corpus and ETH BirdPark in both directions,
+  but the gain over a log-energy baseline is only visible on the acoustically hard dataset.
+evidence: Frame AUC/AP. ZF->ZF L0 0.968/0.889 vs energy 0.794/0.390. BP->BP L0 0.938/0.933 vs energy 0.891/0.865.
+  ZF->BP L0 0.888/0.893 vs energy 0.881/0.866 (delta only +0.008 AUC). BP->ZF L6 0.865/0.615 vs energy
+  0.781/0.335 (delta +0.084 AUC, +0.280 AP).
+method: Probe trained on all of one recording set, tested on the other; within-set references use contiguous
+  6-minute blocks (ZF) and leave-one-pair-out over 8 pairs (BirdPark). Both truncated to their annotated
+  spans.
+provenance: job 38705017; analysis/crossdataset.json
+caveats: 'BirdPark is close-miked and quiet (18.9 dB separation) so energy alone nearly solves it; ZF->BP
+  therefore overstates what the encoder contributes. The informative direction is BP->ZF: trained on two
+  minutes of another lab''s audio and tested on noisy colony recordings, AP 0.615 vs energy 0.335. Prevalences
+  differ (15.2% vs 52.2%) so AP, not AUC, is the comparable metric. Note the depth asymmetry: ZF->BP is
+  best at layer 0 and decays to 0.757 by layer 6, while BP->ZF is best at layer 6 -- unexplained.'
+tags:
+- generalization
+- holdout
+- transfer
+date: '2026-09-10'
