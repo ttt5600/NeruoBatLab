@@ -1,23 +1,32 @@
 {
-  "required": ["id", "title", "status", "claim", "method", "provenance", "date"],
+  "required": [
+    "id",
+    "title",
+    "status",
+    "claim",
+    "method",
+    "provenance",
+    "date"
+  ],
   "fields": {
-    "id":        "NNN, zero-padded, assigned in order and never reused",
-    "title":     "short noun phrase",
-    "status":    "one of: confirmed | refuted | superseded | open | retracted",
-    "claim":     "ONE sentence. If it cannot be said in one sentence it is more than one finding.",
-    "evidence":  "the numbers, with intervals where they exist. Never a bare point estimate for a comparison.",
-    "method":    "how it was measured, including the split. A number without its split is not a result.",
-    "provenance":"slurm job ids, script paths, data paths -- enough to rerun it",
-    "caveats":   "what would make this wrong, and what it does NOT say",
-    "supersedes":"ids this replaces",
+    "id": "NNN, zero-padded, assigned in order and never reused",
+    "title": "short noun phrase",
+    "status": "one of: confirmed | refuted | superseded | open | retracted",
+    "claim": "ONE sentence. If it cannot be said in one sentence it is more than one finding.",
+    "evidence": "the numbers, with intervals where they exist. Never a bare point estimate for a comparison.",
+    "method": "how it was measured, including the split. A number without its split is not a result.",
+    "provenance": "slurm job ids, script paths, data paths -- enough to rerun it",
+    "caveats": "what would make this wrong, and what it does NOT say",
+    "supersedes": "ids this replaces",
     "superseded_by": "id that replaced this",
-    "tags":      "for retrieval",
-    "date":      "ISO date the finding reached its current status"
+    "tags": "for retrieval",
+    "date": "ISO date the finding reached its current status"
   },
   "rules": [
     "A refuted finding is NEVER deleted. The refutation is the valuable part -- it stops the idea being retried.",
     "Every comparison carries its uncertainty. 'X beats Y' without an interval is not a finding.",
     "Every accuracy carries the majority-class rate. Every AUC carries its split.",
-    "If a claim was selected on the data it is reported against, say so in caveats."
+    "If a claim was selected on the data it is reported against, say so in caveats.",
+    "Filenames are NNN-<slug>.yaml where slug = re.sub(r'[^a-z0-9]+','-', title.lower()).strip('-')[:55]. Titles containing '/' silently became directory paths before this was written down."
   ]
 }

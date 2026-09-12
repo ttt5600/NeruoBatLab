@@ -1,0 +1,21 @@
+id: '023'
+title: Hysteresis helps onsets marginally, offset shrinking not at all
+status: open
+claim: Replacing the single threshold with a dual high/low threshold and tuning for the 50 ms collar buys
+  about +0.01 F1 at mid depth and nothing at shallow depth; the offset-shrink correction was rejected
+  by the tuner in every fold.
+evidence: 'Collar-50 F1, v1 -> v2: L6 0.814 -> 0.823 (+0.009), L9 0.810 -> 0.816 (+0.006), L3 0.809 ->
+  0.804 (-0.004), L0 0.798 -> 0.797 (-0.001). Overlap F1 L6 0.842 -> 0.849. Chosen parameters were thr_hi
+  0.5-0.7 with thr_lo 0.3 (hysteresis genuinely used), merge_gap 0 in every block, shrink 0 in every block.'
+method: 2160 configurations per fold over smoothing, dual thresholds, min duration, gap bridging and offset
+  shrink; all tuned out of fold and scored on the held-out block.
+provenance: analysis/onset_events_v2.json
+caveats: The offset shrink was motivated by a real measured bias (+20 ms, duration ratio 1.20) and still
+  did not help -- one frame is within the resolution, and shrinking breaks marginal overlap matches. No
+  bootstrap has been run, so +0.009 must not be called an improvement yet. The likely bigger lever is
+  a dedicated onset probe trained on 'is this frame within one frame of an onset', which needs the frame
+  features (currently only on Savio).
+tags:
+- onset-offset
+- decoder
+date: '2026-09-11'

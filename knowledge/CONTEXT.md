@@ -1,6 +1,6 @@
 # Project context: zebra finch HuBERT
 
-Generated 2026-09-10. 18 findings: 15 live, 3 closed.
+Generated 2026-09-11. 23 findings: 19 live, 3 closed.
 
 Read the REFUTED section. Several of these ideas look obviously correct and are not; they have each cost a day.
 
@@ -103,14 +103,6 @@ Zenodo record 20608098 (BirdPark, Hahnloser lab ETH Zurich) is zebra finch audio
 
 **Caveats.** Channel identification matters and is counterintuitive: channels 0-1 are the LOUDEST but have spectral centroid ~500-650 Hz with 99% of energy below 4 kHz -- they are backpack accelerometers. Channels 2-6 are the microphones (centroid ~4 kHz). A lag scan confirms it: annotated regions exceed gaps by 18.9 dB on the mic mix and only 2.0 dB on the accelerometer mix. Channel 6 is excluded because it is silent 52% of the time. Annotations verified approximately exhaustive: only 11.9% of unannotated 120 ms windows exceed the 25th percentile of annotated ones.
 
-### [017] The representation transfers across labs, but the easy direction hides it  ·  **CONFIRMED**
-
-A frame-level probe transfers between the Berkeley colony corpus and ETH BirdPark in both directions, but the gain over a log-energy baseline is only visible on the acoustically hard dataset.
-
-**Evidence.** Frame AUC/AP. ZF->ZF L0 0.968/0.889 vs energy 0.794/0.390. BP->BP L0 0.938/0.933 vs energy 0.891/0.865. ZF->BP L0 0.888/0.893 vs energy 0.881/0.866 (delta only +0.008 AUC). BP->ZF L6 0.865/0.615 vs energy 0.781/0.335 (delta +0.084 AUC, +0.280 AP).
-
-**Caveats.** BirdPark is close-miked and quiet (18.9 dB separation) so energy alone nearly solves it; ZF->BP therefore overstates what the encoder contributes. The informative direction is BP->ZF: trained on two minutes of another lab's audio and tested on noisy colony recordings, AP 0.615 vs energy 0.335. Prevalences differ (15.2% vs 52.2%) so AP, not AUC, is the comparable metric. Note the depth asymmetry: ZF->BP is best at layer 0 and decays to 0.757 by layer 6, while BP->ZF is best at layer 6 -- unexplained.
-
 ### [018] Frame-level detection produces usable onsets and offsets  ·  **CONFIRMED**
 
 A 50 Hz frame probe on HuBERT features recovers 80% of annotated vocalization events at 88% precision with onset timing at the frame grid, vastly outperforming a log-energy detector through the identical decoder.
@@ -118,6 +110,38 @@ A 50 Hz frame probe on HuBERT features recovers 80% of annotated vocalization ev
 **Evidence.** Event level, layer 6: P=0.882 R=0.806 F1=0.842, 2039/2540 events found from 2317 emitted, onset |error| 20 ms. Layer 0: P=0.922 R=0.755 F1=0.829 at 12 ms. Energy through the same pipeline: P=0.448 R=0.736 F1=0.553 from 4084 emitted. Frame level AUC/AP: L0 0.969/0.890, L6 0.960/0.871, energy 0.794/0.390.
 
 **Caveats.** Within-recording: trained and tested on different 6-minute blocks of 111021-000, so it measures localization ability, not generalization to a new recording. The precision/recall trade runs along depth -- layer 0 is the precise one (P 0.922) and layer 6 the sensitive one (R 0.806). A 20 ms onset error IS the frame grid, so these are as well aligned as the representation can express. Two bugs were caught by assertions here: each 20 s chunk yielded 999 frames not 1000, silently leaving 90 all-zero rows, and the energy baseline's grid search twice sat on a grid edge which made its F1 a floor rather than a maximum.
+
+### [019] ZF to BirdPark is the clean direction, and I reported the wrong one  ·  **CONFIRMED**
+
+Of the two cross-dataset directions only ZF->BP tests on audio the encoder never heard, and it is the direction where HuBERT barely beats energy; the direction with the large margin (BP->ZF) tests on a recording that IS in the pretraining manifest.
+
+**Evidence.** ZF->BP: tests on BirdPark (unseen), AUC 0.888 vs energy 0.881 (+0.008), AP 0.893 vs 0.866 (+0.028). BP->ZF: tests on 111021-000 (in the manifest, see [002]), AUC 0.865 vs energy 0.781 (+0.084), AP 0.615 vs 0.335 (+0.280).
+
+**Caveats.** We currently have NO direction that is both clean and convincing. ZF->BP is clean but BirdPark is close-miked and quiet (18.9 dB separation) so energy nearly solves it; BP->ZF has the large margin but a contaminated test set. Closing this needs a HARD, noisy, colony-like recording that is not in the pretraining corpus. Also note the training-set asymmetry: ZF->BP fits on 30.0 min / 90061 frames, BP->ZF on 118.5 s / 5925 frames.
+
+### [020] Loudness is the dominant embedding axis and removing it is catastrophic  ·  **CONFIRMED**
+
+The single largest direction in the embedding correlates with loudness and carries most of the detection signal; projecting it out destroys performance, so 'correlated with loudness' must not be mistaken for 'is a loudness detector'.
+
+**Evidence.** PC0 explains 52.8% of feature variance and correlates 0.724 with log-energy. Unsupervised k-means aligns far better with loudness quintile (AMI 0.335 at k=8) than with voc/noise (0.169) or recording identity (0.043). Removing it: drop PC0 costs -0.194 eval A AUC, top-3 -0.204, top-8 -0.243, while PCA-64 with nothing dropped costs only -0.004. Partialling out the linear loudness axis costs -0.078. Decomposed: PC0 alone gives AUC 0.851, log-energy alone 0.791, PC0 with its energy component regressed out 0.745, both together 0.851.
+
+**Caveats.** This does NOT contradict [004]. Energy is at chance on eval B (0.532) but reaches 0.791 on eval A, so loudness is genuinely informative on the neg-pool windows. PC0 beats the scalar it correlates with by +0.060, i.e. it carries spectral structure the scalar throws away. Practical: do not 'normalize away' loudness, and do not read the UMAP's left-right gradient as a vocalization axis -- it is a loudness axis.
+
+### [021] Linear separability and neighbourhood purity peak at different depths  ·  **CONFIRMED**
+
+Flat linear AUC across layers 0-7 hides a real geometric change: local neighbourhood purity and cluster separation improve with depth while linear separability slowly degrades.
+
+**Evidence.** Across L0->L11: linear AUC 0.9774 -> 0.9714 (flat then declining), kNN-10 accuracy 0.883 -> 0.906 (peaking L5), silhouette 0.195 -> 0.220 (peaking L5) -> 0.205, Fisher ratio 0.573 -> 0.533 (minimum L7), PCA dim at 90% variance 15 -> 51 (monotone). The 4-way human label (call / call+noise / noise / silence) is recoverable at 0.806 accuracy against a 0.515 majority, best at L0. Clean call vs call+noise is only AUC 0.77 at every depth.
+
+**Caveats.** Explains why AUC picks L0 and accuracy picks L5 ([003]): they measure different geometry. The monotone growth of PCA dimensionality also rules out representational collapse with depth, which was a live concern earlier in the project.
+
+### [022] Onset and offset detection in detail, and where it actually fails  ·  **CONFIRMED**
+
+Overlap-F1 flatters the detector; under a strict onset collar performance drops sharply, and the dominant errors are deletions of short calls and merges of consecutive ones.
+
+**Evidence.** Layer 6 F1 by onset tolerance: overlap 0.840, 500 ms 0.865, 200 ms 0.852, 100 ms 0.843, 50 ms 0.814, 20 ms 0.736. Boundary error: onset median 20 ms with bias 0 and p90 40 ms; offset median 20 ms but bias +20 ms and p90 60 ms, with predicted/true duration ratio 1.20. Error taxonomy at L6: 305 deletions, 265 insertions, 154 merges, 21 fragmentations from 2317 predictions against 2540 events. Recall by true duration: 0.685 for 0-50 ms (n=504), 0.877 for 50-80 ms, 0.938 for 80-120 ms, 0.981 above 200 ms. Median IoU 0.667.
+
+**Caveats.** Energy has HIGHER recall in every duration bin (0.764 on 0-50 ms vs 0.685) but only by emitting 4084 predictions against HuBERT's 2317 -- its precision is 0.45 vs 0.88 and it makes 2252 insertions. Short calls are the real weakness: a 50 ms call is 2.5 frames at 20 ms resolution.
 
 
 ## Open questions
@@ -129,6 +153,14 @@ Concatenating layers 0,2,4,6 with stronger regularization is the best configurat
 **Evidence.** Eval A 0.9774 -> 0.9789, eval B 0.9557 -> 0.9602. Paired bootstrap: eval A +0.0016 [-0.0003, +0.0037]; eval B +0.0047 [-0.0007, +0.0100]. Both intervals include zero.
 
 **Caveats.** Better or equal on both evals and never worse, so a reasonable default, but must not be reported as a significant improvement. Confirming it needs more held-out recordings, not more tuning.
+
+### [023] Hysteresis helps onsets marginally, offset shrinking not at all  ·  **OPEN**
+
+Replacing the single threshold with a dual high/low threshold and tuning for the 50 ms collar buys about +0.01 F1 at mid depth and nothing at shallow depth; the offset-shrink correction was rejected by the tuner in every fold.
+
+**Evidence.** Collar-50 F1, v1 -> v2: L6 0.814 -> 0.823 (+0.009), L9 0.810 -> 0.816 (+0.006), L3 0.809 -> 0.804 (-0.004), L0 0.798 -> 0.797 (-0.001). Overlap F1 L6 0.842 -> 0.849. Chosen parameters were thr_hi 0.5-0.7 with thr_lo 0.3 (hysteresis genuinely used), merge_gap 0 in every block, shrink 0 in every block.
+
+**Caveats.** The offset shrink was motivated by a real measured bias (+20 ms, duration ratio 1.20) and still did not help -- one frame is within the resolution, and shrinking breaks marginal overlap matches. No bootstrap has been run, so +0.009 must not be called an improvement yet. The likely bigger lever is a dedicated onset probe trained on 'is this frame within one frame of an onset', which needs the frame features (currently only on Savio).
 
 
 ## Refuted — do not retry without new evidence

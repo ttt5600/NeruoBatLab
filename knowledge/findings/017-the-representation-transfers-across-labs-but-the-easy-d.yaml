@@ -1,6 +1,6 @@
 id: '017'
 title: The representation transfers across labs, but the easy direction hides it
-status: confirmed
+status: superseded
 claim: A frame-level probe transfers between the Berkeley colony corpus and ETH BirdPark in both directions,
   but the gain over a log-energy baseline is only visible on the acoustically hard dataset.
 evidence: Frame AUC/AP. ZF->ZF L0 0.968/0.889 vs energy 0.794/0.390. BP->BP L0 0.938/0.933 vs energy 0.891/0.865.
@@ -20,3 +20,4 @@ tags:
 - holdout
 - transfer
 date: '2026-09-10'
+superseded_by: 019

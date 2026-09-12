@@ -1,0 +1,24 @@
+id: '020'
+title: Loudness is the dominant embedding axis and removing it is catastrophic
+status: confirmed
+claim: The single largest direction in the embedding correlates with loudness and carries most of the
+  detection signal; projecting it out destroys performance, so 'correlated with loudness' must not be
+  mistaken for 'is a loudness detector'.
+evidence: 'PC0 explains 52.8% of feature variance and correlates 0.724 with log-energy. Unsupervised k-means
+  aligns far better with loudness quintile (AMI 0.335 at k=8) than with voc/noise (0.169) or recording
+  identity (0.043). Removing it: drop PC0 costs -0.194 eval A AUC, top-3 -0.204, top-8 -0.243, while PCA-64
+  with nothing dropped costs only -0.004. Partialling out the linear loudness axis costs -0.078. Decomposed:
+  PC0 alone gives AUC 0.851, log-energy alone 0.791, PC0 with its energy component regressed out 0.745,
+  both together 0.851.'
+method: Three independent removal methods (per-dimension partial-out, PC dropping, within-recording rank
+  normalization), each fit on training data only and applied to both evals.
+provenance: analysis/loudness_removal.json, analysis/what_dominates.json, analysis/umap_labels_clusters.png
+caveats: 'This does NOT contradict [004]. Energy is at chance on eval B (0.532) but reaches 0.791 on eval
+  A, so loudness is genuinely informative on the neg-pool windows. PC0 beats the scalar it correlates
+  with by +0.060, i.e. it carries spectral structure the scalar throws away. Practical: do not ''normalize
+  away'' loudness, and do not read the UMAP''s left-right gradient as a vocalization axis -- it is a loudness
+  axis.'
+tags:
+- embeddings
+- geometry
+date: '2026-09-11'

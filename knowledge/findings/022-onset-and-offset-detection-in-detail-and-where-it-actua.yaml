@@ -1,0 +1,21 @@
+id: '022'
+title: Onset and offset detection in detail, and where it actually fails
+status: confirmed
+claim: Overlap-F1 flatters the detector; under a strict onset collar performance drops sharply, and the
+  dominant errors are deletions of short calls and merges of consecutive ones.
+evidence: 'Layer 6 F1 by onset tolerance: overlap 0.840, 500 ms 0.865, 200 ms 0.852, 100 ms 0.843, 50
+  ms 0.814, 20 ms 0.736. Boundary error: onset median 20 ms with bias 0 and p90 40 ms; offset median 20
+  ms but bias +20 ms and p90 60 ms, with predicted/true duration ratio 1.20. Error taxonomy at L6: 305
+  deletions, 265 insertions, 154 merges, 21 fragmentations from 2317 predictions against 2540 events.
+  Recall by true duration: 0.685 for 0-50 ms (n=504), 0.877 for 50-80 ms, 0.938 for 80-120 ms, 0.981 above
+  200 ms. Median IoU 0.667.'
+method: Decoder parameters tuned out of fold on contiguous 6-minute blocks. Collar matching requires the
+  predicted onset within the tolerance; overlap matching accepts any overlap.
+provenance: analysis/onset_granular.json; job 38704640
+caveats: 'Energy has HIGHER recall in every duration bin (0.764 on 0-50 ms vs 0.685) but only by emitting
+  4084 predictions against HuBERT''s 2317 -- its precision is 0.45 vs 0.88 and it makes 2252 insertions.
+  Short calls are the real weakness: a 50 ms call is 2.5 frames at 20 ms resolution.'
+tags:
+- onset-offset
+- evaluation
+date: '2026-09-11'

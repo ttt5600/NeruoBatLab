@@ -1,0 +1,24 @@
+id: 019
+title: ZF to BirdPark is the clean direction, and I reported the wrong one
+status: confirmed
+claim: Of the two cross-dataset directions only ZF->BP tests on audio the encoder never heard, and it
+  is the direction where HuBERT barely beats energy; the direction with the large margin (BP->ZF) tests
+  on a recording that IS in the pretraining manifest.
+evidence: 'ZF->BP: tests on BirdPark (unseen), AUC 0.888 vs energy 0.881 (+0.008), AP 0.893 vs 0.866 (+0.028).
+  BP->ZF: tests on 111021-000 (in the manifest, see [002]), AUC 0.865 vs energy 0.781 (+0.084), AP 0.615
+  vs 0.335 (+0.280).'
+method: Probe trained on one corpus, tested on the other; the TEST set is what must be unseen for an encoder-level
+  claim.
+provenance: job 38705017; analysis/crossdataset.json
+caveats: 'We currently have NO direction that is both clean and convincing. ZF->BP is clean but BirdPark
+  is close-miked and quiet (18.9 dB separation) so energy nearly solves it; BP->ZF has the large margin
+  but a contaminated test set. Closing this needs a HARD, noisy, colony-like recording that is not in
+  the pretraining corpus. Also note the training-set asymmetry: ZF->BP fits on 30.0 min / 90061 frames,
+  BP->ZF on 118.5 s / 5925 frames.'
+supersedes:
+- '017'
+tags:
+- generalization
+- holdout
+- transfer
+date: '2026-09-11'

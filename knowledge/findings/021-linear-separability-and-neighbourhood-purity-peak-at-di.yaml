@@ -1,0 +1,19 @@
+id: '021'
+title: Linear separability and neighbourhood purity peak at different depths
+status: confirmed
+claim: 'Flat linear AUC across layers 0-7 hides a real geometric change: local neighbourhood purity and
+  cluster separation improve with depth while linear separability slowly degrades.'
+evidence: 'Across L0->L11: linear AUC 0.9774 -> 0.9714 (flat then declining), kNN-10 accuracy 0.883 ->
+  0.906 (peaking L5), silhouette 0.195 -> 0.220 (peaking L5) -> 0.205, Fisher ratio 0.573 -> 0.533 (minimum
+  L7), PCA dim at 90% variance 15 -> 51 (monotone). The 4-way human label (call / call+noise / noise /
+  silence) is recoverable at 0.806 accuracy against a 0.515 majority, best at L0. Clean call vs call+noise
+  is only AUC 0.77 at every depth.'
+method: Leave-recordings-out CV on the 3768 neg-pool windows; silhouette on a 3000-point cosine subsample.
+provenance: analysis/embedding_stats.json
+caveats: 'Explains why AUC picks L0 and accuracy picks L5 ([003]): they measure different geometry. The
+  monotone growth of PCA dimensionality also rules out representational collapse with depth, which was
+  a live concern earlier in the project.'
+tags:
+- embeddings
+- layers
+date: '2026-09-11'
