@@ -1,3 +1,8 @@
 
 # zfeval cached features are large and regenerable from a checkpoint
 zfeval/runs/**/*.npz
+
+# python bytecode
+__pycache__/
+*.pyc
+.pytest_cache/
