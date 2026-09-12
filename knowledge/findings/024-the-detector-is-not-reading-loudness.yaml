@@ -1,0 +1,21 @@
+id: '024'
+title: The detector is not reading loudness
+status: confirmed
+claim: When loudness is held constant by design, the detector still separates vocalizations from background
+  almost as well as it does unrestricted, while loudness itself falls to chance.
+evidence: 'Within narrow dB bands (quintiles), weighted-mean AUC: eval A HuBERT 0.9629 vs energy 0.5641;
+  eval B HuBERT 0.9542 vs energy 0.5580, against unrestricted 0.9774 / 0.9557. On 1:1 pairs matched within
+  0.5 dB (843 pairs eval A, 528 eval B, mean signed gap +0.008 / +0.005 dB), HuBERT ranks the call above
+  its loudness twin 0.9609 / 0.9394 of the time while energy sits at 0.5302 / 0.5114.'
+method: 'Two designs that remove loudness by construction rather than by projection: stratify AUC within
+  dB bands so no comparison crosses loudness, and greedily pair each positive with the NEAREST unused
+  negative in dB. Energy''s own paired win rate is the validity check -- it must be ~0.5, and it is.'
+provenance: analysis/energy_matched.json, analysis/energy_matched_pairs.json
+caveats: The first version of the pair matcher scanned upward from j-200 and took the FIRST negative within
+  tolerance, which systematically paired positives with quieter negatives and gave energy a spurious 0.926
+  win rate. Caught because the printed label said 'near chance by construction' and the number was not.
+  Always check the control's own null.
+tags:
+- controls
+- loudness
+date: '2026-09-11'

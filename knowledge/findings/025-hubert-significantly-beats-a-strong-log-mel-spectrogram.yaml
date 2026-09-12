@@ -1,0 +1,22 @@
+id: '025'
+title: HuBERT significantly beats a strong log-mel spectrogram baseline
+status: confirmed
+claim: The self-supervised representation is worth a large, significant margin over hand-designed spectral
+  features, and the margin more than doubles on the held-out recording.
+evidence: 'Best log-mel: eval A 0.9267, eval B 0.8364. HuBERT layer 0: 0.9774 / 0.9557. Paired bootstrap,
+  HuBERT untuned vs mel tuned: eval A +0.0507 [+0.0406, +0.0613] SIGNIFICANT; eval B +0.1189 [+0.0937,
+  +0.1477] SIGNIFICANT. Log-energy alone for reference: 0.7911 / 0.5324.'
+method: '384-d baseline built to be strong, not a strawman: 64 log-mel bands (25 ms / 10 ms hop, to 8
+  kHz) summarized by mean, std, max, p90 plus delta mean and std; no normalization, so it KEEPS absolute
+  loudness that HuBERT''s context normalization partly removes. Regularization swept for the baseline
+  and not for HuBERT.'
+provenance: analysis/mel_baseline.json, analysis/mel_significance.json
+caveats: 'Alignment was verified before scoring: window energy recomputed from local audio matches the
+  Savio-extracted Xen at corr 1.000000, median |diff| 0.000 dB. Concatenating HuBERT with log-mel is WORSE
+  than HuBERT alone (A 0.9717, B 0.9396), so the mel features add nothing the representation lacks. Still
+  outstanding: a random-init encoder control, which would separate ''the architecture'' from ''the pretraining''.'
+tags:
+- baseline
+- controls
+- spectrogram
+date: '2026-09-11'

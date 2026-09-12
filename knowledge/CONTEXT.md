@@ -1,6 +1,6 @@
 # Project context: zebra finch HuBERT
 
-Generated 2026-09-11. 23 findings: 19 live, 3 closed.
+Generated 2026-09-11. 26 findings: 22 live, 3 closed.
 
 Read the REFUTED section. Several of these ideas look obviously correct and are not; they have each cost a day.
 
@@ -142,6 +142,30 @@ Overlap-F1 flatters the detector; under a strict onset collar performance drops 
 **Evidence.** Layer 6 F1 by onset tolerance: overlap 0.840, 500 ms 0.865, 200 ms 0.852, 100 ms 0.843, 50 ms 0.814, 20 ms 0.736. Boundary error: onset median 20 ms with bias 0 and p90 40 ms; offset median 20 ms but bias +20 ms and p90 60 ms, with predicted/true duration ratio 1.20. Error taxonomy at L6: 305 deletions, 265 insertions, 154 merges, 21 fragmentations from 2317 predictions against 2540 events. Recall by true duration: 0.685 for 0-50 ms (n=504), 0.877 for 50-80 ms, 0.938 for 80-120 ms, 0.981 above 200 ms. Median IoU 0.667.
 
 **Caveats.** Energy has HIGHER recall in every duration bin (0.764 on 0-50 ms vs 0.685) but only by emitting 4084 predictions against HuBERT's 2317 -- its precision is 0.45 vs 0.88 and it makes 2252 insertions. Short calls are the real weakness: a 50 ms call is 2.5 frames at 20 ms resolution.
+
+### [024] The detector is not reading loudness  ·  **CONFIRMED**
+
+When loudness is held constant by design, the detector still separates vocalizations from background almost as well as it does unrestricted, while loudness itself falls to chance.
+
+**Evidence.** Within narrow dB bands (quintiles), weighted-mean AUC: eval A HuBERT 0.9629 vs energy 0.5641; eval B HuBERT 0.9542 vs energy 0.5580, against unrestricted 0.9774 / 0.9557. On 1:1 pairs matched within 0.5 dB (843 pairs eval A, 528 eval B, mean signed gap +0.008 / +0.005 dB), HuBERT ranks the call above its loudness twin 0.9609 / 0.9394 of the time while energy sits at 0.5302 / 0.5114.
+
+**Caveats.** The first version of the pair matcher scanned upward from j-200 and took the FIRST negative within tolerance, which systematically paired positives with quieter negatives and gave energy a spurious 0.926 win rate. Caught because the printed label said 'near chance by construction' and the number was not. Always check the control's own null.
+
+### [025] HuBERT significantly beats a strong log-mel spectrogram baseline  ·  **CONFIRMED**
+
+The self-supervised representation is worth a large, significant margin over hand-designed spectral features, and the margin more than doubles on the held-out recording.
+
+**Evidence.** Best log-mel: eval A 0.9267, eval B 0.8364. HuBERT layer 0: 0.9774 / 0.9557. Paired bootstrap, HuBERT untuned vs mel tuned: eval A +0.0507 [+0.0406, +0.0613] SIGNIFICANT; eval B +0.1189 [+0.0937, +0.1477] SIGNIFICANT. Log-energy alone for reference: 0.7911 / 0.5324.
+
+**Caveats.** Alignment was verified before scoring: window energy recomputed from local audio matches the Savio-extracted Xen at corr 1.000000, median |diff| 0.000 dB. Concatenating HuBERT with log-mel is WORSE than HuBERT alone (A 0.9717, B 0.9396), so the mel features add nothing the representation lacks. Still outstanding: a random-init encoder control, which would separate 'the architecture' from 'the pretraining'.
+
+### [026] Pipeline sanity controls pass  ·  **CONFIRMED**
+
+The detection result is not a leak and is not carried by a handful of easy recordings.
+
+**Evidence.** Shuffled-label control: 0.4914 +- 0.0140 over 5 permutations against 0.9774 on real labels. Per-recording AUC across 53 recordings with both classes: median 0.9839, mean 0.9734, IQR [0.9591, 0.9994], min 0.8571, and 0 of 53 below 0.80. The five largest recordings hold 30% of windows and average 0.9751 versus 0.9732 for the rest.
+
+**Caveats.** The shuffled control validates the splitting and prediction path only; it cannot detect a problem in the LABELS themselves, which is why [005] and [015] matter separately.
 
 
 ## Open questions

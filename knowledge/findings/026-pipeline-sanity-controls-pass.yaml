@@ -1,0 +1,16 @@
+id: '026'
+title: Pipeline sanity controls pass
+status: confirmed
+claim: The detection result is not a leak and is not carried by a handful of easy recordings.
+evidence: 'Shuffled-label control: 0.4914 +- 0.0140 over 5 permutations against 0.9774 on real labels.
+  Per-recording AUC across 53 recordings with both classes: median 0.9839, mean 0.9734, IQR [0.9591, 0.9994],
+  min 0.8571, and 0 of 53 below 0.80. The five largest recordings hold 30% of windows and average 0.9751
+  versus 0.9732 for the rest.'
+method: Labels permuted inside the same StratifiedGroupKFold plumbing; per-recording AUC computed from
+  the out-of-fold predictions.
+provenance: analysis/sanity_controls.json
+caveats: The shuffled control validates the splitting and prediction path only; it cannot detect a problem
+  in the LABELS themselves, which is why [005] and [015] matter separately.
+tags:
+- controls
+date: '2026-09-11'
