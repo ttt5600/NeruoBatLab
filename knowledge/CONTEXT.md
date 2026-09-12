@@ -1,6 +1,6 @@
 # Project context: zebra finch HuBERT
 
-Generated 2026-09-11. 26 findings: 22 live, 3 closed.
+Generated 2026-09-12. 29 findings: 25 live, 3 closed.
 
 Read the REFUTED section. Several of these ideas look obviously correct and are not; they have each cost a day.
 
@@ -166,6 +166,30 @@ The detection result is not a leak and is not carried by a handful of easy recor
 **Evidence.** Shuffled-label control: 0.4914 +- 0.0140 over 5 permutations against 0.9774 on real labels. Per-recording AUC across 53 recordings with both classes: median 0.9839, mean 0.9734, IQR [0.9591, 0.9994], min 0.8571, and 0 of 53 below 0.80. The five largest recordings hold 30% of windows and average 0.9751 versus 0.9732 for the rest.
 
 **Caveats.** The shuffled control validates the splitting and prediction path only; it cannot detect a problem in the LABELS themselves, which is why [005] and [015] matter separately.
+
+### [027] Leave-recordings-out is bird-leaky, but detection does not care  ·  **CONFIRMED**
+
+The recording-grouped CV lets 96.8% of test-fold birds also appear in training, yet switching to a genuinely bird-disjoint split costs nothing measurable for detection.
+
+**Evidence.** Recording-grouped 5-fold: 96.8% of test birds also in train (3 of 5 folds at 100%). Same 3564 windows: group=recording AUC 0.9741, group=bird-component AUC 0.9721. Delta -0.0020, paired bootstrap over components -0.0017 [-0.0040, +0.0009], not distinguishable.
+
+**Caveats.** Contrast with [project_probe_split_inflation]: the CALL-TYPE probe inflates by +0.114 under a random split. Detection does not, which is coherent -- 'is a call present' is not a bird-specific judgement while 'which call type' partly is. Note 29 birds after merging HPiHPi4748/HpiHpi4748, which differ only by case, plus an 'Unknown000' placeholder that is not a bird. This is a PROBE-level split only; see [028] for the encoder.
+
+### [028] No zebra finch bird is held out of pretraining, and none can be  ·  **CONFIRMED**
+
+Every bird in the corpus appears in the pretraining manifest, so no ZF result is a bird-level encoder holdout; the only birds the encoder has never heard are BirdPark's.
+
+**Evidence.** All 120 recordings in run5-4-26-full/data/spectrogram/preprocessed_audio are in the training tsv (verified in [002]), and those recordings cover all 29 birds across 60 datecodes. BirdPark contributes 16 birds (8 pairs) from a different lab.
+
+**Caveats.** A bird-level encoder holdout could in principle be built by retraining on one of the 7 bird-disjoint components -- the holdout_lblred0613 experiment already did this for one bird, at the cost of 16.7% of pretraining audio, which confounds 'never heard this bird' with 'less data'. Until such a run exists, bird-level generalization for ZF is untested and only BirdPark speaks to it.
+
+### [029] What the AUC numbers mean in operational terms  ·  **CONFIRMED**
+
+At a fixed 5% false-alarm budget on the held-out recording, the representation finds 1.8x as many calls as a strong spectrogram and 10x as many as an energy detector.
+
+**Evidence.** Eval B, 5% false alarms: HuBERT recovers 1016/1217 calls (83.5%), log-mel 573/1217 (47.1%), log-energy 102/1217 (8.4%), each with 29 false alarms out of 584 non-voc windows. As ranking-error rate (1-AUC): HuBERT 4.43%, log-mel 16.36%, energy 46.76% -- HuBERT removes 73% of the spectrogram's errors. On eval A at 5%: 92.6% / 73.8% / 15.4%.
+
+**Caveats.** AUC 0.9557 means: pick one random call window and one random non-call window, and the probe ranks the call higher 95.57% of the time. It is threshold-free -- the operating points above are what a chosen threshold turns it into, and the right threshold depends on whether misses or false alarms cost more for the study.
 
 
 ## Open questions

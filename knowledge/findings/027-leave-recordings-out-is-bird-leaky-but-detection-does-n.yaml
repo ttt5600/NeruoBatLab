@@ -1,0 +1,22 @@
+id: '027'
+title: Leave-recordings-out is bird-leaky, but detection does not care
+status: confirmed
+claim: The recording-grouped CV lets 96.8% of test-fold birds also appear in training, yet switching to
+  a genuinely bird-disjoint split costs nothing measurable for detection.
+evidence: 'Recording-grouped 5-fold: 96.8% of test birds also in train (3 of 5 folds at 100%). Same 3564
+  windows: group=recording AUC 0.9741, group=bird-component AUC 0.9721. Delta -0.0020, paired bootstrap
+  over components -0.0017 [-0.0040, +0.0009], not distinguishable.'
+method: 'Bird identity recovered from curated clip filenames (bird_datecode-CallType-idx.wav). Recordings
+  are colony recordings: median 2 birds per date (max 7), median 5 dates per bird, so holding out a recording
+  does not hold out its birds. Dates sharing a bird must stay together, which yields 7 bird-disjoint components
+  (19/16/11/7/5/1/1 dates); 5 of them contain eval-A windows.'
+provenance: analysis/leave_birds_out.json; bird_map.json
+caveats: 'Contrast with [project_probe_split_inflation]: the CALL-TYPE probe inflates by +0.114 under
+  a random split. Detection does not, which is coherent -- ''is a call present'' is not a bird-specific
+  judgement while ''which call type'' partly is. Note 29 birds after merging HPiHPi4748/HpiHpi4748, which
+  differ only by case, plus an ''Unknown000'' placeholder that is not a bird. This is a PROBE-level split
+  only; see [028] for the encoder.'
+tags:
+- splits
+- controls
+date: '2026-09-12'

@@ -1,0 +1,19 @@
+id: 028
+title: No zebra finch bird is held out of pretraining, and none can be
+status: confirmed
+claim: Every bird in the corpus appears in the pretraining manifest, so no ZF result is a bird-level encoder
+  holdout; the only birds the encoder has never heard are BirdPark's.
+evidence: All 120 recordings in run5-4-26-full/data/spectrogram/preprocessed_audio are in the training
+  tsv (verified in [002]), and those recordings cover all 29 birds across 60 datecodes. BirdPark contributes
+  16 birds (8 pairs) from a different lab.
+method: Manifest membership from [002] combined with the bird-to-date mapping from the curated clip filenames.
+provenance: 00_build_tsv.sh; bird_map.json; analysis/leave_birds_out.json
+caveats: A bird-level encoder holdout could in principle be built by retraining on one of the 7 bird-disjoint
+  components -- the holdout_lblred0613 experiment already did this for one bird, at the cost of 16.7%
+  of pretraining audio, which confounds 'never heard this bird' with 'less data'. Until such a run exists,
+  bird-level generalization for ZF is untested and only BirdPark speaks to it.
+tags:
+- contamination
+- holdout
+- pretraining
+date: '2026-09-12'

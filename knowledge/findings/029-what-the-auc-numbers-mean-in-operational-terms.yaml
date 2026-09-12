@@ -1,0 +1,20 @@
+id: 029
+title: What the AUC numbers mean in operational terms
+status: confirmed
+claim: At a fixed 5% false-alarm budget on the held-out recording, the representation finds 1.8x as many
+  calls as a strong spectrogram and 10x as many as an energy detector.
+evidence: 'Eval B, 5% false alarms: HuBERT recovers 1016/1217 calls (83.5%), log-mel 573/1217 (47.1%),
+  log-energy 102/1217 (8.4%), each with 29 false alarms out of 584 non-voc windows. As ranking-error rate
+  (1-AUC): HuBERT 4.43%, log-mel 16.36%, energy 46.76% -- HuBERT removes 73% of the spectrogram''s errors.
+  On eval A at 5%: 92.6% / 73.8% / 15.4%.'
+method: ROC operating points interpolated from the same out-of-fold and held-out predictions used for
+  the AUC comparisons.
+provenance: analysis/mel_baseline.json; computed alongside analysis/mel_significance.json
+caveats: 'AUC 0.9557 means: pick one random call window and one random non-call window, and the probe
+  ranks the call higher 95.57% of the time. It is threshold-free -- the operating points above are what
+  a chosen threshold turns it into, and the right threshold depends on whether misses or false alarms
+  cost more for the study.'
+tags:
+- interpretation
+- baseline
+date: '2026-09-12'
