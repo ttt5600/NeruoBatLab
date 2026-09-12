@@ -1,0 +1,9 @@
+{
+  "path": "temp_train_run11/.../epoch=18-step=93750.ckpt",
+  "epoch": 18,
+  "global_step": 93750,
+  "n_tensors": 214,
+  "encoder_fingerprint": "c088f1bc47a356d0",
+  "num_classes": 100,
+  "note": "fingerprint from the last.ckpt load audit; epoch=18 file is currently unreadable on Savio scratch (EIO) but last.ckpt is the same step"
+}

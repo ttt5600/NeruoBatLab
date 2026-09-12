@@ -1,0 +1,3 @@
+
+# zfeval cached features are large and regenerable from a checkpoint
+zfeval/runs/**/*.npz

@@ -1,0 +1,981 @@
+{
+  "name": "run11 (reference)",
+  "provenance": {
+    "utc": "2026-09-12T09:50:43Z",
+    "git_sha": "e616e4b",
+    "git_dirty": true,
+    "host": "MacBook-Pro-79.local",
+    "python": "3.10.11",
+    "checkpoint": {
+      "path": "temp_train_run11/.../epoch=18-step=93750.ckpt",
+      "epoch": 18,
+      "global_step": 93750,
+      "n_tensors": 214,
+      "encoder_fingerprint": "c088f1bc47a356d0",
+      "num_classes": 100,
+      "note": "fingerprint from the last.ckpt load audit; epoch=18 file is currently unreadable on Savio scratch (EIO) but last.ckpt is the same step"
+    }
+  },
+  "sections": {
+    "geometry": {
+      "L0": {
+        "auc": 0.9773600057748182,
+        "knn10_acc": 0.8829617834394905,
+        "silhouette": 0.19464054703712463,
+        "fisher_ratio": 0.5724605321884155,
+        "pca_dim_90": 15,
+        "kmeans_ami_k8": 0.16900735832989308,
+        "homogeneity_k8": 0.3425662890165698
+      },
+      "L1": {
+        "auc": 0.9753370147799253,
+        "knn10_acc": 0.8834925690021231,
+        "silhouette": 0.200595423579216,
+        "fisher_ratio": 0.5696841478347778,
+        "pca_dim_90": 21,
+        "kmeans_ami_k8": 0.17083235398028027,
+        "homogeneity_k8": 0.34825207927064794
+      },
+      "L2": {
+        "auc": 0.974896985665217,
+        "knn10_acc": 0.8935774946921444,
+        "silhouette": 0.1965722292661667,
+        "fisher_ratio": 0.5475015044212341,
+        "pca_dim_90": 29,
+        "kmeans_ami_k8": 0.19145022489467478,
+        "homogeneity_k8": 0.3900790083417002
+      },
+      "L3": {
+        "auc": 0.9753547603149683,
+        "knn10_acc": 0.899416135881104,
+        "silhouette": 0.1995937079191208,
+        "fisher_ratio": 0.5354329943656921,
+        "pca_dim_90": 36,
+        "kmeans_ami_k8": 0.22845589342663628,
+        "homogeneity_k8": 0.46441111343103003
+      },
+      "L4": {
+        "auc": 0.9765346880094321,
+        "knn10_acc": 0.9039278131634819,
+        "silhouette": 0.2096780389547348,
+        "fisher_ratio": 0.5392557382583618,
+        "pca_dim_90": 39,
+        "kmeans_ami_k8": 0.22967710274871328,
+        "homogeneity_k8": 0.46840193813422143
+      },
+      "L5": {
+        "auc": 0.9767404159072179,
+        "knn10_acc": 0.9057855626326964,
+        "silhouette": 0.2203628271818161,
+        "fisher_ratio": 0.5434365272521973,
+        "pca_dim_90": 42,
+        "kmeans_ami_k8": 0.22057563107726388,
+        "homogeneity_k8": 0.4491697688137111
+      },
+      "L6": {
+        "auc": 0.9756847069580543,
+        "knn10_acc": 0.904723991507431,
+        "silhouette": 0.21571116149425507,
+        "fisher_ratio": 0.534751296043396,
+        "pca_dim_90": 44,
+        "kmeans_ami_k8": 0.21331110779929652,
+        "homogeneity_k8": 0.43187237670992384
+      },
+      "L7": {
+        "auc": 0.9749066103621893,
+        "knn10_acc": 0.9018046709129511,
+        "silhouette": 0.21895158290863037,
+        "fisher_ratio": 0.5327295064926147,
+        "pca_dim_90": 46,
+        "kmeans_ami_k8": 0.21278545681620184,
+        "homogeneity_k8": 0.43501135524881945
+      },
+      "L8": {
+        "auc": 0.9743005552247066,
+        "knn10_acc": 0.9036624203821656,
+        "silhouette": 0.21505631506443024,
+        "fisher_ratio": 0.5426664352416992,
+        "pca_dim_90": 49,
+        "kmeans_ami_k8": 0.21320054070941483,
+        "homogeneity_k8": 0.4355444684276262
+      },
+      "L9": {
+        "auc": 0.9732415377859587,
+        "knn10_acc": 0.8983545647558386,
+        "silhouette": 0.21024906635284424,
+        "fisher_ratio": 0.5451346635818481,
+        "pca_dim_90": 50,
+        "kmeans_ami_k8": 0.22073778240389053,
+        "homogeneity_k8": 0.449354935048246
+      },
+      "L10": {
+        "auc": 0.9721596616919016,
+        "knn10_acc": 0.9026008492569002,
+        "silhouette": 0.19723768532276154,
+        "fisher_ratio": 0.5520987510681152,
+        "pca_dim_90": 51,
+        "kmeans_ami_k8": 0.21239866899937093,
+        "homogeneity_k8": 0.432702548653884
+      },
+      "L11": {
+        "auc": 0.9713794596935738,
+        "knn10_acc": 0.903131634819533,
+        "silhouette": 0.20486249029636383,
+        "fisher_ratio": 0.5631546378135681,
+        "pca_dim_90": 51,
+        "kmeans_ami_k8": 0.20450096071846025,
+        "homogeneity_k8": 0.40865412030266196
+      }
+    },
+    "dominant_structure": {
+      "8": {
+        "label": 0.16900735832989308,
+        "recording": 0.04247899560872427,
+        "loudness": 0.3383068264778919
+      },
+      "32": {
+        "label": 0.14029207940464,
+        "recording": 0.07801761835019735,
+        "loudness": 0.3047563668681223
+      },
+      "64": {
+        "label": 0.12860913749693467,
+        "recording": 0.10942441521030545,
+        "loudness": 0.2840975894422356
+      }
+    },
+    "loudness_dependence": {
+      "top_pc": 0,
+      "top_pc_corr_energy": 0.7235159603948413,
+      "top_pc_var_explained": 0.5284641981124878,
+      "auc_full": 0.9773600057748182,
+      "auc_pca_all": 0.9739609838846481,
+      "auc_drop_top_pc": 0.7842103838449462,
+      "auc_top_pc_only": 0.8515149874578168,
+      "auc_energy_only": 0.791094749126258,
+      "auc_top_pc_residual": 0.7447524347475623
+    },
+    "scores": [
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9773600057748182,
+        "ap": 0.9887467349744781,
+        "acc": 0.9320594479830149,
+        "prevalence": 0.6257961783439491,
+        "layer": "L0",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9753370147799253,
+        "ap": 0.9878243650384754,
+        "acc": 0.9323248407643312,
+        "prevalence": 0.6257961783439491,
+        "layer": "L1",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.974896985665217,
+        "ap": 0.9877505244090374,
+        "acc": 0.9333864118895966,
+        "prevalence": 0.6257961783439491,
+        "layer": "L2",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9753547603149683,
+        "ap": 0.9881004208781216,
+        "acc": 0.9339171974522293,
+        "prevalence": 0.6257961783439491,
+        "layer": "L3",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9765346880094321,
+        "ap": 0.9887072866463886,
+        "acc": 0.9349787685774947,
+        "prevalence": 0.6257961783439491,
+        "layer": "L4",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9767404159072179,
+        "ap": 0.9887062284817328,
+        "acc": 0.9360403397027601,
+        "prevalence": 0.6257961783439491,
+        "layer": "L5",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9756847069580543,
+        "ap": 0.988179256244085,
+        "acc": 0.9355095541401274,
+        "prevalence": 0.6257961783439491,
+        "layer": "L6",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9749066103621893,
+        "ap": 0.9877166068845822,
+        "acc": 0.932855626326964,
+        "prevalence": 0.6257961783439491,
+        "layer": "L7",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9743005552247066,
+        "ap": 0.9872899522987622,
+        "acc": 0.9288747346072187,
+        "prevalence": 0.6257961783439491,
+        "layer": "L8",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9732415377859587,
+        "ap": 0.9867863896130391,
+        "acc": 0.9240976645435244,
+        "prevalence": 0.6257961783439491,
+        "layer": "L9",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9721596616919016,
+        "ap": 0.9862654113181442,
+        "acc": 0.9219745222929936,
+        "prevalence": 0.6257961783439491,
+        "layer": "L10",
+        "note": ""
+      },
+      {
+        "split": "neg_pool [leave-recordings-out (70 recordings, 5-fold)]",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9713794596935738,
+        "ap": 0.9860771496780107,
+        "acc": 0.9233014861995754,
+        "prevalence": 0.6257961783439491,
+        "layer": "L11",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9582259317207146,
+        "ap": 0.9820251800606612,
+        "acc": 0.9006107717934481,
+        "prevalence": 0.6757357023875624,
+        "layer": "L0",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.957560416924618,
+        "ap": 0.9817493931120362,
+        "acc": 0.9017212659633537,
+        "prevalence": 0.6757357023875624,
+        "layer": "L1",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9597300233000529,
+        "ap": 0.9821236020786789,
+        "acc": 0.9017212659633537,
+        "prevalence": 0.6757357023875624,
+        "layer": "L2",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9570271608829256,
+        "ap": 0.981080288928917,
+        "acc": 0.9011660188784009,
+        "prevalence": 0.6757357023875624,
+        "layer": "L3",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9575393118042347,
+        "ap": 0.9811849615722115,
+        "acc": 0.897834536368684,
+        "prevalence": 0.6757357023875624,
+        "layer": "L4",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9566894789567879,
+        "ap": 0.9804337685409135,
+        "acc": 0.897834536368684,
+        "prevalence": 0.6757357023875624,
+        "layer": "L5",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9594134464942988,
+        "ap": 0.9818048840850295,
+        "acc": 0.9028317601332593,
+        "prevalence": 0.6757357023875624,
+        "layer": "L6",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9605967402438065,
+        "ap": 0.9820133721601945,
+        "acc": 0.9089394780677401,
+        "prevalence": 0.6757357023875624,
+        "layer": "L7",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9618475703785415,
+        "ap": 0.98269584344265,
+        "acc": 0.9089394780677401,
+        "prevalence": 0.6757357023875624,
+        "layer": "L8",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.960736034038338,
+        "ap": 0.9823507375408977,
+        "acc": 0.9022765130483065,
+        "prevalence": 0.6757357023875624,
+        "layer": "L9",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9639524543847998,
+        "ap": 0.9836803968332186,
+        "acc": 0.9117157134925041,
+        "prevalence": 0.6757357023875624,
+        "layer": "L10",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 [contiguous 60s time blocks within 1 recording(s) (31 blocks) -- NOT a recording holdout]",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9629914679033328,
+        "ap": 0.9829849255235092,
+        "acc": 0.9089394780677401,
+        "prevalence": 0.6757357023875624,
+        "layer": "L11",
+        "note": ""
+      },
+      {
+        "split": "neg_pool -> soundsep_111021 (held out)",
+        "n": 1801,
+        "majority": 0.6757357023875624,
+        "auc": 0.9556947242827072,
+        "ap": 0.9793189215854318,
+        "acc": 0.8811771238200999,
+        "prevalence": 0.6757357023875624,
+        "layer": "L0",
+        "note": ""
+      },
+      {
+        "split": "soundsep_111021 -> neg_pool (held out)",
+        "n": 3768,
+        "majority": 0.6257961783439491,
+        "auc": 0.9574483123695402,
+        "ap": 0.9788133782645327,
+        "acc": 0.8962314225053079,
+        "prevalence": 0.6257961783439491,
+        "layer": "L10",
+        "note": ""
+      }
+    ],
+    "baselines": {
+      "neg_pool": {
+        "model": 0.9773600057748182,
+        "logmel": 0.9267398143636572,
+        "energy": 0.791094749126258
+      },
+      "soundsep_111021": {
+        "model": 0.9639524543847998,
+        "logmel": 0.8999026350446304,
+        "energy": 0.5096830292319987
+      }
+    },
+    "operating_points": {
+      "neg_pool": {
+        "fa_0.01": {
+          "recall": 0.8740458015267175,
+          "calls_found": 2061,
+          "false_alarms": 14,
+          "precision": 0.9932051467399162
+        },
+        "fa_0.05": {
+          "recall": 0.926208651399491,
+          "calls_found": 2184,
+          "false_alarms": 70,
+          "precision": 0.9687292082501663
+        },
+        "fa_0.1": {
+          "recall": 0.9457167090754877,
+          "calls_found": 2230,
+          "false_alarms": 141,
+          "precision": 0.9405314213412063
+        },
+        "fa_0.2": {
+          "recall": 0.9618320610687023,
+          "calls_found": 2268,
+          "false_alarms": 282,
+          "precision": 0.8894117647058823
+        }
+      },
+      "soundsep_111021": {
+        "fa_0.01": {
+          "recall": 0.6959737058340181,
+          "calls_found": 847,
+          "false_alarms": 6,
+          "precision": 0.9931522911683317
+        },
+        "fa_0.05": {
+          "recall": 0.8496302382908792,
+          "calls_found": 1034,
+          "false_alarms": 29,
+          "precision": 0.972535741158766
+        },
+        "fa_0.1": {
+          "recall": 0.9170090386195563,
+          "calls_found": 1116,
+          "false_alarms": 58,
+          "precision": 0.9502724795640326
+        },
+        "fa_0.2": {
+          "recall": 0.9539852095316351,
+          "calls_found": 1161,
+          "false_alarms": 117,
+          "precision": 0.9085928940366255
+        }
+      },
+      "neg_pool -> soundsep_111021": {
+        "fa_0.01": {
+          "recall": 0.551355792933443,
+          "calls_found": 671,
+          "false_alarms": 6,
+          "precision": 0.9913716683411146
+        },
+        "fa_0.05": {
+          "recall": 0.8348397699260477,
+          "calls_found": 1016,
+          "false_alarms": 29,
+          "precision": 0.9720627631075391
+        },
+        "fa_0.1": {
+          "recall": 0.8940016433853739,
+          "calls_found": 1088,
+          "false_alarms": 58,
+          "precision": 0.9490579204466154
+        },
+        "fa_0.2": {
+          "recall": 0.9391947411668036,
+          "calls_found": 1143,
+          "false_alarms": 117,
+          "precision": 0.907286870931894
+        }
+      },
+      "soundsep_111021 -> neg_pool": {
+        "fa_0.01": {
+          "recall": 0.7921967769296013,
+          "calls_found": 1868,
+          "false_alarms": 14,
+          "precision": 0.992508368311992
+        },
+        "fa_0.05": {
+          "recall": 0.857930449533503,
+          "calls_found": 2023,
+          "false_alarms": 70,
+          "precision": 0.9663243372342967
+        },
+        "fa_0.1": {
+          "recall": 0.8977947413061916,
+          "calls_found": 2117,
+          "false_alarms": 141,
+          "precision": 0.937555358724535
+        },
+        "fa_0.2": {
+          "recall": 0.9363867684478372,
+          "calls_found": 2208,
+          "false_alarms": 282,
+          "precision": 0.8867469879518072
+        }
+      }
+    },
+    "controls": {
+      "neg_pool:shuffled_label": {
+        "mean_auc": 0.4913522097702705,
+        "std": 0.013956717471003967,
+        "per_perm": [
+          0.49684490402372494,
+          0.4879360438886181,
+          0.49940236647236813,
+          0.46608948562010116,
+          0.5064882488465402
+        ],
+        "expected_null": 0.5,
+        "passed": true
+      },
+      "neg_pool:per_group": {
+        "groups": [
+          {
+            "group": "110302-001",
+            "n": 105,
+            "auc": 0.9773242630385487
+          },
+          {
+            "group": "110304-000",
+            "n": 49,
+            "auc": 0.9871794871794872
+          },
+          {
+            "group": "110318-000",
+            "n": 37,
+            "auc": 0.9743589743589745
+          },
+          {
+            "group": "110328-000",
+            "n": 36,
+            "auc": 0.9652777777777777
+          },
+          {
+            "group": "110328-001",
+            "n": 15,
+            "auc": 1.0
+          },
+          {
+            "group": "110329-001",
+            "n": 68,
+            "auc": 0.9929078014184397
+          },
+          {
+            "group": "110404-000",
+            "n": 77,
+            "auc": 0.9905247813411078
+          },
+          {
+            "group": "110405-000",
+            "n": 112,
+            "auc": 0.9909996785599485
+          },
+          {
+            "group": "110406-001",
+            "n": 44,
+            "auc": 1.0
+          },
+          {
+            "group": "110411-001",
+            "n": 67,
+            "auc": 0.9756493506493507
+          },
+          {
+            "group": "110414-000",
+            "n": 37,
+            "auc": 1.0
+          },
+          {
+            "group": "110421-000",
+            "n": 84,
+            "auc": 0.9911111111111112
+          },
+          {
+            "group": "110422-000",
+            "n": 32,
+            "auc": 1.0
+          },
+          {
+            "group": "110425-000",
+            "n": 42,
+            "auc": 1.0
+          },
+          {
+            "group": "110429-001",
+            "n": 126,
+            "auc": 0.9877551020408164
+          },
+          {
+            "group": "110502-000",
+            "n": 30,
+            "auc": 0.8995215311004785
+          },
+          {
+            "group": "110511-000",
+            "n": 79,
+            "auc": 0.9993506493506493
+          },
+          {
+            "group": "110513-000",
+            "n": 22,
+            "auc": 1.0
+          },
+          {
+            "group": "110601-000",
+            "n": 18,
+            "auc": 1.0
+          },
+          {
+            "group": "110606-000",
+            "n": 65,
+            "auc": 0.9906832298136646
+          },
+          {
+            "group": "110606-001",
+            "n": 25,
+            "auc": 1.0
+          },
+          {
+            "group": "110607-000",
+            "n": 32,
+            "auc": 0.95
+          },
+          {
+            "group": "110607-001",
+            "n": 43,
+            "auc": 0.9444444444444444
+          },
+          {
+            "group": "110608-000",
+            "n": 53,
+            "auc": 0.9942857142857143
+          },
+          {
+            "group": "110609-000",
+            "n": 37,
+            "auc": 0.925595238095238
+          },
+          {
+            "group": "110615-000",
+            "n": 34,
+            "auc": 1.0
+          },
+          {
+            "group": "110616-000",
+            "n": 18,
+            "auc": 1.0
+          },
+          {
+            "group": "110616-001",
+            "n": 163,
+            "auc": 0.9912946428571427
+          },
+          {
+            "group": "110617-000",
+            "n": 49,
+            "auc": 0.9753787878787878
+          },
+          {
+            "group": "110620-000",
+            "n": 208,
+            "auc": 0.9696800595238096
+          },
+          {
+            "group": "110622-001",
+            "n": 38,
+            "auc": 1.0
+          },
+          {
+            "group": "110623-000",
+            "n": 96,
+            "auc": 0.9600000000000001
+          },
+          {
+            "group": "110627-001",
+            "n": 44,
+            "auc": 0.9145299145299146
+          },
+          {
+            "group": "110629-000",
+            "n": 44,
+            "auc": 0.975206611570248
+          },
+          {
+            "group": "110630-001",
+            "n": 88,
+            "auc": 0.9839128178515828
+          },
+          {
+            "group": "110701-000",
+            "n": 110,
+            "auc": 0.9393282773564464
+          },
+          {
+            "group": "110706-000",
+            "n": 139,
+            "auc": 0.9659609796596098
+          },
+          {
+            "group": "110728-000",
+            "n": 67,
+            "auc": 0.9504504504504505
+          },
+          {
+            "group": "110728-002",
+            "n": 83,
+            "auc": 0.9285714285714286
+          },
+          {
+            "group": "110729-000",
+            "n": 82,
+            "auc": 0.9546703296703296
+          },
+          {
+            "group": "110801-000",
+            "n": 30,
+            "auc": 0.9952153110047847
+          },
+          {
+            "group": "110815-000",
+            "n": 62,
+            "auc": 0.9837837837837837
+          },
+          {
+            "group": "110907-001",
+            "n": 65,
+            "auc": 0.991869918699187
+          },
+          {
+            "group": "110914-000",
+            "n": 27,
+            "auc": 0.9120879120879121
+          },
+          {
+            "group": "110920-000",
+            "n": 185,
+            "auc": 0.9590588235294117
+          },
+          {
+            "group": "110923-000",
+            "n": 15,
+            "auc": 1.0
+          },
+          {
+            "group": "111006-000",
+            "n": 14,
+            "auc": 1.0
+          },
+          {
+            "group": "111013-000",
+            "n": 28,
+            "auc": 0.9786096256684492
+          },
+          {
+            "group": "111202-001",
+            "n": 39,
+            "auc": 0.9506172839506173
+          },
+          {
+            "group": "130416-001",
+            "n": 414,
+            "auc": 0.989542665923034
+          },
+          {
+            "group": "130417-000",
+            "n": 89,
+            "auc": 0.9748427672955975
+          },
+          {
+            "group": "130418-000",
+            "n": 82,
+            "auc": 0.9525525525525526
+          },
+          {
+            "group": "130503-000",
+            "n": 39,
+            "auc": 0.8571428571428571
+          }
+        ],
+        "n_groups": 53,
+        "median": 0.9839128178515828,
+        "mean": 0.9734203195495037,
+        "q25": 0.9590588235294117,
+        "q75": 0.9993506493506493,
+        "min": 0.8571428571428571,
+        "max": 1.0,
+        "n_below_0p80": 0
+      },
+      "neg_pool:loudness_stratified": {
+        "bands": [
+          {
+            "band": "-68.6..-58.9 dB",
+            "n": 754,
+            "model": 0.9059882220604778,
+            "energy": 0.7157414146761067
+          },
+          {
+            "band": "-58.9..-51.4 dB",
+            "n": 753,
+            "model": 0.9618546017234281,
+            "energy": 0.6107025737851535
+          },
+          {
+            "band": "-51.4..-46.4 dB",
+            "n": 754,
+            "model": 0.9882207796022677,
+            "energy": 0.5046852510060806
+          },
+          {
+            "band": "-46.4..-40.3 dB",
+            "n": 753,
+            "model": 0.9817323481116584,
+            "energy": 0.5418263090676884
+          },
+          {
+            "band": "-40.3..-15.6 dB",
+            "n": 754,
+            "model": 0.9764982882895896,
+            "energy": 0.4477892212800994
+          }
+        ],
+        "weighted_model_auc": 0.9628541055864864,
+        "weighted_energy_auc": 0.5641425232371959,
+        "energy_null_ok": true,
+        "note": "energy is near chance within bands, so loudness is controlled"
+      },
+      "neg_pool:loudness_matched_pairs": {
+        "n_pairs": 843,
+        "mean_signed_db_gap": 0.008201882373800647,
+        "max_abs_db_gap": 0.49908521215113666,
+        "model_win_rate": 0.9608540925266904,
+        "energy_win_rate": 0.5302491103202847,
+        "expected_energy_null": 0.5,
+        "matching_unbiased": true
+      },
+      "soundsep_111021:shuffled_label": {
+        "mean_auc": 0.4963659796715481,
+        "std": 0.022170113321294684,
+        "per_perm": [
+          0.4696339527920667,
+          0.5009370673450322,
+          0.535919507884873,
+          0.48588911651152056,
+          0.4894502538242478
+        ],
+        "expected_null": 0.5,
+        "passed": true
+      },
+      "soundsep_111021:per_group": {
+        "groups": [
+          {
+            "group": "111021-000",
+            "n": 1801,
+            "auc": 0.9639524543847998
+          }
+        ],
+        "n_groups": 1,
+        "median": 0.9639524543847998,
+        "mean": 0.9639524543847998,
+        "q25": 0.9639524543847998,
+        "q75": 0.9639524543847998,
+        "min": 0.9639524543847998,
+        "max": 0.9639524543847998,
+        "n_below_0p80": 0
+      },
+      "soundsep_111021:loudness_stratified": {
+        "bands": [
+          {
+            "band": "-66.1..-52.6 dB",
+            "n": 361,
+            "model": 0.9748132600777826,
+            "energy": 0.7305389221556886
+          },
+          {
+            "band": "-52.6..-48.2 dB",
+            "n": 361,
+            "model": 0.9803785780240074,
+            "energy": 0.5444598337950138
+          },
+          {
+            "band": "-48.2..-44.9 dB",
+            "n": 361,
+            "model": 0.9616655651024455,
+            "energy": 0.48925974884335766
+          },
+          {
+            "band": "-44.9..-41.1 dB",
+            "n": 361,
+            "model": 0.9634755736734828,
+            "energy": 0.4241896245644027
+          },
+          {
+            "band": "-41.1..-21.0 dB",
+            "n": 361,
+            "model": 0.9274949649281201,
+            "energy": 0.6016737273421766
+          }
+        ],
+        "weighted_model_auc": 0.9615655883611678,
+        "weighted_energy_auc": 0.558024371340128,
+        "energy_null_ok": true,
+        "note": "energy is near chance within bands, so loudness is controlled"
+      },
+      "soundsep_111021:loudness_matched_pairs": {
+        "n_pairs": 528,
+        "mean_signed_db_gap": 0.004719302610002617,
+        "max_abs_db_gap": 0.49933625205804333,
+        "model_win_rate": 0.9450757575757576,
+        "energy_win_rate": 0.5113636363636364,
+        "expected_energy_null": 0.5,
+        "matching_unbiased": true
+      }
+    }
+  }
+}

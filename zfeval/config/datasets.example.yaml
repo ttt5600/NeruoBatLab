@@ -1,0 +1,58 @@
+# zfeval dataset registry.
+#
+# Declare what audio exists and where its labels are; the suite works out the eval matrix:
+# within-dataset cross-validation for every dataset, plus train-on-each / test-on-every-other.
+#
+# role: train   -> only ever used to fit probes
+#       holdout -> only ever used as a test set (use this for data the ENCODER has never seen)
+#       both    -> both of the above
+
+datasets:
+
+  # Labeled fixed-length windows.
+  neg_pool:
+    kind: windows
+    table: ~/zf_labelset/zf_detection_dataset_v1/dataset.csv
+    audio_dir: /global/scratch/users/jonathanswang/temp_files/run5-4-26-full/data/spectrogram/preprocessed_audio
+    source: benchmark_neg_pool
+    group_field: recording
+    role: both
+
+  soundsep_111021:
+    kind: windows
+    table: ~/zf_labelset/zf_detection_dataset_v1/dataset.csv
+    audio_dir: /global/scratch/users/jonathanswang/temp_files/run5-4-26-full/data/spectrogram/preprocessed_audio
+    source: soundsep_111021
+    group_field: recording
+    role: both
+
+  # A continuous recording with onsets/offsets -- used for frame-level and event-level scoring.
+  zf_111021_frames:
+    kind: recording
+    wav: ~/zf_labelset/audio/111021-000.wav
+    intervals_csv: ~/segments_111021.csv     # StartIndex/StopIndex at 44100
+    src_sr: 44100
+    block_sec: 360
+    role: both
+
+  # THE IMPORTANT ONE when you retrain: audio the encoder has never heard.
+  # BirdPark (Zenodo 20608098, Hahnloser lab ETH Zurich, CC-BY-4.0).
+  # NOTE: wav channels 0-1 are backpack ACCELEROMETERS (centroid ~500 Hz); the microphones
+  # are channels 2-5. Getting this wrong measures the wrong signal entirely.
+  birdpark:
+    kind: recording
+    wav: ~/zf_labelset/external/birdpark/birdpark_16k.wav
+    intervals_csv: ~/zf_labelset/external/birdpark/birdpark_segments.csv
+    block_sec: 15
+    role: holdout
+
+settings:
+  layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  frame_layers: [0, 3, 6, 9]
+  normalize_scope: context          # context | window | none
+  normalize_context_sec: 20
+  n_splits: 5
+  seed: 0
+  bootstrap_resamples: 2000
+  # curated clip filenames, used to recover bird identity for bird-disjoint splits
+  clip_name_list: ~/.claude/jobs/63c218d9/tmp/adult.txt
