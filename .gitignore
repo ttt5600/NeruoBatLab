@@ -6,3 +6,9 @@ zfeval/runs/**/*.npz
 __pycache__/
 *.pyc
 .pytest_cache/
+.venv_quant/
+quant/data_cache/*.csv
+quant/data_cache/*.meta.json
+__pycache__/
+*.pyc
+.pytest_cache/

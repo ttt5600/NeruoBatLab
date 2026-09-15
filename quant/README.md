@@ -1,0 +1,144 @@
+# quant — an automated trading harness that refuses to flatter you
+
+A backtesting and strategy framework for daily-bar systematic trading, built so
+that the evaluation is harder to fool than the strategy is to write.
+
+The premise: retail algo-trading rarely fails because the strategy was bad. It
+fails because the *backtest* was optimistic, and nobody found out until real
+money was on the line. So the engineering effort here goes into the measurement
+apparatus, not the signals.
+
+```bash
+python3.11 -m venv .venv_quant
+.venv_quant/bin/pip install numpy pandas scipy matplotlib pytest
+.venv_quant/bin/python -m pytest tests/ -q     # 25 tests
+.venv_quant/bin/python scripts/run_demo.py     # the full experiment
+```
+
+## What's here
+
+| module | role |
+|---|---|
+| `quant/data.py` | Adjusted daily bars from Yahoo's public chart endpoint. No API key. Disk cache keyed by **symbol and window**. |
+| `quant/backtest.py` | Vectorised engine. Execution lag, turnover with drift, commissions, spread, slippage, borrow, financing. |
+| `quant/strategies.py` | Seven strategies, each a pure function `prices -> target weights`. |
+| `quant/stats.py` | Performance metrics plus the chance-corrections: PSR, Deflated Sharpe, PBO, block bootstraps. |
+| `quant/walkforward.py` | Parameter selection on trailing data only, with an embargo. |
+| `scripts/run_demo.py` | The three-part experiment below. |
+
+## The three design decisions that matter
+
+**1. The execution lag lives inside the engine.**
+`target_weights.loc[t]` is the decision made at the close of day `t`; it earns
+day `t+1`'s return. The `.shift()` that enforces this is in `run_backtest`, not
+in any strategy, so a strategy author cannot forget it or quietly remove it to
+improve a Sharpe. `test_execution_lag_defeats_the_classic_close_to_close_leak`
+shows a signal built from today's close printing Sharpe **42.3** at `lag=0` and
+**−0.17** at `lag=1`.
+
+The engine's guarantee has a limit, and the tests state it explicitly: it
+controls *when* a decision executes, not whether the decision used data that
+existed yet. A strategy defined as `sign(return[t+1])` still prints 42.3. Only
+`test_every_strategy_is_causal` — which checks that weights computed on
+truncated history match weights computed on full history — catches that.
+
+**2. Costs include the ones people forget.**
+Constant weights are not free to maintain: positions drift with prices, so
+turnover is measured against the *drifted* book, not the previous target.
+Shorts accrue borrow; leverage above 1× accrues financing. Cash earns nothing,
+which is deliberately conservative — a strategy that sits in cash gets no
+T-bill yield and must beat buy-and-hold on price alone.
+
+**3. Every metric is validated on a synthetic null before it ranks anything real.**
+PBO must return ~0.5 on 200 coin-flip strategies and <0.2 when one has a real
+edge. The Deflated Sharpe must refuse to certify the winner of a 500-way noise
+sweep while the naive test reports >0.99. Those are tests, not assertions in
+prose.
+
+## The experiment (`scripts/run_demo.py`)
+
+10 liquid ETFs, 2007-01-03 to 2026-09-11, 4954 trading days, net of costs.
+
+### A. The same grid, scored two ways
+
+A 22-configuration SMA crossover sweep:
+
+| | Sharpe |
+|---|---|
+| Full-sample winner (SMA 10/150) | **0.821** |
+| Same grid chosen walk-forward | 0.789 |
+| Its **excess over buy-and-hold** | **−0.234** |
+
+| null | verdict |
+|---|---|
+| DSR vs zero | **0.999** — certified |
+| DSR on excess over buy-and-hold | **0.084** — rejected |
+
+The winner is not a good strategy. It is a worse version of holding the index,
+and testing it against zero hides that completely, because a long-only equity
+rule collects the equity risk premium whether or not its timing does anything.
+
+PBO = **0.635**, and the walk-forward parameter choice lurches from 20/50 to
+100/250 to 5/50 across folds. That instability is the finding: a strategy whose
+optimum moves every year does not have an optimum.
+
+### B. Honest horse race — a priori parameters, net of costs
+
+Nothing beat equal-weight buy-and-hold after correcting for multiple tests.
+
+| strategy | Sharpe | Δ vs B&H | raw p | Holm p |
+|---|---|---|---|---|
+| `sixty_forty` | 0.776 | +0.141 | 0.096 | 0.672 |
+| `inverse_vol` | 0.756 | +0.121 [−0.004, +0.242] | **0.028** | **0.221** |
+| `buy_and_hold_EW` | 0.635 | — | — | — |
+| `xsmom_12_1_top2` | 0.459 | −0.176 | 0.832 | 1.000 |
+| `meanrev_5d` | −0.021 | −0.655 | 0.980 | 0.980 |
+
+`inverse_vol` is the only raw p<0.05 — and it does not survive Holm. One hit in
+eight tries is roughly one expected false positive.
+
+Two details worth the price of admission:
+
+- **`meanrev_5d` earns a gross Sharpe of 0.565 and a net Sharpe of −0.021.**
+  135× annual turnover, 3.5%/yr in costs. The edge is real and the friction
+  eats all of it. This is the most common way a good backtest becomes a losing
+  account.
+- **The significance test has to match the claim.** Risk-based allocation
+  improves Sharpe by cutting volatility, not by raising return — so a test on
+  *mean excess return* is structurally blind to it. `inverse_vol` scores
+  p=0.944 on the mean test and p=0.028 on the Sharpe test. Same data, opposite
+  conclusions; only one of them is asking the right question.
+
+### C. Null control
+
+Geometric Brownian motion with fixed drift — no timing signal exists by
+construction. The same sweep still finds SMA 20/250 at Sharpe **1.248**, with
+DSR-vs-zero of **1.000**. A strategy with provably zero skill gets certified.
+It still loses to buy-and-hold (1.351), which is the only comparison that had
+any content.
+
+## A bug worth keeping in the record
+
+The first full run silently reported on 2015–2026 instead of 2007–2026. The
+per-symbol cache ignored the requested date range, so an earlier smoke test
+that fetched SPY and TLT from 2015 capped every later call; `dropna(how="any")`
+then truncated the whole panel to the shortest column. Eight years and the GFC
+vanished, no error was raised, and every number was plausible.
+
+Fixed in two places: the cache now stores maximal history and records the window
+it fetched (`test_cache_is_not_poisoned_by_an_earlier_narrower_request`), and
+`run_demo.py` refuses to run if the common window is more than a year shorter
+than requested. Silent truncation is the failure mode to fear, because plausible
+wrong numbers do not prompt anyone to look.
+
+## Honest limits
+
+- **Daily close-to-close only.** Nothing here says anything about intraday.
+- **Costs are modelled, not measured.** ~2.5 bps/trade suits liquid ETFs in
+  retail size, and is far too optimistic for small caps or size.
+- **No live broker integration**, deliberately. This measures whether an idea
+  is worth trading; it does not route orders.
+- **Survivorship bias in the universe.** These ten ETFs all still exist, which
+  is itself a selection.
+- **One market regime.** 2007–2026 is a single, largely bullish sample. Two
+  decades of daily bars is a smaller effective sample than it looks.
