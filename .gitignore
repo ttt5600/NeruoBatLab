@@ -12,3 +12,4 @@ quant/data_cache/*.meta.json
 __pycache__/
 *.pyc
 .pytest_cache/
+quant/results/paper_account.json

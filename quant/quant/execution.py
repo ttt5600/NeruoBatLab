@@ -81,6 +81,21 @@ class RebalancePolicy:
     max_gross_leverage: float = 1.0
     allow_short: bool = False
     allow_fractional: bool = True
+    cash_buffer: float = 0.002
+    """Fraction of equity kept unspent as a reserve."""
+
+    est_cost_bps: float = 5.0
+    """Assumed round-trip friction when checking whether a buy is affordable.
+
+    A buy for ``N`` of notional actually removes ``N * (1 + fee)`` from cash,
+    because slippage and commission are charged on top. Sizing orders off clean
+    notional therefore overspends slightly on every rebalance, and a gross-1.0
+    target drives cash negative -- which in a cash account is a margin call, and
+    silently levers a portfolio that was supposed to be unlevered.
+
+    Set deliberately above the default ``CostModel`` friction: being refused a
+    few dollars of exposure is cheap, and an unfundable order is not.
+    """
 
 
 class Broker(Protocol):
@@ -166,7 +181,45 @@ def plan_rebalance(
             reason=("exit" if exiting else f"drift {drift:+.4f} vs band {policy.band:.4f}"),
         ))
 
-    return orders
+    return _cap_to_affordable(orders, account, equity, policy)
+
+
+def _cap_to_affordable(orders: list[Order], account: Account, equity: float,
+                       policy: RebalancePolicy) -> list[Order]:
+    """Scale buys down so the rebalance can actually be paid for.
+
+    Sells in the same rebalance fund buys, so the constraint is on the net:
+    cash on hand, plus sale proceeds net of fees, minus the reserve, must cover
+    the buys *and* their fees. Sells are never capped -- raising cash is always
+    affordable, and refusing to sell would leave a position the strategy has
+    already decided to exit.
+    """
+    buys = [o for o in orders if o.side == "buy"]
+    if not buys:
+        return orders
+    sells = [o for o in orders if o.side == "sell"]
+
+    fee = policy.est_cost_bps / 1e4
+    proceeds = sum(o.est_notional for o in sells) * (1 - fee)
+    available = account.cash + proceeds - policy.cash_buffer * equity
+    max_buy = available / (1 + fee)
+
+    wanted = sum(o.est_notional for o in buys)
+    if wanted <= max_buy:
+        return orders
+    if max_buy <= 0:
+        return sells
+
+    scale = max_buy / wanted
+    scaled = []
+    for o in buys:
+        qty = o.qty * scale
+        if not policy.allow_fractional:
+            qty = math.trunc(qty)
+        if qty > 1e-9:
+            scaled.append(Order(o.symbol, o.side, qty, o.est_price,
+                                f"{o.reason}; capped to available cash"))
+    return sells + scaled
 
 
 # --------------------------------------------------------------------------
@@ -179,8 +232,9 @@ class PaperBroker:
     """
 
     def __init__(self, cash: float = 100_000.0, costs: CostModel = CostModel(),
-                 marks: dict[str, float] | None = None):
-        self._account = Account(cash=float(cash), positions={})
+                 marks: dict[str, float] | None = None,
+                 positions: dict[str, float] | None = None):
+        self._account = Account(cash=float(cash), positions=dict(positions or {}))
         self.costs = costs
         self.marks = dict(marks or {})
         self.fills: list[Order] = []

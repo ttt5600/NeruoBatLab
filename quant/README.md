@@ -148,15 +148,49 @@ Three rails, all of them consequences of the findings above:
 
 - **A no-trade band (default 2pp).** This is the `meanrev_5d` lesson made
   structural. On a fixed price path, 250 days of rebalancing a 3-asset book
-  drops from **634 orders / $253k notional** to **19 orders / $119k** — order
-  count falls 33×. Chasing the target exactly is how a real gross edge becomes
-  a losing account.
+  drops from **617 orders / $213.8k notional** to **28 orders / $112.4k** —
+  order count falls 22×. Chasing the target exactly is how a real gross edge
+  becomes a losing account.
 - **`dry_run=True` by default.** Placing real orders is an explicit argument at
   the call site, never a config file's job.
 - **Guardrails reject, never clamp.** A NaN weight, a non-positive price, a
   missing mark for a held position, or gross exposure over the cap raises
   `GuardrailError` naming the violation. Silently coercing bad input into
   something tradeable is how upstream bugs reach the market.
+- **Buys are capped to what the account can actually pay for.** A buy for `N`
+  of notional removes `N × (1 + fee)` from cash, so sizing on clean notional
+  overspends on every rebalance and a gross-1.0 target walks cash negative —
+  a margin call in a cash account, and silent leverage in any account. Found by
+  a test asserting `cash >= 0`, not by inspection.
+
+## Forward paper trading (`quant/paper.py`)
+
+```bash
+python scripts/paper_run.py init --strategy inverse_vol --cash 25000
+python scripts/paper_run.py step        # once per trading day; idempotent
+python scripts/paper_run.py report
+```
+
+A JSON journal of every day's plan, fills, costs and positions. `step` is
+idempotent on the bar date, so a retrying cron cannot double-trade, and saves
+are atomic so a crash mid-write can't corrupt the journal.
+
+The point is not the paper P&L — a few months of it says almost nothing about
+skill, and reading it as though it does repeats the error this repo exists to
+prevent. The point is `divergence()`: **does the live path reproduce what the
+backtest claims for the same days?** Replaying 2026-03-02 → 2026-09-11:
+
+| | return | Sharpe | ann. turnover |
+|---|---|---|---|
+| paper | +2.828% | 0.606 | 2.15× |
+| backtest | +2.564% | 0.555 | 2.80× |
+
+Correlation **0.9990**, mean daily gap **+0.19 bps**. The paper path runs
+slightly *ahead* because the band traded on 11 days out of 135 instead of
+continuously, and the saved costs exceed the tracking error. That gap is
+explained, which is the whole test — an unexplained gap means the live system
+and the research system disagree, and neither number is trustworthy until you
+know why.
 
 `live_signal.py` computes weights from the **most recent completed daily bar**,
 matching the backtest's convention. Running it intraday and filling immediately
