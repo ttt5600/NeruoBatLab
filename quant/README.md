@@ -131,6 +131,40 @@ it fetched (`test_cache_is_not_poisoned_by_an_earlier_narrower_request`), and
 than requested. Silent truncation is the failure mode to fear, because plausible
 wrong numbers do not prompt anyone to look.
 
+## Going live (`quant/execution.py`)
+
+The seam between research and a real account. `plan_rebalance` turns target
+weights into an order list against the positions you actually hold;
+`PaperBroker` is the reference implementation and charges the same `CostModel`
+the backtest assumed, so live results don't diverge for reasons unrelated to
+the strategy.
+
+```bash
+.venv_quant/bin/python scripts/live_signal.py --strategy inverse_vol --equity 25000
+.venv_quant/bin/python scripts/live_signal.py --positions "SPY=12,TLT=40" --cash 500
+```
+
+Three rails, all of them consequences of the findings above:
+
+- **A no-trade band (default 2pp).** This is the `meanrev_5d` lesson made
+  structural. On a fixed price path, 250 days of rebalancing a 3-asset book
+  drops from **634 orders / $253k notional** to **19 orders / $119k** — order
+  count falls 33×. Chasing the target exactly is how a real gross edge becomes
+  a losing account.
+- **`dry_run=True` by default.** Placing real orders is an explicit argument at
+  the call site, never a config file's job.
+- **Guardrails reject, never clamp.** A NaN weight, a non-positive price, a
+  missing mark for a held position, or gross exposure over the cap raises
+  `GuardrailError` naming the violation. Silently coercing bad input into
+  something tradeable is how upstream bugs reach the market.
+
+`live_signal.py` computes weights from the **most recent completed daily bar**,
+matching the backtest's convention. Running it intraday and filling immediately
+reintroduces the exact close-to-close leak the engine exists to prevent.
+
+This module holds no credentials, makes no network calls, and ships no live
+broker adapter — that stays in your environment, not in the repo.
+
 ## Honest limits
 
 - **Daily close-to-close only.** Nothing here says anything about intraday.
