@@ -138,3 +138,26 @@ def test_bad_mark_is_refused(acct, px):
 def test_empty_prices_is_refused(acct, px):
     with pytest.raises(GuardrailError, match="no price data"):
         step(acct, px.iloc[:0], build, COSTS)
+
+
+def test_backfilled_bars_are_not_counted_as_live_evidence(acct, px):
+    """Replay must never satisfy a forward-evidence requirement.
+
+    Backfill replays the period the strategy was selected on. If those bars
+    counted toward a six-month out-of-sample bar, anyone could clear it
+    instantly by replaying five years -- in-sample data laundered into an
+    out-of-sample claim.
+    """
+    n = backfill(acct, px, build, COSTS, start=px.index[250].strftime("%Y-%m-%d"))
+    assert n > 10
+    assert len(acct.entries) == n
+    assert acct.live_days == 0, "backfilled bars must not count as live"
+    assert all(e.source == "backfill" for e in acct.entries)
+
+
+def test_forward_steps_are_counted_as_live(acct, px):
+    backfill(acct, px.iloc[:-1], build, COSTS, start=px.index[280].strftime("%Y-%m-%d"))
+    before = acct.live_days
+    step(acct, px, build, COSTS)
+    assert acct.live_days == before + 1
+    assert acct.entries[-1].source == "live"

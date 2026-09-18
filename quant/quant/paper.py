@@ -44,6 +44,14 @@ class JournalEntry:
     positions: dict[str, float] = field(default_factory=dict)
     marks: dict[str, float] = field(default_factory=dict)
     target: dict[str, float] = field(default_factory=dict)
+    source: str = "live"
+    """"live" (stepped forward on a real day) or "backfill" (replayed history).
+
+    These are not the same evidence and must never be pooled. Replayed bars run
+    over the period the strategy was chosen on, so counting them toward an
+    out-of-sample requirement would let anyone clear a six-month bar instantly
+    by backfilling five years. Only "live" rows count as forward evidence.
+    """
 
 
 @dataclass
@@ -97,6 +105,11 @@ class PaperAccount:
     def processed_dates(self) -> set[str]:
         return {e.bar_date for e in self.entries}
 
+    @property
+    def live_days(self) -> int:
+        """Forward-stepped bars only. Backfilled replay is not evidence."""
+        return sum(1 for e in self.entries if e.source == "live")
+
     def equity_curve(self) -> pd.Series:
         if not self.entries:
             return pd.Series(dtype=float)
@@ -118,6 +131,7 @@ def step(
     build_weights,
     costs: CostModel = CostModel(),
     force: bool = False,
+    source: str = "live",
 ) -> JournalEntry | None:
     """Process the most recent bar in ``prices``. Returns None if already done.
 
@@ -164,6 +178,7 @@ def step(
         positions=dict(after_acct.positions),
         marks=marks,
         target=target,
+        source=source,
     )
     account.cash = after_acct.cash
     account.positions = dict(after_acct.positions)
@@ -190,7 +205,8 @@ def backfill(
     lo = 0 if start is None else int(idx.searchsorted(pd.Timestamp(start)))
     n = 0
     for i in range(max(lo, 1), len(idx)):
-        if step(account, prices.iloc[: i + 1], build_weights, costs) is not None:
+        if step(account, prices.iloc[: i + 1], build_weights, costs,
+                source="backfill") is not None:
             n += 1
     return n
 
