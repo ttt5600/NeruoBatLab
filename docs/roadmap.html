@@ -1,0 +1,731 @@
+<title>Zebra Finch Encoder Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --bg:        #FBFAF7;
+  --surface:   #FFFFFF;
+  --surface-2: #F3F2EE;
+  --ink:       #12171B;
+  --ink-2:     #3A444D;
+  --muted:     #5D6873;
+  --faint:     #8A939C;
+  --rule:      #DFDDD6;
+  --accent:    #0E7490;
+  --accent-dk: #0A5568;
+  --accent-bg: #E3F1F4;
+  --done:      #2F7A55;
+  --done-bg:   #E4F1EA;
+  --run:       #9A6510;
+  --run-bg:    #F7EEDC;
+  --plan:      #6B7680;
+  --plan-bg:   #EDEEEF;
+  --fail:      #A33A3A;
+  --fail-bg:   #F7E8E8;
+  --shadow:    0 1px 2px rgba(18,23,27,.05), 0 8px 24px -12px rgba(18,23,27,.14);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #10141A;
+    --surface:   #171D25;
+    --surface-2: #1D242E;
+    --ink:       #ECEFF2;
+    --ink-2:     #C3CBD3;
+    --muted:     #98A3AE;
+    --faint:     #6E7A86;
+    --rule:      #2A333E;
+    --accent:    #4FC3D9;
+    --accent-dk: #8AD8E8;
+    --accent-bg: #123039;
+    --done:      #6BC194;
+    --done-bg:   #163024;
+    --run:       #DFA640;
+    --run-bg:    #33280F;
+    --plan:      #93A0AC;
+    --plan-bg:   #212932;
+    --fail:      #E58A8A;
+    --fail-bg:   #351C1C;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:        #10141A;
+  --surface:   #171D25;
+  --surface-2: #1D242E;
+  --ink:       #ECEFF2;
+  --ink-2:     #C3CBD3;
+  --muted:     #98A3AE;
+  --faint:     #6E7A86;
+  --rule:      #2A333E;
+  --accent:    #4FC3D9;
+  --accent-dk: #8AD8E8;
+  --accent-bg: #123039;
+  --done:      #6BC194;
+  --done-bg:   #163024;
+  --run:       #DFA640;
+  --run-bg:    #33280F;
+  --plan:      #93A0AC;
+  --plan-bg:   #212932;
+  --fail:      #E58A8A;
+  --fail-bg:   #351C1C;
+  --shadow:    0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 1.25rem 6rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 60rem; margin: 0 auto; }
+.narrow { max-width: 42rem; }
+
+/* ---------- masthead ---------- */
+header.mast {
+  padding: 4.5rem 0 2.5rem;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 2.5rem;
+}
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1rem;
+}
+h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -.015em;
+  margin: 0 0 1.1rem;
+  text-wrap: balance;
+}
+.standfirst {
+  font-size: 1.12rem;
+  color: var(--ink-2);
+  max-width: 44rem;
+  margin: 0;
+}
+.standfirst strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- sections ---------- */
+section { margin: 0 0 4rem; }
+h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: -.01em;
+  margin: 0 0 .5rem;
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  text-wrap: balance;
+}
+h2 .num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: .08em;
+  flex: none;
+}
+.lede { color: var(--muted); margin: 0 0 1.75rem; max-width: 46rem; }
+h3 {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 2.25rem 0 .9rem;
+}
+p { margin: 0 0 1rem; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+/* ---------- status chips ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: .16rem .5rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.chip::before { font-size: .8em; }
+.c-done { background: var(--done-bg); color: var(--done); }
+.c-done::before { content: "\25CF"; }
+.c-run  { background: var(--run-bg);  color: var(--run); }
+.c-run::before  { content: "\25D0"; }
+.c-plan { background: var(--plan-bg); color: var(--plan); }
+.c-plan::before { content: "\25CB"; }
+.c-fail { background: var(--fail-bg); color: var(--fail); }
+.c-fail::before { content: "\2715"; }
+
+/* ---------- headline result ---------- */
+.result {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+.result h3 { margin-top: 0; color: var(--accent); }
+.swing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .6rem 1.1rem;
+  font-family: "IBM Plex Mono", monospace;
+  margin: 1rem 0 .4rem;
+}
+.swing .v { font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.swing .neg { color: var(--fail); }
+.swing .pos { color: var(--done); }
+.swing .arrow { color: var(--faint); font-size: 1.1rem; }
+.swing .lbl { font-size: .72rem; color: var(--muted); letter-spacing: .04em; }
+
+/* ---------- tables ---------- */
+.scroller { overflow-x: auto; margin: 0 0 1rem; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .86rem; min-width: 40rem; }
+caption { caption-side: bottom; text-align: left; color: var(--faint); font-size: .78rem; padding: .7rem .9rem; line-height: 1.5; }
+th, td { padding: .5rem .8rem; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface-2);
+  white-space: nowrap;
+  position: sticky; top: 0;
+}
+tbody tr:last-child td { border-bottom: none; }
+td.num, th.num { font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+td.name { font-family: "IBM Plex Mono", monospace; font-size: .8rem; white-space: nowrap; }
+.pos { color: var(--done); }
+.neg { color: var(--fail); }
+tr.ref td { background: var(--accent-bg); }
+tr.hero td { background: var(--done-bg); font-weight: 600; }
+.rowgap td { padding: 0; height: .35rem; background: var(--surface-2); border-bottom: none; }
+
+/* ---------- phase list ---------- */
+.phase {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  gap: 0 1.1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.phase:last-child { border-bottom: none; }
+.phase .tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--accent);
+  padding-top: .12rem;
+}
+.phase h4 {
+  margin: 0 0 .3rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem;
+}
+.phase p { margin: 0 0 .5rem; color: var(--ink-2); font-size: .94rem; }
+.meta {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .74rem;
+  color: var(--faint);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem 1rem;
+}
+
+/* ---------- cards ---------- */
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.15rem 1.25rem;
+}
+.card h4 { margin: 0 0 .4rem; font-size: .98rem; font-weight: 600; }
+.card p { margin: 0; font-size: .89rem; color: var(--ink-2); }
+.card .meta { margin-top: .7rem; }
+
+/* ---------- constraint callouts ---------- */
+.warn {
+  background: var(--fail-bg);
+  border-left: 3px solid var(--fail);
+  border-radius: 3px;
+  padding: 1rem 1.25rem;
+  margin: 0 0 1rem;
+}
+.warn h4 { margin: 0 0 .35rem; font-size: .95rem; font-weight: 600; color: var(--fail); }
+.warn p { margin: 0; font-size: .9rem; color: var(--ink-2); }
+
+ul.tight { margin: 0 0 1rem; padding-left: 1.15rem; }
+ul.tight li { margin-bottom: .45rem; color: var(--ink-2); }
+code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .86em;
+  background: var(--surface-2);
+  padding: .1em .35em;
+  border-radius: 3px;
+}
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.5rem;
+  color: var(--faint);
+  font-size: .82rem;
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Zebra finch · self-supervised audio encoders</p>
+  <h1>Encoder Roadmap</h1>
+  <p class="standfirst">
+    Every pretraining variant we have run, are running, or intend to run — laid out as one
+    design space so no cell gets tested twice and none gets missed. <strong>Current state:
+    mixing general audio back into continued pretraining just erased a catastrophic-forgetting
+    failure</strong>, and the combined-corpus arm is the next thing to settle.
+  </p>
+</header>
+
+<section>
+  <h2><span class="num">00</span> Where we are</h2>
+  <p class="lede">
+    The project's long-running result has been that <code>run11</code> — a HuBERT pretrained on
+    116 h of our own colony audio — loses to AVES, the same architecture pretrained on generic
+    animal audio. Round 1 of domain-adaptive pretraining made that worse. Round 2 fixed it.
+  </p>
+
+  <div class="result">
+    <h3>Rehearsal closes the forgetting gap</h3>
+    <p>
+      Continuing AVES's pretraining on zebra-finch-only audio drove held-out detection
+      <em>below a plain energy detector</em>. Mixing 19.3&nbsp;% FSD50K — real audio from AVES's own
+      corpus — back into the training stream, with everything else identical, reversed it.
+    </p>
+    <div class="swing">
+      <span><span class="v neg">&minus;0.1179</span> <span class="lbl">ZF-only (round 1)</span></span>
+      <span class="arrow">&rarr;</span>
+      <span><span class="v pos">+0.0196</span> <span class="lbl">with replay (round 2)</span></span>
+    </div>
+    <p style="margin:.4rem 0 0;font-size:.86rem;color:var(--muted)">
+      BirdPark AP relative to <code>run11</code>, at the arm pre-committed on in-distribution AUC.
+      A swing of <strong>0.1375</strong> — more than twice this holdout's resolution.
+    </p>
+  </div>
+
+  <p>
+    <strong>The honest reading.</strong> Replay is significantly better than <code>run11</code>
+    <em>in-distribution</em> (+0.0032 AUC, CI [+0.0012,&nbsp;+0.0053]). On the holdout its
+    +0.0196&nbsp;AP is <em>not distinguishable</em> — CI [&minus;0.0166,&nbsp;+0.0709] straddles zero.
+    So the defensible claim is that replay is the first arm that is <strong>better somewhere and
+    worse nowhere</strong>, not that it beats <code>run11</code> on transfer. The 0.1375 swing
+    away from round 1, however, is far too large to be noise.
+  </p>
+</section>
+
+<section>
+  <h2><span class="num">01</span> The design space</h2>
+  <p class="lede">
+    Three axes generate every experiment here. Most published comparisons in this project moved
+    two at once — which is exactly why the run11-vs-AVES question has stayed open.
+  </p>
+
+  <div class="grid2" style="margin-bottom:1.75rem">
+    <div class="card">
+      <h4>Corpus</h4>
+      <p>Zebra finch only (116&nbsp;h) · general only (FSD50K, 108&nbsp;h) · both (224&nbsp;h).</p>
+    </div>
+    <div class="card">
+      <h4>Initialisation</h4>
+      <p>Random (from scratch) · AVES encoder weights (DAPT) · AVES weights with the conv front
+      end frozen.</p>
+    </div>
+    <div class="card">
+      <h4>Label source</h4>
+      <p>Iteration 1 from spectrogram k-means · iteration 2 from a trained encoder's layer 6 —
+      ours, or AVES's.</p>
+    </div>
+  </div>
+
+  <div class="scroller">
+    <table>
+      <caption>
+        Every cell we have filled or intend to fill. BirdPark AP is the cross-lab holdout at the
+        arm pre-committed on in-distribution AUC; <code>run11</code> scores 0.8121 and the
+        log-energy floor is 0.7472.
+      </caption>
+      <thead>
+        <tr>
+          <th>Model</th><th>Corpus</th><th>Init</th><th>Labels</th>
+          <th class="num">ZF AUC</th><th class="num">BP AP</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="ref">
+          <td class="name">run11</td><td>ZF 116 h</td><td>random</td><td>it1 spec k=100</td>
+          <td class="num">0.9687</td><td class="num">0.8121</td>
+          <td><span class="chip c-done">baseline</span></td>
+        </tr>
+        <tr class="ref">
+          <td class="name">aves-base-bio</td><td>general 360 h</td><td>random</td><td>it2 L6 k=200</td>
+          <td class="num">0.9674</td><td class="num">0.8057</td>
+          <td><span class="chip c-done">external</span></td>
+        </tr>
+        <tr class="ref">
+          <td class="name">birdaves-bioxn-large</td><td>general 2570 h</td><td>random</td><td>it2 L6 k=200</td>
+          <td class="num">0.9724</td><td class="num">0.8442</td>
+          <td><span class="chip c-done">external</span></td>
+        </tr>
+        <tr class="rowgap"><td colspan="7"></td></tr>
+
+        <tr>
+          <td class="name">run12</td><td>ZF 116 h</td><td>random</td><td>it2 own-L6 k=500</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td><span class="chip c-fail">lost</span></td>
+        </tr>
+        <tr>
+          <td class="name">run13</td><td>ZF 116 h</td><td>random</td><td>it2 own-L3 k=500</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td><span class="chip c-fail">lost</span></td>
+        </tr>
+        <tr class="rowgap"><td colspan="7"></td></tr>
+
+        <tr>
+          <td class="name">dapt5e5 / dapt1e4</td><td>ZF 116 h</td><td>AVES</td><td>it1 spec k=100</td>
+          <td class="num">0.9715</td><td class="num">0.6942</td>
+          <td><span class="chip c-fail">forgot</span></td>
+        </tr>
+        <tr class="rowgap"><td colspan="7"></td></tr>
+
+        <tr class="hero">
+          <td class="name">dapt-replay</td><td>ZF + FSD 19 %</td><td>AVES</td><td>it1 spec k=100</td>
+          <td class="num">0.9711</td><td class="num">0.8318</td>
+          <td><span class="chip c-done">best</span></td>
+        </tr>
+        <tr>
+          <td class="name">dapt-freeze</td><td>ZF 116 h</td><td>AVES, CNN frozen</td><td>it1 spec k=100</td>
+          <td class="num">0.9700</td><td class="num">0.8052</td>
+          <td><span class="chip c-done">parity</span></td>
+        </tr>
+        <tr>
+          <td class="name">dapt-lr1e-5</td><td>ZF 116 h</td><td>AVES</td><td>it1 spec k=100</td>
+          <td class="num">0.9685</td><td class="num">0.8047</td>
+          <td><span class="chip c-done">parity</span></td>
+        </tr>
+        <tr>
+          <td class="name">dapt-short</td><td>ZF 116 h</td><td>AVES</td><td>it1 spec k=100</td>
+          <td class="num">0.9684</td><td class="num">0.7912</td>
+          <td><span class="chip c-done">parity</span></td>
+        </tr>
+        <tr class="rowgap"><td colspan="7"></td></tr>
+
+        <tr>
+          <td class="name">ours-on-general</td><td>FSD50K 108 h</td><td>random</td><td>it1 spec k=200</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td><span class="chip c-plan">planned</span></td>
+        </tr>
+        <tr>
+          <td class="name">aves-teacher</td><td>ZF 116 h</td><td>random</td><td>it2 <em>AVES</em>-L6 k=200</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td><span class="chip c-plan">planned</span></td>
+        </tr>
+        <tr>
+          <td class="name">combined-it1</td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td><span class="chip c-plan">planned</span></td>
+        </tr>
+        <tr>
+          <td class="name">combined-it2</td><td>ZF + FSD 224 h</td><td>random</td><td>it2 own-L6 k=200</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td><span class="chip c-plan">planned</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:.9rem;color:var(--muted)">
+    <code>run12</code> / <code>run13</code> predate the current holdout protocol and were scored
+    only in-distribution (0.905 / 0.913 against <code>run11</code>'s 0.921). They are listed because
+    they already eliminated <em>teacher layer</em> and <em>cluster count</em> as explanations —
+    which is what makes the remaining planned cells worth running.
+  </p>
+</section>
+
+<section>
+  <h2><span class="num">02</span> Sequenced work</h2>
+  <p class="lede">
+    Ordered by dependency, not priority — iteration 2 cannot start until iteration 1 has produced
+    a teacher.
+  </p>
+
+  <div class="phase">
+    <div class="tag">P1</div>
+    <div>
+      <h4>Full FSD50K on disk <span class="chip c-run">running</span></h4>
+      <p>
+        Dev split (~80 h, 27 GB, six-part archive) joins the eval split already built (27.9 h).
+        Brings general audio to ~108 h.
+      </p>
+      <div class="meta"><span>zenodo 4060432</span><span>~30 % of AVES-bio</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">P2</div>
+    <div>
+      <h4>Assemble the 224 h combined corpus <span class="chip c-plan">ready</span></h4>
+      <p>
+        Concatenate dev into 10-min files, extract its features, then symlink the ZF and FSD-eval
+        shards already computed rather than redoing ~144 h of extraction. Fit a <em>fresh</em>
+        k=200 k-means on the combined data — unlike the replay corpus, this trains a new model, so
+        its clusters should describe the corpus it will actually see.
+      </p>
+      <div class="meta"><span>assemble_corpus.py</span><span>saves ~7 CPU-h</span><span>3-way row verification</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">P3</div>
+    <div>
+      <h4>Iteration 1 from scratch <span class="chip c-plan">ready</span></h4>
+      <p>
+        Random init on the combined corpus. This model exists only to become the layer-6 teacher
+        for the step that follows.
+      </p>
+      <div class="meta"><span>~4 h · 1×L40</span><span>93,750 updates</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">P4</div>
+    <div>
+      <h4>Iteration 2 — AVES's method, none of its weights <span class="chip c-plan">ready</span></h4>
+      <p>
+        Dump layer-6 features from the P3 model, fit k=200, retrain from random init. This is the
+        cell that de-confounds the whole programme: AVES's <em>two-iteration label recipe</em>
+        applied to our own encoder and a corpus containing both domains.
+      </p>
+      <div class="meta"><span>~1.5 h dump + ~4 h train</span><span>the headline experiment</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">P5</div>
+    <div>
+      <h4>AVES as label teacher <span class="chip c-plan">unblocked</span></h4>
+      <p>
+        Cluster AVES's layer-6 embeddings at k=200 and train on <em>those</em> targets over our
+        corpus, from random init. Borrows AVES's hidden representation without inheriting a single
+        weight. Finding 039 predicts it loses — worth running because that prediction rests on a
+        proxy measurement.
+      </p>
+      <div class="meta"><span>preprocess_aves_teacher.sh</span><span>predicted negative</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">P6</div>
+    <div>
+      <h4>Our pipeline on general audio only <span class="chip c-plan">queued</span></h4>
+      <p>
+        FSD50K alone, random init, our recipe. Isolates <em>corpus</em> with architecture and
+        method held fixed — the control that says whether AVES's advantage was ever about its data.
+      </p>
+      <div class="meta"><span>~4 h · 1×L40</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">P7</div>
+    <div>
+      <h4>Replay dose–response <span class="chip c-plan">queued</span></h4>
+      <p>
+        19.3 % worked. <code>--replay-repeat 3</code> raises it to ~42 % with no new download. If
+        the holdout tracks the dose, that is a mechanism rather than a coincidence — and the
+        single most informative follow-up to the round-2 result.
+      </p>
+      <div class="meta"><span>no new data needed</span><span>~37 min</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">03</span> How every model gets judged</h2>
+  <p class="lede">
+    One protocol, fixed in advance. The layer and normalisation are chosen by out-of-fold
+    in-distribution AUC and frozen <em>before</em> any holdout is touched.
+  </p>
+
+  <div class="scroller">
+    <table>
+      <caption>
+        Resampling unit matters more than sample size here: BirdPark's 5,925 frames are only four
+        independent 30-second blocks.
+      </caption>
+      <thead>
+        <tr><th>Axis</th><th>Data</th><th>Resample unit</th><th>Resolution</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>In-distribution detection</td><td>ZF, 90,061 frames</td>
+          <td>1,500-frame blocks</td><td class="num">±0.002</td>
+        </tr>
+        <tr>
+          <td>Cross-lab holdout</td><td>BirdPark, 5,925 frames</td>
+          <td>1,500-frame blocks (n=4)</td><td class="num">±0.06</td>
+        </tr>
+        <tr>
+          <td>Call type (8- and 11-class)</td><td>curated clips</td>
+          <td>birds, leave-birds-out</td><td class="num">±0.03</td>
+        </tr>
+        <tr>
+          <td>Individual identity</td><td>curated clips</td>
+          <td>birds</td><td class="num">±0.03</td>
+        </tr>
+        <tr>
+          <td>Unsupervised structure</td><td>call-type clips</td>
+          <td>birds</td><td class="num">AMI, label-free k</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn">
+    <h4>Selection amplifies noise 50–70×</h4>
+    <p>
+      Across a whole training trajectory, in-distribution AUC moves 0.002 while holdout AP moves
+      0.14. The criterion used to pick an arm carries almost no information about the axis we
+      care about — so arm spread gets reported alongside every holdout number, and post-hoc
+      maxima never get quoted as results.
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span> Visualisation backlog</h2>
+  <p class="lede">
+    What is missing is not more numbers but the pictures that make the numbers legible.
+  </p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>Call-type confusion matrices <span class="chip c-plan">planned</span></h4>
+      <p>
+        Per encoder, 8-class and 11-class, leave-birds-out. The aggregate accuracy hides which
+        <em>pairs</em> each model confuses — the interesting question is whether AVES and our
+        models fail on the same pairs or different ones.
+      </p>
+    </div>
+    <div class="card">
+      <h4>Embedding space by call type <span class="chip c-plan">planned</span></h4>
+      <p>
+        UMAP over the pre-committed layer, coloured by call type, bird, and loudness. Loudness is
+        the known dominant axis, so it is plotted explicitly rather than discovered later.
+      </p>
+    </div>
+    <div class="card">
+      <h4>Unsupervised clustering quality <span class="chip c-plan">planned</span></h4>
+      <p>
+        Ward linkage AMI against call type at label-free k, per encoder. Existing result is 0.591
+        for <code>run11</code>; every new model needs the same treatment so the comparison holds.
+      </p>
+    </div>
+    <div class="card">
+      <h4>Layer sweeps, all models <span class="chip c-plan">planned</span></h4>
+      <p>
+        One panel per task, one line per encoder, depth on x. Makes the arm-selection problem
+        visible instead of a caveat in prose.
+      </p>
+    </div>
+    <div class="card">
+      <h4>Forest plot, every comparison <span class="chip c-plan">planned</span></h4>
+      <p>
+        One row per model-vs-<code>run11</code> contrast with its CI and a drawn resolution band.
+        Anything whose interval crosses the band is not a result.
+      </p>
+    </div>
+    <div class="card">
+      <h4>Forgetting trajectories <span class="chip c-done">done</span></h4>
+      <p>
+        In-distribution against holdout across training steps, with the resolution band shaded.
+        Lives in <code>notebooks/03_forgetting_curve.ipynb</code>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">05</span> Hard constraints</h2>
+  <p class="lede">Things no amount of compute will fix. Worth stating so they stop being re-proposed.</p>
+
+  <div class="warn">
+    <h4>AVES's corpus is ~70 % unobtainable</h4>
+    <p>
+      Of its 360 h, only FSD50K (~108 h) is distributed as audio. AudioSet and VGGSound ship
+      YouTube IDs, and the AVES paper states outright that the corpus is not exactly reproducible.
+      Links have rotted since 2022. An exact replication is impossible, and any scraped substitute
+      would differ in unknowable ways.
+    </p>
+  </div>
+
+  <div class="warn">
+    <h4>One cross-lab holdout, four blocks wide</h4>
+    <p>
+      BirdPark is the only encoder-level holdout that is both clean and cross-lab. It can detect a
+      failure the size of round-1 DAPT; it cannot rank checkpoints within a trajectory. The chick
+      recordings were built out as a second axis and returned <em>not distinguishable</em> on every
+      comparison — they are same-corpus, so they do not test domain shift. Real resolution needs a
+      larger cross-lab recording set.
+    </p>
+  </div>
+
+  <div class="warn">
+    <h4>No bird is held out of pretraining</h4>
+    <p>
+      99.5 % of curated clips come from the 120 pretrained recordings, so leave-birds-out
+      constrains the probe, not the encoder. Every in-distribution number carries this caveat.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>
+    Numbers read from <code>analysis/detection_variants.json</code> at build time. Full provenance
+    in <code>knowledge/findings/</code> (48 entries, including refutations kept on purpose).
+    Retracted claims are recorded rather than deleted.
+  </p>
+</footer>
+
+</div>

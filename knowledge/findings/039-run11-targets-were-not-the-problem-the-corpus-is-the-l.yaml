@@ -1,0 +1,32 @@
+id: '039'
+title: run11's targets were not the problem; the corpus is the live hypothesis
+status: confirmed
+claim: Adopting AVES's target recipe on this corpus makes the pseudo-labels WORSE at respecting call
+  boundaries, not better. Combined with run12/run13 already having lost to run11 on the full retrain,
+  the recipe explanation for AVES beating run11 is closed, and corpus composition is what is left.
+evidence: 'AMI against call-boundary identity on the same 90,061 frames: run11''s actual recipe
+  (log-mel, k=100) 0.0854; log-mel at k=200 0.0646; run11 layer-6 at k=200 0.0488; AVES layer-6 at
+  k=200 0.0482. Decomposition: raising k from 100 to 200 with the feature held fixed costs -0.0208,
+  and switching log-mel to layer 6 with k held at 200 costs a further -0.0158. Against voc/noise the
+  ordering reverses slightly (layer-6 0.0757/0.0758 vs log-mel 0.0733), so layer-6 clusters know
+  call-vs-background marginally better while keeping individual calls together much worse. The teacher
+  ENCODER barely matters: run11-layer-6 0.0488 vs AVES-layer-6 0.0482.'
+method: MiniBatchKMeans on standardised features, same frames, same seed, scored with AMI because
+  NMI and purity rise monotonically with k and would hand k=200 a free win.
+provenance: zfeval/experiments/target_quality.py; analysis/target_quality.json
+caveats: 'This is a CROSS-feature-space comparison, and [project_iter2_stage2] establishes the k-sweep
+  proxy is only valid WITHIN a feature space. So treat it as directional, not proof. What makes it
+  load-bearing anyway is that it agrees with a full retrain that was already run: run12 (layer-6
+  teacher, k=500) reached detection 0.905 and call type 0.819, run13 (layer-3, k=500) 0.913 and 0.824,
+  both against run11''s 0.921 and 0.821. Teacher layer and cluster count were each eliminated
+  separately there. The remaining asymmetry against AVES is the CORPUS: iteration-1 put 79.3% of
+  frames in low-energy clusters and preprocessing ran --skip-vad, so roughly four frames in five of
+  run11''s masked-prediction budget went on ambient colony noise, against AVES''s 360 h of curated
+  sound events (FSD50K + AudioSet-balanced). The testable version is to re-pretrain with VAD or an
+  energy floor so capacity lands on vocalisations.'
+tags:
+- pretraining
+- targets
+- corpus
+- negative-result
+date: '2026-09-15'

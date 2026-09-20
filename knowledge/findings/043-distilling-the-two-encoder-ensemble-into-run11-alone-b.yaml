@@ -1,0 +1,36 @@
+id: '043'
+title: Distilling the two-encoder ensemble into run11 alone beats the ensemble on detection
+status: confirmed
+claim: The +0.0047 AUC / +0.0118 AP that [031] buys by averaging run11 and AVES probabilities can be
+  recovered -- and slightly exceeded on AP -- while running only run11 at inference. An MLP head
+  trained on run11 features against the ensemble's soft probabilities matches the two-encoder teacher
+  on AUC and beats it on AP, at half the encoder cost. On call type, distillation does nothing.
+evidence: 'Detection, 90,061 frames, prevalence 0.1242, contiguous 60 s time blocks, bootstrap over
+  1500-frame blocks, 2000 resamples. Teachers reproduced to max|diff| 3.1e-05 against the published
+  figures before anything was distilled. run11|mlp|kl reaches AUC 0.9740 / AP 0.8842 against the mean
+  ensemble teacher 0.9732 / 0.8792: AP +0.0042 [+0.0013, +0.0072] (a_better) and AUC +0.0005
+  [-0.0004, +0.0015] (not distinguishable). Against the run11 linear probe alone it is AP +0.0159
+  [+0.0129, +0.0190] and AUC +0.0052 [+0.0040, +0.0063]. The KL objective beats plain CE on the same
+  architecture: AP +0.0060 [+0.0029, +0.0096]. Distilling into AVES instead is worse everywhere
+  (best aves|mlp|kl 0.9709 / 0.8742). On 11-class call type, cross-encoder feature distillation moves
+  run11 from 0.8118 to at best 0.8265 (map_mlp_rev) and every arm remains below AVES 0.8453, six of
+  eight significantly so.'
+method: 'Two-stage selection to keep the epoch count out of the test fold: stage A fits on an inner
+  80% and picks the epoch by validation AUC against HARD labels, stage B retrains on the full training
+  fold for exactly that many epochs. Teacher probabilities are per-fold LogisticRegression outputs
+  averaged across the two encoders; soft targets are in-sample train probabilities. AdamW + cosine,
+  400 epochs, batch 1024, lr 1e-3, temperature 1.0, w_kl_ce 0.5, seed 0.'
+provenance: zfeval/experiments/distillation.py; analysis/distillation.json, analysis/distillation_exp2.json
+caveats: 'The detection split is contiguous time blocks WITHIN one recording, not a recording holdout,
+  so this is an in-distribution result and does not speak to the BirdPark transfer in [030]. Soft
+  targets are in-sample teacher probabilities, which are overconfident relative to held-out ones. The
+  AUC gain over the teacher is not distinguishable -- the defensible claim is parity on AUC plus a
+  small real AP gain at half the inference cost, not that the student beats the ensemble outright.
+  Single seed on the student. Consistent with [031]: averaging helps, concatenating does not, and this
+  is now the fifth time concatenation has failed on this project.'
+tags:
+- distillation
+- detection
+- ensemble
+- deployment
+date: '2026-09-16'

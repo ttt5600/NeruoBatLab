@@ -1,0 +1,31 @@
+id: '035'
+title: run11 wins nowhere once layer choice is made out of fold
+status: confirmed
+claim: Across four pre-enumerated axes chosen to favour colony-specific pretraining, run11 is
+  significantly ahead on none of them once the layer (or layer subset) is selected inside the training
+  fold instead of on the reported metric. The identity advantage reported earlier shrinks by more than
+  half and stops being distinguishable.
+evidence: '11-class call type with multi-layer concatenation, layer set chosen out of fold: run11
+  0.8036 vs AVES 0.8403, bootstrap over 48 birds -0.0368 [-0.0643, -0.0097], AVES BETTER. Bird
+  identity, leave-session-out, layer set chosen out of fold: run11 0.3280 vs AVES 0.3154, +0.0125
+  [-0.0151, +0.0410], NOT distinguishable -- against +0.0286 when each model''s layer was picked on
+  the reported metric. Per class: Be (begging) run11 0.971 vs AVES 0.934, +0.035 [+0.007, +0.080];
+  Ag +0.011 [-0.027, +0.051] not distinguishable. Chick clips: run11 0.8836 vs AVES 0.8966. Adult
+  clips: 0.8005 vs 0.8372.'
+method: Candidate sets were the 12 single layers plus 7 multi-layer combinations. Each outer fold ran
+  its own 3-fold inner CV over all 19 candidates and only then touched its test rows, so no selection
+  can leak. Bootstraps cluster over birds (call type) or recording sessions (identity).
+provenance: zfeval/experiments/run11_win_search.py; analysis/run11_win_search.json
+caveats: 'The Be result is the one survivor, and it should not be treated as a finding yet: Be was
+  chosen for follow-up BECAUSE it led in an exploratory pass over 11 classes, so its interval is
+  conditioned on that selection. At 11 classes one significant result at alpha 0.05 is roughly what
+  chance produces. It is a hypothesis for a pre-registered test on new begging-call data, not a win.
+  Equally, ''not distinguishable'' on identity is not proof of equality -- run11 was numerically ahead
+  at all 12 single layers, which is suggestive; what died is the claim that the margin is established.
+  Multi-layer concatenation helped AVES (0.8453 -> 0.8403 is within noise) and did not rescue run11,
+  consistent with concatenation having failed four previous times on this project.'
+tags:
+- pretraining
+- negative-result
+- methodology
+date: '2026-09-14'

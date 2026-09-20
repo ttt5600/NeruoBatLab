@@ -1,0 +1,26 @@
+id: '031'
+title: Averaging two encoders beats either; concatenating them does not
+status: confirmed
+claim: Mean of the two probes' probabilities is a significant improvement over run11 alone at zero added
+  parameters, while feature concatenation is not an improvement and is significantly worse on AP.
+evidence: 'In distribution, out-of-fold, run11 L0 + AVES L6: run11 0.9687/0.8681, AVES 0.9674/0.8593,
+  concat (1536-d) 0.9683/0.8610, stack 0.9698/0.8751, MEAN 0.9732/0.8791. Paired block bootstrap vs
+  run11: mean AUC +0.0047 [+0.0034, +0.0061] SIGNIFICANT, AP +0.0118 [+0.0081, +0.0156] SIGNIFICANT;
+  concat AUC +0.0001 [-0.0016, +0.0018] not distinguishable, AP -0.0059 [-0.0106, -0.0012] WORSE.
+  Error correlation between the two encoders 0.8575.'
+method: Both encoders read out by the same probe on the same folds; the stacker is fitted out-of-fold so
+  it cannot see its inputs' labels. Layers pre-committed on ZF.
+provenance: zfeval/experiments/ensemble_detect.py; analysis/ensemble_detect.json
+caveats: 'Costs two encoder passes at inference. The pattern matches [013] (multi-layer concat buys
+  nothing) and the earlier HuBERT+log-mel result (concatenation was WORSE than HuBERT alone): adding
+  dimensions to one linear probe dilutes it, while combining decisions does not. The gain also holds on
+  the ZF -> BirdPark holdout at the pre-committed layer: run11 0.8649, AVES 0.8830, concat 0.8481,
+  MEAN 0.8914, energy 0.8542; mean - run11 AUC +0.0249 [+0.0061, +0.0533] SIGNIFICANT with 4/4 block
+  wins, while concat is significantly WORSE on AP (-0.0326 [-0.0470, -0.0195]). At that layer AVES
+  alone - run11 is +0.0161, NOT distinguishable (3/4 block wins), so the ensemble gain is better
+  evidenced than either encoder''s individual edge.'
+tags:
+- head
+- ensemble
+- improvement
+date: '2026-09-13'

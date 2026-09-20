@@ -1,0 +1,57 @@
+{
+  "_comment": "Vocalization-detection benchmark results. This file exists so the demo notebook LOADS these numbers instead of hardcoding them in markdown. Values are transcribed from the Savio jobs listed under provenance; the full 12-layer array lives in the artifact named there. Layers listed in layers_unavailable_here were measured in that job but are not reproduced in this file, so the notebook plots gaps rather than inventing them.",
+
+  "provenance": {
+    "stage1_localization_job": 36016563,
+    "stage2_probe_job": 36020417,
+    "pretransformer_job": 37653314,
+    "savio_artifact": "/global/scratch/users/jonathanswang/pretrans_aucs_37653314.npz",
+    "date_corrected": "2026-07-29",
+    "supersedes": "An earlier run reported AUC 0.984 with deep layers best. It was computed on corrupted ground truth (see known_issues_fixed) and is RETRACTED. Do not cite it."
+  },
+
+  "dataset": {
+    "hand_annotated": false,
+    "how_ground_truth_was_built": "The curated AdultVocalization clips are near-exact excerpts of the continuous colony recordings. Each clip was localized back into its source recording by normalized cross-correlation: a coarse 4 kHz search proposes top-k candidate offsets (non-max suppressed), each candidate is re-scored at full resolution, and acceptance is decided only by that scale-invariant verified peak (min-peak 0.65). The accepted intervals supply the onsets/offsets.",
+    "clips_searched": 2867,
+    "intervals_recovered": 2450,
+    "recordings_with_intervals": 96,
+    "window_seconds": 1.0,
+    "n_windows": 7350,
+    "n_vocalization": 2450,
+    "n_background": 4900,
+    "n_recordings_scored": 71,
+    "cross_validation": "leave-recordings-out (GroupKFold on recording id)",
+    "classifier": "LogisticRegression on mean-pooled 768-d embeddings, standardized",
+    "normalize_scope": "context (20 s, matching the pretraining chunk)",
+
+    "negative_class_is_NOT_silence": "Background windows are sampled from the same colony recordings and contain cage noise, wing flaps, movement, and UNCURATED vocalizations. Because 'background' operationally means 'not a curated call', the detector is penalized when it correctly fires on a real call that nobody curated. Precision is therefore a pessimistic LOWER BOUND, not an estimate.",
+    "known_limitation": "No human has verified the background windows. Review bundles were generated (voc_detect_review_36020417/, mined_negatives_*/) but their human_label column is still empty, so the false-positive rate is not yet measured."
+  },
+
+  "results": {
+    "energy_vad": {"auc": 0.666, "accuracy": 0.695, "f1": 0.368, "precision": 0.596, "recall": 0.267},
+    "pre_transformer": {"auc": 0.852, "note": "CNN feature extractor + projection, i.e. the input to block 0. Measured in job 37653314."},
+    "layer_0":  {"auc": 0.921, "accuracy": 0.845, "f1": 0.759, "precision": 0.786, "recall": 0.734},
+    "layer_1":  {"auc": 0.912},
+    "layer_2":  {"auc": 0.903},
+    "layer_3":  {"auc": 0.896},
+    "layer_9":  {"auc": 0.879},
+    "layer_11": {"auc": 0.883, "accuracy": 0.799, "f1": 0.681}
+  },
+
+  "layers_unavailable_here": [4, 5, 6, 7, 8, 10],
+
+  "headline": {
+    "best": "layer_0",
+    "best_auc": 0.921,
+    "delta_vs_energy": 0.256,
+    "trend": "AUC declines monotonically with transformer depth (0.921 at layer 0 -> 0.883 at layer 11). The decline does NOT extrapolate backwards past block 0: the pre-transformer CNN output scores 0.852, worse than layer 0 by more than the entire layer-0-to-layer-11 decline."
+  },
+
+  "known_issues_fixed": [
+    "Normalized cross-correlation blew up inside long runs of exact digital zeros: the denominator collapsed to its 1e-12 floor while FFT round-off remained in the numerator, producing 'correlations' of ~76 where brute force gives 0.016. This pinned some accepted intervals to SILENCE, which made the task partly silence-vs-audio, inflated AUC to 0.984, and made deep layers look best. Fixed by the two-stage verified-peak procedure plus degenerate-window guards.",
+    "The coarse search ran at 1 kHz, lowpassing at 500 Hz, below most zebra finch call energy; it recovered 0/12 clips on one date where a 4 kHz search recovers 12/12. Fixed by searching at 4 kHz.",
+    "AppleDouble ._* sidecar files were being enumerated as real clips, doubling the apparent clip count."
+  ]
+}

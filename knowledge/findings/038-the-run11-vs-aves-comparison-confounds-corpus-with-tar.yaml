@@ -1,0 +1,36 @@
+id: '038'
+title: The run11 vs AVES comparison confounds corpus with target quality
+status: confirmed
+claim: run11 and AVES differ in more than their pretraining corpus. AVES used ITERATION-2 k-means
+  targets taken from a trained HuBERT's layer 6 at k=200; run11 used ITERATION-1 targets from log-mel
+  spectrogram at k=100. Target quality and corpus diversity are therefore confounded with the
+  domain-match variable the comparison set out to test, and the target difference is separately
+  testable at a fraction of the cost of any new pretraining run.
+evidence: 'From the local 2022 fairseq checkpoint cfg (datasets/11905533/aves-base-bio.pt):
+  label_dir = /mnt/dev/hubert/data/faav150k/hblab.c200 -- "hblab" identifies HuBERT-layer labels, not
+  MFCC, and c200 gives 200 clusters; label_embs_concat is (204, 256) = 200 clusters + 4 fairseq
+  specials. Paper supplies the layer (6). AVES-bio: 360 h of audio (153 h FSD50K + AudioSet-balanced
+  general, plus ~207 h animal), 100,000 updates, lr 2e-4, 700.0 s of audio per update
+  (max_tokens 1.4e6 / 16000 x update_freq 8 x world_size 1), distributed_world_size = 1, wall clock
+  88,709.81 s = 24.6 h on ONE GPU. Total audio budget is 6% of HuBERT-base''s. warmup_updates 32000
+  against total 100000 -- 32% of the run, fairseq stock warmup left in place after cutting 400k to
+  100k. normalize = False. The 360 h figure was corroborated independently from the checkpoint''s own
+  epoch/iteration counters: (100000-306)/54 x 700 s = 359.0 h vs 360 published.'
+method: Config extracted by stubbing fairseq/omegaconf modules and torch.load(weights_only=False),
+  then reconciled field by field against the ICASSP 2023 paper. No disagreement was found on any
+  quantity both report; the config supplies several the paper omits.
+provenance: docs/aves_method_and_transfer_literature.md; datasets/11905533/aves-base-bio.pt cfg block
+caveats: 'This does not overturn [030]/[033]/[035]/[036] -- run11 still loses under every protocol
+  tested. It bounds what those results can be attributed to: "colony-specific pretraining does not
+  pay" is supported, "domain-matched CORPORA do not pay" is only partly supported, because the
+  corpora were not the sole difference. The cheap control is to re-derive run11 targets from a trained
+  encoder layer at k=200 and rerun one HuBERT iteration, holding the corpus fixed. Also load-bearing
+  for the write-up: AVES''s own aves-base-nonbio control (animal-filtered vs size-matched non-animal
+  corpus) scores 61.3 vs 61.4 overall and 61.8 vs 61.2 on classification -- their own paper contains
+  evidence that animal-filtering the corpus does not help, which makes run11 a sharper instance of a
+  phenomenon already visible in the literature rather than an anomaly.'
+tags:
+- pretraining
+- methodology
+- confound
+date: '2026-09-15'

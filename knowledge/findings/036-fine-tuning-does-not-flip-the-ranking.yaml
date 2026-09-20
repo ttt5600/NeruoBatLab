@@ -1,0 +1,27 @@
+id: '036'
+title: Fine-tuning does not flip the ranking
+status: confirmed
+claim: The hypothesis that run11's colony weights are a better INITIALISATION even though their frozen
+  features are less linearly separable is not supported. Unfreezing the encoder raises both models by
+  a similar amount and leaves the gap where it was.
+evidence: '11-class call type, leave-birds-out, identical folds/hyperparameters/seeds for both. AVES
+  minus run11: +0.0265 frozen L3, +0.0296 full fine-tune, +0.0259 transformer-only. Full fine-tune
+  means: run11 0.8306 / 0.8304 (seeds 0/1), AVES 0.8607 / 0.8594. Seed spread run11 0.0002, AVES
+  0.0013 -- the gap is about 20x the seed noise. run11 fine-tuned (0.8305) still lands BELOW AVES
+  frozen at its best layer (0.8429). Gains from fine-tuning: run11 +0.014, AVES +0.017. Freezing the
+  CNN and tuning only the transformer is worth +0.002 / +0.001.'
+method: AdamW, encoder LR 1e-5, head LR 1e-3, max 8 epochs with patience 3, effective batch 8 via
+  gradient accumulation. No run diverged; train loss fell from ~1.1-1.3 to 0.03-0.16 in all 30 folds.
+  Frozen sanity arm reproduced the published probe (run11 L3 0.8157 vs 0.8118; AVES L3 0.8388 vs
+  0.8453, the small offsets being AdamW-head vs LogisticRegression+StandardScaler).
+provenance: zfeval/experiments/finetune_calltype.py; analysis/finetune_calltype.json
+caveats: 'The transformer-only arm ran at one seed. That the transformer-only arm buys almost nothing
+  for either model is independent support for [randinit]: the CNN front end carries most of the
+  pretraining benefit, so unfreezing only the blocks above it cannot recover much. This closes the
+  last protocol under which run11 could have won call type -- frozen probe, multi-layer, out-of-fold
+  layer choice, and now full fine-tuning all rank AVES ahead.'
+tags:
+- pretraining
+- fine-tuning
+- negative-result
+date: '2026-09-14'

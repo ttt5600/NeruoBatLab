@@ -1,0 +1,150 @@
+{
+  "contam.rate_pct": {
+    "value": 62.6,
+    "display": "62.6",
+    "source": "knowledge/findings/014 + dataset README; 2358 of 3768 judged windows",
+    "note": "our ears against a published negative set; see ADVERSARIAL A7"
+  },
+  "contam.n_calls": {
+    "value": 2358,
+    "display": "2358",
+    "source": "dataset README, benchmark_neg_pool batches 000-023"
+  },
+  "contam.n_judged": {
+    "value": 3768,
+    "display": "3768",
+    "source": "dataset README, benchmark_neg_pool batches 000-023"
+  },
+  "contam.expert_n": {
+    "value": 30,
+    "display": "30",
+    "source": "sample_labels_JEE.csv; Julie Elie expert review"
+  },
+  "contam.expert_agree": {
+    "value": 28,
+    "display": "28",
+    "source": "sample_labels_JEE.csv; both disagreements ours-noise -> her-call, so 62.6% is a floor"
+  },
+  "pretrain.frac_seen": {
+    "value": 99.5,
+    "display": "99.5",
+    "source": "knowledge/findings/028",
+    "note": "fraction of curated clips from the 120 pretrained recordings"
+  },
+  "silence.sd_outside": {
+    "value": 9.9,
+    "display": "9.9",
+    "source": "knowledge/findings/010",
+    "note": "how far outside the training hull the silence probe extrapolates"
+  },
+  "randinit.scale_ratio": {
+    "value": 20000,
+    "display": "20000",
+    "source": "randinit_control run log",
+    "note": "random-init CNN absmax 0.0007 vs pretrained 15.82"
+  },
+  "randinit.absmax_rand": {
+    "value": 0.0007,
+    "display": "0.0007",
+    "source": "randinit_control run log"
+  },
+  "randinit.absmax_pre": {
+    "value": 15.82,
+    "display": "15.82",
+    "source": "randinit_control run log"
+  },
+  "gap.p5_intercall_ms": {
+    "value": 16,
+    "display": "16",
+    "source": "resolution ground-truth validation",
+    "note": "below the 20 ms frame grid: some call pairs are unresolvable in principle"
+  },
+  "adj.n_disputed": {
+    "value": 52,
+    "display": "52",
+    "source": "analysis/adjudication_key.json",
+    "note": "high-confidence disputed false positives, not yet adjudicated"
+  },
+  "adj.n_controls": {
+    "value": 18,
+    "display": "18",
+    "source": "analysis/adjudication_key.json",
+    "note": "loudness-matched TP and TN controls, 18 each"
+  },
+  "decoder.grid_size": {
+    "value": 2160,
+    "display": "2160",
+    "source": "onset_events_v2 run log; 15x3x4x4x3 per fold"
+  },
+  "synth.seam_fp_pct": {
+    "value": 2.1,
+    "display": "2.1",
+    "source": "synth_timing run, 10/472 false positives within 50 ms of a seam"
+  },
+  "aves.weights_mb": {
+    "value": 377,
+    "display": "377",
+    "source": "aves-base-bio.torchaudio.pt, 377570545 bytes"
+  },
+  "event.L0.precision": {
+    "value": 0.922,
+    "display": "0.922",
+    "source": "knowledge/findings/018",
+    "note": "layer 0 is the precise one; see ADVERSARIAL A6 on multiplicity"
+  },
+  "event.L6.recall_018": {
+    "value": 0.806,
+    "display": "0.806",
+    "source": "knowledge/findings/018",
+    "note": "layer 6 is the sensitive one"
+  },
+  "n_findings": {
+    "value": 32,
+    "display": "32",
+    "source": "knowledge/findings/ directory count"
+  },
+  "randinit.transformer_gain": {
+    "value": 0.0113,
+    "display": "+0.011",
+    "source": "derived: randinit_control.json layer_table L10 pretrained 0.9574 - cnn pretrained 0.9461",
+    "note": "gain of the BEST transformer layer over the CNN output; L10 is best_pretrained_layer. The earlier provenance string named L7, which gives +0.008 -- the value was right, the citation was not."
+  },
+  "randinit.gap_hi": {
+    "value": 0.208,
+    "display": "+0.208",
+    "source": "derived: max gap_vs_rand over transformer layers, randinit_control.json"
+  },
+  "aves.bp.run11_margin_over_energy": {
+    "value": 0.011,
+    "display": "+0.011",
+    "source": "derived: aves_holdout zf_to_bp run11_L0 0.8649 - logenergy 0.8542"
+  },
+  "aves.bp.aves_margin_over_energy": {
+    "value": 0.047,
+    "display": "+0.047",
+    "source": "derived: aves_holdout zf_to_bp aves_L3 0.9009 - logenergy 0.8542"
+  },
+  "aves.bp.posthoc_L3_delta": {
+    "value": 0.0345,
+    "display": "+0.0345",
+    "source": "analysis/ensemble_detect_avesL3.json bootstrap bp1500_aves_vs_run11_auc.delta",
+    "note": "POST-HOC layer, selection on the test set -- sensitivity only"
+  },
+  "silence.energy_floor_db": {
+    "value": -80,
+    "display": "-80",
+    "source": "knowledge/findings/010",
+    "note": "energy floor that fixes the digital-silence failure; touches no real window"
+  },
+  "hyst.delta_L6": {
+    "value": 0.009,
+    "display": "+0.009",
+    "source": "knowledge/findings/023",
+    "note": "collar-50 F1 gain from hysteresis, NO bootstrap -- must not be called an improvement"
+  },
+  "hyst.delta_L0": {
+    "value": -0.001,
+    "display": "-0.001",
+    "source": "knowledge/findings/023"
+  }
+}

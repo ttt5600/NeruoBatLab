@@ -1,0 +1,32 @@
+id: '037'
+title: torchaudio batched feature extraction is not padding-invariant for these models
+status: confirmed
+claim: Batching variable-length clips through hubert_base / wav2vec2_model corrupts the CNN features of
+  the SHORT clips, at their valid frames, and passing `lengths` does not fix it. Any variable-length
+  batch through this encoder is silently wrong.
+evidence: 'Verified directly on run11. Clips of 0.12 s, 1.00 s and 15.60 s batched together against the
+  same clips encoded one at a time, comparing only VALID frames: max abs difference 121.41 for the
+  0.12 s clip, 60.76 for the 1.00 s clip, and 0.0000 for the 15.60 s clip -- which is the one that
+  defines the batch length and therefore carries no padding. Identical numbers with lengths=None and
+  with lengths passed. The subagent measured up to 123.0 in features and 0.468 in final logits on a
+  real batch of 8, and recovered 1.9e-6 agreement with a masked recomputation.'
+method: 'Cause is architectural, not a library bug: extractor_mode="group_norm" places a
+  GroupNorm(512, 512) inside conv block 0, which normalises over TIME. Zero padding changes each
+  clip''s time statistics, so the normalisation output shifts at every frame including valid ones.
+  `lengths` only masks transformer attention, which is downstream of the CNN.'
+provenance: independently reproduced in-session; zfeval/experiments/finetune_calltype.py
+  (masked_feature_extractor)
+caveats: 'No stored result in this repo is affected, which was checked rather than assumed. The only
+  batching site is resolution_extract.windowed_pass, where every window is exactly `win` samples so no
+  padding exists -- and np.stack would have raised on ragged input rather than pad silently. Every
+  other path (frame_pass, embed_all in aves_calltype/calltype11, window_features) encodes one clip or
+  one chunk at a time. This is the same failure mode as the 2023 AVES notebook''s mean-over-padding
+  bug ([034]) arriving by a quieter route: there the padding polluted the POOLING, here it pollutes
+  the NORMALISATION. Rule: never batch variable-length audio through these encoders without
+  recomputing the group norm over real frames, and verify batched == single to ~1e-5 before trusting
+  any batched extraction.'
+tags:
+- bug
+- methodology
+- reproducibility
+date: '2026-09-14'

@@ -1,0 +1,45 @@
+id: '045'
+title: DAPT from AVES wins in-distribution and FAILS the holdout stop rule
+status: confirmed
+claim: Continuing HuBERT pretraining on zebra finch from AVES weights beats run11 in-distribution but
+  collapses on the encoder-level holdout, falling BELOW the energy baseline at the pre-committed arm.
+  The pre-registered stop rule fired. This is the SONAR catastrophic-forgetting failure mode, observed
+  in our own corpus, and it is reported as a failure rather than rescued by post-hoc arm selection.
+evidence: 'Jobs 38991843 (lr 5e-5) and 38996893 (lr 1e-4): AVES-init, run11''s exact corpus and k=100
+  spectrogram labels, 15,000 steps, 1 L40S, ~37 min each. Pretraining objective reached run11''s level
+  in 6.25x fewer steps (masked accuracy 0.567 / 0.570 at 2.9 epochs vs run11 ~0.58 at 18 epochs), and
+  the two LRs agree to 0.003. PRE-COMMITTED arm (max out-of-fold ZF AUC), both selected native_L6:
+  in-distribution ZF AUC 0.9715 / 0.9720 vs run11 0.9687 -- deltas +0.0032 [+0.0013, +0.0053] and
+  +0.0033 [+0.0013, +0.0055], both a_better; ZF AP +0.0080 [+0.0029, +0.0138] and +0.0050
+  [-0.0009, +0.0112]. ZF->BirdPark holdout AP 0.6942 / 0.7052 vs run11 0.8121 -- deltas -0.1002
+  [-0.1939, -0.0406] and -0.1032 [-0.2433, -0.0247] on 1500-frame blocks, both b_better. The
+  log-energy baseline is AP 0.7472, so both DAPT arms sit BELOW it (-0.0530, -0.0420): the stop rule
+  fired. No DAPT arm anywhere in the 12-arm grid dominates run11 on both axes.'
+method: 'zfeval/experiments/detection_variants.py, extended to load DAPT exports so they inherit its
+  doctrine unchanged: both normalisations scored for every checkpoint, layer pre-committed by
+  out-of-fold ZF AUC and never chosen on BirdPark, all 12 arms written to JSON for audit. Cluster
+  bootstrap over 1500-frame (30 s) and 500-frame blocks. Encoders exported with export_weights.py,
+  which refuses to write unless the rebuilt encoder is bit-identical to the training checkpoint
+  (verified 0.000e+00 on three durations for all 12).'
+provenance: analysis/detection_variants.json; slurm/train_dapt_aves_init.sh; jobs 38991843, 38996893
+caveats: 'IMPORTANT and unresolved. The post-hoc best BirdPark arm for these same checkpoints is
+  matched_L9: AP 0.8447 (5e-5) and 0.8623 (1e-4) -- the latter is the highest BirdPark AP of ANY model
+  measured here, above birdaves-bioxn-large''s 0.8442. That arm is NOT headlined because selecting it
+  requires the test set. But its existence means the honest conclusion is narrower than "DAPT does not
+  work": DAPT moves the model along an in-distribution/holdout TRADE-OFF, and the selection criterion
+  picks the in-distribution end. DAPT''s ZF-selected arms are consistently `native` (inheriting AVES''s
+  raw-waveform training) while its transferring arms are `matched` and deep. Whether DAPT helps cannot
+  be settled without an arm-selection signal that is neither the ZF training set nor the BirdPark test
+  set. See [046] for why the criterion itself is the bottleneck. EXTENDED BY [047] 2026-09-17: all 12 step-spaced
+  checkpoints have now been scored. The endpoint result here holds and strengthens -- across the full
+  trajectory ZERO checkpoints beat run11, 10 of 12 are significantly worse, and only 2 clear the
+  energy floor. But the trajectory SHAPE is not measurable: the two learning rates trace opposite,
+  crossing curves, so no early-stopping rule is licensed and "when the holdout collapsed" has no
+  answer this holdout can give.'
+tags:
+- pretraining
+- dapt
+- transfer
+- forgetting
+- negative-result
+date: '2026-09-17'

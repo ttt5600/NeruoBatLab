@@ -1,0 +1,33 @@
+id: '032'
+title: The late-offset bias is a property of the labels, not the model
+status: confirmed
+claim: Measured against ground truth that is exact to the sample, the detector shows no duration bias at
+  all. The +20 ms late offsets and 1.20 predicted/true duration ratio seen against hand-drawn boundaries
+  do not reproduce under two independent exact constructions, so they describe where the annotator draws
+  the boundary rather than how the model behaves.
+evidence: 'Layer 6, isolated calls at +20 dB. Truth = the inserted signal''s own edges: onset |err| 5.3 ms,
+  offset |err| 6.6 ms, offset bias +2.6 ms, duration ratio 0.98. Truth = the loud core while the signal
+  KEEPS its quiet tails: offset bias +5.2 ms, duration ratio 1.06, onset bias -1.9 ms. Against hand
+  labels the same layer reads offset |err| 20 ms, bias +20 ms, ratio 1.20. Psychometric curve (isolated,
+  exact truth): recall 0.87 at +20 dB, 0.85 at +10, 0.75 at +5, 0.49 at 0, 0.20 at -5, 0.02 at -10, with
+  duration ratio falling 0.97 -> 0.70 -> 0.56 as only the loud core survives.'
+method: 350 donor calls (local SNR >= 10 dB, 40-250 ms) windowed to zero outside their own energy support
+  with a 1 ms raised-cosine taper, mixed at known sample offsets into call-free background taken >= 200 ms
+  from any annotation in the one exhaustively annotated recording. Probe trained ONLY on real frames from
+  the first 60% of the recording; donors and background drawn from the last 40%, so nothing in the
+  synthetic audio was seen in probe training. Decoder held fixed across all SNRs.
+provenance: zfeval/experiments/synth_timing.py (--truth-mode core|tails); analysis/synth_timing.json,
+  analysis/synth_timing_tails.json
+caveats: 'Explains why [023]''s offset-shrink correction was rejected by the tuner in every fold: there
+  was nothing intrinsic to shrink. Donors are selected clean and 40-250 ms, so ~5-7 ms is an upper bound
+  on acuity, not typical performance. Crowding matters more than SNR at high SNR: at the same +20 dB,
+  realistic inter-call gaps (median 95 ms) drop recall from 0.87 to 0.70 and AUC from 0.988 to 0.910 --
+  which is why real-recording numbers are worse than this. Construction controls: 2.1% of false positives
+  fall within 50 ms of a background stitching seam, and call-free background yields 2.0-4.0 false events
+  per minute.'
+tags:
+- onset-offset
+- synthetic
+- evaluation
+- timing
+date: '2026-09-13'

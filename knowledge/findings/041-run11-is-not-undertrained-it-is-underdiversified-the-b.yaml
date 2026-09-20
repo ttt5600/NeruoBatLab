@@ -1,0 +1,54 @@
+id: '041'
+title: 'REFUTED (see 044): run11 is not under-trained, it is under-diversified'
+status: refuted
+claim: run11 and AVES got comparable optimiser budgets. AVES saw 2.13x more audio because its batch was
+  twice as large, but it spread that over a corpus 3.6x bigger, so run11 actually made 1.7x MORE passes
+  over its own data. More training on the same 100 h is therefore not the missing ingredient.
+evidence: 'run11 93,750 updates x 350 audio-seconds/update = 9,114.6 h of audio seen, over a ~100 h
+  corpus = 91.1 epochs. aves-base-bio 100,000 updates x 700 audio-seconds/update = 19,444.4 h, over a
+  360 h corpus = 54.0 epochs. Ratios AVES/run11: steps 1.07x, audio 2.13x, corpus 3.60x,
+  epochs 0.59x. Peak LR 1e-4 vs 2e-4. Warmup fraction 0.033 vs 0.320 (fairseq stock 32k warmup left in
+  place after cutting the run to 100k). k-means clusters 100 vs 200. AVES wall clock 24.6 h on ONE GPU;
+  run11 requested 12 h on 4 GPUs so <= 48 GPU-hours, actual not recorded locally.'
+method: 'Every figure machine-read, none typed. run11 from the submitted slurm script
+  (slurm/train_iter7_long_lowprio.sh, whose header names it run11) with train.py argparse defaults for
+  unset flags; the 87.5 s/batch default times 4 DDP ranks gives 350 s/update, because
+  BucketizeBatchSampler builds one 87.5 s batch per rank and DistributedBatchSampler shards across
+  ranks (lightning_modules.py:378-386). AVES from the fairseq cfg inside the 2022 checkpoint, read by
+  stubbing the fairseq/omegaconf modules: max_tokens 1.4e6 / 16000 x update_freq 8 x world_size 1 =
+  700 s. Self-check that makes the whole table trustworthy: epochs DERIVED as (steps x audio/step) /
+  corpus-hours gives 54.0 for AVES, against the epoch counter fairseq itself wrote into the checkpoint,
+  55 -- 1.8% apart. That agreement independently corroborates both the 700 s/update arithmetic and the
+  360 h corpus figure taken from the paper, and the script asserts it.'
+provenance: zfeval/experiments/compute_budget.py; analysis/compute_budget.json
+caveats: 'The two corpus-hour figures are the only quantities not machine-read -- ~100 h is the release
+  README''s and 360 h is Hagiwara 2023 Table 1 -- but the epoch self-check above constrains the AVES
+  one. run11''s true wall clock and whether it was preempted and resumed are on Savio, not here, so the
+  48 GPU-hour figure is a ceiling and not a measurement. Audio-seconds seen counts repeats, so it is a
+  compute measure and not an information measure; the epochs row is the one that speaks to diversity.
+  Architecture is not in this table because it is not a difference: both models are 94,370,944
+  parameters with bit-identical state_dict keys.'
+tags:
+- pretraining
+- compute
+- methodology
+date: '2026-09-16'
+refuted_by: '044'
+refutation: "REFUTED 2026-09-16, same day, by direct observation of a job running run11's own script.\n
+  Two compounding errors, both in run11's column, inflated its training by ~5x:\n
+  (1) audio/step was computed as --gpus x --seconds-per-batch = 4 x 87.5 = 350. run11 NEVER used 4\n
+  GPUs: its slurm script pairs --gres=gpu:L40:4 with --ntasks=1, so srun launches one task and\n
+  Lightning initialises world_size 1. Observed live on n0387.savio4 running the same script --\n
+  GPU 0 at 90%% and 9,939 MiB, GPUs 1-3 at 0%% and 3 MiB. The DistributedBatchSampler sharding cited\n
+  in the method section is real code that never had more than one rank to shard across.\n
+  (2) the corpus is 116.03 h, not ~100 -- read from the TSV the run consumed (120 files,\n
+  6,683,245,309 samples @ 16 kHz), where 100 h was the release README's round number.\n
+  The realised batch is 80.3 s/step (corpus / steps-per-epoch), below even the 87.5 nominal because\n
+  BucketizeBatchSampler emits a partial final batch per bucket.\n
+  What should have caught this at the time: run11's checkpoints on scratch are named\n
+  epoch=14-step=78029 ... epoch=18-step=93750, giving 5201/5202/5201 steps per epoch and 18 total\n
+  epochs. The finding claimed 91.1. The script's own self-check compares derived epochs against the\n
+  recorded counter and would have failed instantly -- but it was applied ONLY to AVES, never to\n
+  run11. compute_budget.py now runs it symmetrically for both models and asserts on each.\n
+  The conclusion inverts: AVES saw 9.30x more audio and made 3.00x MORE passes over its corpus,\n
+  not 0.59x. run11 is under-trained on BOTH axes."

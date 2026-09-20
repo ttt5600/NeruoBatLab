@@ -1,0 +1,465 @@
+<title>Blind Call Adjudication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+  /* Light palette is the complete set; the dark blocks below redefine only these tokens.
+     Neutrals are pushed slightly cool so the magma spectrograms are the only warm thing here. */
+  :root {
+    --bg:        #eceef1;
+    --surface:   #ffffff;
+    --surface-2: #e3e6eb;
+    --line:      #d2d7de;
+    --ink:       #14171c;
+    --muted:     #5c646f;
+    --accent:    #0a6c7e;
+    --accent-dim:#0a6c7e26;
+    --call:      #c9430c;
+    --nocall:    #1a5fa8;
+    --unsure:    #6d7681;
+    --shadow:    0 1px 2px #14171c12, 0 8px 24px #14171c0d;
+    --spec-bg:   #0c0c10;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #0f1216;
+      --surface:   #171c22;
+      --surface-2: #1f252d;
+      --line:      #2b323b;
+      --ink:       #e7ebf0;
+      --muted:     #8b949f;
+      --accent:    #2ec4d8;
+      --accent-dim:#2ec4d826;
+      --call:      #f4743b;
+      --nocall:    #5b9bd8;
+      --unsure:    #8b949f;
+      --shadow:    0 1px 2px #0006, 0 10px 30px #0004;
+      --spec-bg:   #0c0c10;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #0f1216;
+    --surface:   #171c22;
+    --surface-2: #1f252d;
+    --line:      #2b323b;
+    --ink:       #e7ebf0;
+    --muted:     #8b949f;
+    --accent:    #2ec4d8;
+    --accent-dim:#2ec4d826;
+    --call:      #f4743b;
+    --nocall:    #5b9bd8;
+    --unsure:    #8b949f;
+    --shadow:    0 1px 2px #0006, 0 10px 30px #0004;
+    --spec-bg:   #0c0c10;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums; }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  /* ---------- top rail: 88 ticks, one per clip, coloured by its verdict ---------- */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .head-in { max-width: 1080px; margin: 0 auto; padding: 14px 22px 10px; }
+  .head-top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .head-top h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .eyebrow {
+    font-size: 10.5px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .counts { margin-left: auto; display: flex; gap: 16px; font-size: 12.5px; }
+  .counts b { font-weight: 600; }
+  .rail { display: flex; gap: 2px; margin-top: 11px; height: 20px; align-items: stretch; }
+  .tick {
+    flex: 1 1 0; min-width: 0; border: 0; padding: 0; cursor: pointer;
+    background: var(--surface-2); border-radius: 1.5px;
+    transition: transform .1s ease;
+  }
+  .tick[data-v="call"]   { background: var(--call); }
+  .tick[data-v="nocall"] { background: var(--nocall); }
+  .tick[data-v="unsure"] { background: var(--unsure); }
+  .tick[aria-current="true"] { outline: 2px solid var(--accent); outline-offset: 1px; transform: scaleY(1.35); }
+  .tick:hover { transform: scaleY(1.35); }
+
+  /* ---------- the station ---------- */
+  main { max-width: 1080px; margin: 0 auto; padding: 26px 22px 60px; }
+  .brief {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 16px 18px; box-shadow: var(--shadow); margin-bottom: 24px;
+  }
+  .brief p { margin: 0 0 9px; max-width: 68ch; }
+  .brief p:last-child { margin-bottom: 0; }
+  .brief strong { font-weight: 600; }
+  details.brief > summary {
+    cursor: pointer; font-size: 13px; font-weight: 600; color: var(--accent);
+    list-style: none; display: flex; align-items: center; gap: 7px;
+  }
+  details.brief > summary::-webkit-details-marker { display: none; }
+  details.brief > summary::before { content: "›"; transition: transform .15s ease; font-size: 17px; line-height: 1; }
+  details.brief[open] > summary::before { transform: rotate(90deg); }
+  details.brief[open] > summary { margin-bottom: 13px; }
+
+  .station {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .clip-id {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 18px; border-bottom: 1px solid var(--line);
+    font-size: 12.5px; color: var(--muted);
+  }
+  .clip-id .n { color: var(--ink); font-weight: 600; }
+  .clip-id .spacer { flex: 1; }
+  .spec-wrap { background: var(--spec-bg); padding: 0; display: grid; place-items: center; }
+  .spec-wrap img { display: block; width: 100%; max-width: 780px; height: auto; }
+  .axis-note {
+    background: var(--spec-bg); color: #8a8a95; font-size: 11px; text-align: center;
+    padding: 0 0 9px;
+  }
+  .transport {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 15px 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .play {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--accent); color: var(--surface); border: 0; border-radius: 6px;
+    padding: 9px 17px; font: inherit; font-weight: 600; font-size: 14px; cursor: pointer;
+  }
+  :root:not([data-theme="light"]) .play { color: #0f1216; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .play { color: #fff; } }
+  :root[data-theme="light"] .play { color: #fff; }
+  .play:hover { filter: brightness(1.08); }
+  .play .gl { font-size: 11px; }
+  .readout { display: flex; gap: 18px; font-size: 13px; color: var(--muted); }
+  .readout span b { color: var(--ink); font-weight: 500; }
+  .reveal {
+    margin-left: auto; background: none; border: 1px solid var(--line); color: var(--muted);
+    border-radius: 6px; padding: 6px 11px; font: inherit; font-size: 12px; cursor: pointer;
+  }
+  .reveal:hover { border-color: var(--accent); color: var(--accent); }
+
+  .verdicts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
+  .vb {
+    background: var(--surface); border: 0; padding: 18px 12px 16px; cursor: pointer;
+    font: inherit; text-align: center; color: var(--ink);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    transition: background .12s ease;
+  }
+  .vb:hover { background: var(--surface-2); }
+  .vb .lbl { font-weight: 600; font-size: 14.5px; }
+  .vb .key { font-size: 10.5px; color: var(--muted); letter-spacing: .06em; }
+  .vb[data-on="true"] { color: var(--surface); }
+  .vb[data-v="call"][data-on="true"]   { background: var(--call); }
+  .vb[data-v="nocall"][data-on="true"] { background: var(--nocall); }
+  .vb[data-v="unsure"][data-on="true"] { background: var(--unsure); }
+  .vb[data-on="true"] .key { color: currentColor; opacity: .8; }
+  :root[data-theme="dark"] .vb[data-on="true"], 
+  :root:not([data-theme="light"]) .vb[data-on="true"] { color: #0f1216; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .vb[data-on="true"] { color: #fff; } }
+  :root[data-theme="light"] .vb[data-on="true"] { color: #fff; }
+
+  .notebar { display: flex; gap: 10px; padding: 13px 18px; border-top: 1px solid var(--line); align-items: center; }
+  .notebar label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .notebar input {
+    flex: 1; background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+    padding: 8px 11px; font: inherit; font-size: 13px; color: var(--ink);
+  }
+  .nav { display: flex; gap: 10px; margin-top: 18px; align-items: center; }
+  .nav button {
+    background: var(--surface); border: 1px solid var(--line); color: var(--ink);
+    border-radius: 6px; padding: 8px 15px; font: inherit; font-size: 13px; cursor: pointer;
+  }
+  .nav button:hover { border-color: var(--accent); }
+  .nav .hint { margin-left: auto; font-size: 12px; color: var(--muted); }
+
+  .banner {
+    margin-bottom: 18px; padding: 11px 15px; border-radius: 7px; font-size: 13px;
+    background: var(--accent-dim); border: 1px solid var(--accent); color: var(--ink);
+  }
+  .tally { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 20px; }
+  .tally h2 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+  .bars { display: grid; gap: 8px; max-width: 520px; }
+  .bar { display: grid; grid-template-columns: 92px 1fr 46px; gap: 11px; align-items: center; font-size: 13px; }
+  .bar .track { height: 9px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
+  .bar .fill { height: 100%; border-radius: 5px; transition: width .25s ease; }
+  footer { max-width: 1080px; margin: 0 auto; padding: 0 22px 40px; color: var(--muted); font-size: 12px; }
+
+  @media (max-width: 620px) {
+    .verdicts { grid-template-columns: 1fr; }
+    .counts { width: 100%; margin-left: 0; }
+  }
+</style>
+
+<header>
+  <div class="head-in">
+    <div class="head-top">
+      <div class="eyebrow">111021-000 &middot; zebra finch colony</div>
+      <h1>Is there a call in this window?</h1>
+      <div class="counts mono">
+        <span><b id="c-done">0</b>/<span id="c-total">0</span> judged</span>
+        <span style="color:var(--call)"><b id="c-call">0</b> call</span>
+        <span style="color:var(--nocall)"><b id="c-nocall">0</b> no call</span>
+        <span style="color:var(--unsure)"><b id="c-unsure">0</b> unsure</span>
+      </div>
+    </div>
+    <div class="rail" id="rail" role="tablist" aria-label="clip progress"></div>
+  </div>
+</header>
+
+<main>
+  <div id="banner"></div>
+
+  <details class="brief">
+    <summary>What this is measuring</summary>
+    <p>The detector flagged <strong>52 one-second windows</strong> as calls with near-total
+      confidence, but the hand labels say &ldquo;noise&rdquo;. No acoustic measure separates them
+      from real calls &mdash; not spectral flatness, not pitch strength, not peak loudness. So
+      either the model is wrong about all 52, or those are real calls nobody annotated. Listening
+      is what settles it.</p>
+    <p>Judging only the model's errors would measure nothing, though: there would be no comparison
+      and knowing they are errors biases the ear. So <strong>36 loudness-matched controls</strong>
+      are mixed in &mdash; windows whose label and model score already agree, half call and half
+      not. Everything is shuffled and unlabelled, this page included. The answer key lives in a
+      separate local file.</p>
+    <p>Afterwards the question is a rate comparison: if the flagged windows get called
+      &ldquo;call&rdquo; about as often as the known calls, they are missed annotations and
+      detection precision was understated. If they track the known non-calls, they are real
+      mistakes.</p>
+    <p>Audio is peak-normalised so quiet calls stay audible, which means the player says nothing
+      about loudness &mdash; the measured dB is printed instead. The cyan lines mark the exact
+      second under judgement inside two seconds of context.</p>
+  </details>
+
+  <div class="station">
+    <div class="clip-id">
+      <span class="mono">clip <span class="n" id="clip-n">1</span> of <span id="clip-tot">88</span></span>
+      <span class="mono" id="clip-code" style="color:var(--muted)"></span>
+      <span class="spacer"></span>
+      <span id="saved-state" class="mono" style="font-size:11.5px"></span>
+    </div>
+    <div class="spec-wrap"><img id="spec" alt="spectrogram of the clip, 0 to 8 kHz" /></div>
+    <div class="axis-note mono">2 s of context &middot; 0&ndash;8 kHz &middot; cyan lines = the window being judged</div>
+    <div class="transport">
+      <button class="play" id="play"><span class="gl">&#9654;</span> Play</button>
+      <div class="readout mono">
+        <span>level <b id="db">&mdash;</b></span>
+        <span id="pos-wrap" hidden>position <b id="pos">&mdash;</b></span>
+      </div>
+      <button class="reveal" id="reveal">Show position in recording</button>
+    </div>
+    <div class="verdicts">
+      <button class="vb" data-v="call"><span class="lbl">Call</span><span class="key">1</span></button>
+      <button class="vb" data-v="nocall"><span class="lbl">No call</span><span class="key">2</span></button>
+      <button class="vb" data-v="unsure"><span class="lbl">Unsure</span><span class="key">3</span></button>
+    </div>
+    <div class="notebar">
+      <label for="note">Note</label>
+      <input id="note" type="text" placeholder="optional &mdash; what you heard, or why it is ambiguous" maxlength="300" />
+    </div>
+  </div>
+
+  <div class="nav">
+    <button id="prev">&larr; Previous</button>
+    <button id="next">Next &rarr;</button>
+    <button id="jump">Next unjudged</button>
+    <span class="hint mono">1 / 2 / 3 to judge &middot; space to replay &middot; arrows to move</span>
+  </div>
+
+  <div class="tally">
+    <h2>Running tally</h2>
+    <div class="bars" id="bars"></div>
+  </div>
+</main>
+
+<footer>
+  Windows are 1 s at 16 kHz from recording 111021-000. Verdicts save as you go.
+</footer>
+
+<script>
+const CARDS = /*__CARDS__*/[];
+const V = ["call", "nocall", "unsure"];
+const LBL = { call: "Call", nocall: "No call", unsure: "Unsure" };
+const LS = "adjudication.v1";
+
+let idx = 0;
+let verdicts = {};
+let db = null;
+let audioCache = new Map();
+let current = null;
+
+/* ---------- storage: db when the viewer has it, localStorage always as a mirror ---------- */
+function loadLocal() {
+  try { return JSON.parse(localStorage.getItem(LS) || "{}"); } catch (e) { return {}; }
+}
+function saveLocal() {
+  try { localStorage.setItem(LS, JSON.stringify(verdicts)); } catch (e) { /* private window */ }
+}
+async function persist(id, rec) {
+  verdicts[id] = rec;
+  saveLocal();
+  render();
+  if (!db) return;
+  try {
+    await db.collection("verdicts").doc(id).set(rec);
+    setSaved("saved");
+  } catch (e) {
+    setSaved(e && e.code === "revoked" ? "read-only" : "saved locally only");
+  }
+}
+function setSaved(t) {
+  const el = document.getElementById("saved-state");
+  el.textContent = t;
+  el.style.color = t === "saved" ? "var(--accent)" : "var(--muted)";
+}
+
+/* ---------- rendering ---------- */
+function render() {
+  const c = CARDS[idx];
+  current = c;
+  document.getElementById("clip-n").textContent = idx + 1;
+  document.getElementById("clip-code").textContent = c.id;
+  document.getElementById("spec").src = c.img;
+  document.getElementById("db").textContent = c.db.toFixed(1) + " dB";
+  document.getElementById("pos").textContent = fmt(c.t);
+  const rec = verdicts[c.id];
+  document.getElementById("note").value = (rec && rec.note) || "";
+  document.querySelectorAll(".vb").forEach(b => {
+    b.dataset.on = String(!!rec && rec.verdict === b.dataset.v);
+  });
+  document.querySelectorAll(".tick").forEach((t, i) => {
+    const r = verdicts[CARDS[i].id];
+    if (r) t.dataset.v = r.verdict; else t.removeAttribute("data-v");
+    t.setAttribute("aria-current", String(i === idx));
+  });
+  const n = {};
+  V.forEach(v => n[v] = 0);
+  Object.values(verdicts).forEach(r => { if (n[r.verdict] !== undefined) n[r.verdict]++; });
+  const done = V.reduce((a, v) => a + n[v], 0);
+  document.getElementById("c-done").textContent = done;
+  V.forEach(v => document.getElementById("c-" + v).textContent = n[v]);
+  document.getElementById("bars").innerHTML = V.map(v => {
+    const pct = CARDS.length ? (100 * n[v] / CARDS.length) : 0;
+    return `<div class="bar"><span>${LBL[v]}</span>
+      <span class="track"><span class="fill" style="width:${pct}%;background:var(--${v})"></span></span>
+      <span class="mono">${n[v]}</span></div>`;
+  }).join("");
+  setSaved(rec ? (db ? "saved" : "saved locally") : "");
+}
+function fmt(s) {
+  const m = Math.floor(s / 60), r = (s % 60).toFixed(1);
+  return `${m}:${r.padStart(4, "0")}`;
+}
+function play() {
+  if (!current) return;
+  let a = audioCache.get(current.id);
+  if (!a) { a = new Audio(current.audio); audioCache.set(current.id, a); }
+  a.currentTime = 0;
+  a.play().catch(() => {});
+}
+function go(i, autoplay) {
+  idx = Math.max(0, Math.min(CARDS.length - 1, i));
+  render();
+  if (autoplay) play();
+}
+function judge(v) {
+  if (!current) return;
+  persist(current.id, {
+    clip_id: current.id, verdict: v,
+    note: document.getElementById("note").value.trim(),
+    db: current.db, t_in_file_s: current.t, updated_at: new Date().toISOString()
+  });
+  if (idx < CARDS.length - 1) setTimeout(() => go(idx + 1, true), 140);
+}
+
+/* ---------- wiring ---------- */
+function build() {
+  document.getElementById("c-total").textContent = CARDS.length;
+  document.getElementById("clip-tot").textContent = CARDS.length;
+  const rail = document.getElementById("rail");
+  rail.innerHTML = CARDS.map((c, i) =>
+    `<button class="tick" data-i="${i}" title="clip ${i + 1}" aria-label="clip ${i + 1}"></button>`).join("");
+  rail.addEventListener("click", e => {
+    const t = e.target.closest(".tick");
+    if (t) go(+t.dataset.i, false);
+  });
+  document.getElementById("play").addEventListener("click", play);
+  document.querySelectorAll(".vb").forEach(b =>
+    b.addEventListener("click", () => judge(b.dataset.v)));
+  document.getElementById("prev").addEventListener("click", () => go(idx - 1, false));
+  document.getElementById("next").addEventListener("click", () => go(idx + 1, false));
+  document.getElementById("jump").addEventListener("click", () => {
+    const i = CARDS.findIndex(c => !verdicts[c.id]);
+    if (i >= 0) go(i, true);
+  });
+  document.getElementById("reveal").addEventListener("click", e => {
+    const w = document.getElementById("pos-wrap");
+    w.hidden = !w.hidden;
+    e.target.textContent = w.hidden ? "Show position in recording" : "Hide position";
+  });
+  const note = document.getElementById("note");
+  note.addEventListener("change", () => {
+    const rec = verdicts[current.id];
+    if (rec) persist(current.id, Object.assign({}, rec, { note: note.value.trim() }));
+  });
+  addEventListener("keydown", e => {
+    if (e.target.tagName === "INPUT" || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === "1") { e.preventDefault(); judge("call"); }
+    else if (e.key === "2") { e.preventDefault(); judge("nocall"); }
+    else if (e.key === "3") { e.preventDefault(); judge("unsure"); }
+    else if (e.key === " ") { e.preventDefault(); play(); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); go(idx + 1, false); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); go(idx - 1, false); }
+  });
+  verdicts = loadLocal();
+  render();
+}
+build();
+
+/* The page is fully usable before this resolves, and stays usable if it resolves null. */
+(async () => {
+  let d = null;
+  try { d = await window.claude?.use?.("db"); } catch (e) { d = null; }
+  if (!d) {
+    document.getElementById("banner").innerHTML =
+      '<div class="banner">Verdicts are being kept in this browser only &mdash; shared saving is ' +
+      'not available in this view. They will still be here when you come back on this device.</div>';
+    return;
+  }
+  db = d;
+  db.collection("verdicts").onSnapshot(snap => {
+    const merged = Object.assign({}, verdicts);
+    snap.docs.forEach(doc => {
+      const v = doc.data();
+      if (v && V.includes(v.verdict)) merged[doc.id] = v;
+    });
+    verdicts = merged;
+    saveLocal();
+    render();
+  }, err => {
+    document.getElementById("banner").innerHTML =
+      '<div class="banner">Shared saving stopped (' + err.code +
+      '). Verdicts are still being kept in this browser.</div>';
+    db = null;
+  });
+  // Anything judged offline before db arrived gets pushed up once.
+  for (const [id, rec] of Object.entries(verdicts)) {
+    try { await db.collection("verdicts").doc(id).set(rec); } catch (e) { break; }
+  }
+})();
+</script>

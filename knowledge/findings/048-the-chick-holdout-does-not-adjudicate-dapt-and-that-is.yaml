@@ -1,0 +1,45 @@
+id: '048'
+title: The chick holdout does not adjudicate DAPT, and that is itself informative
+status: confirmed
+claim: 'A second encoder-level holdout was built from the chick recordings to relieve BirdPark''s
+  low power. It does not resolve any DAPT comparison -- every model is not distinguishable from
+  run11 on both readouts. But the DIRECTION is consistent and non-trivial: DAPT never degrades
+  chick discrimination, while it significantly degrades BirdPark detection. The damage is specific
+  to cross-LAB transfer, not a wholesale loss of representation.'
+evidence: 'Paired bootstrap RESAMPLING CHICKS (2000 replicates for Be/LT AUC, 400 for AMI(k=4)),
+  each model minus run11 at the arm pre-committed on out-of-fold ZF detection AUC. Be/LT AUC deltas
+  span +0.0044 to +0.0083 and EVERY interval straddles zero (tightest dapt1e4_step15000 +0.0060
+  [-0.0004, +0.0178]; aves-base-bio +0.0076 [+0.0000, +0.0215]). AMI(k=4) deltas span -0.0228 to
+  -0.1057, every interval straddles zero, and the intervals are enormous -- widths 0.20 to 0.43
+  (dapt5e5_step2500 -0.1057 [-0.3381, +0.0878]) -- so the unsupervised readout has essentially no
+  power at 15 chicks. Point estimates that looked like results before bootstrapping and are NOT:
+  every DAPT checkpoint appeared to beat run11 on Be/LT (0.9902-0.9943 vs 0.9858) and run11
+  appeared to beat everything on AMI (0.5361 vs 0.3857-0.4958, AVES 0.3873). Validation before use:
+  this script reproduces the published run11 chick numbers -- native L1 Be/LT AUC 0.9904 vs 0.991
+  published, duration-only baseline 0.8108 vs 0.820.'
+method: 'zfeval/experiments/chick_holdout_variants.py. Arms are read from detection_variants.json''s
+  ZF pre-commitment and never chosen on chick data. Clips encoded ONE AT A TIME (group norm over
+  time means padding corrupts short LT clips). 44.1 kHz chick audio polyphase-resampled to 16 kHz.
+  Supervised cohort restricted to the 10 chicks producing BOTH call types, since a single-class
+  chick is a degenerate leave-one-out fold that shifts pooled AUC; AMI uses all 415 clips / 15
+  chicks. Resampling unit is the CHICK, never the clip -- clips within a chick are not independent
+  and clip-level resampling would produce intervals several times too narrow.'
+provenance: zfeval/experiments/chick_holdout_variants.py; analysis/chick_holdout_variants.json;
+  audio copied to ~/zf_labelset/external/chick/
+caveats: 'DO NOT treat this as a second axis that can settle DAPT questions -- it cannot, and the
+  intervals say so. The likely reason it shows no damage is that chicks are NOT a domain holdout in
+  the sense BirdPark is: they are zebra finches from the same corpus family, differing in individual
+  and recording date, whereas BirdPark is a different lab, different room, different microphones.
+  Continued pretraining on ZF colony audio should be expected to PRESERVE or help same-corpus
+  discrimination while eroding cross-lab transfer, which is exactly the pattern observed. So this
+  supports rather than contradicts [047]. The cohort filter depends on a pretrain-manifest file that
+  no longer exists on disk, so the unseen-date selection is not locally re-verifiable; the cached
+  name list is reused to preserve the published cohort. Getting real power on domain transfer needs a
+  LARGER cross-lab holdout, not another same-corpus one.'
+tags:
+- holdout
+- evaluation
+- dapt
+- negative-result
+- statistics
+date: '2026-09-17'

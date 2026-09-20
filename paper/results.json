@@ -1,0 +1,1677 @@
+{
+  "generated": "2026-09-16T21:01:07",
+  "n_entries": 274,
+  "entries": {
+    "contam.rate_pct": {
+      "value": 62.6,
+      "display": "62.6",
+      "source": "knowledge/findings/014 + dataset README; 2358 of 3768 judged windows",
+      "note": "our ears against a published negative set; see ADVERSARIAL A7",
+      "manual": true
+    },
+    "contam.n_calls": {
+      "value": 2358,
+      "display": "2358",
+      "source": "dataset README, benchmark_neg_pool batches 000-023",
+      "note": "",
+      "manual": true
+    },
+    "contam.n_judged": {
+      "value": 3768,
+      "display": "3768",
+      "source": "dataset README, benchmark_neg_pool batches 000-023",
+      "note": "",
+      "manual": true
+    },
+    "contam.expert_n": {
+      "value": 30,
+      "display": "30",
+      "source": "sample_labels_JEE.csv; Julie Elie expert review",
+      "note": "",
+      "manual": true
+    },
+    "contam.expert_agree": {
+      "value": 28,
+      "display": "28",
+      "source": "sample_labels_JEE.csv; both disagreements ours-noise -> her-call, so 62.6% is a floor",
+      "note": "",
+      "manual": true
+    },
+    "pretrain.frac_seen": {
+      "value": 99.5,
+      "display": "99.5",
+      "source": "knowledge/findings/028",
+      "note": "fraction of curated clips from the 120 pretrained recordings",
+      "manual": true
+    },
+    "silence.sd_outside": {
+      "value": 9.9,
+      "display": "9.9",
+      "source": "knowledge/findings/010",
+      "note": "how far outside the training hull the silence probe extrapolates",
+      "manual": true
+    },
+    "randinit.scale_ratio": {
+      "value": 20000,
+      "display": "20000",
+      "source": "randinit_control run log",
+      "note": "random-init CNN absmax 0.0007 vs pretrained 15.82",
+      "manual": true
+    },
+    "randinit.absmax_rand": {
+      "value": 0.0007,
+      "display": "0.0007",
+      "source": "randinit_control run log",
+      "note": "",
+      "manual": true
+    },
+    "randinit.absmax_pre": {
+      "value": 15.82,
+      "display": "15.82",
+      "source": "randinit_control run log",
+      "note": "",
+      "manual": true
+    },
+    "gap.p5_intercall_ms": {
+      "value": 16,
+      "display": "16",
+      "source": "resolution ground-truth validation",
+      "note": "below the 20 ms frame grid: some call pairs are unresolvable in principle",
+      "manual": true
+    },
+    "adj.n_disputed": {
+      "value": 52,
+      "display": "52",
+      "source": "analysis/adjudication_key.json",
+      "note": "high-confidence disputed false positives, not yet adjudicated",
+      "manual": true
+    },
+    "adj.n_controls": {
+      "value": 18,
+      "display": "18",
+      "source": "analysis/adjudication_key.json",
+      "note": "loudness-matched TP and TN controls, 18 each",
+      "manual": true
+    },
+    "decoder.grid_size": {
+      "value": 2160,
+      "display": "2160",
+      "source": "onset_events_v2 run log; 15x3x4x4x3 per fold",
+      "note": "",
+      "manual": true
+    },
+    "synth.seam_fp_pct": {
+      "value": 2.1,
+      "display": "2.1",
+      "source": "synth_timing run, 10/472 false positives within 50 ms of a seam",
+      "note": "",
+      "manual": true
+    },
+    "aves.weights_mb": {
+      "value": 377,
+      "display": "377",
+      "source": "aves-base-bio.torchaudio.pt, 377570545 bytes",
+      "note": "",
+      "manual": true
+    },
+    "event.L0.precision": {
+      "value": 0.922,
+      "display": "0.922",
+      "source": "knowledge/findings/018",
+      "note": "layer 0 is the precise one; see ADVERSARIAL A6 on multiplicity",
+      "manual": true
+    },
+    "event.L6.recall_018": {
+      "value": 0.806,
+      "display": "0.806",
+      "source": "knowledge/findings/018",
+      "note": "layer 6 is the sensitive one",
+      "manual": true
+    },
+    "n_findings": {
+      "value": 32,
+      "display": "32",
+      "source": "knowledge/findings/ directory count",
+      "note": "",
+      "manual": true
+    },
+    "randinit.transformer_gain": {
+      "value": 0.0113,
+      "display": "+0.011",
+      "source": "derived: randinit_control.json layer_table L10 pretrained 0.9574 - cnn pretrained 0.9461",
+      "note": "gain of the BEST transformer layer over the CNN output; L10 is best_pretrained_layer. The earlier provenance string named L7, which gives +0.008 -- the value was right, the citation was not.",
+      "manual": true
+    },
+    "randinit.gap_hi": {
+      "value": 0.208,
+      "display": "+0.208",
+      "source": "derived: max gap_vs_rand over transformer layers, randinit_control.json",
+      "note": "",
+      "manual": true
+    },
+    "aves.bp.run11_margin_over_energy": {
+      "value": 0.011,
+      "display": "+0.011",
+      "source": "derived: aves_holdout zf_to_bp run11_L0 0.8649 - logenergy 0.8542",
+      "note": "",
+      "manual": true
+    },
+    "aves.bp.aves_margin_over_energy": {
+      "value": 0.047,
+      "display": "+0.047",
+      "source": "derived: aves_holdout zf_to_bp aves_L3 0.9009 - logenergy 0.8542",
+      "note": "",
+      "manual": true
+    },
+    "aves.bp.posthoc_L3_delta": {
+      "value": 0.0345,
+      "display": "+0.0345",
+      "source": "analysis/ensemble_detect_avesL3.json bootstrap bp1500_aves_vs_run11_auc.delta",
+      "note": "POST-HOC layer, selection on the test set -- sensitivity only",
+      "manual": true
+    },
+    "silence.energy_floor_db": {
+      "value": -80,
+      "display": "-80",
+      "source": "knowledge/findings/010",
+      "note": "energy floor that fixes the digital-silence failure; touches no real window",
+      "manual": true
+    },
+    "hyst.delta_L6": {
+      "value": 0.009,
+      "display": "+0.009",
+      "source": "knowledge/findings/023",
+      "note": "collar-50 F1 gain from hysteresis, NO bootstrap -- must not be called an improvement",
+      "manual": true
+    },
+    "hyst.delta_L0": {
+      "value": -0.001,
+      "display": "-0.001",
+      "source": "knowledge/findings/023",
+      "note": "",
+      "manual": true
+    },
+    "tgt.spec_k100.ami_call": {
+      "value": 0.07122869053456299,
+      "display": "0.0712",
+      "source": "analysis/target_features.json:grid.soundsig4000_k100.ami_call",
+      "note": "run11's ACTUAL iteration-1 feature, 4000-d soundsig STFT"
+    },
+    "tgt.spec_k200.ami_call": {
+      "value": 0.06423939105678528,
+      "display": "0.0642",
+      "source": "analysis/target_features.json:grid.soundsig4000_k200.ami_call",
+      "note": ""
+    },
+    "tgt.mfcc_k100.ami_call": {
+      "value": 0.04867661027727947,
+      "display": "0.0487",
+      "source": "analysis/target_features.json:grid.mfcc39_k100.ami_call",
+      "note": "AVES's iteration-1 feature, fairseq stock 39-d MFCC"
+    },
+    "tgt.mfcc_k200.ami_call": {
+      "value": 0.04008970181548443,
+      "display": "0.0401",
+      "source": "analysis/target_features.json:grid.mfcc39_k200.ami_call",
+      "note": ""
+    },
+    "tgt.logmel_k100.ami_call": {
+      "value": 0.08537749352962344,
+      "display": "0.0854",
+      "source": "analysis/target_features.json:grid.logmel384_k100.ami_call",
+      "note": "beats run11's own 4000-d feature"
+    },
+    "tgt.spec_k100.ami_voc": {
+      "value": 0.07256274458859933,
+      "display": "0.0726",
+      "source": "analysis/target_features.json:grid.soundsig4000_k100.ami_voc",
+      "note": ""
+    },
+    "tgt.mfcc_k100.ami_voc": {
+      "value": 0.0626242651216318,
+      "display": "0.0626",
+      "source": "analysis/target_features.json:grid.mfcc39_k100.ami_voc",
+      "note": ""
+    },
+    "tgt.spec_minus_mfcc.k100": {
+      "value": 0.022552080257283516,
+      "display": "+0.0226",
+      "source": "analysis/target_features.json:effects.spectrogram_minus_mfcc_at_k100_ami_call",
+      "note": "the spectrogram choice, isolated at run11's k"
+    },
+    "tgt.spec_minus_mfcc.k200": {
+      "value": 0.02414968924130085,
+      "display": "+0.0241",
+      "source": "analysis/target_features.json:effects.spectrogram_minus_mfcc_at_k200_ami_call",
+      "note": "same sign and size at AVES's k, so it is a feature effect not a k artifact"
+    },
+    "tgt.run11_minus_aves_iter1": {
+      "value": 0.03113898871907856,
+      "display": "+0.0311",
+      "source": "analysis/target_features.json:effects.run11_actual_minus_aves_iter1_ami_call",
+      "note": "as-shipped vs as-shipped"
+    },
+    "budget.run11.updates": {
+      "value": 93750,
+      "display": "93750",
+      "source": "analysis/compute_budget.json:run11.updates",
+      "note": "from slurm/train_iter7_long_lowprio.sh"
+    },
+    "budget.aves.updates": {
+      "value": 100000,
+      "display": "100000",
+      "source": "analysis/compute_budget.json:aves.updates",
+      "note": "from the fairseq cfg in the 2022 checkpoint"
+    },
+    "budget.run11.sec_per_update": {
+      "value": 80.30687580107666,
+      "display": "80.3",
+      "source": "analysis/compute_budget.json:run11.audio_seconds_per_update",
+      "note": "REALISED: corpus_seconds / steps_per_epoch. NOT 4 x 87.5 -- --gpus 4 was never honoured"
+    },
+    "budget.aves.sec_per_update": {
+      "value": 700.0,
+      "display": "700.0",
+      "source": "analysis/compute_budget.json:aves.audio_seconds_per_update",
+      "note": "max_tokens 1.4e6/16000 x update_freq 8"
+    },
+    "budget.run11.audio_hours": {
+      "value": 2091.324890653038,
+      "display": "2,091.3",
+      "source": "analysis/compute_budget.json:run11.total_audio_hours",
+      "note": "audio-seconds seen, counting repeats"
+    },
+    "budget.aves.audio_hours": {
+      "value": 19444.444444444445,
+      "display": "19,444.4",
+      "source": "analysis/compute_budget.json:aves.total_audio_hours",
+      "note": ""
+    },
+    "budget.run11.epochs": {
+      "value": 18.02422455780569,
+      "display": "18.0",
+      "source": "analysis/compute_budget.json:run11.epochs_over_corpus",
+      "note": "corroborated by Lightning's own counter, 18"
+    },
+    "budget.aves.epochs": {
+      "value": 54.01234567901235,
+      "display": "54.0",
+      "source": "analysis/compute_budget.json:aves.epochs_over_corpus",
+      "note": "corroborated by fairseq's own counter, 55"
+    },
+    "budget.audio_ratio": {
+      "value": 9.297667967014306,
+      "display": "9.30",
+      "source": "analysis/compute_budget.json:comparison.audio_hours_ratio_aves_over_run11",
+      "note": "AVES saw 9.30x more audio"
+    },
+    "budget.epochs_ratio": {
+      "value": 2.996652949245542,
+      "display": "3.00",
+      "source": "analysis/compute_budget.json:comparison.epochs_ratio",
+      "note": "AND 3.00x the passes -- run11 under-trained on both axes"
+    },
+    "budget.run11.corpus_hours": {
+      "value": 116.0285638888889,
+      "display": "116.03",
+      "source": "analysis/compute_budget.json:run11.corpus_hours",
+      "note": "from the training TSV (120 files), NOT the README's ~100 h"
+    },
+    "budget.aves.corpus_hours": {
+      "value": 360.0,
+      "display": "360.0",
+      "source": "analysis/compute_budget.json:aves.corpus_hours",
+      "note": "Hagiwara 2023 Table 1"
+    },
+    "budget.run11.world_size": {
+      "value": 1,
+      "display": "1",
+      "source": "analysis/compute_budget.json:run11.world_size",
+      "note": "what srun launched; the script reserved 4 GPUs and used 1"
+    },
+    "budget.run11.warmup_frac": {
+      "value": 0.03333333333333333,
+      "display": "0.033",
+      "source": "analysis/compute_budget.json:run11.warmup_fraction",
+      "note": ""
+    },
+    "budget.aves.warmup_frac": {
+      "value": 0.32,
+      "display": "0.320",
+      "source": "analysis/compute_budget.json:aves.warmup_fraction",
+      "note": "fairseq stock 32k warmup left in after cutting the run to 100k"
+    },
+    "budget.aves.wall_hours": {
+      "value": 88709.81012225151,
+      "display": "88710",
+      "source": "analysis/compute_budget.json:aves.wall_clock_seconds",
+      "note": "seconds; 24.6 h on ONE GPU"
+    },
+    "readout.aves_best.acc": {
+      "value": 0.8525791324736225,
+      "display": "0.8526",
+      "source": "analysis/attentive_probe.json:results[aves|L3|meanmax].acc",
+      "note": "best of 52 arms, and it is UNLEARNED pooling"
+    },
+    "readout.run11_best.acc": {
+      "value": 0.8279601406799532,
+      "display": "0.8280",
+      "source": "analysis/attentive_probe.json:results[run11|L1|multi].acc",
+      "note": ""
+    },
+    "readout.aves_attn.acc": {
+      "value": 0.8106682297772567,
+      "display": "0.8107",
+      "source": "analysis/attentive_probe.json:results[aves|L3|attn|s0].acc",
+      "note": "learned attentive pooling, below mean pooling"
+    },
+    "readout.aves_trf.acc": {
+      "value": 0.8200468933177022,
+      "display": "0.8200",
+      "source": "analysis/attentive_probe.json:results[aves|L3|trf|s0].acc",
+      "note": "2-layer transformer head, also below"
+    },
+    "readout.aves_mean.acc": {
+      "value": 0.8455451348182884,
+      "display": "0.8455",
+      "source": "analysis/attentive_probe.json:results[aves|L3|mean].acc",
+      "note": ""
+    },
+    "readout.run11_mean.acc": {
+      "value": 0.8127198124267292,
+      "display": "0.8127",
+      "source": "analysis/attentive_probe.json:results[run11|L3|mean].acc",
+      "note": ""
+    },
+    "distil.student_best.auc": {
+      "value": 0.9740243308040444,
+      "display": "0.9740",
+      "source": "analysis/distillation.json:exp1_ensemble_distillation_detection.students[run11|mlp|kl].auc",
+      "note": "run11 features, ensemble soft targets"
+    },
+    "distil.student_best.ap": {
+      "value": 0.8842154740330884,
+      "display": "0.8842",
+      "source": "analysis/distillation.json:exp1_ensemble_distillation_detection.students[run11|mlp|kl].ap",
+      "note": "beats the two-encoder teacher"
+    },
+    "distil.teacher_mean.auc": {
+      "value": 0.9731871699004724,
+      "display": "0.9732",
+      "source": "analysis/distillation.json:exp1_ensemble_distillation_detection.meta.published_reference.mean",
+      "note": ""
+    },
+    "distil.vs_teacher.ap_delta": {
+      "value": 0.004163079531833741,
+      "display": "+0.0042",
+      "source": "analysis/distillation.json:exp1_ensemble_distillation_detection.bootstrap[run11|mlp|kl__vs__teacher_mean__ap].delta",
+      "note": ""
+    },
+    "distil.vs_teacher.ap_lo": {
+      "value": 0.001273381367640422,
+      "display": "+0.0013",
+      "source": "analysis/distillation.json:exp1_ensemble_distillation_detection.bootstrap[run11|mlp|kl__vs__teacher_mean__ap].lo",
+      "note": ""
+    },
+    "distil.vs_teacher.ap_hi": {
+      "value": 0.007178899854649792,
+      "display": "+0.0072",
+      "source": "analysis/distillation.json:exp1_ensemble_distillation_detection.bootstrap[run11|mlp|kl__vs__teacher_mean__ap].hi",
+      "note": ""
+    },
+    "distil.ct_best.acc": {
+      "value": 0.8264947245017585,
+      "display": "0.8265",
+      "source": "analysis/distillation_exp2.json:exp2_cross_encoder_feature_distillation.arms.map_mlp_rev.acc",
+      "note": "call type: still below AVES"
+    },
+    "frame.n": {
+      "value": 90061,
+      "display": "90061",
+      "source": "analysis/frame_baselines.json:n_frames",
+      "note": "20 ms frames, 30.02 min of 111021-000"
+    },
+    "frame.prevalence": {
+      "value": 0.12417139494342723,
+      "display": "0.1242",
+      "source": "analysis/frame_baselines.json:prevalence",
+      "note": "fraction of frames whose centre is in a call"
+    },
+    "frame.run11_L0.auc": {
+      "value": 0.9687310882257707,
+      "display": "0.9687",
+      "source": "analysis/frame_baselines.json:full.hubert_L0.auc",
+      "note": "best run11 layer at frame level"
+    },
+    "frame.run11_L0.ap": {
+      "value": 0.8680953129824681,
+      "display": "0.8681",
+      "source": "analysis/frame_baselines.json:full.hubert_L0.ap",
+      "note": ""
+    },
+    "frame.run11_L6.auc": {
+      "value": 0.9602474909569423,
+      "display": "0.9602",
+      "source": "analysis/frame_baselines.json:full.hubert_L6.auc",
+      "note": ""
+    },
+    "frame.logmel100.auc": {
+      "value": 0.9466594186905128,
+      "display": "0.9467",
+      "source": "analysis/frame_baselines.json:full.logmel_100ms.auc",
+      "note": "mel given 100 ms context, 4x HuBERT's receptive field"
+    },
+    "frame.logmel100.ap": {
+      "value": 0.7996959287120412,
+      "display": "0.7997",
+      "source": "analysis/frame_baselines.json:full.logmel_100ms.ap",
+      "note": ""
+    },
+    "frame.logmel25.auc": {
+      "value": 0.9188754990158778,
+      "display": "0.9189",
+      "source": "analysis/frame_baselines.json:full.logmel_25ms.auc",
+      "note": "mel matched to the 25 ms receptive field"
+    },
+    "frame.logenergy.auc": {
+      "value": 0.7837015167184123,
+      "display": "0.7837",
+      "source": "analysis/frame_baselines.json:full.logenergy.auc",
+      "note": ""
+    },
+    "frame.logenergy.ap": {
+      "value": 0.27820889329695037,
+      "display": "0.2782",
+      "source": "analysis/frame_baselines.json:full.logenergy.ap",
+      "note": ""
+    },
+    "frame.gap_vs_mel.auc": {
+      "value": 0.022071669535257854,
+      "display": "+0.0221",
+      "source": "analysis/frame_baselines.json:hubert_minus_mel100_auc",
+      "note": ""
+    },
+    "frame.gap_vs_mel.ap": {
+      "value": 0.06839938427042691,
+      "display": "+0.0684",
+      "source": "analysis/frame_baselines.json:hubert_minus_mel100_ap",
+      "note": "the honest headline: AP, not AUC, at 12% prevalence"
+    },
+    "aves.zf.run11_L0.auc": {
+      "value": 0.9687310882257707,
+      "display": "0.9687",
+      "source": "analysis/aves_baseline.json:results.run11_L0.auc",
+      "note": ""
+    },
+    "aves.zf.best_aves.auc": {
+      "value": 0.9673653088292173,
+      "display": "0.9674",
+      "source": "analysis/aves_baseline.json:best_aves.auc",
+      "note": ""
+    },
+    "aves.zf.best_aves.name": {
+      "value": "aves_matched_L6",
+      "display": "aves_matched_L6",
+      "source": "analysis/aves_baseline.json:best_aves.name",
+      "note": ""
+    },
+    "aves.zf.run11_minus_aves.auc": {
+      "value": 0.0013657793965533571,
+      "display": "+0.0014",
+      "source": "analysis/aves_baseline.json:run11_minus_aves_auc",
+      "note": "in-distribution: essentially a tie"
+    },
+    "aves.zf.run11_minus_aves.ap": {
+      "value": 0.00882811962132346,
+      "display": "+0.0088",
+      "source": "analysis/aves_baseline.json:run11_minus_aves_ap",
+      "note": ""
+    },
+    "aves.bp.run11_L0.auc": {
+      "value": 0.8648717508028874,
+      "display": "0.8649",
+      "source": "analysis/aves_holdout.json:zf_to_bp.run11_L0.auc",
+      "note": "ZF->BirdPark, the clean encoder-level holdout"
+    },
+    "aves.bp.run11_L0.ap": {
+      "value": 0.8122831403823427,
+      "display": "0.8123",
+      "source": "analysis/aves_holdout.json:zf_to_bp.run11_L0.ap",
+      "note": ""
+    },
+    "aves.bp.run11_L6.auc": {
+      "value": 0.7759570053721192,
+      "display": "0.7760",
+      "source": "analysis/aves_holdout.json:zf_to_bp.run11_L6.auc",
+      "note": "deep ZF layers transfer worst"
+    },
+    "aves.bp.aves_L3.auc": {
+      "value": 0.9009141835432544,
+      "display": "0.9009",
+      "source": "analysis/aves_holdout.json:zf_to_bp.aves_L3.auc",
+      "note": "best AVES layer on the holdout"
+    },
+    "aves.bp.aves_L3.ap": {
+      "value": 0.8389835019605965,
+      "display": "0.8390",
+      "source": "analysis/aves_holdout.json:zf_to_bp.aves_L3.ap",
+      "note": ""
+    },
+    "aves.bp.logenergy.auc": {
+      "value": 0.854173503236086,
+      "display": "0.8542",
+      "source": "analysis/aves_holdout.json:zf_to_bp.logenergy.auc",
+      "note": "BirdPark is close-miked; energy nearly solves it"
+    },
+    "aves.bp.logenergy.ap": {
+      "value": 0.7471783857604163,
+      "display": "0.7472",
+      "source": "analysis/aves_holdout.json:zf_to_bp.logenergy.ap",
+      "note": ""
+    },
+    "aves.bp.n_frames": {
+      "value": 5925,
+      "display": "5925",
+      "source": "analysis/aves_holdout.json:birdpark.n_frames_scored",
+      "note": "why the holdout bootstrap has no power"
+    },
+    "aves.bp.prevalence": {
+      "value": 0.4290295358649789,
+      "display": "0.4290",
+      "source": "analysis/aves_holdout.json:birdpark.prevalence",
+      "note": ""
+    },
+    "aves.bp.n_events": {
+      "value": 532,
+      "display": "532",
+      "source": "analysis/aves_holdout.json:birdpark.n_events",
+      "note": ""
+    },
+    "randinit.n": {
+      "value": 1801,
+      "display": "1801",
+      "source": "analysis/randinit_control.json:n",
+      "note": "1 s windows, soundsep_111021"
+    },
+    "randinit.prevalence": {
+      "value": 0.6757357023875624,
+      "display": "0.6757",
+      "source": "analysis/randinit_control.json:prevalence",
+      "note": "majority rate, NOT 0.5"
+    },
+    "randinit.cnn.pretrained": {
+      "value": 0.9461284767168312,
+      "display": "0.9461",
+      "source": "analysis/randinit_control.json:layer_table.cnn.pretrained",
+      "note": ""
+    },
+    "randinit.cnn.rand_mean": {
+      "value": 0.7019098726939138,
+      "display": "0.7019",
+      "source": "analysis/randinit_control.json:layer_table.cnn.rand_mean",
+      "note": "3 seeds"
+    },
+    "randinit.cnn.gap": {
+      "value": 0.2442186040229174,
+      "display": "+0.2442",
+      "source": "analysis/randinit_control.json:layer_table.cnn.gap_vs_rand",
+      "note": "the CNN front end is where the pretraining lives"
+    },
+    "randinit.L6.pretrained": {
+      "value": 0.9503143255929132,
+      "display": "0.9503",
+      "source": "analysis/randinit_control.json:layer_table.L6.pretrained",
+      "note": ""
+    },
+    "randinit.L6.gap": {
+      "value": 0.19869908037955453,
+      "display": "+0.1987",
+      "source": "analysis/randinit_control.json:layer_table.L6.gap_vs_rand",
+      "note": ""
+    },
+    "randinit.logmel": {
+      "value": 0.9002614220911516,
+      "display": "0.9003",
+      "source": "analysis/randinit_control.json:baselines.logmel",
+      "note": ""
+    },
+    "randinit.logenergy": {
+      "value": 0.509467757004086,
+      "display": "0.5095",
+      "source": "analysis/randinit_control.json:baselines.logenergy",
+      "note": ""
+    },
+    "res.w1000.windowed_L0": {
+      "value": 0.766615005673484,
+      "display": "0.7666",
+      "source": "analysis/resolution_sweep.json:w1000.center.windowed_L0",
+      "note": "centre label: length-neutral"
+    },
+    "res.w1000.continuous_L0": {
+      "value": 0.6725181966623308,
+      "display": "0.6725",
+      "source": "analysis/resolution_sweep.json:w1000.center.continuous_L0",
+      "note": ""
+    },
+    "res.w1000.overlap_windowed_L0": {
+      "value": 0.9514483740615257,
+      "display": "0.9514",
+      "source": "analysis/resolution_sweep.json:w1000.overlap.windowed_L0",
+      "note": "same audio, 'any overlap' label -- 0.185 higher"
+    },
+    "res.w125.windowed_L0": {
+      "value": 0.9508099243351706,
+      "display": "0.9508",
+      "source": "analysis/resolution_sweep.json:w125.center.windowed_L0",
+      "note": "the crossover"
+    },
+    "res.w125.continuous_L0": {
+      "value": 0.9491339147296098,
+      "display": "0.9491",
+      "source": "analysis/resolution_sweep.json:w125.center.continuous_L0",
+      "note": ""
+    },
+    "res.w40.windowed_L0": {
+      "value": 0.902976895979252,
+      "display": "0.9030",
+      "source": "analysis/resolution_sweep.json:w40.center.windowed_L0",
+      "note": ""
+    },
+    "res.w40.continuous_L0": {
+      "value": 0.9256547756706752,
+      "display": "0.9257",
+      "source": "analysis/resolution_sweep.json:w40.center.continuous_L0",
+      "note": "context still helps at 40 ms"
+    },
+    "res.frames.L0": {
+      "value": 0.9687310882257707,
+      "display": "0.9687",
+      "source": "analysis/resolution_sweep.json:frames_20ms.L0",
+      "note": ""
+    },
+    "onset.coarse_nearest.mae_ms": {
+      "value": 13.287981859434694,
+      "display": "13.3",
+      "source": "analysis/subframe_onset.json:arms.coarse_nearest.med_abs_err_ms",
+      "note": ""
+    },
+    "onset.coarse_nearest.bias_ms": {
+      "value": 10.633849385856298,
+      "display": "+10.6",
+      "source": "analysis/subframe_onset.json:arms.coarse_nearest.bias_ms",
+      "note": "exactly HOP/2 = 10 ms: the nearest-frame rule is late by construction"
+    },
+    "onset.coarse_interp.mae_ms": {
+      "value": 8.811559170197825,
+      "display": "8.8",
+      "source": "analysis/subframe_onset.json:arms.coarse_interp.med_abs_err_ms",
+      "note": "interpolating the crossing is free"
+    },
+    "onset.coarse_interp.bias_ms": {
+      "value": 1.7047771487689227,
+      "display": "+1.7",
+      "source": "analysis/subframe_onset.json:arms.coarse_interp.bias_ms",
+      "note": ""
+    },
+    "onset.shifted_K4_nearest.mae_ms": {
+      "value": 8.594104308386363,
+      "display": "8.6",
+      "source": "analysis/subframe_onset.json:arms.shifted_K4_nearest.med_abs_err_ms",
+      "note": "4x the encoder compute, no better than interpolation"
+    },
+    "onset.shifted_K4_interp.mae_ms": {
+      "value": 7.797614334435821,
+      "display": "7.8",
+      "source": "analysis/subframe_onset.json:arms.shifted_K4_interp.med_abs_err_ms",
+      "note": ""
+    },
+    "onset.n_true": {
+      "value": 2540,
+      "display": "2540",
+      "source": "analysis/subframe_onset.json:n_true",
+      "note": ""
+    },
+    "event.L6.collar50_f1": {
+      "value": 0.8230891963588359,
+      "display": "0.823",
+      "source": "analysis/onset_events_v2.json:L6.overall.collar_f1",
+      "note": ""
+    },
+    "event.L6.overlap_f1": {
+      "value": 0.8492497417152928,
+      "display": "0.849",
+      "source": "analysis/onset_events_v2.json:L6.overall.overlap_f1",
+      "note": "overlap matching flatters long predictions"
+    },
+    "event.energy.collar50_f1": {
+      "value": 0.4626186013766658,
+      "display": "0.463",
+      "source": "analysis/onset_events_v2.json:energy_prob.overall.collar_f1",
+      "note": ""
+    },
+    "offset.L6.mae_ms": {
+      "value": 20.0,
+      "display": "20",
+      "source": "analysis/onset_granular.json:L6.offset_ms.median_abs",
+      "note": "quantised to the 20 ms grid"
+    },
+    "offset.L6.bias_ms": {
+      "value": 20.0,
+      "display": "+20",
+      "source": "analysis/onset_granular.json:L6.offset_ms.bias",
+      "note": "predictions run long -- model or annotator, real data cannot say"
+    },
+    "offset.L6.duration_ratio": {
+      "value": 1.2,
+      "display": "1.20",
+      "source": "analysis/onset_granular.json:L6.duration_ratio_median",
+      "note": ""
+    },
+    "recall.L6.short_calls": {
+      "value": 0.6845238095238095,
+      "display": "0.685",
+      "source": "analysis/onset_granular.json:L6.recall_by_duration.0-50 ms.recall",
+      "note": "a 50 ms call is 2.5 frames"
+    },
+    "recall.L6.long_calls": {
+      "value": 0.9805825242718447,
+      "display": "0.981",
+      "source": "analysis/onset_granular.json:L6.recall_by_duration.200-inf ms.recall",
+      "note": ""
+    },
+    "fail.brown_noise": {
+      "value": 0.9930138614036157,
+      "display": "0.993",
+      "source": "analysis/synthetic_probe.json:categories.noise_brown.mean",
+      "note": "accepted, while white noise is rejected: spectral tilt, not harmonicity"
+    },
+    "fail.white_noise": {
+      "value": 0.12002302381822165,
+      "display": "0.120",
+      "source": "analysis/synthetic_probe.json:categories.noise_white.mean",
+      "note": ""
+    },
+    "fail.digital_silence": {
+      "value": 0.9997369686808625,
+      "display": "1.000",
+      "source": "analysis/synthetic_probe.json:categories.digital_silence.mean",
+      "note": "the probe extrapolating outside its training hull"
+    },
+    "fail.real_background": {
+      "value": 0.3841227571179327,
+      "display": "0.384",
+      "source": "analysis/synthetic_probe.json:categories.real_background.mean",
+      "note": "false-alarm floor at threshold 0.5"
+    },
+    "fail.real_call": {
+      "value": 0.9961291677233775,
+      "display": "0.996",
+      "source": "analysis/synthetic_probe.json:categories.real_call_in_silence.mean",
+      "note": ""
+    },
+    "win.evalA.hubert_L0.auc": {
+      "value": 0.9773600057748182,
+      "display": "0.9774",
+      "source": "analysis/mel_baseline.json:hubert_L0.A_auc",
+      "note": ""
+    },
+    "win.evalB.hubert_L0.auc": {
+      "value": 0.9556947242827072,
+      "display": "0.9557",
+      "source": "analysis/mel_baseline.json:hubert_L0.B_auc",
+      "note": "held-out recording"
+    },
+    "win.evalA.logmel.auc": {
+      "value": 0.9267398143636572,
+      "display": "0.9267",
+      "source": "analysis/mel_baseline.json:[logmel_C0.03].A_auc",
+      "note": "regularisation swept for the baseline, not for HuBERT"
+    },
+    "win.evalB.logmel.auc": {
+      "value": 0.836429688994946,
+      "display": "0.8364",
+      "source": "analysis/mel_baseline.json:[logmel_C0.03].B_auc",
+      "note": ""
+    },
+    "win.evalA.energy.auc": {
+      "value": 0.791094749126258,
+      "display": "0.7911",
+      "source": "analysis/mel_baseline.json:energy_only.A_auc",
+      "note": ""
+    },
+    "win.evalB.energy.auc": {
+      "value": 0.532380882700555,
+      "display": "0.5324",
+      "source": "analysis/mel_baseline.json:energy_only.B_auc",
+      "note": "energy collapses to near chance on exhaustive labels"
+    },
+    "win.evalA.hubert_plus_mel.auc": {
+      "value": 0.9716967739218836,
+      "display": "0.9717",
+      "source": "analysis/mel_baseline.json:hubert_plus_mel.A_auc",
+      "note": "concatenating mel makes it WORSE"
+    },
+    "win.gap.evalA": {
+      "value": 0.05065565245471264,
+      "display": "+0.0507",
+      "source": "analysis/mel_significance.json:eval A (in-distribution).delta",
+      "note": ""
+    },
+    "win.gap.evalA.lo": {
+      "value": 0.04056899713614856,
+      "display": "+0.0406",
+      "source": "analysis/mel_significance.json:eval A (in-distribution).lo",
+      "note": ""
+    },
+    "win.gap.evalA.hi": {
+      "value": 0.061337440254529745,
+      "display": "+0.0613",
+      "source": "analysis/mel_significance.json:eval A (in-distribution).hi",
+      "note": ""
+    },
+    "win.gap.evalB": {
+      "value": 0.11894291732470703,
+      "display": "+0.1189",
+      "source": "analysis/mel_significance.json:eval B (held-out recording).delta",
+      "note": ""
+    },
+    "win.gap.evalB.lo": {
+      "value": 0.09367850545343909,
+      "display": "+0.0937",
+      "source": "analysis/mel_significance.json:eval B (held-out recording).lo",
+      "note": ""
+    },
+    "win.gap.evalB.hi": {
+      "value": 0.1477074983541314,
+      "display": "+0.1477",
+      "source": "analysis/mel_significance.json:eval B (held-out recording).hi",
+      "note": ""
+    },
+    "aves.bp.aves_L0.auc": {
+      "value": 0.8813932438142953,
+      "display": "0.8814",
+      "source": "analysis/aves_holdout.json:zf_to_bp.aves_L0.auc",
+      "note": ""
+    },
+    "aves.bp.aves_L6.auc": {
+      "value": 0.8830218105848351,
+      "display": "0.8830",
+      "source": "analysis/aves_holdout.json:zf_to_bp.aves_L6.auc",
+      "note": ""
+    },
+    "aves.bp.aves_L9.auc": {
+      "value": 0.896917944654545,
+      "display": "0.8969",
+      "source": "analysis/aves_holdout.json:zf_to_bp.aves_L9.auc",
+      "note": ""
+    },
+    "aves.bp.aves_L0.ap": {
+      "value": 0.8263149444829161,
+      "display": "0.8263",
+      "source": "analysis/aves_holdout.json:zf_to_bp.aves_L0.ap",
+      "note": ""
+    },
+    "aves.bp.aves_L6.ap": {
+      "value": 0.805733298144563,
+      "display": "0.8057",
+      "source": "analysis/aves_holdout.json:zf_to_bp.aves_L6.ap",
+      "note": ""
+    },
+    "aves.bp.aves_L9.ap": {
+      "value": 0.8172924920900346,
+      "display": "0.8173",
+      "source": "analysis/aves_holdout.json:zf_to_bp.aves_L9.ap",
+      "note": ""
+    },
+    "aves.bp.run11_L6.ap": {
+      "value": 0.6897466304808725,
+      "display": "0.6897",
+      "source": "analysis/aves_holdout.json:zf_to_bp.run11_L6.ap",
+      "note": ""
+    },
+    "aves.bp.internal_run11_L0.auc": {
+      "value": 0.9636779026339175,
+      "display": "0.9637",
+      "source": "analysis/aves_holdout.json:bp_internal.run11_L0.auc",
+      "note": "within-BirdPark CV: not a holdout, shows BP is separable"
+    },
+    "aves.bp.internal_aves_L6.auc": {
+      "value": 0.9650064549619016,
+      "display": "0.9650",
+      "source": "analysis/aves_holdout.json:bp_internal.aves_L6.auc",
+      "note": ""
+    },
+    "aves.zf.aves_matched_L3.auc": {
+      "value": 0.9655816186950896,
+      "display": "0.9656",
+      "source": "analysis/aves_baseline.json:results.aves_matched_L3.auc",
+      "note": ""
+    },
+    "aves.zf.aves_native_L3.auc": {
+      "value": 0.9663449183118371,
+      "display": "0.9663",
+      "source": "analysis/aves_baseline.json:results.aves_native_L3.auc",
+      "note": "AVES's own preprocessing, not ours"
+    },
+    "aves.zf.aves_native_L3.ap": {
+      "value": 0.8625708460205759,
+      "display": "0.8626",
+      "source": "analysis/aves_baseline.json:results.aves_native_L3.ap",
+      "note": ""
+    },
+    "ens.zf.run11.auc": {
+      "value": 0.9687310882257707,
+      "display": "0.9687",
+      "source": "analysis/ensemble_detect.json:in_distribution.run11.auc",
+      "note": ""
+    },
+    "ens.zf.aves.auc": {
+      "value": 0.9673653088292173,
+      "display": "0.9674",
+      "source": "analysis/ensemble_detect.json:in_distribution.aves.auc",
+      "note": ""
+    },
+    "ens.zf.concat.auc": {
+      "value": 0.9682939935628578,
+      "display": "0.9683",
+      "source": "analysis/ensemble_detect.json:in_distribution.concat.auc",
+      "note": "1536-d concat is WORSE than run11 alone"
+    },
+    "ens.zf.mean.auc": {
+      "value": 0.9731871699004724,
+      "display": "0.9732",
+      "source": "analysis/ensemble_detect.json:in_distribution.mean.auc",
+      "note": "averaging two probabilities: no new parameters"
+    },
+    "ens.zf.mean.ap": {
+      "value": 0.8791182580046029,
+      "display": "0.8791",
+      "source": "analysis/ensemble_detect.json:in_distribution.mean.ap",
+      "note": ""
+    },
+    "ens.zf.stack.ap": {
+      "value": 0.8750891675313296,
+      "display": "0.8751",
+      "source": "analysis/ensemble_detect.json:in_distribution.stack.ap",
+      "note": ""
+    },
+    "ens.error_correlation": {
+      "value": 0.8574835920206376,
+      "display": "0.8575",
+      "source": "analysis/ensemble_detect.json:error_correlation",
+      "note": "how much decorrelated error there is to exploit"
+    },
+    "ens.boot.mean_vs_run11.auc": {
+      "value": 0.004682626727522684,
+      "display": "+0.0047",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_mean_vs_run11_auc.delta",
+      "note": ""
+    },
+    "ens.boot.mean_vs_run11.lo": {
+      "value": 0.0033907167703039085,
+      "display": "+0.0034",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_mean_vs_run11_auc.lo",
+      "note": ""
+    },
+    "ens.boot.mean_vs_run11.hi": {
+      "value": 0.006069021906758193,
+      "display": "+0.0061",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_mean_vs_run11_auc.hi",
+      "note": ""
+    },
+    "fail.pure_tone": {
+      "value": 0.8922763608613654,
+      "display": "0.892",
+      "source": "analysis/synthetic_probe.json:categories.pure_tone.mean",
+      "note": ""
+    },
+    "fail.am_noise": {
+      "value": 0.8397531411649826,
+      "display": "0.840",
+      "source": "analysis/synthetic_probe.json:categories.am_noise.mean",
+      "note": ""
+    },
+    "fail.click_train": {
+      "value": 0.5382881423445335,
+      "display": "0.538",
+      "source": "analysis/synthetic_probe.json:categories.click_train.mean",
+      "note": ""
+    },
+    "fail.pink_noise": {
+      "value": 0.32451966869649596,
+      "display": "0.325",
+      "source": "analysis/synthetic_probe.json:categories.noise_pink.mean",
+      "note": ""
+    },
+    "fail.harmonic_stack": {
+      "value": 0.9995129950473872,
+      "display": "1.000",
+      "source": "analysis/synthetic_probe.json:categories.harmonic_stack.mean",
+      "note": ""
+    },
+    "fail.fm_sweep": {
+      "value": 0.9997785295938788,
+      "display": "1.000",
+      "source": "analysis/synthetic_probe.json:categories.fm_sweep.mean",
+      "note": ""
+    },
+    "snr.frac_at_0db": {
+      "value": 0.875,
+      "display": "0.88",
+      "source": "analysis/synthetic_probe.json:snr_sweep[0.0].frac",
+      "note": "window-level, against a 0.32 background floor"
+    },
+    "snr.frac_at_-10db": {
+      "value": 0.55,
+      "display": "0.55",
+      "source": "analysis/synthetic_probe.json:snr_sweep[-10.0].frac",
+      "note": ""
+    },
+    "randinit.L0.pretrained": {
+      "value": 0.9514005357886561,
+      "display": "0.9514",
+      "source": "analysis/randinit_control.json:layer_table.L0.pretrained",
+      "note": ""
+    },
+    "randinit.L0.rand_mean": {
+      "value": 0.7513474446858245,
+      "display": "0.7513",
+      "source": "analysis/randinit_control.json:layer_table.L0.rand_mean",
+      "note": ""
+    },
+    "randinit.L0.gap": {
+      "value": 0.20005309110283165,
+      "display": "+0.2001",
+      "source": "analysis/randinit_control.json:layer_table.L0.gap_vs_rand",
+      "note": ""
+    },
+    "randinit.cnn.shuf_mean": {
+      "value": 0.7046380612555014,
+      "display": "0.7046",
+      "source": "analysis/randinit_control.json:layer_table.cnn.shuf_mean",
+      "note": "value-preserving weight shuffle"
+    },
+    "randinit.cnn.knn": {
+      "value": 0.8999420312693462,
+      "display": "0.8999",
+      "source": "analysis/randinit_control.json:layer_table.cnn.knn_pretrained",
+      "note": ""
+    },
+    "event.L0.collar50_f1": {
+      "value": 0.797317251308765,
+      "display": "0.797",
+      "source": "analysis/onset_events_v2.json:L0.overall.collar_f1",
+      "note": ""
+    },
+    "event.L0.overlap_f1": {
+      "value": 0.8246037494698559,
+      "display": "0.825",
+      "source": "analysis/onset_events_v2.json:L0.overall.overlap_f1",
+      "note": ""
+    },
+    "event.L6.collar_p": {
+      "value": 0.8688256870746276,
+      "display": "0.869",
+      "source": "analysis/onset_events_v2.json:L6.overall.collar_p",
+      "note": ""
+    },
+    "event.L6.collar_r": {
+      "value": 0.7828902255684183,
+      "display": "0.783",
+      "source": "analysis/onset_events_v2.json:L6.overall.collar_r",
+      "note": ""
+    },
+    "event.energy.overlap_f1": {
+      "value": 0.5071896651874563,
+      "display": "0.507",
+      "source": "analysis/onset_events_v2.json:energy_prob.overall.overlap_f1",
+      "note": ""
+    },
+    "offset.L6.p90_ms": {
+      "value": 60.0,
+      "display": "60",
+      "source": "analysis/onset_granular.json:L6.offset_ms.p90_abs",
+      "note": ""
+    },
+    "onset.probe.L0.boundary_auc": {
+      "value": 0.9548793578065876,
+      "display": "0.9549",
+      "source": "analysis/onset_probe.json:layers.L0.boundary_frame_auc",
+      "note": "dedicated 'is this frame near an onset' probe"
+    },
+    "onset.probe.L6.boundary_auc": {
+      "value": 0.9331905798281326,
+      "display": "0.9332",
+      "source": "analysis/onset_probe.json:layers.L6.boundary_frame_auc",
+      "note": ""
+    },
+    "synth.core.L0.onset_mae_ms": {
+      "value": 4.659395754387674,
+      "display": "4.7",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L0.onset_mae_ms",
+      "note": "isolated, +20 dB: the encoder's intrinsic acuity"
+    },
+    "synth.core.L0.offset_mae_ms": {
+      "value": 5.190495917410942,
+      "display": "5.2",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L0.offset_mae_ms",
+      "note": "first offset measurement free of label noise"
+    },
+    "synth.core.L0.offset_bias_ms": {
+      "value": -0.24494717095535634,
+      "display": "-0.2",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L0.offset_bias_ms",
+      "note": "vs +20 ms measured against hand labels"
+    },
+    "synth.core.L0.duration_ratio": {
+      "value": 0.9684059017730552,
+      "display": "0.97",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L0.duration_ratio_median",
+      "note": "vs 1.20 against hand labels"
+    },
+    "synth.core.L0.recall": {
+      "value": 0.8715596330275229,
+      "display": "0.872",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L0.recall",
+      "note": ""
+    },
+    "synth.core.L0.auc": {
+      "value": 0.9879915643811576,
+      "display": "0.988",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L0.frame_auc",
+      "note": ""
+    },
+    "synth.core.L0.r_at_0db": {
+      "value": 0.4909090909090909,
+      "display": "0.491",
+      "source": "analysis/synth_timing.json:conditions.isolated[0.0].layers.L0.recall",
+      "note": ""
+    },
+    "synth.core.L0.r_at_-5db": {
+      "value": 0.2,
+      "display": "0.200",
+      "source": "analysis/synth_timing.json:conditions.isolated[-5.0].layers.L0.recall",
+      "note": ""
+    },
+    "synth.core.L0.dur_at_0db": {
+      "value": 0.6984327819749927,
+      "display": "0.70",
+      "source": "analysis/synth_timing.json:conditions.isolated[0.0].layers.L0.duration_ratio_median",
+      "note": "at low SNR only the loud core is found"
+    },
+    "synth.natural.L0.recall": {
+      "value": 0.7028571428571428,
+      "display": "0.703",
+      "source": "analysis/synth_timing.json:conditions.natural[20.0].layers.L0.recall",
+      "note": "same SNR, realistic gaps: crowding costs more than SNR"
+    },
+    "synth.natural.L0.auc": {
+      "value": 0.9095770740371006,
+      "display": "0.910",
+      "source": "analysis/synth_timing.json:conditions.natural[20.0].layers.L0.frame_auc",
+      "note": ""
+    },
+    "synth.natural.median_gap_ms": {
+      "value": 95.43750000000273,
+      "display": "95",
+      "source": "analysis/synth_timing.json:conditions.natural[20.0].median_gap_ms",
+      "note": ""
+    },
+    "synth.isolated.median_gap_ms": {
+      "value": 993.5000000000007,
+      "display": "994",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].median_gap_ms",
+      "note": ""
+    },
+    "synth.bg.L0.false_per_min": {
+      "value": 2.5,
+      "display": "2.5",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].background_only.L0.per_min",
+      "note": "false events per minute on call-free background"
+    },
+    "synth.n_donors": {
+      "value": 350,
+      "display": "350",
+      "source": "analysis/synth_timing.json:config.n_donors",
+      "note": "clean donor calls from the held-out 40% of the recording"
+    },
+    "synth.taper_ms": {
+      "value": 1.0,
+      "display": "1.0",
+      "source": "analysis/synth_timing.json:config.taper_ms",
+      "note": "1/20th of a frame, auditable against the ~5 ms result"
+    },
+    "synth.tails.L0.offset_bias_ms": {
+      "value": 2.581724739474822,
+      "display": "+2.6",
+      "source": "analysis/synth_timing_tails.json:conditions.isolated[20.0].layers.L0.offset_bias_ms",
+      "note": "quiet tails retained, truth at the core: STILL no late bias"
+    },
+    "synth.tails.L0.duration_ratio": {
+      "value": 1.0219951478422982,
+      "display": "1.02",
+      "source": "analysis/synth_timing_tails.json:conditions.isolated[20.0].layers.L0.duration_ratio_median",
+      "note": "so the 1.20 on real data is not tails either"
+    },
+    "synth.tails.L0.onset_bias_ms": {
+      "value": 0.07466522340848769,
+      "display": "+0.1",
+      "source": "analysis/synth_timing_tails.json:conditions.isolated[20.0].layers.L0.onset_bias_ms",
+      "note": ""
+    },
+    "ens.bp.run11.auc": {
+      "value": 0.8648717508028874,
+      "display": "0.8649",
+      "source": "analysis/ensemble_detect.json:zf_to_bp.run11.auc",
+      "note": ""
+    },
+    "ens.bp.aves.auc": {
+      "value": 0.8830218105848351,
+      "display": "0.8830",
+      "source": "analysis/ensemble_detect.json:zf_to_bp.aves.auc",
+      "note": ""
+    },
+    "ens.bp.concat.auc": {
+      "value": 0.8480658254943901,
+      "display": "0.8481",
+      "source": "analysis/ensemble_detect.json:zf_to_bp.concat.auc",
+      "note": ""
+    },
+    "ens.bp.mean.auc": {
+      "value": 0.8914033768602349,
+      "display": "0.8914",
+      "source": "analysis/ensemble_detect.json:zf_to_bp.mean.auc",
+      "note": "the ensemble gain survives out of distribution"
+    },
+    "ens.bp.mean.ap": {
+      "value": 0.828161052950739,
+      "display": "0.8282",
+      "source": "analysis/ensemble_detect.json:zf_to_bp.mean.ap",
+      "note": ""
+    },
+    "ens.bp.boot.mean_vs_run11": {
+      "value": 0.024887453723335767,
+      "display": "+0.0249",
+      "source": "analysis/ensemble_detect.json:bootstrap.bp1500_mean_vs_run11_auc.delta",
+      "note": ""
+    },
+    "ens.bp.boot.mean_vs_run11.lo": {
+      "value": 0.006105790623992408,
+      "display": "+0.0061",
+      "source": "analysis/ensemble_detect.json:bootstrap.bp1500_mean_vs_run11_auc.lo",
+      "note": ""
+    },
+    "ens.bp.boot.mean_vs_run11.hi": {
+      "value": 0.05332801575161341,
+      "display": "+0.0533",
+      "source": "analysis/ensemble_detect.json:bootstrap.bp1500_mean_vs_run11_auc.hi",
+      "note": ""
+    },
+    "ens.bp.boot.aves_vs_run11": {
+      "value": 0.016059788464028387,
+      "display": "+0.0161",
+      "source": "analysis/ensemble_detect.json:bootstrap.bp1500_aves_vs_run11_auc.delta",
+      "note": "pre-committed layer: NOT distinguishable"
+    },
+    "ens.bp.boot.concat_vs_run11.ap": {
+      "value": -0.03257740258290721,
+      "display": "-0.0326",
+      "source": "analysis/ensemble_detect.json:bootstrap.bp1500_concat_vs_run11_ap.delta",
+      "note": "concatenation is significantly worse"
+    },
+    "ens.boot.mean_vs_run11.ap": {
+      "value": 0.011778871177565126,
+      "display": "+0.0118",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_mean_vs_run11_ap.delta",
+      "note": ""
+    },
+    "ens.boot.mean_vs_run11.ap_lo": {
+      "value": 0.008122752476254238,
+      "display": "+0.0081",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_mean_vs_run11_ap.lo",
+      "note": ""
+    },
+    "ens.boot.mean_vs_run11.ap_hi": {
+      "value": 0.01559571731315106,
+      "display": "+0.0156",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_mean_vs_run11_ap.hi",
+      "note": ""
+    },
+    "ens.boot.aves_vs_run11.auc": {
+      "value": -0.00016772550413278635,
+      "display": "-0.0002",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_aves_vs_run11_auc.delta",
+      "note": "in-distribution tie, measured"
+    },
+    "synth.core.L6.onset_mae_ms": {
+      "value": 5.313606524637748,
+      "display": "5.3",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L6.onset_mae_ms",
+      "note": ""
+    },
+    "synth.core.L6.offset_mae_ms": {
+      "value": 6.616090852048728,
+      "display": "6.6",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L6.offset_mae_ms",
+      "note": ""
+    },
+    "synth.core.L6.offset_bias_ms": {
+      "value": 2.556924259508264,
+      "display": "+2.6",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L6.offset_bias_ms",
+      "note": ""
+    },
+    "synth.core.L6.duration_ratio": {
+      "value": 0.9832165213675322,
+      "display": "0.98",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L6.duration_ratio_median",
+      "note": ""
+    },
+    "synth.tails.L6.offset_mae_ms": {
+      "value": 13.283756974615812,
+      "display": "13.3",
+      "source": "analysis/synth_timing_tails.json:conditions.isolated[20.0].layers.L6.offset_mae_ms",
+      "note": ""
+    },
+    "synth.tails.L6.offset_bias_ms": {
+      "value": 5.22511802326342,
+      "display": "+5.2",
+      "source": "analysis/synth_timing_tails.json:conditions.isolated[20.0].layers.L6.offset_bias_ms",
+      "note": ""
+    },
+    "synth.tails.L6.duration_ratio": {
+      "value": 1.0558004077249272,
+      "display": "1.06",
+      "source": "analysis/synth_timing_tails.json:conditions.isolated[20.0].layers.L6.duration_ratio_median",
+      "note": ""
+    },
+    "synth.tails.L6.onset_mae_ms": {
+      "value": 7.023607582240743,
+      "display": "7.0",
+      "source": "analysis/synth_timing_tails.json:conditions.isolated[20.0].layers.L6.onset_mae_ms",
+      "note": ""
+    },
+    "synth.natural.L6.recall": {
+      "value": 0.6628571428571428,
+      "display": "0.663",
+      "source": "analysis/synth_timing.json:conditions.natural[20.0].layers.L6.recall",
+      "note": ""
+    },
+    "synth.core.L6.recall": {
+      "value": 0.8715596330275229,
+      "display": "0.872",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L6.recall",
+      "note": ""
+    },
+    "synth.core.L6.auc": {
+      "value": 0.9690910675155837,
+      "display": "0.969",
+      "source": "analysis/synth_timing.json:conditions.isolated[20.0].layers.L6.frame_auc",
+      "note": ""
+    },
+    "synth.natural.L6.auc": {
+      "value": 0.8419320394447585,
+      "display": "0.842",
+      "source": "analysis/synth_timing.json:conditions.natural[20.0].layers.L6.frame_auc",
+      "note": ""
+    },
+    "randinit.L8.gap": {
+      "value": 0.20122419078278408,
+      "display": "+0.2012",
+      "source": "analysis/randinit_control.json:layer_table.L8.gap_vs_rand",
+      "note": ""
+    },
+    "randinit.L3.gap": {
+      "value": 0.19517546328084234,
+      "display": "+0.1952",
+      "source": "analysis/randinit_control.json:layer_table.L3.gap_vs_rand",
+      "note": ""
+    },
+    "randinit.L7.pretrained": {
+      "value": 0.9543524386263099,
+      "display": "0.9544",
+      "source": "analysis/randinit_control.json:layer_table.L7.pretrained",
+      "note": ""
+    },
+    "aves.zf.aves_matched_L6.ap": {
+      "value": 0.8592671933611447,
+      "display": "0.8593",
+      "source": "analysis/aves_baseline.json:results.aves_matched_L6.ap",
+      "note": ""
+    },
+    "ens.boot.aves_vs_run11.lo": {
+      "value": -0.0029699630989747624,
+      "display": "-0.0030",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_aves_vs_run11_auc.lo",
+      "note": ""
+    },
+    "ens.boot.aves_vs_run11.hi": {
+      "value": 0.0024840250872692807,
+      "display": "+0.0025",
+      "source": "analysis/ensemble_detect.json:bootstrap.zf_aves_vs_run11_auc.hi",
+      "note": ""
+    },
+    "ct.n_clips": {
+      "value": 2814,
+      "display": "2814",
+      "source": "analysis/aves_calltype.json:n_clips",
+      "note": "curated clips, Unknown* placeholder birds dropped"
+    },
+    "ct.n_birds": {
+      "value": 26,
+      "display": "26",
+      "source": "analysis/aves_calltype.json:n_birds",
+      "note": ""
+    },
+    "ct.majority": {
+      "value": 0.20717839374555794,
+      "display": "0.2072",
+      "source": "analysis/aves_calltype.json:majority",
+      "note": "8 classes, so chance is 0.207 not 0.125"
+    },
+    "ct.run11.best_acc": {
+      "value": 0.8002842928216063,
+      "display": "0.8003",
+      "source": "analysis/aves_calltype.json:run11.best.acc",
+      "note": ""
+    },
+    "ct.run11.best_layer": {
+      "value": 2,
+      "display": "2",
+      "source": "analysis/aves_calltype.json:run11.best.layer",
+      "note": ""
+    },
+    "ct.aves.best_acc": {
+      "value": 0.8308457711442786,
+      "display": "0.8308",
+      "source": "analysis/aves_calltype.json:aves.best.acc",
+      "note": ""
+    },
+    "ct.aves.best_layer": {
+      "value": 1,
+      "display": "1",
+      "source": "analysis/aves_calltype.json:aves.best.layer",
+      "note": ""
+    },
+    "ct.boot.run11_vs_aves": {
+      "value": -0.030582556950116597,
+      "display": "-0.0306",
+      "source": "analysis/aves_calltype.json:bootstrap_run11_vs_aves.delta",
+      "note": "cluster bootstrap over the 26 birds"
+    },
+    "ct.boot.run11_vs_aves.lo": {
+      "value": -0.05431630644008139,
+      "display": "-0.0543",
+      "source": "analysis/aves_calltype.json:bootstrap_run11_vs_aves.lo",
+      "note": ""
+    },
+    "ct.boot.run11_vs_aves.hi": {
+      "value": -0.010249366703455238,
+      "display": "-0.0102",
+      "source": "analysis/aves_calltype.json:bootstrap_run11_vs_aves.hi",
+      "note": ""
+    },
+    "ct.ensemble_mean.acc": {
+      "value": 0.8272921108742004,
+      "display": "0.8273",
+      "source": "analysis/aves_calltype.json:ensemble_mean.acc",
+      "note": ""
+    },
+    "ct.boot.mean_vs_run11": {
+      "value": 0.02718821323911271,
+      "display": "+0.0272",
+      "source": "analysis/aves_calltype.json:bootstrap_mean_vs_run11.delta",
+      "note": ""
+    },
+    "ct.boot.mean_vs_run11.lo": {
+      "value": 0.01148137385083998,
+      "display": "+0.0115",
+      "source": "analysis/aves_calltype.json:bootstrap_mean_vs_run11.lo",
+      "note": ""
+    },
+    "ct.boot.mean_vs_run11.hi": {
+      "value": 0.04426419920907117,
+      "display": "+0.0443",
+      "source": "analysis/aves_calltype.json:bootstrap_mean_vs_run11.hi",
+      "note": ""
+    },
+    "ct.concat.acc": {
+      "value": 0.8152096659559346,
+      "display": "0.8152",
+      "source": "analysis/aves_calltype.json:concat.acc",
+      "note": ""
+    },
+    "ct.boot.mean_vs_aves": {
+      "value": -0.0033943437110038827,
+      "display": "-0.0034",
+      "source": "analysis/aves_calltype.json:bootstrap_mean_vs_aves.delta",
+      "note": "the ensemble does NOT beat AVES alone here"
+    },
+    "ct.boot.mean_vs_aves.lo": {
+      "value": -0.013224301751264964,
+      "display": "-0.0132",
+      "source": "analysis/aves_calltype.json:bootstrap_mean_vs_aves.lo",
+      "note": ""
+    },
+    "ct.boot.mean_vs_aves.hi": {
+      "value": 0.005754985682404133,
+      "display": "+0.0058",
+      "source": "analysis/aves_calltype.json:bootstrap_mean_vs_aves.hi",
+      "note": ""
+    },
+    "ct.reproduction.max_diff": {
+      "value": 0.015235465529495285,
+      "display": "0.0152",
+      "source": "analysis/aves_calltype.json:reproduction.max_abs_diff",
+      "note": "guard: our probe vs the released per-layer accuracies"
+    },
+    "ct11.n_clips": {
+      "value": 3412,
+      "display": "3412",
+      "source": "analysis/calltype11.json:n_clips",
+      "note": "adults + chicks, the 2023 notebook's cohort"
+    },
+    "ct11.n_birds": {
+      "value": 48,
+      "display": "48",
+      "source": "analysis/calltype11.json:n_birds",
+      "note": ""
+    },
+    "ct11.majority": {
+      "value": 0.17966002344665885,
+      "display": "0.1797",
+      "source": "analysis/calltype11.json:majority",
+      "note": ""
+    },
+    "ct11.n_chick": {
+      "value": 464,
+      "display": "464",
+      "source": "analysis/calltype11.json:n_chick",
+      "note": ""
+    },
+    "ct11.run11.best_acc": {
+      "value": 0.8118405627198124,
+      "display": "0.8118",
+      "source": "analysis/calltype11.json:run11.best.acc",
+      "note": ""
+    },
+    "ct11.run11.best_layer": {
+      "value": 3,
+      "display": "3",
+      "source": "analysis/calltype11.json:run11.best.layer",
+      "note": ""
+    },
+    "ct11.aves.best_acc": {
+      "value": 0.8452520515826495,
+      "display": "0.8453",
+      "source": "analysis/calltype11.json:aves.best.acc",
+      "note": "vs ~0.60 in the 2023 notebook, which was 99% padding"
+    },
+    "ct11.aves.best_layer": {
+      "value": 3,
+      "display": "3",
+      "source": "analysis/calltype11.json:aves.best.layer",
+      "note": ""
+    },
+    "ct11.boot.run11_vs_aves": {
+      "value": -0.033768413310772925,
+      "display": "-0.0338",
+      "source": "analysis/calltype11.json:bootstrap_run11_vs_aves.delta",
+      "note": ""
+    },
+    "ct11.boot.run11_vs_aves.lo": {
+      "value": -0.06091303375650315,
+      "display": "-0.0609",
+      "source": "analysis/calltype11.json:bootstrap_run11_vs_aves.lo",
+      "note": ""
+    },
+    "ct11.boot.run11_vs_aves.hi": {
+      "value": -0.006923922956107697,
+      "display": "-0.0069",
+      "source": "analysis/calltype11.json:bootstrap_run11_vs_aves.hi",
+      "note": ""
+    },
+    "ct8m.n_clips": {
+      "value": 2889,
+      "display": "2889",
+      "source": "analysis/calltype11.json:adults_8class.n_clips",
+      "note": "8-class arm with BOTH encoders extracted identically"
+    },
+    "ct8m.majority": {
+      "value": 0.21218414676358602,
+      "display": "0.2122",
+      "source": "analysis/calltype11.json:adults_8class.majority",
+      "note": ""
+    },
+    "ct8m.run11.best_acc": {
+      "value": 0.8193146417445483,
+      "display": "0.8193",
+      "source": "analysis/calltype11.json:adults_8class.run11.best.acc",
+      "note": "higher than the released features give"
+    },
+    "ct8m.aves.best_acc": {
+      "value": 0.8359293873312564,
+      "display": "0.8359",
+      "source": "analysis/calltype11.json:adults_8class.aves.best.acc",
+      "note": ""
+    },
+    "ct8m.boot.run11_vs_aves": {
+      "value": -0.016870432071684205,
+      "display": "-0.0169",
+      "source": "analysis/calltype11.json:adults_8class.bootstrap_run11_vs_aves.delta",
+      "note": "NOT distinguishable once extraction is matched"
+    },
+    "ct8m.boot.run11_vs_aves.lo": {
+      "value": -0.04001568999998297,
+      "display": "-0.0400",
+      "source": "analysis/calltype11.json:adults_8class.bootstrap_run11_vs_aves.lo",
+      "note": ""
+    },
+    "ct8m.boot.run11_vs_aves.hi": {
+      "value": 0.004078061550499957,
+      "display": "+0.0041",
+      "source": "analysis/calltype11.json:adults_8class.bootstrap_run11_vs_aves.hi",
+      "note": ""
+    }
+  }
+}

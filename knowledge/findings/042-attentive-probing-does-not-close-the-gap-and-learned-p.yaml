@@ -1,0 +1,34 @@
+id: '042'
+title: Attentive probing does not close the gap, and learned pooling loses to mean pooling
+status: confirmed
+claim: The published result that attentive probing lifts frozen audio encoders by 3-13 AUROC points
+  does not transfer to this corpus. Every LEARNED readout tested -- attentive pooling, 4-head attentive
+  pooling, a 2-layer transformer head -- scores BELOW plain mean pooling on both encoders. A better
+  readout does raise both models slightly, via cheap statistical pooling rather than learned pooling,
+  and it narrows the run11-AVES gap without closing it.
+evidence: '11-class call type, 3412 clips, 48 birds, leave-birds-out StratifiedGroupKFold(5), seed 0,
+  majority 0.1797. Best overall is aves|L3|meanmax 0.8526, then aves|L3|multi 0.8517 and
+  aves|L3|meanstd 0.8496 -- all unlearned pooling. Best run11 is run11|L1|multi 0.8280, then
+  run11|L1|max 0.8262. Learned heads on AVES L3: mean_adamw 0.8376/0.8403 (2 seeds), attn4
+  0.8297/0.8195, attn_cat 0.8209/0.8168, trf 0.8200/0.8209, attn 0.8107/0.8054 -- all below the 0.8455
+  that plain mean pooling gets on the same features. Same ordering on run11. Against the linear-probe
+  baselines (run11 0.8118, AVES 0.8453) the best readout buys run11 +0.0162 and AVES +0.0073, so the
+  gap narrows from -0.0334 to -0.0246 and AVES still wins.'
+method: 'Frozen features, readout swapped, split and bootstrap unit held identical to [033]. Two seeds
+  on every learned head. Guarded by three checks recorded in the result file: batched torchaudio
+  extraction is off by 25.80 at valid frames while the masked extractor is off by 2.1e-05 (see [037]),
+  batch-vs-single head agreement is <1e-06 for all four heads, and masked-vs-unmasked attentive
+  pooling differs by 1.22, which is why masking is not optional here.'
+provenance: zfeval/experiments/attentive_probe.py; analysis/attentive_probe.json
+caveats: 'Single hyperparameter setting per head (lr 1e-3, batch 64, attn_hidden 128, trf_dim 256,
+  2 layers, 4 heads, max 80 epochs, patience 12); a wider sweep could lift the learned heads, though
+  the deficit is large and consistent across two seeds and two layers. Only L1 and L3 were swept. The
+  BEATs comparison that motivated this is a different architecture and benchmark, so this refutes the
+  transfer of the claim to this corpus, not the original result. 3412 clips is small for a learned
+  pooling head, and that is the most likely mechanism for the loss.'
+tags:
+- probing
+- readout
+- negative-result
+- calltype
+date: '2026-09-16'

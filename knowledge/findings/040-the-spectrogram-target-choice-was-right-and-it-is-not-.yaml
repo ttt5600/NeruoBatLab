@@ -1,0 +1,45 @@
+id: '040'
+title: The spectrogram target choice was right, and it is not an architecture difference
+status: confirmed
+claim: run11's use of a spectrogram rather than MFCC to build its k-means pseudo-labels produces
+  measurably better targets than AVES's iteration-1 MFCC on this corpus, at matched cluster count and
+  on identical frames. But the choice lives in the LABEL pipeline, not the network. run11 and AVES are
+  the same architecture, so there is no architecture variable to hold training constant against; the
+  spectrogram-vs-MFCC variable is real and is a target-quality variable.
+evidence: 'AMI against call-boundary identity on 90,061 shared frames, MiniBatchKMeans, seed 0.
+  run11 actual feature (soundsig Gaussian STFT, 50 Hz spacing, 25 ms window flattened to 4000-d):
+  k=100 0.0712, k=200 0.0642. AVES iteration-1 feature (fairseq stock 13 Kaldi MFCC + delta +
+  deltadelta, 39-d): k=100 0.0487, k=200 0.0401. Spectrogram minus MFCC at matched k = +0.0226 (k=100)
+  and +0.0241 (k=200) -- same sign and near-identical size at both k, so it is a feature effect and not
+  a k artifact. run11 as shipped (spectrogram, k=100) vs AVES iteration-1 as shipped (MFCC, k=200) =
+  +0.0311. Against voc/noise the ordering is the same: 0.0726/0.0704 vs 0.0626/0.0563. A 384-d log-mel
+  summary scores HIGHER than run11''s own 4000-d soundsig feature on call id (0.0854 at k=100), so
+  run11''s target feature is not the best available even inside the spectrogram family. k=100 beats
+  k=200 for all three features on both references, which reproduces [039]''s k effect in three
+  independent feature spaces.'
+method: 'Architecture claim verified by reading the code, not inferred: the model is
+  torchaudio.models.hubert_pretrain_base (lightning_modules.py:467), raw waveform in;
+  --feature-type accepts only {spectrogram, hubert} (train.py:119) and flows into CollateFnHubert
+  and utils/feature_utils.py, never into the model; the sole surviving MFCC branch in the codebase is
+  `label = label[::2]` (dataset/hubert_dataset.py:527), a frame-rate halving of the LABEL sequence
+  because Kaldi MFCC runs at 10 ms against HuBERT frames at 20 ms. The run11 feature was produced by
+  calling the production extractor utils.feature_utils.extract_feature_spectrogram itself rather than
+  a reimplementation. Frame alignment is exact and asserted at runtime (HuBERT frame i, soundsig
+  window i and Kaldi MFCC frame 2i all cover samples [320i, 320i+400)); the chunked MFCC path is
+  cross-checked against a contiguous call across a chunk boundary (max|diff| < 1e-3).
+  Constant columns are dropped before z-scoring -- the extractor takes log10(power + 1e-8) so silent
+  bins pin at exactly -8.0, and StandardScaler turns those into inf and nan centroids silently.'
+provenance: zfeval/experiments/target_features.py; analysis/target_features.json
+caveats: 'Cross-feature-space AMI comparison, so directional rather than proof -- the same caveat
+  [039] carries. The within-feature k=100 vs k=200 contrast does not have that problem. sklearn on this
+  Mac emits tens of thousands of spurious overflow/divide-by-zero matmul RuntimeWarnings: verified
+  spurious by reproducing 33,015 of them on clean synthetic Gaussian input that yielded finite
+  centroids and the full cluster count, so they do not indicate corrupted results here. This finding
+  does NOT reverse [030]/[033]/[035] -- AVES still wins downstream. It narrows why: the target feature
+  was not the weakness, which strengthens [039]''s corpus hypothesis.'
+tags:
+- pretraining
+- targets
+- architecture
+- methodology
+date: '2026-09-16'

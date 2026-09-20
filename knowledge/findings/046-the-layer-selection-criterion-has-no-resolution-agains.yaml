@@ -1,0 +1,31 @@
+id: '046'
+title: The layer-selection criterion has ~100x less resolution than its holdout consequence
+status: confirmed
+claim: Picking the (normalisation, layer) arm by out-of-fold in-distribution ZF AUC is close to blind.
+  Across the top-3 arms of a model, ZF AUC varies by 0.001-0.004 while their BirdPark AP varies by
+  0.05-0.15 -- a 20x to 98x amplification. The criterion cannot see the thing it is being used to
+  decide, so every pre-committed holdout number in this project carries a selection lottery inside it.
+evidence: 'Top-3 arms by out-of-fold ZF AUC, spread in ZF AUC -> spread in ZF->BirdPark AP:
+  run11 0.0015 -> 0.1501 (98x); aves-base-bio 0.0010 -> 0.0521 (51x); dapt5e5_step15000 0.0033 ->
+  0.1071 (32x); dapt1e4_step15000 0.0040 -> 0.0810 (20x). Concretely for run11: matched_L0 (ZF 0.9687,
+  BP AP 0.8121), matched_L1 (0.9686, 0.7696), matched_L3 (0.9672, 0.6620) -- 0.0015 of ZF AUC
+  separates arms whose holdout AP differs by 0.15. run11''s selected arm happens to be its BEST
+  BirdPark arm; DAPT''s selected arm happens to be near its worst. Neither outcome was earned by the
+  criterion.'
+method: Read directly from the full 12-arm grid (2 normalisations x 6 layers) that
+  detection_variants.py already writes for audit; no new computation.
+provenance: analysis/detection_variants.json (in_distribution and zf_to_bp blocks, all arms)
+caveats: 'This does NOT invalidate the pre-commitment protocol -- pre-committing is still strictly
+  better than choosing on the test set, and [project_run11_wins_nowhere] shows what happens without
+  it. It says the protocol is under-powered here, which is a different and fixable problem. The fix
+  needs a THIRD signal for arm selection, independent of both the ZF training set and the BirdPark
+  test set: candidates are a held-out ZF RECORDING (the current split is contiguous 60 s blocks within
+  one recording, explicitly "NOT a recording holdout"), or the chick corpus, or BirdPark internal CV
+  restricted to birds not used in the reported score. Until then, holdout comparisons between models
+  should report the ARM SPREAD alongside the point estimate, because the spread is larger than every
+  between-model difference this project has reported.'
+tags:
+- methodology
+- holdout
+- model-selection
+date: '2026-09-17'

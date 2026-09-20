@@ -1,0 +1,41 @@
+id: '033'
+title: Generic pretraining also wins on call type, so run11 is a negative result
+status: confirmed
+claim: On 8-way call-type classification -- the species-specific task where colony pretraining should
+  help if it helps anywhere -- AVES beats run11 at every one of the 12 layers, and the margin at each
+  encoder's best layer is significant under a bootstrap over birds. There is now no measured task on
+  which zebra-finch-specific pretraining beats a generic animal-sound encoder.
+evidence: 'run11''s own published evaluation, unchanged: 2814 curated clips, 26 birds, 8 classes,
+  majority 0.2072, leave-birds-out StratifiedGroupKFold(5). Best run11 L2 0.8003; best AVES L1 0.8308.
+  Cluster bootstrap over the 26 birds: run11 - AVES -0.0306 [-0.0543, -0.0102] SIGNIFICANT. AVES is
+  ahead at all 12 layers (deltas -0.0092 to -0.0373). Both encoders decline with depth and peak shallow
+  (AVES L1, run11 L2). Combiners: mean of the two probes 0.8273, which beats run11 (+0.0272 [+0.0115,
+  +0.0443]) but is NOT distinguishable from AVES alone (-0.0034 [-0.0132, +0.0058]); concat 1536-d
+  0.8152, worse than either best single layer.'
+method: AVES put through run11''s own zf_hubert.embed_file path -- raw audio with NO waveform
+  normalisation, mono channel mean, 16 kHz, mean-pooled over time, all 12 layers. run11 embeddings read
+  from the released layersweep file rather than recomputed. The released cohort was reproduced exactly
+  by dropping the Unknown* placeholder birds (2867 -> 2814 clips, 31 -> 26 birds).
+provenance: zfeval/experiments/aves_calltype.py; analysis/aves_calltype.json
+caveats: 'AMENDED 2026-09-13 -- see the matched-extraction caveat below; this was previously recorded in the status field, which the schema does not allow. AMENDMENT, same day. The headline above compares run11''s RELEASED embeddings against an
+  AVES extraction of our own. Re-extracting BOTH encoders through one identical code path changes the
+  picture at 8 classes: run11 rises to 0.8193 (L7) against AVES 0.8359 (L1), a gap of -0.0166
+  [-0.0400, +0.0041], NOT distinguishable. So part of the original -0.0306 was a difference between
+  extraction pipelines, not between encoders, and the 8-class claim must be downgraded to "AVES ahead,
+  not significant". The 11-class result (calltype11.json, both encoders extracted identically) does
+  hold: run11 L3 0.8118 vs AVES L3 0.8453, -0.0338 [-0.0609, -0.0069] SIGNIFICANT over 48 birds, with
+  AVES ahead at all 12 layers. Always extract both arms yourself; never compare a released feature file
+  against a fresh extraction. A reproduction guard ran first: re-deriving run11''s per-layer accuracies from its released
+  embeddings gave max |diff| 0.0152 against the published table (published best L3 0.8109, ours L2
+  0.8003), the gap being fold assignment since the published random_state is not recorded. So the
+  comparison is internally fair but the absolute values sit ~0.01 below the released ones. Both
+  encoders'' best layers were selected on the same metric being reported, so both are optimistic by a
+  similar amount and the best-vs-best bootstrap inherits that. Unlike detection, where averaging the two
+  probes beat BOTH encoders, here the ensemble buys nothing over AVES alone -- on call type the
+  recommendation is simply to use AVES. Concatenation has now failed a fourth time.'
+tags:
+- call-type
+- pretraining
+- negative-result
+- baseline
+date: '2026-09-13'

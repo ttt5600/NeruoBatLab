@@ -1,0 +1,39 @@
+id: '047'
+title: No DAPT checkpoint beats run11 on the holdout, and the trajectory shape is not measurable
+status: confirmed
+claim: Continued pretraining from AVES on ZF-only audio never improved held-out detection, at any
+  of 6 checkpoints, at either of 2 learning rates. Ten of twelve are significantly WORSE than run11
+  and the best two are merely not distinguishable from it. Separately, the SHAPE of the degradation
+  over training steps is not resolvable on BirdPark and must not be described as a curve.
+evidence: 'Paired cluster bootstrap (2000 resamples, 1500-frame blocks), BirdPark AP, each DAPT
+  checkpoint minus run11 at the arm pre-committed on out-of-fold ZF AUC: 10 of 12 return verdict
+  b_better (run11 better, CI excludes zero), worst dapt1e4_step2500 at -0.1499 [-0.2587, -0.0662];
+  2 of 12 return not_distinguishable, dapt5e5_step2500 at -0.0360 [-0.0774, +0.0148] and
+  dapt1e4_step10000 at -0.0553 [-0.1676, +0.0090]. ZERO return a_better. Only 2 of 12 clear the
+  ZF->BP log-energy floor of AP 0.7472. The trajectories are NON-MONOTONIC and mutually
+  contradictory: lr 5e-5 runs 0.7725 0.7259 0.6768 0.6808 0.6882 0.6942 (falls then recovers) while
+  lr 1e-4 runs 0.6105 0.6884 0.7067 0.7515 0.7240 0.7052 (rises then falls), so the two learning
+  rates CROSS and neither ordering holds across steps. In-distribution ZF AUC spans just 0.0018
+  (5e-5) and 0.0027 (1e-4) across the same checkpoints while BirdPark AP spans 0.0958 and 0.1410 --
+  a 50-70x amplification of the selection criterion.'
+method: zfeval/experiments/detection_variants.py over 12 exported DAPT checkpoints (6 steps x 2
+  learning rates), arms pre-committed on out-of-fold ZF AUC and frozen before BirdPark is touched,
+  then the existing paired block bootstrap against run11.
+provenance: zfeval/experiments/detection_variants.py; analysis/detection_variants.json;
+  notebooks/03_forgetting_curve.ipynb
+caveats: 'RETRACTION ON RECORD. An earlier reading of this same experiment, taken while only the
+  5e-5 arm had finished scoring, described a clean monotone forgetting curve and concluded that the
+  lower learning rate was safer. The completed data refutes both: the arms trace opposite shapes and
+  cross. The mistake was reading six points as a trend on a test set whose own bootstrap calls a
+  0.049 AP difference not distinguishable. What survives is only the between-model comparison, which
+  is large enough to measure. Nothing here licenses an early-stopping rule -- picking step 2500
+  because it happens to clear the floor is selection on four independent 30 s blocks. The binding
+  constraint is holdout size: BirdPark is 5925 frames. See finding 046 for the selection-resolution
+  problem this compounds, and 045 for the endpoint-only result this supersedes.'
+tags:
+- pretraining
+- dapt
+- holdout
+- negative-result
+- retraction
+date: '2026-09-17'

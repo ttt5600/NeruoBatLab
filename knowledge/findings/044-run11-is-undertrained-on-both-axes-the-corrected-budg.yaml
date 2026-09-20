@@ -1,0 +1,37 @@
+id: '044'
+title: run11 is under-trained on both axes; the corrected compute budget
+status: confirmed
+claim: AVES saw 9.30x more audio than run11 AND made 3.00x more passes over its own corpus. run11 is
+  under-trained on both the total-compute axis and the data-diversity axis. This REPLACES finding 041,
+  which claimed the opposite (that run11 made 1.7x more passes and so was under-diversified rather
+  than under-trained); 041 is refuted, not merely refined.
+evidence: 'run11 93,750 updates x 80.3 realised audio-seconds/update = 2,091.3 h of audio seen, over a
+  116.03 h corpus = 18.0 epochs. aves-base-bio 100,000 updates x 700 audio-seconds/update = 19,444.4 h,
+  over a 360 h corpus = 54.0 epochs. Ratios AVES/run11: steps 1.07x, audio-per-step 8.72x,
+  total audio 9.30x, corpus 3.10x, epochs 3.00x. Peak LR 1e-4 vs 2e-4. Warmup fraction 0.033 vs 0.320.
+  k-means clusters 100 vs 200. AVES wall clock 24.6 h on one GPU; run11 also used ONE GPU (having
+  reserved four), under a 12 h limit, so <= 12 GPU-hours.'
+method: 'run11''s per-step audio is no longer taken from the --gpus flag, which SLURM never honoured,
+  but derived from what the run recorded: consecutive checkpoint (epoch, step) pairs on scratch give
+  5201/5202/5201 steps per epoch, and the training TSV gives 417,702.83 s of audio, so
+  417,702.83 / 5201.33 = 80.3 s/step. world_size is read from #SBATCH --ntasks (what srun launched),
+  not --gpus (what the job asked Lightning for); the script asserts the realised batch does not exceed
+  the nominal 87.5 cap. AVES unchanged, from the fairseq cfg inside the 2022 checkpoint:
+  max_tokens 1.4e6 / 16000 x update_freq 8 x world_size 1 = 700 s. The self-check now runs for BOTH
+  models and asserts on each: derived epochs 18.02 vs Lightning''s recorded 18 (0.1% apart) for run11,
+  54.01 vs fairseq''s 55 (1.8%) for AVES.'
+provenance: zfeval/experiments/compute_budget.py; analysis/compute_budget.json
+caveats: 'Audio-seconds seen counts repeats, so it is a compute measure, not an information measure;
+  the epochs row is the one that speaks to diversity, and here BOTH rows favour AVES, which is why the
+  conclusion is unambiguous where 041''s was not. The 360 h AVES corpus figure is still from Hagiwara
+  2023 Table 1 rather than machine-read, but the epoch self-check constrains it. This finding says
+  run11 had less compute and less data -- it does NOT establish that more of either would close the
+  gap, and it does not disturb the separate result that iterative target refinement did not help
+  (039) or that the spectrogram target beat MFCC (040). The live test of whether more/better-matched
+  training helps is the DAPT pair 38991843/38996893.'
+tags:
+- pretraining
+- compute
+- methodology
+- correction
+date: '2026-09-16'

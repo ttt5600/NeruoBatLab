@@ -6,3 +6,64 @@ zfeval/runs/**/*.npz
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# ---------------------------------------------------------------------------
+# Added 2026-09-20 while backing the project up off Savio.
+#
+# The rule: git holds CODE and SMALL RESULTS (metrics, JSON, findings) -- things
+# that are irreplaceable and diff-able. It does NOT hold model weights, corpora,
+# or extracted features: GitHub rejects files over 100 MB, and all of that is
+# either re-downloadable from a public source or regenerable from a checkpoint.
+# ---------------------------------------------------------------------------
+
+# vendored third-party source trees (clone them, don't vendor them)
+transformers/
+fairseq/
+kaldi/
+soundsep2/
+pytorchAudio/src/
+pytorchAudio/build/
+pytorchAudio/third_party/
+pytorchAudio/docs/
+
+# corpora and raw recordings -- public/re-downloadable, far over GitHub's limits
+datasets/
+BatVoc/
+ML4BatVoc/
+deafbat/
+vocalizations/
+UMAP/VocExtracts/
+UMAP/VocExtracts*/
+UMAP/2019*/
+UMAP/2020*/
+UMAP/data/
+UMAP/fairseq/
+*.wav
+*.m4a
+*.mat
+*.zip
+
+# model weights and checkpoints -- keep in release bundles / object storage
+*.ckpt
+*.pt
+*.pth
+!pytorchAudio/examples/hubert/tests/**/*.pt
+release/**/weights/
+release/*.zip
+
+# bulk experiment outputs, regenerable from a checkpoint
+savio/
+HubertRes/
+HubertRes_linear/
+mined_negatives_*/
+voc_detect_review_*/
+pytorchAudio_tmp/
+*.npz
+zfeval/runs/**/features/
+
+# editor / OS / scratch
+.idea/
+.DS_Store
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+temp_*.py

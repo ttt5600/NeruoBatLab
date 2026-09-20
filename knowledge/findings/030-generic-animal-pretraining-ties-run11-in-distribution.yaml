@@ -1,0 +1,33 @@
+id: '030'
+title: Generic animal pretraining ties run11 in distribution and beats it on the holdout
+status: confirmed
+claim: AVES, a HuBERT-base encoder self-supervised on generic animal sound and never exposed to a zebra
+  finch colony, matches run11 on in-distribution detection and outperforms it at every layer on the only
+  encoder-level holdout. Colony-specific pretraining is not what makes the detector work.
+evidence: 'In distribution (90,061 frames, 20 ms, prevalence 0.1242): run11 L0 AUC 0.9687 / AP 0.8681,
+  best AVES (L6) 0.9674 / 0.8593, difference +0.0014 AUC. Paired block bootstrap (1500-frame blocks) on
+  the pre-committed layers: AVES - run11 AUC -0.0002 [-0.0030, +0.0025] NOT DISTINGUISHABLE.
+  ZF -> BirdPark holdout (5925 frames, prevalence 0.4290): AVES L3 0.9009/0.8390, L9 0.8969/0.8173,
+  L6 0.8830/0.8057, L0 0.8814/0.8263; run11 L0 0.8649/0.8123; log-energy 0.8542/0.7472; run11 L6
+  0.7760/0.6897, BELOW energy. AVES is ahead at 4 of 4 layers. Within-BirdPark 5-fold for reference:
+  run11 L0 0.9637, AVES L6 0.9650.'
+method: Identical architecture (torchaudio wav2vec2_model from the released AVES config; 320-sample hop,
+  12 blocks, 768-d), identical frame grid, identical StandardScaler + logistic probe, identical CV.
+  AVES was run BOTH with run11's chunk normalisation and with its own raw-waveform preprocessing so the
+  comparison does not smuggle in a preprocessing change; the two differ by <0.002 AUC.
+  Layer selection pre-committed on ZF (run11 L0, AVES L6); every layer reported.
+provenance: zfeval/experiments/aves_baseline.py, aves_holdout.py; analysis/aves_baseline.json,
+  analysis/aves_holdout.json
+caveats: 'The holdout is 118.5 s, about 4 independent 30 s blocks, so intervals are very wide and the
+  pre-committed run11-vs-AVES contrast reads not_distinguishable; the evidence is the consistency of
+  sign across all four layers, not any single interval. AVES L3 is its best BirdPark layer and using it
+  would be selection on the test set -- quote L6. BirdPark is close-miked so energy alone reaches 0.854
+  and all differences compress. This does NOT refute [003]/[randinit]: pretraining still beats random
+  init by +0.244 at the CNN. It refutes only that the pretraining had to be colony-specific. Still
+  untested, and the last place run11 could win: the call-type and identity probes.'
+tags:
+- baseline
+- pretraining
+- holdout
+- negative-result
+date: '2026-09-13'

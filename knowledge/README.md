@@ -7,6 +7,17 @@ validated and rendered by `build.py`.
 python3 build.py     # validates every finding, regenerates index.md and CONTEXT.md
 ```
 
+## The three files a new session should load
+
+| file | maintained by | answers |
+|---|---|---|
+| `CONTEXT.md` | `build.py`, from `findings/` | **what we have learned** — including what has been refuted |
+| `ORIENTATION.md` | by hand | **how the project is built and operated** — architecture, paths, Savio, standing rules |
+| `../docs/roadmap.html` | by hand | **what is done, running and planned** — the experiment design space |
+
+`CONTEXT.md` goes stale the moment a finding lands, so regenerate it rather than editing it.
+`ORIENTATION.md` is deliberately free of experimental numbers so it does not.
+
 ## Why this exists rather than a notes file
 
 Over this project several claims that looked obviously correct turned out to be wrong — detection

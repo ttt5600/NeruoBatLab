@@ -1,0 +1,59 @@
+# Numbers that are legitimately not registry values.
+# Keep this file SHORT -- every line is a number nobody will ever re-check.
+# --- units, grid constants, architecture
+16000   # sampling rate
+44100   # SoundSep index rate
+320     # HuBERT hop, samples
+400     # HuBERT receptive field, samples
+50      # frames per second
+20      # the frame grid, ms
+25      # receptive field, ms
+10      # HOP/2, ms
+768     # encoder width
+512     # CNN output width
+12      # transformer blocks
+120     # pretraining recordings
+0       # ---
+1
+2
+3
+4
+5
+6
+7
+8
+9
+# --- corpus and dataset sizes, stated in prose
+2540    # merged SoundSep segments
+2541    # raw SoundSep segments
+5569    # labeled windows in dataset v1
+1801    # soundsep_111021 windows
+90061   # 20 ms frames in the 30 min span
+532     # BirdPark events
+5925    # BirdPark scorable frames
+118.5   # BirdPark annotated span, s
+30.02   # annotated span, min
+# --- years / citations
+2023
+2026
+# --- finding ids, cited as "finding 0NN"
+010
+011
+013
+014
+018
+019
+022
+023
+028
+029
+032
+# --- segment / duration constants stated in prose (ms)
+125
+250
+80
+# --- percentages of the recording used for the synthetic split
+60
+# --- misc counts stated in prose
+472
+40      # donor duration floor / held-out fraction, ms and %
