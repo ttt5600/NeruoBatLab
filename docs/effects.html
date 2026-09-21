@@ -65,11 +65,12 @@ color:var(--muted)}
 
 <div class="callout">
   <span class="lbl">The one-line summary</span>
-  <p><strong>Preprocessing dominates.</strong> Clip padding costs more accuracy
-  (+0.478) than pretraining on 116 hours of
-  zebra finch buys over a random encoder (+0.194), and waveform normalisation moves
+  <p><strong>Preprocessing dominates.</strong> Simply encoding clips at their own length instead of
+  padding them to a common one is worth
+  +0.478 accuracy — more than pretraining on 116
+  hours of zebra finch buys over a random encoder (+0.194). Waveform normalisation moves
   the holdout more than any corpus change we have run. Meanwhile the label-target choices we spent
-  the most time on move things by ±0.02.</p>
+  the most compute on move things by about ±0.02.</p>
 </div>
 
 <h2>The ledger</h2>
@@ -77,8 +78,9 @@ color:var(--muted)}
 <div class="tbl">
 <table>
   <thead><tr><th>Manipulation</th><th class="num">Effect</th><th>Metric</th><th>Source</th></tr></thead>
-  <tbody><tr><td>Padding clips to a fixed length</td><td class="num big win-a">+0.478</td><td>call-type accuracy</td><td class="src">aves_2023_ablation.json</td></tr>
+  <tbody><tr><td>Encoding clips at their own length (vs fixed-length padding)</td><td class="num big win-a">+0.478</td><td>call-type accuracy</td><td class="src">aves_2023_ablation.json</td></tr>
 <tr><td>Pretraining at all (vs random init)</td><td class="num big win-a">+0.194</td><td>detection AUC</td><td class="src">randinit_control.json</td></tr>
+<tr><td>Replay: 19.3% FSD50K mixed into continued pretraining</td><td class="num big win-a">+0.138</td><td>BirdPark AP</td><td class="src">detection_variants.json</td></tr>
 <tr><td>Learned features vs log-mel input</td><td class="num big win-a">+0.130</td><td>detection AUC (split B)</td><td class="src">mel_baseline.json</td></tr>
 <tr><td>Waveform normalisation — DAPT models</td><td class="num big win-a">+0.086</td><td>BirdPark AP</td><td class="src">detection_variants.json</td></tr>
 <tr><td>Removing loudness (partial out)</td><td class="num big win-r">-0.078</td><td>detection AUC</td><td class="src">loudness_removal.json</td></tr>
@@ -90,8 +92,9 @@ color:var(--muted)}
 <tr><td>Pooling: 5-way concat vs mean</td><td class="num big win-a">+0.002</td><td>detection AUC</td><td class="src">pooling_comparison.json</td></tr></tbody>
 </table>
 </div>
-<div class="rn"><div class="rn-h"><span class="num win-a">+0.478</span><strong>Padding clips to a fixed length</strong></div><p>0.348 → 0.826 once clips are encoded at their own length. The median clip is 121 ms padded to 15.7 s — 99.2% zeros.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.478</span><strong>Encoding clips at their own length (vs fixed-length padding)</strong></div><p>0.348 → 0.826 once clips are encoded at their own length. The median clip is 121 ms padded to 15.7 s — 99.2% zeros.</p></div>
 <div class="rn"><div class="rn-h"><span class="num win-a">+0.194</span><strong>Pretraining at all (vs random init)</strong></div><p>[+0.166, +0.223], layer-matched at L10, 2000 resamples.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.138</span><strong>Replay: 19.3% FSD50K mixed into continued pretraining</strong></div><p>0.6942 → 0.8318 at identical learning rate and step count. Without replay DAPT lands below the 0.7472 log-energy floor; with it, above run11.</p></div>
 <div class="rn"><div class="rn-h"><span class="num win-a">+0.130</span><strong>Learned features vs log-mel input</strong></div><p>HuBERT L0 0.9557 vs a strong 384-d log-mel 0.8254.</p></div>
 <div class="rn"><div class="rn-h"><span class="num win-a">+0.086</span><strong>Waveform normalisation — DAPT models</strong></div><p>median over 16 checkpoints; costs only 0.0067 AUC in distribution — a 13× bad trade.</p></div>
 <div class="rn"><div class="rn-h"><span class="num win-r">-0.078</span><strong>Removing loudness (partial out)</strong></div><p>how much of detection rides on level, not structure.</p></div>
@@ -155,7 +158,7 @@ bad trade, made automatically, every time.</p>
 </div>
 
 <h2>2 · Padding: the largest effect in the project</h2>
-<p class="sub">What happens when variable-length clips are batched to a common length.</p>
+<p class="sub">What happens when variable-length clips are batched to a common length. Accuracy RISES as each defect is removed, so the ledger entry is the gain from dropping the padding, not a benefit of it.</p>
 <div class="tbl">
 <table><thead><tr><th>Arm</th><th class="num">accuracy</th></tr></thead><tbody><tr><td class="cls">notebook full</td><td class="num">0.3478</td></tr>
 <tr><td class="cls">minus rectify</td><td class="num">0.2484</td></tr>
@@ -220,7 +223,34 @@ advantage does not come from its labels being better aligned with calls on this 
 because the target is 4000-d. A 384-d log-mel target is ~10× smaller <em>and</em> scores higher on
 call identity — which would have put the whole corpus inside ~60 GB.</p>
 
-<h2>5 · Loudness: how much is the detector just hearing volume?</h2>
+<h2>5 · Depth quietly increases the loudness confound</h2>
+<p class="sub">Detection geometry by layer, computed in the full 768-d space.</p>
+<div class="tbl">
+<table><thead><tr><th>Layer</th><th class="num">linear AUC</th><th class="num">kNN-10 AUC</th>
+<th class="num">PCA dim (90%)</th><th class="num">corr(PC0, dB)</th></tr></thead><tbody><tr><td class="cls">cnn</td><td class="num">0.9461</td><td class="num">0.8999</td><td class="num">45</td><td class="num">0.5398</td></tr>
+<tr><td class="cls">0</td><td class="num">0.9514</td><td class="num">0.9089</td><td class="num">25</td><td class="num">0.5624</td></tr>
+<tr><td class="cls">1</td><td class="num">0.9511</td><td class="num">0.9137</td><td class="num">35</td><td class="num">0.5629</td></tr>
+<tr><td class="cls">2</td><td class="num">0.9494</td><td class="num">0.9324</td><td class="num">44</td><td class="num">0.5691</td></tr>
+<tr><td class="cls">3</td><td class="num">0.9488</td><td class="num">0.9337</td><td class="num">53</td><td class="num">0.5867</td></tr>
+<tr><td class="cls">4</td><td class="num">0.9479</td><td class="num">0.9360</td><td class="num">59</td><td class="num">0.5935</td></tr>
+<tr><td class="cls">5</td><td class="num">0.9467</td><td class="num">0.9361</td><td class="num">65</td><td class="num">0.5865</td></tr>
+<tr><td class="cls">6</td><td class="num">0.9503</td><td class="num">0.9349</td><td class="num">70</td><td class="num">0.5886</td></tr>
+<tr><td class="cls">7</td><td class="num">0.9544</td><td class="num">0.9350</td><td class="num">74</td><td class="num">0.5999</td></tr>
+<tr><td class="cls">8</td><td class="num">0.9546</td><td class="num">0.9369</td><td class="num">81</td><td class="num">0.6317</td></tr>
+<tr><td class="cls">9</td><td class="num">0.9553</td><td class="num">0.9379</td><td class="num">86</td><td class="num">0.6297</td></tr>
+<tr><td class="cls">10</td><td class="num">0.9574</td><td class="num">0.9365</td><td class="num">92</td><td class="num">0.6294</td></tr>
+<tr><td class="cls">11</td><td class="num">0.9570</td><td class="num">0.9364</td><td class="num">95</td><td class="num">0.6670</td></tr></tbody></table>
+</div>
+<p>Two monotone trends run through the stack. The representation gets steadily
+<strong>higher-dimensional</strong> — 45 components carry 90% of variance at the CNN, 95 by layer 11 —
+and the first principal component gets steadily <strong>more correlated with loudness</strong>, from
+0.540 to 0.667. Linear separability barely moves across the same range (0.946 → 0.957), so the extra
+dimensions are not buying detection accuracy; the dominant axis is increasingly just volume.</p>
+<p>That is the mechanistic version of the loudness result below, and it is a reason to prefer shallow
+layers that has nothing to do with accuracy: the decoder-free analysis picked layers 0–2 for both
+encoders, and this is what layers 0–2 are avoiding.</p>
+
+<h2>6 · Loudness: how much is the detector just hearing volume?</h2>
 <div class="tbl">
 <table><thead><tr><th>Treatment</th><th class="num">split A AUC</th><th class="num">Δ vs baseline</th></tr></thead>
 <tbody><tr><td class="cls">baseline</td><td class="num">0.9774</td><td class="num">+0.0000</td></tr>
