@@ -1,11 +1,11 @@
 # Findings index
 
-Generated 2026-09-19 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
+Generated 2026-09-21 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
 
-48 findings.
+50 findings.
 
 
-## CONFIRMED (41)
+## CONFIRMED (43)
 
 ### [001] The corpus is the public Elie and Theunissen release  ·  **CONFIRMED**
 
@@ -500,6 +500,30 @@ A second encoder-level holdout was built from the chick recordings to relieve Bi
 **Caveats.** DO NOT treat this as a second axis that can settle DAPT questions -- it cannot, and the intervals say so. The likely reason it shows no damage is that chicks are NOT a domain holdout in the sense BirdPark is: they are zebra finches from the same corpus family, differing in individual and recording date, whereas BirdPark is a different lab, different room, different microphones. Continued pretraining on ZF colony audio should be expected to PRESERVE or help same-corpus discrimination while eroding cross-lab transfer, which is exactly the pattern observed. So this supports rather than contradicts [047]. The cohort filter depends on a pretrain-manifest file that no longer exists on disk, so the unseen-date selection is not locally re-verifiable; the cached name list is reused to preserve the published cohort. Getting real power on domain transfer needs a LARGER cross-lab holdout, not another same-corpus one.
 
 **Provenance.** zfeval/experiments/chick_holdout_variants.py; analysis/chick_holdout_variants.json; audio copied to ~/zf_labelset/external/chick/
+
+### [049] Waveform normalisation is the largest preprocessing lever on transfer, and the selection rule discards it  ·  **CONFIRMED**
+
+Matched chunk normalisation beats native raw waveform on the BirdPark holdout for EVERY model measured -- 23 of 23, with no exceptions -- at a median of +0.0405 AP. The same choice is worth essentially nothing in distribution (median +0.0000 AP across pretrained baselines). Because the pre-committed arm is selected on in-distribution ZF AUC, and native wins in distribution for the DAPT checkpoints, the selection rule systematically discards the preprocessing choice that carries transfer. For DAPT this is a 13x bad trade -- it buys 0.0067 of ZF AUC and pays 0.0861 of BirdPark AP.
+
+**Evidence.** From the pre-commit block of detection_variants.json, which records both normalisations at each model's own best layer. matched minus native on BirdPark AP, all 23 entries positive: median +0.0405, min +0.0013 (birdaves-bioxn-large), max +0.1916 (dapt1e4_step2500). run11 itself +0.0841 (0.8121 matched vs 0.7281 native). Split by family: the 7 pretrained baselines show median dZF AUC +0.0000 and median dBP AP +0.0190; the 16 DAPT checkpoints show median dZF AUC -0.0067 and median dBP AP +0.0861. The sign flip in the first column is the mechanism -- DAPT inherits AVES's raw-waveform training condition, so native genuinely fits it better in distribution, and the criterion duly picks native. dapt1e4_step15000 is the sharpest case: its matched arm reaches BirdPark AP 0.8479, ABOVE run11's 0.8121, while its selected native arm scores 0.7052, below the 0.7472 log-energy floor. The same checkpoint is either the best model measured or a failed one depending only on this preprocessing switch.
+
+**Method.** Read from the precommit block of analysis/detection_variants.json across all 23 scored checkpoints; no new computation and no new arm selection. Medians are over models, not over bootstrap resamples, so no interval is claimed for the median itself.
+
+**Caveats.** This is a per-model paired comparison without a bootstrap on the median, so "23 of 23" is the strength of the claim, not an interval -- individual deltas near +0.001 are well inside the +/-0.06 resolution of the BirdPark holdout and should not be read as real on their own. The claim is about the CONSISTENCY of the sign, which a sign test on 23 paired observations makes very unlikely by chance. It does not establish WHY matched normalisation transfers better; the obvious hypothesis -- that per-chunk normalisation removes a recording-level gain offset that differs between colonies -- is untested here. Complements [046], which shows the selection criterion cannot resolve arm differences at all; this finding shows the direction of the resulting bias for one specific variable. Does not retract [045]: DAPT still fails its pre-registered stop rule, but part of that failure is now attributable to preprocessing rather than to forgetting alone.
+
+**Provenance.** analysis/detection_variants.json (precommit block); harvested by paper/effects/effects_harvest.json
+
+### [050] No label-free criterion picks k, but held-out-individual stability ranks encoders correctly  ·  **CONFIRMED**
+
+Choosing k without labels is not a solvable problem on this corpus, because there is no k to find: cluster-then-vote accuracy rises monotonically with k until it reaches the exact 1-NN ceiling (peak minus 1-NN = -0.0006 to +0.0067 across five encoders). Every internal criterion that selects k by argmax is therefore answering a question with a degenerate answer. The well-posed label-free question is the OTHER one -- given a fixed k, which representation is better -- and there reproducibility criteria work while compactness criteria fail. Across the five encoders, mean Spearman rho against true cluster-vote accuracy over 12 values of k is +0.41 for bird-held-out stability and +0.37 for bootstrap stability (positive at 10/12 and 9/12 values of k), versus -0.50 for silhouette, -0.66 for Calinski-Harabasz, -0.30 for Davies-Bouldin, +0.03 for the gap statistic and -0.18 for prediction strength. Silhouette, CH and DB are not merely uninformative -- they rank the encoders BACKWARDS, positive at only 1 of 12 k each. The labelled reference, AMI, scores +0.73 and is positive at 12/12.
+
+**Evidence.** Cohort 3412 clips / 11 call types / 48 birds, layer 3, ward linkage, leave-birds-out StratifiedGroupKFold(5). Accuracy-vs-k to the ceiling: run11 peak 0.7693 @k=650 vs 1-NN 0.7699; aves 0.7828 @k=1600 vs 0.7843; aves-base-all 0.8028 @k=1600 vs 0.7995; aves-base-core 0.7954 @k=450 vs 0.7887; birdaves-biox-base 0.7688 @k=300 vs 0.7649. The column-shuffled null is the only curve with an interior peak (0.1858 @k=30, falling to 0.1243 at 1-NN, against a majority floor of 0.1797) -- the peak-then-fall shape is itself the no-structure signature. Null separation at k=30, real median vs shuffled null: bootstrap stability 0.548 vs 0.0016 (346x), bird-held-out stability 0.489 vs 0.0014 (353x), CH 101 vs 1.94 (52x), silhouette 0.0853 vs -0.0022, prediction strength 0.193 vs 0.0397 (4.9x), gap 1.91 vs 1.45 (1.3x). On the extended grid bird-held-out stability tracks true accuracy for k in roughly 13-140 (rho +0.3 to +0.9) and loses the signal above k~200, where the accuracy spread between encoders collapses to 0.03-0.05. Stability's own argmax lands at k=4-25 (median 8), below the 11 human call types.
+
+**Method.** zfeval/experiments/calltype_blindselect.py computes seven strictly label-free criteria (silhouette, Calinski-Harabasz, Davies-Bouldin, gap statistic, bootstrap stability, bird-held-out stability, prediction strength) across 12 values of k for five same-architecture 768-d encoders at layer 3, plus a column-shuffled null with identical per-dimension marginals. Stability resamples 15 times, clusters both halves independently, carries one half's centroids onto the other half's points and scores the two partitions with ARI (chance-corrected, so a larger k earns no free credit); the bird variant splits on individual rather than on clip. calltype_kceiling.py extends k to 1600 and adds the exact 1-NN limit under the same folds. Ranking is Spearman rho across the five encoders at each matched k, against leave-birds-out cluster-vote accuracy; AMI is included as the labelled reference ceiling.
+
+**Caveats.** The ranking result rests on FIVE encoders whose true accuracies span only 0.052, so any single rho is one swap from non-significance and individual values of +-0.3 are noise; the claim is carried by the sign consistency across k (10/12 and 9/12), not by any one correlation. All five encoders share an architecture, a dimensionality and a layer, so this tests ranking within a family, not across model classes. Stability's argmax at k=4-25 is partly methodological -- ARI declines with k for generic combinatorial reasons -- so it is suggestive of coarse super-groups consistent with the k=4 HDBSCAN result, NOT evidence that zebra finches have 8 call types. The 1-NN ceiling makes the cluster-vote metric a compression curve, which retrospectively reframes the oracle-k numbers in [project_calltype_clustering] as a statement about how much compression the geometry tolerates rather than about a correct number of clusters. Nothing here says stability would rank encoders correctly on a species with a different call repertoire; it says the procedure survived its one available calibration.
+
+**Provenance.** paper/figures/calltype/calltype_blindselect.json, calltype_kceiling.json, blindselect_report.txt; figures 11_k_ceiling.png, 12_rho_profile.png, 13_null_separation.png
 
 
 ## REFUTED (4)

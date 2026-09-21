@@ -1,0 +1,64 @@
+id: '050'
+title: No label-free criterion picks k, but held-out-individual stability ranks encoders correctly
+status: confirmed
+claim: >-
+  Choosing k without labels is not a solvable problem on this corpus, because there is no k to
+  find: cluster-then-vote accuracy rises monotonically with k until it reaches the exact 1-NN
+  ceiling (peak minus 1-NN = -0.0006 to +0.0067 across five encoders). Every internal criterion
+  that selects k by argmax is therefore answering a question with a degenerate answer. The
+  well-posed label-free question is the OTHER one -- given a fixed k, which representation is
+  better -- and there reproducibility criteria work while compactness criteria fail. Across the
+  five encoders, mean Spearman rho against true cluster-vote accuracy over 12 values of k is
+  +0.41 for bird-held-out stability and +0.37 for bootstrap stability (positive at 10/12 and 9/12
+  values of k), versus -0.50 for silhouette, -0.66 for Calinski-Harabasz, -0.30 for Davies-Bouldin,
+  +0.03 for the gap statistic and -0.18 for prediction strength. Silhouette, CH and DB are not
+  merely uninformative -- they rank the encoders BACKWARDS, positive at only 1 of 12 k each.
+  The labelled reference, AMI, scores +0.73 and is positive at 12/12.
+evidence: >-
+  Cohort 3412 clips / 11 call types / 48 birds, layer 3, ward linkage, leave-birds-out
+  StratifiedGroupKFold(5). Accuracy-vs-k to the ceiling: run11 peak 0.7693 @k=650 vs 1-NN 0.7699;
+  aves 0.7828 @k=1600 vs 0.7843; aves-base-all 0.8028 @k=1600 vs 0.7995; aves-base-core 0.7954
+  @k=450 vs 0.7887; birdaves-biox-base 0.7688 @k=300 vs 0.7649. The column-shuffled null is the
+  only curve with an interior peak (0.1858 @k=30, falling to 0.1243 at 1-NN, against a majority
+  floor of 0.1797) -- the peak-then-fall shape is itself the no-structure signature.
+  Null separation at k=30, real median vs shuffled null: bootstrap stability 0.548 vs 0.0016
+  (346x), bird-held-out stability 0.489 vs 0.0014 (353x), CH 101 vs 1.94 (52x), silhouette 0.0853
+  vs -0.0022, prediction strength 0.193 vs 0.0397 (4.9x), gap 1.91 vs 1.45 (1.3x). On the extended
+  grid bird-held-out stability tracks true accuracy for k in roughly 13-140 (rho +0.3 to +0.9) and
+  loses the signal above k~200, where the accuracy spread between encoders collapses to 0.03-0.05.
+  Stability's own argmax lands at k=4-25 (median 8), below the 11 human call types.
+method: >-
+  zfeval/experiments/calltype_blindselect.py computes seven strictly label-free criteria
+  (silhouette, Calinski-Harabasz, Davies-Bouldin, gap statistic, bootstrap stability,
+  bird-held-out stability, prediction strength) across 12 values of k for five same-architecture
+  768-d encoders at layer 3, plus a column-shuffled null with identical per-dimension marginals.
+  Stability resamples 15 times, clusters both halves independently, carries one half's centroids
+  onto the other half's points and scores the two partitions with ARI (chance-corrected, so a
+  larger k earns no free credit); the bird variant splits on individual rather than on clip.
+  calltype_kceiling.py extends k to 1600 and adds the exact 1-NN limit under the same folds.
+  Ranking is Spearman rho across the five encoders at each matched k, against leave-birds-out
+  cluster-vote accuracy; AMI is included as the labelled reference ceiling.
+provenance: >-
+  paper/figures/calltype/calltype_blindselect.json, calltype_kceiling.json,
+  blindselect_report.txt; figures 11_k_ceiling.png, 12_rho_profile.png, 13_null_separation.png
+caveats: >-
+  The ranking result rests on FIVE encoders whose true accuracies span only 0.052, so any single
+  rho is one swap from non-significance and individual values of +-0.3 are noise; the claim is
+  carried by the sign consistency across k (10/12 and 9/12), not by any one correlation. All five
+  encoders share an architecture, a dimensionality and a layer, so this tests ranking within a
+  family, not across model classes. Stability's argmax at k=4-25 is partly methodological -- ARI
+  declines with k for generic combinatorial reasons -- so it is suggestive of coarse super-groups
+  consistent with the k=4 HDBSCAN result, NOT evidence that zebra finches have 8 call types.
+  The 1-NN ceiling makes the cluster-vote metric a compression curve, which retrospectively
+  reframes the oracle-k numbers in [project_calltype_clustering] as a statement about how much
+  compression the geometry tolerates rather than about a correct number of clusters. Nothing here
+  says stability would rank encoders correctly on a species with a different call repertoire;
+  it says the procedure survived its one available calibration.
+tags:
+- clustering
+- unsupervised
+- model-selection
+- stability
+- protocol
+- calltype
+date: '2026-09-21'

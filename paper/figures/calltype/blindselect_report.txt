@@ -1,0 +1,92 @@
+cohort 3412 clips / 11 classes / 48 birds | layer 3 | ward | B_stab=15
+
+Q1  COST OF CHOOSING k BLIND   (cluster-vote accuracy, leave-birds-out)
+
+rule                            run11           aves  aves-base-all  aves-base-cor  birdaves-biox
+-------------------------------------------------------------------------------------------------
+ORACLE k (uses labels)0.727@70       0.758@70       0.779@70       0.766@70       0.740@70       
+silhouette            0.615@13       0.559@8        0.387@4        0.404@4        0.322@4        
+calinski_harabasz     0.406@4        0.404@4        0.387@4        0.404@4        0.322@4        
+neg_davies_bouldin    0.727@70       0.404@4        0.713@13       0.745@40       0.322@4        
+gap                   0.727@70       0.758@70       0.779@70       0.766@70       0.740@70       
+stab_clip             0.663@16       0.559@8        0.470@6        0.671@13       0.322@4        
+stab_bird             0.667@20       0.559@8        0.574@8        0.547@8        0.456@6        
+ps80                  0.406@4        0.404@4        0.387@4        0.404@4        0.322@4        
+vs_null               0.727@70       0.758@70       0.779@70       0.766@70       0.740@70       
+half                  0.727@70       0.758@70       0.779@70       0.766@70       0.740@70       
+
+mean cost vs oracle   
+   silhouette          -0.2964
+   calinski_harabasz   -0.3692
+   neg_davies_bouldin  -0.1717
+   gap                 -0.0000
+   stab_clip           -0.2169
+   stab_bird           -0.1933
+   ps80                -0.3692
+   vs_null             -0.0000
+   half                -0.0000
+
+Q2  RANKING THE ENCODERS BLIND   (Spearman rho vs true vote accuracy, n=5 encoders)
+
+   true vote-acc @ oracle k:  aves-base-all=0.779  aves-base-core=0.766  aves=0.758  birdaves-biox-base=0.740  run11=0.727
+
+   -- scored at matched k=11 --   true acc run11=0.558 aves=0.644 aves-base-=0.607 aves-base-=0.613 birdaves-b=0.608
+      silhouette             rho -0.500  (p=0.391)
+      calinski_harabasz      rho +0.100  (p=0.873)
+      neg_davies_bouldin     rho -0.100  (p=0.873)
+      gap                    rho +0.000  (p=1.000)
+      stab_clip              rho +0.300  (p=0.624)
+      stab_bird              rho +0.600  (p=0.285)
+      prediction_strength    rho +0.600  (p=0.285)
+      [AMI: uses labels]     rho +0.300  (p=0.624)
+
+   -- scored at matched k=30 --   true acc run11=0.712 aves=0.741 aves-base-=0.720 aves-base-=0.743 birdaves-b=0.691
+      silhouette             rho -0.300  (p=0.624)
+      calinski_harabasz      rho -0.800  (p=0.104)
+      neg_davies_bouldin     rho +0.000  (p=1.000)
+      gap                    rho -0.100  (p=0.873)
+      stab_clip              rho +0.700  (p=0.188)
+      stab_bird              rho +0.600  (p=0.285)
+      prediction_strength    rho -0.200  (p=0.747)
+      [AMI: uses labels]     rho +0.900  (p=0.037)
+
+   -- scored at matched k=70 --   true acc run11=0.727 aves=0.758 aves-base-=0.779 aves-base-=0.766 birdaves-b=0.740
+      silhouette             rho +0.000  (p=1.000)
+      calinski_harabasz      rho -0.900  (p=0.037)
+      neg_davies_bouldin     rho -0.100  (p=0.873)
+      gap                    rho -0.300  (p=0.624)
+      stab_clip              rho +0.800  (p=0.104)
+      stab_bird              rho +0.900  (p=0.037)
+      prediction_strength    rho -0.100  (p=0.873)
+      [AMI: uses labels]     rho +0.800  (p=0.104)
+
+   -- each encoder scored at its OWN blind-chosen k --
+      silhouette             rho -0.700  (p=0.188)  ks=[13, 8, 4, 4, 4]
+      calinski_harabasz      rho +0.100  (p=0.873)  ks=[4, 4, 4, 4, 4]
+      neg_davies_bouldin     rho -0.900  (p=0.037)  ks=[70, 4, 13, 40, 4]
+      gap                    rho -0.300  (p=0.624)  ks=[70, 70, 70, 70, 70]
+      stab_clip              rho +0.100  (p=0.873)  ks=[16, 8, 6, 13, 4]
+      stab_bird              rho +0.100  (p=0.873)  ks=[20, 8, 8, 8, 6]
+      ps80                   rho +0.300  (p=0.624)  ks=[4, 4, 4, 4, 4]
+      vs_null                rho +0.900  (p=0.037)  ks=[70, 70, 70, 70, 70]
+      half                   rho +0.900  (p=0.037)  ks=[70, 70, 70, 70, 70]
+
+Q3  NULL CONTROL   (column-shuffled AVES: same marginals, no joint structure)
+
+   true vote-acc  real median 0.758   null 0.186   null AMI@best 0.001
+
+   criterion                k   real(med)      null    ratio  verdict
+   silhouette              11      0.0899   -0.0011   -79.52  SEPARATES
+   silhouette              30      0.0853   -0.0022   -38.30  SEPARATES
+   calinski_harabasz       11    188.2095    2.0826    90.37  SEPARATES
+   calinski_harabasz       30    101.4514    1.9351    52.43  SEPARATES
+   neg_davies_bouldin      11     -2.5410  -19.0762     0.13  SEPARATES
+   neg_davies_bouldin      30     -2.5508  -12.1315     0.21  SEPARATES
+   gap                     11      1.7469    1.4544     1.20  weak
+   gap                     30      1.9118    1.4534     1.32  weak
+   stab_clip               11      0.5931    0.0008   728.71  SEPARATES
+   stab_clip               30      0.5484    0.0016   346.04  SEPARATES
+   stab_bird               11      0.5395    0.0009   607.98  SEPARATES
+   stab_bird               30      0.4890    0.0014   353.15  SEPARATES
+   prediction_strength     11      0.3468    0.0997     3.48  SEPARATES
+   prediction_strength     30      0.1931    0.0397     4.86  SEPARATES

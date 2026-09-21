@@ -1,0 +1,146 @@
+{
+  "picks": {
+    "silhouette": {
+      "run11": 13,
+      "aves": 8,
+      "aves-base-all": 4,
+      "aves-base-core": 4,
+      "birdaves-biox-base": 4
+    },
+    "calinski_harabasz": {
+      "run11": 4,
+      "aves": 4,
+      "aves-base-all": 4,
+      "aves-base-core": 4,
+      "birdaves-biox-base": 4
+    },
+    "neg_davies_bouldin": {
+      "run11": 70,
+      "aves": 4,
+      "aves-base-all": 13,
+      "aves-base-core": 40,
+      "birdaves-biox-base": 4
+    },
+    "gap": {
+      "run11": 70,
+      "aves": 70,
+      "aves-base-all": 70,
+      "aves-base-core": 70,
+      "birdaves-biox-base": 70
+    },
+    "stab_clip": {
+      "run11": 16,
+      "aves": 8,
+      "aves-base-all": 6,
+      "aves-base-core": 13,
+      "birdaves-biox-base": 4
+    },
+    "stab_bird": {
+      "run11": 20,
+      "aves": 8,
+      "aves-base-all": 8,
+      "aves-base-core": 8,
+      "birdaves-biox-base": 6
+    },
+    "ps80": {
+      "run11": 4,
+      "aves": 4,
+      "aves-base-all": 4,
+      "aves-base-core": 4,
+      "birdaves-biox-base": 4
+    },
+    "vs_null": {
+      "run11": 70,
+      "aves": 70,
+      "aves-base-all": 70,
+      "aves-base-core": 70,
+      "birdaves-biox-base": 70
+    },
+    "half": {
+      "run11": 70,
+      "aves": 70,
+      "aves-base-all": 70,
+      "aves-base-core": 70,
+      "birdaves-biox-base": 70
+    }
+  },
+  "costs": {
+    "silhouette": {
+      "run11": 0.11137162954279012,
+      "aves": 0.1981242672919109,
+      "aves-base-all": 0.39214536928487687,
+      "aves-base-core": 0.36166471277842904,
+      "birdaves-biox-base": 0.41852286049237986
+    },
+    "calinski_harabasz": {
+      "run11": 0.3203399765533411,
+      "aves": 0.35345838218053927,
+      "aves-base-all": 0.39214536928487687,
+      "aves-base-core": 0.36166471277842904,
+      "birdaves-biox-base": 0.41852286049237986
+    },
+    "neg_davies_bouldin": {
+      "run11": 0.0,
+      "aves": 0.35345838218053927,
+      "aves-base-all": 0.06594372801875725,
+      "aves-base-core": 0.0205158264947245,
+      "birdaves-biox-base": 0.41852286049237986
+    },
+    "gap": {
+      "run11": 0.0,
+      "aves": 0.0,
+      "aves-base-all": 0.0,
+      "aves-base-core": 0.0,
+      "birdaves-biox-base": 0.0
+    },
+    "stab_clip": {
+      "run11": 0.06359906213364597,
+      "aves": 0.1981242672919109,
+      "aves-base-all": 0.3092028135990621,
+      "aves-base-core": 0.09525205158264938,
+      "birdaves-biox-base": 0.41852286049237986
+    },
+    "stab_bird": {
+      "run11": 0.0592028135990621,
+      "aves": 0.1981242672919109,
+      "aves-base-all": 0.20574443141852283,
+      "aves-base-core": 0.21922626025791314,
+      "birdaves-biox-base": 0.28429073856975384
+    },
+    "ps80": {
+      "run11": 0.3203399765533411,
+      "aves": 0.35345838218053927,
+      "aves-base-all": 0.39214536928487687,
+      "aves-base-core": 0.36166471277842904,
+      "birdaves-biox-base": 0.41852286049237986
+    },
+    "vs_null": {
+      "run11": 0.0,
+      "aves": 0.0,
+      "aves-base-all": 0.0,
+      "aves-base-core": 0.0,
+      "birdaves-biox-base": 0.0
+    },
+    "half": {
+      "run11": 0.0,
+      "aves": 0.0,
+      "aves-base-all": 0.0,
+      "aves-base-core": 0.0,
+      "birdaves-biox-base": 0.0
+    }
+  },
+  "oracle_k": {
+    "run11": 70,
+    "aves": 70,
+    "aves-base-all": 70,
+    "aves-base-core": 70,
+    "birdaves-biox-base": 70
+  },
+  "oracle_acc": {
+    "run11": 0.7265533411488863,
+    "aves": 0.7576201641266119,
+    "aves-base-all": 0.7793083235638921,
+    "aves-base-core": 0.7658264947245017,
+    "birdaves-biox-base": 0.7403282532239156
+  }
+}
