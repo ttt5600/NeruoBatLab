@@ -1,0 +1,41 @@
+id: '049'
+title: Waveform normalisation is the largest preprocessing lever on transfer, and the selection rule discards it
+status: confirmed
+claim: Matched chunk normalisation beats native raw waveform on the BirdPark holdout for EVERY model
+  measured -- 23 of 23, with no exceptions -- at a median of +0.0405 AP. The same choice is worth
+  essentially nothing in distribution (median +0.0000 AP across pretrained baselines). Because the
+  pre-committed arm is selected on in-distribution ZF AUC, and native wins in distribution for the
+  DAPT checkpoints, the selection rule systematically discards the preprocessing choice that carries
+  transfer. For DAPT this is a 13x bad trade -- it buys 0.0067 of ZF AUC and pays 0.0861 of BirdPark AP.
+evidence: 'From the pre-commit block of detection_variants.json, which records both normalisations at
+  each model''s own best layer. matched minus native on BirdPark AP, all 23 entries positive:
+  median +0.0405, min +0.0013 (birdaves-bioxn-large), max +0.1916 (dapt1e4_step2500). run11 itself
+  +0.0841 (0.8121 matched vs 0.7281 native). Split by family: the 7 pretrained baselines show median
+  dZF AUC +0.0000 and median dBP AP +0.0190; the 16 DAPT checkpoints show median dZF AUC -0.0067 and
+  median dBP AP +0.0861. The sign flip in the first column is the mechanism -- DAPT inherits AVES''s
+  raw-waveform training condition, so native genuinely fits it better in distribution, and the
+  criterion duly picks native. dapt1e4_step15000 is the sharpest case: its matched arm reaches
+  BirdPark AP 0.8479, ABOVE run11''s 0.8121, while its selected native arm scores 0.7052, below the
+  0.7472 log-energy floor. The same checkpoint is either the best model measured or a failed one
+  depending only on this preprocessing switch.'
+method: Read from the precommit block of analysis/detection_variants.json across all 23 scored
+  checkpoints; no new computation and no new arm selection. Medians are over models, not over
+  bootstrap resamples, so no interval is claimed for the median itself.
+provenance: analysis/detection_variants.json (precommit block); harvested by paper/effects/effects_harvest.json
+caveats: 'This is a per-model paired comparison without a bootstrap on the median, so "23 of 23" is
+  the strength of the claim, not an interval -- individual deltas near +0.001 are well inside the
+  +/-0.06 resolution of the BirdPark holdout and should not be read as real on their own. The claim
+  is about the CONSISTENCY of the sign, which a sign test on 23 paired observations makes very
+  unlikely by chance. It does not establish WHY matched normalisation transfers better; the obvious
+  hypothesis -- that per-chunk normalisation removes a recording-level gain offset that differs
+  between colonies -- is untested here. Complements [046], which shows the selection criterion cannot
+  resolve arm differences at all; this finding shows the direction of the resulting bias for one
+  specific variable. Does not retract [045]: DAPT still fails its pre-registered stop rule, but part
+  of that failure is now attributable to preprocessing rather than to forgetting alone.'
+tags:
+- preprocessing
+- normalization
+- transfer
+- selection
+- dapt
+date: '2026-09-20'

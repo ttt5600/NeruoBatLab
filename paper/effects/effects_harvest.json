@@ -1,0 +1,867 @@
+{
+  "effects": [
+    {
+      "family": "label target",
+      "manipulation": "soundsig4000 @ k=100 (4000-d)",
+      "metric": "AMI vs call id",
+      "value": 0.07122869053456299,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": "run11's ACTUAL iteration-1 feature: soundsig Gaussian STFT, 50 Hz spacing, 25 ms window flattened"
+    },
+    {
+      "family": "label target",
+      "manipulation": "soundsig4000 @ k=200 (4000-d)",
+      "metric": "AMI vs call id",
+      "value": 0.06423939105678528,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": "run11's ACTUAL iteration-1 feature: soundsig Gaussian STFT, 50 Hz spacing, 25 ms window flattened"
+    },
+    {
+      "family": "label target",
+      "manipulation": "mfcc39 @ k=100 (39-d)",
+      "metric": "AMI vs call id",
+      "value": 0.04867661027727947,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": "AVES's iteration-1 feature: fairseq stock 13 Kaldi MFCC + delta + ddelta"
+    },
+    {
+      "family": "label target",
+      "manipulation": "mfcc39 @ k=200 (39-d)",
+      "metric": "AMI vs call id",
+      "value": 0.04008970181548443,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": "AVES's iteration-1 feature: fairseq stock 13 Kaldi MFCC + delta + ddelta"
+    },
+    {
+      "family": "label target",
+      "manipulation": "logmel384 @ k=100 (384-d)",
+      "metric": "AMI vs call id",
+      "value": 0.08537749352962344,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": "384-d log-mel summary, the stand-in used in target_quality.py; kept so the two experiments are comparable"
+    },
+    {
+      "family": "label target",
+      "manipulation": "logmel384 @ k=200 (384-d)",
+      "metric": "AMI vs call id",
+      "value": 0.06457839786296299,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": "384-d log-mel summary, the stand-in used in target_quality.py; kept so the two experiments are comparable"
+    },
+    {
+      "family": "label target",
+      "manipulation": "spectrogram \u2212 MFCC (k=100)",
+      "metric": "\u0394AMI vs call id",
+      "value": 0.022552080257283516,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": ""
+    },
+    {
+      "family": "label target",
+      "manipulation": "spectrogram \u2212 MFCC (k=200)",
+      "metric": "\u0394AMI vs call id",
+      "value": 0.02414968924130085,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": ""
+    },
+    {
+      "family": "label target",
+      "manipulation": "run11 iter-1 \u2212 AVES iter-1 feature",
+      "metric": "\u0394AMI vs call id",
+      "value": 0.03113898871907856,
+      "ci": null,
+      "verdict": null,
+      "source": "target_features.json",
+      "note": ""
+    },
+    {
+      "family": "label recipe",
+      "manipulation": "logmel_k100 (k=100)",
+      "metric": "AMI vs call id",
+      "value": 0.08537749352962344,
+      "ci": null,
+      "verdict": null,
+      "source": "target_quality.json",
+      "note": "run11's actual recipe: iteration-1 log-mel, k=100"
+    },
+    {
+      "family": "label recipe",
+      "manipulation": "logmel_k200 (k=200)",
+      "metric": "AMI vs call id",
+      "value": 0.06457880615165065,
+      "ci": null,
+      "verdict": null,
+      "source": "target_quality.json",
+      "note": "isolates k: same feature as run11, AVES's cluster count"
+    },
+    {
+      "family": "label recipe",
+      "manipulation": "run11_L6_k200 (k=200)",
+      "metric": "AMI vs call id",
+      "value": 0.04882643949952756,
+      "ci": null,
+      "verdict": null,
+      "source": "target_quality.json",
+      "note": "AVES's recipe run on OUR encoder: iteration-2 from layer 6, k=200"
+    },
+    {
+      "family": "label recipe",
+      "manipulation": "aves_L6_k200 (k=200)",
+      "metric": "AMI vs call id",
+      "value": 0.04815624502019221,
+      "ci": null,
+      "verdict": null,
+      "source": "target_quality.json",
+      "note": "AVES's actual recipe and encoder"
+    },
+    {
+      "family": "label recipe",
+      "manipulation": "raising k 100 \u2192 200",
+      "metric": "\u0394AMI vs call id",
+      "value": -0.020798687377972788,
+      "ci": null,
+      "verdict": null,
+      "source": "target_quality.json",
+      "note": "isolates cluster count, feature held fixed"
+    },
+    {
+      "family": "label recipe",
+      "manipulation": "iter-1 spectrogram \u2192 iter-2 layer-6 target",
+      "metric": "\u0394AMI vs call id",
+      "value": -0.015752366652123095,
+      "ci": null,
+      "verdict": null,
+      "source": "target_quality.json",
+      "note": "isolates the target feature, k held at 200"
+    },
+    {
+      "family": "label recipe",
+      "manipulation": "run11 recipe \u2192 AVES recipe (both moves)",
+      "metric": "\u0394AMI vs call id",
+      "value": -0.03722124850943123,
+      "ci": null,
+      "verdict": null,
+      "source": "target_quality.json",
+      "note": ""
+    },
+    {
+      "family": "normalization",
+      "manipulation": "pre-committed arm (out-of-fold ZF AUC)",
+      "metric": "arm chosen",
+      "value": "{'matched': {'layer': 0, 'zf': {'auc': 0.9687083083063901, 'ap': 0.868084133134278}, 'bp': {'auc': 0.8647626757846251, 'ap': 0.8121329893779907}}, 'native': {'layer': 1, 'zf': {'auc': 0.9669574917022835, 'ap': 0.8634012724624138}, 'bp': {'auc': 0.7891046150361193, 'ap': 0.7280534470163627}}, 'joint': {'tag': 'matched', 'layer': 0, 'zf': {'auc': 0.9687083083063901, 'ap': 0.868084133134278}, 'bp': {'auc': 0.8647626757846251, 'ap': 0.8121329893779907}}}",
+      "ci": null,
+      "verdict": null,
+      "source": "detection_variants.json",
+      "note": "matched = run11-style chunk norm; native = raw waveform, AVES's condition"
+    },
+    {
+      "family": "pretraining",
+      "manipulation": "pretrained \u2212 random init (best layer)",
+      "metric": "\u0394AUC",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "randinit_control.json",
+      "note": "best_pretrained_layer=L10; see per_variant for arms"
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L0_mean",
+      "metric": "AUC (split A)",
+      "value": 0.9728315858492893,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L0_max",
+      "metric": "AUC (split A)",
+      "value": 0.9690966018804252,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L0_p90",
+      "metric": "AUC (split A)",
+      "value": 0.9604142228959509,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L0_std",
+      "metric": "AUC (split A)",
+      "value": 0.9669812739489531,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L0_top20",
+      "metric": "AUC (split A)",
+      "value": 0.9716134601387161,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L0_CONCAT5",
+      "metric": "AUC (split A)",
+      "value": 0.9745748590884209,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L1_mean",
+      "metric": "AUC (split A)",
+      "value": 0.9693678980263355,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L1_max",
+      "metric": "AUC (split A)",
+      "value": 0.9664320646779637,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L1_p90",
+      "metric": "AUC (split A)",
+      "value": 0.9669442790199652,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L1_std",
+      "metric": "AUC (split A)",
+      "value": 0.964369071036279,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L1_top20",
+      "metric": "AUC (split A)",
+      "value": 0.9639185149092572,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L1_CONCAT5",
+      "metric": "AUC (split A)",
+      "value": 0.9708410782066784,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L2_mean",
+      "metric": "AUC (split A)",
+      "value": 0.9702876581307637,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L2_max",
+      "metric": "AUC (split A)",
+      "value": 0.9678929132153106,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L2_p90",
+      "metric": "AUC (split A)",
+      "value": 0.9667716360180222,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L2_std",
+      "metric": "AUC (split A)",
+      "value": 0.9656650966379731,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L2_top20",
+      "metric": "AUC (split A)",
+      "value": 0.9636781982567267,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L2_CONCAT5",
+      "metric": "AUC (split A)",
+      "value": 0.9721127412941608,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L3_mean",
+      "metric": "AUC (split A)",
+      "value": 0.9700124519517083,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L3_max",
+      "metric": "AUC (split A)",
+      "value": 0.9661980642328214,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L3_p90",
+      "metric": "AUC (split A)",
+      "value": 0.9681458622826171,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L3_std",
+      "metric": "AUC (split A)",
+      "value": 0.9588041915555315,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L3_top20",
+      "metric": "AUC (split A)",
+      "value": 0.964288464199135,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L3_CONCAT5",
+      "metric": "AUC (split A)",
+      "value": 0.9717743730412238,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L6_mean",
+      "metric": "AUC (split A)",
+      "value": 0.9687819945981389,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L6_max",
+      "metric": "AUC (split A)",
+      "value": 0.9581927225260016,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L6_p90",
+      "metric": "AUC (split A)",
+      "value": 0.9589025439277183,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L6_std",
+      "metric": "AUC (split A)",
+      "value": 0.9572335613183429,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L6_top20",
+      "metric": "AUC (split A)",
+      "value": 0.9687074031966025,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L6_CONCAT5",
+      "metric": "AUC (split A)",
+      "value": 0.9686848453130734,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L9_mean",
+      "metric": "AUC (split A)",
+      "value": 0.9655243354447514,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L9_max",
+      "metric": "AUC (split A)",
+      "value": 0.9520738214257786,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L9_p90",
+      "metric": "AUC (split A)",
+      "value": 0.9621066657041969,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L9_std",
+      "metric": "AUC (split A)",
+      "value": 0.9525009173539302,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L9_top20",
+      "metric": "AUC (split A)",
+      "value": 0.9627373841276717,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "L9_CONCAT5",
+      "metric": "AUC (split A)",
+      "value": 0.9668239703078099,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "pooling",
+      "manipulation": "ALLLAYERS_mean_max_top20",
+      "metric": "AUC (split A)",
+      "value": 0.9731489000775992,
+      "ci": null,
+      "verdict": null,
+      "source": "pooling_comparison.json",
+      "note": ""
+    },
+    {
+      "family": "input features",
+      "manipulation": "logmel_384",
+      "metric": "AUC (split A)",
+      "value": 0.9171581277558214,
+      "ci": null,
+      "verdict": null,
+      "source": "mel_baseline.json",
+      "note": ""
+    },
+    {
+      "family": "input features",
+      "manipulation": "logmel_C0.03",
+      "metric": "AUC (split A)",
+      "value": 0.9267398143636572,
+      "ci": null,
+      "verdict": null,
+      "source": "mel_baseline.json",
+      "note": ""
+    },
+    {
+      "family": "input features",
+      "manipulation": "logmel_C0.1",
+      "metric": "AUC (split A)",
+      "value": 0.9248515691263783,
+      "ci": null,
+      "verdict": null,
+      "source": "mel_baseline.json",
+      "note": ""
+    },
+    {
+      "family": "input features",
+      "manipulation": "logmel_C0.3",
+      "metric": "AUC (split A)",
+      "value": 0.9215996246368181,
+      "ci": null,
+      "verdict": null,
+      "source": "mel_baseline.json",
+      "note": ""
+    },
+    {
+      "family": "input features",
+      "manipulation": "logmel_meanonly",
+      "metric": "AUC (split A)",
+      "value": 0.8892958331077545,
+      "ci": null,
+      "verdict": null,
+      "source": "mel_baseline.json",
+      "note": ""
+    },
+    {
+      "family": "input features",
+      "manipulation": "hubert_L0",
+      "metric": "AUC (split A)",
+      "value": 0.9773600057748182,
+      "ci": null,
+      "verdict": null,
+      "source": "mel_baseline.json",
+      "note": ""
+    },
+    {
+      "family": "input features",
+      "manipulation": "energy_only",
+      "metric": "AUC (split A)",
+      "value": 0.791094749126258,
+      "ci": null,
+      "verdict": null,
+      "source": "mel_baseline.json",
+      "note": ""
+    },
+    {
+      "family": "input features",
+      "manipulation": "hubert_plus_mel",
+      "metric": "AUC (split A)",
+      "value": 0.9716967739218836,
+      "ci": null,
+      "verdict": null,
+      "source": "mel_baseline.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "baseline",
+      "metric": "AUC after removal",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "partial_out",
+      "metric": "AUC after removal",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "drop_1_pc",
+      "metric": "AUC after removal",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "drop_3_pc",
+      "metric": "AUC after removal",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "drop_8_pc",
+      "metric": "AUC after removal",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "pca64_all",
+      "metric": "AUC after removal",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "rank_within_rec",
+      "metric": "AUC after removal",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "energy R^2 median across dims",
+      "metric": "R^2",
+      "value": 0.1837147908919502,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "loudness confound",
+      "manipulation": "dims with R^2 > 0.5 vs energy",
+      "metric": "count",
+      "value": 46,
+      "ci": null,
+      "verdict": null,
+      "source": "loudness_removal.json",
+      "note": ""
+    },
+    {
+      "family": "padding",
+      "manipulation": "clip padding + rectification ablation",
+      "metric": "accuracy arms",
+      "value": "{'1_notebook_full': 0.34782608695652173, '2_minus_rectify': 0.2484472049689441, '3_minus_padding': 0.8260869565217391, '4_minus_weak_head': 0.8695652173913043, '5_leave_birds_out': 0.7927590511860175}",
+      "ci": null,
+      "verdict": null,
+      "source": "aves_2023_ablation.json",
+      "note": "median clip 0.12084375s, pad to 250606 samples, signal fraction 0.007715298117363511"
+    },
+    {
+      "family": "temporal resolution",
+      "manipulation": "w1000",
+      "metric": "frames/window",
+      "value": 50.0,
+      "ci": null,
+      "verdict": null,
+      "source": "resolution_sweep.json",
+      "note": "n=1801 coverage=0.12401695455157781"
+    },
+    {
+      "family": "temporal resolution",
+      "manipulation": "w500",
+      "metric": "frames/window",
+      "value": 25.0,
+      "ci": null,
+      "verdict": null,
+      "source": "resolution_sweep.json",
+      "note": "n=3602 coverage=0.12401695455157781"
+    },
+    {
+      "family": "temporal resolution",
+      "manipulation": "w250",
+      "metric": "frames/window",
+      "value": 12.5,
+      "ci": null,
+      "verdict": null,
+      "source": "resolution_sweep.json",
+      "note": "n=6000 coverage=0.12445694633409003"
+    },
+    {
+      "family": "temporal resolution",
+      "manipulation": "w125",
+      "metric": "frames/window",
+      "value": 6.25,
+      "ci": null,
+      "verdict": null,
+      "source": "resolution_sweep.json",
+      "note": "n=6000 coverage=0.12354376417233538"
+    },
+    {
+      "family": "temporal resolution",
+      "manipulation": "w80",
+      "metric": "frames/window",
+      "value": 4.0,
+      "ci": null,
+      "verdict": null,
+      "source": "resolution_sweep.json",
+      "note": "n=6000 coverage=0.12008144368857965"
+    },
+    {
+      "family": "temporal resolution",
+      "manipulation": "w40",
+      "metric": "frames/window",
+      "value": 2.0,
+      "ci": null,
+      "verdict": null,
+      "source": "resolution_sweep.json",
+      "note": "n=6000 coverage=0.1225300453514742"
+    },
+    {
+      "family": "temporal resolution",
+      "manipulation": "frames_20ms",
+      "metric": "frames/window",
+      "value": null,
+      "ci": null,
+      "verdict": null,
+      "source": "resolution_sweep.json",
+      "note": "n=90061 coverage=None"
+    },
+    {
+      "family": "corpus budget",
+      "manipulation": "run11",
+      "metric": "corpus hours",
+      "value": 116.0285638888889,
+      "ci": null,
+      "verdict": null,
+      "source": "compute_budget.json",
+      "note": "updates=93750 clusters=100"
+    },
+    {
+      "family": "corpus budget",
+      "manipulation": "aves",
+      "metric": "corpus hours",
+      "value": 360.0,
+      "ci": null,
+      "verdict": null,
+      "source": "compute_budget.json",
+      "note": "updates=100000 clusters=200"
+    },
+    {
+      "family": "corpus budget",
+      "manipulation": "audio_hours_ratio_aves_over_run11",
+      "metric": "ratio",
+      "value": 9.297667967014306,
+      "ci": null,
+      "verdict": null,
+      "source": "compute_budget.json",
+      "note": ""
+    },
+    {
+      "family": "corpus budget",
+      "manipulation": "corpus_hours_ratio",
+      "metric": "ratio",
+      "value": 3.102684269579883,
+      "ci": null,
+      "verdict": null,
+      "source": "compute_budget.json",
+      "note": ""
+    },
+    {
+      "family": "corpus budget",
+      "manipulation": "epochs_ratio",
+      "metric": "ratio",
+      "value": 2.996652949245542,
+      "ci": null,
+      "verdict": null,
+      "source": "compute_budget.json",
+      "note": ""
+    },
+    {
+      "family": "corpus budget",
+      "manipulation": "steps_ratio",
+      "metric": "ratio",
+      "value": 1.0666666666666667,
+      "ci": null,
+      "verdict": null,
+      "source": "compute_budget.json",
+      "note": ""
+    }
+  ],
+  "conflicts": [
+    "CONFLICT: target_features.json calls soundsig4000 'run11's ACTUAL iteration-1 feature' while target_quality.json calls logmel384 'run11's actual recipe'. They cannot both be run11's feature. preprocess.py --feat-type spectrogram uses soundsig.sound.spectrogram (~4000-d), so target_features is the correct label and target_quality's note is stale. The DECOMPOSITION in target_quality is still internally valid (it compares logmel->layer6 consistently) but its absolute AMI values are not run11's actual target."
+  ]
+}

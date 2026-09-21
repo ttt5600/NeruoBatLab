@@ -1,0 +1,261 @@
+<title>Preprocessing Effects Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;600&display=swap">
+<style>
+:root{--bg:#F4F6F9;--surface:#FFF;--text:#141821;--muted:#59637A;--border:#E0E5ED;--rule:#CBD3E0;
+--pos:#1D4ED8;--neg:#C2410C;--pos-soft:#EAF0FE;--neg-soft:#FDF0E8;
+--serif:"IBM Plex Serif",Georgia,serif;--sans:"IBM Plex Sans",Arial,sans-serif;
+--mono:"IBM Plex Mono",Menlo,monospace;--measure:72ch}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1017;--surface:#151A23;
+--text:#E4E9F1;--muted:#94A1B8;--border:#242D3C;--rule:#334053;--pos:#6C9BFF;--neg:#F97544;
+--pos-soft:#121C33;--neg-soft:#2A170F}}
+:root[data-theme="dark"]{--bg:#0D1017;--surface:#151A23;--text:#E4E9F1;--muted:#94A1B8;
+--border:#242D3C;--rule:#334053;--pos:#6C9BFF;--neg:#F97544;--pos-soft:#121C33;--neg-soft:#2A170F}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16.5px;
+line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px 100px}
+header{padding:68px 0 34px;border-bottom:2px solid var(--text);margin-bottom:42px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+color:var(--muted);margin-bottom:18px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,4.6vw,3.15rem);line-height:1.12;
+margin:0 0 20px;text-wrap:balance;letter-spacing:-.015em}
+.standfirst{font-family:var(--serif);font-size:1.18rem;line-height:1.58;color:var(--muted);
+max-width:var(--measure);margin:0}
+h2{font-family:var(--serif);font-weight:600;font-size:1.6rem;margin:60px 0 6px;text-wrap:balance}
+h2+.sub{color:var(--muted);max-width:var(--measure);margin:0 0 24px;font-size:1rem}
+h3{font-weight:600;font-size:1.02rem;margin:32px 0 8px}
+p{max-width:var(--measure)}
+.tbl{overflow-x:auto;margin:22px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{padding:8px 13px;text-align:left;border-bottom:1px solid var(--border)}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+color:var(--muted);font-weight:500;border-bottom:1.5px solid var(--rule)}
+.num{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.big{font-size:1.06rem;font-weight:600}
+.cls{font-family:var(--mono);font-size:13px}
+.src{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.win-a,.pos{color:var(--pos)}.win-r,.neg{color:var(--neg)}
+tbody tr:hover{background:var(--bg)}
+.callout{border-left:3px solid var(--pos);background:var(--pos-soft);padding:17px 21px;
+margin:28px 0;border-radius:0 3px 3px 0}
+.callout.warn{border-left-color:var(--neg);background:var(--neg-soft)}
+.callout p{margin:0;max-width:none}
+.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+color:var(--muted);display:block;margin-bottom:7px}
+code{font-family:var(--mono);font-size:.9em;background:var(--bg);border:1px solid var(--border);
+border-radius:2px;padding:1px 5px}
+.rn{border-top:1px solid var(--border);padding:16px 0}
+.rn-h{display:flex;gap:14px;align-items:baseline;margin-bottom:5px}
+.rn-h .num{font-size:1.15rem;font-weight:600;min-width:74px}
+.rn p{margin:0;color:var(--muted);font-size:14.5px}
+footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--border);font-size:13.5px;
+color:var(--muted)}
+</style>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Zebra finch HuBERT · every manipulation, measured</div>
+  <h1>What our preprocessing and corpus choices actually bought</h1>
+  <p class="standfirst">Eleven manipulations, ranked by measured effect on the same corpus. The
+  largest is not the corpus, the target, or the architecture — it is how audio is handed to the
+  encoder. Two of the biggest levers are preprocessing decisions that were never the subject of an
+  experiment.</p>
+</header>
+
+<div class="callout">
+  <span class="lbl">The one-line summary</span>
+  <p><strong>Preprocessing dominates.</strong> Clip padding costs more accuracy
+  (+0.478) than pretraining on 116 hours of
+  zebra finch buys over a random encoder (+0.194), and waveform normalisation moves
+  the holdout more than any corpus change we have run. Meanwhile the label-target choices we spent
+  the most time on move things by ±0.02.</p>
+</div>
+
+<h2>The ledger</h2>
+<p class="sub">Every row read directly from a stored analysis JSON. Positive = the choice helps.</p>
+<div class="tbl">
+<table>
+  <thead><tr><th>Manipulation</th><th class="num">Effect</th><th>Metric</th><th>Source</th></tr></thead>
+  <tbody><tr><td>Padding clips to a fixed length</td><td class="num big win-a">+0.478</td><td>call-type accuracy</td><td class="src">aves_2023_ablation.json</td></tr>
+<tr><td>Pretraining at all (vs random init)</td><td class="num big win-a">+0.194</td><td>detection AUC</td><td class="src">randinit_control.json</td></tr>
+<tr><td>Learned features vs log-mel input</td><td class="num big win-a">+0.130</td><td>detection AUC (split B)</td><td class="src">mel_baseline.json</td></tr>
+<tr><td>Waveform normalisation — DAPT models</td><td class="num big win-a">+0.086</td><td>BirdPark AP</td><td class="src">detection_variants.json</td></tr>
+<tr><td>Removing loudness (partial out)</td><td class="num big win-r">-0.078</td><td>detection AUC</td><td class="src">loudness_removal.json</td></tr>
+<tr><td>Waveform normalisation — pretrained baselines</td><td class="num big win-a">+0.019</td><td>BirdPark AP</td><td class="src">detection_variants.json</td></tr>
+<tr><td>Target feature: spectrogram vs MFCC</td><td class="num big win-a">+0.023</td><td>label AMI vs call id</td><td class="src">target_features.json</td></tr>
+<tr><td>Target feature: log-mel vs run11's soundsig</td><td class="num big win-a">+0.014</td><td>label AMI vs call id</td><td class="src">target_features.json</td></tr>
+<tr><td>Iteration-2 target (layer 6, k=200)</td><td class="num big win-r">-0.022</td><td>label AMI vs call id</td><td class="src">target_quality.json</td></tr>
+<tr><td>Raising k from 100 to 200</td><td class="num big win-r">-0.007</td><td>label AMI vs call id</td><td class="src">target_features.json</td></tr>
+<tr><td>Pooling: 5-way concat vs mean</td><td class="num big win-a">+0.002</td><td>detection AUC</td><td class="src">pooling_comparison.json</td></tr></tbody>
+</table>
+</div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.478</span><strong>Padding clips to a fixed length</strong></div><p>0.348 → 0.826 once clips are encoded at their own length. The median clip is 121 ms padded to 15.7 s — 99.2% zeros.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.194</span><strong>Pretraining at all (vs random init)</strong></div><p>[+0.166, +0.223], layer-matched at L10, 2000 resamples.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.130</span><strong>Learned features vs log-mel input</strong></div><p>HuBERT L0 0.9557 vs a strong 384-d log-mel 0.8254.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.086</span><strong>Waveform normalisation — DAPT models</strong></div><p>median over 16 checkpoints; costs only 0.0067 AUC in distribution — a 13× bad trade.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-r">-0.078</span><strong>Removing loudness (partial out)</strong></div><p>how much of detection rides on level, not structure.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.019</span><strong>Waveform normalisation — pretrained baselines</strong></div><p>median over 7 models; ~0.0000 in distribution.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.023</span><strong>Target feature: spectrogram vs MFCC</strong></div><p>same sign at k=100 and k=200, so it is a feature effect, not a k artifact.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.014</span><strong>Target feature: log-mel vs run11's soundsig</strong></div><p>384-d beats 4000-d — run11's target is not the best in its own family.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-r">-0.022</span><strong>Iteration-2 target (layer 6, k=200)</strong></div><p>AVES's label recipe scores WORSE on this corpus than run11's.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-r">-0.007</span><strong>Raising k from 100 to 200</strong></div><p>on run11's actual feature. Same sign for all three features tested.</p></div>
+<div class="rn"><div class="rn-h"><span class="num win-a">+0.002</span><strong>Pooling: 5-way concat vs mean</strong></div><p>the smallest lever measured here.</p></div>
+
+<h2>1 · Normalisation: the lever nobody chose</h2>
+<p class="sub">matched = run11-style per-chunk normalisation. native = raw waveform, the condition AVES trained in.</p>
+<div class="callout">
+  <span class="lbl">23 of 23</span>
+  <p>Matched normalisation beats native on the BirdPark holdout for <strong>every model measured,
+  without exception</strong> — median <strong>+0.0405 AP</strong>, from
+  +0.0013 to +0.1916. In distribution the same switch is worth
+  <strong>+0.0000</strong> AUC across the pretrained baselines.
+  It is nearly free to get wrong in-sample and expensive to get wrong out-of-sample.</p>
+</div>
+<p>That asymmetry has a consequence, because the pre-committed arm is chosen on in-distribution ZF
+AUC. For the DAPT checkpoints — which inherit AVES's raw-waveform training condition — native
+genuinely fits better in distribution, so the rule picks it: buying
+0.0067 AUC and paying 0.0861 AP. A 13×
+bad trade, made automatically, every time.</p>
+<div class="callout warn">
+  <span class="lbl">The sharpest case</span>
+  <p><code>dapt1e4_step15000</code> scores BirdPark AP <strong>0.8479</strong> under matched
+  normalisation — above run11's 0.8121 — and <strong>0.7052</strong> under native, below the
+  0.7472 log-energy floor. The same weights are either the best model here or a failed one,
+  depending only on this switch. It is recorded as a failure.</p>
+</div>
+<div class="tbl">
+<table>
+  <thead><tr><th>Model</th><th class="num">matched L</th><th class="num">native L</th>
+  <th class="num">Δ ZF AUC</th><th class="num">Δ BirdPark AP</th></tr></thead>
+  <tbody><tr><td class="cls">dapt1e4_step2500</td><td class="num">6</td><td class="num">6</td><td class="num">-0.0058</td><td class="num win-a">+0.1916</td></tr>
+<tr><td class="cls">dapt1e4_step15000</td><td class="num">6</td><td class="num">6</td><td class="num">-0.0059</td><td class="num win-a">+0.1427</td></tr>
+<tr><td class="cls">dapt1e4_step7500</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0069</td><td class="num win-a">+0.1131</td></tr>
+<tr><td class="cls">dapt5e5_step12500</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0064</td><td class="num win-a">+0.1073</td></tr>
+<tr><td class="cls">dapt5e5_step15000</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0067</td><td class="num win-a">+0.0963</td></tr>
+<tr><td class="cls">dapt5e5_step7500</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0084</td><td class="num win-a">+0.0926</td></tr>
+<tr><td class="cls">dapt1e4_step12500</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0059</td><td class="num win-a">+0.0926</td></tr>
+<tr><td class="cls">dapt5e5_step5000</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0084</td><td class="num win-a">+0.0876</td></tr>
+<tr><td class="cls">dapt5e5_step10000</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0068</td><td class="num win-a">+0.0846</td></tr>
+<tr><td class="cls">run11</td><td class="num">0</td><td class="num">1</td><td class="num">+0.0018</td><td class="num win-a">+0.0841</td></tr>
+<tr><td class="cls">dapt1e4_step5000</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0066</td><td class="num win-a">+0.0754</td></tr>
+<tr><td class="cls">dapt5e5_step2500</td><td class="num">0</td><td class="num">6</td><td class="num">-0.0110</td><td class="num win-a">+0.0405</td></tr>
+<tr><td class="cls">dapt1e4_step10000</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0065</td><td class="num win-a">+0.0381</td></tr>
+<tr><td class="cls">aves-base-bio</td><td class="num">6</td><td class="num">6</td><td class="num">+0.0003</td><td class="num win-a">+0.0306</td></tr>
+<tr><td class="cls">birdaves-biox-base</td><td class="num">3</td><td class="num">3</td><td class="num">-0.0006</td><td class="num win-a">+0.0304</td></tr>
+<tr><td class="cls">birdaves-biox-large</td><td class="num">18</td><td class="num">12</td><td class="num">+0.0000</td><td class="num win-a">+0.0190</td></tr>
+<tr><td class="cls">aves-base-core</td><td class="num">1</td><td class="num">1</td><td class="num">-0.0014</td><td class="num win-a">+0.0160</td></tr>
+<tr><td class="cls">daptlr_1e5_step15000</td><td class="num">1</td><td class="num">6</td><td class="num">-0.0066</td><td class="num win-a">+0.0075</td></tr>
+<tr><td class="cls">daptshort_5e5_step2500</td><td class="num">1</td><td class="num">6</td><td class="num">-0.0087</td><td class="num win-a">+0.0052</td></tr>
+<tr><td class="cls">daptfreeze_5e5_step15000</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0041</td><td class="num win-a">+0.0042</td></tr>
+<tr><td class="cls">aves-base-all</td><td class="num">3</td><td class="num">6</td><td class="num">-0.0002</td><td class="num win-a">+0.0021</td></tr>
+<tr><td class="cls">daptreplay_5e5_step15000</td><td class="num">6</td><td class="num">6</td><td class="num">-0.0068</td><td class="num win-a">+0.0018</td></tr>
+<tr><td class="cls">birdaves-bioxn-large</td><td class="num">12</td><td class="num">12</td><td class="num">+0.0003</td><td class="num win-a">+0.0013</td></tr></tbody>
+</table>
+</div>
+
+<h2>2 · Padding: the largest effect in the project</h2>
+<p class="sub">What happens when variable-length clips are batched to a common length.</p>
+<div class="tbl">
+<table><thead><tr><th>Arm</th><th class="num">accuracy</th></tr></thead><tbody><tr><td class="cls">notebook full</td><td class="num">0.3478</td></tr>
+<tr><td class="cls">minus rectify</td><td class="num">0.2484</td></tr>
+<tr><td class="cls">minus padding</td><td class="num">0.8261</td></tr>
+<tr><td class="cls">minus weak head</td><td class="num">0.8696</td></tr>
+<tr><td class="cls">leave birds out</td><td class="num">0.7928</td></tr></tbody></table>
+</div>
+<p>The median clip is <strong>121 ms</strong>, padded to
+<strong>15.7 s</strong>: 99.2% of
+what the encoder sees is zeros. Mean-pooling over all ~782 frames then averages mostly padding, and
+the embeddings collapse together — mean pairwise cosine
+<strong>0.964</strong> with padding against
+<strong>0.735</strong> without. Nearly identical vectors cannot be
+told apart by any classifier.</p>
+<p>This is the same mechanism behind the standing rule never to batch variable-length audio through
+these encoders: group normalisation runs over time, so padding corrupts short clips rather than
+merely diluting them.</p>
+
+<h2>3 · Learned features vs a strong hand-crafted baseline</h2>
+<div class="tbl">
+<table><thead><tr><th>Input</th><th class="num">split A AUC</th><th class="num">split B AUC</th></tr></thead>
+<tbody><tr><td class="cls">hubert_L0</td><td class="num">0.9774</td><td class="num">0.9557</td></tr>
+<tr><td class="cls">hubert_plus_mel</td><td class="num">0.9717</td><td class="num">0.9396</td></tr>
+<tr><td class="cls">logmel_C0.03</td><td class="num">0.9267</td><td class="num">0.8364</td></tr>
+<tr><td class="cls">logmel_C0.1</td><td class="num">0.9249</td><td class="num">0.8306</td></tr>
+<tr><td class="cls">logmel_C0.3</td><td class="num">0.9216</td><td class="num">0.8282</td></tr>
+<tr><td class="cls">logmel_384</td><td class="num">0.9172</td><td class="num">0.8254</td></tr>
+<tr><td class="cls">logmel_meanonly</td><td class="num">0.8893</td><td class="num">0.8057</td></tr>
+<tr><td class="cls">energy_only</td><td class="num">0.7911</td><td class="num">0.5324</td></tr></tbody></table>
+</div>
+<p>HuBERT layer 0 beats a well-tuned 384-d log-mel by
++0.1303 AUC on the harder split, and energy alone
+collapses to 0.5324 — near chance. Note also that
+<code>hubert_plus_mel</code> (0.9396) is <em>worse</em> than HuBERT
+alone: concatenating representations has now failed every time it has been tried here.</p>
+
+<h2>4 · The label target: where the effort went, and what it returned</h2>
+<p class="sub">What the k-means pseudo-labels are computed from. AMI against call identity on 90,061 shared frames.</p>
+<div class="tbl">
+<table><thead><tr><th>Feature</th><th class="num">dim</th><th class="num">k</th>
+<th class="num">AMI vs call</th><th class="num">AMI vs voc</th></tr></thead><tbody><tr><td class="cls">logmel384</td><td class="num">384</td><td class="num">100</td><td class="num">0.0854</td><td class="num">0.0733</td></tr>
+<tr><td class="cls">soundsig4000</td><td class="num">4000</td><td class="num">100</td><td class="num">0.0712</td><td class="num">0.0726</td></tr>
+<tr><td class="cls">logmel384</td><td class="num">384</td><td class="num">200</td><td class="num">0.0646</td><td class="num">0.0668</td></tr>
+<tr><td class="cls">soundsig4000</td><td class="num">4000</td><td class="num">200</td><td class="num">0.0642</td><td class="num">0.0704</td></tr>
+<tr><td class="cls">mfcc39</td><td class="num">39</td><td class="num">100</td><td class="num">0.0487</td><td class="num">0.0626</td></tr>
+<tr><td class="cls">mfcc39</td><td class="num">39</td><td class="num">200</td><td class="num">0.0401</td><td class="num">0.0563</td></tr></tbody></table>
+</div>
+<p>Three things worth stating plainly. <strong>MFCC really is worse</strong> (+0.0226
+against run11's spectrogram, same sign at both k) — that decision was right. <strong>But run11's
+4000-d soundsig spectrogram is not the best target even within its own family</strong>: a 384-d
+log-mel scores +0.0141 higher at one tenth the dimensionality. And <strong>AVES's
+iteration-2 recipe scores worse here, not better</strong> (-0.0224) — so AVES's
+advantage does not come from its labels being better aligned with calls on this corpus.</p>
+<div class="callout warn">
+  <span class="lbl">A number to stop quoting</span>
+  <p><code>target_quality.json</code> reports the k=100→200 effect as <strong>−0.0208</strong>, but
+  it measured that on a log-mel carrier it mislabels as "run11's actual recipe". On run11's real
+  feature the k penalty is <strong>-0.0070</strong> — three times smaller. Finding
+  040 has the feature identified correctly; the decomposition in target_quality does not.</p>
+</div>
+<p>The practical consequence is not small. Storage for the combined corpus was budgeted at ~604 GB
+because the target is 4000-d. A 384-d log-mel target is ~10× smaller <em>and</em> scores higher on
+call identity — which would have put the whole corpus inside ~60 GB.</p>
+
+<h2>5 · Loudness: how much is the detector just hearing volume?</h2>
+<div class="tbl">
+<table><thead><tr><th>Treatment</th><th class="num">split A AUC</th><th class="num">Δ vs baseline</th></tr></thead>
+<tbody><tr><td class="cls">baseline</td><td class="num">0.9774</td><td class="num">+0.0000</td></tr>
+<tr><td class="cls">partial out</td><td class="num">0.8997</td><td class="num">-0.0776</td></tr>
+<tr><td class="cls">drop 1 pc</td><td class="num">0.7838</td><td class="num">-0.1936</td></tr>
+<tr><td class="cls">drop 3 pc</td><td class="num">0.7733</td><td class="num">-0.2041</td></tr>
+<tr><td class="cls">drop 8 pc</td><td class="num">0.7349</td><td class="num">-0.2425</td></tr>
+<tr><td class="cls">pca64 all</td><td class="num">0.9738</td><td class="num">-0.0036</td></tr>
+<tr><td class="cls">rank within rec</td><td class="num">0.9382</td><td class="num">-0.0392</td></tr></tbody></table>
+</div>
+<p>Partialling energy out of every dimension costs
+-0.0776; ranking within recording costs only
+-0.0392. Energy explains a median R² of
+0.184 across dimensions, with 46 of 768 above 0.5. So
+loudness is genuinely encoded and genuinely load-bearing — but the detector does not reduce to it,
+since energy alone scores 0.5324 where the model scores
+0.9557.</p>
+
+<div class="callout">
+  <span class="lbl">What this ledger is for</span>
+  <p>Ranked together, the pattern is hard to miss: <strong>how audio is prepared and handed to the
+  encoder moves results more than which corpus it was pretrained on.</strong> Padding, normalisation
+  and input representation occupy the top three places. The corpus and target-recipe questions that
+  consumed most of the compute budget sit near the bottom at ±0.02 — real, reproducible, and an
+  order of magnitude smaller than a batching decision made in passing.</p>
+</div>
+
+<footer>
+  <p>Every figure read programmatically from
+  <code>~/zf_labelset/zf_detection_dataset_v1/analysis/*.json</code>; none typed by hand. Harvest at
+  <code>paper/effects/effects_harvest.json</code>. Effects are not on a common scale — call-type
+  accuracy, detection AUC, BirdPark AP and label AMI answer different questions — so the ranking
+  compares magnitudes within each metric's own context, not across them. The BirdPark holdout
+  resolves about ±0.06 AP, so individual deltas below that are not meaningful on their own; the
+  normalisation claim rests on the consistency of its sign across 23 paired models, not on any single
+  delta. New finding: <code>knowledge/findings/049</code>.</p>
+</footer>
+</div>
