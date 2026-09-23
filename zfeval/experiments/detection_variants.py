@@ -103,7 +103,10 @@ def layer_grid(n_layers: int) -> list[int]:
 def spec(name: str) -> dict:
     if name == "run11":
         return dict(kind="run11", n_layers=12, dim=768, weights=None, cfg=None)
-    if name.startswith("dapt"):
+    # Any self-describing export goes through this branch, not just DAPT checkpoints: run15
+    # (from scratch on the combined corpus) is written by the same export_weights.py and carries
+    # its own encoder_config, so it needs no config file and cannot drift from what it trained as.
+    if name.startswith("dapt") or (DAPT_DIR / f"{name}.pt").exists():
         # Self-describing: export_weights.py embeds the constructor kwargs beside the weights,
         # so a DAPT checkpoint needs no config file of its own and cannot drift from the
         # architecture it was actually trained with.

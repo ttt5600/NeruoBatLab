@@ -1,0 +1,62 @@
+id: '051'
+title: Corpus size and label vocabulary do not explain the AVES advantage
+status: confirmed
+claim: >-
+  run15 is run11's exact recipe trained from scratch on 224.42 h (ZF 116.0 h + FSD50K 108.4 h)
+  with a k=200 vocabulary instead of k=100, every other knob held at run11's value. On 11-class
+  call type it scores 0.8136 against run11's 0.8118 -- a difference of +0.0018 with a 95%
+  bird-bootstrap interval of [-0.0169, +0.0243], i.e. NOT DISTINGUISHABLE. Against the AVES
+  family it loses by resolved margins: -0.0317 [-0.0603, -0.0038] vs aves-base-bio, -0.0366
+  [-0.0575, -0.0126] vs aves-base-core, -0.0384 [-0.0581, -0.0180] vs birdaves-biox-base.
+  Doubling the corpus with exactly the kind of diverse general audio AVES trains on, and
+  doubling the codebook to match AVES, moved nothing. The AVES advantage is therefore NOT
+  attributable to corpus size, corpus diversity, or label vocabulary size at this compute budget.
+evidence: >-
+  Cohort 3412 clips / 11 call types / 48 birds, leave-birds-out StratifiedGroupKFold(5), probe =
+  standardise + multinomial logistic regression on mean-pooled embeddings, each clip encoded at
+  its own length. Best-layer accuracies: run11 0.8118 (L3), run15 0.8136 (L3), aves-base-bio
+  0.8453 (L3), aves-base-all 0.8479 (L0), aves-base-core 0.8502 (L3), birdaves-biox-base 0.8520
+  (L1), birdaves-biox-large 0.8552 (L2), birdaves-bioxn-large 0.8453 (L1). run15's per-layer
+  curve is flat and shallow-peaked exactly like run11's -- L0 0.8127, L3 0.8136 (best), L11
+  0.8033 -- with no sign of the deeper optimum AVES variants show. Intervals are paired
+  bootstraps over the 48 birds, 2000 resamples, the only independent unit here.
+  Corpus verified before training: 763 files, 224.42 h, 40,395,592 label frames at exactly
+  50.00 fps, all 200 clusters populated, perplexity 75.7 against run11's 31.8.
+method: >-
+  Corpus built by slurm/build_combined_corpus.sh (job 39114877). Training by
+  slurm/train_run15_combined.sh (jobs 39132082 preempted, 39164203 completed, 4 h 09 m, all
+  93750 updates). The sbatch/srun shape was copied VERBATIM from run11's script, warts included:
+  --gpus 4 under --ntasks=1 does not realise four GPUs, and correcting it would have changed the
+  effective batch and reconfounded the comparison. Verified rather than assumed by steps per
+  epoch -- run11 5208 steps/epoch over 116.03 h = 80.2 s of audio per step, run15 10032
+  steps/epoch over 224.42 h = 80.5 s. HUBERT_NORMALIZE_INPUT=0 carried over for the same reason
+  (finding 049). Weights exported with export_weights.py, which refuses to write unless the
+  rebuilt encoder is bit-identical; verification reported max|diff| 0.000e+00 at three clip
+  lengths. Scored by zfeval/experiments/run15_calltype.py, reusing aves_variants_calltype's own
+  encode and sweep so the row lands on the same footing as the six AVES rows.
+provenance: >-
+  analysis/run15_calltype.json, analysis/aves_variants_calltype.json;
+  weights at external/dapt/run15_combined.pt
+caveats: >-
+  FIXED COMPUTE, NOT FIXED EPOCHS. run15 made 9.35 passes over its corpus where run11 made 18.0,
+  because both were held to 93750 updates. So the honest statement is "at the same optimiser
+  budget, a 1.93x larger and more diverse corpus buys nothing" -- NOT "corpus size never
+  matters". The fixed-epochs arm (~181k updates) has not been run and would separate those.
+  Reading it the other way is also legitimate and unresolved: run15 reached the same accuracy
+  with HALF the passes per file, which is consistent with the corpus helping and the budget
+  binding. Masked accuracy is NOT comparable across these runs -- run15 predicts among 200
+  classes and run11 among 100, so run15's lower 0.5404 against run11's ~0.5795 says nothing.
+  All accuracies here are best-layer-selected, which finding [046] shows inflates margins; the
+  ranking is sound but absolute gaps are optimistic for every model alike. What remains
+  unexplained about the AVES gap is now narrower: iteration-2 labels (a trained HuBERT's layer 6
+  as teacher, vs our iteration-1 spectrogram) and total training compute, per [044].
+  Separately on record: aves-base-bio, the 'aves' quoted in every prior headline, is tied for
+  the WEAKEST of the six AVES checkpoints, so past comparisons used the most flattering
+  framing for run11; the fair same-parameter bar is birdaves-biox-base at 0.8520.
+tags:
+- corpus
+- pretraining
+- aves
+- negative-result
+- calltype
+date: '2026-09-23'
