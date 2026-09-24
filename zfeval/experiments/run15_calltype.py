@@ -30,8 +30,14 @@ from aves_variants_calltype import embed_all, sweep, EXPECT, ANA           # noq
 from detection_variants import spec, load_model                            # noqa: E402
 
 FEAT = Path.home() / "zf_labelset/zf_detection_dataset_v1/features"
-OUT = ANA / "run15_calltype.json"
-TAG = "run15_combined"
+# Any checkpoint exported by export_weights.py into external/dapt/ can be scored here:
+#   python run15_calltype.py                          -> run15_combined (run15_calltype.json)
+#   python run15_calltype.py --tag run16_compute4x    -> run16_compute4x_calltype.json
+import argparse
+_ap = argparse.ArgumentParser()
+_ap.add_argument("--tag", default="run15_combined")
+TAG = _ap.parse_args().tag
+OUT = ANA / ("run15_calltype.json" if TAG == "run15_combined" else f"{TAG}_calltype.json")
 CACHE = FEAT / f"ct11_{TAG}_emb.npy"
 
 
