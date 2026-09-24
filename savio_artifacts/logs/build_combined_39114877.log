@@ -1,0 +1,566 @@
+[precheck] audio OK: 120 files, 116.03 h under /global/scratch/users/jonathanswang/temp_files/run5-4-26-full/data/spectrogram (9 rows probed head/middle/tail)
+[precheck] scratch available: 1745901 GB (need ~650 GB peak)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/logging/__init__.py", line 1110, in emit
+    msg = self.format(record)
+          ^^^^^^^^^^^^^^^^^^^
+  File "/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/logging/__init__.py", line 953, in format
+    return fmt.format(record)
+           ^^^^^^^^^^^^^^^^^^
+  File "/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/logging/__init__.py", line 687, in format
+    record.message = record.getMessage()
+                     ^^^^^^^^^^^^^^^^^^^
+  File "/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/logging/__init__.py", line 377, in getMessage
+    msg = msg % self.args
+          ~~~~^~~~~~~~~~~
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/preprocess.py", line 641, in <module>
+    main(_parse_args())
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/preprocess.py", line 460, in main
+    logging.info("Resuming pipeline from stage '%s' (skipping earlier stages).", args.start_from, args.stop_after)
+Message: "Resuming pipeline from stage '%s' (skipping earlier stages)."
+Arguments: ('features', 'features')
+2026-09-21 21:21:21,577: preprocess: split=train — 120 files, 20885063 total frames
+[src] 40,966 clips under /global/scratch/users/jonathanswang/external/fsd50k/FSD50K.dev_audio
+[write] fsd50k_0000.wav  10.29 min
+[write] fsd50k_0001.wav  10.45 min
+[write] fsd50k_0002.wav  10.08 min
+[write] fsd50k_0003.wav  10.03 min
+[write] fsd50k_0004.wav  10.07 min
+[write] fsd50k_0005.wav  10.01 min
+[write] fsd50k_0006.wav  10.39 min
+[write] fsd50k_0007.wav  10.14 min
+[write] fsd50k_0008.wav  10.16 min
+[write] fsd50k_0009.wav  10.02 min
+[write] fsd50k_0010.wav  10.08 min
+[write] fsd50k_0011.wav  10.02 min
+[write] fsd50k_0012.wav  10.00 min
+[write] fsd50k_0013.wav  10.03 min
+[write] fsd50k_0014.wav  10.23 min
+[write] fsd50k_0015.wav  10.14 min
+[write] fsd50k_0016.wav  10.00 min
+[write] fsd50k_0017.wav  10.21 min
+[write] fsd50k_0018.wav  10.42 min
+[write] fsd50k_0019.wav  10.17 min
+[write] fsd50k_0020.wav  10.09 min
+[write] fsd50k_0021.wav  10.00 min
+[write] fsd50k_0022.wav  10.05 min
+    2000/40966 clips, 23 files written
+[write] fsd50k_0023.wav  10.06 min
+[write] fsd50k_0024.wav  10.03 min
+[write] fsd50k_0025.wav  10.19 min
+[write] fsd50k_0026.wav  10.19 min
+[write] fsd50k_0027.wav  10.04 min
+[write] fsd50k_0028.wav  10.03 min
+[write] fsd50k_0029.wav  10.02 min
+[write] fsd50k_0030.wav  10.07 min
+[write] fsd50k_0031.wav  10.11 min
+[write] fsd50k_0032.wav  10.06 min
+[write] fsd50k_0033.wav  10.02 min
+[write] fsd50k_0034.wav  10.01 min
+[write] fsd50k_0035.wav  10.12 min
+[write] fsd50k_0036.wav  10.16 min
+[write] fsd50k_0037.wav  10.04 min
+[write] fsd50k_0038.wav  10.24 min
+[write] fsd50k_0039.wav  10.04 min
+[write] fsd50k_0040.wav  10.17 min
+[write] fsd50k_0041.wav  10.26 min
+[write] fsd50k_0042.wav  10.14 min
+[write] fsd50k_0043.wav  10.02 min
+[write] fsd50k_0044.wav  10.08 min
+[write] fsd50k_0045.wav  10.12 min
+    4000/40966 clips, 46 files written
+[write] fsd50k_0046.wav  10.02 min
+[write] fsd50k_0047.wav  10.06 min
+[write] fsd50k_0048.wav  10.02 min
+[write] fsd50k_0049.wav  10.19 min
+[write] fsd50k_0050.wav  10.08 min
+[write] fsd50k_0051.wav  10.01 min
+[write] fsd50k_0052.wav  10.04 min
+[write] fsd50k_0053.wav  10.03 min
+[write] fsd50k_0054.wav  10.17 min
+[write] fsd50k_0055.wav  10.13 min
+[write] fsd50k_0056.wav  10.10 min
+[write] fsd50k_0057.wav  10.20 min
+[write] fsd50k_0058.wav  10.02 min
+[write] fsd50k_0059.wav  10.02 min
+[write] fsd50k_0060.wav  10.11 min
+[write] fsd50k_0061.wav  10.01 min
+[write] fsd50k_0062.wav  10.09 min
+[write] fsd50k_0063.wav  10.08 min
+[write] fsd50k_0064.wav  10.11 min
+[write] fsd50k_0065.wav  10.07 min
+[write] fsd50k_0066.wav  10.02 min
+[write] fsd50k_0067.wav  10.05 min
+[write] fsd50k_0068.wav  10.17 min
+[write] fsd50k_0069.wav  10.01 min
+    6000/40966 clips, 70 files written
+[write] fsd50k_0070.wav  10.34 min
+[write] fsd50k_0071.wav  10.02 min
+[write] fsd50k_0072.wav  10.10 min
+[write] fsd50k_0073.wav  10.24 min
+[write] fsd50k_0074.wav  10.33 min
+[write] fsd50k_0075.wav  10.01 min
+[write] fsd50k_0076.wav  10.27 min
+[write] fsd50k_0077.wav  10.11 min
+[write] fsd50k_0078.wav  10.04 min
+[write] fsd50k_0079.wav  10.05 min
+[write] fsd50k_0080.wav  10.18 min
+[write] fsd50k_0081.wav  10.07 min
+[write] fsd50k_0082.wav  10.09 min
+[write] fsd50k_0083.wav  10.30 min
+[write] fsd50k_0084.wav  10.02 min
+[write] fsd50k_0085.wav  10.01 min
+[write] fsd50k_0086.wav  10.33 min
+[write] fsd50k_0087.wav  10.46 min
+[write] fsd50k_0088.wav  10.17 min
+[write] fsd50k_0089.wav  10.18 min
+[write] fsd50k_0090.wav  10.05 min
+[write] fsd50k_0091.wav  10.06 min
+[write] fsd50k_0092.wav  10.31 min
+    8000/40966 clips, 93 files written
+[write] fsd50k_0093.wav  10.14 min
+[write] fsd50k_0094.wav  10.10 min
+[write] fsd50k_0095.wav  10.12 min
+[write] fsd50k_0096.wav  10.05 min
+[write] fsd50k_0097.wav  10.07 min
+[write] fsd50k_0098.wav  10.13 min
+[write] fsd50k_0099.wav  10.01 min
+[write] fsd50k_0100.wav  10.09 min
+[write] fsd50k_0101.wav  10.18 min
+[write] fsd50k_0102.wav  10.02 min
+[write] fsd50k_0103.wav  10.03 min
+[write] fsd50k_0104.wav  10.08 min
+[write] fsd50k_0105.wav  10.03 min
+[write] fsd50k_0106.wav  10.13 min
+[write] fsd50k_0107.wav  10.05 min
+[write] fsd50k_0108.wav  10.28 min
+[write] fsd50k_0109.wav  10.30 min
+[write] fsd50k_0110.wav  10.07 min
+[write] fsd50k_0111.wav  10.09 min
+[write] fsd50k_0112.wav  10.03 min
+[write] fsd50k_0113.wav  10.12 min
+[write] fsd50k_0114.wav  10.26 min
+[write] fsd50k_0115.wav  10.02 min
+[write] fsd50k_0116.wav  10.14 min
+    10000/40966 clips, 117 files written
+[write] fsd50k_0117.wav  10.04 min
+[write] fsd50k_0118.wav  10.37 min
+[write] fsd50k_0119.wav  10.02 min
+[write] fsd50k_0120.wav  10.04 min
+[write] fsd50k_0121.wav  10.11 min
+[write] fsd50k_0122.wav  10.24 min
+[write] fsd50k_0123.wav  10.25 min
+[write] fsd50k_0124.wav  10.03 min
+[write] fsd50k_0125.wav  10.12 min
+[write] fsd50k_0126.wav  10.01 min
+[write] fsd50k_0127.wav  10.05 min
+[write] fsd50k_0128.wav  10.14 min
+[write] fsd50k_0129.wav  10.17 min
+[write] fsd50k_0130.wav  10.24 min
+[write] fsd50k_0131.wav  10.12 min
+[write] fsd50k_0132.wav  10.08 min
+[write] fsd50k_0133.wav  10.22 min
+[write] fsd50k_0134.wav  10.14 min
+[write] fsd50k_0135.wav  10.07 min
+[write] fsd50k_0136.wav  10.02 min
+[write] fsd50k_0137.wav  10.17 min
+[write] fsd50k_0138.wav  10.12 min
+[write] fsd50k_0139.wav  10.01 min
+    12000/40966 clips, 140 files written
+[write] fsd50k_0140.wav  10.10 min
+[write] fsd50k_0141.wav  10.01 min
+[write] fsd50k_0142.wav  10.01 min
+[write] fsd50k_0143.wav  10.01 min
+[write] fsd50k_0144.wav  10.17 min
+[write] fsd50k_0145.wav  10.24 min
+[write] fsd50k_0146.wav  10.01 min
+[write] fsd50k_0147.wav  10.02 min
+[write] fsd50k_0148.wav  10.05 min
+[write] fsd50k_0149.wav  10.05 min
+[write] fsd50k_0150.wav  10.08 min
+[write] fsd50k_0151.wav  10.07 min
+[write] fsd50k_0152.wav  10.03 min
+[write] fsd50k_0153.wav  10.02 min
+[write] fsd50k_0154.wav  10.35 min
+[write] fsd50k_0155.wav  10.04 min
+[write] fsd50k_0156.wav  10.06 min
+[write] fsd50k_0157.wav  10.36 min
+[write] fsd50k_0158.wav  10.25 min
+[write] fsd50k_0159.wav  10.10 min
+[write] fsd50k_0160.wav  10.25 min
+[write] fsd50k_0161.wav  10.25 min
+[write] fsd50k_0162.wav  10.16 min
+    14000/40966 clips, 163 files written
+[write] fsd50k_0163.wav  10.16 min
+[write] fsd50k_0164.wav  10.10 min
+[write] fsd50k_0165.wav  10.03 min
+[write] fsd50k_0166.wav  10.10 min
+[write] fsd50k_0167.wav  10.00 min
+[write] fsd50k_0168.wav  10.02 min
+[write] fsd50k_0169.wav  10.06 min
+[write] fsd50k_0170.wav  10.09 min
+[write] fsd50k_0171.wav  10.10 min
+[write] fsd50k_0172.wav  10.27 min
+[write] fsd50k_0173.wav  10.04 min
+[write] fsd50k_0174.wav  10.08 min
+[write] fsd50k_0175.wav  10.04 min
+[write] fsd50k_0176.wav  10.30 min
+[write] fsd50k_0177.wav  10.09 min
+[write] fsd50k_0178.wav  10.02 min
+[write] fsd50k_0179.wav  10.25 min
+[write] fsd50k_0180.wav  10.00 min
+[write] fsd50k_0181.wav  10.13 min
+[write] fsd50k_0182.wav  10.01 min
+[write] fsd50k_0183.wav  10.02 min
+[write] fsd50k_0184.wav  10.10 min
+[write] fsd50k_0185.wav  10.30 min
+[write] fsd50k_0186.wav  10.26 min
+    16000/40966 clips, 187 files written
+[write] fsd50k_0187.wav  10.00 min
+[write] fsd50k_0188.wav  10.10 min
+[write] fsd50k_0189.wav  10.29 min
+[write] fsd50k_0190.wav  10.00 min
+[write] fsd50k_0191.wav  10.03 min
+[write] fsd50k_0192.wav  10.06 min
+[write] fsd50k_0193.wav  10.28 min
+[write] fsd50k_0194.wav  10.25 min
+[write] fsd50k_0195.wav  10.01 min
+[write] fsd50k_0196.wav  10.06 min
+[write] fsd50k_0197.wav  10.24 min
+[write] fsd50k_0198.wav  10.02 min
+[write] fsd50k_0199.wav  10.25 min
+[write] fsd50k_0200.wav  10.26 min
+[write] fsd50k_0201.wav  10.22 min
+[write] fsd50k_0202.wav  10.05 min
+[write] fsd50k_0203.wav  10.02 min
+[write] fsd50k_0204.wav  10.03 min
+[write] fsd50k_0205.wav  10.02 min
+[write] fsd50k_0206.wav  10.04 min
+[write] fsd50k_0207.wav  10.04 min
+[write] fsd50k_0208.wav  10.10 min
+[write] fsd50k_0209.wav  10.13 min
+    18000/40966 clips, 210 files written
+[write] fsd50k_0210.wav  10.09 min
+[write] fsd50k_0211.wav  10.16 min
+[write] fsd50k_0212.wav  10.10 min
+[write] fsd50k_0213.wav  10.05 min
+[write] fsd50k_0214.wav  10.04 min
+[write] fsd50k_0215.wav  10.22 min
+[write] fsd50k_0216.wav  10.03 min
+[write] fsd50k_0217.wav  10.31 min
+[write] fsd50k_0218.wav  10.02 min
+[write] fsd50k_0219.wav  10.10 min
+[write] fsd50k_0220.wav  10.20 min
+[write] fsd50k_0221.wav  10.21 min
+[write] fsd50k_0222.wav  10.05 min
+[write] fsd50k_0223.wav  10.13 min
+[write] fsd50k_0224.wav  10.09 min
+[write] fsd50k_0225.wav  10.05 min
+[write] fsd50k_0226.wav  10.10 min
+[write] fsd50k_0227.wav  10.10 min
+[write] fsd50k_0228.wav  10.12 min
+[write] fsd50k_0229.wav  10.15 min
+[write] fsd50k_0230.wav  10.25 min
+[write] fsd50k_0231.wav  10.20 min
+[write] fsd50k_0232.wav  10.17 min
+    20000/40966 clips, 233 files written
+[write] fsd50k_0233.wav  10.07 min
+[write] fsd50k_0234.wav  10.11 min
+[write] fsd50k_0235.wav  10.13 min
+[write] fsd50k_0236.wav  10.03 min
+[write] fsd50k_0237.wav  10.01 min
+[write] fsd50k_0238.wav  10.03 min
+[write] fsd50k_0239.wav  10.03 min
+[write] fsd50k_0240.wav  10.07 min
+[write] fsd50k_0241.wav  10.43 min
+[write] fsd50k_0242.wav  10.02 min
+[write] fsd50k_0243.wav  10.07 min
+[write] fsd50k_0244.wav  10.10 min
+[write] fsd50k_0245.wav  10.13 min
+[write] fsd50k_0246.wav  10.14 min
+[write] fsd50k_0247.wav  10.24 min
+[write] fsd50k_0248.wav  10.01 min
+[write] fsd50k_0249.wav  10.13 min
+[write] fsd50k_0250.wav  10.16 min
+[write] fsd50k_0251.wav  10.04 min
+[write] fsd50k_0252.wav  10.20 min
+[write] fsd50k_0253.wav  10.05 min
+[write] fsd50k_0254.wav  10.05 min
+[write] fsd50k_0255.wav  10.08 min
+    22000/40966 clips, 256 files written
+[write] fsd50k_0256.wav  10.00 min
+[write] fsd50k_0257.wav  10.44 min
+[write] fsd50k_0258.wav  10.10 min
+[write] fsd50k_0259.wav  10.27 min
+[write] fsd50k_0260.wav  10.11 min
+[write] fsd50k_0261.wav  10.06 min
+[write] fsd50k_0262.wav  10.18 min
+[write] fsd50k_0263.wav  10.02 min
+[write] fsd50k_0264.wav  10.03 min
+[write] fsd50k_0265.wav  10.15 min
+[write] fsd50k_0266.wav  10.15 min
+[write] fsd50k_0267.wav  10.19 min
+[write] fsd50k_0268.wav  10.20 min
+[write] fsd50k_0269.wav  10.02 min
+[write] fsd50k_0270.wav  10.09 min
+[write] fsd50k_0271.wav  10.10 min
+[write] fsd50k_0272.wav  10.07 min
+[write] fsd50k_0273.wav  10.04 min
+[write] fsd50k_0274.wav  10.10 min
+[write] fsd50k_0275.wav  10.08 min
+[write] fsd50k_0276.wav  10.08 min
+[write] fsd50k_0277.wav  10.26 min
+[write] fsd50k_0278.wav  12.71 min
+[write] fsd50k_0279.wav  10.17 min
+    24000/40966 clips, 280 files written
+[write] fsd50k_0280.wav  10.14 min
+[write] fsd50k_0281.wav  10.20 min
+[write] fsd50k_0282.wav  10.06 min
+[write] fsd50k_0283.wav  10.02 min
+[write] fsd50k_0284.wav  10.17 min
+[write] fsd50k_0285.wav  10.15 min
+[write] fsd50k_0286.wav  10.02 min
+[write] fsd50k_0287.wav  10.01 min
+[write] fsd50k_0288.wav  10.10 min
+[write] fsd50k_0289.wav  10.06 min
+[write] fsd50k_0290.wav  10.10 min
+[write] fsd50k_0291.wav  10.41 min
+[write] fsd50k_0292.wav  10.13 min
+[write] fsd50k_0293.wav  10.28 min
+[write] fsd50k_0294.wav  10.46 min
+[write] fsd50k_0295.wav  10.03 min
+[write] fsd50k_0296.wav  10.22 min
+[write] fsd50k_0297.wav  10.05 min
+[write] fsd50k_0298.wav  10.14 min
+[write] fsd50k_0299.wav  10.41 min
+[write] fsd50k_0300.wav  10.39 min
+[write] fsd50k_0301.wav  10.03 min
+[write] fsd50k_0302.wav  10.03 min
+    26000/40966 clips, 303 files written
+[write] fsd50k_0303.wav  10.17 min
+[write] fsd50k_0304.wav  10.06 min
+[write] fsd50k_0305.wav  10.01 min
+[write] fsd50k_0306.wav  10.30 min
+[write] fsd50k_0307.wav  10.19 min
+[write] fsd50k_0308.wav  10.06 min
+[write] fsd50k_0309.wav  10.05 min
+[write] fsd50k_0310.wav  10.02 min
+[write] fsd50k_0311.wav  10.12 min
+[write] fsd50k_0312.wav  10.07 min
+[write] fsd50k_0313.wav  10.16 min
+[write] fsd50k_0314.wav  10.09 min
+[write] fsd50k_0315.wav  10.07 min
+[write] fsd50k_0316.wav  10.18 min
+[write] fsd50k_0317.wav  10.05 min
+[write] fsd50k_0318.wav  10.06 min
+[write] fsd50k_0319.wav  10.03 min
+[write] fsd50k_0320.wav  10.18 min
+[write] fsd50k_0321.wav  10.13 min
+[write] fsd50k_0322.wav  10.06 min
+[write] fsd50k_0323.wav  10.05 min
+[write] fsd50k_0324.wav  10.16 min
+[write] fsd50k_0325.wav  10.01 min
+[write] fsd50k_0326.wav  10.04 min
+    28000/40966 clips, 327 files written
+[write] fsd50k_0327.wav  10.15 min
+[write] fsd50k_0328.wav  10.06 min
+[write] fsd50k_0329.wav  10.08 min
+[write] fsd50k_0330.wav  10.03 min
+[write] fsd50k_0331.wav  10.00 min
+[write] fsd50k_0332.wav  10.04 min
+[write] fsd50k_0333.wav  10.21 min
+[write] fsd50k_0334.wav  10.16 min
+[write] fsd50k_0335.wav  10.04 min
+[write] fsd50k_0336.wav  10.04 min
+[write] fsd50k_0337.wav  10.30 min
+[write] fsd50k_0338.wav  10.18 min
+[write] fsd50k_0339.wav  10.34 min
+[write] fsd50k_0340.wav  10.00 min
+[write] fsd50k_0341.wav  10.02 min
+[write] fsd50k_0342.wav  10.01 min
+[write] fsd50k_0343.wav  10.04 min
+[write] fsd50k_0344.wav  10.01 min
+[write] fsd50k_0345.wav  10.06 min
+[write] fsd50k_0346.wav  10.06 min
+[write] fsd50k_0347.wav  10.15 min
+[write] fsd50k_0348.wav  10.16 min
+[write] fsd50k_0349.wav  10.06 min
+[write] fsd50k_0350.wav  10.19 min
+    30000/40966 clips, 351 files written
+[write] fsd50k_0351.wav  10.28 min
+[write] fsd50k_0352.wav  10.10 min
+[write] fsd50k_0353.wav  10.04 min
+[write] fsd50k_0354.wav  10.07 min
+[write] fsd50k_0355.wav  10.00 min
+[write] fsd50k_0356.wav  10.03 min
+[write] fsd50k_0357.wav  10.11 min
+[write] fsd50k_0358.wav  10.11 min
+[write] fsd50k_0359.wav  10.30 min
+[write] fsd50k_0360.wav  10.09 min
+[write] fsd50k_0361.wav  10.01 min
+[write] fsd50k_0362.wav  10.11 min
+[write] fsd50k_0363.wav  10.06 min
+[write] fsd50k_0364.wav  10.00 min
+[write] fsd50k_0365.wav  10.20 min
+[write] fsd50k_0366.wav  10.15 min
+[write] fsd50k_0367.wav  10.15 min
+[write] fsd50k_0368.wav  10.04 min
+[write] fsd50k_0369.wav  10.15 min
+[write] fsd50k_0370.wav  10.45 min
+[write] fsd50k_0371.wav  10.03 min
+[write] fsd50k_0372.wav  10.24 min
+    32000/40966 clips, 373 files written
+[write] fsd50k_0373.wav  10.25 min
+[write] fsd50k_0374.wav  10.17 min
+[write] fsd50k_0375.wav  10.14 min
+[write] fsd50k_0376.wav  10.08 min
+[write] fsd50k_0377.wav  10.01 min
+[write] fsd50k_0378.wav  10.01 min
+[write] fsd50k_0379.wav  10.04 min
+[write] fsd50k_0380.wav  10.33 min
+[write] fsd50k_0381.wav  10.28 min
+[write] fsd50k_0382.wav  10.01 min
+[write] fsd50k_0383.wav  10.08 min
+[write] fsd50k_0384.wav  10.03 min
+[write] fsd50k_0385.wav  10.13 min
+[write] fsd50k_0386.wav  10.04 min
+[write] fsd50k_0387.wav  10.18 min
+[write] fsd50k_0388.wav  10.12 min
+[write] fsd50k_0389.wav  10.21 min
+[write] fsd50k_0390.wav  10.16 min
+[write] fsd50k_0391.wav  10.19 min
+[write] fsd50k_0392.wav  10.07 min
+[write] fsd50k_0393.wav  10.01 min
+[write] fsd50k_0394.wav  10.01 min
+[write] fsd50k_0395.wav  10.11 min
+[write] fsd50k_0396.wav  10.19 min
+    34000/40966 clips, 397 files written
+[write] fsd50k_0397.wav  10.35 min
+[write] fsd50k_0398.wav  10.40 min
+[write] fsd50k_0399.wav  10.00 min
+[write] fsd50k_0400.wav  10.01 min
+[write] fsd50k_0401.wav  10.02 min
+[write] fsd50k_0402.wav  10.30 min
+[write] fsd50k_0403.wav  10.10 min
+[write] fsd50k_0404.wav  10.19 min
+[write] fsd50k_0405.wav  10.01 min
+[write] fsd50k_0406.wav  10.01 min
+[write] fsd50k_0407.wav  10.03 min
+[write] fsd50k_0408.wav  10.01 min
+[write] fsd50k_0409.wav  10.09 min
+[write] fsd50k_0410.wav  10.22 min
+[write] fsd50k_0411.wav  10.08 min
+[write] fsd50k_0412.wav  10.03 min
+[write] fsd50k_0413.wav  10.07 min
+[write] fsd50k_0414.wav  10.34 min
+[write] fsd50k_0415.wav  10.15 min
+[write] fsd50k_0416.wav  10.07 min
+[write] fsd50k_0417.wav  10.09 min
+[write] fsd50k_0418.wav  10.05 min
+[write] fsd50k_0419.wav  10.07 min
+    36000/40966 clips, 420 files written
+[write] fsd50k_0420.wav  10.14 min
+[write] fsd50k_0421.wav  10.02 min
+[write] fsd50k_0422.wav  10.10 min
+[write] fsd50k_0423.wav  10.24 min
+[write] fsd50k_0424.wav  10.10 min
+[write] fsd50k_0425.wav  10.08 min
+[write] fsd50k_0426.wav  10.04 min
+[write] fsd50k_0427.wav  10.01 min
+[write] fsd50k_0428.wav  10.22 min
+[write] fsd50k_0429.wav  10.02 min
+[write] fsd50k_0430.wav  10.42 min
+[write] fsd50k_0431.wav  10.05 min
+[write] fsd50k_0432.wav  10.04 min
+[write] fsd50k_0433.wav  10.20 min
+[write] fsd50k_0434.wav  10.09 min
+[write] fsd50k_0435.wav  10.08 min
+[write] fsd50k_0436.wav  10.18 min
+[write] fsd50k_0437.wav  10.15 min
+[write] fsd50k_0438.wav  10.01 min
+[write] fsd50k_0439.wav  10.12 min
+[write] fsd50k_0440.wav  10.24 min
+[write] fsd50k_0441.wav  10.12 min
+[write] fsd50k_0442.wav  10.01 min
+    38000/40966 clips, 443 files written
+[write] fsd50k_0443.wav  10.00 min
+[write] fsd50k_0444.wav  10.01 min
+[write] fsd50k_0445.wav  10.03 min
+[write] fsd50k_0446.wav  10.18 min
+[write] fsd50k_0447.wav  10.03 min
+[write] fsd50k_0448.wav  10.10 min
+[write] fsd50k_0449.wav  10.40 min
+[write] fsd50k_0450.wav  10.27 min
+[write] fsd50k_0451.wav  10.06 min
+[write] fsd50k_0452.wav  10.06 min
+[write] fsd50k_0453.wav  10.01 min
+[write] fsd50k_0454.wav  10.19 min
+[write] fsd50k_0455.wav  10.05 min
+[write] fsd50k_0456.wav  10.14 min
+[write] fsd50k_0457.wav  10.07 min
+[write] fsd50k_0458.wav  10.02 min
+[write] fsd50k_0459.wav  10.47 min
+[write] fsd50k_0460.wav  10.05 min
+[write] fsd50k_0461.wav  10.30 min
+[write] fsd50k_0462.wav  10.13 min
+[write] fsd50k_0463.wav  10.05 min
+[write] fsd50k_0464.wav  10.13 min
+[write] fsd50k_0465.wav  10.12 min
+    40000/40966 clips, 466 files written
+[write] fsd50k_0466.wav  10.20 min
+[write] fsd50k_0467.wav  10.32 min
+[write] fsd50k_0468.wav  10.40 min
+[write] fsd50k_0469.wav  10.03 min
+[write] fsd50k_0470.wav  10.02 min
+[write] fsd50k_0471.wav  10.13 min
+[write] fsd50k_0472.wav  10.06 min
+[write] fsd50k_0473.wav  10.13 min
+[write] fsd50k_0474.wav  10.00 min
+[write] fsd50k_0475.wav  10.06 min
+[write] fsd50k_0476.wav  10.03 min
+[write] fsd50k_0477.wav  8.01 min
+
+[done] 478 files, 40,916 clips used, 50 skipped, 80.61 h at 16000 Hz
+[tsv] 478 dev files, 80.61 h
+2026-09-21 22:08:08,277: Resuming pipeline from stage 'features' (skipping earlier stages).
+2026-09-21 22:08:08,277: Stopping after stage 'features' (later stages skipped).
+2026-09-21 22:29:07,968: preprocess: split=train — 478 files, 14508858 total frames
+[component] spectrogram: 120 files, 116.03 h
+[component] spectrogram: 165 files, 27.79 h
+[component] spectrogram: 478 files, 80.61 h
+[merge] common root: /global/scratch/users/jonathanswang/temp_files
+[linked] spectrogram: rows up to index 119
+[linked] spectrogram: rows up to index 284
+[linked] spectrogram: rows up to index 762
+
+[done] 763 files, 224.42 h, 40,395,592 frames -> /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/spectrogram
+       next: preprocess.py --exp-dir <parent> --start-from kmeans --num-cluster 200
+2026-09-21 22:41:17,862: Resuming pipeline from stage 'kmeans' (skipping earlier stages).
+2026-09-21 22:53:01,244: KMeans fit pool: 999995 frames × 4000 dims
+2026-09-21 22:53:01,503: GPU KMeans fitting 999995 frames × 4000 dims on cpu, K=200
+2026-09-21 22:53:29,591: GPU KMeans reassigned 12 empty clusters at iter 5
+2026-09-21 22:53:30,849: iter 50/366  inertia_ema=791.33571  empty=0  elapsed=1.6s
+2026-09-21 22:53:31,899: GPU KMeans early-stop at iter 86 (rel 1.44e-05 < 1.00e-04)
+2026-09-21 22:53:31,912: Saved KMeans model to /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/spectrogram/km_model/model.pt; info={'n_iter': 87, 'inertia_ema': 757.5658164106324, 'n_empty_clusters': 0, 'fit_seconds': 2.6296589374542236, 'n_features_fit': 999995, 'device': 'cpu'}
+2026-09-21 23:06:54,509: Finished predicting labels successfully (763 files)
+== done Mon Sep 21 23:06:55 PDT 2026 ==
+/global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/spectrogram/km_model:
+total 3136
+drwxr-xr-x 2 jonathanswang ucb    4096 Sep 21 22:53 .
+drwxr-xr-x 6 jonathanswang ucb    4096 Sep 21 22:53 ..
+-rw-r--r-- 1 jonathanswang ucb 3201170 Sep 21 22:53 model.pt
+
+/global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/spectrogram/label:
+total 278604
+drwxr-xr-x 2 jonathanswang ucb      4096 Sep 21 23:06 .
+drwxr-xr-x 6 jonathanswang ucb      4096 Sep 21 22:53 ..
+-rw-r--r-- 1 jonathanswang ucb 323354746 Sep 21 23:06 label_train.pt
+
+  ---- RECLAIM ~604 GB once label_train.pt above looks right ----
+  rm -rf /global/scratch/users/jonathanswang/temp_files/zf_feat_rebuild/data/spectrogram/feat /global/scratch/users/jonathanswang/temp_files/fsd50k_dev/data/spectrogram/feat /global/scratch/users/jonathanswang/temp_files/replay_fsd50k/data/spectrogram/feat /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/spectrogram/feat
+  # keep tsv/, label/ and km_model/ -- training needs those, features it does not
+  ---------------------------------------------------------------
+

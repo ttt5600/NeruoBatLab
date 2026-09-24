@@ -1,0 +1,10 @@
+mono-RMS below -70.0 dB: 42
+  truly silent (every channel quiet too): 42
+  CANCELLED BY MONO DOWNMIX (a channel is loud): 0
+  non-finite: 0
+   SILENT 151893.wav  mono=-76.8 dB  maxch=-76.8 dB  ch=1
+   SILENT 156834.wav  mono=-71.6 dB  maxch=-71.6 dB  ch=1
+   SILENT 166707.wav  mono=-135.6 dB  maxch=-135.6 dB  ch=1
+   SILENT 166709.wav  mono=-240.0 dB  maxch=-240.0 dB  ch=1
+   SILENT 171024.wav  mono=-71.1 dB  maxch=-71.1 dB  ch=1
+   SILENT 176970.wav  mono=-240.0 dB  maxch=-240.0 dB  ch=1

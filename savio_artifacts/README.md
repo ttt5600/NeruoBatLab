@@ -81,8 +81,24 @@ does not track — see `https://github.com/theunissenlab/SpectrogramBasedBERT`, 
 `examples/hubert/slurm/`; the ones behind this update are `build_combined_corpus.sh`,
 `train_run15_combined.sh`, and — not yet run — `smoke_ddp4.sh` and `train_run16_compute4x.sh`.
 
-### Still to pull (needs an SSH session)
+### Pulled 2026-09-23
 
-- run15 `metrics.csv` — two `lightning_logs/version_*` dirs, because the run was preempted and resumed
-- `attrib3.log`, the answer for the last 8 skipped clips
-- `ost_sweep.sh` / `ost_sweep.log` and `attrib_skips.py`, which were written directly on Savio
+| file | what it is |
+|---|---|
+| `metrics/run15/run15_v0_preempted_metrics.csv` | job 39132082, preempted at step 15649 (315 rows) |
+| `metrics/run15/run15_v1_resumed_metrics.csv` | job 39164203, resumed from step 10029 to 93750 (1686 rows) |
+| `scripts/ost_sweep.sh`, `logs/ost_sweep.log` | first-64-KB read of every corpus file after the OST outage: 51,234 files, 0 unreadable |
+| `scripts/attrib_skips.py`, `logs/attrib_skips.log` | header scan of the 50 skipped FSD50K clips: 0 shorter than 100 ms |
+| `logs/attrib2.log` | 42 of the 50 silent at native rate, 0 cancelled by the stereo downmix |
+| `logs/attrib3.log` | the last 8: silent only AFTER resampling to 16 kHz -- see below |
+| `logs/build_combined_39114877.log` | the combined-corpus build |
+
+**The 50 skipped clips, fully accounted for.** 42 are genuinely silent (several are digital zero,
+−240 dB). The other 8 pass the −70 dB floor at 44.1 kHz and fail it after downsampling to 16 kHz:
+five sit within ~3 dB of the floor, but three are loud clips whose energy lies entirely above
+8 kHz — `89555.wav` drops from −13.4 dB to −79.9 dB. Rejecting them is correct for a 16 kHz model,
+which cannot represent that band at all. The same fact matters beyond FSD50K: **anything
+ultrasonic — bat echolocation included — is discarded by this pipeline before the model sees it.**
+
+The two resumed-run metrics files overlap in steps 10029–15649, because the preempted attempt ran
+past its last checkpoint; concatenate by step and keep the resumed rows where they collide.

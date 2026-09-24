@@ -1,0 +1,13 @@
+total skipped by the real guard: 50
+  silent at native rate too:        42
+  SILENT ONLY AFTER RESAMPLING:     8
+  too short after resampling:       0
+  unreadable:                       0
+   POST-RESAMPLE 156839.wav  native=-69.8 dB -> 16k=-70.1 dB  (sr=44100)
+   POST-RESAMPLE 216215.wav  native=-31.7 dB -> 16k=-72.9 dB  (sr=44100)
+   POST-RESAMPLE 261390.wav  native=-67.7 dB -> 16k=-70.9 dB  (sr=44100)
+   POST-RESAMPLE 382832.wav  native=-69.6 dB -> 16k=-71.5 dB  (sr=44100)
+   POST-RESAMPLE 41852.wav  native=-33.8 dB -> 16k=-99.0 dB  (sr=44100)
+   POST-RESAMPLE 43822.wav  native=-31.4 dB -> 16k=-96.3 dB  (sr=44100)
+   POST-RESAMPLE 87078.wav  native=-67.3 dB -> 16k=-70.1 dB  (sr=44100)
+   POST-RESAMPLE 89555.wav  native=-13.4 dB -> 16k=-79.9 dB  (sr=44100)

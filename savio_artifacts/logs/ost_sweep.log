@@ -1,0 +1,5 @@
+RESULT /global/scratch/users/jonathanswang/external/fsd50k/FSD50K.dev_audio readable=40966 unreadable=0
+RESULT /global/scratch/users/jonathanswang/external/fsd50k/FSD50K.eval_audio readable=10231 unreadable=0
+RESULT /global/scratch/users/jonathanswang/external/aves readable=1 unreadable=0
+RESULT /global/scratch/users/jonathanswang/external/dapt readable=36 unreadable=0
+DONE
