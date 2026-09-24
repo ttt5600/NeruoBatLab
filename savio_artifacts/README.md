@@ -47,3 +47,42 @@ new-dataset evaluations, and `run11_meta.json`. All parse as valid JSON.
 The one genuine gap: run11's **preprocessed** ZF audio exists only on Savio. The
 raw corpus is public, but the resampled/chunked version would have to be rebuilt
 by rerunning `preprocess.py` from `--start-from tsv`.
+
+## Update 2026-09-23 — run15 (the de-confounding run)
+
+run15 is run11's exact recipe on the combined ZF + FSD50K corpus (224.42 h, k=200 labels). It
+scored 0.8136 on 11-class call type against run11's 0.8118 — **not distinguishable** — and lost to
+every AVES checkpoint by a resolved margin. See knowledge finding 051 and
+`notebooks/06_where_we_are.ipynb`.
+
+| file | what it is |
+|---|---|
+| `analysis/run15_calltype.json` | run15 per-layer and best-layer call-type accuracy, 11- and 8-class |
+| `analysis/run15_bootstrap.json` | paired bird-bootstrap intervals, run15 vs run11 and three AVES checkpoints |
+| `analysis/run15_compute.json` | run15 realised compute (measured) and run16 (projected, labelled as such) |
+| `analysis/aves_variants_calltype.json` | run11 vs all six AVES checkpoints, same probe |
+| `analysis/compute_budget.json` | run11 vs AVES training budgets, derived from recorded configs |
+
+### scripts/ — diagnostics that ran on Savio and existed nowhere in git
+
+| script | what it checks |
+|---|---|
+| `verify_corpus.py` | combined-corpus labels: frame count vs audio duration (50.00 fps), all 200 clusters used, perplexity |
+| `full_tsv_check.py` | every one of the 763 TSV rows resolves and its frame count matches the file |
+| `compare_labels.py` | codebook balance (entropy, perplexity, dead clusters) against run11 and the replay corpus |
+| `attrib2.py` | were the 50 skipped FSD50K clips silent, or cancelled by the stereo downmix? (42 silent, 0 cancelled) |
+| `attrib3.py` | replicates the skip guard exactly, post-resample, to account for the remaining 8 |
+
+### Where the pipeline code lives
+
+Everything that trains or preprocesses is in the **nested** repo `pytorchAudio/`, which this repo
+does not track — see `https://github.com/theunissenlab/SpectrogramBasedBERT`, branches
+`updated-hyperparams` and `jw/zf-hubert-dapt` (kept identical). The SLURM scripts are under
+`examples/hubert/slurm/`; the ones behind this update are `build_combined_corpus.sh`,
+`train_run15_combined.sh`, and — not yet run — `smoke_ddp4.sh` and `train_run16_compute4x.sh`.
+
+### Still to pull (needs an SSH session)
+
+- run15 `metrics.csv` — two `lightning_logs/version_*` dirs, because the run was preempted and resumed
+- `attrib3.log`, the answer for the last 8 skipped clips
+- `ost_sweep.sh` / `ost_sweep.log` and `attrib_skips.py`, which were written directly on Savio

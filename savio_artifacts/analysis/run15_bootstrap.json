@@ -1,0 +1,36 @@
+{
+  "note": "delta = run15 minus the named model; paired bootstrap over the 48 birds, 2000 resamples, seed 0",
+  "acc": {
+    "run11": 0.8118405627198124,
+    "run15_combined": 0.813599062133646,
+    "aves-base-bio": 0.8452520515826495,
+    "aves-base-core": 0.8502344665885111,
+    "birdaves-biox-base": 0.8519929660023446
+  },
+  "vs": {
+    "run11": {
+      "delta": 0.0017584994138335475,
+      "lo": -0.016880024290276352,
+      "hi": 0.024331017106422534,
+      "resolved": false
+    },
+    "aves-base-bio": {
+      "delta": -0.03165298944900352,
+      "lo": -0.060278326745718036,
+      "hi": -0.003805212947030392,
+      "resolved": true
+    },
+    "aves-base-core": {
+      "delta": -0.03663540445486513,
+      "lo": -0.05749311004520988,
+      "hi": -0.012609485623876066,
+      "resolved": true
+    },
+    "birdaves-biox-base": {
+      "delta": -0.038393903868698676,
+      "lo": -0.058078159510595764,
+      "hi": -0.018024450935843324,
+      "resolved": true
+    }
+  }
+}

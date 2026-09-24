@@ -1,0 +1,82 @@
+{
+  "run11": {
+    "name": "run11",
+    "updates": 93750,
+    "warmup_updates": 3125,
+    "peak_lr": 0.0001,
+    "seconds_per_batch": 87.5,
+    "world_size": 1,
+    "update_freq": 1,
+    "num_clusters": 100,
+    "gpus_requested": 4,
+    "audio_seconds_per_update": 80.30687580107666,
+    "steps_per_epoch": 5201.333333333333,
+    "epochs_recorded": 18,
+    "corpus_hours": 116.0285638888889,
+    "target_feature": "soundsig Gaussian STFT 4000-d (iteration 1)",
+    "sources": {
+      "max_updates": "slurm",
+      "warmup": "slurm",
+      "lr": "slurm",
+      "seconds_per_batch": "train.py default",
+      "gpus_requested": "slurm",
+      "num_classes": "slurm",
+      "script": "pytorchAudio/examples/hubert/slurm/train_iter7_long_lowprio.sh",
+      "world_size": "#SBATCH --ntasks (what srun launched), NOT --gpus",
+      "corpus": "tsv/ZF_test_pipeline_train.tsv, 120 files",
+      "audio_per_step": "corpus_seconds / steps_per_epoch (realised, not nominal)",
+      "steps_per_epoch": "consecutive checkpoint (epoch, step) differences"
+    },
+    "total_audio_seconds": 7528769.606350937,
+    "total_audio_hours": 2091.324890653038,
+    "epochs_over_corpus": 18.02422455780569,
+    "warmup_fraction": 0.03333333333333333
+  },
+  "aves": {
+    "name": "aves-base-bio",
+    "updates": 100000,
+    "warmup_updates": 32000,
+    "peak_lr": 0.0002,
+    "seconds_per_batch": 87.5,
+    "world_size": 1,
+    "update_freq": 8,
+    "num_clusters": 200,
+    "audio_seconds_per_update": 700.0,
+    "corpus_hours": 360.0,
+    "wall_clock_seconds": 88709.81012225151,
+    "target_feature": "HuBERT layer 6 @ k=200 (iteration 2)",
+    "final_val_loss": 3.023,
+    "epochs_recorded": 55,
+    "sources": {
+      "cfg": "datasets/11905533/aves-base-bio.pt",
+      "num_updates_in_ckpt": 100000
+    },
+    "total_audio_seconds": 70000000.0,
+    "total_audio_hours": 19444.444444444445,
+    "epochs_over_corpus": 54.01234567901235,
+    "warmup_fraction": 0.32
+  },
+  "consistency_check": {
+    "run11": {
+      "derived_epochs": 18.02422455780569,
+      "recorded_epoch_counter": 18,
+      "counter_source": "lightning",
+      "relative_disagreement": 0.00134580876698287,
+      "passed": true
+    },
+    "aves": {
+      "derived_epochs": 54.01234567901235,
+      "recorded_epoch_counter": 55,
+      "counter_source": "fairseq",
+      "relative_disagreement": 0.017957351290684574,
+      "passed": true
+    }
+  },
+  "comparison": {
+    "audio_hours_ratio_aves_over_run11": 9.297667967014306,
+    "corpus_hours_ratio": 3.102684269579883,
+    "epochs_ratio": 2.996652949245542,
+    "steps_ratio": 1.0666666666666667
+  },
+  "note": "Architecture is NOT a difference: both are torchaudio hubert_pretrain_base / fairseq hubert_base, 94,370,944 parameters with bit-identical state_dict keys. The differences are corpus, schedule, and k-means targets."
+}

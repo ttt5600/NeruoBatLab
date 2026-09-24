@@ -1,0 +1,28 @@
+{
+  "run15": {
+    "name": "run15_combined",
+    "updates": 93750,
+    "steps_per_epoch": 10032,
+    "corpus_hours": 224.4209,
+    "audio_seconds_per_update": 80.53381578947368,
+    "total_audio_hours": 2097.2347861842104,
+    "epochs": 9.345095693779903,
+    "world_size_realised": 1,
+    "num_clusters": 200,
+    "status": "measured",
+    "sources": {
+      "updates": "checkpoint global_step",
+      "steps_per_epoch": "progress bar, job 39132082",
+      "corpus_hours": "TSV frame-count sum, all 763 rows resolved"
+    }
+  },
+  "run16_projected": {
+    "name": "run16_compute4x",
+    "updates": 93750,
+    "world_size_planned": 4,
+    "corpus_hours": 224.4209,
+    "audio_seconds_per_update": 322.1352631578947,
+    "total_audio_hours": 8388.939144736842,
+    "status": "PROJECTED -- assumes smoke_ddp4 confirms 4-way sharding; has not run"
+  }
+}
