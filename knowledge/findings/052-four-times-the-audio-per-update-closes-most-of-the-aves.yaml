@@ -51,8 +51,8 @@ caveats: >-
   same bundle AVES used (update_freq 8 on one GPU). One training seed per arm: the bootstrap
   resamples birds, not pretraining runs, so seed-to-seed variation of the encoder is unmeasured
   for every model in the table. run16's layer 7 was selected on the reported metric (finding
-  046); the layer-3 check above bounds that. Call type only -- detection, the BirdPark holdout
-  and the chick holdout have NOT been scored for run16. Two preemptions resumed from
+  046); the layer-3 check above bounds that. Call type only; detection and both holdouts are
+  finding 053 (in-distribution detection improves, BirdPark does not). Two preemptions resumed from
   epoch-end checkpoints; step counts per epoch are unchanged across resumes, so no batches were
   replayed. Does NOT say corpus size is irrelevant at higher compute -- 051 held compute fixed.
   The logged train_masked_accuracy is NOT usable for any cross-run comparison in this project:

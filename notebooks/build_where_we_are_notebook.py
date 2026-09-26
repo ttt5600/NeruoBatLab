@@ -264,13 +264,49 @@ preempted job restarts, so it can't be compared across runs. The loss is recorde
 
 md(r"""
 ---
+## 4b. Does run16's gain hold beyond call types?
+
+Two other tests. **Detection** asks whether a moment of audio contains a call. **Holdouts** use
+recordings the model never heard in training: BirdPark (a different colony) and chicks (different
+birds, different calls).
+""")
+
+co(r'''
+DET = json.loads((A / "detection_variants.json").read_text())["precommit"]
+CH  = json.loads((A / "chick_holdout_variants.json").read_text())
+DB  = json.loads((A / "detection_variants.json").read_text())["bootstrap"]["run16_compute4x"]
+CB  = CH["bootstrap"]["run16_compute4x_vs_run11"]["be_lt_auc"]
+j = lambda m: DET[m]["joint"]
+aves_bp = [j(m)["bp"]["auc"] for m in VAR["models"] if m != "run11"]
+verdict = lambda b: "run16 better, real" if b["lo"] > 0 else ("run16 worse, real" if b["hi"] < 0 else "within noise")
+tbl = f"""
+| test | run11 | run15 | run16 | AVES (range) | run16 vs run11 |
+|---|---|---|---|---|---|
+| detection, zebra finch (AUC) | {j('run11')['zf']['auc']:.4f} | {j('run15_combined')['zf']['auc']:.4f} | **{j('run16_compute4x')['zf']['auc']:.4f}** | {min(j(m)['zf']['auc'] for m in VAR['models'] if m != 'run11'):.4f}–{max(j(m)['zf']['auc'] for m in VAR['models'] if m != 'run11'):.4f} | {verdict(DB['indist_auc_block1500'])} |
+| detection, BirdPark holdout (AUC) | {j('run11')['bp']['auc']:.4f} | {j('run15_combined')['bp']['auc']:.4f} | {j('run16_compute4x')['bp']['auc']:.4f} | {min(aves_bp):.4f}–{max(aves_bp):.4f} | {verdict(DB['bp_auc_block1500'])} |
+| chick holdout, Be vs LT (AUC) | {CH['precommit']['run11']['auc']:.4f} | {CH['precommit']['run15_combined']['auc']:.4f} | {CH['precommit']['run16_compute4x']['auc']:.4f} | — | {verdict(CB)} |
+"""
+display(Markdown(tbl))
+''')
+
+md(r"""
+**Plain reading.** On zebra finch detection run16 is the best same-size model we have. On BirdPark
+it is *behind* run11 on the number, but BirdPark is only two minutes of audio, so "within noise" is
+all the data can say. It did improve over run15 there, so compute helped on BirdPark too; the drop
+relative to run11 came in with run15's changes (the bigger mixed corpus and the 200-label vocabulary).
+The chick test is at its ceiling for every model, so it only catches a model getting *worse*,
+and run16 didn't.
+""")
+
+md(r"""
+---
 ## 5. What's next
 
 | # | who | what | status |
 |---|---|---|---|
 | 1 | me | **run17** = run16 + 2× accumulation (~92% of AVES per step) | **running** — Savio job 39268321, ~11 h of GPU time |
 | 2 | me | score run17 on this scoreboard | when it finishes: does it move again, or has compute run out? |
-| 3 | me | score run16 on detection + the BirdPark and chick holdouts | not done yet — so far run16 is only measured on call types |
+| 3 | me | score run17 on detection + both holdouts too | same tests as section 4b |
 | 4 | **you** | keep Savio logged in (`ssh -MNf savio-login`) | the login drops when the laptop sleeps; results wait until it's back |
 
 **Checked before launching run17:** a 2-minute test run (job 39267771) confirmed accumulation

@@ -1,0 +1,58 @@
+id: '053'
+title: run16's compute gain reaches in-distribution detection but not the BirdPark holdout
+status: confirmed
+claim: >-
+  run16 (4x audio per update, finding 052) beats run11 on in-distribution ZF vocalisation
+  detection by a small resolved margin (AUC 0.9718 vs 0.9687, +0.0031, 95% [+0.0017, +0.0052])
+  but does not beat it on the BirdPark holdout, where at the pre-committed arm it scores 0.8085
+  against run11's 0.8648 (-0.0563, 95% [-0.0940, +0.0122] at the honest 30 s block, not
+  distinguishable), and the chick
+  holdout cannot separate run16, run15, run11 or aves-base-bio.
+evidence: >-
+  ZF in-distribution (90,061 frames, prevalence 0.1242; contiguous 60 s blocks within one
+  recording): run16 AUC 0.9718 / AP 0.8741 (native L0) -- highest of any 94M-parameter model in
+  the table; only birdaves-bioxn-large (315M) is higher at 0.9724. run11 0.9687 / 0.8681; run15
+  0.9696 / 0.8714, not distinguishable from run11 (95% [-0.0005, +0.0044]). log-energy
+  0.7837. BirdPark (5,925 frames, prevalence 0.4290, 4.0 independent 30 s blocks), pre-committed
+  arm: run16 0.8085 AUC / 0.7451 AP, run15 0.7476 / 0.7091, run11 0.8648 / 0.8121, AVES family
+  0.8665-0.8994, log-energy 0.8542. At block=500, which the script itself flags as
+  understating width, run16 is resolved worse (95% [-0.0908, -0.0153]); run15 is resolved
+  worse at both block sizes (0.7476 vs 0.8648, 95% [-0.2545, -0.0275] at 1500). On the matched (chunk-normalised)
+  arm -- the preprocessing finding 049 shows carries transfer for 23 of 23 models -- run16 is
+  0.8511 / 0.7855 and run15 0.8042 / 0.7112 (audit columns, not headlined). Chick holdout (10
+  chicks with both classes, majority-class 0.600): Be/LT AUC run16 0.9936, run15 0.9940, run11
+  0.9858, aves-base-bio 0.9932; run16 minus run11 +0.0078, 95% [-0.0004, +0.0224]. AMI(k=4) run16
+  0.5095, run11 0.5361, run15 0.4637, aves-base-bio 0.3873; interval for run16 vs run11 spans
+  [-0.1364, +0.1343].
+method: >-
+  zfeval/experiments/detection_variants.py --models run15_combined,run16_compute4x (both
+  normalisations, six-layer relative-depth grid, layer pre-committed by out-of-fold ZF AUC and
+  frozen for BirdPark, block bootstrap at 1500 and 500 frames), then
+  chick_holdout_variants.py --models run15_combined,run16_compute4x (arm read from the detection
+  pre-commitment, never chosen on chicks) and --bootstrap --baseline run11 (resampling unit = chick).
+provenance: >-
+  analysis/detection_variants.json, analysis/chick_holdout_variants.json; features
+  features/detvar/{zf,bp}_run1{5_combined,6_compute4x}_{matched,native}.npy; weights
+  external/dapt/run15_combined.pt, external/dapt/run16_compute4x.pt
+caveats: >-
+  BirdPark is four independent blocks, and the pre-commitment rule chose run16's raw-waveform arm
+  over the normalised one on a ZF AUC difference of 0.0016 -- a coin flip that costs 0.043 of
+  BirdPark AUC (finding 049's failure mode, again). So "does not beat run11 on BirdPark" is the
+  defensible reading; "is worse than run11" is not established at the honest block size. Within
+  our own models the direction is consistent: run15 -> run16 raised BirdPark AUC on both arms
+  (native 0.7476 -> 0.8085, matched 0.8042 -> 0.8511), so compute helped here too; what
+  lowered it relative to run11 arrived with run15's change (combined corpus + k=200), not with
+  compute. That attribution is suggestive only -- one holdout, four blocks. The chick
+  bootstrap's printed "dAMI" column is the MEAN of resampled differences (k-means refit at
+  n_init=3 on chick-duplicated sets), not the observed difference; the observed values are
+  quoted above. The same holds for detection: zfeval.metrics.paired_bootstrap returns
+  delta = mean of resampled differences, which for the 4-block BirdPark set is -0.0438 against an
+  observed -0.0563; every difference in this finding is the OBSERVED one, with the percentile
+  interval from the bootstrap. Be/LT is at ceiling for every encoder and works only as a degradation detector.
+tags:
+- compute
+- detection
+- holdout
+- birdpark
+- chick
+date: '2026-09-25'
