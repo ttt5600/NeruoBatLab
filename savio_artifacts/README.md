@@ -79,7 +79,7 @@ Everything that trains or preprocesses is in the **nested** repo `pytorchAudio/`
 does not track — see `https://github.com/theunissenlab/SpectrogramBasedBERT`, branches
 `updated-hyperparams` and `jw/zf-hubert-dapt` (kept identical). The SLURM scripts are under
 `examples/hubert/slurm/`; the ones behind this update are `build_combined_corpus.sh`,
-`train_run15_combined.sh`, and — not yet run — `smoke_ddp4.sh` and `train_run16_compute4x.sh`.
+`train_run15_combined.sh`, `smoke_ddp4.sh` and `train_run16_compute4x.sh` (both since run; see the 2026-09-25 update).
 
 ### Pulled 2026-09-23
 
@@ -102,3 +102,34 @@ ultrasonic — bat echolocation included — is discarded by this pipeline befor
 
 The two resumed-run metrics files overlap in steps 10029–15649, because the preempted attempt ran
 past its last checkpoint; concatenate by step and keep the resumed rows where they collide.
+
+## Update 2026-09-25 — run16 (4x compute) and gradient accumulation
+
+run16 = run15 with the four requested GPUs actually used (`--ntasks-per-node=4`), nothing else
+changed: 322 s of audio per update instead of 80.5, 8,392 h seen in total. It is the first change
+in this project that moved call-type accuracy: 0.8379 vs run15 0.8136, +0.0243 [+0.0099, +0.0419],
+and none of the six AVES checkpoints is ahead of it by more than noise (they are still ahead on the
+point estimate, by 0.007–0.017). Finding 052 in `knowledge/findings/`.
+
+| file | what it is |
+|---|---|
+| `analysis/run16_compute4x_calltype.json` | run16 per-layer and best-layer call-type accuracy, 11- and 8-class |
+| `analysis/run16_bootstrap.json` | paired bird-bootstrap intervals, run16 vs run11, run15 and all six AVES; also run16 at layer 3 |
+| `analysis/run15_compute.json` | now also holds run16 MEASURED (from checkpoint names) next to its pre-run projection |
+| `metrics/run16/run16_v{0,1,2}_metrics.csv` | job 39203444, one file per attempt: preempted 09:36, preempted 11:22, completed 15:18. Step ranges OVERLAP — each attempt re-ran from the last checkpoint; stitch with "later file wins" |
+| `logs/train_run16_compute4x_39203444.log` | all three attempts (`--open-mode=append`); shows MEMBER 1/4..4/4 and both auto-requeues |
+| `logs/smoke_accum_39267313.log` | accumulation smoke test #1: died at import (`NameError: Tuple`), fixed in `ac5fc50c` |
+| `logs/smoke_accum_39267771.log` | accumulation smoke test #2: passed — the checkpoint records 300 batches against 150 optimiser steps. The log's own "150/150" progress-bar line is wrong; see below |
+
+**Two traps found in these logs.** (1) `train_masked_accuracy` is a running mean since the process
+last started (its counters are reset only by validation, which never runs), so it jumps at every
+resume and cannot be compared across runs; compare `train_loss_step`. (2) The progress bar's total
+is capped at `--max-updates`, so it cannot count batches under accumulation; read
+`loops.fit_loop.epoch_loop.batch_progress` from the checkpoint.
+
+**`--requeue` works on savio_lowprio.** run16 was preempted twice and SLURM put it back in the
+queue on its own each time (2 and 6 minutes later); the resume block picked up `last.ckpt`. Use
+`sacct --duplicates` to see the preempted attempts — plain `sacct -X` shows only the last one.
+
+run17 = run16 + `--accumulate-grad-batches 2` (~644 s/update, ~92% of AVES per update) is Savio job
+39268321, script `examples/hubert/slurm/train_run17_accum2.sh` in the pytorchAudio repo.

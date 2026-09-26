@@ -1,0 +1,42 @@
+SLURM_NTASKS=4  SLURM_NTASKS_PER_NODE=4  node=n0386.savio4
+0, NVIDIA L40S, 46068 MiB
+1, NVIDIA L40S, 46068 MiB
+2, NVIDIA L40S, 46068 MiB
+3, NVIDIA L40S, 46068 MiB
+Traceback (most recent call last):
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/train.py", line 16, in <module>
+Traceback (most recent call last):
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/train.py", line 16, in <module>
+Traceback (most recent call last):
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/train.py", line 16, in <module>
+Traceback (most recent call last):
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/train.py", line 16, in <module>
+    from lightning_modules import HuBERTPreTrainModule
+    from lightning_modules import HuBERTPreTrainModule
+    from lightning_modules import HuBERTPreTrainModule
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/lightning_modules.py", line 24, in <module>
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/lightning_modules.py", line 24, in <module>
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/lightning_modules.py", line 24, in <module>
+    from lightning_modules import HuBERTPreTrainModule
+  File "/global/home/users/jonathanswang/pytorchAudio/examples/hubert/lightning_modules.py", line 24, in <module>
+    Batch = Tuple[Tensor, Tensor, Tensor]
+            ^^^^^
+NameError: name 'Tuple' is not defined. Did you mean: 'tuple'?
+    Batch = Tuple[Tensor, Tensor, Tensor]
+            ^^^^^
+NameError: name 'Tuple' is not defined. Did you mean: 'tuple'?
+    Batch = Tuple[Tensor, Tensor, Tensor]
+            ^^^^^
+NameError: name 'Tuple' is not defined. Did you mean: 'tuple'?
+    Batch = Tuple[Tensor, Tensor, Tensor]
+            ^^^^^
+NameError: name 'Tuple' is not defined. Did you mean: 'tuple'?
+srun: error: n0386.savio4: tasks 0-3: Exited with exit code 1
+srun: Terminating StepId=39267313.0
+
+================ ACCUM VERDICT ================
+train.py exit=1
+[1] batches processed (progress bar, last value):
+[2] optimiser steps recorded in last.ckpt (want 150 = half the batches):
+NO CHECKPOINT
+cleanup: rm -rf /global/scratch/users/jonathanswang/temp_smoke_accum_39267313
