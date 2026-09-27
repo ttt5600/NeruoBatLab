@@ -41,5 +41,23 @@
       "steps_per_epoch": "checkpoint epoch=36-step=92763.ckpt = 37 epochs",
       "world_size": "log: MEMBER 1/4..4/4"
     }
+  },
+  "run17": {
+    "name": "run17_accum2",
+    "updates": 93750,
+    "steps_per_epoch": 1253.5405405405406,
+    "corpus_hours": 224.4209,
+    "audio_seconds_per_update": 644.506670403829,
+    "total_audio_hours": 16784.027875099713,
+    "epochs": 74.78816756861646,
+    "world_size_realised": 4,
+    "accumulate_grad_batches": 2,
+    "num_clusters": 200,
+    "status": "measured",
+    "sources": {
+      "updates": "checkpoint epoch=74-step=93750.ckpt, job 39268321",
+      "steps_per_epoch": "checkpoint epoch=73-step=92762.ckpt = 74 epochs",
+      "accumulation": "last.ckpt: 187,568 batches / 93,750 optimiser steps"
+    }
   }
 }

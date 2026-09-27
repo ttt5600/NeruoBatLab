@@ -212,8 +212,10 @@ def main():
     if OUTJSON.exists():
         try:
             prev = json.loads(OUTJSON.read_text())
-            for k in ("in", "precommit"):
-                out[k].update(prev.get(k, {}))
+            # "bootstrap" too: without it, every --bootstrap run silently erased the entries
+            # earlier runs had written for other models
+            for k in ("in", "precommit", "bootstrap"):
+                out.setdefault(k, {}).update(prev.get(k, {}))
         except Exception as e:
             print(f"[warn] could not reuse {OUTJSON.name}: {e}")
     if args.report:

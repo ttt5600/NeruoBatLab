@@ -211,6 +211,14 @@
       6,
       9,
       11
+    ],
+    "run17_accum2": [
+      0,
+      1,
+      3,
+      6,
+      9,
+      11
     ]
   },
   "params": {
@@ -238,7 +246,8 @@
     "daptlr_1e5_step15000": 94370944,
     "daptshort_5e5_step2500": 94370944,
     "run15_combined": 94370944,
-    "run16_compute4x": 94370944
+    "run16_compute4x": 94370944,
+    "run17_accum2": 94370944
   },
   "tags": [
     "matched",
@@ -1500,6 +1509,56 @@
         "auc": 0.9638562342260197,
         "ap": 0.8525926644232257
       }
+    },
+    "run17_accum2": {
+      "matched_L0": {
+        "auc": 0.9690314007754698,
+        "ap": 0.8711972822667017
+      },
+      "matched_L1": {
+        "auc": 0.9699345660816586,
+        "ap": 0.8715084143884717
+      },
+      "matched_L3": {
+        "auc": 0.968390116116076,
+        "ap": 0.867299449597477
+      },
+      "matched_L6": {
+        "auc": 0.9686946872886057,
+        "ap": 0.8665818212401777
+      },
+      "matched_L9": {
+        "auc": 0.9685383947537466,
+        "ap": 0.8649846101018952
+      },
+      "matched_L11": {
+        "auc": 0.9669685801063573,
+        "ap": 0.8618076301875255
+      },
+      "native_L0": {
+        "auc": 0.9703813541705029,
+        "ap": 0.872634703578941
+      },
+      "native_L1": {
+        "auc": 0.9698893831874179,
+        "ap": 0.8734322930311251
+      },
+      "native_L3": {
+        "auc": 0.9716152432301008,
+        "ap": 0.8761613257629884
+      },
+      "native_L6": {
+        "auc": 0.9670593721539058,
+        "ap": 0.8655012641884463
+      },
+      "native_L9": {
+        "auc": 0.9685654525683091,
+        "ap": 0.8669969445171133
+      },
+      "native_L11": {
+        "auc": 0.9663805523227825,
+        "ap": 0.8600386320018194
+      }
     }
   },
   "zf_to_bp": {
@@ -2758,6 +2817,56 @@
         "auc": 0.727052325542183,
         "ap": 0.6949173308810106
       }
+    },
+    "run17_accum2": {
+      "matched_L0": {
+        "auc": 0.8652547924981504,
+        "ap": 0.7892393502713582
+      },
+      "matched_L1": {
+        "auc": 0.8336724581857778,
+        "ap": 0.7728302581657982
+      },
+      "matched_L3": {
+        "auc": 0.8266671209521016,
+        "ap": 0.7524956060067673
+      },
+      "matched_L6": {
+        "auc": 0.8355389433863445,
+        "ap": 0.7650934659296452
+      },
+      "matched_L9": {
+        "auc": 0.8458565330935699,
+        "ap": 0.769816109677786
+      },
+      "matched_L11": {
+        "auc": 0.8625255913482347,
+        "ap": 0.7817267256525198
+      },
+      "native_L0": {
+        "auc": 0.6032577614782851,
+        "ap": 0.5692844610644828
+      },
+      "native_L1": {
+        "auc": 0.6085803432862931,
+        "ap": 0.576091504652381
+      },
+      "native_L3": {
+        "auc": 0.6252138184326548,
+        "ap": 0.5719779602185007
+      },
+      "native_L6": {
+        "auc": 0.8486318992565456,
+        "ap": 0.7727166804002644
+      },
+      "native_L9": {
+        "auc": 0.8769282614302596,
+        "ap": 0.8091741211981077
+      },
+      "native_L11": {
+        "auc": 0.8466844799272896,
+        "ap": 0.7881657432488038
+      }
     }
   },
   "precommit": {
@@ -3658,6 +3767,42 @@
         "bp": {
           "auc": 0.808475663828468,
           "ap": 0.7451025731565518
+        }
+      }
+    },
+    "run17_accum2": {
+      "matched": {
+        "layer": 1,
+        "zf": {
+          "auc": 0.9699345660816586,
+          "ap": 0.8715084143884717
+        },
+        "bp": {
+          "auc": 0.8336724581857778,
+          "ap": 0.7728302581657982
+        }
+      },
+      "native": {
+        "layer": 3,
+        "zf": {
+          "auc": 0.9716152432301008,
+          "ap": 0.8761613257629884
+        },
+        "bp": {
+          "auc": 0.6252138184326548,
+          "ap": 0.5719779602185007
+        }
+      },
+      "joint": {
+        "tag": "native",
+        "layer": 3,
+        "zf": {
+          "auc": 0.9716152432301008,
+          "ap": 0.8761613257629884
+        },
+        "bp": {
+          "auc": 0.6252138184326548,
+          "ap": 0.5719779602185007
         }
       }
     }
@@ -8148,6 +8293,192 @@
           }
         ]
       }
+    },
+    "run17_accum2": {
+      "arm": "native_L3",
+      "indist_auc_block1500": {
+        "delta": 0.004027191153789994,
+        "lo": 0.001602761474109149,
+        "hi": 0.006105627906067679,
+        "n_resamples": 2000,
+        "verdict": "a_better"
+      },
+      "indist_ap_block1500": {
+        "delta": 0.010282990094083656,
+        "lo": 0.004119486296093186,
+        "hi": 0.016039875225925176,
+        "n_resamples": 2000,
+        "verdict": "a_better"
+      },
+      "bp_auc_block1500": {
+        "delta": -0.2272821058814318,
+        "lo": -0.3423747184405151,
+        "hi": -0.14426677273271774,
+        "n_resamples": 2000,
+        "verdict": "b_better"
+      },
+      "bp_ap_block1500": {
+        "delta": -0.22332410763381977,
+        "lo": -0.3823538962439185,
+        "hi": -0.11608703029689804,
+        "n_resamples": 2000,
+        "verdict": "b_better"
+      },
+      "bp_auc_block500": {
+        "delta": -0.23263424948638084,
+        "lo": -0.31233131903992595,
+        "hi": -0.15725494884162453,
+        "n_resamples": 2000,
+        "verdict": "b_better"
+      },
+      "bp_ap_block500": {
+        "delta": -0.23036434825103097,
+        "lo": -0.3287586876213322,
+        "hi": -0.1482229036328471,
+        "n_resamples": 2000,
+        "verdict": "b_better"
+      },
+      "bp_blockwise_block1500": {
+        "block": 1500,
+        "n_blocks_used": 4,
+        "a_wins": 0,
+        "blocks": [
+          {
+            "start": 0,
+            "n": 1500,
+            "a": 0.7063222504020232,
+            "b": 0.9323887051549997
+          },
+          {
+            "start": 1500,
+            "n": 1500,
+            "a": 0.5557532633487867,
+            "b": 0.829882585643472
+          },
+          {
+            "start": 3000,
+            "n": 1500,
+            "a": 0.6668591638144598,
+            "b": 0.8646904443557568
+          },
+          {
+            "start": 4500,
+            "n": 1425,
+            "a": 0.7134519089158264,
+            "b": 0.9120675201087572
+          }
+        ]
+      },
+      "bp_blockwise_block500": {
+        "block": 500,
+        "n_blocks_used": 12,
+        "a_wins": 0,
+        "blocks": [
+          {
+            "start": 0,
+            "n": 500,
+            "a": 0.826361930641822,
+            "b": 0.9395056935817805
+          },
+          {
+            "start": 500,
+            "n": 500,
+            "a": 0.6414975845410629,
+            "b": 0.9467954911433173
+          },
+          {
+            "start": 1000,
+            "n": 500,
+            "a": 0.6325416426807301,
+            "b": 0.9309205028690275
+          },
+          {
+            "start": 1500,
+            "n": 500,
+            "a": 0.5192480475499344,
+            "b": 0.9676204298845807
+          },
+          {
+            "start": 2000,
+            "n": 500,
+            "a": 0.5020174571805007,
+            "b": 0.8186964756258235
+          },
+          {
+            "start": 2500,
+            "n": 500,
+            "a": 0.6554963713778421,
+            "b": 0.7089000362000311
+          },
+          {
+            "start": 3000,
+            "n": 500,
+            "a": 0.6238466290679368,
+            "b": 0.7787520675979992
+          },
+          {
+            "start": 3500,
+            "n": 500,
+            "a": 0.7211809690967215,
+            "b": 0.8394450364612717
+          },
+          {
+            "start": 4000,
+            "n": 500,
+            "a": 0.6708742402992052,
+            "b": 0.8766900420757362
+          },
+          {
+            "start": 4500,
+            "n": 500,
+            "a": 0.9223824174056424,
+            "b": 0.9473567794735678
+          },
+          {
+            "start": 5000,
+            "n": 500,
+            "a": 0.6464480602411636,
+            "b": 0.8838466769501252
+          },
+          {
+            "start": 5500,
+            "n": 425,
+            "a": 0.5967741935483871,
+            "b": 0.9048246844319776
+          }
+        ]
+      },
+      "bp_blockwise_vs_logenergy_block1500": {
+        "block": 1500,
+        "n_blocks_used": 4,
+        "a_wins": 0,
+        "blocks": [
+          {
+            "start": 0,
+            "n": 1500,
+            "a": 0.7063222504020232,
+            "b": 0.9258849419319604
+          },
+          {
+            "start": 1500,
+            "n": 1500,
+            "a": 0.5557532633487867,
+            "b": 0.7841786511692288
+          },
+          {
+            "start": 3000,
+            "n": 1500,
+            "a": 0.6668591638144598,
+            "b": 0.8578699761462929
+          },
+          {
+            "start": 4500,
+            "n": 1425,
+            "a": 0.7134519089158264,
+            "b": 0.8932366602469695
+          }
+        ]
+      }
     }
   },
   "block_frames": {
@@ -8164,606 +8495,5 @@
     "name": "run11",
     "tag": "matched",
     "layer": 0
-  },
-  "summary": {
-    "precommit_ranking": {
-      "zf_auc": [
-        [
-          "birdaves-bioxn-large",
-          0.9724416972087901
-        ],
-        [
-          "dapt1e4_step15000",
-          0.9719575927460883
-        ],
-        [
-          "run16_compute4x",
-          0.9718057969042833
-        ],
-        [
-          "dapt1e4_step10000",
-          0.9715763924369696
-        ],
-        [
-          "dapt5e5_step15000",
-          0.97154941567965
-        ],
-        [
-          "dapt1e4_step12500",
-          0.9715341871210235
-        ],
-        [
-          "dapt5e5_step10000",
-          0.971511238851985
-        ],
-        [
-          "dapt5e5_step12500",
-          0.9715056855806061
-        ],
-        [
-          "dapt5e5_step7500",
-          0.9712319977843962
-        ],
-        [
-          "daptreplay_5e5_step15000",
-          0.971069769932133
-        ],
-        [
-          "dapt5e5_step5000",
-          0.9705154812338913
-        ],
-        [
-          "birdaves-biox-large",
-          0.9702583466870511
-        ],
-        [
-          "dapt1e4_step7500",
-          0.9702286009462993
-        ],
-        [
-          "daptfreeze_5e5_step15000",
-          0.9699669833104181
-        ],
-        [
-          "dapt1e4_step5000",
-          0.9698048081737044
-        ],
-        [
-          "dapt5e5_step2500",
-          0.9697121319703876
-        ],
-        [
-          "birdaves-biox-base",
-          0.9696535094451992
-        ],
-        [
-          "run15_combined",
-          0.9695763542867832
-        ],
-        [
-          "dapt1e4_step2500",
-          0.9692707934223247
-        ],
-        [
-          "run11",
-          0.9687083083063901
-        ],
-        [
-          "daptlr_1e5_step15000",
-          0.9684790364782012
-        ],
-        [
-          "daptshort_5e5_step2500",
-          0.9684143652688357
-        ],
-        [
-          "aves-base-bio",
-          0.9673653071287157
-        ],
-        [
-          "aves-base-all",
-          0.9669653842970246
-        ],
-        [
-          "aves-base-core",
-          0.966676986028341
-        ]
-      ],
-      "zf_ap": [
-        [
-          "dapt5e5_step7500",
-          0.8753152503996959
-        ],
-        [
-          "daptreplay_5e5_step15000",
-          0.87522949373476
-        ],
-        [
-          "dapt5e5_step15000",
-          0.8748514145713286
-        ],
-        [
-          "dapt5e5_step10000",
-          0.8747182530060259
-        ],
-        [
-          "dapt5e5_step12500",
-          0.8742483342492978
-        ],
-        [
-          "run16_compute4x",
-          0.8741459320120354
-        ],
-        [
-          "dapt1e4_step15000",
-          0.8726708896444624
-        ],
-        [
-          "dapt1e4_step10000",
-          0.872013167009743
-        ],
-        [
-          "dapt5e5_step5000",
-          0.8718733771941126
-        ],
-        [
-          "run15_combined",
-          0.8713945703484625
-        ],
-        [
-          "dapt1e4_step12500",
-          0.871236913726128
-        ],
-        [
-          "dapt1e4_step5000",
-          0.8704089724543005
-        ],
-        [
-          "dapt1e4_step7500",
-          0.8694940880359943
-        ],
-        [
-          "dapt5e5_step2500",
-          0.869443044154973
-        ],
-        [
-          "daptfreeze_5e5_step15000",
-          0.8689221845539272
-        ],
-        [
-          "run11",
-          0.868084133134278
-        ],
-        [
-          "birdaves-bioxn-large",
-          0.868022893690173
-        ],
-        [
-          "daptlr_1e5_step15000",
-          0.8672034754259398
-        ],
-        [
-          "birdaves-biox-base",
-          0.8671421372045522
-        ],
-        [
-          "dapt1e4_step2500",
-          0.8669866550128185
-        ],
-        [
-          "daptshort_5e5_step2500",
-          0.8667225982975784
-        ],
-        [
-          "birdaves-biox-large",
-          0.8663904314157628
-        ],
-        [
-          "aves-base-bio",
-          0.8592671700956067
-        ],
-        [
-          "aves-base-core",
-          0.8585825344265617
-        ],
-        [
-          "aves-base-all",
-          0.8559684462535517
-        ]
-      ],
-      "bp_auc": [
-        [
-          "birdaves-bioxn-large",
-          0.899446264041083
-        ],
-        [
-          "birdaves-biox-large",
-          0.8970572536863983
-        ],
-        [
-          "daptreplay_5e5_step15000",
-          0.8884496300170728
-        ],
-        [
-          "aves-base-core",
-          0.887447372466535
-        ],
-        [
-          "aves-base-bio",
-          0.8830234385701825
-        ],
-        [
-          "aves-base-all",
-          0.8678856749615621
-        ],
-        [
-          "birdaves-biox-base",
-          0.8664982825917433
-        ],
-        [
-          "run11",
-          0.8647626757846251
-        ],
-        [
-          "daptlr_1e5_step15000",
-          0.8646860441886388
-        ],
-        [
-          "daptfreeze_5e5_step15000",
-          0.8640819453401594
-        ],
-        [
-          "daptshort_5e5_step2500",
-          0.8517236760002168
-        ],
-        [
-          "dapt5e5_step2500",
-          0.8342062048103246
-        ],
-        [
-          "dapt1e4_step10000",
-          0.8099009649999431
-        ],
-        [
-          "run16_compute4x",
-          0.808475663828468
-        ],
-        [
-          "dapt5e5_step5000",
-          0.7978308490664551
-        ],
-        [
-          "dapt1e4_step12500",
-          0.7938329821923986
-        ],
-        [
-          "dapt1e4_step15000",
-          0.7791548337326937
-        ],
-        [
-          "dapt5e5_step15000",
-          0.7671040791963706
-        ],
-        [
-          "dapt1e4_step7500",
-          0.7665377728648799
-        ],
-        [
-          "dapt1e4_step5000",
-          0.7646526239751541
-        ],
-        [
-          "dapt5e5_step12500",
-          0.7642762105059475
-        ],
-        [
-          "dapt5e5_step10000",
-          0.7579735815189244
-        ],
-        [
-          "dapt5e5_step7500",
-          0.7508985897693214
-        ],
-        [
-          "run15_combined",
-          0.7475597081068786
-        ],
-        [
-          "dapt1e4_step2500",
-          0.7130523492642552
-        ]
-      ],
-      "bp_ap": [
-        [
-          "birdaves-bioxn-large",
-          0.8442309822609128
-        ],
-        [
-          "birdaves-biox-large",
-          0.8361523422259244
-        ],
-        [
-          "daptreplay_5e5_step15000",
-          0.8317712607879996
-        ],
-        [
-          "aves-base-core",
-          0.8296172234533097
-        ],
-        [
-          "aves-base-all",
-          0.8129268457583757
-        ],
-        [
-          "run11",
-          0.8121329893779907
-        ],
-        [
-          "aves-base-bio",
-          0.8057322500716226
-        ],
-        [
-          "daptfreeze_5e5_step15000",
-          0.8052447925529648
-        ],
-        [
-          "daptlr_1e5_step15000",
-          0.8047487191534217
-        ],
-        [
-          "birdaves-biox-base",
-          0.7913864759422234
-        ],
-        [
-          "daptshort_5e5_step2500",
-          0.7911985073623706
-        ],
-        [
-          "dapt5e5_step2500",
-          0.7725405155753601
-        ],
-        [
-          "dapt1e4_step10000",
-          0.7514841079729375
-        ],
-        [
-          "run16_compute4x",
-          0.7451025731565518
-        ],
-        [
-          "dapt5e5_step5000",
-          0.7259414913863181
-        ],
-        [
-          "dapt1e4_step12500",
-          0.723950850457113
-        ],
-        [
-          "run15_combined",
-          0.7090575924889321
-        ],
-        [
-          "dapt1e4_step7500",
-          0.7067413040155618
-        ],
-        [
-          "dapt1e4_step15000",
-          0.7051843984085944
-        ],
-        [
-          "dapt5e5_step15000",
-          0.6942133349261035
-        ],
-        [
-          "dapt1e4_step5000",
-          0.6884346600076512
-        ],
-        [
-          "dapt5e5_step12500",
-          0.6881506537536279
-        ],
-        [
-          "dapt5e5_step10000",
-          0.6807763819861061
-        ],
-        [
-          "dapt5e5_step7500",
-          0.6767760857101124
-        ],
-        [
-          "dapt1e4_step2500",
-          0.6105287726315067
-        ]
-      ]
-    },
-    "precommit_cost_on_birdpark": {
-      "run11": {
-        "precommitted_arm": "matched_L0",
-        "precommitted_bp_auc": 0.8647626757846251,
-        "best_bp_arm": "matched_L0",
-        "best_bp_auc": 0.8647626757846251,
-        "cost_of_precommitting": 0.0
-      },
-      "aves-base-core": {
-        "precommitted_arm": "native_L1",
-        "precommitted_bp_auc": 0.887447372466535,
-        "best_bp_arm": "matched_L1",
-        "best_bp_auc": 0.9009382544694594,
-        "cost_of_precommitting": -0.013490882002924365
-      },
-      "aves-base-bio": {
-        "precommitted_arm": "matched_L6",
-        "precommitted_bp_auc": 0.8830234385701825,
-        "best_bp_arm": "matched_L1",
-        "best_bp_auc": 0.9025195515225967,
-        "cost_of_precommitting": -0.019496112952414157
-      },
-      "aves-base-all": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.8678856749615621,
-        "best_bp_arm": "matched_L9",
-        "best_bp_auc": 0.8970109723886709,
-        "cost_of_precommitting": -0.029125297427108787
-      },
-      "birdaves-biox-base": {
-        "precommitted_arm": "native_L3",
-        "precommitted_bp_auc": 0.8664982825917433,
-        "best_bp_arm": "matched_L0",
-        "best_bp_auc": 0.9058791899982163,
-        "cost_of_precommitting": -0.03938090740647293
-      },
-      "birdaves-biox-large": {
-        "precommitted_arm": "matched_L18",
-        "precommitted_bp_auc": 0.8970572536863983,
-        "best_bp_arm": "native_L6",
-        "best_bp_auc": 0.9038299053000922,
-        "cost_of_precommitting": -0.006772651613693892
-      },
-      "birdaves-bioxn-large": {
-        "precommitted_arm": "matched_L12",
-        "precommitted_bp_auc": 0.899446264041083,
-        "best_bp_arm": "matched_L12",
-        "best_bp_auc": 0.899446264041083,
-        "cost_of_precommitting": 0.0
-      },
-      "dapt5e5_step15000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7671040791963706,
-        "best_bp_arm": "matched_L9",
-        "best_bp_auc": 0.888804530822763,
-        "cost_of_precommitting": -0.12170045162639243
-      },
-      "dapt1e4_step15000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7791548337326937,
-        "best_bp_arm": "matched_L9",
-        "best_bp_auc": 0.8974127940577603,
-        "cost_of_precommitting": -0.11825796032506664
-      },
-      "dapt5e5_step2500": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.8342062048103246,
-        "best_bp_arm": "matched_L1",
-        "best_bp_auc": 0.8929920579897684,
-        "cost_of_precommitting": -0.05878585317944385
-      },
-      "dapt5e5_step5000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7978308490664551,
-        "best_bp_arm": "matched_L1",
-        "best_bp_auc": 0.8944896882245261,
-        "cost_of_precommitting": -0.09665883915807105
-      },
-      "dapt5e5_step7500": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7508985897693214,
-        "best_bp_arm": "matched_L1",
-        "best_bp_auc": 0.8750957313526487,
-        "cost_of_precommitting": -0.12419714158332729
-      },
-      "dapt5e5_step10000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7579735815189244,
-        "best_bp_arm": "matched_L9",
-        "best_bp_auc": 0.8857401972606587,
-        "cost_of_precommitting": -0.1277666157417343
-      },
-      "dapt5e5_step12500": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7642762105059475,
-        "best_bp_arm": "matched_L11",
-        "best_bp_auc": 0.89161803835673,
-        "cost_of_precommitting": -0.12734182785078252
-      },
-      "dapt1e4_step2500": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7130523492642552,
-        "best_bp_arm": "matched_L9",
-        "best_bp_auc": 0.892087363275395,
-        "cost_of_precommitting": -0.17903501401113975
-      },
-      "dapt1e4_step5000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7646526239751541,
-        "best_bp_arm": "matched_L9",
-        "best_bp_auc": 0.8830100658334018,
-        "cost_of_precommitting": -0.1183574418582477
-      },
-      "dapt1e4_step7500": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7665377728648799,
-        "best_bp_arm": "matched_L3",
-        "best_bp_auc": 0.88530831600498,
-        "cost_of_precommitting": -0.11877054314010005
-      },
-      "dapt1e4_step10000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.8099009649999431,
-        "best_bp_arm": "matched_L9",
-        "best_bp_auc": 0.9048383259380159,
-        "cost_of_precommitting": -0.09493736093807281
-      },
-      "dapt1e4_step12500": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.7938329821923986,
-        "best_bp_arm": "matched_L9",
-        "best_bp_auc": 0.9006949869447204,
-        "cost_of_precommitting": -0.10686200475232177
-      },
-      "daptreplay_5e5_step15000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.8884496300170728,
-        "best_bp_arm": "matched_L11",
-        "best_bp_auc": 0.904928213986115,
-        "cost_of_precommitting": -0.016478583969042226
-      },
-      "daptfreeze_5e5_step15000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.8640819453401594,
-        "best_bp_arm": "matched_L11",
-        "best_bp_auc": 0.8980357891647341,
-        "cost_of_precommitting": -0.03395384382457478
-      },
-      "daptlr_1e5_step15000": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.8646860441886388,
-        "best_bp_arm": "matched_L11",
-        "best_bp_auc": 0.897962878678113,
-        "cost_of_precommitting": -0.03327683448947416
-      },
-      "daptshort_5e5_step2500": {
-        "precommitted_arm": "native_L6",
-        "precommitted_bp_auc": 0.8517236760002168,
-        "best_bp_arm": "matched_L11",
-        "best_bp_auc": 0.9104610384732474,
-        "cost_of_precommitting": -0.05873736247303063
-      },
-      "run15_combined": {
-        "precommitted_arm": "native_L0",
-        "precommitted_bp_auc": 0.7475597081068786,
-        "best_bp_arm": "native_L6",
-        "best_bp_auc": 0.8885462625758961,
-        "cost_of_precommitting": -0.14098655446901753
-      },
-      "run16_compute4x": {
-        "precommitted_arm": "native_L0",
-        "precommitted_bp_auc": 0.808475663828468,
-        "best_bp_arm": "matched_L0",
-        "best_bp_auc": 0.8809375242017464,
-        "cost_of_precommitting": -0.0724618603732784
-      }
-    },
-    "best_zf_auc_any_arm_AUDIT_ONLY": {
-      "model": "birdaves-bioxn-large",
-      "arm": "matched_L12",
-      "auc": 0.9724416972087901
-    },
-    "best_bp_auc_any_arm_AUDIT_ONLY": {
-      "model": "daptshort_5e5_step2500",
-      "arm": "matched_L11",
-      "auc": 0.9104610384732474
-    },
-    "precommit_criterion": "max out-of-fold AUC on the ZF in-distribution set",
-    "n_arms_scored": 300
   }
 }

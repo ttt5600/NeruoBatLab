@@ -39,6 +39,19 @@ out["run16"] = dict(name="run16_compute4x", updates=updates, steps_per_epoch=r16
                     sources=dict(updates="checkpoint epoch=37-step=93750.ckpt, job 39203444",
                                  steps_per_epoch="checkpoint epoch=36-step=92763.ckpt = 37 epochs",
                                  world_size="log: MEMBER 1/4..4/4"))
+# run17 MEASURED: checkpoint epoch=73-step=92762.ckpt closes 74 complete epochs -> 1253.5 optimiser
+# steps/epoch = 2507 batches / 2 (accumulate 2). last.ckpt batch_progress 187,568 batches vs
+# global_step 93,750 (job 39268321). Final ckpt epoch=74-step=93750.
+r17_spe = 92762 / 74
+r17_spu = corpus_hours * 3600 / r17_spe
+out["run17"] = dict(name="run17_accum2", updates=updates, steps_per_epoch=r17_spe,
+                    corpus_hours=corpus_hours, audio_seconds_per_update=r17_spu,
+                    total_audio_hours=r17_spu * updates / 3600, epochs=updates / r17_spe,
+                    world_size_realised=4, accumulate_grad_batches=2, num_clusters=200,
+                    status="measured",
+                    sources=dict(updates="checkpoint epoch=74-step=93750.ckpt, job 39268321",
+                                 steps_per_epoch="checkpoint epoch=73-step=92762.ckpt = 74 epochs",
+                                 accumulation="last.ckpt: 187,568 batches / 93,750 optimiser steps"))
 (A / "run15_compute.json").write_text(json.dumps(out, indent=2))
 for k, v in out.items():
     print(f"{k:<17} {v['audio_seconds_per_update']:7.1f} s/update  "

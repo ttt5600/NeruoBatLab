@@ -133,3 +133,24 @@ queue on its own each time (2 and 6 minutes later); the resume block picked up `
 
 run17 = run16 + `--accumulate-grad-batches 2` (~644 s/update, ~92% of AVES per update) is Savio job
 39268321, script `examples/hubert/slurm/train_run17_accum2.sh` in the pytorchAudio repo.
+
+## Update 2026-09-26 — run17 (another 2x compute): stopped helping
+
+run17 = run16 + `--accumulate-grad-batches 2` (644.5 s of audio per update, 16,784 h total, 86% of
+AVES). Job 39268321, 11 h 01 m, never preempted, exit 0; the checkpoint records 187,568 batches for
+93,750 optimiser steps, so accumulation really ran. It reached a LOWER pretraining loss than run16
+but scored LOWER on 11-class call type at all 12 layers (best layer 0.8321 vs 0.8379, within noise;
+layer 3 vs layer 3 −0.018, 95% [−0.038, −0.001]). Finding 054. run16 remains the best model.
+
+| file | what it is |
+|---|---|
+| `analysis/run17_accum2_calltype.json` | run17 per-layer and best-layer call-type accuracy |
+| `analysis/run17_accum2_bootstrap.json` | run17 vs run11, run15, run16 and all six AVES (observed differences) |
+| `analysis/run15_compute.json` | now also run17 measured |
+| `analysis/detection_variants.json`, `analysis/chick_holdout_variants.json` | now include run15, run16, run17 |
+| `metrics/run17/run17_v0_metrics.csv` | one attempt, no preemption. Its `step` column counts BATCHES (2 per optimiser step) |
+| `logs/train_run17_accum2_39268321.log` | the training log |
+
+run17's BirdPark 0.6252 at the pre-committed arm is the normalisation trap from finding 049 (raw
+waveform chosen on a 0.0017 ZF margin; its shallow raw-input layers collapse on BirdPark). With
+level-normalised input it scores 0.83–0.87 at every layer.

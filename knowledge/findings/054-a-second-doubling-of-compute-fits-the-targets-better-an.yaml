@@ -1,0 +1,65 @@
+id: '054'
+title: A second doubling of compute fits the targets better and call types worse
+status: confirmed
+claim: >-
+  run17 -- run16 with --accumulate-grad-batches 2, so 644.5 s of audio per update and 16,784 h in
+  total (86% of AVES) -- reaches lower pretraining loss than run16 at every stage but scores lower
+  on 11-class call type at all 12 layers (best layer 0.8321 vs 0.8379, -0.0059 [-0.0222,
+  +0.0078]; layer 3 vs layer 3 0.8180 vs 0.8362, -0.0182 [-0.0376, -0.0009]), so the compute
+  lever that worked from run15 to run16 (052) does not keep working with these targets.
+evidence: >-
+  Cohort 3412 clips / 11 call types / 48 birds, majority-class 0.1797. Per-layer 11-class
+  accuracy, run17 L0-L11: 0.8180 0.8321 0.8224 0.8180 0.8177 0.8186 0.8171 0.8162 0.8157 0.8195
+  0.8168 0.8110 (mean 0.8186); run16's mean over layers 0.8309, and run17 is above run16 at 0 of
+  12 layers. run17 still beats run11 at its best layer (+0.0202 [+0.0066, +0.0362]) and
+  is not distinguishable from any AVES checkpoint at its best layer (-0.0132 to -0.0232, every
+  interval crossing zero), but at layer 3 it is resolved behind five of the six. 8-class (2889 clips / 30 birds, majority 0.2122)
+  points the other way at the best layer -- run17 L1 0.8325 vs run16 L1 0.8276, +0.0048 [-0.0090,
+  +0.0170] -- but run17 is above run16 at only 1 of 12 8-class layers (means 0.8145 vs 0.8225) and
+  at layer 3 is -0.0052 [-0.0261, +0.0111]; neither 8-class difference is resolved. Pretraining loss per batch, same loss and vocabulary, logs
+  indexed by optimiser step: steps 8-12k run15 2.333 / run16 2.019 / run17 1.737; 28-32k 1.754 /
+  1.378 / 1.213; 58-62k 1.525 / 1.120 / 1.046; 88k-end 1.254 / 1.047 / 0.997. Detection: ZF
+  in-distribution AUC 0.9716 (native L3), run17 minus run11 observed +0.0029 [+0.0016, +0.0061],
+  the same as run16 (0.9718). BirdPark at the pre-committed arm 0.6252 (native L3) against run11
+  0.8648 -- resolved worse at both block sizes -- but this is finding 049's arm-selection failure:
+  native beat matched on ZF by 0.0017 AUC (0.9716 vs 0.9699), and run17's raw-waveform layers
+  0-3 collapse on BirdPark (0.603, 0.609, 0.625) while its deep native layers (0.849-0.877) and
+  every matched layer (0.827-0.865) sit where run11 and run16 do. Chick Be/LT AUC 0.9936 vs run11
+  0.9858, [-0.0007, +0.0240]; AMI(k=4) 0.5023 vs 0.5361 -- not distinguishable.
+method: >-
+  slurm/train_run17_accum2.sh = train_run16_compute4x.sh + --accumulate-grad-batches 2 and --time
+  24h; nothing else changed (lr 1e-4, warmup 3125 updates, 93,750 updates, combined corpus, k=200).
+  Accumulation hand-rolled in training_step (accum.py), verified by smoke job 39267771 and at full
+  scale: last.ckpt records 187,568 batches against 93,750 optimiser steps (2507 batches = 1253.5
+  steps per epoch). Job 39268321 ran 11 h 01 m unpreempted, exit 0. Export bit-identical (max|diff|
+  0). Scored by run15_calltype.py --tag run17_accum2 and run16_calltype_bootstrap.py --tag
+  run17_accum2 (observed differences, bird bootstrap, 2000 resamples); detection_variants.py and
+  chick_holdout_variants.py as in 053.
+provenance: >-
+  analysis/run17_accum2_calltype.json, analysis/run17_accum2_bootstrap.json,
+  analysis/run15_compute.json (run17 measured), analysis/detection_variants.json,
+  analysis/chick_holdout_variants.json; weights external/dapt/run17_accum2.pt; metrics
+  savio_artifacts/metrics/run17/; log savio_artifacts/logs/train_run17_accum2_39268321.log
+caveats: >-
+  One training seed per run: the bootstrap resamples birds, not pretraining runs, so part of the
+  run16-run17 gap could be seed luck -- including run16 having been a lucky draw. The best-layer
+  difference is within noise; the layer-3 one is barely outside it; the consistent sign across all
+  12 layers is the strongest evidence. The training loss is on TRAINING data -- there is no
+  held-out pretraining loss -- so "fits the targets better" cannot be separated from "memorises
+  the corpus better": run17 made 74.8 passes over the 224 h corpus against run16's 37.4. Nor can
+  this experiment say WHY more compute stopped helping. Three untested explanations: (a) the
+  iteration-1 spectrogram k-means targets carry no more call-type information than run16 already
+  extracted -- AVES paired its compute with iteration-2 targets from a trained model's layer 6;
+  (b) repetition/overfitting of a fixed corpus; (c) lr 1e-4 left unscaled for a 2x larger batch
+  (though lower training loss argues against under-optimisation). The BirdPark 0.6252 is NOT
+  evidence that run17 is broken; it is the pre-commit rule picking raw-waveform shallow layers on
+  a 0.0017 ZF margin, now 26 of 26 models where matched normalisation transfers better on
+  BirdPark at the pre-committed layer (049). Practical rule for new recordings, bats included:
+  level-normalise the input.
+tags:
+- compute
+- pretraining
+- calltype
+- negative-result
+- normalisation
+date: '2026-09-26'

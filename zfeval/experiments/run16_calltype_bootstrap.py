@@ -5,7 +5,8 @@ procedure as aves_all_vs_run11_bootstrap.py. Every model at its own best 11-clas
 the scoreboard's footing. run16's best layer (7) was picked on the reported metric, so it is ALSO
 scored at layer 3 -- the layer run11 and run15 use -- as a no-selection check.
 
-Writes analysis/run16_bootstrap.json.
+Writes analysis/run16_bootstrap.json. With --tag <export>, scores that export instead (at its best
+layer and at layer 3) against the same field PLUS run16, and writes analysis/<tag>_bootstrap.json.
 """
 import sys, json, warnings, numpy as np
 from pathlib import Path
@@ -21,6 +22,10 @@ FEAT = Path.home() / "zf_labelset/zf_detection_dataset_v1/features"
 VAR = json.loads((A / "aves_variants_calltype.json").read_text())
 R15 = json.loads((A / "run15_calltype.json").read_text())
 R16 = json.loads((A / "run16_compute4x_calltype.json").read_text())
+import argparse
+_ap = argparse.ArgumentParser(); _ap.add_argument("--tag", default="run16_compute4x")
+TAG = _ap.parse_args().tag
+RT = json.loads((A / f"{TAG}_calltype.json").read_text())
 rows = [r for r in collect() if r[3] in KEEP11]
 birds = np.array([r[1].lower() for r in rows])
 tt = np.array([r[3] for r in rows]); classes = sorted(set(tt))
@@ -30,6 +35,7 @@ FILE = {"run11": "ct11_run11_emb.npy", "aves-base-bio": "ct11_aves_emb.npy"}
 LAYER = {m: VAR["models"][m]["best_11"]["layer"] for m in VAR["models"]}
 LAYER["run15_combined"] = R15["best_layer11"]
 LAYER["run16_compute4x"] = R16["best_layer11"]
+LAYER[TAG] = RT["best_layer11"]
 
 
 def per_clip(name, layer):
@@ -43,17 +49,18 @@ def per_clip(name, layer):
 
 
 R = {m: per_clip(m, l) for m, l in LAYER.items()}
-R["run16_compute4x@L3"] = per_clip("run16_compute4x", 3)
+R[f"{TAG}@L3"] = per_clip(TAG, 3)
 rng = np.random.default_rng(0); ub = np.unique(birds)
 idx = [np.concatenate([np.where(birds == b)[0] for b in rng.choice(ub, len(ub))]) for _ in range(2000)]
 BOOT = {m: np.array([ok[i].mean() for i in idx]) for m, ok in R.items()}
 
-out = {"note": "delta = run16 minus the named model; paired bootstrap over 48 birds, 2000 resamples, "
+out = {"note": f"delta = {TAG} minus the named model (OBSERVED difference); paired bootstrap over 48 birds, 2000 resamples, "
                "seed 0; every model at its own best 11-class layer",
-       "layers": {**LAYER, "run16_compute4x@L3": 3},
+       "layers": {**LAYER, f"{TAG}@L3": 3},
        "acc": {m: float(ok.mean()) for m, ok in R.items()}, "vs": {}}
-others = ["run11", "run15_combined"] + [m for m in VAR["models"] if m != "run11"]
-for base in ["run16_compute4x", "run16_compute4x@L3"]:
+others = ["run11", "run15_combined"] + (["run16_compute4x"] if TAG != "run16_compute4x" else []) \
+         + [m for m in VAR["models"] if m != "run11"]
+for base in [TAG, f"{TAG}@L3"]:
     out["vs"][base] = {}
     print(f"\n{base}  acc {R[base].mean():.4f}")
     for o in others:
@@ -63,5 +70,6 @@ for base in ["run16_compute4x", "run16_compute4x@L3"]:
         out["vs"][base][o] = dict(delta=float(obs), lo=float(lo), hi=float(hi), resolved=res)
         print(f"  minus {o:<22} (L{LAYER[o]:>2}, {R[o].mean():.4f})  {obs:+.4f}  "
               f"[{lo:+.4f}, {hi:+.4f}]  {'RESOLVED' if res else 'not distinguishable'}")
-(A / "run16_bootstrap.json").write_text(json.dumps(out, indent=2))
-print("\nwrote run16_bootstrap.json")
+OUT = "run16_bootstrap.json" if TAG == "run16_compute4x" else f"{TAG}_bootstrap.json"
+(A / OUT).write_text(json.dumps(out, indent=2))
+print(f"\nwrote {OUT}")

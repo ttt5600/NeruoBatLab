@@ -18,9 +18,11 @@ md(r"""
 audio — beats our model trained specifically on zebra finches. **Why?** If we can name the reason,
 we know how to build something better than AVES.
 
-**Latest (Sep 25): we found the lever.** run16 — the same recipe, just using the 4 GPUs we were
-already paying for — jumped past both our older models and is now within noise of every AVES
-version. The missing ingredient was **compute**: how much audio the model processes per training step.
+**Latest (Sep 26): compute helped once, then stopped.** run16 (4× the audio per training step)
+jumped past our older models to within noise of every AVES version. run17 doubled the compute
+again and came out *worse* than run16 at every layer, even though it got better at its own training
+task. So run16 is our best model, and the next suspect is the **training labels**, not the amount
+of training.
 
 Five sections, each short:
 
@@ -28,7 +30,7 @@ Five sections, each short:
 2. **The suspects** — every explanation we've tested
 3. **The lever: compute** — why run16 moved when nothing else did
 4. **What run16 looks like from the inside** — its training curve
-5. **What's next** — run17, already running
+5. **What's next** — better training labels
 """)
 
 co(r'''
@@ -42,6 +44,8 @@ A = Path.home() / "zf_labelset/zf_detection_dataset_v1/analysis"
 VAR   = json.loads((A / "aves_variants_calltype.json").read_text())   # run11 + six AVES checkpoints
 R15   = json.loads((A / "run15_calltype.json").read_text())           # run15 on the same probe
 R16   = json.loads((A / "run16_compute4x_calltype.json").read_text()) # run16 on the same probe
+R17   = json.loads((A / "run17_accum2_calltype.json").read_text())    # run17 on the same probe
+B17   = json.loads((A / "run17_accum2_bootstrap.json").read_text())   # run17 vs everything
 BOOT  = json.loads((A / "run16_bootstrap.json").read_text())          # paired intervals, run16 vs all
 COMP  = json.loads((A / "compute_budget.json").read_text())           # run11 + AVES training budgets
 COMP15 = json.loads((A / "run15_compute.json").read_text())           # run15 + run16 measured
@@ -53,7 +57,7 @@ plt.rcParams.update({"figure.facecolor": SURFACE, "axes.facecolor": SURFACE,
                      "axes.edgecolor": GRID, "axes.labelcolor": INK2, "xtick.color": INK2,
                      "ytick.color": INK, "text.color": INK, "font.size": 11,
                      "axes.spines.top": False, "axes.spines.right": False})
-print("loaded 6 result files")
+print("loaded 8 result files")
 ''')
 
 md(r"""
@@ -69,7 +73,8 @@ co(r'''
 acc = {m: VAR["models"][m]["best_11"]["acc"] for m in VAR["models"]}
 acc["run15"] = R15["acc11"]
 acc["run16"] = R16["acc11"]
-ours = {"run11", "run15", "run16"}
+acc["run17"] = R17["acc11"]
+ours = {"run11", "run15", "run16", "run17"}
 order = sorted(acc, key=acc.get)
 
 fig, ax = plt.subplots(figsize=(9.5, 4.6))
@@ -89,7 +94,8 @@ ax.grid(axis="x", color=GRID, lw=0.8); ax.set_axisbelow(True)
 ax.scatter([], [], color=OURS, s=60, label="ours (trained on zebra finch)")
 ax.scatter([], [], color=AVES, s=60, label="AVES family (downloaded)")
 ax.legend(frameon=False, loc="lower right", fontsize=10)
-ax.set_title("run16 jumped from the bottom to just behind the AVES pack", loc="left", fontsize=13, pad=10)
+ax.set_title("run16 jumped to just behind the AVES pack. run17 (2x more compute) fell back.",
+             loc="left", fontsize=13, pad=10)
 plt.tight_layout(); plt.show()
 ''')
 
@@ -100,13 +106,16 @@ check resamples the *birds* 2,000 times and asks whether the gap ever crosses ze
 
 co(r'''
 V = BOOT["vs"]["run16_compute4x"]          # stores run16 minus X
-rows = ["run11", "run15_combined"] + [m for m in VAR["models"] if m != "run11"]
+W = B17["vs"]["run17_accum2"]["run16_compute4x"]   # stores run17 minus run16
+# store it the way V stores the others (run16 minus X) so the flip below treats it the same
+V = {**V, "run17_accum2": {"delta": -W["delta"], "lo": -W["hi"], "hi": -W["lo"], "resolved": W["resolved"]}}
+rows = ["run11", "run15_combined", "run17_accum2"] + [m for m in VAR["models"] if m != "run11"]
 # flip so the chart reads "X minus run16": right of zero = X is better than run16
 d  = [-V[k]["delta"] for k in rows]
 lo = [-V[k]["hi"] for k in rows]
 hi = [-V[k]["lo"] for k in rows]
 
-fig, ax = plt.subplots(figsize=(9.5, 4.8))
+fig, ax = plt.subplots(figsize=(9.5, 5.2))
 y = np.arange(len(rows))[::-1]
 for yi, k, a, b, c in zip(y, rows, lo, hi, d):
     col = OURS if k.startswith("run") else AVES
@@ -116,7 +125,7 @@ for yi, k, a, b, c in zip(y, rows, lo, hi, d):
     ax.text(max(b, 0) + 0.003, yi, f"{c:+.3f}   " + ("real gap" if real else "within noise"),
             va="center", fontsize=10, color=INK if real else INK2)
 ax.axvline(0, color=INK2, lw=1)
-ax.set_yticks(y); ax.set_yticklabels([k.replace("_combined", "") for k in rows])
+ax.set_yticks(y); ax.set_yticklabels([k.replace("_combined", "").replace("_accum2", "") for k in rows])
 ax.set_xlim(-0.06, 0.075)
 ax.set_xlabel("accuracy minus run16   (bar = 95% range over 2,000 resamples of the birds)")
 ax.grid(axis="x", color=GRID, lw=0.8); ax.set_axisbelow(True)
@@ -128,6 +137,9 @@ plt.tight_layout(); plt.show()
 md(r"""
 **How to read it:** a bar that crosses the zero line means "can't tell these two apart with 48
 birds". Before run16, *every* AVES bar sat clear of zero. Now none do.
+
+**run17** sits left of zero (worse than run16), inside the noise at each model's best layer, but
+it's below run16 at *all 12* layers, and at layer 3 against layer 3 the gap is real (−0.018).
 
 **What it does NOT say:** that we've tied AVES. Every AVES dot is still to the right — ahead by
 0.7 to 1.7 points — and a gap that small is simply too fine for 48 birds to resolve. The gain is
@@ -159,14 +171,16 @@ tbl = f"""
 | **bigger label vocabulary** (k=100 → 200) | run15, same run | ❌ ruled out at our compute |
 | **better training labels** ("iteration 2") | run12, run13, run14 | ❌ ruled out at our compute — none beat run11 |
 | **start from AVES, keep training** (DAPT) | DAPT rounds 1 & 2 | ❌ worse on held-out recordings |
-| **total training compute** | run16: 4× the audio per step, nothing else changed | ✅ **the lever** — {V['run15_combined']['delta']:+.4f} over run15, a real gap |
+| **total training compute** | run16: 4× the audio per step, nothing else changed | ✅ **helped once** — {V['run15_combined']['delta']:+.4f} over run15, a real gap |
+| **even more compute** | run17: another 2× (86% of AVES's total) | ❌ **stopped helping** — below run16 at all 12 layers |
 """
 display(Markdown(tbl))
 ''')
 
 md(r"""
-Notice the pattern: every ❌ says **"at our compute."** Those experiments changed *what* the model
-learned from while keeping *how much* fixed. The first time we changed the amount, the number moved.
+The first four ❌s were all tested **"at our (low) compute."** Raising compute moved the number once,
+then stopped. One suspect was only ever tested at low compute: **better training labels** — and
+it's the other half of what AVES did.
 """)
 
 md(r"""
@@ -181,7 +195,7 @@ co(r'''
 bars = [("run11",              COMP["run11"]["audio_seconds_per_update"] * COMP["run11"]["updates"] / 3600, OURS, False),
         ("run15",              COMP15["run15"]["total_audio_hours"], OURS, False),
         ("run16",              COMP15["run16"]["total_audio_hours"], OURS, False),
-        ("run17  (running)",   2 * COMP15["run16"]["total_audio_hours"], OURS, True),
+        ("run17",              COMP15["run17"]["total_audio_hours"], OURS, False),
         ("AVES (aves-base-bio)", COMP["aves"]["audio_seconds_per_update"] * COMP["aves"]["updates"] / 3600, AVES, False)]
 
 fig, ax = plt.subplots(figsize=(9.5, 3.6))
@@ -195,18 +209,18 @@ ax.set_yticks(y); ax.set_yticklabels([b[0] for b in bars])
 ax.set_xlim(0, 25000)
 ax.set_xlabel("total hours of audio processed during training")
 ax.grid(axis="x", color=GRID, lw=0.8); ax.set_axisbelow(True)
-ax.set_title("run16 went 4x further than run15. run17 goes 2x further again.",
+ax.set_title("run17 got to 86% of AVES's compute. It didn't help.",
              loc="left", fontsize=13, pad=10)
 plt.tight_layout(); plt.show()
 ''')
 
 co(r'''
-r11, av, r15, r16 = COMP["run11"], COMP["aves"], COMP15["run15"], COMP15["run16"]
-print(f"{'':22}{'run11':>10}{'run15':>10}{'run16':>10}{'AVES':>10}")
-print(f"{'audio per step (s)':22}{r11['audio_seconds_per_update']:>10.1f}{r15['audio_seconds_per_update']:>10.1f}{r16['audio_seconds_per_update']:>10.1f}{av['audio_seconds_per_update']:>10.1f}")
-print(f"{'training steps':22}{r11['updates']:>10,}{r15['updates']:>10,}{r16['updates']:>10,}{av['updates']:>10,}")
-print(f"{'GPUs actually used':22}{r11['world_size']:>10}{r15['world_size_realised']:>10}{r16['world_size_realised']:>10}{av['world_size']:>10}")
-print(f"{'gradient accumulation':22}{r11['update_freq']:>10}{1:>10}{1:>10}{av['update_freq']:>10}")
+r11, av, r15, r16, r17 = COMP["run11"], COMP["aves"], COMP15["run15"], COMP15["run16"], COMP15["run17"]
+print(f"{'':22}{'run11':>10}{'run15':>10}{'run16':>10}{'run17':>10}{'AVES':>10}")
+print(f"{'audio per step (s)':22}" + "".join(f"{r['audio_seconds_per_update']:>10.1f}" for r in (r11, r15, r16, r17, av)))
+print(f"{'training steps':22}" + "".join(f"{r['updates']:>10,}" for r in (r11, r15, r16, r17, av)))
+print(f"{'GPUs actually used':22}{r11['world_size']:>10}{r15['world_size_realised']:>10}{r16['world_size_realised']:>10}{r17['world_size_realised']:>10}{av['world_size']:>10}")
+print(f"{'gradient accumulation':22}{r11['update_freq']:>10}{1:>10}{1:>10}{r17['accumulate_grad_batches']:>10}{av['update_freq']:>10}")
 ''')
 
 md(r"""
@@ -214,8 +228,8 @@ md(r"""
 8 batches before each update. Every one of our runs until run16 **requested four GPUs and used
 one** (a job-script setting, `--ntasks=1`). run16 fixed that setting and changed nothing else.
 
-It is still only at ~43% of AVES's total. run17 adds 2× accumulation on top — the same trick AVES
-used — to reach ~92% of AVES's audio per step.
+run17 added 2× accumulation on top — the same trick AVES used — reaching ~92% of AVES's audio per
+step. That's where the gains ran out.
 """)
 
 md(r"""
@@ -225,7 +239,7 @@ md(r"""
 During training the model plays a fill-in-the-blank game: hide some audio, guess the hidden
 sound's label. The **loss** is how wrong its guesses are (lower = better). run15 and run16 play the
 same game with the same 200 labels, so their losses are directly comparable. At every point in
-training, run16 is better at it:
+training, more compute means a lower loss — run17 lowest of all:
 """)
 
 co(r'''
@@ -242,21 +256,28 @@ def stitch(run):
     return pd.concat(keep)
 
 fig, ax = plt.subplots(figsize=(9.5, 3.8))
-for run, ls in [("run15", "--"), ("run16", "-")]:
+for run, ls in [("run15", "--"), ("run16", "-"), ("run17", ":")]:
     d = stitch(run)
+    if run == "run17":      # its log's step column counts BATCHES, two per optimiser step
+        d = d.assign(step=d["step"] / 2)
     sm = d["train_loss_step"].rolling(40, min_periods=10, center=True).mean()
     ax.plot(d["step"], sm, color=OURS, ls=ls, lw=2)
-    ax.text(d["step"].iloc[-1] + 800, sm.dropna().iloc[-1], f"{run}  {sm.dropna().iloc[-1]:.2f}",
+    nudge = {"run15": 0, "run16": 0.08, "run17": -0.08}[run]   # run16/run17 end 0.03 apart
+    ax.text(d["step"].iloc[-1] + 800, sm.dropna().iloc[-1] + nudge, f"{run}  {sm.dropna().iloc[-1]:.2f}",
             va="center", fontsize=10, color=INK2)
 ax.set_xlim(0, 108000); ax.set_ylim(0.8, 4.2)
 ax.set_xlabel("training step"); ax.set_ylabel("training loss (lower = better)")
 ax.grid(color=GRID, lw=0.8); ax.set_axisbelow(True)
-ax.set_title("Same steps, 4x the audio per step: run16's loss is lower the whole way",
+ax.set_title("More audio per step, lower training loss: run17 < run16 < run15",
              loc="left", fontsize=12, pad=10)
 plt.tight_layout(); plt.show()
 ''')
 
 md(r"""
+**This is the puzzle.** run17 is the best of the three at its training game, yet worse than run16
+at call types. Getting better at predicting *these* labels stopped translating into understanding
+calls — which points at the labels themselves.
+
 *Why loss and not "accuracy"?* The training log also records a masked-accuracy number, but it
 turned out to be a running average since the job last started. It lags, and it jumps every time a
 preempted job restarts, so it can't be compared across runs. The loss is recorded fresh every step.
@@ -280,11 +301,11 @@ j = lambda m: DET[m]["joint"]
 aves_bp = [j(m)["bp"]["auc"] for m in VAR["models"] if m != "run11"]
 verdict = lambda b: "run16 better, real" if b["lo"] > 0 else ("run16 worse, real" if b["hi"] < 0 else "within noise")
 tbl = f"""
-| test | run11 | run15 | run16 | AVES (range) | run16 vs run11 |
-|---|---|---|---|---|---|
-| detection, zebra finch (AUC) | {j('run11')['zf']['auc']:.4f} | {j('run15_combined')['zf']['auc']:.4f} | **{j('run16_compute4x')['zf']['auc']:.4f}** | {min(j(m)['zf']['auc'] for m in VAR['models'] if m != 'run11'):.4f}–{max(j(m)['zf']['auc'] for m in VAR['models'] if m != 'run11'):.4f} | {verdict(DB['indist_auc_block1500'])} |
-| detection, BirdPark holdout (AUC) | {j('run11')['bp']['auc']:.4f} | {j('run15_combined')['bp']['auc']:.4f} | {j('run16_compute4x')['bp']['auc']:.4f} | {min(aves_bp):.4f}–{max(aves_bp):.4f} | {verdict(DB['bp_auc_block1500'])} |
-| chick holdout, Be vs LT (AUC) | {CH['precommit']['run11']['auc']:.4f} | {CH['precommit']['run15_combined']['auc']:.4f} | {CH['precommit']['run16_compute4x']['auc']:.4f} | — | {verdict(CB)} |
+| test | run11 | run15 | run16 | run17 | AVES (range) | run16 vs run11 |
+|---|---|---|---|---|---|---|
+| detection, zebra finch (AUC) | {j('run11')['zf']['auc']:.4f} | {j('run15_combined')['zf']['auc']:.4f} | **{j('run16_compute4x')['zf']['auc']:.4f}** | {j('run17_accum2')['zf']['auc']:.4f} | {min(j(m)['zf']['auc'] for m in VAR['models'] if m != 'run11'):.4f}–{max(j(m)['zf']['auc'] for m in VAR['models'] if m != 'run11'):.4f} | {verdict(DB['indist_auc_block1500'])} |
+| detection, BirdPark holdout (AUC) | {j('run11')['bp']['auc']:.4f} | {j('run15_combined')['bp']['auc']:.4f} | {j('run16_compute4x')['bp']['auc']:.4f} | {j('run17_accum2')['bp']['auc']:.4f} | {min(aves_bp):.4f}–{max(aves_bp):.4f} | {verdict(DB['bp_auc_block1500'])} |
+| chick holdout, Be vs LT (AUC) | {CH['precommit']['run11']['auc']:.4f} | {CH['precommit']['run15_combined']['auc']:.4f} | {CH['precommit']['run16_compute4x']['auc']:.4f} | {CH['precommit']['run17_accum2']['auc']:.4f} | — | {verdict(CB)} |
 """
 display(Markdown(tbl))
 ''')
@@ -295,24 +316,36 @@ it is *behind* run11 on the number, but BirdPark is only two minutes of audio, s
 all the data can say. It did improve over run15 there, so compute helped on BirdPark too; the drop
 relative to run11 came in with run15's changes (the bigger mixed corpus and the 200-label vocabulary).
 The chick test is at its ceiling for every model, so it only catches a model getting *worse*,
-and run16 didn't.
+and neither run16 nor run17 did.
+
+**run17's 0.625 on BirdPark looks alarming but isn't a broken model.** The scoring rule picks raw vs
+level-normalised audio by a 0.0017 edge on zebra finch data; it picked raw, and run17's shallow
+raw-audio layers fall apart on BirdPark's recordings. With normalised audio run17 scores 0.83–0.87
+at every layer, like run11 and run16. That's now 26 of 26 models where normalising transfers better.
+**Rule for any new recordings, bats included: level-normalise the audio first.**
 """)
 
 md(r"""
 ---
 ## 5. What's next
 
-| # | who | what | status |
-|---|---|---|---|
-| 1 | me | **run17** = run16 + 2× accumulation (~92% of AVES per step) | **running** — Savio job 39268321, ~11 h of GPU time |
-| 2 | me | score run17 on this scoreboard | when it finishes: does it move again, or has compute run out? |
-| 3 | me | score run17 on detection + both holdouts too | same tests as section 4b |
-| 4 | **you** | keep Savio logged in (`ssh -MNf savio-login`) | the login drops when the laptop sleeps; results wait until it's back |
+**Recommendation: iteration-2 labels at run16's compute.** AVES did two things we didn't: big
+compute *and* better labels. For labels, it re-clustered a trained model's layer-6 features instead
+of the raw spectrogram (our "iteration 1"). We tested better labels only at low compute (run12–14),
+where they didn't help. Now that run16 has shown what compute does, the untested combination is:
 
-**Checked before launching run17:** a 2-minute test run (job 39267771) confirmed accumulation
-really works: 300 batches, 150 updates. My first attempt had a missing import that killed the test
-in 10 seconds. That's why the test exists: it caught the bug before it could cost an 11-hour run.
+| step | what | cost |
+|---|---|---|
+| 1 | extract run16's layer-6 features over the 224 h corpus, k-means k=200 | GPU hours + large scratch space (the last iteration-2 dump was ~615 GB) |
+| 2 | train from scratch on those labels with run16's exact recipe (4 GPUs, no accumulation) | ~4 h on 4 GPUs |
+| 3 | score on this scoreboard | one command |
 
+**Alternative:** rerun run16 with a second random seed first (~4 h) to measure how much of its lead
+is luck. Every comparison here has been one training run per model.
+
+**Checked along the way:** run17's 2-batch accumulation really ran (187,568 batches for 93,750
+updates, read from the checkpoint), so "more compute didn't help" is not "the setting silently did
+nothing."
 """)
 
 md(r"""

@@ -1,0 +1,160 @@
+==============================================
+HuBERT run17 -- run16 + 2x gradient accumulation (~644 s audio per update)
+Start: Fri Sep 25 22:55:45 PDT 2026
+==============================================
+[precheck] audio OK: 763 files, 224.42 h under /global/scratch/users/jonathanswang/temp_files (9 rows probed head/middle/tail)
+[precheck] labels: 40,395,592 frames, vocabulary 200, --num-classes 200
+0, NVIDIA L40S, 46068 MiB
+1, NVIDIA L40S, 46068 MiB
+2, NVIDIA L40S, 46068 MiB
+3, NVIDIA L40S, 46068 MiB
+PyTorch: 2.2.2 | CUDA: True 12.1
+GPUs visible: 4
+
+Starting training...
+
+[rank: 2] Seed set to 1337
+[rank: 3] Seed set to 1337
+[rank: 0] Seed set to 1337
+[rank: 1] Seed set to 1337
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `lightning.pytorch` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/configuration_validator.py:70: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+You are using a CUDA device ('NVIDIA L40S') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+
+  | Name  | Type                | Params | Mode  | FLOPs
+--------------------------------------------------------------
+0 | model | HuBERTPretrainModel | 94.6 M | train | 0    
+--------------------------------------------------------------
+94.6 M    Trainable params
+0         Non-trainable params
+94.6 M    Total params
+378.479   Total estimated model params size (MB)
+204       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+[rank0]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank3]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank1]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank2]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_feature_penalty', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('Gathered number of frames', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+Epoch 0, global step 1254: 'train_loss' reached 4.03293 (best 4.03293), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=0-step=1254.ckpt' as top 5
+Epoch 1, global step 2508: 'train_loss' reached 3.19929 (best 3.19929), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=1-step=2508.ckpt' as top 5
+Epoch 2, global step 3762: 'train_loss' reached 2.69895 (best 2.69895), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=2-step=3762.ckpt' as top 5
+Epoch 3, global step 5015: 'train_loss' reached 2.35871 (best 2.35871), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=3-step=5015.ckpt' as top 5
+Epoch 4, global step 6268: 'train_loss' reached 2.13765 (best 2.13765), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=4-step=6268.ckpt' as top 5
+Epoch 5, global step 7522: 'train_loss' reached 1.98369 (best 1.98369), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=5-step=7522.ckpt' as top 5
+Epoch 6, global step 8775: 'train_loss' reached 1.87286 (best 1.87286), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=6-step=8775.ckpt' as top 5
+Epoch 7, global step 10028: 'train_loss' reached 1.79000 (best 1.79000), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=7-step=10028.ckpt' as top 5
+Epoch 8, global step 11282: 'train_loss' reached 1.71866 (best 1.71866), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=8-step=11282.ckpt' as top 5
+Epoch 9, global step 12534: 'train_loss' reached 1.65523 (best 1.65523), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=9-step=12534.ckpt' as top 5
+Epoch 10, global step 13788: 'train_loss' reached 1.61190 (best 1.61190), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=10-step=13788.ckpt' as top 5
+Epoch 11, global step 15041: 'train_loss' reached 1.55509 (best 1.55509), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=11-step=15041.ckpt' as top 5
+Epoch 12, global step 16295: 'train_loss' reached 1.51471 (best 1.51471), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=12-step=16295.ckpt' as top 5
+Epoch 13, global step 17548: 'train_loss' reached 1.48145 (best 1.48145), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=13-step=17548.ckpt' as top 5
+Epoch 14, global step 18802: 'train_loss' reached 1.43031 (best 1.43031), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=14-step=18802.ckpt' as top 5
+Epoch 15, global step 20055: 'train_loss' reached 1.40852 (best 1.40852), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=15-step=20055.ckpt' as top 5
+Epoch 16, global step 21309: 'train_loss' reached 1.37848 (best 1.37848), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=16-step=21309.ckpt' as top 5
+Epoch 17, global step 22563: 'train_loss' reached 1.35131 (best 1.35131), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=17-step=22563.ckpt' as top 5
+Epoch 18, global step 23816: 'train_loss' reached 1.33383 (best 1.33383), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=18-step=23816.ckpt' as top 5
+Epoch 19, global step 25070: 'train_loss' reached 1.30702 (best 1.30702), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=19-step=25070.ckpt' as top 5
+Epoch 20, global step 26324: 'train_loss' reached 1.29743 (best 1.29743), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=20-step=26324.ckpt' as top 5
+Epoch 21, global step 27577: 'train_loss' reached 1.27570 (best 1.27570), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=21-step=27577.ckpt' as top 5
+Epoch 22, global step 28829: 'train_loss' reached 1.26351 (best 1.26351), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=22-step=28829.ckpt' as top 5
+Epoch 23, global step 30083: 'train_loss' reached 1.24166 (best 1.24166), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=23-step=30083.ckpt' as top 5
+Epoch 24, global step 31337: 'train_loss' reached 1.23209 (best 1.23209), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=24-step=31337.ckpt' as top 5
+Epoch 25, global step 32590: 'train_loss' reached 1.21965 (best 1.21965), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=25-step=32590.ckpt' as top 5
+Epoch 26, global step 33844: 'train_loss' reached 1.20867 (best 1.20867), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=26-step=33844.ckpt' as top 5
+Epoch 27, global step 35097: 'train_loss' reached 1.20252 (best 1.20252), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=27-step=35097.ckpt' as top 5
+Epoch 28, global step 36350: 'train_loss' reached 1.18589 (best 1.18589), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=28-step=36350.ckpt' as top 5
+Epoch 29, global step 37604: 'train_loss' reached 1.17909 (best 1.17909), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=29-step=37604.ckpt' as top 5
+Epoch 30, global step 38858: 'train_loss' reached 1.16874 (best 1.16874), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=30-step=38858.ckpt' as top 5
+Epoch 31, global step 40112: 'train_loss' reached 1.16330 (best 1.16330), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=31-step=40112.ckpt' as top 5
+Epoch 32, global step 41366: 'train_loss' reached 1.15447 (best 1.15447), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=32-step=41366.ckpt' as top 5
+Epoch 33, global step 42619: 'train_loss' reached 1.14225 (best 1.14225), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=33-step=42619.ckpt' as top 5
+Epoch 34, global step 43873: 'train_loss' reached 1.14108 (best 1.14108), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=34-step=43873.ckpt' as top 5
+Epoch 35, global step 45126: 'train_loss' reached 1.13056 (best 1.13056), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=35-step=45126.ckpt' as top 5
+Epoch 36, global step 46379: 'train_loss' reached 1.12425 (best 1.12425), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=36-step=46379.ckpt' as top 5
+Epoch 37, global step 47632: 'train_loss' reached 1.12529 (best 1.12425), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=37-step=47632.ckpt' as top 5
+Epoch 38, global step 48886: 'train_loss' reached 1.11435 (best 1.11435), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=38-step=48886.ckpt' as top 5
+Epoch 39, global step 50140: 'train_loss' reached 1.10809 (best 1.10809), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=39-step=50140.ckpt' as top 5
+Epoch 40, global step 51394: 'train_loss' reached 1.10368 (best 1.10368), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=40-step=51394.ckpt' as top 5
+Epoch 41, global step 52647: 'train_loss' reached 1.10192 (best 1.10192), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=41-step=52647.ckpt' as top 5
+Epoch 42, global step 53901: 'train_loss' reached 1.10066 (best 1.10066), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=42-step=53901.ckpt' as top 5
+Epoch 43, global step 55154: 'train_loss' reached 1.09235 (best 1.09235), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=43-step=55154.ckpt' as top 5
+Epoch 44, global step 56408: 'train_loss' reached 1.08600 (best 1.08600), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=44-step=56408.ckpt' as top 5
+Epoch 45, global step 57661: 'train_loss' reached 1.07621 (best 1.07621), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=45-step=57661.ckpt' as top 5
+Epoch 46, global step 58915: 'train_loss' reached 1.07343 (best 1.07343), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=46-step=58915.ckpt' as top 5
+Epoch 47, global step 60169: 'train_loss' reached 1.07257 (best 1.07257), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=47-step=60169.ckpt' as top 5
+Epoch 48, global step 61422: 'train_loss' reached 1.06689 (best 1.06689), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=48-step=61422.ckpt' as top 5
+Epoch 49, global step 62676: 'train_loss' reached 1.06807 (best 1.06689), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=49-step=62676.ckpt' as top 5
+Epoch 50, global step 63929: 'train_loss' reached 1.05999 (best 1.05999), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=50-step=63929.ckpt' as top 5
+Epoch 51, global step 65182: 'train_loss' reached 1.05524 (best 1.05524), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=51-step=65182.ckpt' as top 5
+Epoch 52, global step 66436: 'train_loss' reached 1.05069 (best 1.05069), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=52-step=66436.ckpt' as top 5
+Epoch 53, global step 67690: 'train_loss' reached 1.05522 (best 1.05069), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=53-step=67690.ckpt' as top 5
+Epoch 54, global step 68943: 'train_loss' reached 1.04764 (best 1.04764), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=54-step=68943.ckpt' as top 5
+Epoch 55, global step 70197: 'train_loss' reached 1.04615 (best 1.04615), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=55-step=70197.ckpt' as top 5
+Epoch 56, global step 71451: 'train_loss' reached 1.04610 (best 1.04610), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=56-step=71451.ckpt' as top 5
+Epoch 57, global step 72704: 'train_loss' reached 1.04404 (best 1.04404), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=57-step=72704.ckpt' as top 5
+Epoch 58, global step 73958: 'train_loss' reached 1.03777 (best 1.03777), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=58-step=73958.ckpt' as top 5
+Epoch 59, global step 75212: 'train_loss' reached 1.02574 (best 1.02574), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=59-step=75212.ckpt' as top 5
+Epoch 60, global step 76466: 'train_loss' reached 1.03584 (best 1.02574), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=60-step=76466.ckpt' as top 5
+Epoch 61, global step 77719: 'train_loss' reached 1.02777 (best 1.02574), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=61-step=77719.ckpt' as top 5
+Epoch 62, global step 78972: 'train_loss' reached 1.02499 (best 1.02499), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=62-step=78972.ckpt' as top 5
+Epoch 63, global step 80226: 'train_loss' reached 1.02146 (best 1.02146), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=63-step=80226.ckpt' as top 5
+Epoch 64, global step 81480: 'train_loss' reached 1.02131 (best 1.02131), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=64-step=81480.ckpt' as top 5
+Epoch 65, global step 82733: 'train_loss' reached 1.02382 (best 1.02131), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=65-step=82733.ckpt' as top 5
+Epoch 66, global step 83987: 'train_loss' reached 1.01667 (best 1.01667), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=66-step=83987.ckpt' as top 5
+Epoch 67, global step 85240: 'train_loss' reached 1.01651 (best 1.01651), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=67-step=85240.ckpt' as top 5
+Epoch 68, global step 86494: 'train_loss' reached 1.01543 (best 1.01543), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=68-step=86494.ckpt' as top 5
+Epoch 69, global step 87747: 'train_loss' reached 1.01523 (best 1.01523), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=69-step=87747.ckpt' as top 5
+Epoch 70, global step 89000: 'train_loss' reached 1.01320 (best 1.01320), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=70-step=89000.ckpt' as top 5
+Epoch 71, global step 90254: 'train_loss' reached 1.00602 (best 1.00602), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=71-step=90254.ckpt' as top 5
+Epoch 72, global step 91508: 'train_loss' reached 1.01316 (best 1.00602), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=72-step=91508.ckpt' as top 5
+Epoch 73, global step 92762: 'train_loss' reached 1.00808 (best 1.00602), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=73-step=92762.ckpt' as top 5
+Epoch 74, global step 93750: 'train_loss' reached 1.00706 (best 1.00602), saving model to '/global/scratch/users/jonathanswang/temp_train_run17_accum2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=74-step=93750.ckpt' as top 5
+`Trainer.fit` stopped: `max_steps=93750` reached.
+
+End: Sat Sep 26 09:56:56 PDT 2026   train.py exit=0
+-rw-r--r-- 1 jonathanswang ucb 1135715512 Sep 26 09:32 epoch=71-step=90254.ckpt
+-rw-r--r-- 1 jonathanswang ucb 1135715512 Sep 26 09:41 epoch=72-step=91508.ckpt
+-rw-r--r-- 1 jonathanswang ucb 1135715512 Sep 26 09:49 epoch=73-step=92762.ckpt
+-rw-r--r-- 1 jonathanswang ucb 1135715512 Sep 26 09:56 epoch=74-step=93750.ckpt
+-rw-r--r-- 1 jonathanswang ucb 1135715512 Sep 26 09:56 last.ckpt

@@ -55,6 +55,8 @@ caveats: >-
   finding 053 (in-distribution detection improves, BirdPark does not). Two preemptions resumed from
   epoch-end checkpoints; step counts per epoch are unchanged across resumes, so no batches were
   replayed. Does NOT say corpus size is irrelevant at higher compute -- 051 held compute fixed.
+  Does NOT say more compute keeps helping: a further 2x (run17, finding 054) scored lower at
+  every layer.
   The logged train_masked_accuracy is NOT usable for any cross-run comparison in this project:
   mask_stats accumulate from process start and are reset only in on_validation_end, which never
   runs, so the value is a running mean since the last (re)start -- it lags and jumps at each
