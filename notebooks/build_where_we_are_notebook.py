@@ -329,19 +329,23 @@ md(r"""
 ---
 ## 5. What's next
 
-**Recommendation: iteration-2 labels at run16's compute.** AVES did two things we didn't: big
+**Now running: run18 = iteration-2 labels at run16's compute.** AVES did two things we didn't: big
 compute *and* better labels. For labels, it re-clustered a trained model's layer-6 features instead
-of the raw spectrogram (our "iteration 1"). We tested better labels only at low compute (run12–14),
-where they didn't help. Now that run16 has shown what compute does, the untested combination is:
+of the raw spectrogram (our "iteration 1"). We had tested better labels only at low compute
+(run12–14), where they didn't help. run18 is the untested combination:
 
-| step | what | cost |
+| step | what | status |
 |---|---|---|
-| 1 | extract run16's layer-6 features over the 224 h corpus, k-means k=200 | GPU hours + large scratch space (the last iteration-2 dump was ~615 GB) |
-| 2 | train from scratch on those labels with run16's exact recipe (4 GPUs, no accumulation) | ~4 h on 4 GPUs |
-| 3 | score on this scoreboard | one command |
+| 1 | run16's layer-6 features over all 763 files → k-means k=200 → new labels | Savio job 39398287 (~40 min); refuses to hand over labels unless they cover exactly the same frames as the old ones |
+| 2 | train from scratch on those labels with run16's exact recipe (4 GPUs, no accumulation) | Savio job 39398288, starts automatically when step 1 passes (~4 h) |
+| 3 | score on this scoreboard | when it finishes |
 
-**Alternative:** rerun run16 with a second random seed first (~4 h) to measure how much of its lead
-is luck. Every comparison here has been one training run per model.
+Two bugs were caught before any GPU time was wasted: the label step couldn't load a 200-label
+teacher at all (the loader assumed 100), and then Savio's older torch rejected a file-path type
+that newer torch accepts. Both are fixed and tested.
+
+**Still worth doing afterwards:** rerun run16 with a second random seed (~4 h). Every comparison
+here has been one training run per model, so we don't know how much of run16's lead is luck.
 
 **Checked along the way:** run17's 2-batch accumulation really ran (187,568 batches for 93,750
 updates, read from the checkpoint), so "more compute didn't help" is not "the setting silently did
