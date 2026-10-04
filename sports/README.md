@@ -51,7 +51,7 @@ Both were checked by planting each leak and watching the right test fail. The
 truncation test is blind to own-result leaks by construction — it keeps the
 game itself — which is why there are two.
 
-## First results (`scripts/baseline.py`, NFL + MLB)
+## First results (`scripts/baseline.py`)
 
 **The data reproduce what everyone already knows**, which is the check that
 the pipeline is right before anything is read from it:
@@ -61,6 +61,34 @@ the pipeline is right before anything is read from it:
 - MLB 2020 has **898** games: the 60-game season, two never made up.
 - MLB scoring rises monotonically with first-pitch temperature, **8.46 → 9.93**
   runs/game from <55°F to 85°F+. Coors Field is the top park at **11.46**.
+
+Every league's game counts match its known history — the check that the
+parsers are right before anything is read from them:
+
+| league | games, 2015 on | what the counts confirm |
+|---|---|---|
+| NFL | 3,300 | 256 → 272 at the 17-game switch; 271 in 2022 (Bills–Bengals) |
+| MLB | 28,075 | ~2,430/season; 898 in the 60-game 2020 |
+| NBA | 14,171 | 1,230/season; 1,060 + 84 playoff in the 2019-20 bubble; 1,080 in 2020-21 |
+| NHL | 14,543 | 1,230 → 1,271 → 1,312 as Vegas and Seattle joined; 868 in 2020-21 |
+
+The first NBA and NHL pulls ended each season on June 30 and silently lost
+the 2020 bubble and the July 2021 Finals. The counts caught it; the windows
+now tile the calendar and take the season label from the API.
+
+**Elo out of sample, all four leagues** (a priori parameters, first season
+burn-in):
+
+| league | games | coin | prior home rate | Elo | accuracy |
+|---|---|---|---|---|---|
+| NBA | 11,985 | 0.6931 | 0.6857 | **0.6359** | 0.639 |
+| NFL | 2,687 | 0.6931 | 0.6893 | **0.6470** | 0.619 |
+| NHL | 12,317 | 0.6931 | 0.6899 | **0.6728** | 0.581 |
+| MLB | 25,192 | 0.6931 | 0.6912 | **0.6789** | 0.570 |
+
+The ordering is the known one: basketball is the most predictable sport and
+baseball the least. Home advantage shrank in every league in the
+no-crowd 2020-21 season (NBA home margin 0.94 points vs 1.7–3.1 otherwise).
 
 **Elo beats a coin flip and loses badly to the market.** NFL 2016–2026, a
 priori FiveThirtyEight parameters, nothing tuned:

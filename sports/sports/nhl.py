@@ -62,7 +62,9 @@ def games(seasons, cache: bool = True, goalies: bool = False) -> pd.DataFrame:
     today = date.today()
     payloads = []
     for s in seasons:
-        d, end = date(s, 9, 15), min(date(s + 1, 6, 30), today)
+        # Tile the calendar: the 2020 bubble playoffs ran into late September
+        # and the 2021 Final into July. Season labels come from the API.
+        d, end = date(s, 9, 15), min(date(s + 1, 9, 14), today)
         while d <= end:
             p = fetch(f"{BASE}/schedule/{d.isoformat()}",
                       cache=cache and d + timedelta(days=7) < today)

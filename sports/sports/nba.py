@@ -70,7 +70,10 @@ def games(seasons, cache: bool = True) -> pd.DataFrame:
     settled = today - timedelta(days=1)
     dates = []
     for s in seasons:
-        d, end = date(s, 10, 1), min(date(s + 1, 6, 30), today)
+        # Windows tile the calendar (Oct 1 - Sep 30). Seasons do not respect
+        # a June end: the 2020 bubble ran to October, the 2021 Finals into
+        # July. Each game's season label comes from ESPN, not the window.
+        d, end = date(s, 10, 1), min(date(s + 1, 9, 30), today)
         while d <= end:
             dates.append(d)
             d += timedelta(days=1)
