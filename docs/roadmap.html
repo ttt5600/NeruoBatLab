@@ -313,53 +313,62 @@ footer {
   <h1>Encoder Roadmap</h1>
   <p class="standfirst">
     Every pretraining variant we have run, are running, or intend to run — laid out as one
-    design space so no cell gets tested twice and none gets missed. <strong>Current state:
-    mixing general audio back into continued pretraining just erased a catastrophic-forgetting
-    failure</strong>, and the combined-corpus arm is the next thing to settle.
+    design space so no cell gets tested twice and none gets missed. <strong>Current state
+    (Oct 4): more compute closed the call-type gap to AVES once, then stopped helping</strong> —
+    so the next lever is the training labels, and run18 tests exactly that.
   </p>
 </header>
 
 <section>
   <h2><span class="num">00</span> Where we are</h2>
   <p class="lede">
-    The project's long-running result has been that <code>run11</code> — a HuBERT pretrained on
-    116 h of our own colony audio — loses to AVES, the same architecture pretrained on generic
-    animal audio. Round 1 of domain-adaptive pretraining made that worse. Round 2 fixed it.
+    The project's long-running result was that every zebra-finch model we trained lost to AVES —
+    the same architecture, pretrained on generic animal audio. Since Sep 22 four controlled runs
+    narrowed that to one lever that worked and one that stopped working.
   </p>
 
   <div class="result">
-    <h3>Rehearsal closes the forgetting gap</h3>
+    <h3>Compute helped once, then stopped</h3>
     <p>
-      Continuing AVES's pretraining on zebra-finch-only audio drove held-out detection
-      <em>below a plain energy detector</em>. Mixing 19.3&nbsp;% FSD50K — real audio from AVES's own
-      corpus — back into the training stream, with everything else identical, reversed it.
+      Same corpus (ZF + FSD50K, 224&nbsp;h), same labels, same 93,750 steps. The only change between
+      these three runs is how much audio each training step sees.
     </p>
     <div class="swing">
-      <span><span class="v neg">&minus;0.1179</span> <span class="lbl">ZF-only (round 1)</span></span>
+      <span><span class="v">0.8136</span> <span class="lbl">run15 · 80 s/step</span></span>
       <span class="arrow">&rarr;</span>
-      <span><span class="v pos">+0.0196</span> <span class="lbl">with replay (round 2)</span></span>
+      <span><span class="v pos">0.8379</span> <span class="lbl">run16 · 322 s/step</span></span>
+      <span class="arrow">&rarr;</span>
+      <span><span class="v neg">0.8321</span> <span class="lbl">run17 · 644 s/step</span></span>
     </div>
     <p style="margin:.4rem 0 0;font-size:.86rem;color:var(--muted)">
-      BirdPark AP relative to <code>run11</code>, at the arm pre-committed on in-distribution AUC.
-      A swing of <strong>0.1375</strong> — more than twice this holdout's resolution.
+      11-class call type, held-out birds; majority class 0.1797. run16 &minus; run15 = +0.0243,
+      95% [+0.0099,&nbsp;+0.0419].
     </p>
   </div>
 
   <p>
-    <strong>The honest reading.</strong> Replay is significantly better than <code>run11</code>
-    <em>in-distribution</em> (+0.0032 AUC, CI [+0.0012,&nbsp;+0.0053]). On the holdout its
-    +0.0196&nbsp;AP is <em>not distinguishable</em> — CI [&minus;0.0166,&nbsp;+0.0709] straddles zero.
-    So the defensible claim is that replay is the first arm that is <strong>better somewhere and
-    worse nowhere</strong>, not that it beats <code>run11</code> on transfer. The 0.1375 swing
-    away from round 1, however, is far too large to be noise.
+    <strong>The honest reading.</strong> run16 is the first model of ours that no AVES checkpoint
+    beats by more than noise on call type — but every AVES point estimate is still ahead, by 0.007 to
+    0.017, so this is not a tie. run17 then fit its training labels <em>better</em> (lower loss at
+    every stage) and scored call types <em>worse</em> at all 12 layers. Getting better at predicting
+    spectrogram-cluster labels stopped translating into understanding calls, which points at the
+    labels. AVES paired its compute with iteration-2 labels (re-clustering a trained model's layer
+    6); ours were only ever tried at low compute. <strong>run18</strong> is that test, and its label
+    step currently stops at a safety gate: the new labels cover 32 fewer frames than the old ones
+    (out of 40.4&nbsp;M), so they are not handed to training until the cause is found.
+  </p>
+  <p>
+    On the cross-lab BirdPark holdout, <code>dapt-replay</code> (AVES weights + 19&nbsp;% general
+    audio during continued training) remains the best arm, and it is still the only one better
+    somewhere and worse nowhere.
   </p>
 </section>
 
 <section>
   <h2><span class="num">01</span> The design space</h2>
   <p class="lede">
-    Three axes generate every experiment here. Most published comparisons in this project moved
-    two at once — which is exactly why the run11-vs-AVES question has stayed open.
+    Four axes generate every experiment here. Most early comparisons moved two at once — which is
+    exactly why the run11-vs-AVES question stayed open so long.
   </p>
 
   <div class="grid2" style="margin-bottom:1.75rem">
@@ -377,106 +386,124 @@ footer {
       <p>Iteration 1 from spectrogram k-means · iteration 2 from a trained encoder's layer 6 —
       ours, or AVES's.</p>
     </div>
+    <div class="card">
+      <h4>Audio per training step</h4>
+      <p>80&nbsp;s (1 GPU — every run before run16) · 322&nbsp;s (4 GPUs) · 644&nbsp;s (4 GPUs × 2
+      accumulated batches) · AVES: 700&nbsp;s.</p>
+    </div>
   </div>
 
   <div class="scroller">
     <table>
       <caption>
-        Every cell we have filled or intend to fill. BirdPark AP is the cross-lab holdout at the
-        arm pre-committed on in-distribution AUC; <code>run11</code> scores 0.8121 and the
-        log-energy floor is 0.7472.
+        Every cell we have filled or intend to fill. Call type = 11-class accuracy on held-out
+        birds (majority class 0.1797). BirdPark AP is the cross-lab holdout at the arm
+        pre-committed on in-distribution AUC; <code>run11</code> scores 0.8121 and the log-energy
+        floor is 0.7472. Our run15–17 BirdPark numbers are hurt by that rule picking raw rather
+        than level-normalised input (finding 049): normalised, they are 0.7112 / 0.7855 / 0.7728.
       </caption>
       <thead>
         <tr>
-          <th>Model</th><th>Corpus</th><th>Init</th><th>Labels</th>
-          <th class="num">ZF AUC</th><th class="num">BP AP</th><th>Status</th>
+          <th>Model</th><th>Corpus</th><th>Init</th><th>Labels</th><th class="num">s/step</th>
+          <th class="num">Call type</th><th class="num">ZF AUC</th><th class="num">BP AP</th><th>Status</th>
         </tr>
       </thead>
       <tbody>
         <tr class="ref">
           <td class="name">run11</td><td>ZF 116 h</td><td>random</td><td>it1 spec k=100</td>
-          <td class="num">0.9687</td><td class="num">0.8121</td>
+          <td class="num">80</td><td class="num">0.8118</td><td class="num">0.9687</td><td class="num">0.8121</td>
           <td><span class="chip c-done">baseline</span></td>
         </tr>
         <tr class="ref">
           <td class="name">aves-base-bio</td><td>general 360 h</td><td>random</td><td>it2 L6 k=200</td>
-          <td class="num">0.9674</td><td class="num">0.8057</td>
+          <td class="num">700</td><td class="num">0.8453</td><td class="num">0.9674</td><td class="num">0.8057</td>
           <td><span class="chip c-done">external</span></td>
         </tr>
         <tr class="ref">
           <td class="name">birdaves-bioxn-large</td><td>general 2570 h</td><td>random</td><td>it2 L6 k=200</td>
-          <td class="num">0.9724</td><td class="num">0.8442</td>
+          <td class="num">&mdash;</td><td class="num">0.8453</td><td class="num">0.9724</td><td class="num">0.8442</td>
           <td><span class="chip c-done">external</span></td>
         </tr>
-        <tr class="rowgap"><td colspan="7"></td></tr>
+        <tr class="rowgap"><td colspan="9"></td></tr>
 
         <tr>
           <td class="name">run12</td><td>ZF 116 h</td><td>random</td><td>it2 own-L6 k=500</td>
-          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td class="num">80</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
           <td><span class="chip c-fail">lost</span></td>
         </tr>
         <tr>
           <td class="name">run13</td><td>ZF 116 h</td><td>random</td><td>it2 own-L3 k=500</td>
-          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td class="num">80</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
           <td><span class="chip c-fail">lost</span></td>
         </tr>
-        <tr class="rowgap"><td colspan="7"></td></tr>
+        <tr class="rowgap"><td colspan="9"></td></tr>
 
         <tr>
           <td class="name">dapt5e5 / dapt1e4</td><td>ZF 116 h</td><td>AVES</td><td>it1 spec k=100</td>
-          <td class="num">0.9715</td><td class="num">0.6942</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">0.9715</td><td class="num">0.6942</td>
           <td><span class="chip c-fail">forgot</span></td>
         </tr>
-        <tr class="rowgap"><td colspan="7"></td></tr>
+        <tr class="rowgap"><td colspan="9"></td></tr>
 
-        <tr class="hero">
+        <tr>
           <td class="name">dapt-replay</td><td>ZF + FSD 19 %</td><td>AVES</td><td>it1 spec k=100</td>
-          <td class="num">0.9711</td><td class="num">0.8318</td>
-          <td><span class="chip c-done">best</span></td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">0.9711</td><td class="num">0.8318</td>
+          <td><span class="chip c-done">best BirdPark</span></td>
         </tr>
         <tr>
           <td class="name">dapt-freeze</td><td>ZF 116 h</td><td>AVES, CNN frozen</td><td>it1 spec k=100</td>
-          <td class="num">0.9700</td><td class="num">0.8052</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">0.9700</td><td class="num">0.8052</td>
           <td><span class="chip c-done">parity</span></td>
         </tr>
         <tr>
           <td class="name">dapt-lr1e-5</td><td>ZF 116 h</td><td>AVES</td><td>it1 spec k=100</td>
-          <td class="num">0.9685</td><td class="num">0.8047</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">0.9685</td><td class="num">0.8047</td>
           <td><span class="chip c-done">parity</span></td>
         </tr>
         <tr>
           <td class="name">dapt-short</td><td>ZF 116 h</td><td>AVES</td><td>it1 spec k=100</td>
-          <td class="num">0.9684</td><td class="num">0.7912</td>
+          <td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">0.9684</td><td class="num">0.7912</td>
           <td><span class="chip c-done">parity</span></td>
         </tr>
-        <tr class="rowgap"><td colspan="7"></td></tr>
+        <tr class="rowgap"><td colspan="9"></td></tr>
 
         <tr>
           <td class="name">ours-on-general</td><td>FSD50K 108 h</td><td>random</td><td>it1 spec k=200</td>
-          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td class="num">322</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
           <td><span class="chip c-plan">planned</span></td>
         </tr>
         <tr>
           <td class="name">aves-teacher</td><td>ZF 116 h</td><td>random</td><td>it2 <em>AVES</em>-L6 k=200</td>
-          <td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td class="num">322</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
           <td><span class="chip c-plan">planned</span></td>
         </tr>
         <tr>
-          <td class="name">combined-it1</td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
-          <td class="num">&mdash;</td><td class="num">&mdash;</td>
-          <td><span class="chip c-plan">planned</span></td>
+          <td class="name">run15 <span style="font-weight:400;color:var(--muted)">(combined-it1)</span></td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
+          <td class="num">80</td><td class="num">0.8136</td><td class="num">0.9696</td><td class="num">0.7091</td>
+          <td><span class="chip c-done">= run11</span></td>
+        </tr>
+        <tr class="hero">
+          <td class="name">run16</td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
+          <td class="num">322</td><td class="num">0.8379</td><td class="num">0.9718</td><td class="num">0.7451</td>
+          <td><span class="chip c-done">best call type</span></td>
         </tr>
         <tr>
-          <td class="name">combined-it2</td><td>ZF + FSD 224 h</td><td>random</td><td>it2 own-L6 k=200</td>
-          <td class="num">&mdash;</td><td class="num">&mdash;</td>
-          <td><span class="chip c-plan">planned</span></td>
+          <td class="name">run17</td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
+          <td class="num">644</td><td class="num">0.8321</td><td class="num">0.9716</td><td class="num">0.5720</td>
+          <td><span class="chip c-fail">no gain</span></td>
+        </tr>
+        <tr>
+          <td class="name">run18 <span style="font-weight:400;color:var(--muted)">(combined-it2)</span></td><td>ZF + FSD 224 h</td><td>random</td><td>it2 run16-L6 k=200</td>
+          <td class="num">322</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
+          <td><span class="chip c-run">label gate</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <p style="font-size:.9rem;color:var(--muted)">
-    <code>run12</code> / <code>run13</code> predate the current holdout protocol and were scored
+    <code>run17</code>'s 0.5720 is the raw-input trap above, not a broken model: with normalised
+    input its BirdPark AP is 0.7728, in line with run16. <code>run12</code> / <code>run13</code> predate the current holdout protocol and were scored
     only in-distribution (0.905 / 0.913 against <code>run11</code>'s 0.921). They are listed because
     they already eliminated <em>teacher layer</em> and <em>cluster count</em> as explanations —
     which is what makes the remaining planned cells worth running.
@@ -484,99 +511,136 @@ footer {
 </section>
 
 <section>
-  <h2><span class="num">02</span> Sequenced work</h2>
+  <h2><span class="num">02</span> Task list</h2>
   <p class="lede">
-    Ordered by dependency, not priority — iteration 2 cannot start until iteration 1 has produced
-    a teacher.
+    Ordered by what unblocks what. Finished steps stay listed so the trail is visible.
   </p>
 
   <div class="phase">
-    <div class="tag">P1</div>
+    <div class="tag">✓</div>
     <div>
-      <h4>Full FSD50K on disk <span class="chip c-run">running</span></h4>
+      <h4>Done since Sep 18 <span class="chip c-done">done</span></h4>
       <p>
-        Dev split (~80 h, 27 GB, six-part archive) joins the eval split already built (27.9 h).
-        Brings general audio to ~108 h.
+        All of FSD50K on disk (108&nbsp;h) · the 224&nbsp;h combined corpus with a fresh k=200
+        vocabulary · run15 (iteration 1 on it: corpus + vocabulary ruled out) · 4-GPU training made
+        to actually use 4 GPUs · run16 (the compute win) · gradient accumulation · run17 (compute
+        stops helping) · run15–17 scored on detection and both holdouts.
       </p>
-      <div class="meta"><span>zenodo 4060432</span><span>~30 % of AVES-bio</span></div>
+      <div class="meta"><span>findings 051–054</span><span>notebooks/06_where_we_are.ipynb</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">P2</div>
+    <div class="tag">T1</div>
     <div>
-      <h4>Assemble the 224 h combined corpus <span class="chip c-plan">ready</span></h4>
+      <h4>Fix the relabel frame gap, then train run18 <span class="chip c-run">next</span></h4>
       <p>
-        Concatenate dev into 10-min files, extract its features, then symlink the ZF and FSD-eval
-        shards already computed rather than redoing ~144 h of extraction. Fit a <em>fresh</em>
-        k=200 k-means on the combined data — unlike the replay corpus, this trains a new model, so
-        its clusters should describe the corpus it will actually see.
+        The iteration-2 labels from run16's layer 6 came out 32 frames short of 40,395,592, and the
+        gate refused them — a misaligned label shifts every later target in its file. Splitting
+        audio into 20-second windows is ruled out (exact for every length). A diagnostic that lists
+        each mismatched file against three independent lengths is ready; then re-run k-means from
+        the features already on disk and let run18 start automatically.
       </p>
-      <div class="meta"><span>assemble_corpus.py</span><span>saves ~7 CPU-h</span><span>3-way row verification</span></div>
+      <div class="meta"><span>~10 min relabel + ~4 h train</span><span>the headline experiment</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">P3</div>
+    <div class="tag">T2</div>
     <div>
-      <h4>Iteration 1 from scratch <span class="chip c-plan">ready</span></h4>
+      <h4>A second seed of run16 <span class="chip c-plan">queued</span></h4>
       <p>
-        Random init on the combined corpus. This model exists only to become the layer-6 teacher
-        for the step that follows.
+        Every comparison so far is one training run per model; the bootstrap resamples birds, not
+        training runs. A second seed says how much of run16's lead — and run17's deficit — is luck.
       </p>
-      <div class="meta"><span>~4 h · 1×L40</span><span>93,750 updates</span></div>
+      <div class="meta"><span>~4 h · 4×L40</span><span>cheap, informative</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">P4</div>
+    <div class="tag">T3</div>
     <div>
-      <h4>Iteration 2 — AVES's method, none of its weights <span class="chip c-plan">ready</span></h4>
+      <h4>Savio toolkit and one shared data location <span class="chip c-run">in progress</span></h4>
       <p>
-        Dump layer-6 features from the P3 model, fit k=200, retrain from random init. This is the
-        cell that de-confounds the whole programme: AVES's <em>two-iteration label recipe</em>
-        applied to our own encoder and a corpus containing both domains.
+        One command for training, interactive GPU shells, Jupyter on a GPU node, job status and
+        logs; every corpus, label set and checkpoint registered in one place with group access, so
+        anyone in the lab can find and reuse it.
       </p>
-      <div class="meta"><span>~1.5 h dump + ~4 h train</span><span>the headline experiment</span></div>
+      <div class="meta"><span>savio/README.md</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">P5</div>
+    <div class="tag">T4</div>
+    <div>
+      <h4>Make level-normalised input the BirdPark default <span class="chip c-plan">queued</span></h4>
+      <p>
+        The pre-commit rule picks raw vs normalised input on in-distribution margins of 0.002, and
+        normalised transfers better for 26 of 26 models. Report both, and headline normalised.
+      </p>
+      <div class="meta"><span>finding 049</span><span>re-scoring only, no training</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">T5</div>
     <div>
       <h4>AVES as label teacher <span class="chip c-plan">unblocked</span></h4>
       <p>
-        Cluster AVES's layer-6 embeddings at k=200 and train on <em>those</em> targets over our
-        corpus, from random init. Borrows AVES's hidden representation without inheriting a single
-        weight. Finding 039 predicts it loses — worth running because that prediction rests on a
-        proxy measurement.
+        Cluster AVES's layer-6 embeddings at k=200 and train on <em>those</em> targets from random
+        init, now at run16's compute. Borrows AVES's representation without inheriting a weight.
+        Most informative right after run18: our teacher vs theirs, same everything else.
       </p>
-      <div class="meta"><span>preprocess_aves_teacher.sh</span><span>predicted negative</span></div>
+      <div class="meta"><span>preprocess_aves_teacher.sh</span><span>build_teacher handles it</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">P6</div>
+    <div class="tag">T6</div>
     <div>
       <h4>Our pipeline on general audio only <span class="chip c-plan">queued</span></h4>
       <p>
-        FSD50K alone, random init, our recipe. Isolates <em>corpus</em> with architecture and
-        method held fixed — the control that says whether AVES's advantage was ever about its data.
+        FSD50K alone, random init, run16's recipe. The control that says whether a corpus with no
+        zebra finch in it can match one that has them.
       </p>
-      <div class="meta"><span>~4 h · 1×L40</span></div>
+      <div class="meta"><span>~4 h · 4×L40</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">P7</div>
+    <div class="tag">T7</div>
+    <div>
+      <h4>Bats: carry the method to unlabelled audio <span class="chip c-plan">planned</span></h4>
+      <p>
+        The label-free recipe is validated on zebra finch (finding 050): judge a clustering by
+        whether its groups reappear in held-out individuals — compactness scores rank encoders
+        backwards. Before bat audio can go in, decide the sample rate: the pipeline resamples to
+        16&nbsp;kHz, which discards everything above 8&nbsp;kHz, echolocation included.
+      </p>
+      <div class="meta"><span>notebooks/04_clustering_without_labels.ipynb</span><span>needs a sample-rate decision</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">T8</div>
     <div>
       <h4>Replay dose–response <span class="chip c-plan">queued</span></h4>
       <p>
-        19.3 % worked. <code>--replay-repeat 3</code> raises it to ~42 % with no new download. If
-        the holdout tracks the dose, that is a mechanism rather than a coincidence — and the
-        single most informative follow-up to the round-2 result.
+        19.3&nbsp;% general audio fixed DAPT's forgetting. <code>--replay-repeat 3</code> raises it to
+        ~42&nbsp;% with no new download; if BirdPark tracks the dose, that is a mechanism.
       </p>
       <div class="meta"><span>no new data needed</span><span>~37 min</span></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="tag">T9</div>
+    <div>
+      <h4>Reclaim ~615&nbsp;GB of intermediate features <span class="chip c-plan">your call</span></h4>
+      <p>
+        Spectrogram feature dumps the combined corpus was built from. Training reads only the TSV,
+        labels and k-means model, so these can go — but deleting is not undoable, so it waits for a yes.
+      </p>
     </div>
   </div>
 </section>
@@ -712,6 +776,16 @@ footer {
   </div>
 
   <div class="warn">
+    <h4>Nothing above 8&nbsp;kHz exists for these models</h4>
+    <p>
+      Every model here — ours and AVES — takes 16&nbsp;kHz audio, so the top of the spectrum is
+      discarded before the network sees it. Three FSD50K clips were rejected as silent purely
+      because all their energy sat above 8&nbsp;kHz. For bats, whose echolocation lives far above
+      that, this is the first design decision, not a detail.
+    </p>
+  </div>
+
+  <div class="warn">
     <h4>No bird is held out of pretraining</h4>
     <p>
       99.5 % of curated clips come from the 120 pretrained recordings, so leave-birds-out
@@ -722,8 +796,9 @@ footer {
 
 <footer>
   <p>
-    Numbers read from <code>analysis/detection_variants.json</code> at build time. Full provenance
-    in <code>knowledge/findings/</code> (48 entries, including refutations kept on purpose).
+    Updated Oct 4, 2026. Numbers from <code>analysis/detection_variants.json</code>,
+    <code>analysis/*_calltype.json</code> and <code>analysis/run15_compute.json</code>. Full provenance
+    in <code>knowledge/findings/</code> (54 entries, including refutations kept on purpose).
     Retracted claims are recorded rather than deleted.
   </p>
 </footer>
