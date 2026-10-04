@@ -95,6 +95,28 @@ of the closing line. Only the second is money.
   (about 450 outdoor games). The schema's `lineup` caveat about weather
   exists for this reason.
 
+## Published angles, tested as money (`scripts/angles.py`)
+
+Rules taken from the literature, not from this data, scored by what flat
+1-unit bets would have paid at the NFL closing price, 2016–2026:
+
+| angle | bets | ROI | 95% CI | Holm p |
+|---|---|---|---|---|
+| away ML in close games (p_home 0.3–0.7) | 1834 | −0.53% | [−5.33%, +4.51%] | 1.000 |
+| week 1: fade last year's playoff teams (ATS, −110 assumed) | 73 | +1.99% | [−18.93%, +22.91%] | 1.000 |
+| all favourites, moneyline | 2808 | −2.88% | [−5.49%, −0.25%] | 1.000 |
+| all underdogs, moneyline | 2808 | −5.27% | [−10.52%, +0.05%] | 1.000 |
+| big underdogs only (p < 0.25) | 590 | −11.57% | [−27.44%, +5.00%] | 1.000 |
+
+None pays. The week-1 holdover angle's CI is ±21% because there are only 73
+qualifying bets in eleven seasons; it cannot be confirmed or refuted here.
+
+The devigged closing moneyline is close to calibrated. There is a mild
+favourite–longshot tilt (home teams priced at 0.28 won 0.239 ± 0.022; those
+priced at 0.85 won 0.882 ± 0.023), which is why favourites lose less than
+underdogs — but less than the vig, so neither side is a bet. That is what an
+efficient market with a bookmaker's margin looks like.
+
 ## Honest limits
 
 - **NFL weather is patchy:** temp/wind present for only 38–75% of games by

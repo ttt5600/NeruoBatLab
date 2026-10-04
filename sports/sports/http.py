@@ -53,7 +53,7 @@ def _throttle(host: str) -> None:
 
 
 def fetch(url: str, params: dict | None = None, *, cache: bool = True,
-          binary: bool = False, retries: int = 4, timeout: float = 60.0):
+          binary: bool = False, retries: int = 8, timeout: float = 60.0):
     """GET ``url``; JSON (default) or raw bytes. Cached on disk when ``cache``.
 
     Pass ``cache=False`` for anything that can still change -- today's
@@ -70,9 +70,11 @@ def fetch(url: str, params: dict | None = None, *, cache: bool = True,
         try:
             r = _session().get(url, params=params, headers=HEADERS, timeout=timeout)
         except requests.RequestException:
+            # DNS and connection blips (VPN reconnects) last tens of seconds;
+            # back off up to ~2 minutes total before giving up.
             if attempt == retries - 1:
                 raise
-            time.sleep(2 ** attempt)
+            time.sleep(min(2 ** attempt, 30))
             continue
         if r.status_code in (429, 500, 502, 503, 504) and attempt < retries - 1:
             time.sleep(2 ** (attempt + 1))
