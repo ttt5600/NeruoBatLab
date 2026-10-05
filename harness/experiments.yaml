@@ -1,0 +1,71 @@
+# The search. One entry per experiment; each changes ONE thing against a named baseline, and its
+# question and success criterion are written BEFORE it runs. Edit `status` by hand to steer it.
+#   proposed -> approved -> submitted -> trained -> scored -> done      (or failed / needs-human / rejected)
+# The harness submits only `approved` entries, at most max_concurrent at a time, on savio_lowprio.
+max_concurrent: 2
+experiments:
+- id: E1
+  roadmap: T1
+  title: run18 -- iteration-2 labels from run16 layer 6, at run16's compute
+  baseline: run16_compute4x
+  change: training targets, iteration-1 spectrogram k=200 -> iteration-2 run16 layer 6 k=200 (finding 055)
+  question: Do better targets restart the gains that more compute stopped giving (finding 054)?
+  success: 11-class call type above run16's 0.8379 at the best layer, bird-bootstrap interval excluding zero
+  script: pytorchAudio/examples/hubert/slurm/train_run18_iter2.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run18_iter2
+  tag: run18_iter2
+  num_classes: 200
+  job_name: hubert_run18
+  status: submitted
+  job: 39629355
+  priority: 1
+- id: E2
+  roadmap: T2
+  title: run16, second seed
+  baseline: run16_compute4x
+  change: --seed 2 (every run so far used 1337)
+  question: How much of run16's +0.024 over run15, and of run17's deficit against run16, is seed luck?
+  success: none -- this measures spread. Report |run16_seed2 - run16| on call type with its interval
+  script: pytorchAudio/examples/hubert/slurm/train_run16_seed2.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run16_seed2
+  tag: run16_seed2
+  num_classes: 200
+  job_name: hubert_run16s2
+  status: approved
+  priority: 2
+- id: E3
+  roadmap: T5
+  title: AVES as label teacher, at run16's compute
+  baseline: run16_compute4x
+  change: training targets -> AVES layer 6 k=200 on the combined corpus (borrows AVES's representation, not its weights)
+  question: Is our teacher or theirs the better source of targets, everything else equal?
+  success: call type above run16 with the interval excluding zero; compare against E1 as well
+  script: null
+  status: proposed
+  notes: >-
+    slurm/preprocess_aves_teacher.sh and train_aves_teacher.sh exist but target run11's ZF-only corpus
+    on 1 GPU. Needs: labels on the combined corpus (build_teacher handles a 200-class head), and a
+    training script that is train_run16_compute4x.sh with only DATA changed.
+  priority: 3
+- id: E4
+  roadmap: T6
+  title: general audio only (FSD50K alone), run16's recipe
+  baseline: run16_compute4x
+  change: corpus -> the FSD50K rows of the combined corpus only, same k=200 vocabulary and labels
+  question: Can a corpus with no zebra finch in it match one that has them?
+  success: none -- a control. Report the call-type gap to run16 with its interval
+  script: null
+  status: proposed
+  notes: Needs a subset TSV + label file (filter the combined corpus rows; no new k-means).
+  priority: 4
+- id: E5
+  roadmap: T8
+  title: replay dose-response for DAPT
+  baseline: daptreplay_5e5
+  change: --replay-repeat 3 (general audio ~19% -> ~42% of the DAPT corpus)
+  question: Does BirdPark transfer track the replay dose? If so, replay is a mechanism, not luck.
+  success: BirdPark AP rises with dose by more than the arm spread, since arm selection is under-powered
+  script: null
+  status: proposed
+  notes: build_replay_corpus.sh takes the repeat as its argument; the DAPT replay training script exists.
+  priority: 5
