@@ -58,7 +58,11 @@ The goal: an encoder that beats AVES on zebra finch call type and transfers to t
    - the project repo: `git push https://github.com/ttt5600/NeruoBatLab.git UMAP`
    - Check each remote actually moved. Never force-push. End commit messages with the attribution lines
      you were given.
-7. **Report** to the path named below, under 40 lines:
+7. **Task list**: if the Claude Docs tools are available, update the shared task list doc (project id
+   `1e00135c-6030-4114-b1a2-2c0172f139e2`, the "Zebra Finch Encoder Tasks" table). Change the Status
+   dropdown and add one sentence to any task whose state changed. Change nothing else. If the tools
+   aren't available, say so in the report.
+8. **Report** to the path named below, under 40 lines:
    - what happened
    - every number, with its source file
    - what you submitted
