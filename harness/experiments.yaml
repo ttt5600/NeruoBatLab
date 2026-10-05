@@ -31,8 +31,13 @@ experiments:
   tag: run16_seed2
   num_classes: 200
   job_name: hubert_run16s2
-  status: approved
+  status: submitted
+  job: 39635284
   priority: 2
+  notes: >-
+    Submitted 2026-10-05 01:56 by harness iteration 20261005-015326 (code 6b0456488f). Fresh exp_dir,
+    no stale last.ckpt. Watcher key hubert_run16s2 (longest-prefix match, so it does not fall back to
+    run16's entry).
 - id: E3
   roadmap: T5
   title: AVES as label teacher, at run16's compute
