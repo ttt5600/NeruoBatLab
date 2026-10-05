@@ -25,8 +25,36 @@ Savio job watcher (launchd, every 5 min)          ~/.claude/savio-watch
 | `tick.py` | decides whether to start an agent: a run finished, failed, or an approved experiment has a free slot |
 | `run_agent.sh` | starts one headless iteration; lock + daily cap |
 | `score_run.sh` | export → copy → call type, detection, holdouts. `DRY=1` checks inputs only |
-| `reports/` | one short report per iteration |
+| `PI.md` | standing orders for the long-lived lead agent |
+| `CRITIC.md` | the checklist a fresh critic agent uses to try to break each finding |
+| `reports/`, `digest/` | one short report per iteration; one digest per day |
 | `logs/` | full agent transcripts and scoring logs |
+
+## The long-lived lead agent
+
+Between runs the event-driven agents are idle. The lead agent fills that time. It is a Claude Code
+session that wakes itself every 30-60 min (`/loop`) and works from `PI.md`:
+- runs the pipeline: score, write the finding, submit the next experiment
+- then the idle backlog: scripts for proposed experiments, the figures backlog, re-scoring, papers
+- a fresh critic (`CRITIC.md`) tries to break every finding before it is recorded as confirmed
+- a daily digest goes to `digest/`, and the task-list doc is updated
+
+While it runs, its heartbeat (`.pi_heartbeat`) makes `tick.py` stand down, so only one agent acts. If
+it stops for 2 h, the event-driven agents take over again.
+
+Start it in a terminal you leave open, on power:
+
+```bash
+cd ~/Desktop/vocalizations_lab
+caffeinate -is claude --permission-mode bypassPermissions     # caffeinate: the Mac stays awake
+# then, inside that session:
+/loop follow harness/PI.md
+```
+
+Stop it by typing "stop the loop" in that session, or by closing it. If the Mac sleeps, the agent
+pauses and catches up on wake; Savio jobs are unaffected. `bypassPermissions` means it never stops to
+ask, so the rules in `AGENT.md` and `PI.md` are the guardrails. The same applies to the event-driven
+agents.
 
 ## Steering it
 

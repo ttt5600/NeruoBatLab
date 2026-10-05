@@ -9,6 +9,10 @@ ended -- and calls this. Bookkeeping happens here; judgement happens in the agen
     at most once every IDLE_EVERY seconds
 run_agent.sh enforces one agent at a time and a daily cap.
 
+While the long-lived lead agent (harness/PI.md, a /loop session) is alive -- its heartbeat file is
+under 2 h old -- this stands down completely, so two agents never act on the queue at once. If the
+lead stops, the event-driven agents take over again on the next poll.
+
   python3 harness/tick.py CYCLE.json [--dry-run]
 """
 import json
@@ -23,6 +27,8 @@ H = Path(__file__).resolve().parent
 QUEUE = H / "experiments.yaml"
 STATE = H / ".tick_state.json"
 IDLE_EVERY = 6 * 3600
+PI_HEARTBEAT = H / ".pi_heartbeat"
+PI_FRESH = 2 * 3600
 
 
 def load_queue():
@@ -37,6 +43,10 @@ def save_queue(doc, header):
 
 def main():
     dry = "--dry-run" in sys.argv
+    if PI_HEARTBEAT.exists() and time.time() - PI_HEARTBEAT.stat().st_mtime < PI_FRESH:
+        print("lead agent alive (heartbeat %d min old); standing down"
+              % ((time.time() - PI_HEARTBEAT.stat().st_mtime) / 60))
+        return
     cycle = json.loads(Path(sys.argv[1]).read_text())
     doc, header = load_queue()
     exps = doc["experiments"]

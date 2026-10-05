@@ -1,3 +1,4 @@
 .agent.lock
 .tick_state.json
 logs/
+.pi_heartbeat
