@@ -145,6 +145,51 @@ priced at 0.85 won 0.882 ± 0.023), which is why favourites lose less than
 underdogs — but less than the vig, so neither side is a bet. That is what an
 efficient market with a bookmaker's margin looks like.
 
+## Player props: MLB pitcher strikeouts (`scripts/props_backtest.py`)
+
+Why this market first: strikeouts are the most structurally predictable prop
+(rate × batters faced × opponent), there is one per starter (~4,900 a
+season), and a free sample of real historical lines exists — 4,707 2025
+lines from the public [pitcherKModel](https://github.com/Msuresh32/pitcherKModel)
+repo, snapshotted **~4 h before first pitch** (median 3.99 h; 6 post-start
+rows dropped), best price across ~9 US books. Only its line/odds/book/time
+columns are used. Its strikeout counts match our boxscores on all 4,060 rows.
+
+Even best-of-9-books prices carry a **3.9% median overround**; a single book
+is roughly double. Two-sided arbitrage appeared on 1.7% of lines, on 4-hour-old
+snapshots.
+
+Model (`props.py`): NegBin(E[BF] × log5(pitcher K/BF, opponent K/PA, league)),
+inputs from strictly earlier games, shrunk to league; two numbers fitted on
+2021–23. Leakage test verified by planting a leak. Calibrated in 2024.
+
+**Pre-registered result, 2025, flat 1-unit stakes, rule fixed before looking:**
+
+| rule | bets | win | units | ROI | 95% CI (day-block bootstrap) |
+|---|---|---|---|---|---|
+| **model EV ≥ 5%** | 1,970 | 48.9% | **+1.1 u** | +0.06% | [−90, +91] u |
+| always over, main line | 3,089 | 50.1% | −70.1 u | −2.27% | [−167, +29] u |
+| always under, main line | 3,089 | 49.9% | −123.3 u | −3.99% | [−221, −27] u |
+
+Break-even. The market's probabilities beat the model's (log loss 0.6840 vs
+0.6974, CI excludes zero): pitcher K rate, opponent K rate and workload are
+already in the line. **"Bet the unders" is refuted for K props** — it lost
+4% with a CI excluding zero. The threshold sweep's best cell (EV ≥ 15%,
++22.7 u, CI [−42, +87]) is one of seven cuts and is not a finding.
+
+**Residual test (`scripts/props_residual.py`).** The question with money in
+it is whether context predicts what the *market* misses, so the market is an
+offset and features must move the outcome beyond it — walk-forward by month.
+Umpire K tendency, park, temperature, wind, rest, recent pitch counts and the
+model's disagreement with the line add **+0.0010 log loss [−0.0009, +0.0029]**:
+nothing. Betting it: 355 bets, +3.8 u, CI [−34, +44]. One weak lead: the
+umpire coefficient is positive in all five monthly fits (+0.02 to +0.06).
+
+**Why one season cannot settle this either way.** Per-bet profit has a
+standard deviation of ~0.95 units, so confirming a true 2% ROI at two standard
+errors takes (2 × 0.95 / 0.02)² ≈ **9,000 bets — about 4.5 seasons** at this
+volume. The free sample is one season.
+
 ## Honest limits
 
 - **NFL weather is patchy:** temp/wind present for only 38–75% of games by
