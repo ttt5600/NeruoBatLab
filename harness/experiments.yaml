@@ -45,12 +45,21 @@ experiments:
   change: training targets -> AVES layer 6 k=200 on the combined corpus (borrows AVES's representation, not its weights)
   question: Is our teacher or theirs the better source of targets, everything else equal?
   success: call type above run16 with the interval excluding zero; compare against E1 as well
-  script: null
-  status: proposed
+  script: pytorchAudio/examples/hubert/slurm/train_run19_avesteacher.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run19_avesteacher
+  tag: run19_avesteacher
+  num_classes: 200
+  job_name: hubert_run19
+  requires: >-
+    relabel job 39635382 (slurm/relabel_aves_teacher_combined.sh) ended COMPLETED and its log
+    ~/jobs/relabel_aves_teacher_39635382.log contains "PASS: labels written"; the labels are in
+    /global/scratch/users/jonathanswang/temp_files/combined_aves_teacher/data/hubert_6
+  status: approved
   notes: >-
-    slurm/preprocess_aves_teacher.sh and train_aves_teacher.sh exist but target run11's ZF-only corpus
-    on 1 GPU. Needs: labels on the combined corpus (build_teacher handles a 200-class head), and a
-    training script that is train_run16_compute4x.sh with only DATA changed.
+    Teacher aves-base-bio layer 6 (the AVES in every headline comparison; tied for weakest of the six
+    on call type, so a win here is conservative). Relabel script = relabel_iter2_run16.sh with only the
+    teacher checkpoint and output dir changed; training script = train_run18_iter2.sh with only DATA
+    changed. AVES loaded cleanly through build_teacher on the login node (strict, 2026-10-05).
   priority: 3
 - id: E4
   roadmap: T6

@@ -36,6 +36,9 @@ The goal: an encoder that beats AVES on zebra finch call type and transfers to t
      Artifact tool if you have it (url https://claude.ai/artifact/K2NJhuv7hqnZj9FVBbwRo7).
 4. **Submit**: while fewer than `max_concurrent` entries are `submitted`, take the `approved` entry
    with the lowest `priority`:
+   - if it has `requires`, check every condition on Savio first. If one is not met yet, skip the
+     entry this iteration. If one failed (say, a prerequisite job failed its gate), set
+     `needs-human` with the evidence
    - check its script exists and is listed in `pytorchAudio/scp_to_savio.sh` FILES (add it if not)
    - `cd pytorchAudio && sv push`, then `sv train <script relative to examples/hubert>`
    - record `job`, set status `submitted`
