@@ -495,7 +495,7 @@ footer {
         <tr>
           <td class="name">run18 <span style="font-weight:400;color:var(--muted)">(combined-it2)</span></td><td>ZF + FSD 224 h</td><td>random</td><td>it2 run16-L6 k=200</td>
           <td class="num">322</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">&mdash;</td>
-          <td><span class="chip c-run">label gate</span></td>
+          <td><span class="chip c-run">next</span></td>
         </tr>
       </tbody>
     </table>
@@ -533,15 +533,14 @@ footer {
   <div class="phase">
     <div class="tag">T1</div>
     <div>
-      <h4>Fix the relabel frame gap, then train run18 <span class="chip c-run">next</span></h4>
+      <h4>Train run18 on the iteration-2 labels <span class="chip c-run">next</span></h4>
       <p>
-        The iteration-2 labels from run16's layer 6 came out 32 frames short of 40,395,592, and the
-        gate refused them — a misaligned label shifts every later target in its file. Splitting
-        audio into 20-second windows is ruled out (exact for every length). A diagnostic that lists
-        each mismatched file against three independent lengths is ready; then re-run k-means from
-        the features already on disk and let run18 start automatically.
+        The labels from run16's layer 6 are built and correct: all 763 files sit exactly on the
+        audio's frame grid. The first gate refused them because it compared against the spectrogram
+        labels, which carry one extra trailing frame in 32 files where the leftover tail is nearly a
+        full hop (finding 055). run18 is run16's recipe on these labels.
       </p>
-      <div class="meta"><span>~10 min relabel + ~4 h train</span><span>the headline experiment</span></div>
+      <div class="meta"><span>about 5.5 h on 4×L40 if not preempted (run17 took 11 h for twice the batches)</span><span>the headline experiment</span></div>
     </div>
   </div>
 
@@ -553,7 +552,7 @@ footer {
         Every comparison so far is one training run per model; the bootstrap resamples birds, not
         training runs. A second seed says how much of run16's lead — and run17's deficit — is luck.
       </p>
-      <div class="meta"><span>~4 h · 4×L40</span><span>cheap, informative</span></div>
+      <div class="meta"><span>about 5.5 h · 4×L40</span><span>cheap, informative</span></div>
     </div>
   </div>
 
@@ -562,9 +561,10 @@ footer {
     <div>
       <h4>Savio toolkit and one shared data location <span class="chip c-run">in progress</span></h4>
       <p>
-        One command for training, interactive GPU shells, Jupyter on a GPU node, job status and
-        logs; every corpus, label set and checkpoint registered in one place with group access, so
-        anyone in the lab can find and reuse it.
+        Working: <code>lab</code> / <code>sv</code> for training, GPU shells, job status and logs;
+        SSH certificate login (one PIN and code per 12 h); 17 corpora, label sets and checkpoints
+        registered under <code>lab_data/</code> with read and write access for Julie and Bhavna; conda
+        envs moved off the full 50 GB home onto scratch. Left: an end-to-end test of Jupyter on a GPU node.
       </p>
       <div class="meta"><span>savio/README.md</span></div>
     </div>
@@ -603,7 +603,7 @@ footer {
         FSD50K alone, random init, run16's recipe. The control that says whether a corpus with no
         zebra finch in it can match one that has them.
       </p>
-      <div class="meta"><span>~4 h · 4×L40</span></div>
+      <div class="meta"><span>about 5.5 h · 4×L40 (run16's step count)</span></div>
     </div>
   </div>
 

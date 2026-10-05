@@ -1,0 +1,40 @@
+id: '055'
+title: The spectrogram labels carry one extra trailing frame in 32 of 763 files; the iteration-2 labels are on the true grid
+status: confirmed
+claim: >-
+  The iteration-2 labels from run16's layer 6 (k=200) failed their original gate by 32 frames
+  against the old spectrogram labels' 40,395,592, but the old labels were the wrong reference: every
+  one of the 763 new label files has exactly floor((T - 400) / 320) + 1 frames for its real audio
+  length T, while 32 old spectrogram files carry one extra frame at the END, exactly where the
+  leftover tail is nearly a full hop. The new labels are correct and run18 can train on them.
+evidence: >-
+  Corrected gate on the combined corpus (763 files, 224.42 h): new labels on the audio grid for 763
+  of 763, no problems; old labels with one extra trailing frame: 32, tail remainders (T - 400) mod
+  320 = 305..319 of 320 -- never anywhere else; every other old file matches the grid exactly.
+  New vocabulary 200 clusters, 0 empty, largest cluster 1.041% of frames, perplexity 194.6.
+  New-to-old majority purity 0.370 (1.0 would be the same partition), so the iteration-2 targets
+  are a genuinely different labelling, not a relabelled copy of iteration 1.
+method: >-
+  slurm/relabel_iter2_run16.sh (job 39398287): run16 layer-6 features on raw waveform in 20 s
+  windows, k-means k=200 on a 1M-frame subsample (gpu backend, batch 8192), labels written to
+  combined_zf_fsd/data/hubert_6. Its gate demanded identical per-file lengths to the spectrogram
+  labels and failed. A diagnostic compared each mismatched file against three independent lengths
+  (soundfile frames, the closed-form conv grid, the spectrogram label count); then gate2.py checked
+  every file against the closed form and allowed the old labels only a 0- or 1-frame surplus. The
+  relabel script's gate now does exactly this (pytorchAudio 42fb8f4f).
+provenance: >-
+  Job 39398287 log on Savio (~/jobs); gate2.py run on the Savio login node 2026-10-04 (output in
+  this session's transcript); labels and km_model in
+  /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/hubert_6.
+caveats: >-
+  The extra frame comes from soundsig rounding the last partial window up. Labels and audio are
+  aligned from the start of each file, so the surplus frame sits past the last real window and never
+  shifted an earlier target: run15-17 trained correctly on the spectrogram labels. The lesson is about
+  gates: compare labels to the audio's own frame grid, not to another label set that may carry its
+  own off-by-one. Purity comes from the fixed relabel gate's own code, run on the real labels.
+tags:
+- labels
+- iteration-2
+- pipeline
+- data-integrity
+date: '2026-10-04'

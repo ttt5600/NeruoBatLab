@@ -1,11 +1,11 @@
 # Findings index
 
-Generated 2026-09-26 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
+Generated 2026-10-04 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
 
-54 findings.
+55 findings.
 
 
-## CONFIRMED (47)
+## CONFIRMED (48)
 
 ### [001] The corpus is the public Elie and Theunissen release  ·  **CONFIRMED**
 
@@ -572,6 +572,18 @@ run17 -- run16 with --accumulate-grad-batches 2, so 644.5 s of audio per update 
 **Caveats.** One training seed per run: the bootstrap resamples birds, not pretraining runs, so part of the run16-run17 gap could be seed luck -- including run16 having been a lucky draw. The best-layer difference is within noise; the layer-3 one is barely outside it; the consistent sign across all 12 layers is the strongest evidence. The training loss is on TRAINING data -- there is no held-out pretraining loss -- so "fits the targets better" cannot be separated from "memorises the corpus better": run17 made 74.8 passes over the 224 h corpus against run16's 37.4. Nor can this experiment say WHY more compute stopped helping. Three untested explanations: (a) the iteration-1 spectrogram k-means targets carry no more call-type information than run16 already extracted -- AVES paired its compute with iteration-2 targets from a trained model's layer 6; (b) repetition/overfitting of a fixed corpus; (c) lr 1e-4 left unscaled for a 2x larger batch (though lower training loss argues against under-optimisation). The BirdPark 0.6252 is NOT evidence that run17 is broken; it is the pre-commit rule picking raw-waveform shallow layers on a 0.0017 ZF margin, now 26 of 26 models where matched normalisation transfers better on BirdPark at the pre-committed layer (049). Practical rule for new recordings, bats included: level-normalise the input.
 
 **Provenance.** analysis/run17_accum2_calltype.json, analysis/run17_accum2_bootstrap.json, analysis/run15_compute.json (run17 measured), analysis/detection_variants.json, analysis/chick_holdout_variants.json; weights external/dapt/run17_accum2.pt; metrics savio_artifacts/metrics/run17/; log savio_artifacts/logs/train_run17_accum2_39268321.log
+
+### [055] The spectrogram labels carry one extra trailing frame in 32 of 763 files; the iteration-2 labels are on the true grid  ·  **CONFIRMED**
+
+The iteration-2 labels from run16's layer 6 (k=200) failed their original gate by 32 frames against the old spectrogram labels' 40,395,592, but the old labels were the wrong reference: every one of the 763 new label files has exactly floor((T - 400) / 320) + 1 frames for its real audio length T, while 32 old spectrogram files carry one extra frame at the END, exactly where the leftover tail is nearly a full hop. The new labels are correct and run18 can train on them.
+
+**Evidence.** Corrected gate on the combined corpus (763 files, 224.42 h): new labels on the audio grid for 763 of 763, no problems; old labels with one extra trailing frame: 32, tail remainders (T - 400) mod 320 = 305..319 of 320 -- never anywhere else; every other old file matches the grid exactly. New vocabulary 200 clusters, 0 empty, largest cluster 1.041% of frames, perplexity 194.6. New-to-old majority purity 0.370 (1.0 would be the same partition), so the iteration-2 targets are a genuinely different labelling, not a relabelled copy of iteration 1.
+
+**Method.** slurm/relabel_iter2_run16.sh (job 39398287): run16 layer-6 features on raw waveform in 20 s windows, k-means k=200 on a 1M-frame subsample (gpu backend, batch 8192), labels written to combined_zf_fsd/data/hubert_6. Its gate demanded identical per-file lengths to the spectrogram labels and failed. A diagnostic compared each mismatched file against three independent lengths (soundfile frames, the closed-form conv grid, the spectrogram label count); then gate2.py checked every file against the closed form and allowed the old labels only a 0- or 1-frame surplus. The relabel script's gate now does exactly this (pytorchAudio 42fb8f4f).
+
+**Caveats.** The extra frame comes from soundsig rounding the last partial window up. Labels and audio are aligned from the start of each file, so the surplus frame sits past the last real window and never shifted an earlier target: run15-17 trained correctly on the spectrogram labels. The lesson is about gates: compare labels to the audio's own frame grid, not to another label set that may carry its own off-by-one. Purity comes from the fixed relabel gate's own code, run on the real labels.
+
+**Provenance.** Job 39398287 log on Savio (~/jobs); gate2.py run on the Savio login node 2026-10-04 (output in this session's transcript); labels and km_model in /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/hubert_6.
 
 
 ## REFUTED (4)
