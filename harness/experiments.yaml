@@ -159,10 +159,14 @@ experiments:
     run-to-run variation (057).
   script: pytorchAudio/examples/hubert/slurm/train_dapt_replay3.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv2_replay_5e5_x3
-  tag: daptreplay3_5e5
+  tag: daptreplay3_5e5_step15000
   num_classes: 100
   job_name: dapt_replay3
-  status: submitted
+  status: trained
+  trained_note: >-
+    Job 39671592 COMPLETED 0:0 in 00:40:33 (11:58-12:39 Oct 6); epoch=1-step=15000.ckpt present; log
+    confirms arm replay, lr 5e-5, aves-base-bio init (210 tensors), data mix_zf_fsd50k3. Scored as
+    daptreplay3_5e5_step15000 to mirror the x1 tag.
   job: 39671592
   priority: 6
   notes: >-
@@ -179,3 +183,29 @@ experiments:
     (verified 2026-10-06: --check reproduces detection_variants' vs-run11 intervals exactly for two
     models). NOTE for scoring: check that score_run.sh can score a DAPT run (it was written
     for from-scratch runs; DAPT checkpoints were scored by export_dapt_checkpoints.sh).
+- id: E7
+  roadmap: T2
+  title: run16, third seed
+  baseline: run16_compute4x and run16_seed2
+  change: --seed 3 (otherwise train_run16_seed2.sh)
+  question: With three runs of one recipe, how far apart do run16-recipe call-type scores land, and is seed 2 or run16 the outlier?
+  success: none -- measures run-to-run spread. Report all three best-layer scores and the pairwise bird-bootstrap intervals; no variance estimate from n=3 beyond the range.
+  script: null
+  status: needs-human
+  priority: 7
+  notes: >-
+    Proposed 2026-10-06 by the lead agent from finding 057 (seed 2 resolved 0.0155 below run16). Not
+    self-approved: whether to spend lowprio time on seeds instead of new recipes is the user's call
+    (digest 2026-10-06 "needs you"). Script would be train_run16_seed2.sh with --seed 3 and paths.
+- id: E8
+  roadmap: T5
+  title: run19 (AVES teacher), second seed
+  baseline: run19_avesteacher
+  change: --seed 2 (otherwise train_run19_avesteacher.sh)
+  question: Does run19's best-point-estimate call type (0.8464, finding 059) survive a second seed?
+  success: both run19 seeds above both run16 seeds at the best layer would make "AVES targets help" worth a powered test; anything else, report the range
+  script: null
+  status: needs-human
+  priority: 8
+  notes: >-
+    Proposed 2026-10-06 from findings 057 and 059. Same reason as E7 for not self-approving.
