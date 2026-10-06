@@ -37,7 +37,9 @@ experiments:
   tag: run16_seed2
   num_classes: 200
   job_name: hubert_run16s2
-  status: trained
+  status: done
+  finding: '057'
+  result: '|seed2 - run16| = 0.0155 [0.0017, 0.0289] on call type (0.8224 vs 0.8379), resolved; below at 12/12 layers'
   job: 39635284
   priority: 2
   notes: 'Trained: preempted once (05:11-09:23 Oct 5, 04:11:54), requeued and resumed from last.ckpt (20:38-23:23,
