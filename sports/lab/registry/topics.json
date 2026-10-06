@@ -25,8 +25,9 @@
  },
  {
   "id": "T05",
-  "status": "pending",
-  "topic": "NBA: rest/back-to-backs, travel and altitude, injury news latency, minutes projections, pace, referee assignments, and line-movement timing"
+  "status": "done",
+  "topic": "NBA: rest/back-to-backs, travel and altitude, injury news latency, minutes projections, pace, referee assignments, and line-movement timing",
+  "summary": "Found 9 distinct NBA mechanisms across rest, travel/altitude, referee bias, injury latency, totals, and pace; all untestable now (no NBA dataset exists); strongest verified finding is a clean refute-on-replication pair for the high-totals under bias, and a direct peer-reviewed rebuttal of the refere"
  },
  {
   "id": "T06",
@@ -35,8 +36,9 @@
  },
  {
   "id": "T07",
-  "status": "pending",
-  "topic": "Closing line value (CLV) as the measure of skill; opening-vs-closing line efficiency; how and when lines move; steam and reverse line movement evidence"
+  "status": "done",
+  "topic": "Closing line value (CLV) as the measure of skill; opening-vs-closing line efficiency; how and when lines move; steam and reverse line movement evidence",
+  "summary": "9 entries; CLV, steam and RLM all need >=2 timestamped prices per game, so untestable on closing-only data. Agent caught and dropped one search-tool hallucination."
  },
  {
   "id": "T08",
