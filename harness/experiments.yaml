@@ -97,7 +97,7 @@ experiments:
     with tsv/, label/label_train.pt and km_model symlink; its log ends in [done]. MET 2026-10-05 21:01:
     built on the login node (savio3 rejects savio_lowprio, and savio_normal would spend allocation), log
     ~/jobs/build_fsd_only_login_20261005-2101.log; 19,510,529 frames, vocabulary 200, audio precheck OK'
-  status: submitted
+  status: trained
   priority: 4
   notes: 'Scripts built and checked 2026-10-05 by the lead agent. Savio dry run: keeps fsd50k_dev (478
     files, 80.61 h) + replay_fsd50k (165, 27.79 h), drops run5-4-26-full (120, 116.03 h); 643/763 files,
@@ -113,6 +113,7 @@ experiments:
     colony audio", not "no bird". Submitted 2026-10-06 01:23 by the lead agent (code 6b0456488f); watcher
     key hubert_run20; datasets.tsv row run20_fsdonly, linked + shared (ACLs verified).'
   job: 39661997
+  trained_note: COMPLETED 0:0 in 05:52:09 (ended 2026-10-06 11:40), final epoch=77-step=93750.ckpt
 - id: E6
   roadmap: T6
   title: zebra finch only, the twin of E4
@@ -157,7 +158,8 @@ experiments:
   tag: daptreplay3_5e5
   num_classes: 100
   job_name: dapt_replay3
-  status: approved
+  status: submitted
+  job: 39671592
   priority: 6
   notes: >-
     Built 2026-10-06 by the lead agent. Script = train_dapt_v2.sh with only the REPLAY_REPEAT default,
