@@ -54,3 +54,16 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
   Build it before E5 finishes.
 - 07:40 resolved: zfeval/experiments/paired_vs.py built; --check reproduces the stored vs-run11
   records bit-exactly (daptreplay_5e5_step15000, run19_avesteacher). E5 condition (1) uses it.
+
+## 2026-10-06 12:05 — SECOND collision with usage-watch auto-resume (PID 12139, started 11:52)
+- Both agents submitted E5 at 11:57:48: 39671591 (lead) and 39671592 (auto-resume). Cancelled
+  39671591 while PENDING so the auto-resume agent's bookkeeping (it was mid-way through linking the
+  _x3 exp dir) stays correct. 39671592 is THE E5 job.
+- The lead stood down for this cycle; run20 (E4) is trained (COMPLETED 11:40, step 93750) and NOT
+  yet scored by the lead -- check next wake whether the other agent scored it before starting.
+- Needs you (again, now urgent): this is the 2nd duplicate submission. Undesignate this project
+  from usage-watch auto-resume while the /loop lead runs.
+- 12:44: auto-resume agent exited; it recorded E5 = 39671592 (correct) and E4 trained, but both of
+  its run20 scoring attempts were killed mid-way (11:59 at export, 12:10 at encode 1500/3412). The
+  lead re-runs score_run.sh run20_fsdonly. Pattern: the auto-resume agent's long background jobs
+  die with it, so it should never start scoring.
