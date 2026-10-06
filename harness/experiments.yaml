@@ -62,8 +62,10 @@ experiments:
   job_name: hubert_run19
   requires: 'relabel job 39635382 (slurm/relabel_aves_teacher_combined.sh) ended COMPLETED and its log
     ~/jobs/relabel_aves_teacher_39635382.log contains "PASS: labels written"; the labels are in /global/scratch/users/jonathanswang/temp_files/combined_aves_teacher/data/hubert_6'
-  status: trained
+  status: done
   job: 39656780
+  finding: '059'
+  result: not met -- call type 0.8464 (L4) vs run16 0.8379, +0.0085 [-0.0127, +0.0293]; vs run18 +0.0114 [-0.0125, +0.0371]; not distinguishable
   trained_note: COMPLETED 0:0 in 06:23:23 (ended 2026-10-06 05:47), final epoch=37-step=93750.ckpt; scoring started 06:07
   notes: 'Submitted 2026-10-05 by the lead agent (code 6b0456488f) after checking requires: relabel 39635382
     COMPLETED 0:0 (23:35), log has "PASS: labels written", hubert_6/label/label_train.pt present. Watcher

@@ -24,7 +24,11 @@ R15 = json.loads((A / "run15_calltype.json").read_text())
 R16 = json.loads((A / "run16_compute4x_calltype.json").read_text())
 import argparse
 _ap = argparse.ArgumentParser(); _ap.add_argument("--tag", default="run16_compute4x")
-TAG = _ap.parse_args().tag
+# --also: extra exports to compare against, each at its own best 11-class layer. Same splits, same
+# bird resamples (idx depends only on the birds), so every existing comparison is unchanged.
+_ap.add_argument("--also", default="")
+_args = _ap.parse_args(); TAG = _args.tag
+ALSO = [t for t in _args.also.split(",") if t]
 RT = json.loads((A / f"{TAG}_calltype.json").read_text())
 rows = [r for r in collect() if r[3] in KEEP11]
 birds = np.array([r[1].lower() for r in rows])
@@ -36,6 +40,8 @@ LAYER = {m: VAR["models"][m]["best_11"]["layer"] for m in VAR["models"]}
 LAYER["run15_combined"] = R15["best_layer11"]
 LAYER["run16_compute4x"] = R16["best_layer11"]
 LAYER[TAG] = RT["best_layer11"]
+for _t in ALSO:
+    LAYER[_t] = json.loads((A / f"{_t}_calltype.json").read_text())["best_layer11"]
 
 
 def per_clip(name, layer):
@@ -59,7 +65,7 @@ out = {"note": f"delta = {TAG} minus the named model (OBSERVED difference); pair
        "layers": {**LAYER, f"{TAG}@L3": 3},
        "acc": {m: float(ok.mean()) for m, ok in R.items()}, "vs": {}}
 others = ["run11", "run15_combined"] + (["run16_compute4x"] if TAG != "run16_compute4x" else []) \
-         + [m for m in VAR["models"] if m != "run11"]
+         + [m for m in VAR["models"] if m != "run11"] + [t for t in ALSO if t != TAG]
 for base in [TAG, f"{TAG}@L3"]:
     out["vs"][base] = {}
     print(f"\n{base}  acc {R[base].mean():.4f}")

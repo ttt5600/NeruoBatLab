@@ -1,0 +1,72 @@
+id: '059'
+title: AVES as label teacher at run16's compute is not distinguishable from run16 on call type
+status: confirmed
+claim: >-
+  run19 -- run18's recipe with the targets taken from AVES (aves-base-bio layer 6, k=200) instead of
+  run16 layer 6 -- scores 0.8464 on 11-class call type at its best layer (L4) against run16's 0.8379
+  (L7): observed +0.0085, bird-bootstrap [-0.0127, +0.0293], not distinguishable. E3's
+  pre-registered success (above run16 with the interval excluding zero) is NOT met. At layer 3 the
+  two are level (0.8359 vs run16's L3 0.8362; vs run16's best, -0.0021 [-0.0218, +0.0190]). Against
+  its own teacher aves-base-bio: +0.0012 [-0.0173, +0.0207]. E3's question -- is our teacher or
+  theirs the better source of targets -- is answered "not distinguishable": run19 minus run18 (E1)
+  +0.0114 [-0.0125, +0.0371] at each one's best layer, +0.0009 [-0.0215, +0.0246] at run19's L3.
+evidence: >-
+  Cohort 3412 clips / 11 call types / 48 birds. Per-layer 11-class, run19 L0-L11: 0.8417 0.8400
+  0.8391 0.8359 0.8464 0.8435 0.8406 0.8359 0.8338 0.8306 0.8315 0.8280 (mean 0.8372; run16 mean
+  0.8309); above run16 at 10 of 12 layers. 8-class: best L2 0.8262 vs run16 L1 0.8276, means
+  0.8214 vs 0.8225, above at 5 of 12 layers; no 8-class bootstrap was run. Above run16 seed 2 (057) at 12 of
+  12 layers on both 11- and 8-class (best 0.8464 vs 0.8224, +0.0240 [-0.0028, +0.0513], not
+  distinguishable); above run18 (056) at 11 of 12 11-class layers (best 0.8464 vs 0.8350) and 7 of
+  12 8-class layers. Against run11 +0.0346 [+0.0088, +0.0613] and run15 +0.0328 [+0.0102, +0.0547],
+  resolved. Against the six AVES/BirdAVES checkpoints (birdaves-bioxn-large included) at the best layer -0.0088 to +0.0012, all not
+  distinguishable; at layer 3, resolved behind birdaves-biox-base (-0.0161 [-0.0281, -0.0013]) and
+  birdaves-biox-large (-0.0193 [-0.0347, -0.0017]). Detection, pre-committed arm matched L1 (ZF
+  0.9717 vs native L1 0.9715, a 0.0002 margin): ZF in-distribution AUC 0.9717 vs run11 0.9687,
+  observed +0.0030 [+0.0016, +0.0051]; BirdPark AUC 0.8800 vs 0.8648, observed +0.0152
+  [-0.0112, +0.0388], AP 0.8115 vs 0.8121, observed -0.0006 [-0.0333, +0.0205], both not
+  distinguishable; ahead on AUC in 3 of 4 1500-frame blocks and 8 of 12 500-frame blocks; BirdPark
+  AUC over 12 layer/normalisation variants 0.7806-0.9103, median 0.8923 (run16 0.7271-0.8809,
+  median 0.8493; aves-base-bio 0.7884-0.9025); BirdPark AP over the same variants 0.6423-0.8671,
+  median 0.8480 (run16 0.6949-0.8203, median 0.7864; aves-base-bio 0.7354-0.8390, median 0.8115).
+  run19's pre-committed arm (AUC 0.8800) sits below its own 12-variant AUC median. Chick Be/LT AUC 0.9921 vs run11 0.9858, observed +0.0063 [-0.0045, +0.0224];
+  AMI(k=4) 0.4433 vs 0.5361, observed -0.0928 [-0.1621, +0.1615]; neither distinguishable.
+method: >-
+  slurm/train_run19_avesteacher.sh = train_run18_iter2.sh with only DATA (combined_aves_teacher/
+  data/hubert_6), EXP, job name, log and header changed; labels from relabel job 39635382 (PASS:
+  labels written). Same 224 h corpus, 93,750 updates, 4 GPUs, lr 1e-4, random init. Job 39656780
+  COMPLETED 0:0 in 06:23:23 with no preemption, final epoch=37-step=93750.ckpt. Export bit-identical
+  (max|diff| 0 on three clips). Scored by harness/score_run.sh on 2026-10-06; log
+  harness/logs/score_run19_avesteacher_20261006-060715.log.
+provenance: >-
+  analysis/run19_avesteacher_calltype.json (per_layer_acc11, acc11, per_layer_acc8, acc8);
+  analysis/run19_avesteacher_bootstrap.json (vs.run19_avesteacher.*, vs.run19_avesteacher@L3.*,
+  incl. run18_iter2 and run16_seed2 added by --also; delta is OBSERVED); analysis/run16_compute4x_calltype.json, run16_seed2_calltype.json,
+  run18_iter2_calltype.json (per-layer comparisons); analysis/detection_variants.json
+  (precommit.run19_avesteacher, precommit.run11, zf_to_bp.*, bootstrap.run19_avesteacher -- its
+  delta is the resample mean; observed differences above are from precommit);
+  analysis/chick_holdout_variants.json (precommit.run19_avesteacher, precommit.run11,
+  bootstrap.run19_avesteacher_vs_run11 -- resample-mean delta; observed values computed from
+  precommit).
+caveats: >-
+  One run, never preempted, while run16 was preempted and resumed twice -- and 057 attributes
+  run-to-run gaps to seed PLUS preemption history; 057 shows two runs of run16's recipe differ by a resolved 0.0155 on call type, so
+  run19's +0.0085 over run16 is well inside what run-to-run variation alone produced there.
+  run19's best layer was chosen on the reported metric for every model alike; the layer-3 check
+  puts it level with run16. It answers E3 as "not distinguishable" both against run16 and against E1 (run18). The teacher was aves-base-bio, the AVES checkpoint the headline comparisons
+  use; a different teacher was not tested. The labels were built on the 224 h combined corpus with
+  AVES's layer 6, so the run borrows AVES's representation through its targets, not its weights.
+  The BirdPark pre-committed arm was picked on a 0.0002 ZF margin (046's selection-lottery
+  problem). What would sharpen "our teacher vs theirs": a second seed of each. The relabel PASS line and the 06:23:23 elapsed time come from the job
+  log and sacct as recorded in experiments.yaml; the relabel log is not archived in savio_artifacts.
+  Critic (fresh subagent, CRITIC.md, 2026-10-06): ACCEPT-WITH-CHANGES; all numbers verified, the
+  relabel scripts differ only in teacher checkpoint and output dir (no input-normalisation
+  confound); applied: E3 marked unanswered, preemption-history confound, BirdPark AP spread and
+  medians. After the critic, at its request, the run19-vs-run18 and vs-seed-2 bootstraps were run
+  (run16_calltype_bootstrap.py --also; every previously written value reproduced bit-identically).
+tags:
+- targets
+- teacher
+- aves
+- calltype
+- negative-result
+date: '2026-10-06'
