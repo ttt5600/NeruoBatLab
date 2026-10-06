@@ -12,13 +12,14 @@ never look alike in the queue the backtest agents read from.
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 LAB = Path(__file__).resolve().parent
-REG = LAB / "registry" / "strategies.jsonl"
+REG = Path(os.environ["LAB_REGISTRY"]) if os.environ.get("LAB_REGISTRY") else LAB / "registry" / "strategies.jsonl"
 TOPICS = LAB / "registry" / "topics.json"
 
 SPORTS = {"nfl", "nba", "mlb", "nhl", "ncaaf", "ncaab", "soccer", "tennis", "multi", "other"}
@@ -82,6 +83,19 @@ def add(raw: str) -> int:
     return 0
 
 
+def merge(path: str) -> int:
+    """Re-add entries written elsewhere (a cloud agent's file) through the same
+    validation and dedupe. Their ids are discarded and reassigned here."""
+    counts = {0: 0, 1: 0, 2: 0}
+    for line in Path(path).read_text().splitlines():
+        if line.strip():
+            e = json.loads(line)
+            e.pop("id", None), e.pop("added", None)
+            counts[add(json.dumps(e))] += 1
+    print(f"merged {path}: {counts[0]} added, {counts[2]} duplicates, {counts[1]} rejected")
+    return 0
+
+
 def cmd_list(argv: list[str]) -> int:
     rows = _rows(REG)
     if "--testable" in argv:
@@ -127,6 +141,8 @@ def main(argv: list[str]) -> int:
     cmd, rest = argv[0], argv[1:]
     if cmd == "add" and rest:
         return add(rest[0])
+    if cmd == "merge" and rest:
+        return merge(rest[0])
     if cmd == "list":
         return cmd_list(rest)
     if cmd == "topics":

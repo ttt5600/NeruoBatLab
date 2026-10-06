@@ -176,12 +176,19 @@ def load(name: str, split: str) -> pd.DataFrame:
     """split = "dev" | "lockbox". Cached per dataset after the first build."""
     if name not in SPLITS:
         raise KeyError(f"unknown dataset {name!r}; have {sorted(SPLITS)}")
-    CACHE.mkdir(parents=True, exist_ok=True)
     p = CACHE / f"{name}.parquet"
+    devonly = Path(__file__).resolve().parent / "devdata" / f"{name}.parquet"
+    col, dev, lock = SPLITS[name]
+    if not p.exists() and devonly.exists():
+        # A machine with only the committed dev export (e.g. a cloud agent).
+        # The lockbox is not in it, by construction.
+        if split != "dev":
+            raise FileNotFoundError("lockbox data is not available on this machine")
+        return pd.read_parquet(devonly)
+    CACHE.mkdir(parents=True, exist_ok=True)
     if not p.exists():
         build(name).to_parquet(p, index=False)
     df = pd.read_parquet(p)
-    col, dev, lock = SPLITS[name]
     folds = dev if split == "dev" else lock if split == "lockbox" else None
     if folds is None:
         raise ValueError(split)

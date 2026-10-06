@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -30,7 +31,7 @@ import pandas as pd
 from lab import datasets as D
 from lab import sandbox as S
 
-LEDGER = LAB / "ledger.jsonl"
+LEDGER = Path(os.environ["LAB_LEDGER"]) if os.environ.get("LAB_LEDGER") else LAB / "ledger.jsonl"
 LOCKBOX_LOG = LAB / "lockbox.jsonl"
 
 
@@ -141,6 +142,37 @@ def cmd_ledger(args) -> int:
     return 0
 
 
+def cmd_merge_ledger(args) -> int:
+    """Append another ledger's trials (e.g. a cloud agent's) as origin=cloud.
+    They count toward the promotion bar: the agent saw those results."""
+    have = {(r["ts"], r["sha"]) for r in (json.loads(l) for l in LEDGER.read_text().splitlines() if l.strip())} \
+        if LEDGER.exists() else set()
+    n = 0
+    with LEDGER.open("a") as f:
+        for line in Path(args.file).read_text().splitlines():
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            if (r["ts"], r["sha"]) in have:
+                continue
+            r["origin"] = args.origin
+            f.write(json.dumps(r) + "\n")
+            n += 1
+    print(f"merged {n} trials from {args.file}")
+    return 0
+
+
+def cmd_export_dev(args) -> int:
+    """Write DEV rows only to lab/devdata/ -- what cloud agents get. No lockbox."""
+    out = LAB / "devdata"
+    out.mkdir(exist_ok=True)
+    for name in D.SPLITS:
+        df = D.load(name, "dev")
+        df.to_parquet(out / f"{name}.parquet", index=False)
+        print(f"{name}: {len(df)} dev rows -> devdata/{name}.parquet")
+    return 0
+
+
 def cmd_schema(args) -> int:
     print(json.dumps(D.schema(args.dataset), indent=1))
     return 0
@@ -185,6 +217,9 @@ def main() -> int:
     a = sub.add_parser("ledger"); a.add_argument("--dataset"); a.add_argument("--tail", type=int, default=40)
     a.set_defaults(fn=cmd_ledger)
     a = sub.add_parser("schema"); a.add_argument("dataset"); a.set_defaults(fn=cmd_schema)
+    a = sub.add_parser("merge-ledger"); a.add_argument("file"); a.add_argument("--origin", default="cloud")
+    a.set_defaults(fn=cmd_merge_ledger)
+    a = sub.add_parser("export-dev"); a.set_defaults(fn=cmd_export_dev)
     a = sub.add_parser("promote"); a.add_argument("strategy"); a.add_argument("--confirm-lockbox", action="store_true")
     a.set_defaults(fn=cmd_promote)
     args = ap.parse_args()
