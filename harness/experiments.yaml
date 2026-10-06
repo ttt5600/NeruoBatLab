@@ -68,9 +68,20 @@ experiments:
   change: corpus -> the FSD50K rows of the combined corpus only, same k=200 vocabulary and labels
   question: Can a corpus with no zebra finch in it match one that has them?
   success: none -- a control. Report the call-type gap to run16 with its interval
-  script: null
+  script: pytorchAudio/examples/hubert/slurm/train_run20_fsdonly.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run20_fsdonly
+  tag: run20_fsdonly
+  num_classes: 200
+  job_name: hubert_run20
   status: proposed
-  notes: Needs a subset TSV + label file (filter the combined corpus rows; no new k-means).
+  notes: >-
+    Scripts built 2026-10-05 by the lead agent, Savio not yet checked (cert expired). Data:
+    slurm/build_fsd_only_corpus.sh -> scripts/subset_corpus.py filters combined_zf_fsd rows by
+    path prefix (default replay_fsd50k/ fsd50k_dev/, UNVERIFIED against the real TSV) with the
+    same label tensors; km_model symlinked. Training script = train_run16_compute4x.sh with only
+    job name, log, DATA, EXP and a header comment changed. Open risk: the train precheck needs
+    max(label)+1 == 200; if the FSD rows lose the top cluster id the precheck fails -- the dry
+    run prints the realised vocabulary. Before approval: DRY=1 on login, import check, critic.
   priority: 4
 - id: E5
   roadmap: T8
