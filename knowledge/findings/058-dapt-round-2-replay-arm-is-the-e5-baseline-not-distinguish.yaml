@@ -1,0 +1,49 @@
+id: '058'
+title: DAPT round 2 -- the replay arm recovers round 1's BirdPark loss on point estimate, but not distinguishably from run11
+status: confirmed
+claim: >-
+  DAPT from AVES with 19% FSD50K replay (daptreplay_5e5, step 15000, lr 5e-5, REPLAY_REPEAT 1) at
+  its pre-committed arm (native L6) scores BirdPark AP 0.8318 against round 1's no-replay
+  dapt5e5_step15000 at 0.6942 (same lr, steps and arm; no paired interval was computed for this
+  contrast) and against run11's 0.8121: observed +0.0196, block bootstrap [-0.0166, +0.0709] at
+  1500-frame blocks, not distinguishable, ahead on AUC in 3 of 4 blocks. In-distribution ZF AUC 0.9711 vs
+  run11 0.9687, observed +0.0024 [+0.0012, +0.0053], resolved. This is the x1 baseline for E5.
+evidence: >-
+  Pre-committed arm native L6 for every DAPT checkpoint. BirdPark AP over all 12 layer/
+  normalisation variants: replay 0.7419-0.8543 (median 0.8354); round-1 dapt5e5_step15000
+  0.6246-0.8447 (median 0.7685); run11 0.6517-0.8121 (median 0.7158); aves-base-bio 0.7354-0.8390
+  (median 0.8115). The arm spreads of replay and round 1 overlap, so the +0.1376 pre-committed gap
+  rests partly on the arm the rule picked. BirdPark AUC 0.8884 vs run11 0.8648, observed +0.0237
+  [-0.0116, +0.0727]; at 500-frame blocks AP [-0.0088, +0.0582], ahead on AUC in 7 of 12 blocks. The other
+  round-2 arms at the same pre-committed arm, no paired intervals computed: freeze (CNN frozen)
+  BirdPark AP 0.8052, ZF AUC 0.9700; lr 1e-5 0.8047, 0.9685; short (2500 steps) 0.7912, 0.9684.
+  All four round-2 arms sit above round 1's 0.6942 at the pre-committed arm; replay is highest.
+method: >-
+  slurm/train_dapt_v2.sh replay (REPLAY_REPEAT 1; mix_zf_fsd50k1 = run11 corpus 116.03 h + 27.79 h
+  FSD50K labelled with run11's own k-means, ~19% of the stream), init aves-base-bio, 15,000 updates,
+  1 L40. Scored by zfeval/experiments/detection_variants.py: layer and normalisation pre-committed
+  on ZF in-distribution AUC, then BirdPark read once; paired block bootstrap against run11 matched
+  L0. Written 2026-10-06 from the existing JSON (no new scoring) so E5 has a recorded baseline.
+provenance: >-
+  analysis/detection_variants.json: precommit.daptreplay_5e5_step15000.joint,
+  precommit.dapt5e5_step15000.joint, precommit.run11.joint, precommit.daptfreeze_5e5_step15000,
+  precommit.daptlr_1e5_step15000, precommit.daptshort_5e5_step2500, zf_to_bp.* (arm spreads),
+  bootstrap.daptreplay_5e5_step15000 (bp_*_block1500/500 intervals, bp_blockwise_* win counts; its
+  `delta` is the resample mean, so observed differences above are computed from precommit).
+caveats: >-
+  One run per arm, and 057 shows two runs of one recipe can differ by a resolved margin on call type
+  (their pre-committed BirdPark AUCs differed by only 0.0077, but their 12-arm spreads differ by
+  ~0.1 at the low end), so the round-1 vs round-2 point gap is not a measured effect of replay.
+  BirdPark is ~4 independent 30 s blocks (046/047). Every round-2 arm improved over round 1 at the
+  pre-committed arm, which is also what a round-1 run that happened to land on a bad arm would look
+  like. This finding records numbers that were only on the roadmap; it does not establish that
+  replay is a mechanism -- that is E5's question, and E5 is pre-registered to say "not resolvable at
+  ~0.05 AP" unless its stricter criterion holds. Critic (fresh subagent, CRITIC.md, 2026-10-06):
+  ACCEPT-WITH-CHANGES; applied: true 12-arm medians (were the 7th of 12), two roundings, block wins
+  labelled as AUC wins (detection_variants.py:444 counts roc_auc per block).
+tags:
+- dapt
+- replay
+- birdpark
+- holdout
+date: '2026-10-06'
