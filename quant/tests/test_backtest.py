@@ -311,3 +311,72 @@ def test_cache_is_not_poisoned_by_an_earlier_narrower_request(tmp_path, monkeypa
     assert len(calls) == 2, "a narrow cached window must trigger a refetch"
     assert again.index[0] < pd.Timestamp("2008-01-01")
     assert real is not None
+
+
+# --------------------------------------------------------------------------
+# 5. regression: the cache must also go stale FORWARD
+# --------------------------------------------------------------------------
+def _fake_feed(monkeypatch, tmp_path, last_bar):
+    """A feed whose newest row is ``last_bar[0]`` (mutable, to advance time)."""
+    from quant import data as D
+
+    monkeypatch.setattr(D, "CACHE", tmp_path)
+    calls = []
+
+    def feed(sym, start, end, **kw):
+        calls.append(sym)
+        idx = pd.bdate_range("2026-01-02", last_bar[0])
+        return pd.Series(np.linspace(100, 110, len(idx)), index=idx, name=sym)
+
+    monkeypatch.setattr(D, "_fetch_one", feed)
+    return D, calls
+
+
+def test_cache_refreshes_when_a_new_session_settles(tmp_path, monkeypatch):
+    """Shipped as a live bug: staleness only checked the START of the window, so
+    the cache served 2026-09-11 forever and the paper journal froze without an
+    error. Every daily step reported "already processed"."""
+    last = [pd.Timestamp("2026-09-11")]
+    D, calls = _fake_feed(monkeypatch, tmp_path, last)
+
+    a = D.load_prices(["FAKE"], "2026-01-01", now=pd.Timestamp("2026-09-11 18:00"))
+    assert a.index[-1] == pd.Timestamp("2026-09-11") and len(calls) == 1
+
+    D.load_prices(["FAKE"], "2026-01-01", now=pd.Timestamp("2026-09-11 20:00"))
+    assert len(calls) == 1, "nothing new has settled; must not refetch"
+
+    last[0] = pd.Timestamp("2026-10-05")
+    b = D.load_prices(["FAKE"], "2026-01-01", now=pd.Timestamp("2026-10-05 18:00"))
+    assert len(calls) == 2
+    assert b.index[-1] == pd.Timestamp("2026-10-05")
+
+
+def test_a_holiday_does_not_cause_a_refetch_on_every_call(tmp_path, monkeypatch):
+    last = [pd.Timestamp("2026-11-25")]                    # Wed; Thu is Thanksgiving
+    D, calls = _fake_feed(monkeypatch, tmp_path, last)
+    D.load_prices(["FAKE"], "2026-01-01", now=pd.Timestamp("2026-11-25 18:00"))
+    thu = pd.Timestamp("2026-11-26 18:00")
+    D.load_prices(["FAKE"], "2026-01-01", now=thu)          # expects Thu: refetch once
+    D.load_prices(["FAKE"], "2026-01-01", now=thu + pd.Timedelta(hours=1))
+    D.load_prices(["FAKE"], "2026-01-01", now=thu + pd.Timedelta(hours=2))
+    assert len(calls) == 2, calls
+
+
+def test_an_unsettled_intraday_bar_is_never_cached(tmp_path, monkeypatch):
+    """Before 17:00 New York, Yahoo's row for today holds the current quote."""
+    last = [pd.Timestamp("2026-10-06")]
+    D, calls = _fake_feed(monkeypatch, tmp_path, last)
+    px = D.load_prices(["FAKE"], "2026-01-01", now=pd.Timestamp("2026-10-06 11:30"))
+    assert px.index[-1] == pd.Timestamp("2026-10-05")
+    cached = pd.read_csv(tmp_path / "FAKE.csv", index_col=0, parse_dates=True)
+    assert cached.index[-1] == pd.Timestamp("2026-10-05")
+
+
+def test_last_completed_session_boundaries():
+    from quant.data import last_completed_session as L
+
+    assert L(pd.Timestamp("2026-10-05 16:59")) == pd.Timestamp("2026-10-02")  # Mon, unsettled
+    assert L(pd.Timestamp("2026-10-05 17:00")) == pd.Timestamp("2026-10-05")
+    assert L(pd.Timestamp("2026-10-04 12:00")) == pd.Timestamp("2026-10-02")  # Sunday
+    # aware input is converted, not reinterpreted: 23:30 UTC is 19:30 EDT
+    assert L(pd.Timestamp("2026-10-05 23:30", tz="UTC")) == pd.Timestamp("2026-10-05")

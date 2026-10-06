@@ -7,12 +7,13 @@ journal against silent corruption.
 from __future__ import annotations
 
 import numpy as np
+import pandas as pd
 import pytest
 
 from quant.backtest import CostModel
 from quant.data import synthetic_prices
 from quant.execution import GuardrailError, RebalancePolicy
-from quant.paper import PaperAccount, backfill, divergence, step
+from quant.paper import PaperAccount, backfill, catch_up, check_fresh, divergence, step
 from quant.strategies import inverse_vol
 
 COSTS = CostModel()
@@ -161,3 +162,81 @@ def test_forward_steps_are_counted_as_live(acct, px):
     step(acct, px, build, COSTS)
     assert acct.live_days == before + 1
     assert acct.entries[-1].source == "live"
+
+
+# --------------------------------------------------------------------------
+# stepping after missed days, and on re-adjusted prices
+# --------------------------------------------------------------------------
+def _evening_of(day):
+    """18:00 New York on ``day``: that session has settled."""
+    return day + pd.Timedelta(hours=18)
+
+
+def test_stale_prices_are_refused_not_silently_skipped(acct, px):
+    """The bug this guards: a cache stuck on one bar made every daily step
+    print "already processed" and exit 0 for three weeks."""
+    step(acct, px, build, COSTS)
+    later = _evening_of(px.index[-1] + pd.tseries.offsets.BDay(10))
+    with pytest.raises(GuardrailError, match="stale"):
+        catch_up(acct, px, build, COSTS, now=later)
+    assert check_fresh(px, now=_evening_of(px.index[-1] + pd.tseries.offsets.BDay(3))) == 3
+
+
+def test_missed_days_are_stepped_one_at_a_time_and_labelled(acct, px):
+    backfill(acct, px.iloc[:250], build, COSTS)
+    n_before = len(acct.entries)
+    got = catch_up(acct, px, build, COSTS, now=_evening_of(px.index[-1]))
+
+    assert [e.bar_date for e in got] == [d.strftime("%Y-%m-%d") for d in px.index[250:]]
+    assert [e.source for e in got[:-1]] == ["catchup"] * (len(got) - 1)
+    assert got[-1].source == "live"
+    assert acct.live_days == 1, "catch-up bars must not count as forward evidence"
+    assert len(acct.entries) == n_before + len(got)
+    assert catch_up(acct, px, build, COSTS, now=_evening_of(px.index[-1])) == []
+
+    # The journal must match a straight replay of the same bars exactly:
+    # catching up is only a relabelling, never a different P&L.
+    ref = PaperAccount.create("inverse_vol", 50_000.0, RebalancePolicy(band=0.02))
+    backfill(ref, px, build, COSTS)
+    assert acct.equity_curve().values == pytest.approx(ref.equity_curve().values, rel=1e-12)
+
+
+def test_newest_bar_stepped_late_is_not_live(acct, px):
+    backfill(acct, px.iloc[:-1], build, COSTS)
+    late = _evening_of(px.index[-1] + pd.tseries.offsets.BDay(2))
+    (e,) = catch_up(acct, px, build, COSTS, now=late)
+    assert e.source == "catchup"
+
+
+def test_dividend_readjustment_is_not_booked_as_a_loss(acct, px):
+    """Refreshing adjusted closes rescales all history before an ex-date.
+
+    The journal marked yesterday on the old basis; valuing those shares on the
+    new basis books the dividend as a loss (-0.25% SPY, -0.40% TLT on the real
+    2026-10-06 refresh). With the carry, the paper return over the ex-date must
+    equal the adjusted-close return the backtest earns.
+    """
+    t = len(px) - 2
+    step(acct, px.iloc[: t + 1], build, COSTS)
+    eq_t = acct.entries[-1].equity_after
+
+    sym = next(iter(acct.positions))
+    readj = px.copy()
+    readj.loc[: px.index[t], sym] *= 0.99          # 1% dividend goes ex at t+1
+    e = step(acct, readj, build, COSTS)
+
+    assert e.basis == {sym: pytest.approx(1 / 0.99)}
+    held = acct.entries[-2].positions
+    expected = acct.entries[-2].cash + sum(
+        q * (1 / 0.99 if s == sym else 1.0) * readj[s].iloc[-1] for s, q in held.items())
+    assert e.equity_before == pytest.approx(expected, rel=1e-12)
+
+    # and the paper return matches the adjusted-close return on the new basis
+    w = {s: q * px[s].iloc[t] / eq_t for s, q in held.items()}
+    r_adj = sum(w[s] * (readj[s].iloc[-1] / readj[s].iloc[t] - 1) for s in w)
+    assert e.equity_before / eq_t - 1 == pytest.approx(r_adj, abs=1e-12)
+
+
+def test_carry_is_a_no_op_on_an_unchanged_basis(acct, px):
+    backfill(acct, px, build, COSTS, start=px.index[200].strftime("%Y-%m-%d"))
+    assert all(e.basis == {} for e in acct.entries)

@@ -2,7 +2,7 @@
 
     python scripts/paper_run.py init   --strategy inverse_vol --cash 25000
     python scripts/paper_run.py backfill --since 2026-03-01
-    python scripts/paper_run.py step                      # once per trading day
+    python scripts/paper_run.py step                      # once per trading day, after 17:00 ET
     python scripts/paper_run.py report
 
 ``step`` is idempotent on the bar date, so running it twice in a day, or via a
@@ -22,7 +22,8 @@ from quant import strategies as S
 from quant.backtest import CostModel
 from quant.data import load_prices
 from quant.execution import RebalancePolicy
-from quant.paper import PaperAccount, backfill, divergence, step
+from quant.execution import GuardrailError
+from quant.paper import PaperAccount, backfill, catch_up, divergence, step
 from quant.stats import max_drawdown, sharpe
 
 UNIVERSE = ["SPY", "QQQ", "IWM", "EFA", "EEM", "TLT", "IEF", "GLD", "DBC", "VNQ"]
@@ -58,16 +59,29 @@ def cmd_init(args) -> int:
 def cmd_step(args) -> int:
     acct = PaperAccount.load(STATE)
     px = _prices()
-    entry = step(acct, px, BUILDERS[acct.strategy], COSTS, force=args.force)
-    if entry is None:
+    if args.force:
+        entries = [step(acct, px, BUILDERS[acct.strategy], COSTS, force=True)]
+    else:
+        try:
+            entries = catch_up(acct, px, BUILDERS[acct.strategy], COSTS)
+        except GuardrailError as e:
+            # Non-zero so a scheduler surfaces it. Exiting 0 here is how a
+            # stale cache went three weeks without anyone noticing.
+            print(f"REFUSED: {e}", file=sys.stderr)
+            return 2
+    if not entries:
         print(f"bar {px.index[-1].date()} already processed; nothing to do.")
         return 0
     acct.save(STATE)
-    print(f"bar {entry.bar_date}: {entry.n_orders} order(s), "
-          f"${entry.traded_notional:,.2f} traded, ${entry.costs:,.2f} cost")
-    for o in entry.orders:
-        print(f"  {o['side'].upper():4s} {o['qty']:>10.4f} {o['symbol']:<5s} @ ~{o['price']:.2f}")
-    print(f"  equity ${entry.equity_after:,.2f}")
+    for entry in entries:
+        print(f"bar {entry.bar_date} [{entry.source}]: {entry.n_orders} order(s), "
+              f"${entry.traded_notional:,.2f} traded, ${entry.costs:,.2f} cost")
+        if entry.basis:
+            print("  basis carry: " + ", ".join(f"{k} x{v:.5f}" for k, v in sorted(entry.basis.items())))
+        for o in entry.orders:
+            print(f"  {o['side'].upper():4s} {o['qty']:>10.4f} {o['symbol']:<5s} @ ~{o['price']:.2f}")
+        print(f"  equity ${entry.equity_after:,.2f}")
+    print(f"live days so far: {acct.live_days}")
     return 0
 
 

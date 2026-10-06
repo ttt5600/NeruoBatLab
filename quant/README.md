@@ -11,7 +11,7 @@ apparatus, not the signals.
 ```bash
 python3.11 -m venv .venv_quant
 .venv_quant/bin/pip install numpy pandas scipy matplotlib pytest
-.venv_quant/bin/python -m pytest tests/ -q     # 25 tests
+.venv_quant/bin/python -m pytest tests/ -q     # 67 tests
 .venv_quant/bin/python scripts/run_demo.py     # the full experiment
 ```
 
@@ -191,6 +191,46 @@ continuously, and the saved costs exceed the tracking error. That gap is
 explained, which is the whole test — an unexplained gap means the live system
 and the research system disagree, and neither number is trustworthy until you
 know why.
+
+### The journal that froze without an error
+
+Three weeks after the go/no-go rule was sealed, the journal still ended at
+2026-09-11, with zero live days. Two things had gone wrong. Nothing was running
+`step`. And even if something had been, it would have done nothing: the cache
+only went stale when a request asked for *older* history, never newer, so every
+call got the 2026-09-11 bar back, `step` printed "already processed", and the
+exit code was 0. It's the same kind of failure as the truncation bug above:
+plausible output, no exception.
+
+Now:
+
+- **The cache refreshes forward.** It refetches once a new session has settled
+  (17:00 New York) and drops any bar from an unsettled session, so an intraday
+  quote never gets cached as a close. On a holiday, a fetch made after the
+  close finds no bar and doesn't retry on every call.
+- **`step` refuses stale data** (newest bar more than 3 business days old) and
+  exits 2, so a scheduler sees the failure.
+- **Missed days are caught up one bar at a time**, labelled `catchup`. Stepping
+  only the newest bar would book three weeks as one "daily" return. Catch-up
+  bars don't count as live evidence. Changing that would be a rule revision.
+- **Positions carry across dividend re-adjustments.** A refresh rescales
+  adjusted history: on 2026-10-06 SPY's 09-11 close moved −0.25% and TLT's
+  −0.40%. Valuing the old share counts at new prices would book that as a loss
+  (about −31 bps on the seam day). After that, the live path would track raw
+  prices and miss every dividend, roughly 1 bp/day for 60/40, which is half the
+  rule's tracking budget. Quantities are rescaled by old mark / new price for
+  the same bar, so paper returns are total returns, like the backtest's.
+
+`scripts/paper_cron.sh` runs `step` at 17:30 New York on weekdays via a
+launchd agent (`com.jonathanwang.quant-paper-step`). If it fails, it posts a
+macOS notification.
+
+**The sealed rule can no longer be met on its date.** The 2026-10-06 → 2027-03-19
+window holds about 115 trading days, short of the 126 live days required, so
+`check` will say NO-GO on the decision date. That is the rule doing its job, so
+it is left as sealed. With no further missed days, the 126th live day falls
+around 2027-04-06. Moving the date is allowed through `supersede`, which keeps
+the original on the record.
 
 `live_signal.py` computes weights from the **most recent completed daily bar**,
 matching the backtest's convention. Running it intraday and filling immediately

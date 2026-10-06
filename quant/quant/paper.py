@@ -45,13 +45,19 @@ class JournalEntry:
     marks: dict[str, float] = field(default_factory=dict)
     target: dict[str, float] = field(default_factory=dict)
     source: str = "live"
-    """"live" (stepped forward on a real day) or "backfill" (replayed history).
+    """"live" (stepped on the day), "catchup" (a missed day after the journal
+    started, stepped late) or "backfill" (replayed history).
 
     These are not the same evidence and must never be pooled. Replayed bars run
     over the period the strategy was chosen on, so counting them toward an
     out-of-sample requirement would let anyone clear a six-month bar instantly
-    by backfilling five years. Only "live" rows count as forward evidence.
+    by backfilling five years. Catch-up bars are out of sample but were not
+    decided in real time. Only "live" rows count as forward evidence; whether
+    catch-up should is a rule revision, made on the record, not a default.
     """
+    basis: dict[str, float] = field(default_factory=dict)
+    """Per-symbol quantity rescale applied before this bar, when the price
+    series was re-adjusted (a dividend or split went ex) since the last bar."""
 
 
 @dataclass
@@ -153,6 +159,8 @@ def step(
         if not pd.notna(p) or p <= 0:
             raise GuardrailError(f"{s}: bad mark {p!r} on {bar_date}")
 
+    basis = _rebase(account, prices, bar)
+
     weights = build_weights(prices)
     target = {s: float(w) for s, w in weights.iloc[-1].items() if abs(float(w)) > 1e-9}
 
@@ -179,12 +187,104 @@ def step(
         marks=marks,
         target=target,
         source=source,
+        basis=basis,
     )
     account.cash = after_acct.cash
     account.positions = dict(after_acct.positions)
     account.entries.append(entry)
     account.entries.sort(key=lambda e: e.bar_date)
     return entry
+
+
+def _rebase(account: PaperAccount, prices: pd.DataFrame, bar: pd.Timestamp) -> dict:
+    """Carry held quantities onto the current fetch's adjustment basis.
+
+    Prices are adjusted closes, and every dividend that goes ex rescales the
+    whole history below it. The journal marked its last bar on the *old* basis,
+    so revaluing those shares at today's prices would book the dividend as a
+    loss: refreshing on 2026-10-06 moved SPY's 2026-09-11 close by -0.25% and
+    TLT's by -0.40%. And once only the newest bar is read, the live path would
+    track raw prices and miss every dividend thereafter, while the backtest it
+    is compared against earns them.
+
+    Scaling each quantity by old mark / new price for the same bar keeps the
+    position's value at that bar unchanged and makes later returns total
+    returns -- dividends reinvested, which is exactly what the backtest's
+    adjusted closes assume. A real account receives cash instead; the
+    difference is the reinvestment, not the dividend.
+    """
+    if not account.entries:
+        return {}
+    last = max(account.entries, key=lambda e: e.bar_date)
+    then = pd.Timestamp(last.bar_date)
+    if then >= bar or then not in prices.index:
+        return {}
+    basis = {}
+    for sym, qty in account.positions.items():
+        old = last.marks.get(sym)
+        new = prices.at[then, sym] if sym in prices else None
+        if not old or new is None or not pd.notna(new) or new <= 0:
+            raise GuardrailError(f"{sym}: cannot carry position, no price on {last.bar_date}")
+        factor = float(old) / float(new)
+        if abs(factor - 1.0) > 1e-9:
+            basis[sym] = factor
+            account.positions[sym] = qty * factor
+    return basis
+
+
+def check_fresh(prices: pd.DataFrame, now: pd.Timestamp | None = None,
+                max_lag_bdays: int = 3) -> int:
+    """Raise if the newest bar is too old to be today's decision.
+
+    Stale data is the failure that never raises on its own: a job reads the
+    same last bar, finds it already processed, reports "nothing to do" and
+    exits zero, every day. Three business days absorbs exchange holidays.
+    Returns the lag so callers can label the bar.
+    """
+    from .data import last_completed_session
+
+    settled = last_completed_session(now)
+    newest = prices.index[-1]
+    lag = len(pd.bdate_range(newest, settled)) - 1
+    if lag > max_lag_bdays:
+        raise GuardrailError(
+            f"newest bar {newest.date()} is {lag} business days behind the last "
+            f"settled session {settled.date()}; refusing to step on stale data")
+    return lag
+
+
+def catch_up(
+    account: PaperAccount,
+    prices: pd.DataFrame,
+    build_weights,
+    costs: CostModel = CostModel(),
+    now: pd.Timestamp | None = None,
+) -> list[JournalEntry]:
+    """Step every bar after the journal's last one, oldest first.
+
+    Stepping only the newest bar after missed days would book several weeks as
+    a single daily return, which corrupts the Sharpe, the drawdown and the
+    divergence check at once. Missed bars are stepped one at a time, each on
+    the prices it would have seen, and labelled "catchup". The newest bar is
+    "live" only if it is the decision being made now (at most one business day
+    behind the last settled session, for a holiday); otherwise it is catch-up
+    too, because nobody acted on it at the time.
+    """
+    lag = check_fresh(prices, now)
+    done = account.processed_dates
+    last = max(done) if done else None
+    idx = prices.index
+    todo = [i for i in range(1, len(idx))
+            if (last is None or idx[i].strftime("%Y-%m-%d") > last)
+            and idx[i].strftime("%Y-%m-%d") not in done]
+    out = []
+    for i in todo:
+        newest = i == len(idx) - 1
+        src = "live" if newest and lag <= 1 else "catchup"
+        e = step(account, prices.iloc[: i + 1], build_weights, costs, source=src)
+        if e is not None:
+            out.append(e)
+    return out
 
 
 def backfill(

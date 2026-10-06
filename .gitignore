@@ -19,3 +19,5 @@ quant/results/decision_rule.json
 sports/data/
 sports/lab/logs/
 sports/lab/.loop.lock
+quant/results/logs/
+quant/results/backups/

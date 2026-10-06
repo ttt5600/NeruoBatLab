@@ -149,7 +149,7 @@ def evaluate(rule: DecisionRule, account: PaperAccount, prices, build_weights,
     checks.append(CheckResult(
         "min_live_days", live >= rule.min_trading_days,
         f"{live} live of {rule.min_trading_days} required "
-        f"({total - live} backfilled bars do not count)"))
+        f"({total - live} backfill/catch-up bars do not count)"))
 
     now = today or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     checks.append(CheckResult(
