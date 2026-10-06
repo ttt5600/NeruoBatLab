@@ -1,0 +1,61 @@
+id: '060'
+title: Tripling the replay share by repetition -- BirdPark transfer change not resolvable at ~0.05 AP
+status: confirmed
+claim: >-
+  DAPT with the same 27.79 h of FSD50K repeated 3x (41.8% of the stream) instead of once (19.3%),
+  everything else as finding 058's x1 replay arm, gives a BirdPark difference that is not
+  distinguishable from zero: at each arm's
+  pre-committed native L6, AP 0.8305 vs 0.8318, observed -0.0012, block bootstrap [-0.0174, +0.0069]
+  at 1500-frame and [-0.0140, +0.0098] at 500-frame blocks. E5's pre-registered criterion fails on
+  all three conditions (no interval excludes zero; x3 ahead on AP in 1 of 4 blocks; 12-arm AP median
+  0.8201 below x1's 0.8354), so the result is, as pre-registered, "not resolvable at about 0.05 AP"
+  -- not "dose does not matter".
+evidence: >-
+  Paired x3-minus-x1 (zfeval/experiments/paired_vs.py, same bootstrap as detection_variants, n=2000,
+  seed 0): BirdPark AUC 0.8806 vs 0.8884, observed -0.0079 [-0.0140, -0.0015] at 1500-frame blocks
+  (x3 behind, resolved) but [-0.0158, +0.0003] at 500-frame blocks (not); x3 ahead on AUC in 0 of 4
+  and 3 of 12 blocks. ZF in-distribution AUC 0.9704 vs 0.9711, observed -0.0006 [-0.0017, +0.0001];
+  AP observed -0.0038 [-0.0068, -0.0014], x3 behind, resolved. BirdPark AP over 12 layer/
+  normalisation variants: x3 0.7526-0.8567 (median 0.8201), x1 0.7419-0.8543 (median 0.8354). Pre-
+  committed arm native L6 (ZF 0.9704 vs matched L3 0.9630) for both. Against run11: BirdPark AP
+  0.8305 vs 0.8121, observed +0.0184 [-0.0227, +0.0678], not distinguishable. Call type (first time a DAPT
+  replay model has been scored on it; x1 never was): 0.8450 at L1, vs run11 +0.0331 [+0.0137,
+  +0.0570], vs run16 +0.0070 [-0.0075, +0.0239], vs its init aves-base-bio -0.0003 [-0.0210,
+  +0.0217]; at L3 vs aves-base-bio -0.0135 [-0.0365, +0.0074], and resolved behind birdaves-biox-base
+  -0.0202 [-0.0421, -0.0004]. Chick Be/LT AUC 0.9946, AMI(k=4)
+  0.4596; vs run11 not distinguishable on either.
+method: >-
+  slurm/train_dapt_replay3.sh = train_dapt_v2.sh with only the REPLAY_REPEAT default (1 -> 3), the
+  default arm (replay), job name, log and an _x3 exp dir changed. Data mix_zf_fsd50k3 built by
+  merge_corpora.py --replay-repeat 3 (615 rows, run11's k=100 k-means, not refit). Init
+  aves-base-bio (210 encoder tensors transplanted), lr 5e-5, 15,000 steps, 1 L40. Job 39671592
+  COMPLETED 0:0 in 00:40:33 (submitted by the usage-watch auto-resume agent; a duplicate from the
+  lead was cancelled while pending). Export bit-identical. Scored by harness/score_run.sh and the
+  pre-registered x3-vs-x1 contrast by paired_vs.py (its --check reproduces stored vs-run11 records
+  exactly).
+provenance: >-
+  analysis/paired_vs.json (daptreplay3_5e5_step15000__vs__daptreplay_5e5_step15000: bp_ap_block1500,
+  bp_ap_block500, bp_auc_block1500, bp_auc_block500, indist_*, *_observed, bp_blockwise_*);
+  analysis/detection_variants.json (precommit.daptreplay3_5e5_step15000,
+  precommit.daptreplay_5e5_step15000, zf_to_bp.* for medians, bootstrap.daptreplay3_5e5_step15000 for
+  the vs-run11 interval); analysis/daptreplay3_5e5_step15000_calltype.json and _bootstrap.json
+  (OBSERVED delta); analysis/chick_holdout_variants.json (precommit.daptreplay3_5e5_step15000).
+  Baseline numbers: finding 058.
+caveats: >-
+  One run per dose (057): a single x1 run and a single x3 run. This is a REPETITION dose -- the same
+  distinct audio seen 3x -- so it cannot say whether more distinct general audio would help. The
+  resolved BirdPark AUC deficit at 1500-frame blocks is not part of the pre-registered criterion,
+  does not hold at 500-frame blocks, and comes from four blocks; it is reported, not claimed. Raising
+  replay to 41.8% also cut the ZF share from 81% to 58% of the stream at fixed steps; the small
+  resolved in-distribution AP loss is consistent with that. The x1 arm has no call-type score, so
+  the call-type numbers here have no dose comparison. daptreplay3_5e5_step15000_calltype.json's
+  `note` field is run15's stale string ("run11 recipe ... 224.42 h, k=200") and does not describe this
+  model. Critic (fresh subagent, CRITIC.md, 2026-10-06): ACCEPT-WITH-CHANGES; every number verified,
+  paired_vs.py --check reproduced stored records 6/6 for two models; applied: null wording in title
+  and claim, observed vs-run11 difference, L3 biox-base result, stale note flagged.
+tags:
+- dapt
+- replay
+- birdpark
+- negative-result
+date: '2026-10-06'

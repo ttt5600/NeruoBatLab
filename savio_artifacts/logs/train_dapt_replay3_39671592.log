@@ -1,0 +1,81 @@
+==============================================
+DAPT v2 -- arm: replay
+  lr           5e-5
+  init         /global/scratch/users/jonathanswang/external/aves/aves-base-bio.torchaudio.pt
+  data         /global/scratch/users/jonathanswang/temp_files/mix_zf_fsd50k3/
+  extra flags  <none>
+  steps        15000 (warmup 750, checkpoint every 2500)
+  exp-dir      /global/scratch/users/jonathanswang/temp_train_daptv2_replay_5e5_x3
+  start        Tue Oct  6 11:58:52 PDT 2026
+==============================================
+PyTorch: 2.2.2 | CUDA: True
+GPUs: 1
+[rank: 0] Seed set to 1337
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `lightning.pytorch` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+GPUs requested 1, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 1, nodes 1
+[init-weights] transplanted 210 encoder tensors (94,370,944 params) from /global/scratch/users/jonathanswang/external/aves/aves-base-bio.torchaudio.pt (torchaudio state_dict); mask_generator and logit_generator (100 classes) left at random init
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/configuration_validator.py:70: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+You are using a CUDA device ('NVIDIA L40S') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name  | Type                | Params | Mode  | FLOPs
+--------------------------------------------------------------
+0 | model | HuBERTPretrainModel | 94.6 M | train | 0    
+--------------------------------------------------------------
+94.6 M    Trainable params
+0         Non-trainable params
+94.6 M    Total params
+378.377   Total estimated model params size (MB)
+204       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+SLURM auto-requeueing enabled. Setting signal handlers.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 10 worker processes in total. Our suggested max number of worker in current system is 8, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+[rank0]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/callbacks/model_checkpoint.py:401: Using ModelCheckpoint with manual optimization and every_n_train_steps, but no pre-optimization state was saved. The checkpoint will contain the model state AFTER optimization. To save the pre-optimization state, save the model state in training_step before optimizer.step(). Example:
+def training_step(self, batch, batch_idx):
+    # ... forward pass, loss calculation, backward pass ...
+    # Save model state before optimization
+    if not hasattr(self, 'saved_models'):
+        self.saved_models = {}
+    self.saved_models[batch_idx] = {
+        k: v.detach().clone() for k, v in self.layer.state_dict().items()
+    }
+    # Then perform optimization
+    optimizer.zero_grad()
+    self.manual_backward(loss)
+    optimizer.step()
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_feature_penalty', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('Gathered number of frames', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+Epoch 0, global step 8907: 'train_loss' reached 1.73777 (best 1.73777), saving model to '/global/scratch/users/jonathanswang/temp_train_daptv2_replay_5e5_x3/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=0-step=8907.ckpt' as top 5
+Epoch 1, global step 15000: 'train_loss' reached 1.25246 (best 1.25246), saving model to '/global/scratch/users/jonathanswang/temp_train_daptv2_replay_5e5_x3/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=1-step=15000.ckpt' as top 5
+`Trainer.fit` stopped: `max_steps=15000` reached.
+
+End time: Tue Oct  6 12:39:24 PDT 2026
+total 9979484
+drwxrwxr-x+ 2 jonathanswang ucb       4096 Oct  6 12:38 .
+drwxrwxr-x+ 4 jonathanswang ucb       4096 Oct  6 12:07 ..
+-rw-r--r--+ 1 jonathanswang ucb 1135407548 Oct  6 12:23 epoch=0-step=8907.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135408058 Oct  6 12:38 epoch=1-step=15000.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135408058 Oct  6 12:38 last.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135407676 Oct  6 12:26 stepstep=10000.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135407676 Oct  6 12:32 stepstep=12500.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135407676 Oct  6 12:38 stepstep=15000.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135407102 Oct  6 12:07 stepstep=2500.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135407102 Oct  6 12:13 stepstep=5000.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135407102 Oct  6 12:19 stepstep=7500.ckpt
+==============================================

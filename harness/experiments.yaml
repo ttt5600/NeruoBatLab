@@ -162,7 +162,9 @@ experiments:
   tag: daptreplay3_5e5_step15000
   num_classes: 100
   job_name: dapt_replay3
-  status: trained
+  status: done
+  finding: '060'
+  result: not met on all three conditions -- BirdPark AP x3 minus x1 -0.0012 [-0.0174, +0.0069]; not resolvable at ~0.05 AP
   trained_note: >-
     Job 39671592 COMPLETED 0:0 in 00:40:33 (11:58-12:39 Oct 6); epoch=1-step=15000.ckpt present; log
     confirms arm replay, lr 5e-5, aves-base-bio init (210 tensors), data mix_zf_fsd50k3. Scored as

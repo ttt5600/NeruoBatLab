@@ -1,0 +1,143 @@
+{
+  "note": "delta = daptreplay3_5e5_step15000 minus the named model (OBSERVED difference); paired bootstrap over 48 birds, 2000 resamples, seed 0; every model at its own best 11-class layer",
+  "layers": {
+    "run11": 3,
+    "aves-base-core": 3,
+    "aves-base-bio": 3,
+    "aves-base-all": 0,
+    "birdaves-biox-base": 1,
+    "birdaves-biox-large": 2,
+    "birdaves-bioxn-large": 1,
+    "run15_combined": 3,
+    "run16_compute4x": 7,
+    "daptreplay3_5e5_step15000": 1,
+    "daptreplay3_5e5_step15000@L3": 3
+  },
+  "acc": {
+    "run11": 0.8118405627198124,
+    "aves-base-core": 0.8502344665885111,
+    "aves-base-bio": 0.8452520515826495,
+    "aves-base-all": 0.8478898007033998,
+    "birdaves-biox-base": 0.8519929660023446,
+    "birdaves-biox-large": 0.8552168815943728,
+    "birdaves-bioxn-large": 0.8452520515826495,
+    "run15_combined": 0.813599062133646,
+    "run16_compute4x": 0.8379249706916765,
+    "daptreplay3_5e5_step15000": 0.8449589683470106,
+    "daptreplay3_5e5_step15000@L3": 0.8317702227432591
+  },
+  "vs": {
+    "daptreplay3_5e5_step15000": {
+      "run11": {
+        "delta": 0.033118405627198144,
+        "lo": 0.013717849532704163,
+        "hi": 0.056959619994467886,
+        "resolved": true
+      },
+      "run15_combined": {
+        "delta": 0.0313599062133646,
+        "lo": 0.016142870840217115,
+        "hi": 0.0490985227042762,
+        "resolved": true
+      },
+      "run16_compute4x": {
+        "delta": 0.007033997655334079,
+        "lo": -0.007498819464950299,
+        "hi": 0.02386655489334326,
+        "resolved": false
+      },
+      "aves-base-core": {
+        "delta": -0.005275498241500531,
+        "lo": -0.023930630925355304,
+        "hi": 0.015516324144877577,
+        "resolved": false
+      },
+      "aves-base-bio": {
+        "delta": -0.0002930832356389246,
+        "lo": -0.021008592960447593,
+        "hi": 0.021743697478991558,
+        "resolved": false
+      },
+      "aves-base-all": {
+        "delta": -0.0029308323563892458,
+        "lo": -0.022117632928867714,
+        "hi": 0.01787878787878782,
+        "resolved": false
+      },
+      "birdaves-biox-base": {
+        "delta": -0.007033997655334079,
+        "lo": -0.024354775226438162,
+        "hi": 0.011924775783824991,
+        "resolved": false
+      },
+      "birdaves-biox-large": {
+        "delta": -0.01025791324736225,
+        "lo": -0.030890910667171905,
+        "hi": 0.011648040025472994,
+        "resolved": false
+      },
+      "birdaves-bioxn-large": {
+        "delta": -0.0002930832356389246,
+        "lo": -0.02191893645227106,
+        "hi": 0.02265316568537605,
+        "resolved": false
+      }
+    },
+    "daptreplay3_5e5_step15000@L3": {
+      "run11": {
+        "delta": 0.01992966002344665,
+        "lo": 0.0031445049859679416,
+        "hi": 0.03929667210398541,
+        "resolved": true
+      },
+      "run15_combined": {
+        "delta": 0.018171160609613102,
+        "lo": 0.0005292908887061052,
+        "hi": 0.03423568834834806,
+        "resolved": true
+      },
+      "run16_compute4x": {
+        "delta": -0.006154747948417416,
+        "lo": -0.02268212025248715,
+        "hi": 0.008455476993693548,
+        "resolved": false
+      },
+      "aves-base-core": {
+        "delta": -0.018464243845252026,
+        "lo": -0.03831534585274214,
+        "hi": 0.0036308826876362828,
+        "resolved": false
+      },
+      "aves-base-bio": {
+        "delta": -0.01348182883939042,
+        "lo": -0.03645309689338329,
+        "hi": 0.007375773998292597,
+        "resolved": false
+      },
+      "aves-base-all": {
+        "delta": -0.01611957796014074,
+        "lo": -0.03739104839445458,
+        "hi": 0.003654254437742284,
+        "resolved": false
+      },
+      "birdaves-biox-base": {
+        "delta": -0.020222743259085574,
+        "lo": -0.042128648570465964,
+        "hi": -0.0003625758177092079,
+        "resolved": true
+      },
+      "birdaves-biox-large": {
+        "delta": -0.023446658851113744,
+        "lo": -0.04948223567122195,
+        "hi": 0.0008440200178904545,
+        "resolved": false
+      },
+      "birdaves-bioxn-large": {
+        "delta": -0.01348182883939042,
+        "lo": -0.0352915716343779,
+        "hi": 0.004718690177230263,
+        "resolved": false
+      }
+    }
+  }
+}
