@@ -62,8 +62,9 @@ experiments:
   job_name: hubert_run19
   requires: 'relabel job 39635382 (slurm/relabel_aves_teacher_combined.sh) ended COMPLETED and its log
     ~/jobs/relabel_aves_teacher_39635382.log contains "PASS: labels written"; the labels are in /global/scratch/users/jonathanswang/temp_files/combined_aves_teacher/data/hubert_6'
-  status: submitted
+  status: trained
   job: 39656780
+  trained_note: COMPLETED 0:0 in 06:23:23 (ended 2026-10-06 05:47), final epoch=37-step=93750.ckpt; scoring started 06:07
   notes: 'Submitted 2026-10-05 by the lead agent (code 6b0456488f) after checking requires: relabel 39635382
     COMPLETED 0:0 (23:35), log has "PASS: labels written", hubert_6/label/label_train.pt present. Watcher
     key hubert_run19; datasets.tsv row run19_avesteacher, linked + shared (ACLs verified). Teacher aves-base-bio
@@ -127,7 +128,8 @@ experiments:
     slurm/build_fsd_only_corpus.sh; its log ends in [done]. MET 2026-10-05 21:01 on the login node, log
     ~/jobs/build_zf_only_login_20261005-2101.log; 20,885,063 frames, vocabulary 200 (190 ids used), audio
     precheck OK'
-  status: approved
+  status: submitted
+  job: 39665377
   priority: 5
   notes: 'Proposed by the E4 critic, built 2026-10-05. Script = run20''s with only names and paths changed.
     Savio dry run: 120/763 files, 116.03 h; only 190 distinct cluster ids (10 clusters hold no ZF frames),
