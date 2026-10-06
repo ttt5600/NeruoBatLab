@@ -169,5 +169,7 @@ experiments:
     Not applied here, for the user: a --seed 2 run of x1 (needs a seed flag in train_dapt_v2.sh and
     its own exp dir). x1 baseline now recorded as finding 058 (step 15000, native L6, BirdPark AP
     0.8318; 12-arm median 0.8354, the number condition (3) compares against). Arm defaults to replay (lab train sends extra args to sbatch, so
-    script args cannot be passed). NOTE for scoring: check that score_run.sh can score a DAPT run (it was written
+    script args cannot be passed). Condition (1) is scored by zfeval/experiments/paired_vs.py --a <x3 tag> --b daptreplay_5e5_step15000
+    (verified 2026-10-06: --check reproduces detection_variants' vs-run11 intervals exactly for two
+    models). NOTE for scoring: check that score_run.sh can score a DAPT run (it was written
     for from-scratch runs; DAPT checkpoints were scored by export_dapt_checkpoints.sh).

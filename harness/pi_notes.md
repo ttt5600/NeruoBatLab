@@ -52,3 +52,5 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
   preds_<a>.npz and preds_<b>.npz and calls the SAME zfeval.metrics paired block bootstrap
   (no protocol change), cross-checked by reproducing one existing vs-run11 interval exactly.
   Build it before E5 finishes.
+- 07:40 resolved: zfeval/experiments/paired_vs.py built; --check reproduces the stored vs-run11
+  records bit-exactly (daptreplay_5e5_step15000, run19_avesteacher). E5 condition (1) uses it.
