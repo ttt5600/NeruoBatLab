@@ -97,7 +97,11 @@ experiments:
     with tsv/, label/label_train.pt and km_model symlink; its log ends in [done]. MET 2026-10-05 21:01:
     built on the login node (savio3 rejects savio_lowprio, and savio_normal would spend allocation), log
     ~/jobs/build_fsd_only_login_20261005-2101.log; 19,510,529 frames, vocabulary 200, audio precheck OK'
-  status: trained
+  status: scored
+  scored_note: >-
+    Scored 2026-10-06 13:0x (harness/logs/score_run20_fsdonly_20261006-124411.log). Finding deliberately
+    WAITS for E6 (run21, the pre-registered baseline) so the decision rule is applied as written;
+    run20 vs run16 alone would put the wrong baseline in the headline.
   priority: 4
   notes: 'Scripts built and checked 2026-10-05 by the lead agent. Savio dry run: keeps fsd50k_dev (478
     files, 80.61 h) + replay_fsd50k (165, 27.79 h), drops run5-4-26-full (120, 116.03 h); 643/763 files,
