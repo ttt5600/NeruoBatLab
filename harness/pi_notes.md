@@ -30,3 +30,9 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
 - 02:26 follow-up: the auto-resumed agent exited with its run16_seed2 scoring killed at the export
   step (no JSONs written). experiments.yaml correctly records E4 = 39661997. Removed the duplicate
   run20 row from datasets.tsv (pytorchAudio 275485e4). Re-running score_run.sh run16_seed2 myself.
+
+## 2026-10-06 03:05 — E2 done (finding 057): seed gap 0.0155, resolved
+- For the 09:00 digest "needs you": E3/E4/E6 are all one seed each, and 057 says a ~0.015 call-type
+  gap can come from seed + run history. Proposal to put to the user: a second seed for whichever of
+  E3/E4 lands within ~0.02 of run16, and a run16 seed 3 to get a third point. Costs ~6-7 h of
+  lowprio each. Not self-approved: it changes the plan's shape, so it is the user's call.
