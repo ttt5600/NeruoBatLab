@@ -81,6 +81,38 @@ def strikeout_features(pitching: pd.DataFrame, batting: pd.DataFrame) -> pd.Data
     return starts.reset_index(drop=True)
 
 
+def trailing_rate(bat: pd.DataFrame, key: str, prior: float = 2000.0) -> pd.Series:
+    """Per game: ``key``'s batting K/PA over the prior 365 days (exclusive),
+    shrunk, as a ratio to the league. ``key`` = "officials" (plate umpire) or
+    "venue" (park)."""
+    g = bat.dropna(subset=[key]).groupby(["game_pk", key, "start_utc"])[["bat_k", "bat_pa"]].sum() \
+        .reset_index().sort_values("start_utc")
+    out = []
+    for _, d in g.groupby(key, sort=False):
+        d = d.set_index("start_utc")
+        r = d[["bat_k", "bat_pa"]].rolling(f"{WINDOW_DAYS}D", closed="left").sum()
+        out.append(pd.DataFrame({"game_pk": d["game_pk"].to_numpy(),
+                                 "k": r["bat_k"].fillna(0).to_numpy(),
+                                 "pa": r["bat_pa"].fillna(0).to_numpy()}))
+    t = pd.concat(out)
+    lg = bat["bat_k"].sum() / bat["bat_pa"].sum()
+    rate = (t["k"] + prior * lg) / (t["pa"] + prior) / lg
+    return pd.Series(rate.to_numpy(), index=t["game_pk"].to_numpy(), name=key).groupby(level=0).first()
+
+
+def context_features(st: pd.DataFrame, bat: pd.DataFrame) -> pd.DataFrame:
+    """Add rest, recent pitch counts, umpire and park K factors to starts."""
+    bat = bat[bat["game_type"] == "regular"].copy()
+    bat["start_utc"] = pd.to_datetime(bat["start_utc"], utc=True)
+    st = st.sort_values("start_utc").copy()
+    gp = st.groupby("pitcher_id")
+    st["rest_days"] = gp["start_utc"].diff().dt.total_seconds() / 86400
+    st["pitches_last3"] = gp["pitches"].transform(lambda s: s.shift(1).rolling(3, min_periods=1).mean())
+    st = st.join(trailing_rate(bat, "officials").rename("ump_k_factor"), on="game_pk")
+    st = st.join(trailing_rate(bat, "venue").rename("park_k_factor"), on="game_pk")
+    return st
+
+
 def log5(p_batter_side: np.ndarray, p_pitcher: np.ndarray, league: np.ndarray) -> np.ndarray:
     """Odds-ratio combination of a pitcher rate and an opponent rate."""
     a = p_pitcher * p_batter_side / league

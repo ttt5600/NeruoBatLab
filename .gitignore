@@ -17,3 +17,5 @@ quant/results/decision_rule.json
 
 # sports: regenerable API cache and pulled tables
 sports/data/
+sports/lab/logs/
+sports/lab/.loop.lock

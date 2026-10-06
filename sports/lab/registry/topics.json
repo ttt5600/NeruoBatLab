@@ -1,0 +1,17 @@
+[
+ {"id": "T01", "status": "pending", "topic": "Academic literature on sports betting market efficiency and documented biases (favourite-longshot, home/away, overreaction, recency, anchoring) across NFL, NBA, MLB, NHL; what survives at CLOSING lines in recent data"},
+ {"id": "T02", "status": "pending", "topic": "Player prop markets: documented mispricings (unders bias, low-volume props, role players, injuries/usage changes, minutes projections), where props are softest, and how pros model them"},
+ {"id": "T03", "status": "pending", "topic": "MLB pitcher strikeout, hits-allowed and walks props: modelling approaches, umpire and park effects, lineup-confirmation timing, and published backtests with real lines"},
+ {"id": "T04", "status": "pending", "topic": "NFL totals and sides: weather (wind, rain, cold), referee crews, rest/travel, injuries/QB changes, key numbers (3, 7, 41-47), and whether published angles still beat the close"},
+ {"id": "T05", "status": "pending", "topic": "NBA: rest/back-to-backs, travel and altitude, injury news latency, minutes projections, pace, referee assignments, and line-movement timing"},
+ {"id": "T06", "status": "pending", "topic": "NHL: starting goalie confirmation timing, back-to-backs, totals, puck-line, and documented biases"},
+ {"id": "T07", "status": "pending", "topic": "Closing line value (CLV) as the measure of skill; opening-vs-closing line efficiency; how and when lines move; steam and reverse line movement evidence"},
+ {"id": "T08", "status": "pending", "topic": "Arbitrage, middling and low-hold opportunities across US books and exchanges/prediction markets (Kalshi, Polymarket, ProphetX, Novig): frequency, size, execution risk, account limits"},
+ {"id": "T09", "status": "pending", "topic": "Sportsbook promotions, odds boosts, profit boosts and matched betting in the US: expected value, conversion rates, constraints"},
+ {"id": "T10", "status": "pending", "topic": "Same-game parlays and correlation mispricing: evidence that books misprice correlated legs, and which combinations"},
+ {"id": "T11", "status": "pending", "topic": "Live/in-play betting edges: latency, momentum overreaction, documented studies"},
+ {"id": "T12", "status": "pending", "topic": "Professional bettor and syndicate methods (public interviews, books like Sharp Sports Betting, Weighing the Odds, The Logic of Sports Betting): staking, bankroll, market selection, account longevity"},
+ {"id": "T13", "status": "pending", "topic": "Public betting percentages and 'fade the public': data sources and any rigorous tests of contrarian strategies"},
+ {"id": "T14", "status": "pending", "topic": "Futures and season-win-total markets: preseason bias, hold, documented mispricing"},
+ {"id": "T15", "status": "pending", "topic": "Data sources for player-level modelling and historical prop/odds archives (free and cheap), with coverage and cost"}
+]
