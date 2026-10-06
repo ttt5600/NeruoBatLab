@@ -1,11 +1,11 @@
 # Findings index
 
-Generated 2026-10-04 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
+Generated 2026-10-05 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
 
-55 findings.
+56 findings.
 
 
-## CONFIRMED (48)
+## CONFIRMED (49)
 
 ### [001] The corpus is the public Elie and Theunissen release  ·  **CONFIRMED**
 
@@ -584,6 +584,18 @@ The iteration-2 labels from run16's layer 6 (k=200) failed their original gate b
 **Caveats.** The extra frame comes from soundsig rounding the last partial window up. Labels and audio are aligned from the start of each file, so the surplus frame sits past the last real window and never shifted an earlier target: run15-17 trained correctly on the spectrogram labels. The lesson is about gates: compare labels to the audio's own frame grid, not to another label set that may carry its own off-by-one. Purity comes from the fixed relabel gate's own code, run on the real labels.
 
 **Provenance.** Job 39398287 log on Savio (~/jobs); gate2.py run on the Savio login node 2026-10-04 (output in this session's transcript); labels and km_model in /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/hubert_6.
+
+### [056] Iteration-2 targets at run16's compute do not beat run16 on call type  ·  **CONFIRMED**
+
+run18 -- run16's recipe and compute with the targets changed from iteration-1 spectrogram k=200 to iteration-2 run16-layer-6 k=200 -- scores 0.8350 on 11-class call type at its best layer (L0) against run16's 0.8379 (L7): observed -0.0029, bird-bootstrap [-0.0168, +0.0091], not distinguishable. E1's pre-registered success criterion (above 0.8379 with the interval excluding zero) is NOT met: there is no evidence that better targets restart the gains that compute stopped giving (054).
+
+**Evidence.** Cohort 3412 clips / 11 call types / 48 birds. Per-layer 11-class accuracy, run18 L0-L11: 0.8350 0.8347 0.8347 0.8306 0.8283 0.8341 0.8306 0.8315 0.8239 0.8259 0.8262 0.8312 (mean 0.8305; run16's mean 0.8309); run18 is above run16 at 5 of 12 layers. Layer 3 vs run16's best: -0.0073 [-0.0292, +0.0093]. run18 beats run11 at its best layer (+0.0232 [+0.0074, +0.0422]) and run15 (+0.0214 [+0.0024, +0.0404]); against the six AVES checkpoints it is behind on point estimate (-0.0103 to -0.0202) with every interval crossing zero. 8-class: best L3 0.8276 vs run16 L1 0.8276 (the same to four places), above run16 at 3 of 12 layers (means 0.8214 vs 0.8225); no 8-class bootstrap was run. Detection, pre-committed arm native L3 (chosen on ZF: native 0.9730 vs matched L1 0.9714): ZF in-distribution AUC 0.9730 vs run11 0.9687, observed +0.0042, block-bootstrap [+0.0032, +0.0069]; BirdPark AUC 0.8738 vs run11 0.8648, observed +0.0090, [-0.0344, +0.0657] at 1500-frame blocks, not distinguishable. At 1500-frame blocks run18 beats run11 in 2 of 4 independent BirdPark blocks. Across the 12 layer/normalisation variants (not independent) run18 spans BirdPark AUC 0.7798-0.8976 (run16 0.7271-0.8809, run11 0.6759-0.8648). The pattern -- an in-distribution detection gain that does not transfer to BirdPark -- repeats finding 006. Chick Be/LT AUC 0.9908 vs run11 0.9858, observed +0.0050 [-0.0050, +0.0201]; AMI(k=4) 0.5087 vs 0.5361, observed -0.0274 [-0.1405, +0.1332]; neither distinguishable.
+
+**Method.** slurm/train_run18_iter2.sh = train_run16_compute4x.sh with DATA -> combined_zf_fsd/data/hubert_6 (labels from run16 layer 6, k=200, relabel_iter2_run16.sh; frame-grid check passed on all 763 files, finding 055) and --feature-type spectrogram -> hubert, which is inert (CollateFnHubert branches only on "mfcc", dataset/hubert_dataset.py:527); 93,750 updates, 4 GPUs, lr 1e-4, same corpus. Job 39629355 COMPLETED 0:0 in 06:34:49, final epoch=37-step=93750.ckpt. Scored by harness/score_run.sh (export, then run15_calltype.py, run16_calltype_bootstrap.py, detection_variants.py, chick_holdout_variants.py with --bootstrap) on 2026-10-05; log harness/logs/score_run18_iter2_20261005-204225.log.
+
+**Caveats.** The change of targets also carries a small alignment fix: run16's spectrogram labels have one extra trailing frame in 32 of 763 files (055), run18's are on the true grid. One training seed per run; E2 (run16 seed 2) is measuring that spread now, so how small a difference is meaningful between run16 and run18 is not yet known. Best layer is picked on the reported metric for every model alike, which inflates all best-layer numbers (run11 wins nowhere finding). This tests ONE iteration-2 teacher (run16 L6, k=200); a different teacher layer or AVES as teacher (E3, job 39656780) is untested. run18_iter2_calltype.json's `note` field is run15's static string ("run11 recipe ... k=200 vocabulary") and does not describe run18's targets. Pretraining losses are not compared: the targets differ, so the losses are on different tasks. Critic (fresh subagent, CRITIC.md, 2026-10-05): ACCEPT-WITH-CHANGES; all numbers verified against the JSONs; applied: name the 32-file grid fix and the inert --feature-type flag, report BirdPark as 2 of 4 blocks, cite 006, soften the conclusion.
+
+**Provenance.** analysis/run18_iter2_calltype.json (per_layer_acc11, acc11, per_layer_acc8, acc8); analysis/run18_iter2_bootstrap.json (vs.run18_iter2.*, vs.run18_iter2@L3.run16_compute4x; delta there is OBSERVED); analysis/run16_compute4x_calltype.json (run16 per-layer); analysis/detection_variants.json (precommit.run18_iter2, precommit.run11, zf_to_bp.*, bootstrap.run18_iter2 incl. bp_blockwise_block1500 -- its delta is the resample mean, so observed differences above are computed from precommit); analysis/chick_holdout_variants.json (precommit.run18_iter2, precommit.run11, bootstrap.run18_iter2_vs_run11 -- delta is the resample mean, printed AMI -0.0050 vs observed -0.0274). Weights external/dapt/run18_iter2.pt.
 
 
 ## REFUTED (4)

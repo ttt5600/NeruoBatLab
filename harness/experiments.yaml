@@ -16,8 +16,10 @@ experiments:
   tag: run18_iter2
   num_classes: 200
   job_name: hubert_run18
-  status: trained
+  status: done
   job: 39629355
+  finding: '056'
+  result: 'not met -- call type 0.8350 (L0) vs run16 0.8379, observed -0.0029 [-0.0168, +0.0091], not distinguishable'
   notes: >-
     sacct COMPLETED 0:0, elapsed 06:34:49, ended 2026-10-05 05:11; final epoch=37-step=93750.ckpt
     present (checked 2026-10-05 21:0x by the lead agent). Scoring started.
