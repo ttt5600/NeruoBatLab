@@ -36,3 +36,10 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
   gap can come from seed + run history. Proposal to put to the user: a second seed for whichever of
   E3/E4 lands within ~0.02 of run16, and a run16 seed 3 to get a third point. Costs ~6-7 h of
   lowprio each. Not self-approved: it changes the plan's shape, so it is the user's call.
+
+## 2026-10-06 04:00 — E5 approved (repetition dose), critic changes applied
+- Digest "needs you": (a) a --seed 2 run of the DAPT x1 replay arm (critic + 057); (b) the x1
+  replay arm has no finding yet -- write one before E5 is scored (backlog, mine); (c) E5 can only
+  say "not resolvable at ~0.05 AP" unless the effect is large -- run it anyway (1 GPU, lowprio)?
+- Open technical item: score_run.sh was built for from-scratch runs; check it handles a DAPT
+  checkpoint (100 classes, AVES init) before E5 finishes.
