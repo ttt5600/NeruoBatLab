@@ -43,3 +43,12 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
   say "not resolvable at ~0.05 AP" unless the effect is large -- run it anyway (1 GPU, lowprio)?
 - Open technical item: score_run.sh was built for from-scratch runs; check it handles a DAPT
   checkpoint (100 classes, AVES init) before E5 finishes.
+
+## 2026-10-06 05:20 — E5 scoring gap found (not urgent; E5 not yet submitted)
+- score_run.sh exports DAPT ckpts the same way export_dapt_checkpoints.sh did (export_weights.py
+  --num-classes), so step 1-2 are fine for E5 (NC=100).
+- BUT detection_variants.py bootstraps only against run11 (hard-coded reference, line ~418). E5's
+  condition (1) needs x3 minus x1. Plan: a separate zfeval/experiments/paired_vs.py that loads
+  preds_<a>.npz and preds_<b>.npz and calls the SAME zfeval.metrics paired block bootstrap
+  (no protocol change), cross-checked by reproducing one existing vs-run11 interval exactly.
+  Build it before E5 finishes.
