@@ -8,9 +8,11 @@ experiments:
   roadmap: T1
   title: run18 -- iteration-2 labels from run16 layer 6, at run16's compute
   baseline: run16_compute4x
-  change: training targets, iteration-1 spectrogram k=200 -> iteration-2 run16 layer 6 k=200 (finding 055)
+  change: training targets, iteration-1 spectrogram k=200 -> iteration-2 run16 layer 6 k=200 (finding
+    055)
   question: Do better targets restart the gains that more compute stopped giving (finding 054)?
-  success: 11-class call type above run16's 0.8379 at the best layer, bird-bootstrap interval excluding zero
+  success: 11-class call type above run16's 0.8379 at the best layer, bird-bootstrap interval excluding
+    zero
   script: pytorchAudio/examples/hubert/slurm/train_run18_iter2.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_run18_iter2
   tag: run18_iter2
@@ -19,9 +21,8 @@ experiments:
   status: done
   job: 39629355
   finding: '056'
-  result: 'not met -- call type 0.8350 (L0) vs run16 0.8379, observed -0.0029 [-0.0168, +0.0091], not distinguishable'
-  notes: >-
-    sacct COMPLETED 0:0, elapsed 06:34:49, ended 2026-10-05 05:11; final epoch=37-step=93750.ckpt
+  result: not met -- call type 0.8350 (L0) vs run16 0.8379, observed -0.0029 [-0.0168, +0.0091], not distinguishable
+  notes: sacct COMPLETED 0:0, elapsed 06:34:49, ended 2026-10-05 05:11; final epoch=37-step=93750.ckpt
     present (checked 2026-10-05 21:0x by the lead agent). Scoring started.
   priority: 1
 - id: E2
@@ -36,18 +37,20 @@ experiments:
   tag: run16_seed2
   num_classes: 200
   job_name: hubert_run16s2
-  status: submitted
+  status: trained
   job: 39635284
   priority: 2
-  notes: >-
-    Submitted 2026-10-05 01:56 by harness iteration 20261005-015326 (code 6b0456488f). Fresh exp_dir,
-    no stale last.ckpt. Watcher key hubert_run16s2 (longest-prefix match, so it does not fall back to
-    run16's entry).
+  notes: 'Trained: preempted once (05:11-09:23 Oct 5, 04:11:54), requeued and resumed from last.ckpt (20:38-23:23,
+    02:44:49, COMPLETED 0:0); final epoch=37-step=93750.ckpt present. Marked trained by tick.py while
+    the lead agent was paused; scoring started 2026-10-06 01:24 by the lead agent. Submitted 2026-10-05
+    01:56 by harness iteration 20261005-015326 (code 6b0456488f). Fresh exp_dir, no stale last.ckpt. Watcher
+    key hubert_run16s2 (longest-prefix match, so it does not fall back to run16''s entry).'
 - id: E3
   roadmap: T5
   title: AVES as label teacher, at run16's compute
   baseline: run16_compute4x
-  change: training targets -> AVES layer 6 k=200 on the combined corpus (borrows AVES's representation, not its weights)
+  change: training targets -> AVES layer 6 k=200 on the combined corpus (borrows AVES's representation,
+    not its weights)
   question: Is our teacher or theirs the better source of targets, everything else equal?
   success: call type above run16 with the interval excluding zero; compare against E1 as well
   script: pytorchAudio/examples/hubert/slurm/train_run19_avesteacher.sh
@@ -55,84 +58,79 @@ experiments:
   tag: run19_avesteacher
   num_classes: 200
   job_name: hubert_run19
-  requires: >-
-    relabel job 39635382 (slurm/relabel_aves_teacher_combined.sh) ended COMPLETED and its log
-    ~/jobs/relabel_aves_teacher_39635382.log contains "PASS: labels written"; the labels are in
-    /global/scratch/users/jonathanswang/temp_files/combined_aves_teacher/data/hubert_6
+  requires: 'relabel job 39635382 (slurm/relabel_aves_teacher_combined.sh) ended COMPLETED and its log
+    ~/jobs/relabel_aves_teacher_39635382.log contains "PASS: labels written"; the labels are in /global/scratch/users/jonathanswang/temp_files/combined_aves_teacher/data/hubert_6'
   status: submitted
   job: 39656780
-  notes: >-
-    Submitted 2026-10-05 by the lead agent (code 6b0456488f) after checking requires: relabel 39635382
-    COMPLETED 0:0 (23:35), log has "PASS: labels written", hubert_6/label/label_train.pt present.
-    Watcher key hubert_run19; datasets.tsv row run19_avesteacher, linked + shared (ACLs verified).
-    Teacher aves-base-bio layer 6 (the AVES in every headline comparison; tied for weakest of the six
-    on call type, so a win here is conservative). Relabel script = relabel_iter2_run16.sh with only the
-    teacher checkpoint and output dir changed; training script = train_run18_iter2.sh with only DATA
-    changed. AVES loaded cleanly through build_teacher on the login node (strict, 2026-10-05).
+  notes: 'Submitted 2026-10-05 by the lead agent (code 6b0456488f) after checking requires: relabel 39635382
+    COMPLETED 0:0 (23:35), log has "PASS: labels written", hubert_6/label/label_train.pt present. Watcher
+    key hubert_run19; datasets.tsv row run19_avesteacher, linked + shared (ACLs verified). Teacher aves-base-bio
+    layer 6 (the AVES in every headline comparison; tied for weakest of the six on call type, so a win
+    here is conservative). Relabel script = relabel_iter2_run16.sh with only the teacher checkpoint and
+    output dir changed; training script = train_run18_iter2.sh with only DATA changed. AVES loaded cleanly
+    through build_teacher on the login node (strict, 2026-10-05).'
   priority: 3
 - id: E4
   roadmap: T6
   title: general audio only (FSD50K alone), run16's recipe
   baseline: E6 (zebra-finch-only twin); run16_compute4x as context
-  change: corpus -> the FSD50K rows of the combined corpus only (108.39 h), same k=200 vocabulary and labels
-  question: Does a corpus with no colony audio lose call type or detection against its zebra-finch-only twin, same labels and recipe?
-  success: >-
-    A control; decision rule fixed 2026-10-05 before submission. Report run20 minus run21 (E6) and
-    run20 minus run16, observed with bird-bootstrap interval, 11-class call type at the best layer
+  change: corpus -> the FSD50K rows of the combined corpus only (108.39 h), same k=200 vocabulary and
+    labels
+  question: Does a corpus with no colony audio lose call type or detection against its zebra-finch-only
+    twin, same labels and recipe?
+  success: 'A control; decision rule fixed 2026-10-05 before submission. Report run20 minus run21 (E6)
+    and run20 minus run16, observed with bird-bootstrap interval, 11-class call type at the best layer
     AND at layer 3; ZF in-distribution detection AUC at the pre-committed arm with its block interval;
-    BirdPark as the 4-block result plus arm spread. Allowed outcomes: "resolved worse" / "resolved
-    better" / "not distinguishable". The word "match" only if the interval sits inside E2's seed spread.
+    BirdPark as the 4-block result plus arm spread. Allowed outcomes: "resolved worse" / "resolved better"
+    / "not distinguishable". The word "match" only if the interval sits inside E2''s seed spread.'
   script: pytorchAudio/examples/hubert/slurm/train_run20_fsdonly.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_run20_fsdonly
   tag: run20_fsdonly
   num_classes: 200
   job_name: hubert_run20
-  requires: >-
-    data built: sbatch slurm/build_fsd_only_corpus.sh (defaults) -> fsd_only_subset/data/spectrogram
-    with tsv/, label/label_train.pt and km_model symlink; its log ends in [done].
-    MET 2026-10-05 21:01: built on the login node (savio3 rejects savio_lowprio, and savio_normal
-    would spend allocation), log ~/jobs/build_fsd_only_login_20261005-2101.log; 19,510,529 frames,
-    vocabulary 200, audio precheck OK
-  status: approved
+  requires: 'data built: sbatch slurm/build_fsd_only_corpus.sh (defaults) -> fsd_only_subset/data/spectrogram
+    with tsv/, label/label_train.pt and km_model symlink; its log ends in [done]. MET 2026-10-05 21:01:
+    built on the login node (savio3 rejects savio_lowprio, and savio_normal would spend allocation), log
+    ~/jobs/build_fsd_only_login_20261005-2101.log; 19,510,529 frames, vocabulary 200, audio precheck OK'
+  status: submitted
   priority: 4
-  notes: >-
-    Scripts built and checked 2026-10-05 by the lead agent. Savio dry run: keeps fsd50k_dev (478
-    files, 80.61 h) + replay_fsd50k (165, 27.79 h), drops run5-4-26-full (120, 116.03 h); 643/763
-    files, 108.39 of 224.42 h; all 200 cluster ids kept (max 199). Training script = run16's with
-    only job name, log, DATA, EXP, echo and header changed. Self-approval test: lowprio, 12 h limit
-    on 4 L40 (run16 ~6 h), build <=4 CPU-h, flags/paths only -- passes. Critic (fresh subagent,
-    2026-10-05): ACCEPT-WITH-CHANGES, applied: decision rule above; twin E6 added; confounds named.
-    CONFOUNDS: (1) fixed 93,750 steps on half the audio -> roughly 2x the passes of run16 (the
-    critic's estimate ~77 vs 37.4; run17's extra passes went with worse call type, 054), which is
-    why E6, not run16, is the baseline. (2) The codebook is ZF-shaped: k-means fit on 51.7% ZF
-    frames; 58 of 200 clusters are ZF-majority and 20.4% of FSD frames fall in them
-    (scripts/cluster_source_mix.py on combined_zf_fsd, 2026-10-05). A tie means "no colony audio
-    needed, given a ZF-shaped codebook". (3) FSD50K has bird-vocalization classes: say "no colony
-    audio", not "no bird".
+  notes: 'Scripts built and checked 2026-10-05 by the lead agent. Savio dry run: keeps fsd50k_dev (478
+    files, 80.61 h) + replay_fsd50k (165, 27.79 h), drops run5-4-26-full (120, 116.03 h); 643/763 files,
+    108.39 of 224.42 h; all 200 cluster ids kept (max 199). Training script = run16''s with only job name,
+    log, DATA, EXP, echo and header changed. Self-approval test: lowprio, 12 h limit on 4 L40 (run16 ~6
+    h), build <=4 CPU-h, flags/paths only -- passes. Critic (fresh subagent, 2026-10-05): ACCEPT-WITH-CHANGES,
+    applied: decision rule above; twin E6 added; confounds named. CONFOUNDS: (1) fixed 93,750 steps on
+    half the audio -> roughly 2x the passes of run16 (the critic''s estimate ~77 vs 37.4; run17''s extra
+    passes went with worse call type, 054), which is why E6, not run16, is the baseline. (2) The codebook
+    is ZF-shaped: k-means fit on 51.7% ZF frames; 58 of 200 clusters are ZF-majority and 20.4% of FSD
+    frames fall in them (scripts/cluster_source_mix.py on combined_zf_fsd, 2026-10-05). A tie means "no
+    colony audio needed, given a ZF-shaped codebook". (3) FSD50K has bird-vocalization classes: say "no
+    colony audio", not "no bird". Submitted 2026-10-06 01:23 by the lead agent (code 6b0456488f); watcher
+    key hubert_run20; datasets.tsv row run20_fsdonly, linked + shared (ACLs verified).'
+  job: 39661997
 - id: E6
   roadmap: T6
   title: zebra finch only, the twin of E4
   baseline: run16_compute4x
   change: corpus -> the zebra finch rows of the combined corpus only (116.03 h), same k=200 labels
-  question: Paired with E4 -- at matched size and passes, does the corpus content (colony vs general audio) matter?
+  question: Paired with E4 -- at matched size and passes, does the corpus content (colony vs general audio)
+    matter?
   success: same decision rule as E4; this run is E4's baseline
   script: pytorchAudio/examples/hubert/slurm/train_run21_zfonly.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_run21_zfonly
   tag: run21_zfonly
   num_classes: 200
   job_name: hubert_run21
-  requires: >-
-    data built: sbatch --export=ALL,PREFIXES=run5-4-26-full/,OUT=/global/scratch/users/jonathanswang/temp_files/zf_only_subset/data/spectrogram
-    slurm/build_fsd_only_corpus.sh; its log ends in [done].
-    MET 2026-10-05 21:01 on the login node, log ~/jobs/build_zf_only_login_20261005-2101.log;
-    20,885,063 frames, vocabulary 200 (190 ids used), audio precheck OK
+  requires: 'data built: sbatch --export=ALL,PREFIXES=run5-4-26-full/,OUT=/global/scratch/users/jonathanswang/temp_files/zf_only_subset/data/spectrogram
+    slurm/build_fsd_only_corpus.sh; its log ends in [done]. MET 2026-10-05 21:01 on the login node, log
+    ~/jobs/build_zf_only_login_20261005-2101.log; 20,885,063 frames, vocabulary 200 (190 ids used), audio
+    precheck OK'
   status: approved
   priority: 5
-  notes: >-
-    Proposed by the E4 critic, built 2026-10-05. Script = run20's with only names and paths changed.
-    Savio dry run: 120/763 files, 116.03 h; only 190 distinct cluster ids (10 clusters hold no ZF
-    frames), max id 199 so the 200-class precheck passes; those 10 targets are simply never seen.
-    That asymmetry (E4 sees all 200) is part of the content difference, name it with the result.
+  notes: 'Proposed by the E4 critic, built 2026-10-05. Script = run20''s with only names and paths changed.
+    Savio dry run: 120/763 files, 116.03 h; only 190 distinct cluster ids (10 clusters hold no ZF frames),
+    max id 199 so the 200-class precheck passes; those 10 targets are simply never seen. That asymmetry
+    (E4 sees all 200) is part of the content difference, name it with the result.'
 - id: E5
   roadmap: T8
   title: replay dose-response for DAPT
