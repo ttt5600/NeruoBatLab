@@ -86,7 +86,10 @@ class PaperAccount:
         )
 
     def save(self, path: Path) -> None:
-        path = Path(path)
+        # Resolve first: replace() on a symlink swaps the link for a regular
+        # file, and the journal silently forks into two copies that each look
+        # current. The scheduled runner's journal is reached through one.
+        path = Path(path).resolve()
         payload = asdict(self)
         tmp = path.with_suffix(path.suffix + ".tmp")
         tmp.write_text(json.dumps(payload, indent=2, sort_keys=True))

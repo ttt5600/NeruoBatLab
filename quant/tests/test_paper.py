@@ -240,3 +240,16 @@ def test_dividend_readjustment_is_not_booked_as_a_loss(acct, px):
 def test_carry_is_a_no_op_on_an_unchanged_basis(acct, px):
     backfill(acct, px, build, COSTS, start=px.index[200].strftime("%Y-%m-%d"))
     assert all(e.basis == {} for e in acct.entries)
+
+
+def test_save_through_a_symlink_writes_the_target(tmp_path, acct, px):
+    real = tmp_path / "runner" / "acct.json"
+    real.parent.mkdir()
+    acct.save(real)
+    link = tmp_path / "acct.json"
+    link.symlink_to(real)
+
+    step(acct, px, build, COSTS)
+    acct.save(link)
+    assert link.is_symlink(), "save must not replace the link with a file"
+    assert len(PaperAccount.load(real).entries) == 1
