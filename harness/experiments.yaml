@@ -135,12 +135,36 @@ experiments:
     (E4 sees all 200) is part of the content difference, name it with the result.'
 - id: E5
   roadmap: T8
-  title: replay dose-response for DAPT
+  title: replay REPETITION dose for DAPT (x3)
   baseline: daptreplay_5e5
-  change: --replay-repeat 3 (general audio ~19% -> ~42% of the DAPT corpus)
-  question: Does BirdPark transfer track the replay dose? If so, replay is a mechanism, not luck.
-  success: BirdPark AP rises with dose by more than the arm spread, since arm selection is under-powered
-  script: null
-  status: proposed
-  notes: build_replay_corpus.sh takes the repeat as its argument; the DAPT replay training script exists.
+  change: >-
+    REPLAY_REPEAT 1 -> 3: the same 27.79 h of FSD50K repeated 3x, general audio ~19% -> 41.8% of a
+    199.39 h stream, ZF share 81% -> 58% at the same 15,000 steps. A repetition dose, not more variety.
+  question: Does BirdPark transfer rise when the replay share is raised by repetition?
+  success: >-
+    Fixed 2026-10-06 before submission (critic): ALL of (1) paired block bootstrap x3 minus x1, each
+    at its own pre-committed arm, BirdPark AP interval excluding zero at BOTH 1500- and 500-frame
+    blocks; (2) x3 ahead in at least 3 of 4 BirdPark 1500-frame blocks; (3) the median BirdPark AP
+    over all 12 arms higher than x1's. If not all hold, the wording is "not resolvable at about
+    0.05 AP", never "dose does not matter". One run per dose: any result is also exposed to
+    run-to-run variation (057).
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_replay3.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv2_replay_5e5_x3
+  tag: daptreplay3_5e5
+  num_classes: 100
+  job_name: dapt_replay3
+  status: approved
   priority: 6
+  notes: >-
+    Built 2026-10-06 by the lead agent. Script = train_dapt_v2.sh with only the REPLAY_REPEAT default,
+    job name, log and EXP (_x3 suffix, so it cannot resume the x1 run) changed. Data mix_zf_fsd50k3
+    built on the login node with merge_corpora.py --replay-repeat 3 (615 rows, cluster ids [0,99],
+    run11's k-means, log ~/jobs/build_mix3_login_20261006-0346.log). Self-approval test: lowprio,
+    1 L40, 12 h limit, data on Savio, flags/paths only -- passes. Critic (fresh subagent,
+    2026-10-06): ACCEPT-WITH-CHANGES. Applied: criterion above, null wording, "repetition dose".
+    Not applied here, for the user: a --seed 2 run of x1 (needs a seed flag in train_dapt_v2.sh and
+    its own exp dir), and writing the x1 replay arm up as a finding before E5 is scored (baseline
+    numbers live only in savio_artifacts/analysis/detection_variants.json; x1 at step 15000,
+    native_L6, BirdPark AP 0.8318). Arm defaults to replay (lab train sends extra args to sbatch, so
+    script args cannot be passed). NOTE for scoring: check that score_run.sh can score a DAPT run (it was written
+    for from-scratch runs; DAPT checkpoints were scored by export_dapt_checkpoints.sh).
