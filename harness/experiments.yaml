@@ -16,8 +16,11 @@ experiments:
   tag: run18_iter2
   num_classes: 200
   job_name: hubert_run18
-  status: submitted
+  status: trained
   job: 39629355
+  notes: >-
+    sacct COMPLETED 0:0, elapsed 06:34:49, ended 2026-10-05 05:11; final epoch=37-step=93750.ckpt
+    present (checked 2026-10-05 21:0x by the lead agent). Scoring started.
   priority: 1
 - id: E2
   roadmap: T2
@@ -54,8 +57,12 @@ experiments:
     relabel job 39635382 (slurm/relabel_aves_teacher_combined.sh) ended COMPLETED and its log
     ~/jobs/relabel_aves_teacher_39635382.log contains "PASS: labels written"; the labels are in
     /global/scratch/users/jonathanswang/temp_files/combined_aves_teacher/data/hubert_6
-  status: approved
+  status: submitted
+  job: 39656780
   notes: >-
+    Submitted 2026-10-05 by the lead agent (code 6b0456488f) after checking requires: relabel 39635382
+    COMPLETED 0:0 (23:35), log has "PASS: labels written", hubert_6/label/label_train.pt present.
+    Watcher key hubert_run19; datasets.tsv row run19_avesteacher, linked + shared (ACLs verified).
     Teacher aves-base-bio layer 6 (the AVES in every headline comparison; tied for weakest of the six
     on call type, so a win here is conservative). Relabel script = relabel_iter2_run16.sh with only the
     teacher checkpoint and output dir changed; training script = train_run18_iter2.sh with only DATA
