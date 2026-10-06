@@ -11,7 +11,7 @@ apparatus, not the signals.
 ```bash
 python3.11 -m venv .venv_quant
 .venv_quant/bin/pip install numpy pandas scipy matplotlib pytest
-.venv_quant/bin/python -m pytest tests/ -q     # 67 tests
+.venv_quant/bin/python -m pytest tests/ -q     # 68 tests
 .venv_quant/bin/python scripts/run_demo.py     # the full experiment
 ```
 
@@ -224,6 +224,26 @@ Now:
 `scripts/paper_cron.sh` runs `step` at 17:30 New York on weekdays via a
 launchd agent (`com.jonathanwang.quant-paper-step`). If it fails, it posts a
 macOS notification.
+
+The first version of that agent could never have run. macOS privacy controls
+(TCC) block launchd jobs from `~/Desktop` entirely. `/bin/bash` exited 126
+with "Operation not permitted", and `/usr/bin/python3` couldn't even list the
+folder. Nothing in the setup step showed this. It only turned up by triggering
+the agent with `launchctl kickstart` instead of running the script from a
+terminal, which has permissions launchd doesn't. So the job now runs from a
+detached git worktree outside Desktop:
+
+- checkout + venv: `~/.claude/quant-paper/runner` (pinned to a commit)
+- entry point: `~/.claude/quant-paper/launch.py` under `/usr/bin/python3`
+- the journal and step log live in the runner; `results/paper_account.json`
+  here is a symlink to them, and `save()` resolves links so the journal
+  cannot fork into two copies
+
+The runner does **not** follow this branch. After changing code the job uses,
+redeploy with `git -C ~/.claude/quant-paper/runner checkout --detach <commit>`
+and run `launchctl kickstart gui/$(id -u)/com.jonathanwang.quant-paper-step`.
+Granting Full Disk Access to an interpreter would remove the indirection, at
+the cost of a much broader permission.
 
 **The sealed rule can no longer be met on its date.** The 2026-10-06 → 2027-03-19
 window holds about 115 trading days, short of the 126 live days required, so
