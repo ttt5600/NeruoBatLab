@@ -1,0 +1,85 @@
+id: '061'
+title: General audio alone vs colony audio alone, same labels and recipe -- not distinguishable on call type
+status: confirmed
+claim: >-
+  Trained from scratch with run16's recipe and the same k=200 labels, the FSD50K rows alone (run20,
+  108.39 h, no colony audio) score 0.8370 on 11-class call type and the zebra finch rows alone (run21,
+  116.03 h) 0.8151: run20 minus run21 +0.0220, bird-bootstrap [-0.0008, +0.0412], not distinguishable
+  (run20's L3 against run21's best layer L2: +0.0120 [-0.0064, +0.0276]; L3 against L3 0.8271 vs
+  0.8089, +0.0182, no interval). run20 minus run16 (the combined corpus) is -0.0009 [-0.0254,
+  +0.0208] at the best layer and -0.0108 [-0.0323, +0.0062] at run20's L3 against run16's best L7,
+  not distinguishable; per E4's pre-registered rule that is not a "match", because the interval is
+  wider than the one seed-to-seed gap observed (057). run21 is resolved BELOW run16 (best -0.0229
+  [-0.0383, -0.0079]; its L3 against run16's best -0.0290 [-0.0484, -0.0116]).
+evidence: >-
+  Cohort 3412 clips / 11 call types / 48 birds. Per-layer 11-class means: run20 0.8271, run21 0.8095,
+  run16 0.8309; run20 above run21 at 12 of 12 layers on both 11- and 8-class -- but 057's seed 2 sat
+  below run16 at 12 of 12 with no recipe change, so the all-layers pattern carries no weight on its
+  own. run20 above run16 at 3 of 12, run21 at 0 of 12. 8-class: run20 best L4 0.8304, run21 best L2
+  0.8155 (no 8-class bootstrap). run21 vs run11 +0.0032 [-0.0095, +0.0196] (best) and -0.0029
+  [-0.0157, +0.0130] (L3, run11's best is L3); vs aves-base-bio -0.0302 [-0.0543, -0.0057]. run20 vs
+  run11 +0.0252 [+0.0027, +0.0479] (best), +0.0152 [-0.0041, +0.0354] (L3); vs run16 seed 2 +0.0147
+  [-0.0104, +0.0390]. DETECTION, each at its pre-committed arm (run20 native L3, picked over matched
+  L0 by 0.0005 ZF AUC; run21 matched L0, over native L3 by 0.0009; run16 native L0), paired by
+  zfeval/experiments/paired_vs.py. run20 minus run21: ZF AUC observed -0.0025 [-0.0041, +0.0008], not
+  distinguishable; ZF AP -0.0076 [-0.0121, -0.0003], run21 ahead, resolved; BirdPark AUC +0.0359
+  [-0.0307, +0.1052], AP +0.0183 [-0.0601, +0.1131], not distinguishable; run20 ahead on AUC in 3 of
+  4 and on AP in 2 of 4 1500-frame blocks. run20 minus run16: ZF AUC -0.0045 [-0.0059, -0.0014] and
+  AP -0.0088 [-0.0137, -0.0023], run16 ahead, resolved; BirdPark AUC +0.0831 [+0.0340, +0.1119] and AP
+  +0.0815 [+0.0027, +0.1524], run20 ahead, resolved at both block sizes, 4 of 4 and 12 of 12 blocks
+  -- NOT claimed as better transfer: run16's pre-committed arm is native L0, the raw-input arm 049
+  identifies as the selection trap, and over all 12 layer/normalisation variants run20's BirdPark AP
+  median (0.7777) is BELOW run16's (0.7864). BirdPark AP over 12 variants: run20 0.6374-0.8576
+  (median 0.7777), run21 0.4826-0.8597 (median 0.7284), run16 0.6949-0.8203 (median 0.7864); AUC:
+  run20 0.7335-0.8938 (median 0.8448), run21 0.4807-0.8928 (median 0.7619). The arms NOT chosen flip
+  BirdPark sharply: run20 matched L0 has BP AP 0.6374 (its minimum), run21 native L3 BP AUC 0.6776.
+  Chick: run20 Be/LT AUC 0.9936, AMI(k=4) 0.4992; run21 0.9934, 0.5201; both not distinguishable from
+  run11.
+method: >-
+  Both runs = train_run16_compute4x.sh with only DATA, EXP, job name, log and header changed. Data:
+  scripts/subset_corpus.py on combined_zf_fsd (prefixes replay_fsd50k/ + fsd50k_dev/ for run20,
+  run5-4-26-full/ for run21), same label tensors, km_model symlinked; built on the Savio login node.
+  run20 job 39661997 (5:52:09, final epoch=77-step=93750.ckpt); run21 job 39665377 (5:57:03, reached
+  step 93750 but the last checkpoint saved is step 93633 -- see caveats). Neither preempted. Scored by
+  harness/score_run.sh; call-type contrasts by run16_calltype_bootstrap.py --tag run20_fsdonly
+  --also run21_zfonly,run16_seed2 (existing values unchanged); detection contrasts by
+  zfeval/experiments/paired_vs.py --a run20_fsdonly --b run21_zfonly and --b run16_compute4x.
+provenance: >-
+  analysis/run20_fsdonly_calltype.json, run21_zfonly_calltype.json, run16_compute4x_calltype.json
+  (per-layer); analysis/run20_fsdonly_bootstrap.json (vs.run20_fsdonly.run21_zfonly,
+  .run16_compute4x, .run16_seed2, .run11; vs.run20_fsdonly@L3.*; OBSERVED delta);
+  analysis/run21_zfonly_bootstrap.json (vs.run21_zfonly.run11/.run16_compute4x/.aves-base-bio and
+  @L3); analysis/paired_vs.json (run20_fsdonly__vs__run21_zfonly and run20_fsdonly__vs__run16_compute4x:
+  *_observed, intervals, bp_blockwise_*); analysis/detection_variants.json (precommit.*, zf_to_bp.* for spreads/medians);
+  analysis/chick_holdout_variants.json (precommit.run20_fsdonly, precommit.run21_zfonly).
+caveats: >-
+  One run per arm, and 057 showed two runs of one recipe 0.0155 apart on call type: run20-vs-run21
+  (+0.0220) and run21-vs-run16 (-0.0229) are each only somewhat larger than that single observed
+  gap. Preemption history differs: run16 was preempted and resumed twice, run20 and run21 never,
+  and 057 attributes run-to-run gaps to seed plus that history. Passes: the twins are near-matched
+  (108 h vs 116 h at the same 93,750 steps, about 77.7 vs 72 epochs), but run20 makes about 2x
+  run16's passes (77.7 vs 37.4), which bears on run20 minus run16. The codebook is ZF-shaped (k-means
+  fit on 51.7% ZF frames; 58 of 200 clusters ZF-majority; 20.4% of FSD frames in them), so "no colony
+  audio" still means a ZF-shaped target vocabulary. run21 never sees 10 of the 200 clusters (they
+  hold no ZF frames); run20 sees all 200. FSD50K has bird-vocalisation classes, so run20 is "no colony
+  audio", not "no bird". BirdPark pre-committed arms were chosen on 0.0005-0.0009 ZF margins (046's
+  selection lottery), which is why the resolved run20-vs-run16 BirdPark gap is not claimed. Relation
+  to 051 (adding FSD50K to ZF moved nothing, run15 vs run11): here ZF-only is resolved below ZF+FSD
+  (run21 vs run16); the two comparisons differ in compute (1 GPU vs 4) and passes, so they do not
+  contradict, but together they say the corpus effect, if any, appears only at run16's compute.
+  run21's scored weights are step 93633, 117 steps (0.12%) short: the checkpoint callback keeps the
+  top 5 by train_loss and the final epoch was not in it, so neither last.ckpt nor a numbered
+  checkpoint holds step 93750. The in-distribution AP advantage of the ZF-only model is the expected
+  direction (it trained on the colony the test recording comes from). The `note` field in
+  run20_fsdonly_calltype.json and run21_zfonly_calltype.json is run15's stale string ("combined
+  ZF+FSD50K corpus 224.42 h") and describes neither model. Critic (fresh subagent, CRITIC.md,
+  2026-10-06): ACCEPT-WITH-CHANGES; all numbers verified; applied: L3 contrasts labelled, the missing
+  run20/run21-vs-run16 L3 rows, the run20-vs-run16 detection contrast (run after the review), title
+  without the all-layers claim, preemption and 2x-passes confounds, arm-margin caveat with AUC
+  spreads, relation to 051.
+tags:
+- corpus
+- control
+- calltype
+- negative-result
+date: '2026-10-06'

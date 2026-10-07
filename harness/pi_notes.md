@@ -67,3 +67,9 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
   its run20 scoring attempts were killed mid-way (11:59 at export, 12:10 at encode 1500/3412). The
   lead re-runs score_run.sh run20_fsdonly. Pattern: the auto-resume agent's long background jobs
   die with it, so it should never start scoring.
+
+## 2026-10-06 18:40 — process correction (critic on 061)
+- I had been writing each draft finding as `status: confirmed` and running build.py BEFORE the
+  critic, so CONTEXT.md briefly listed unreviewed drafts as confirmed (056-061). PI.md says confirmed
+  only after step 5. From now on: write drafts as `status: open`, flip to confirmed after applying
+  the critic's verdict. 056-061 all ended ACCEPT-WITH-CHANGES with changes applied.

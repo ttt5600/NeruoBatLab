@@ -97,7 +97,9 @@ experiments:
     with tsv/, label/label_train.pt and km_model symlink; its log ends in [done]. MET 2026-10-05 21:01:
     built on the login node (savio3 rejects savio_lowprio, and savio_normal would spend allocation), log
     ~/jobs/build_fsd_only_login_20261005-2101.log; 19,510,529 frames, vocabulary 200, audio precheck OK'
-  status: scored
+  status: done
+  finding: '061'
+  result: run20 minus run21 +0.0220 [-0.0008, +0.0412], run20 minus run16 -0.0009 [-0.0254, +0.0208] -- not distinguishable (not a match)
   scored_note: >-
     Scored 2026-10-06 13:0x (harness/logs/score_run20_fsdonly_20261006-124411.log). Finding deliberately
     WAITS for E6 (run21, the pre-registered baseline) so the decision rule is applied as written;
@@ -135,7 +137,14 @@ experiments:
     slurm/build_fsd_only_corpus.sh; its log ends in [done]. MET 2026-10-05 21:01 on the login node, log
     ~/jobs/build_zf_only_login_20261005-2101.log; 20,885,063 frames, vocabulary 200 (190 ids used), audio
     precheck OK'
-  status: submitted
+  status: done
+  finding: '061'
+  result: run21 (ZF only) 0.8151, resolved below run16 (-0.0229 [-0.0383, -0.0079]); E4's baseline
+  trained_note: >-
+    Job 39665377 COMPLETED 0:0 in 05:57:03 (ended 17:37 Oct 6), reached max_steps 93750, but the
+    final-step checkpoint was NOT written: the callback keeps top-5 by train_loss and epoch 72 was not
+    in it, so last.ckpt and the newest epoch=71-step=93633.ckpt both hold step 93633. Scored at 93633;
+    the missing 117 steps (0.12%) are a caveat for the E4/E6 finding.
   job: 39665377
   priority: 5
   notes: 'Proposed by the E4 critic, built 2026-10-05. Script = run20''s with only names and paths changed.
