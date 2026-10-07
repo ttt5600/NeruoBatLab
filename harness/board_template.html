@@ -1,0 +1,157 @@
+<title>Zebra Finch Model Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --ground: #F3F5F2; --surface: #FFFFFF; --ink: #18201C; --muted: #5C6761; --rule: #D9DED8;
+  --ours: #2E5F8A; --dapt: #2A8573; --aves: #8C9590;
+  --ok: #2E7D4F; --run: #2E5F8A; --plan: #6450A3; --warn: #9A6210; --bad: #B23B3B; --idle: #6F7973;
+  --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #111513; --surface: #1A201D; --ink: #E5EAE6; --muted: #9AA59F; --rule: #2D3531;
+    --ours: #7FAEDC; --dapt: #5CC3AE; --aves: #7F8984;
+    --ok: #63C38A; --run: #7FAEDC; --plan: #A99BE3; --warn: #E2A84E; --bad: #EC7B7B; --idle: #96A09A;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #111513; --surface: #1A201D; --ink: #E5EAE6; --muted: #9AA59F; --rule: #2D3531;
+  --ours: #7FAEDC; --dapt: #5CC3AE; --aves: #7F8984;
+  --ok: #63C38A; --run: #7FAEDC; --plan: #A99BE3; --warn: #E2A84E; --bad: #EC7B7B; --idle: #96A09A;
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font: 15px/1.5 var(--sans); padding-inline: 16px; padding-block: 0 48px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+header { padding-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: 30px; line-height: 1.15; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; }
+a { color: var(--ours); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--ours); outline-offset: 2px; border-radius: 2px; }
+h2 { font-size: 20px; margin: 0 0 4px; }
+.lede { color: var(--muted); margin: 0 0 16px; max-width: 72ch; }
+section { display: flex; flex-direction: column; }
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.fact { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.fact .k { font: 500 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.fact .v { font: 600 20px/1.25 var(--sans); font-variant-numeric: tabular-nums; }
+.fact .note { font-size: 13px; color: var(--muted); }
+.fact.needs { border-color: color-mix(in srgb, var(--bad) 45%, var(--rule)); }
+.fact ul { margin: 2px 0 0; padding-left: 18px; font-size: 13.5px; }
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; }
+.scroll { overflow-x: auto; }
+svg { display: block; width: 100%; min-width: 600px; height: auto; font-family: var(--sans); }
+svg .grid { stroke: var(--rule); stroke-width: 1; }
+svg .zero { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 3 3; }
+svg .tick { fill: var(--muted); font: 11px var(--mono); }
+svg .lab { fill: var(--ink); font-size: 12.5px; }
+svg .ci { stroke-width: 2.2; stroke-linecap: round; }
+svg .ci.ours { stroke: var(--ours); } svg .ci.dapt { stroke: var(--dapt); } svg .ci.aves { stroke: var(--aves); }
+svg circle.dot-fill.ours { fill: var(--ours); } svg circle.dot-fill.dapt { fill: var(--dapt); } svg circle.dot-fill.aves { fill: var(--aves); }
+svg circle.dot-open { fill: var(--surface); stroke-width: 2; }
+svg circle.dot-open.ours { stroke: var(--ours); } svg circle.dot-open.dapt { stroke: var(--dapt); } svg circle.dot-open.aves { stroke: var(--aves); }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.sw.ours { background: var(--ours); } .sw.dapt { background: var(--dapt); } .sw.aves { background: var(--aves); }
+.sw.open { background: transparent; border: 2px solid var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th { text-align: left; font: 500 11px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 8px 8px; border-bottom: 1px solid var(--rule); vertical-align: bottom; white-space: nowrap; }
+td { padding: 7px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+td.n { font-family: var(--mono); font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+th.n { text-align: right; }
+td.nm { font-weight: 600; white-space: nowrap; }
+td.nm .sw { margin-right: 8px; vertical-align: 1px; }
+td.what { color: var(--muted); min-width: 190px; }
+.iv { font-size: 11.5px; }
+td.path code { font-size: 11.5px; }
+.iv { color: var(--muted); }
+.nd { font-family: var(--sans); font-size: 11px; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 4px; margin-left: 2px; }
+tr.aves td.nm { color: var(--muted); }
+code { font-family: var(--mono); font-size: 12.5px; background: color-mix(in srgb, var(--rule) 45%, transparent); padding: 1px 4px; border-radius: 3px; }
+.chip { display: inline-block; font: 500 11.5px/1.6 var(--sans); padding: 0 8px; border-radius: 999px; white-space: nowrap;
+        color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); }
+.chip.ok { --c: var(--ok); } .chip.run { --c: var(--run); } .chip.plan { --c: var(--plan); } .chip.warn { --c: var(--warn); } .chip.bad { --c: var(--bad); } .chip.idle { --c: var(--idle); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.card .ch { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.card h3 { font-size: 15px; margin: 0; }
+.card p { margin: 0; font-size: 13.5px; color: var(--muted); }
+.sub { color: var(--muted); font-size: 13px; }
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule); padding-top: 14px; }
+@media (max-width: 520px) { h1 { font-size: 25px; } .fact .v { font-size: 18px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">HuBERT vocalization models · as of {{ASOF}}</div>
+    <h1>Zebra Finch Model Board</h1>
+    <nav><a href="#models">Models</a><a href="#experiments">Experiments</a><a href="#automations">Savio automations</a><a href="#notebooks">Notebooks</a></nav>
+  </header>
+
+  <div class="strip">
+    <div class="fact"><span class="k">Best of ours, call type</span><span class="v">{{BEST}}</span><span class="note">{{BEST_NOTE}}</span></div>
+    <div class="fact"><span class="k">Seed-to-seed gap</span><span class="v">{{SEED}}</span><span class="note">{{SEED_NOTE}}</span></div>
+    <div class="fact"><span class="k">Training now</span><span class="v">{{RUNNING}}</span><span class="note">{{RUNNING_NOTE}}</span></div>
+    <div class="fact needs"><span class="k">Needs you</span><ul>{{NEEDS}}</ul></div>
+  </div>
+
+  <section id="models">
+    <h2>Models</h2>
+    <p class="lede">11-class call type, leave-birds-out ({{COHORT}}). Each line is the observed difference from run16 with its 95% bird-bootstrap interval. A filled dot means the interval excludes zero.</p>
+    <div class="panel">
+      <div class="scroll">{{FOREST}}</div>
+      <div class="legend"><span><i class="sw ours"></i>ours, trained from scratch</span><span><i class="sw dapt"></i>AVES weights, continued on zebra finch</span><span><i class="sw aves"></i>AVES, downloaded</span><span><i class="sw open"></i>not distinguishable from run16</span></div>
+    </div>
+    <div class="panel scroll" style="margin-top:12px">
+      <table>
+        <thead><tr><th>Model</th><th>What it is</th><th class="n">Call type</th><th class="n">vs run16</th><th class="n">ZF detection AUC</th><th class="n">BirdPark AP</th><th class="n">Chick AUC</th><th class="n">Finding</th><th>On Savio</th></tr></thead>
+        <tbody>
+{{MODEL_ROWS}}
+        </tbody>
+      </table>
+    </div>
+    <p class="sub" style="margin-top:8px">Detection and holdout columns use each model's pre-committed layer and input normalisation. BirdPark is four independent 30 s blocks, so its AP moves by up to 0.05 between arms. "…/" is <code>/global/scratch/users/jonathanswang/</code>; every folder there is shared with Julie and Bhavna.</p>
+  </section>
+
+  <section id="experiments">
+    <h2>Experiments</h2>
+    <p class="lede">The search the agents run, from <code>harness/experiments.yaml</code>. Each one changes one thing against a baseline, with its question and pass mark written before it runs.</p>
+    <div class="panel scroll">
+      <table>
+        <thead><tr><th>ID</th><th>Experiment</th><th>Status</th><th class="n">Job</th><th class="n">Finding</th><th>Result</th></tr></thead>
+        <tbody>
+{{EXP_ROWS}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="automations">
+    <h2>Savio automations</h2>
+    <p class="lede">What runs on its own, and what it needs from you.</p>
+    <div class="cards">
+{{CARDS}}
+    </div>
+  </section>
+
+  <section id="notebooks">
+    <h2>Notebooks</h2>
+    <p class="lede">In <code>notebooks/</code> in the repo; each link opens it rendered on GitHub. The newest is from {{NB_LATEST}}, so none covers run18–run21 yet; the table above does. To run one: open it in Jupyter on your Mac, or on a Savio GPU with <code>sv notebook HOURS</code>.</p>
+    <div class="panel scroll">
+      <table>
+        <thead><tr><th>Notebook</th><th>What it shows</th><th class="n">Updated</th></tr></thead>
+        <tbody>
+{{NB_ROWS}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>Built by <code>harness/build_board.py</code> from the scoring JSONs, the experiment queue and the watcher's state. Every score on this page is read from those files when the page is built. Findings live in <a href="https://github.com/ttt5600/NeruoBatLab/tree/UMAP/knowledge/findings">knowledge/findings</a>.</footer>
+</div>

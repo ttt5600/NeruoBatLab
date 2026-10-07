@@ -34,6 +34,10 @@ The goal: an encoder that beats AVES on zebra finch call type and transfers to t
    - Set status `done`, `finding: '0NN'`, and a one-line `result`.
    - Add the run to the scoreboard in `docs/roadmap.html` (the run table) and republish it with the
      Artifact tool if you have it (url https://claude.ai/artifact/K2NJhuv7hqnZj9FVBbwRo7).
+   - Rebuild the model board (`/Library/Frameworks/Python.framework/Versions/3.10/bin/python3
+     harness/build_board.py`). If the new model is not in its MODELS list, add it there first. Then
+     republish `docs/model_board.html` with the Artifact tool, url
+     https://claude.ai/artifact/3LSJjzp7pLS4JCWviA1wpb.
 4. **Submit**: while fewer than `max_concurrent` entries are `submitted`, take the `approved` entry
    with the lowest `priority`:
    - if it has `requires`, check every condition on Savio first. If one is not met yet, skip the

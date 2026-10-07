@@ -1,0 +1,267 @@
+<title>Zebra Finch Model Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --ground: #F3F5F2; --surface: #FFFFFF; --ink: #18201C; --muted: #5C6761; --rule: #D9DED8;
+  --ours: #2E5F8A; --dapt: #2A8573; --aves: #8C9590;
+  --ok: #2E7D4F; --run: #2E5F8A; --plan: #6450A3; --warn: #9A6210; --bad: #B23B3B; --idle: #6F7973;
+  --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #111513; --surface: #1A201D; --ink: #E5EAE6; --muted: #9AA59F; --rule: #2D3531;
+    --ours: #7FAEDC; --dapt: #5CC3AE; --aves: #7F8984;
+    --ok: #63C38A; --run: #7FAEDC; --plan: #A99BE3; --warn: #E2A84E; --bad: #EC7B7B; --idle: #96A09A;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #111513; --surface: #1A201D; --ink: #E5EAE6; --muted: #9AA59F; --rule: #2D3531;
+  --ours: #7FAEDC; --dapt: #5CC3AE; --aves: #7F8984;
+  --ok: #63C38A; --run: #7FAEDC; --plan: #A99BE3; --warn: #E2A84E; --bad: #EC7B7B; --idle: #96A09A;
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font: 15px/1.5 var(--sans); padding-inline: 16px; padding-block: 0 48px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+header { padding-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: 30px; line-height: 1.15; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; }
+a { color: var(--ours); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--ours); outline-offset: 2px; border-radius: 2px; }
+h2 { font-size: 20px; margin: 0 0 4px; }
+.lede { color: var(--muted); margin: 0 0 16px; max-width: 72ch; }
+section { display: flex; flex-direction: column; }
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.fact { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.fact .k { font: 500 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.fact .v { font: 600 20px/1.25 var(--sans); font-variant-numeric: tabular-nums; }
+.fact .note { font-size: 13px; color: var(--muted); }
+.fact.needs { border-color: color-mix(in srgb, var(--bad) 45%, var(--rule)); }
+.fact ul { margin: 2px 0 0; padding-left: 18px; font-size: 13.5px; }
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; }
+.scroll { overflow-x: auto; }
+svg { display: block; width: 100%; min-width: 600px; height: auto; font-family: var(--sans); }
+svg .grid { stroke: var(--rule); stroke-width: 1; }
+svg .zero { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 3 3; }
+svg .tick { fill: var(--muted); font: 11px var(--mono); }
+svg .lab { fill: var(--ink); font-size: 12.5px; }
+svg .ci { stroke-width: 2.2; stroke-linecap: round; }
+svg .ci.ours { stroke: var(--ours); } svg .ci.dapt { stroke: var(--dapt); } svg .ci.aves { stroke: var(--aves); }
+svg circle.dot-fill.ours { fill: var(--ours); } svg circle.dot-fill.dapt { fill: var(--dapt); } svg circle.dot-fill.aves { fill: var(--aves); }
+svg circle.dot-open { fill: var(--surface); stroke-width: 2; }
+svg circle.dot-open.ours { stroke: var(--ours); } svg circle.dot-open.dapt { stroke: var(--dapt); } svg circle.dot-open.aves { stroke: var(--aves); }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.sw.ours { background: var(--ours); } .sw.dapt { background: var(--dapt); } .sw.aves { background: var(--aves); }
+.sw.open { background: transparent; border: 2px solid var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th { text-align: left; font: 500 11px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 8px 8px; border-bottom: 1px solid var(--rule); vertical-align: bottom; white-space: nowrap; }
+td { padding: 7px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+td.n { font-family: var(--mono); font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+th.n { text-align: right; }
+td.nm { font-weight: 600; white-space: nowrap; }
+td.nm .sw { margin-right: 8px; vertical-align: 1px; }
+td.what { color: var(--muted); min-width: 190px; }
+.iv { font-size: 11.5px; }
+td.path code { font-size: 11.5px; }
+.iv { color: var(--muted); }
+.nd { font-family: var(--sans); font-size: 11px; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 4px; margin-left: 2px; }
+tr.aves td.nm { color: var(--muted); }
+code { font-family: var(--mono); font-size: 12.5px; background: color-mix(in srgb, var(--rule) 45%, transparent); padding: 1px 4px; border-radius: 3px; }
+.chip { display: inline-block; font: 500 11.5px/1.6 var(--sans); padding: 0 8px; border-radius: 999px; white-space: nowrap;
+        color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); }
+.chip.ok { --c: var(--ok); } .chip.run { --c: var(--run); } .chip.plan { --c: var(--plan); } .chip.warn { --c: var(--warn); } .chip.bad { --c: var(--bad); } .chip.idle { --c: var(--idle); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.card .ch { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.card h3 { font-size: 15px; margin: 0; }
+.card p { margin: 0; font-size: 13.5px; color: var(--muted); }
+.sub { color: var(--muted); font-size: 13px; }
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule); padding-top: 14px; }
+@media (max-width: 520px) { h1 { font-size: 25px; } .fact .v { font-size: 18px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">HuBERT vocalization models · as of Oct 7, 2026 00:02</div>
+    <h1>Zebra Finch Model Board</h1>
+    <nav><a href="#models">Models</a><a href="#experiments">Experiments</a><a href="#automations">Savio automations</a><a href="#notebooks">Notebooks</a></nav>
+  </header>
+
+  <div class="strip">
+    <div class="fact"><span class="k">Best of ours, call type</span><span class="v">run19 0.8464</span><span class="note">AVES models score 0.845–0.855; vs run16 +0.0085 [-0.0127, +0.0293], not distinguishable</span></div>
+    <div class="fact"><span class="k">Seed-to-seed gap</span><span class="v">0.0155</span><span class="note">run16's second seed: -0.0155 [-0.0289, -0.0017]. Single runs cannot separate smaller gaps.</span></div>
+    <div class="fact"><span class="k">Training now</span><span class="v">Nothing</span><span class="note">The queue is empty; the next experiments wait for your decision.</span></div>
+    <div class="fact needs"><span class="k">Needs you</span><ul><li>Run <code>sv login</code>: the Savio certificate has expired.</li><li>Decide on E7, E8 (second seeds) in <code>harness/experiments.yaml</code>.</li><li>Approve the fix for duplicate agents.</li></ul></div>
+  </div>
+
+  <section id="models">
+    <h2>Models</h2>
+    <p class="lede">11-class call type, leave-birds-out (3,412 clips, 48 birds). Each line is the observed difference from run16 with its 95% bird-bootstrap interval. A filled dot means the interval excludes zero.</p>
+    <div class="panel">
+      <div class="scroll"><svg viewBox="0 0 760 424" role="img" aria-label="Call type difference from run16 with intervals">
+<line x1="190.0" y1="26" x2="190.0" y2="398" class="grid"/>
+<text x="190.0" y="414" class="tick" text-anchor="middle">-0.05</text>
+<line x1="250.7" y1="26" x2="250.7" y2="398" class="grid"/>
+<text x="250.7" y="414" class="tick" text-anchor="middle">-0.04</text>
+<line x1="311.3" y1="26" x2="311.3" y2="398" class="grid"/>
+<text x="311.3" y="414" class="tick" text-anchor="middle">-0.03</text>
+<line x1="372.0" y1="26" x2="372.0" y2="398" class="grid"/>
+<text x="372.0" y="414" class="tick" text-anchor="middle">-0.02</text>
+<line x1="432.7" y1="26" x2="432.7" y2="398" class="grid"/>
+<text x="432.7" y="414" class="tick" text-anchor="middle">-0.01</text>
+<line x1="493.3" y1="26" x2="493.3" y2="398" class="grid"/>
+<text x="493.3" y="414" class="tick" text-anchor="middle">+0.00</text>
+<line x1="554.0" y1="26" x2="554.0" y2="398" class="grid"/>
+<text x="554.0" y="414" class="tick" text-anchor="middle">+0.01</text>
+<line x1="614.7" y1="26" x2="614.7" y2="398" class="grid"/>
+<text x="614.7" y="414" class="tick" text-anchor="middle">+0.02</text>
+<line x1="675.3" y1="26" x2="675.3" y2="398" class="grid"/>
+<text x="675.3" y="414" class="tick" text-anchor="middle">+0.03</text>
+<line x1="736.0" y1="26" x2="736.0" y2="398" class="grid"/>
+<text x="736.0" y="414" class="tick" text-anchor="middle">+0.04</text>
+<line x1="493.3" y1="20" x2="493.3" y2="398" class="zero"/>
+<text x="493.3" y="16" class="tick" text-anchor="middle">run16</text>
+<text x="178" y="50.0" class="lab" text-anchor="end">BirdAVES biox-large</text>
+<line x1="456.6" y1="46.0" x2="730.6" y2="46.0" class="ci aves"/>
+<circle cx="598.2" cy="46.0" r="5" class="aves dot-open"/>
+<text x="178" y="74.0" class="lab" text-anchor="end">BirdAVES biox-base</text>
+<line x1="450.8" y1="70.0" x2="700.0" y2="70.0" class="ci aves"/>
+<circle cx="578.7" cy="70.0" r="5" class="aves dot-open"/>
+<text x="178" y="98.0" class="lab" text-anchor="end">AVES core</text>
+<line x1="414.3" y1="94.0" x2="697.6" y2="94.0" class="ci aves"/>
+<circle cx="568.0" cy="94.0" r="5" class="aves dot-open"/>
+<text x="178" y="122.0" class="lab" text-anchor="end">AVES all</text>
+<line x1="421.2" y1="118.0" x2="673.4" y2="118.0" class="ci aves"/>
+<circle cx="553.8" cy="118.0" r="5" class="aves dot-open"/>
+<text x="178" y="146.0" class="lab" text-anchor="end">run19</text>
+<line x1="416.4" y1="142.0" x2="670.9" y2="142.0" class="ci ours"/>
+<circle cx="544.9" cy="142.0" r="5" class="ours dot-open"/>
+<text x="178" y="170.0" class="lab" text-anchor="end">AVES bio</text>
+<line x1="390.3" y1="166.0" x2="676.0" y2="166.0" class="ci aves"/>
+<circle cx="537.8" cy="166.0" r="5" class="aves dot-open"/>
+<text x="178" y="194.0" class="lab" text-anchor="end">BirdAVES bioxn-large</text>
+<line x1="408.4" y1="190.0" x2="667.6" y2="190.0" class="ci aves"/>
+<circle cx="537.8" cy="190.0" r="5" class="aves dot-open"/>
+<text x="178" y="218.0" class="lab" text-anchor="end">DAPT replay x3</text>
+<line x1="447.8" y1="214.0" x2="638.1" y2="214.0" class="ci dapt"/>
+<circle cx="536.0" cy="214.0" r="5" class="dapt dot-open"/>
+<text x="178" y="242.0" class="lab" text-anchor="end">run20</text>
+<line x1="339.3" y1="238.0" x2="619.3" y2="238.0" class="ci ours"/>
+<circle cx="488.0" cy="238.0" r="5" class="ours dot-open"/>
+<text x="178" y="266.0" class="lab" text-anchor="end">run18</text>
+<line x1="391.1" y1="262.0" x2="548.8" y2="262.0" class="ci ours"/>
+<circle cx="475.6" cy="262.0" r="5" class="ours dot-open"/>
+<text x="178" y="290.0" class="lab" text-anchor="end">run17</text>
+<line x1="358.9" y1="286.0" x2="540.5" y2="286.0" class="ci ours"/>
+<circle cx="457.8" cy="286.0" r="5" class="ours dot-open"/>
+<text x="178" y="314.0" class="lab" text-anchor="end">run16, seed 2</text>
+<line x1="318.1" y1="310.0" x2="483.3" y2="310.0" class="ci ours"/>
+<circle cx="399.1" cy="310.0" r="5" class="ours dot-fill"/>
+<text x="178" y="338.0" class="lab" text-anchor="end">run21</text>
+<line x1="261.2" y1="334.0" x2="445.4" y2="334.0" class="ci ours"/>
+<circle cx="354.6" cy="334.0" r="5" class="ours dot-fill"/>
+<text x="178" y="362.0" class="lab" text-anchor="end">run15</text>
+<line x1="239.1" y1="358.0" x2="433.5" y2="358.0" class="ci ours"/>
+<circle cx="345.8" cy="358.0" r="5" class="ours dot-fill"/>
+<text x="178" y="386.0" class="lab" text-anchor="end">run11</text>
+<line x1="202.8" y1="382.0" x2="435.5" y2="382.0" class="ci ours"/>
+<circle cx="335.1" cy="382.0" r="5" class="ours dot-fill"/>
+</svg></div>
+      <div class="legend"><span><i class="sw ours"></i>ours, trained from scratch</span><span><i class="sw dapt"></i>AVES weights, continued on zebra finch</span><span><i class="sw aves"></i>AVES, downloaded</span><span><i class="sw open"></i>not distinguishable from run16</span></div>
+    </div>
+    <div class="panel scroll" style="margin-top:12px">
+      <table>
+        <thead><tr><th>Model</th><th>What it is</th><th class="n">Call type</th><th class="n">vs run16</th><th class="n">ZF detection AUC</th><th class="n">BirdPark AP</th><th class="n">Chick AUC</th><th class="n">Finding</th><th>On Savio</th></tr></thead>
+        <tbody>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run19</td><td class="what">run16&#x27;s recipe, labels from AVES layer 6 (k=200)</td><td class="n">0.8464</td><td class="n vs">+0.0085 <span class="nd">n.d.</span><br><span class="iv">[-0.0127, +0.0293]</span></td><td class="n">0.9717</td><td class="n">0.8115</td><td class="n">0.9921</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/059-aves-as-label-teacher-at-run16-s-compute-is-not-distinguisha.yaml">059</a></td><td class="path"><code>…/temp_train_run19_avesteacher</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run16</td><td class="what">run15 on 4 GPUs: 4x the audio per update (reference)</td><td class="n">0.8379</td><td class="n vs">reference</td><td class="n">0.9718</td><td class="n">0.7451</td><td class="n">0.9936</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/052-four-times-the-audio-per-update-closes-most-of-the-aves.yaml">052</a></td><td class="path"><code>…/temp_train_run16_compute4x</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run20</td><td class="what">run16&#x27;s recipe on general audio only (FSD50K, 108 h)</td><td class="n">0.8370</td><td class="n vs">-0.0009 <span class="nd">n.d.</span><br><span class="iv">[-0.0254, +0.0208]</span></td><td class="n">0.9674</td><td class="n">0.8266</td><td class="n">0.9936</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/061-general-audio-alone-is-not-distinguishable-from-its-zebra-fin.yaml">061</a></td><td class="path"><code>…/temp_train_run20_fsdonly</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run18</td><td class="what">run16&#x27;s recipe, labels from run16 layer 6 (iteration 2)</td><td class="n">0.8350</td><td class="n vs">-0.0029 <span class="nd">n.d.</span><br><span class="iv">[-0.0168, +0.0091]</span></td><td class="n">0.9730</td><td class="n">0.8250</td><td class="n">0.9908</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/056-iteration-2-targets-at-run16-s-compute-do-not-beat-run16.yaml">056</a></td><td class="path"><code>…/temp_train_run18_iter2</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run17</td><td class="what">run16 + 2x gradient accumulation</td><td class="n">0.8321</td><td class="n vs">-0.0059 <span class="nd">n.d.</span><br><span class="iv">[-0.0222, +0.0078]</span></td><td class="n">0.9716</td><td class="n">0.5720</td><td class="n">0.9936</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/054-a-second-doubling-of-compute-fits-the-targets-better-an.yaml">054</a></td><td class="path"><code>…/temp_train_run17_accum2</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run16, seed 2</td><td class="what">run16 exactly, different random seed</td><td class="n">0.8224</td><td class="n vs">-0.0155<br><span class="iv">[-0.0289, -0.0017]</span></td><td class="n">0.9718</td><td class="n">0.7883</td><td class="n">0.9895</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/057-a-second-seed-of-run16-scores-resolved-lower-on-call-type.yaml">057</a></td><td class="path"><code>…/temp_train_run16_seed2</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run21</td><td class="what">run16&#x27;s recipe on zebra finch audio only (116 h)</td><td class="n">0.8151</td><td class="n vs">-0.0229<br><span class="iv">[-0.0383, -0.0079]</span></td><td class="n">0.9699</td><td class="n">0.8083</td><td class="n">0.9934</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/061-general-audio-alone-is-not-distinguishable-from-its-zebra-fin.yaml">061</a></td><td class="path"><code>…/temp_train_run21_zfonly</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run15</td><td class="what">run11&#x27;s recipe on zebra finch + FSD50K (224 h), k=200</td><td class="n">0.8136</td><td class="n vs">-0.0243<br><span class="iv">[-0.0419, -0.0099]</span></td><td class="n">0.9696</td><td class="n">0.7091</td><td class="n">0.9940</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/051-corpus-size-and-label-vocabulary-do-not-explain-the.yaml">051</a></td><td class="path"><code>…/temp_train_run15_combined</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run11</td><td class="what">zebra finch only (116 h), spectrogram labels k=100, 1 GPU; the release model</td><td class="n">0.8118</td><td class="n vs">-0.0261<br><span class="iv">[-0.0479, -0.0095]</span></td><td class="n">0.9687</td><td class="n">0.8121</td><td class="n">0.9858</td><td class="n"></td><td class="path"><code>…/temp_train_run11</code></td></tr>
+<tr class="dapt"><td class="nm"><span class="sw dapt"></span>DAPT replay x3</td><td class="what">AVES weights, continued on zebra finch with 41.8% general-audio replay</td><td class="n">0.8450</td><td class="n vs">+0.0070 <span class="nd">n.d.</span><br><span class="iv">[-0.0075, +0.0239]</span></td><td class="n">0.9704</td><td class="n">0.8305</td><td class="n">0.9946</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/060-tripling-replay-by-repetition-birdpark-change-not-resolvable.yaml">060</a></td><td class="path"><code>…/temp_train_daptv2_replay_5e5_x3</code></td></tr>
+<tr class="dapt"><td class="nm"><span class="sw dapt"></span>DAPT replay x1</td><td class="what">AVES weights, continued on zebra finch with 19.3% general-audio replay</td><td class="n">—</td><td class="n vs">—</td><td class="n">0.9711</td><td class="n">0.8318</td><td class="n">—</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/058-dapt-round-2-replay-arm-is-the-e5-baseline-not-distinguish.yaml">058</a></td><td class="path"><code>…/external/dapt</code></td></tr>
+<tr class="aves"><td class="nm"><span class="sw aves"></span>BirdAVES biox-large</td><td class="what">downloaded; large, bird-heavy corpus</td><td class="n">0.8552</td><td class="n vs">+0.0173 <span class="nd">n.d.</span><br><span class="iv">[-0.0061, +0.0391]</span></td><td class="n">0.9703</td><td class="n">0.8362</td><td class="n">—</td><td class="n"></td><td class="path">Mac only</td></tr>
+<tr class="aves"><td class="nm"><span class="sw aves"></span>BirdAVES biox-base</td><td class="what">downloaded; same size as ours, bird-heavy corpus</td><td class="n">0.8520</td><td class="n vs">+0.0141 <span class="nd">n.d.</span><br><span class="iv">[-0.0070, +0.0341]</span></td><td class="n">0.9697</td><td class="n">0.7914</td><td class="n">—</td><td class="n"></td><td class="path">Mac only</td></tr>
+<tr class="aves"><td class="nm"><span class="sw aves"></span>AVES core</td><td class="what">downloaded</td><td class="n">0.8502</td><td class="n vs">+0.0123 <span class="nd">n.d.</span><br><span class="iv">[-0.0130, +0.0337]</span></td><td class="n">0.9667</td><td class="n">0.8296</td><td class="n">—</td><td class="n"></td><td class="path">Mac only</td></tr>
+<tr class="aves"><td class="nm"><span class="sw aves"></span>AVES all</td><td class="what">downloaded</td><td class="n">0.8479</td><td class="n vs">+0.0100 <span class="nd">n.d.</span><br><span class="iv">[-0.0119, +0.0297]</span></td><td class="n">0.9670</td><td class="n">0.8129</td><td class="n">—</td><td class="n"></td><td class="path">Mac only</td></tr>
+<tr class="aves"><td class="nm"><span class="sw aves"></span>AVES bio</td><td class="what">downloaded; the AVES in earlier headlines</td><td class="n">0.8453</td><td class="n vs">+0.0073 <span class="nd">n.d.</span><br><span class="iv">[-0.0170, +0.0301]</span></td><td class="n">0.9674</td><td class="n">0.8057</td><td class="n">0.9932</td><td class="n"></td><td class="path"><code>…/external/aves</code></td></tr>
+<tr class="aves"><td class="nm"><span class="sw aves"></span>BirdAVES bioxn-large</td><td class="what">downloaded; large</td><td class="n">0.8453</td><td class="n vs">+0.0073 <span class="nd">n.d.</span><br><span class="iv">[-0.0140, +0.0287]</span></td><td class="n">0.9724</td><td class="n">0.8442</td><td class="n">—</td><td class="n"></td><td class="path">Mac only</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub" style="margin-top:8px">Detection and holdout columns use each model's pre-committed layer and input normalisation. BirdPark is four independent 30 s blocks, so its AP moves by up to 0.05 between arms. "…/" is <code>/global/scratch/users/jonathanswang/</code>; every folder there is shared with Julie and Bhavna.</p>
+  </section>
+
+  <section id="experiments">
+    <h2>Experiments</h2>
+    <p class="lede">The search the agents run, from <code>harness/experiments.yaml</code>. Each one changes one thing against a baseline, with its question and pass mark written before it runs.</p>
+    <div class="panel scroll">
+      <table>
+        <thead><tr><th>ID</th><th>Experiment</th><th>Status</th><th class="n">Job</th><th class="n">Finding</th><th>Result</th></tr></thead>
+        <tbody>
+<tr><td class="nm">E1</td><td>run18 -- iteration-2 labels from run16 layer 6, at run16&#x27;s compute</td><td><span class="chip ok">done</span></td><td class="n">39629355</td><td class="n">056</td><td class="what">not met -- call type 0.8350 (L0) vs run16 0.8379, observed -0.0029 [-0.0168, +0.0091], not distinguishable</td></tr>
+<tr><td class="nm">E2</td><td>run16, second seed</td><td><span class="chip ok">done</span></td><td class="n">39635284</td><td class="n">057</td><td class="what">|seed2 - run16| = 0.0155 [0.0017, 0.0289] on call type (0.8224 vs 0.8379), resolved; below at 12/12 layers</td></tr>
+<tr><td class="nm">E3</td><td>AVES as label teacher, at run16&#x27;s compute</td><td><span class="chip ok">done</span></td><td class="n">39656780</td><td class="n">059</td><td class="what">not met -- call type 0.8464 (L4) vs run16 0.8379, +0.0085 [-0.0127, +0.0293]; vs run18 +0.0114 [-0.0125, +0.0371]; not distinguishable</td></tr>
+<tr><td class="nm">E4</td><td>general audio only (FSD50K alone), run16&#x27;s recipe</td><td><span class="chip ok">done</span></td><td class="n">39661997</td><td class="n">061</td><td class="what">run20 minus run21 +0.0220 [-0.0008, +0.0412], run20 minus run16 -0.0009 [-0.0254, +0.0208] -- not distinguishable (not a match)</td></tr>
+<tr><td class="nm">E6</td><td>zebra finch only, the twin of E4</td><td><span class="chip ok">done</span></td><td class="n">39665377</td><td class="n">061</td><td class="what">run21 (ZF only) 0.8151, resolved below run16 (-0.0229 [-0.0383, -0.0079]); E4&#x27;s baseline</td></tr>
+<tr><td class="nm">E5</td><td>replay REPETITION dose for DAPT (x3)</td><td><span class="chip ok">done</span></td><td class="n">39671592</td><td class="n">060</td><td class="what">not met on all three conditions -- BirdPark AP x3 minus x1 -0.0012 [-0.0174, +0.0069]; not resolvable at ~0.05 AP</td></tr>
+<tr><td class="nm">E7</td><td>run16, third seed</td><td><span class="chip warn">needs-human</span></td><td class="n"></td><td class="n"></td><td class="what">With three runs of one recipe, how far apart do run16-recipe call-type scores land, and is seed 2 or run16 the outlier?</td></tr>
+<tr><td class="nm">E8</td><td>run19 (AVES teacher), second seed</td><td><span class="chip warn">needs-human</span></td><td class="n"></td><td class="n"></td><td class="what">Does run19&#x27;s best-point-estimate call type (0.8464, finding 059) survive a second seed?</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="automations">
+    <h2>Savio automations</h2>
+    <p class="lede">What runs on its own, and what it needs from you.</p>
+    <div class="cards">
+<div class="card"><div class="ch"><h3>Savio login</h3><span class="chip bad">expired</span></div><p>12-hour SSH certificate, expired 2026-10-06 21:20. Renew with <code>sv login</code> (one PIN + code). Every automation below that touches Savio waits on this.</p></div>
+<div class="card"><div class="ch"><h3>lab / sv commands</h3><span class="chip ok">working</span></div><p><code>sv train</code>, <code>sv status</code>, <code>sv log</code>, <code>sv gpu</code>, <code>sv notebook</code>, <code>sv data</code>, <code>sv share</code>. Training submissions run an import check first and go in a ledger.</p></div>
+<div class="card"><div class="ch"><h3>Shared data</h3><span class="chip ok">working</span></div><p>22 corpora, label sets and models registered in <code>datasets.tsv</code>, browsable under <code>…/lab_data</code>, read + write for Julie (jelie) and Bhavna (malladibhavna). New folders: <code>lab share</code>.</p></div>
+<div class="card"><div class="ch"><h3>Storage</h3><span class="chip ok">working</span></div><p>Home went from 47 GB (at its 50 GB cap) to 0.7 GB on Oct 4; conda envs, pip cache and JupyterLab live on scratch behind shortcuts. Env recipes in <code>~/env_specs</code>.</p></div>
+<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip bad">expired</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-07 00:02, 3 failed in a row (login expired).</p></div>
+<div class="card"><div class="ch"><h3>Experiment harness</h3><span class="chip ok">working</span></div><p>Each poll, <code>tick.py</code> starts an agent when a run finishes, fails, or an approved experiment has a free slot (2 at a time, 6 agents a day). It stands down while the lead agent is alive.</p></div>
+<div class="card"><div class="ch"><h3>Lead agent</h3><span class="chip idle">stopped</span></div><p>Long-lived <code>/loop</code> session (<code>harness/PI.md</code>). Last heartbeat Oct 6 20:09. Restart: <code>caffeinate -is claude --permission-mode bypassPermissions</code>, then <code>/loop follow harness/PI.md</code>.</p></div>
+<div class="card"><div class="ch"><h3>Critic</h3><span class="chip ok">working</span></div><p>A fresh agent tries to break every finding before it is recorded (<code>harness/CRITIC.md</code>). Findings 056–061 all came back accept-with-changes, changes applied.</p></div>
+<div class="card"><div class="ch"><h3>Jupyter on Savio</h3><span class="chip warn">partly tested</span></div><p>Kernel and the Mac-to-Savio tunnel are verified; the GPU notebook job itself has not run yet. Start one with <code>sv notebook HOURS</code>.</p></div>
+<div class="card"><div class="ch"><h3>Duplicate agents</h3><span class="chip bad">open issue</span></div><p>The usage watcher's auto-resume started a second agent in this project twice while the lead was running; both submitted the same job. Duplicates were cancelled. Fix: make auto-resume skip this project while the lead is alive.</p></div>
+    </div>
+  </section>
+
+  <section id="notebooks">
+    <h2>Notebooks</h2>
+    <p class="lede">In <code>notebooks/</code> in the repo; each link opens it rendered on GitHub. The newest is from Sep 29, so none covers run18–run21 yet; the table above does. To run one: open it in Jupyter on your Mac, or on a Savio GPU with <code>sv notebook HOURS</code>.</p>
+    <div class="panel scroll">
+      <table>
+        <thead><tr><th>Notebook</th><th>What it shows</th><th class="n">Updated</th></tr></thead>
+        <tbody>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/01_compute_budget_and_fair_comparison.ipynb">01_compute_budget_and_fair_comparison.ipynb</a></td><td><strong>Apples to apples: what run11 and AVES actually cost</strong><br><span class="sub">Two encoders are compared throughout this project:</span></td><td class="n">Sep 17</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/02_dapt_general_then_specialize.ipynb">02_dapt_general_then_specialize.ipynb</a></td><td><strong>General-purpose first, then specialise: AVES-init → continued ZF pretraining</strong><br><span class="sub">The companion notebook (01_compute_budget_and_fair_comparison.ipynb) established that run11 saw</span></td><td class="n">Sep 17</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/03_forgetting_curve.ipynb">03_forgetting_curve.ipynb</a></td><td><strong>The forgetting curve — what continued pretraining costs on a holdout</strong><br><span class="sub">The setup. run11 is a HuBERT pretrained from scratch on 116 h of zebra finch colony audio.</span></td><td class="n">Sep 17</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/04_clustering_without_labels.ipynb">04_clustering_without_labels.ipynb</a></td><td><strong>Clustering when nobody labelled the data</strong><br><span class="sub">The problem in one sentence. You have bat recordings. Nobody has labelled the calls. You run a</span></td><td class="n">Sep 22</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/05_pipeline_status.ipynb">05_pipeline_status.ipynb</a></td><td><strong>Pipeline status — what is running, what is done</strong><br><span class="sub">Run the cells to get live state instead of reading a summary. Needs an SSH master:</span></td><td class="n">Sep 22</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/06_where_we_are.ipynb">06_where_we_are.ipynb</a></td><td><strong>Where we are</strong><br><span class="sub">The one question this whole project has become: AVES — a model trained on *general* animal</span></td><td class="n">Sep 29</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/ZF_AVES_full_comparison.ipynb">ZF_AVES_full_comparison.ipynb</a></td><td><strong>run11 vs the AVES family — the complete comparison</strong><br><span class="sub">The question. We pretrained a HuBERT on 120 zebra finch colony recordings (run11). AVES is the</span></td><td class="n">Sep 15</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/ZF_detection_findings.ipynb">ZF_detection_findings.ipynb</a></td><td><strong>Zebra finch HuBERT — vocalization detection: what we know, and what we got wrong</strong><br><span class="sub">This notebook is the consolidated record of the detection workstream. It is deliberately built to</span></td><td class="n">Sep 10</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/ZF_detection_update.ipynb">ZF_detection_update.ipynb</a></td><td><strong>Zebra finch call detection — September update</strong><br><span class="sub">Three results, one clarification, and a change you should make to the pipeline today.</span></td><td class="n">Sep 13</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/ZF_embeddings_and_controls.ipynb">ZF_embeddings_and_controls.ipynb</a></td><td><strong>Zebra finch HuBERT — embeddings, and the control that gives them meaning</strong><br><span class="sub">Companion to ZF_detection_findings.ipynb. That one records *what the detector scores*; this one</span></td><td class="n">Sep 13</td></tr>
+<tr><td class="nm"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/notebooks/ZF_supervised_training.ipynb">ZF_supervised_training.ipynb</a></td><td><strong>The supervised head, trained in the open</strong><br><span class="sub">Every encoder comparison in this project reduces to one recipe:</span></td><td class="n">Sep 15</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>Built by <code>harness/build_board.py</code> from the scoring JSONs, the experiment queue and the watcher's state. Every score on this page is read from those files when the page is built. Findings live in <a href="https://github.com/ttt5600/NeruoBatLab/tree/UMAP/knowledge/findings">knowledge/findings</a>.</footer>
+</div>
