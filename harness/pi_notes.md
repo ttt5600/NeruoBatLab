@@ -73,3 +73,9 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
   critic, so CONTEXT.md briefly listed unreviewed drafts as confirmed (056-061). PI.md says confirmed
   only after step 5. From now on: write drafts as `status: open`, flip to confirmed after applying
   the critic's verdict. 056-061 all ended ACCEPT-WITH-CHANGES with changes applied.
+
+## 2026-10-06 21:10 — lead loop stopped (idle)
+- E1-E6 done (findings 056-061); queue empty; E7 (run16 seed 3) and E8 (run19 seed 2) are
+  needs-human pending the seed decision. Third idle wake in a row and the BRC cert expires 21:20,
+  so the /loop lead stopped. Restart with `/loop follow harness/PI.md` after deciding on seeds.
+- Open for the user: seeds (E7/E8); usage-watch auto-resume collisions (2 so far).
