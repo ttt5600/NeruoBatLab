@@ -37,8 +37,10 @@ SPLITS = {
     "nfl_total": ("season", list(range(2006, 2020)), list(range(2020, 2026))),
     "nfl_moneyline": ("season", list(range(2006, 2020)), list(range(2020, 2026))),
     "mlb_k_props": ("month", [4, 5, 6, 7], [8, 9]),
+    "mlb_total": ("season", [2015, 2016, 2017, 2018, 2019, 2020], [2021]),
 }
-MIN_TRAIN_FOLDS = {"nfl_spread": 3, "nfl_total": 3, "nfl_moneyline": 3, "mlb_k_props": 1}
+MIN_TRAIN_FOLDS = {"nfl_spread": 3, "nfl_total": 3, "nfl_moneyline": 3, "mlb_k_props": 1,
+                   "mlb_total": 2}
 
 K_LINES_URL = ("https://raw.githubusercontent.com/Msuresh32/pitcherKModel/HEAD/data/"
                "processed_ensemble_wf2025/bt_ensemble_2025_edges.csv")
@@ -162,6 +164,35 @@ def mlb_k_props():
     return pd.concat([a, b], ignore_index=True)
 
 
+# ---------------------------------------------------------------- MLB totals x weather
+MLB_TOTAL_FEATURES = [
+    "home", "away", "home_pitcher", "away_pitcher", "venue", "venue_lat", "venue_lon",
+    "elevation_ft", "roof", "surface", "day_night", "officials", "temp_f", "wind_mph",
+    "wind_dir", "condition", "month", "ou_open", "ou_close", "line_move", "over_odds_american",
+    "under_odds_american", "p_over_mkt", "ml_close_home", "ml_close_away"]
+
+
+def mlb_total():
+    from sports import sbr
+    mlb = pd.read_parquet(DATA / "mlb_games.parquet")
+    j = pd.concat([sbr.join_to_mlb(sbr.season(y), mlb) for y in range(2015, 2022)], ignore_index=True)
+    j = j[j["score_match"]].copy()
+    j["month"] = j["date"].dt.month
+    j["line_move"] = j["ou_close"] - j["ou_open"]
+    j["p_over_mkt"], _, _ = market.devig_two_way(j["over_odds"], j["under_odds"])
+    j["over_odds_american"], j["under_odds_american"] = j["over_odds"], j["under_odds"]
+    j["actual"] = j["home_score"] + j["away_score"]
+    j["opp_id"] = j["game_id"].astype(str)
+    base = j[["opp_id", "season", "date", "start_utc", "actual"] + MLB_TOTAL_FEATURES]
+    resid = j["actual"] - j["ou_close"]
+    push = (resid == 0).to_numpy()
+    over = base.assign(selection="over", dec_odds=market.american_to_decimal(j["over_odds"]),
+                       won=((resid > 0).to_numpy()).astype(int), push=push.astype(int))
+    under = base.assign(selection="under", dec_odds=market.american_to_decimal(j["under_odds"]),
+                        won=((resid < 0).to_numpy()).astype(int), push=push.astype(int))
+    return pd.concat([over, under], ignore_index=True)
+
+
 # ---------------------------------------------------------------- access
 def build(name: str) -> pd.DataFrame:
     if name.startswith("nfl_"):
@@ -169,6 +200,8 @@ def build(name: str) -> pd.DataFrame:
                 "nfl_moneyline": nfl_moneyline}[name](_nfl_base())
     if name == "mlb_k_props":
         return mlb_k_props()
+    if name == "mlb_total":
+        return mlb_total()
     raise KeyError(name)
 
 

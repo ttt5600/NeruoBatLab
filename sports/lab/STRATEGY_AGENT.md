@@ -19,7 +19,7 @@ Working directory: `sports/`. Python: `../.venv_quant/bin/python`.
 ```python
 import numpy as np, pandas as pd        # numpy, pandas, scipy, sklearn only
 
-DATASET = "nfl_total"                    # nfl_spread | nfl_total | nfl_moneyline | mlb_k_props
+DATASET = "nfl_total"                    # nfl_spread | nfl_total | nfl_moneyline | mlb_k_props | mlb_total
 HYPOTHESIS = "one sentence: the edge and why the market misses it"
 SOURCE = "registry:S012"                 # or a URL, or "agent" for your own idea
 

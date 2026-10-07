@@ -45,6 +45,7 @@ Report file: $REPORT"
 
 ## This iteration
 Strategies to write and test: up to $K
+${LAB_FOCUS:+Focus: $LAB_FOCUS}
 Report file: $REPORT"
         TOOLS=(Read Glob Grep "Edit(lab/strategies/**)" "Edit($REPORT)"
                "Bash($PY lab/registry.py list:*)" "Bash($PY lab/run.py dev:*)"

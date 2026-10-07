@@ -35,7 +35,7 @@ EVIDENCE = {
 REQUIRED = {"title": str, "sport": str, "market": str, "mechanism": str, "claimed_edge": str,
             "evidence": str, "sources": list, "data_needed": str, "testable_with": list,
             "skeptic_note": str}
-DATASETS = {"nfl_spread", "nfl_total", "nfl_moneyline", "mlb_k_props"}
+DATASETS = {"nfl_spread", "nfl_total", "nfl_moneyline", "mlb_k_props", "mlb_total"}
 
 
 def _rows(path: Path) -> list[dict]:
