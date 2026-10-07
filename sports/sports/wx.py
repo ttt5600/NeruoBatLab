@@ -82,7 +82,8 @@ def settled_markets(series: str) -> pd.DataFrame:
 
 def event_date(event_ticker: str) -> pd.Timestamp:
     """'KXHIGHNY-26AUG06' / 'HIGHNY-21AUG06' -> 2026-08-06."""
-    return pd.to_datetime(event_ticker.split("-")[1], format="%y%b%d")
+    # Last segment: one Chicago event is 'HIGHCHI-2-24FEB28'.
+    return pd.to_datetime(event_ticker.split("-")[-1], format="%y%b%d")
 
 
 def decision_ts(day: pd.Timestamp, tz: str) -> int:

@@ -38,9 +38,14 @@ SPLITS = {
     "nfl_moneyline": ("season", list(range(2006, 2020)), list(range(2020, 2026))),
     "mlb_k_props": ("month", [4, 5, 6, 7], [8, 9]),
     "mlb_total": ("season", [2015, 2016, 2017, 2018, 2019, 2020], [2021]),
+    # Kalshi daily-high brackets: dev = 2021Q3..2025Q2, lockbox = 2025Q3..2026Q4.
+    "kalshi_temp": ("quarter",
+                    [f"{y}Q{q}" for y in range(2021, 2026) for q in range(1, 5)
+                     if (y, q) >= (2021, 3) and (y, q) <= (2025, 2)],
+                    [f"{y}Q{q}" for y in range(2025, 2027) for q in range(1, 5) if (y, q) >= (2025, 3)]),
 }
 MIN_TRAIN_FOLDS = {"nfl_spread": 3, "nfl_total": 3, "nfl_moneyline": 3, "mlb_k_props": 1,
-                   "mlb_total": 2}
+                   "mlb_total": 2, "kalshi_temp": 4}
 
 K_LINES_URL = ("https://raw.githubusercontent.com/Msuresh32/pitcherKModel/HEAD/data/"
                "processed_ensemble_wf2025/bt_ensemble_2025_edges.csv")
@@ -193,6 +198,46 @@ def mlb_total():
     return pd.concat([over, under], ignore_index=True)
 
 
+# ---------------------------------------------------------------- Kalshi temperature
+def kalshi_temp():
+    """One row per (bracket, side). Price = ask at 10pm local the day before,
+    plus the modelled taker fee, so dec_odds is what a fill actually returns."""
+    from sports import wx
+    files = sorted(DATA.glob("wx_*.parquet"))
+    if not files:
+        raise FileNotFoundError("run scripts/pull_wx.py first")
+    df = pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
+    df = df[~df["result_mismatch"]].copy()
+    # Only TRADEABLE quotes. An ask of 0.97-0.99 against a bid of 0 is an empty
+    # book, not a price: in NY those "99c" brackets won 20% of the time. Keep a
+    # bracket only if both sides were quoted and the spread was <= 10c.
+    df = df[(df["yes_bid"] > 0) & (df["yes_ask"] < 1) & ((df["yes_ask"] - df["yes_bid"]) <= 0.10)]
+    df["date"] = pd.to_datetime(df["date"])
+    df["quarter"] = df["date"].dt.year.astype(str) + "Q" + df["date"].dt.quarter.astype(str)
+    df["month"] = df["date"].dt.month
+    df["actual"] = df["expiration_value"]
+    df["opp_id"] = df["ticker"]
+    # fc_ncep_hrrr_conus and fc_best_match return GFS's values exactly at lead 1
+    # (silent fallback), so they are excluded rather than triple-counting GFS.
+    models = [c for c in df.columns if c.startswith("fc_") and c not in
+              ("fc_max_lead1", "fc_max_lead2", "fc_ncep_hrrr_conus", "fc_best_match")]
+    feats = ["opp_id", "event_ticker", "city", "date", "quarter", "month", "strike_type",
+             "floor_strike", "cap_strike", "fc_max_lead1", "fc_max_lead2", *models, "yes_ask", "yes_bid",
+             "volume_to_decision", "actual"]
+    base = df[feats]
+
+    def side(name, ask, won):
+        ask = ask.where((ask > 0) & (ask < 1))
+        cost = ask + wx.FEE_RATE * ask * (1 - ask)
+        return base.assign(selection=name, ask=ask, dec_odds=1.0 / cost,
+                           won=won.astype(int).to_numpy(), push=0)
+
+    yes = side("yes", df["yes_ask"], df["result"] == "yes")
+    no = side("no", 1.0 - df["yes_bid"], df["result"] == "no")
+    out = pd.concat([yes, no], ignore_index=True)
+    return out[out["dec_odds"].notna()].reset_index(drop=True)
+
+
 # ---------------------------------------------------------------- access
 def build(name: str) -> pd.DataFrame:
     if name.startswith("nfl_"):
@@ -202,6 +247,8 @@ def build(name: str) -> pd.DataFrame:
         return mlb_k_props()
     if name == "mlb_total":
         return mlb_total()
+    if name == "kalshi_temp":
+        return kalshi_temp()
     raise KeyError(name)
 
 
