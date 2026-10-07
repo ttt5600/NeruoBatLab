@@ -19,7 +19,7 @@ from sports import wx
 from sports.http import fetch
 
 DATA = Path(__file__).resolve().parents[1] / "data"
-MODELS = {"ecmwf_ifs025": "2024-03-01", "icon_seamless": "2024-03-01", "gem_seamless": "2024-03-01",
+MODELS = {"gfs_seamless": "2021-03-01", "ecmwf_ifs025": "2024-03-01", "icon_seamless": "2024-03-01", "gem_seamless": "2024-03-01",
           "ncep_hrrr_conus": "2024-03-01", "ncep_nbm_conus": "2025-03-01", "jma_seamless": "2022-01-01",
           "best_match": "2022-01-01"}
 
@@ -35,12 +35,19 @@ def model_max(model, lat, lon, tz, start, end):
                                  "end_date": e.date().isoformat()}, cache=done)
         h = pd.DataFrame(d.get("hourly", {}))
         if not h.empty:
-            h["day"] = pd.to_datetime(h["time"]).dt.normalize()
+            t = pd.to_datetime(h["time"])
+            h["day"] = t.dt.normalize()
             # a day counts only if most hours are present
             g = h.groupby("day")["temperature_2m_previous_day1"]
-            frames.append(g.max().where(g.count() >= 20))
+            full = g.max().where(g.count() >= 20)
+            # "safe" max: hours <= 18:00 only. A lead-1 value valid at hour h was
+            # issued ~24 h earlier, so these were all issued by 18:00 the day
+            # before -- strictly before the 22:00 decision. Later hours were not.
+            early = h[t.dt.hour <= 18].groupby("day")["temperature_2m_previous_day1"]
+            safe = early.max().where(early.count() >= 15)
+            frames.append(pd.DataFrame({f"fc_{model}": full, f"fcsafe_{model}": safe}))
         s = e + pd.Timedelta(days=1)
-    return pd.concat(frames).rename(f"fc_{model}") if frames else None
+    return pd.concat(frames) if frames else None
 
 
 def main() -> int:
@@ -49,8 +56,9 @@ def main() -> int:
         city = f.stem.split("_", 1)[1]
         station, tz = wx.CITIES[inv[city]]
         lat, lon = wx.station_coords(station)
-        df = pd.read_parquet(f).drop(columns=[c for c in pd.read_parquet(f).columns
-                                              if c.startswith("fc_") and c not in ("fc_max_lead1", "fc_max_lead2")])
+        df = pd.read_parquet(f)
+        df = df.drop(columns=[c for c in df.columns if (c.startswith("fc_") or c.startswith("fcsafe_"))
+                              and c not in ("fc_max_lead1", "fc_max_lead2")])
         end = str(pd.to_datetime(df["date"]).max().date())
         for m, start in MODELS.items():
             s = model_max(m, lat, lon, tz, start, end)

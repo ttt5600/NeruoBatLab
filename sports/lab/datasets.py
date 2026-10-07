@@ -219,8 +219,8 @@ def kalshi_temp():
     df["opp_id"] = df["ticker"]
     # fc_ncep_hrrr_conus and fc_best_match return GFS's values exactly at lead 1
     # (silent fallback), so they are excluded rather than triple-counting GFS.
-    models = [c for c in df.columns if c.startswith("fc_") and c not in
-              ("fc_max_lead1", "fc_max_lead2", "fc_ncep_hrrr_conus", "fc_best_match")]
+    models = [c for c in df.columns if (c.startswith("fc_") or c.startswith("fcsafe_")) and c not in
+              ("fc_max_lead1", "fc_max_lead2", "fc_ncep_hrrr_conus", "fc_best_match", "fcsafe_ncep_hrrr_conus", "fcsafe_best_match")]
     feats = ["opp_id", "event_ticker", "city", "date", "quarter", "month", "strike_type",
              "floor_strike", "cap_strike", "fc_max_lead1", "fc_max_lead2", *models, "yes_ask", "yes_bid",
              "volume_to_decision", "actual"]
