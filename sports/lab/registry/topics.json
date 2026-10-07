@@ -42,8 +42,9 @@
  },
  {
   "id": "T08",
-  "status": "pending",
-  "topic": "Arbitrage, middling and low-hold opportunities across US books and exchanges/prediction markets (Kalshi, Polymarket, ProphetX, Novig): frequency, size, execution risk, account limits"
+  "status": "done",
+  "topic": "Arbitrage, middling and low-hold opportunities across US books and exchanges/prediction markets (Kalshi, Polymarket, ProphetX, Novig): frequency, size, execution risk, account limits",
+  "summary": "10 entries; arbitrage exists at ~2% of best-of-book K-prop snapshots but limits and fill timing decide realizability; several sources only via snippets (cloud egress proxy blocked full text)."
  },
  {
   "id": "T09",
