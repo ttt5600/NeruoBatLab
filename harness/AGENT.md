@@ -38,8 +38,9 @@ The goal: an encoder that beats AVES on zebra finch call type and transfers to t
      harness/build_board.py`). If the new model is not in its MODELS list, add it there first. Then
      republish `docs/model_board.html` with the Artifact tool, url
      https://claude.ai/artifact/3LSJjzp7pLS4JCWviA1wpb.
-4. **Submit**: while fewer than `max_concurrent` entries are `submitted`, take the `approved` entry
-   with the lowest `priority`:
+4. **Submit**: while fewer than `max_concurrent` entries are `submitted`, take the `approved` training
+   entry with the lowest `priority`. Entries with `kind: analysis` take no training slot; the lead agent
+   does them (PI.md), and event-driven agents leave them alone:
    - if it has `requires`, check every condition on Savio first. If one is not met yet, skip the
      entry this iteration. If one failed (say, a prerequisite job failed its gate), set
      `needs-human` with the evidence
@@ -79,8 +80,10 @@ The goal: an encoder that beats AVES on zebra finch call type and transfers to t
   exception is temp files you made this iteration). Never touch another user's files (jelie's
   recordings especially). Never change permissions except through `lab share`.
 - Only savio_lowprio. Never scancel a job this harness did not submit. Never spend allocation hours.
-- Never download more than 10 GB, never change the evaluation scripts' protocol (splits, layers,
-  bootstrap), and never edit a past finding's numbers. Corrections go in a new finding.
+- Never download more than 10 GB unless the entry says `approved_download: true` (the user approved it;
+  still follow its notes). Never change the evaluation scripts' protocol (splits, layers, bootstrap)
+  for existing scores. New evaluations (BEANS, the label-free score) are added beside them, never in
+  their place. Never edit a past finding's numbers; corrections go in a new finding.
 - SSH: one command at a time, always non-interactive (`ssh -o BatchMode=yes`). If Savio refuses the
   login, the 12 h certificate expired: stop, write `needs-human: run sv login`, and end.
 - When unsure, stop and write what you need. A careful `needs-human` beats a confident mistake.

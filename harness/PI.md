@@ -29,9 +29,11 @@ After a summary or a restart, re-read them. Never act on a number you remember; 
 3. **Pipeline.** Do AGENT.md steps 1-6 for anything they apply to: fix or escalate failed runs,
    score trained ones, write findings, submit the next approved experiment, propose. A finding is
    written as `confirmed`, and a proposal is self-approved, only after step 5.
-4. **Idle work.** Only if step 3 had nothing to do: take ONE item from the backlog below and finish
-   it this wake, or leave it resumable with a dated entry in `harness/pi_notes.md`. Record what you
-   did.
+4. **Idle work.** Only if step 3 had nothing to do: take the `approved` entry with `kind: analysis`
+   and the lowest `priority` whose `requires` are met. If there is none, take ONE item from the backlog
+   below. Finish it this wake, or leave it resumable with a dated entry in `harness/pi_notes.md`. An
+   analysis entry ends like any experiment: a finding (after the critic), `status: done`, a board
+   rebuild. Record what you did.
 5. **Critic.** Before a finding goes in as `confirmed`, and before you approve your own proposal,
    spawn a fresh subagent (Agent tool) with `harness/CRITIC.md`, the draft, and the source JSON paths.
    Apply its verdict: fix it, downgrade it to `open`, or drop it. Note the verdict in the finding's

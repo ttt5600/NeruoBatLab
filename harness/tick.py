@@ -70,7 +70,7 @@ def main():
         changed = True
 
     in_flight = [e for e in exps if e.get("status") == "submitted"]
-    approved = sorted((e for e in exps if e.get("status") == "approved"),
+    approved = sorted((e for e in exps if e.get("status") == "approved" and e.get("kind") != "analysis"),
                       key=lambda e: e.get("priority", 99))
     room = int(doc.get("max_concurrent", 2)) - len(in_flight)
     if approved and room > 0 and time.time() - st.get("last_idle", 0) > IDLE_EVERY:

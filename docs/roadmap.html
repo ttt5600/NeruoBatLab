@@ -314,53 +314,54 @@ footer {
   <p class="standfirst">
     Every pretraining variant we have run, are running, or intend to run — laid out as one
     design space so no cell gets tested twice and none gets missed. <strong>Current state
-    (Oct 4): more compute closed the call-type gap to AVES once, then stopped helping</strong> —
-    so the next lever is the training labels, and run18 tests exactly that.
+    (Oct 8): our best models and every AVES checkpoint sit within one noise band</strong>, and one
+    extra seed moves a model by half of it, so the next phase measures before it builds.
   </p>
 </header>
 
 <section>
   <h2><span class="num">00</span> Where we are</h2>
   <p class="lede">
-    The project's long-running result was that every zebra-finch model we trained lost to AVES —
-    the same architecture, pretrained on generic animal audio. Since Sep 22 four controlled runs
-    narrowed that to one lever that worked and one that stopped working.
+    Six controlled runs since Oct 4 settled the label and corpus questions, and showed that our
+    measuring stick, not the model, is now the limit. Every number below is on the
+    <a href="https://claude.ai/artifact/3LSJjzp7pLS4JCWviA1wpb">model board</a>.
   </p>
 
   <div class="result">
-    <h3>Compute helped once, then stopped</h3>
+    <h3>Seed luck is about 0.015</h3>
     <p>
-      Same corpus (ZF + FSD50K, 224&nbsp;h), same labels, same 93,750 steps. The only change between
-      these three runs is how much audio each training step sees.
+      The same recipe, trained twice with different random seeds, landed 0.0155 apart on call type.
+      That is half the width of the band our best models and every AVES checkpoint now share.
     </p>
     <div class="swing">
-      <span><span class="v">0.8136</span> <span class="lbl">run15 · 80 s/step</span></span>
+      <span><span class="v">0.8379</span> <span class="lbl">run16 · seed 1337</span></span>
       <span class="arrow">&rarr;</span>
-      <span><span class="v pos">0.8379</span> <span class="lbl">run16 · 322 s/step</span></span>
-      <span class="arrow">&rarr;</span>
-      <span><span class="v neg">0.8321</span> <span class="lbl">run17 · 644 s/step</span></span>
+      <span><span class="v neg">0.8224</span> <span class="lbl">run16 · seed 2</span></span>
     </div>
     <p style="margin:.4rem 0 0;font-size:.86rem;color:var(--muted)">
-      11-class call type, held-out birds; majority class 0.1797. run16 &minus; run15 = +0.0243,
-      95% [+0.0099,&nbsp;+0.0419].
+      11-class call type, held-out birds. Difference &minus;0.0155, 95% [&minus;0.0289,&nbsp;&minus;0.0017],
+      lower at all 12 layers (finding 057).
     </p>
   </div>
 
   <p>
-    <strong>The honest reading.</strong> run16 is the first model of ours that no AVES checkpoint
-    beats by more than noise on call type — but every AVES point estimate is still ahead, by 0.007 to
-    0.017, so this is not a tie. run17 then fit its training labels <em>better</em> (lower loss at
-    every stage) and scored call types <em>worse</em> at all 12 layers. Getting better at predicting
-    spectrogram-cluster labels stopped translating into understanding calls, which points at the
-    labels. AVES paired its compute with iteration-2 labels (re-clustering a trained model's layer
-    6); ours were only ever tried at low compute. <strong>run18</strong> is that test, and its label
-    step currently stops at a safety gate: the new labels cover 32 fewer frames than the old ones
-    (out of 40.4&nbsp;M), so they are not handed to training until the cause is found.
+    <strong>What held up.</strong> General audio alone (run20, 0.8370) matched the mixed corpus and
+    beat zebra finch audio alone (run21, 0.8151, which is resolved below run16 by &minus;0.0229
+    [&minus;0.0383,&nbsp;&minus;0.0079]). For learning zebra finch call types, varied audio mattered
+    more than colony audio (finding 061). Labels made by AVES gave our best model so far (run19,
+    0.8464), level with the six AVES checkpoints (0.845&ndash;0.855). It is still not distinguishable from
+    run16 (+0.0085 [&minus;0.0127,&nbsp;+0.0293], finding 059).
   </p>
   <p>
-    On the cross-lab BirdPark holdout, <code>dapt-replay</code> (AVES weights + 19&nbsp;% general
-    audio during continued training) remains the best arm, and it is still the only one better
-    somewhere and worse nowhere.
+    <strong>What did not.</strong> Labels made by our own run16 (run18, finding 056) and tripling the
+    general-audio replay in continued AVES training (finding 060) changed nothing we can measure.
+    The earlier "4&times; compute closed the gap" (finding 052) does not reproduce at seed 2: run16
+    seed 2 is not distinguishable from run15 (+0.0088 [&minus;0.0099,&nbsp;+0.0282]).
+  </p>
+  <p>
+    <strong>So the next phase measures first.</strong> More seeds, a standard benchmark with many
+    independent tasks (BEANS, which includes Egyptian fruit bats), and a label-free score. Only then
+    do we combine what worked or decide to build on BirdAVES and move to bats.
   </p>
 </section>
 
@@ -485,7 +486,7 @@ footer {
         <tr>
           <td class="name">aves-teacher <span style="font-weight:400;color:var(--muted)">(run19)</span></td><td>ZF + FSD 224 h</td><td>random</td><td>it2 <em>AVES</em>-L6 k=200</td>
           <td class="num">322</td><td class="num">0.8464</td><td class="num">0.9717</td><td class="num">0.8115</td>
-          <td><span class="chip c-fail">= run16</span></td>
+          <td><span class="chip c-done">highest, = run16</span></td>
         </tr>
         <tr>
           <td class="name">run15 <span style="font-weight:400;color:var(--muted)">(combined-it1)</span></td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
@@ -495,7 +496,7 @@ footer {
         <tr class="hero">
           <td class="name">run16</td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
           <td class="num">322</td><td class="num">0.8379</td><td class="num">0.9718</td><td class="num">0.7451</td>
-          <td><span class="chip c-done">best call type</span></td>
+          <td><span class="chip c-done">reference</span></td>
         </tr>
         <tr>
           <td class="name">run16 seed 2</td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
@@ -526,135 +527,87 @@ footer {
 </section>
 
 <section>
-  <h2><span class="num">02</span> Task list</h2>
+  <h2><span class="num">02</span> Roadmap</h2>
   <p class="lede">
-    Ordered by what unblocks what. Finished steps stay listed so the trail is visible.
+    Approved Oct 8. The research harness runs it: each item is an entry in
+    <code>harness/experiments.yaml</code> (E-numbers below), with its question and pass mark written
+    before it runs.
   </p>
 
   <div class="phase">
     <div class="tag">✓</div>
     <div>
-      <h4>Done since Sep 18 <span class="chip c-done">done</span></h4>
+      <h4>Done since Oct 4 <span class="chip c-done">done</span></h4>
       <p>
-        All of FSD50K on disk (108&nbsp;h) · the 224&nbsp;h combined corpus with a fresh k=200
-        vocabulary · run15 (iteration 1 on it: corpus + vocabulary ruled out) · 4-GPU training made
-        to actually use 4 GPUs · run16 (the compute win) · gradient accumulation · run17 (compute
-        stops helping) · run15–17 scored on detection and both holdouts.
+        run18 (labels from run16) · run16 seed 2 · run19 (labels from AVES) · run20 (general audio
+        only) · run21 (zebra finch only) · DAPT with 3&times; replay · the label-alignment bug traced and
+        fixed · the research harness, critic and lead agent · the model board.
       </p>
-      <div class="meta"><span>findings 051–054</span><span>notebooks/06_where_we_are.ipynb</span></div>
+      <div class="meta"><span>findings 055&ndash;061</span><span>E1&ndash;E6</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">T1</div>
+    <div class="tag">1</div>
     <div>
-      <h4>Train run18 on the iteration-2 labels <span class="chip c-run">next</span></h4>
+      <h4>Measure <span class="chip c-run">now</span></h4>
       <p>
-        The labels from run16's layer 6 are built and correct: all 763 files sit exactly on the
-        audio's frame grid. The first gate refused them because it compared against the spectrogram
-        labels, which carry one extra trailing frame in 32 files where the leftover tail is nearly a
-        full hop (finding 055). run18 is run16's recipe on these labels.
+        <strong>BEANS</strong> (E10): score our best models and the six AVES checkpoints on the 12
+        public BEANS tasks, after first reproducing AVES's published numbers to prove the scorer.
+        <strong>Label-free score</strong> (E11): finding 050's test of whether clusters reappear in
+        held-out individuals, as a column for every model. <strong>Seeds</strong> (E7&ndash;E9): run16 seed
+        3, run19 seed 2, run20 seed 2.
       </p>
-      <div class="meta"><span>about 5.5 h on 4×L40 if not preempted (run17 took 11 h for twice the batches)</span><span>the headline experiment</span></div>
+      <div class="meta"><span>E10, E11: scoring only</span><span>E7&ndash;E9: about 7 h each, free queue</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">T2</div>
+    <div class="tag">?</div>
     <div>
-      <h4>A second seed of run16 <span class="chip c-plan">queued</span></h4>
+      <h4>Decision: is any model of ours genuinely above AVES? <span class="chip c-plan">after phase 1</span></h4>
       <p>
-        Every comparison so far is one training run per model; the bootstrap resamples birds, not
-        training runs. A second seed says how much of run16's lead — and run17's deficit — is luck.
+        <strong>No:</strong> stop pretraining from scratch, build on BirdAVES, and put the effort into
+        bats. <strong>Yes:</strong> combine what worked (phase 2) before moving on.
       </p>
-      <div class="meta"><span>about 5.5 h · 4×L40</span><span>cheap, informative</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">T3</div>
+    <div class="tag">2</div>
     <div>
-      <h4>Savio toolkit and one shared data location <span class="chip c-run">in progress</span></h4>
+      <h4>Combine <span class="chip c-plan">queued</span></h4>
       <p>
-        Working: <code>lab</code> / <code>sv</code> for training, GPU shells, job status and logs;
-        SSH certificate login (one PIN and code per 12 h); 17 corpora, label sets and checkpoints
-        registered under <code>lab_data/</code> with read and write access for Julie and Bhavna; conda
-        envs moved off the full 50 GB home onto scratch. Left: an end-to-end test of Jupyter on a GPU node.
+        AVES labels on general audio only (E12) · labels from BirdAVES, a stronger teacher (E13) ·
+        start from BirdAVES and specialise it on zebra finch (E14) · a bigger, more varied
+        general-audio corpus (E15; the choice of corpus is posted in the digest a day before any
+        download).
       </p>
-      <div class="meta"><span>savio/README.md</span></div>
+      <div class="meta"><span>about 7 h per training run</span><span>E13 adds about 6 h of labelling</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">T4</div>
+    <div class="tag">3</div>
     <div>
-      <h4>Make level-normalised input the BirdPark default <span class="chip c-plan">queued</span></h4>
+      <h4>Bats <span class="chip c-plan">queued</span></h4>
       <p>
-        The pre-commit rule picks raw vs normalised input on in-distribution margins of 0.002, and
-        normalised transfers better for 26 of 26 models. Report both, and headline normalised.
+        Bat audio above 8 kHz (E16): slow recordings down so ultrasound falls inside the 16 kHz models'
+        range, and test that against plain resampling on BEANS's fruit bat task and the label-free
+        score. Then label-free clustering on the lab's own recordings, and the second decision: does
+        anyone need a bat-specific model?
       </p>
-      <div class="meta"><span>finding 049</span><span>re-scoring only, no training</span></div>
+      <div class="meta"><span>needs E10 and E11</span><span>the sample-rate decision stays yours</span></div>
     </div>
   </div>
 
   <div class="phase">
-    <div class="tag">T5</div>
+    <div class="tag">&middot;</div>
     <div>
-      <h4>AVES as label teacher <span class="chip c-plan">unblocked</span></h4>
-      <p>
-        Cluster AVES's layer-6 embeddings at k=200 and train on <em>those</em> targets from random
-        init, now at run16's compute. Borrows AVES's representation without inheriting a weight.
-        Most informative right after run18: our teacher vs theirs, same everything else.
-      </p>
-      <div class="meta"><span>preprocess_aves_teacher.sh</span><span>build_teacher handles it</span></div>
-    </div>
-  </div>
-
-  <div class="phase">
-    <div class="tag">T6</div>
-    <div>
-      <h4>Our pipeline on general audio only <span class="chip c-plan">queued</span></h4>
-      <p>
-        FSD50K alone, random init, run16's recipe. The control that says whether a corpus with no
-        zebra finch in it can match one that has them.
-      </p>
-      <div class="meta"><span>about 5.5 h · 4×L40 (run16's step count)</span></div>
-    </div>
-  </div>
-
-  <div class="phase">
-    <div class="tag">T7</div>
-    <div>
-      <h4>Bats: carry the method to unlabelled audio <span class="chip c-plan">planned</span></h4>
-      <p>
-        The label-free recipe is validated on zebra finch (finding 050): judge a clustering by
-        whether its groups reappear in held-out individuals — compactness scores rank encoders
-        backwards. Before bat audio can go in, decide the sample rate: the pipeline resamples to
-        16&nbsp;kHz, which discards everything above 8&nbsp;kHz, echolocation included.
-      </p>
-      <div class="meta"><span>notebooks/04_clustering_without_labels.ipynb</span><span>needs a sample-rate decision</span></div>
-    </div>
-  </div>
-
-  <div class="phase">
-    <div class="tag">T8</div>
-    <div>
-      <h4>Replay dose–response <span class="chip c-plan">queued</span></h4>
-      <p>
-        19.3&nbsp;% general audio fixed DAPT's forgetting. <code>--replay-repeat 3</code> raises it to
-        ~42&nbsp;% with no new download; if BirdPark tracks the dose, that is a mechanism.
-      </p>
-      <div class="meta"><span>no new data needed</span><span>~37 min</span></div>
-    </div>
-  </div>
-
-  <div class="phase">
-    <div class="tag">T9</div>
-    <div>
-      <h4>Reclaim ~615&nbsp;GB of intermediate features <span class="chip c-plan">your call</span></h4>
+      <h4>Reclaim about 615 GB of intermediate features <span class="chip c-plan">your call</span></h4>
       <p>
         Spectrogram feature dumps the combined corpus was built from. Training reads only the TSV,
-        labels and k-means model, so these can go — but deleting is not undoable, so it waits for a yes.
+        labels and k-means model. Deleting cannot be undone, so it waits for a yes.
       </p>
     </div>
   </div>
@@ -811,9 +764,9 @@ footer {
 
 <footer>
   <p>
-    Updated Oct 4, 2026. Numbers from <code>analysis/detection_variants.json</code>,
+    Updated Oct 8, 2026. Numbers from <code>analysis/detection_variants.json</code>,
     <code>analysis/*_calltype.json</code> and <code>analysis/run15_compute.json</code>. Full provenance
-    in <code>knowledge/findings/</code> (54 entries, including refutations kept on purpose).
+    in <code>knowledge/findings/</code> (61 entries, including refutations kept on purpose).
     Retracted claims are recorded rather than deleted.
   </p>
 </footer>

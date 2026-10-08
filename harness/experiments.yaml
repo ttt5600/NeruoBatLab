@@ -39,7 +39,8 @@ experiments:
   job_name: hubert_run16s2
   status: done
   finding: '057'
-  result: '|seed2 - run16| = 0.0155 [0.0017, 0.0289] on call type (0.8224 vs 0.8379), resolved; below at 12/12 layers'
+  result: '|seed2 - run16| = 0.0155 [0.0017, 0.0289] on call type (0.8224 vs 0.8379), resolved; below
+    at 12/12 layers'
   job: 39635284
   priority: 2
   notes: 'Trained: preempted once (05:11-09:23 Oct 5, 04:11:54), requeued and resumed from last.ckpt (20:38-23:23,
@@ -64,9 +65,11 @@ experiments:
     ~/jobs/relabel_aves_teacher_39635382.log contains "PASS: labels written"; the labels are in /global/scratch/users/jonathanswang/temp_files/combined_aves_teacher/data/hubert_6'
   status: done
   job: 39656780
-  finding: '059'
-  result: not met -- call type 0.8464 (L4) vs run16 0.8379, +0.0085 [-0.0127, +0.0293]; vs run18 +0.0114 [-0.0125, +0.0371]; not distinguishable
-  trained_note: COMPLETED 0:0 in 06:23:23 (ended 2026-10-06 05:47), final epoch=37-step=93750.ckpt; scoring started 06:07
+  finding: 059
+  result: not met -- call type 0.8464 (L4) vs run16 0.8379, +0.0085 [-0.0127, +0.0293]; vs run18 +0.0114
+    [-0.0125, +0.0371]; not distinguishable
+  trained_note: COMPLETED 0:0 in 06:23:23 (ended 2026-10-06 05:47), final epoch=37-step=93750.ckpt; scoring
+    started 06:07
   notes: 'Submitted 2026-10-05 by the lead agent (code 6b0456488f) after checking requires: relabel 39635382
     COMPLETED 0:0 (23:35), log has "PASS: labels written", hubert_6/label/label_train.pt present. Watcher
     key hubert_run19; datasets.tsv row run19_avesteacher, linked + shared (ACLs verified). Teacher aves-base-bio
@@ -99,11 +102,11 @@ experiments:
     ~/jobs/build_fsd_only_login_20261005-2101.log; 19,510,529 frames, vocabulary 200, audio precheck OK'
   status: done
   finding: '061'
-  result: run20 minus run21 +0.0220 [-0.0008, +0.0412], run20 minus run16 -0.0009 [-0.0254, +0.0208] -- not distinguishable (not a match)
-  scored_note: >-
-    Scored 2026-10-06 13:0x (harness/logs/score_run20_fsdonly_20261006-124411.log). Finding deliberately
-    WAITS for E6 (run21, the pre-registered baseline) so the decision rule is applied as written;
-    run20 vs run16 alone would put the wrong baseline in the headline.
+  result: run20 minus run21 +0.0220 [-0.0008, +0.0412], run20 minus run16 -0.0009 [-0.0254, +0.0208] --
+    not distinguishable (not a match)
+  scored_note: Scored 2026-10-06 13:0x (harness/logs/score_run20_fsdonly_20261006-124411.log). Finding
+    deliberately WAITS for E6 (run21, the pre-registered baseline) so the decision rule is applied as
+    written; run20 vs run16 alone would put the wrong baseline in the headline.
   priority: 4
   notes: 'Scripts built and checked 2026-10-05 by the lead agent. Savio dry run: keeps fsd50k_dev (478
     files, 80.61 h) + replay_fsd50k (165, 27.79 h), drops run5-4-26-full (120, 116.03 h); 643/763 files,
@@ -140,11 +143,10 @@ experiments:
   status: done
   finding: '061'
   result: run21 (ZF only) 0.8151, resolved below run16 (-0.0229 [-0.0383, -0.0079]); E4's baseline
-  trained_note: >-
-    Job 39665377 COMPLETED 0:0 in 05:57:03 (ended 17:37 Oct 6), reached max_steps 93750, but the
-    final-step checkpoint was NOT written: the callback keeps top-5 by train_loss and epoch 72 was not
-    in it, so last.ckpt and the newest epoch=71-step=93633.ckpt both hold step 93633. Scored at 93633;
-    the missing 117 steps (0.12%) are a caveat for the E4/E6 finding.
+  trained_note: 'Job 39665377 COMPLETED 0:0 in 05:57:03 (ended 17:37 Oct 6), reached max_steps 93750,
+    but the final-step checkpoint was NOT written: the callback keeps top-5 by train_loss and epoch 72
+    was not in it, so last.ckpt and the newest epoch=71-step=93633.ckpt both hold step 93633. Scored at
+    93633; the missing 117 steps (0.12%) are a caveat for the E4/E6 finding.'
   job: 39665377
   priority: 5
   notes: 'Proposed by the E4 critic, built 2026-10-05. Script = run20''s with only names and paths changed.
@@ -155,17 +157,15 @@ experiments:
   roadmap: T8
   title: replay REPETITION dose for DAPT (x3)
   baseline: daptreplay_5e5
-  change: >-
-    REPLAY_REPEAT 1 -> 3: the same 27.79 h of FSD50K repeated 3x, general audio ~19% -> 41.8% of a
-    199.39 h stream, ZF share 81% -> 58% at the same 15,000 steps. A repetition dose, not more variety.
+  change: 'REPLAY_REPEAT 1 -> 3: the same 27.79 h of FSD50K repeated 3x, general audio ~19% -> 41.8% of
+    a 199.39 h stream, ZF share 81% -> 58% at the same 15,000 steps. A repetition dose, not more variety.'
   question: Does BirdPark transfer rise when the replay share is raised by repetition?
-  success: >-
-    Fixed 2026-10-06 before submission (critic): ALL of (1) paired block bootstrap x3 minus x1, each
-    at its own pre-committed arm, BirdPark AP interval excluding zero at BOTH 1500- and 500-frame
-    blocks; (2) x3 ahead in at least 3 of 4 BirdPark 1500-frame blocks; (3) the median BirdPark AP
-    over all 12 arms higher than x1's. If not all hold, the wording is "not resolvable at about
-    0.05 AP", never "dose does not matter". One run per dose: any result is also exposed to
-    run-to-run variation (057).
+  success: 'Fixed 2026-10-06 before submission (critic): ALL of (1) paired block bootstrap x3 minus x1,
+    each at its own pre-committed arm, BirdPark AP interval excluding zero at BOTH 1500- and 500-frame
+    blocks; (2) x3 ahead in at least 3 of 4 BirdPark 1500-frame blocks; (3) the median BirdPark AP over
+    all 12 arms higher than x1''s. If not all hold, the wording is "not resolvable at about 0.05 AP",
+    never "dose does not matter". One run per dose: any result is also exposed to run-to-run variation
+    (057).'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_replay3.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv2_replay_5e5_x3
   tag: daptreplay3_5e5_step15000
@@ -173,50 +173,177 @@ experiments:
   job_name: dapt_replay3
   status: done
   finding: '060'
-  result: not met on all three conditions -- BirdPark AP x3 minus x1 -0.0012 [-0.0174, +0.0069]; not resolvable at ~0.05 AP
-  trained_note: >-
-    Job 39671592 COMPLETED 0:0 in 00:40:33 (11:58-12:39 Oct 6); epoch=1-step=15000.ckpt present; log
-    confirms arm replay, lr 5e-5, aves-base-bio init (210 tensors), data mix_zf_fsd50k3. Scored as
+  result: not met on all three conditions -- BirdPark AP x3 minus x1 -0.0012 [-0.0174, +0.0069]; not resolvable
+    at ~0.05 AP
+  trained_note: Job 39671592 COMPLETED 0:0 in 00:40:33 (11:58-12:39 Oct 6); epoch=1-step=15000.ckpt present;
+    log confirms arm replay, lr 5e-5, aves-base-bio init (210 tensors), data mix_zf_fsd50k3. Scored as
     daptreplay3_5e5_step15000 to mirror the x1 tag.
   job: 39671592
   priority: 6
-  notes: >-
-    Built 2026-10-06 by the lead agent. Script = train_dapt_v2.sh with only the REPLAY_REPEAT default,
-    job name, log and EXP (_x3 suffix, so it cannot resume the x1 run) changed. Data mix_zf_fsd50k3
-    built on the login node with merge_corpora.py --replay-repeat 3 (615 rows, cluster ids [0,99],
-    run11's k-means, log ~/jobs/build_mix3_login_20261006-0346.log). Self-approval test: lowprio,
-    1 L40, 12 h limit, data on Savio, flags/paths only -- passes. Critic (fresh subagent,
-    2026-10-06): ACCEPT-WITH-CHANGES. Applied: criterion above, null wording, "repetition dose".
-    Not applied here, for the user: a --seed 2 run of x1 (needs a seed flag in train_dapt_v2.sh and
-    its own exp dir). x1 baseline now recorded as finding 058 (step 15000, native L6, BirdPark AP
-    0.8318; 12-arm median 0.8354, the number condition (3) compares against). Arm defaults to replay (lab train sends extra args to sbatch, so
-    script args cannot be passed). Condition (1) is scored by zfeval/experiments/paired_vs.py --a <x3 tag> --b daptreplay_5e5_step15000
-    (verified 2026-10-06: --check reproduces detection_variants' vs-run11 intervals exactly for two
-    models). NOTE for scoring: check that score_run.sh can score a DAPT run (it was written
-    for from-scratch runs; DAPT checkpoints were scored by export_dapt_checkpoints.sh).
+  notes: 'Built 2026-10-06 by the lead agent. Script = train_dapt_v2.sh with only the REPLAY_REPEAT default,
+    job name, log and EXP (_x3 suffix, so it cannot resume the x1 run) changed. Data mix_zf_fsd50k3 built
+    on the login node with merge_corpora.py --replay-repeat 3 (615 rows, cluster ids [0,99], run11''s
+    k-means, log ~/jobs/build_mix3_login_20261006-0346.log). Self-approval test: lowprio, 1 L40, 12 h
+    limit, data on Savio, flags/paths only -- passes. Critic (fresh subagent, 2026-10-06): ACCEPT-WITH-CHANGES.
+    Applied: criterion above, null wording, "repetition dose". Not applied here, for the user: a --seed
+    2 run of x1 (needs a seed flag in train_dapt_v2.sh and its own exp dir). x1 baseline now recorded
+    as finding 058 (step 15000, native L6, BirdPark AP 0.8318; 12-arm median 0.8354, the number condition
+    (3) compares against). Arm defaults to replay (lab train sends extra args to sbatch, so script args
+    cannot be passed). Condition (1) is scored by zfeval/experiments/paired_vs.py --a <x3 tag> --b daptreplay_5e5_step15000
+    (verified 2026-10-06: --check reproduces detection_variants'' vs-run11 intervals exactly for two models).
+    NOTE for scoring: check that score_run.sh can score a DAPT run (it was written for from-scratch runs;
+    DAPT checkpoints were scored by export_dapt_checkpoints.sh).'
 - id: E7
   roadmap: T2
   title: run16, third seed
   baseline: run16_compute4x and run16_seed2
   change: --seed 3 (otherwise train_run16_seed2.sh)
-  question: With three runs of one recipe, how far apart do run16-recipe call-type scores land, and is seed 2 or run16 the outlier?
-  success: none -- measures run-to-run spread. Report all three best-layer scores and the pairwise bird-bootstrap intervals; no variance estimate from n=3 beyond the range.
-  script: null
-  status: needs-human
-  priority: 7
-  notes: >-
-    Proposed 2026-10-06 by the lead agent from finding 057 (seed 2 resolved 0.0155 below run16). Not
-    self-approved: whether to spend lowprio time on seeds instead of new recipes is the user's call
-    (digest 2026-10-06 "needs you"). Script would be train_run16_seed2.sh with --seed 3 and paths.
+  question: With three runs of one recipe, how far apart do run16-recipe call-type scores land, and is
+    seed 2 or run16 the outlier?
+  success: none -- measures run-to-run spread. Report all three best-layer scores and the pairwise bird-bootstrap
+    intervals; no variance estimate from n=3 beyond the range.
+  script: pytorchAudio/examples/hubert/slurm/train_run16_seed3.sh
+  status: approved
+  priority: 3
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). A submission
+    at 02:20 on Oct 8 may have reached Slurm before the SSH connection dropped: run `sacct -n -X --name=hubert_run16s3
+    -S 2026-10-08` first and record that job instead of resubmitting.'
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run16_seed3
+  tag: run16_seed3
+  num_classes: 200
+  job_name: hubert_run16s3
 - id: E8
   roadmap: T5
   title: run19 (AVES teacher), second seed
   baseline: run19_avesteacher
   change: --seed 2 (otherwise train_run19_avesteacher.sh)
   question: Does run19's best-point-estimate call type (0.8464, finding 059) survive a second seed?
-  success: both run19 seeds above both run16 seeds at the best layer would make "AVES targets help" worth a powered test; anything else, report the range
+  success: both run19 seeds above both run16 seeds at the best layer would make "AVES targets help" worth
+    a powered test; anything else, report the range
+  script: pytorchAudio/examples/hubert/slurm/train_run19_seed2.sh
+  status: approved
+  priority: 4
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run19_seed2
+  tag: run19_seed2
+  num_classes: 200
+  job_name: hubert_run19s2
+- id: E9
+  roadmap: idea 1
+  title: run20 (general audio only), second seed
+  baseline: run20_fsdonly
+  change: --seed 2 (otherwise train_run20_fsdonly.sh)
+  question: Does general audio alone (finding 061) hold its level on a second seed?
+  success: none -- measures spread. Report both run20 scores and the pairwise interval
+  script: pytorchAudio/examples/hubert/slurm/train_run20_seed2.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run20_seed2
+  tag: run20_seed2
+  num_classes: 200
+  job_name: hubert_run20s2
+  status: approved
+  priority: 5
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+- id: E10
+  roadmap: idea 2
+  kind: analysis
+  title: Score the models on BEANS (12 public tasks, bats included)
+  baseline: AVES's published BEANS results
+  change: 'new evaluation, no training: run11, run16, run19, run20 and the six AVES checkpoints through
+    the BEANS protocol'
+  question: Do our models generalise beyond zebra finches, and where do they stand against AVES on a standard
+    benchmark?
+  success: first, our re-scored AVES must reproduce AVES's published BEANS numbers within their reported
+    spread (validates the scorer). Then report each of ours against AVES per task, with intervals
   script: null
-  status: needs-human
+  status: approved
+  priority: 1
+  approved_download: true
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). The bats
+    task is Egyptian fruit bat individual ID. Record each dataset''s size and licence in pi_notes.md before
+    downloading. Scoring runs on the Mac or a Savio GPU, never as a training slot.'
+- id: E11
+  roadmap: idea 3
+  kind: analysis
+  title: Label-free score as a standard column for every model
+  baseline: finding 050 (groups that reappear in held-out individuals)
+  change: 'new evaluation, no training: run finding 050''s label-free criterion on every model in the
+    board'
+  question: Which model gives the clusters that hold up without labels -- the situation we will be in
+    with bats?
+  success: a label-free score per model with an interval, added to score_run.sh and the model board, and
+    a check of whether it ranks models the same way call type does
+  script: null
+  status: approved
+  priority: 2
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+- id: E16
+  roadmap: idea 8
+  kind: analysis
+  title: 'Bat audio above 8 kHz: time-expand into the 16 kHz models'
+  baseline: the same recordings resampled to 16 kHz (everything above 8 kHz discarded)
+  change: slow the recordings by a factor so their content falls below 8 kHz, then run existing encoders
+    unchanged
+  question: Can our 16 kHz models handle bat audio without retraining?
+  success: on BEANS bats (E10) and the label-free score (E11), time-expanded input beats plain resampling
+    with intervals excluding zero for at least one factor
+  script: null
+  status: approved
+  priority: 6
+  requires: E10 and E11 done
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+- id: E12
+  roadmap: idea 4
+  title: 'Combine the winners: AVES-teacher labels on general audio only'
+  baseline: run19_avesteacher and run20_fsdonly
+  change: run16's recipe on the FSD50K rows only, with the AVES-teacher labels (subset of combined_aves_teacher,
+    no new k-means)
+  question: Do the two positive signals (AVES labels, general audio) add up?
+  success: call type above both run19 and run20 with intervals excluding zero; otherwise report it as
+    not additive
+  script: null
+  status: approved
+  priority: 7
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Build with
+    scripts/subset_corpus.py on combined_aves_teacher/data/hubert_6 (as build_fsd_only_corpus.sh did for
+    the spectrogram labels) and train_run20_fsdonly.sh with only DATA/EXP changed.'
+- id: E13
+  roadmap: idea 5
+  title: 'Stronger teacher: labels from BirdAVES'
+  baseline: run19_avesteacher
+  change: training targets from BirdAVES layer 6 (k=200) instead of aves-base-bio; everything else as
+    run19
+  question: Does a better teacher give better targets?
+  success: call type above run19 with the interval excluding zero
+  script: null
+  status: approved
   priority: 8
-  notes: >-
-    Proposed 2026-10-06 from findings 057 and 059. Same reason as E7 for not self-approving.
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). biox-base
+    (0.8520) has our architecture and should load through build_teacher as-is. biox-large (0.8552) needs
+    build_teacher to build a large model first; only use it if that is added and verified to load cleanly.
+    The checkpoints may only be on the Mac (~/zf_labelset/external/aves): copy to Savio external/aves.'
+- id: E14
+  roadmap: idea 6
+  title: Start from BirdAVES and specialise it on zebra finch
+  baseline: DAPT replay x1 (finding 058) and birdaves-biox-base itself
+  change: the DAPT replay x1 recipe with BirdAVES biox-base as the starting weights instead of aves-base-bio
+  question: Can specialising the best same-size download beat it?
+  success: call type above birdaves-biox-base (0.8520) with the interval excluding zero; BirdPark reported
+    with arm spread
+  script: null
+  status: approved
+  priority: 9
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+- id: E15
+  roadmap: idea 7
+  title: Bigger, more varied general-audio corpus
+  baseline: run20_fsdonly
+  change: run16's recipe on a larger and more varied general-audio corpus than FSD50K
+  question: Does variety keep paying (run20 0.8370 vs zebra-finch-only run21 0.8151)?
+  success: call type above run20 with the interval excluding zero
+  script: null
+  status: approved
+  priority: 10
+  approved_download: true
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Choose the
+    corpus (candidates include AudioSet''s animal and natural-sound classes and Xeno-canto). Post the
+    choice, size and licence in the digest and wait one day before downloading.'
