@@ -89,7 +89,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">HuBERT vocalization models · as of Oct 8, 2026 02:22</div>
+    <div class="eyebrow">HuBERT vocalization models · as of Oct 8, 2026 23:14</div>
     <h1>Zebra Finch Model Board</h1>
     <nav><a href="#models">Models</a><a href="#experiments">Experiments</a><a href="#automations">Savio automations</a><a href="#notebooks">Notebooks</a></nav>
   </header>
@@ -97,8 +97,8 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
   <div class="strip">
     <div class="fact"><span class="k">Best of ours, call type</span><span class="v">run19 0.8464</span><span class="note">AVES models score 0.845–0.855; vs run16 +0.0085 [-0.0127, +0.0293], not distinguishable</span></div>
     <div class="fact"><span class="k">Seed-to-seed gap</span><span class="v">0.0155</span><span class="note">run16's second seed: -0.0155 [-0.0289, -0.0017]. Single runs cannot separate smaller gaps.</span></div>
-    <div class="fact"><span class="k">Training now</span><span class="v">Nothing</span><span class="note">The queue is empty; the next experiments wait for your decision.</span></div>
-    <div class="fact needs"><span class="k">Needs you</span><ul><li>Run <code>sv login</code>: the Savio certificate has expired.</li><li>Approve the fix for duplicate agents.</li></ul></div>
+    <div class="fact"><span class="k">Training now</span><span class="v">E7 (39732808), E8 (39781626)</span><span class="note"></span></div>
+    <div class="fact needs"><span class="k">Needs you</span><ul><li>Approve the fix for duplicate agents.</li></ul></div>
   </div>
 
   <section id="models">
@@ -216,8 +216,8 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 <tr><td class="nm">E4</td><td>general audio only (FSD50K alone), run16&#x27;s recipe</td><td><span class="chip ok">done</span></td><td class="n">39661997</td><td class="n">061</td><td class="what">run20 minus run21 +0.0220 [-0.0008, +0.0412], run20 minus run16 -0.0009 [-0.0254, +0.0208] -- not distinguishable (not a match)</td></tr>
 <tr><td class="nm">E6</td><td>zebra finch only, the twin of E4</td><td><span class="chip ok">done</span></td><td class="n">39665377</td><td class="n">061</td><td class="what">run21 (ZF only) 0.8151, resolved below run16 (-0.0229 [-0.0383, -0.0079]); E4&#x27;s baseline</td></tr>
 <tr><td class="nm">E5</td><td>replay REPETITION dose for DAPT (x3)</td><td><span class="chip ok">done</span></td><td class="n">39671592</td><td class="n">060</td><td class="what">not met on all three conditions -- BirdPark AP x3 minus x1 -0.0012 [-0.0174, +0.0069]; not resolvable at ~0.05 AP</td></tr>
-<tr><td class="nm">E7</td><td>run16, third seed</td><td><span class="chip plan">approved</span></td><td class="n"></td><td class="n"></td><td class="what">With three runs of one recipe, how far apart do run16-recipe call-type scores land, and is seed 2 or run16 the outlier?</td></tr>
-<tr><td class="nm">E8</td><td>run19 (AVES teacher), second seed</td><td><span class="chip plan">approved</span></td><td class="n"></td><td class="n"></td><td class="what">Does run19&#x27;s best-point-estimate call type (0.8464, finding 059) survive a second seed?</td></tr>
+<tr><td class="nm">E7</td><td>run16, third seed</td><td><span class="chip run">submitted</span></td><td class="n">39732808</td><td class="n"></td><td class="what">With three runs of one recipe, how far apart do run16-recipe call-type scores land, and is seed 2 or run16 the outlier?</td></tr>
+<tr><td class="nm">E8</td><td>run19 (AVES teacher), second seed</td><td><span class="chip run">submitted</span></td><td class="n">39781626</td><td class="n"></td><td class="what">Does run19&#x27;s best-point-estimate call type (0.8464, finding 059) survive a second seed?</td></tr>
 <tr><td class="nm">E9</td><td>run20 (general audio only), second seed</td><td><span class="chip plan">approved</span></td><td class="n"></td><td class="n"></td><td class="what">Does general audio alone (finding 061) hold its level on a second seed?</td></tr>
 <tr><td class="nm">E10</td><td>Score the models on BEANS (12 public tasks, bats included)</td><td><span class="chip plan">approved</span></td><td class="n"></td><td class="n"></td><td class="what">Do our models generalise beyond zebra finches, and where do they stand against AVES on a standard benchmark?</td></tr>
 <tr><td class="nm">E11</td><td>Label-free score as a standard column for every model</td><td><span class="chip plan">approved</span></td><td class="n"></td><td class="n"></td><td class="what">Which model gives the clusters that hold up without labels -- the situation we will be in with bats?</td></tr>
@@ -235,13 +235,13 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
     <h2>Savio automations</h2>
     <p class="lede">What runs on its own, and what it needs from you.</p>
     <div class="cards">
-<div class="card"><div class="ch"><h3>Savio login</h3><span class="chip bad">expired</span></div><p>12-hour SSH certificate, expired 2026-10-07 21:11. Renew with <code>sv login</code> (one PIN + code). Every automation below that touches Savio waits on this.</p></div>
+<div class="card"><div class="ch"><h3>Savio login</h3><span class="chip ok">working</span></div><p>12-hour SSH certificate, valid until 2026-10-09 11:11. Renew with <code>sv login</code> (one PIN + code). Every automation below that touches Savio waits on this.</p></div>
 <div class="card"><div class="ch"><h3>lab / sv commands</h3><span class="chip ok">working</span></div><p><code>sv train</code>, <code>sv status</code>, <code>sv log</code>, <code>sv gpu</code>, <code>sv notebook</code>, <code>sv data</code>, <code>sv share</code>. Training submissions run an import check first and go in a ledger.</p></div>
 <div class="card"><div class="ch"><h3>Shared data</h3><span class="chip ok">working</span></div><p>25 corpora, label sets and models registered in <code>datasets.tsv</code>, browsable under <code>…/lab_data</code>, read + write for Julie (jelie) and Bhavna (malladibhavna). New folders: <code>lab share</code>.</p></div>
 <div class="card"><div class="ch"><h3>Storage</h3><span class="chip ok">working</span></div><p>Home went from 47 GB (at its 50 GB cap) to 0.7 GB on Oct 4; conda envs, pip cache and JupyterLab live on scratch behind shortcuts. Env recipes in <code>~/env_specs</code>.</p></div>
-<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip bad">expired</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-08 02:20, 1 failed in a row (login expired).</p></div>
+<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip bad">expired</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-08 23:10, 109 failed in a row (login expired).</p></div>
 <div class="card"><div class="ch"><h3>Experiment harness</h3><span class="chip ok">working</span></div><p>Each poll, <code>tick.py</code> starts an agent when a run finishes, fails, or an approved experiment has a free slot (2 at a time, 6 agents a day). It stands down while the lead agent is alive.</p></div>
-<div class="card"><div class="ch"><h3>Lead agent</h3><span class="chip idle">stopped</span></div><p>Long-lived <code>/loop</code> session (<code>harness/PI.md</code>). Last heartbeat never. Restart: <code>caffeinate -is claude --permission-mode bypassPermissions</code>, then <code>/loop follow harness/PI.md</code>.</p></div>
+<div class="card"><div class="ch"><h3>Lead agent</h3><span class="chip run">running</span></div><p>Long-lived <code>/loop</code> session (<code>harness/PI.md</code>). Last heartbeat Oct 8 23:11. </p></div>
 <div class="card"><div class="ch"><h3>Critic</h3><span class="chip ok">working</span></div><p>A fresh agent tries to break every finding before it is recorded (<code>harness/CRITIC.md</code>). Findings 056–061 all came back accept-with-changes, changes applied.</p></div>
 <div class="card"><div class="ch"><h3>Jupyter on Savio</h3><span class="chip warn">partly tested</span></div><p>Kernel and the Mac-to-Savio tunnel are verified; the GPU notebook job itself has not run yet. Start one with <code>sv notebook HOURS</code>.</p></div>
 <div class="card"><div class="ch"><h3>Duplicate agents</h3><span class="chip bad">open issue</span></div><p>The usage watcher's auto-resume started a second agent in this project twice while the lead was running; both submitted the same job. Duplicates were cancelled. Fix: make auto-resume skip this project while the lead is alive.</p></div>

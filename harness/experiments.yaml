@@ -203,15 +203,15 @@ experiments:
   success: none -- measures run-to-run spread. Report all three best-layer scores and the pairwise bird-bootstrap
     intervals; no variance estimate from n=3 beyond the range.
   script: pytorchAudio/examples/hubert/slurm/train_run16_seed3.sh
-  status: approved
+  status: submitted
   priority: 3
-  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). A submission
-    at 02:20 on Oct 8 may have reached Slurm before the SSH connection dropped: run `sacct -n -X --name=hubert_run16s3
-    -S 2026-10-08` first and record that job instead of resubmitting.'
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Submitted
+    2026-10-08 02:20 as job 39732808 (confirmed in sacct and the ledger).'
   exp_dir: /global/scratch/users/jonathanswang/temp_train_run16_seed3
   tag: run16_seed3
   num_classes: 200
   job_name: hubert_run16s3
+  job: 39732808
 - id: E8
   roadmap: T5
   title: run19 (AVES teacher), second seed
@@ -221,13 +221,14 @@ experiments:
   success: both run19 seeds above both run16 seeds at the best layer would make "AVES targets help" worth
     a powered test; anything else, report the range
   script: pytorchAudio/examples/hubert/slurm/train_run19_seed2.sh
-  status: approved
+  status: submitted
   priority: 4
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
   exp_dir: /global/scratch/users/jonathanswang/temp_train_run19_seed2
   tag: run19_seed2
   num_classes: 200
   job_name: hubert_run19s2
+  job: 39781626
 - id: E9
   roadmap: idea 1
   title: run20 (general audio only), second seed
