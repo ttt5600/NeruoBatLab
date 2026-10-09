@@ -1,0 +1,427 @@
+<style>
+.ct-page { max-width: 1120px; margin-inline: auto; display: flex; flex-direction: column; gap: var(--cds-gap-xl); font-family: var(--font-anthropic-sans); }
+.ct-head { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+.ct-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.ct-take { margin: 0; max-width: 72ch; color: var(--color-fg); font-size: var(--cds-font-size-body); line-height: 1.55; }
+.ct-take .ct-n, .ct-note .ct-n { font-variant-numeric: tabular-nums; font-weight: 600; }
+.ct-sec { display: flex; flex-direction: column; gap: var(--cds-gap-md); }
+.ct-h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.ct-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; }
+.ct-card-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--cds-gap-sm); }
+.ct-card-t { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.ct-note { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); max-width: 80ch; line-height: 1.5; }
+.ct-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--cds-gap-md); }
+.ct-scroll { overflow-x: auto; }
+.ct-chart { position: relative; min-height: 120px; }
+.ct-chart svg { display: block; }
+.ct-select { font: inherit; font-size: var(--cds-font-size-caption); color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-xs) var(--cds-pad-sm); }
+.ct-select:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 1px; }
+.ct-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+.ct-tip .ct-tip-k { color: var(--cds-text-secondary); }
+.ct-tip .ct-tip-v { font-variant-numeric: tabular-nums; }
+.ct-fail { display: flex; align-items: center; justify-content: center; gap: var(--cds-gap-sm); min-height: inherit; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.ct-fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+.ct-table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.ct-table th { text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+.ct-table td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); }
+.ct-table tr:last-child td { border-bottom: none; }
+.ct-table .ct-num { text-align: right; }
+.ct-table .ct-grp { color: var(--color-fg-muted); }
+.ct-axis text { fill: var(--color-fg-muted); font-size: 11px; }
+.ct-axis line, .ct-axis path { stroke: var(--cds-chart-axis); }
+[data-dash-source-state=empty] { color: transparent; }
+[data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+</style>
+
+<div class="ct-page">
+  <header class="ct-head" id="top">
+    <h1 class="ct-title">Call type breakdown</h1>
+    <p class="ct-take">
+      Every model gets song, distance calls and begging almost entirely right. All of them miss most tucks: tuck accuracy runs from
+      <span class="ct-n dash-skeleton" data-source="tu_range" data-field="min" data-row="0">—</span> to
+      <span class="ct-n dash-skeleton" data-source="tu_range" data-field="max" data-row="0">—</span>, and most of the misses are called thuks or nest calls.
+      Averaged over <span class="ct-n dash-skeleton" data-source="n_splits" data-field="n" data-row="0">—</span> fold splits, run16 scores
+      <span class="ct-n dash-skeleton" data-source="split_summary" data-field="mean" data-where="model=run16">—</span>, and each of the
+      <span class="ct-n dash-skeleton" data-source="aves_ahead" data-field="n_models" data-row="0">—</span> downloaded AVES models beats it on at least
+      <span class="ct-n dash-skeleton" data-source="aves_ahead" data-field="min_ahead" data-row="0">—</span> of them.
+    </p>
+  </header>
+
+  <section class="ct-sec" id="by-type">
+    <h2 class="ct-h2">Accuracy by call type</h2>
+    <div class="ct-card" id="heatmap-card">
+      <p class="ct-note">Share of each call type's clips classified correctly when the classifier is tested on birds it never saw. Columns run from easiest to hardest, by the average over all models. The last column is the overall score on the model board.</p>
+      <div class="ct-scroll"><div class="ct-chart dash-skeleton" id="heatmap" data-source="recall call_types" style="min-height: 520px"></div></div>
+    </div>
+  </section>
+
+  <section class="ct-sec" id="vs-run16">
+    <h2 class="ct-h2">Difference from run16, by call type</h2>
+    <div class="ct-card" id="diff-card">
+      <div class="ct-card-h">
+        <p class="ct-card-t">Per-call-type accuracy minus run16's</p>
+        <select class="ct-select" id="diff-model" aria-label="Model to compare with run16"></select>
+      </div>
+      <p class="ct-note">Each line is the 95% interval from resampling birds. A filled dot means the interval excludes zero.
+        Across all models, <span class="ct-n dash-skeleton" data-source="resolved_count" data-field="resolved" data-row="0">—</span> of
+        <span class="ct-n dash-skeleton" data-source="resolved_count" data-field="total" data-row="0">—</span> model-by-call-type comparisons exclude zero. With that many comparisons, about
+        <span class="ct-n dash-skeleton" data-source="resolved_count" data-field="expected" data-row="0">—</span> would by chance alone, so a single filled dot is weak evidence. A pattern that repeats across models counts for more.</p>
+      <div class="ct-chart dash-skeleton" id="diff" data-source="vs_run16 call_types" style="min-height: 330px"></div>
+    </div>
+  </section>
+
+  <section class="ct-sec" id="errors">
+    <h2 class="ct-h2">Where the errors go</h2>
+    <p class="ct-note">Rows are the true call type, columns what the classifier said; each row adds up to 100%. Shares under 5% are left blank.</p>
+    <div class="ct-grid2">
+      <div class="ct-card" id="conf-a-card">
+        <div class="ct-card-h"><p class="ct-card-t">Confusions</p><select class="ct-select" id="conf-a-model" aria-label="Model for the left confusion matrix"></select></div>
+        <div class="ct-chart dash-skeleton" id="conf-a" data-source="confusion" style="min-height: 340px"></div>
+      </div>
+      <div class="ct-card" id="conf-b-card">
+        <div class="ct-card-h"><p class="ct-card-t">Confusions</p><select class="ct-select" id="conf-b-model" aria-label="Model for the right confusion matrix"></select></div>
+        <div class="ct-chart dash-skeleton" id="conf-b" data-source="confusion" style="min-height: 340px"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ct-sec" id="splits-sec">
+    <h2 class="ct-h2">How much the fold split moves the score</h2>
+    <div class="ct-card" id="splits-card">
+      <p class="ct-note">Same embeddings, same layer, same classifier; only the assignment of birds to folds changes. The ringed dot is the split the model board uses, the tick is the mean, and the dashed line is run16's mean.
+        The board's split is run16's <span class="ct-n dash-skeleton" data-source="run16_rank" data-field="rank" data-row="0">—</span> best of
+        <span class="ct-n dash-skeleton" data-source="n_splits" data-field="n" data-row="0">—</span>, which is why run16 looked tied with AVES there.</p>
+      <div class="ct-scroll"><div class="ct-chart dash-skeleton" id="strip" data-source="splits" style="min-height: 480px"></div></div>
+    </div>
+    <div class="ct-card" id="split-table-card">
+      <p class="ct-card-t">Each model across splits</p>
+      <div class="ct-scroll">
+        <table class="ct-table" id="split-table" data-source="split_summary" data-row-key="model">
+          <thead><tr>
+            <th data-field="model">Model</th>
+            <th data-field="group">Kind</th>
+            <th class="ct-num" data-field="board">Board's split</th>
+            <th class="ct-num" data-field="mean">Mean over splits</th>
+            <th class="ct-num" data-field="ahead">Splits where it beats run16</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <p class="ct-note" id="method">Method: leave-birds-out cross-validation, a logistic-regression classifier on each model's reported layer, the same cohort and code as the model board, run with the scoring pipeline's scikit-learn. Every model's overall score here was checked to match the board exactly before the breakdown was taken. Sources: <code>analysis/calltype_per_class.json</code> and <code>analysis/calltype_split_sensitivity.json</code>.</p>
+</div>
+
+<script>
+dash.calc('tu_range', {
+  inputs: ['recall'],
+  title: 'Tuck accuracy range',
+  description: 'Lowest and highest tuck (Tu) accuracy across all models, to two decimals.',
+  fn: (recall) => {
+    const tu = recall.filter((r) => r.call_type === 'Tu').map((r) => r.recall);
+    return [{ min: Math.round(Math.min(...tu) * 100) / 100, max: Math.round(Math.max(...tu) * 100) / 100 }];
+  },
+});
+dash.calc('n_splits', {
+  inputs: ['splits'],
+  title: 'Number of fold splits',
+  description: 'How many different fold splits each model was scored on.',
+  fn: (splits) => [{ n: new Set(splits.map((r) => r.split)).size }],
+});
+dash.calc('split_summary', {
+  inputs: ['splits'],
+  title: 'Each model across splits',
+  description: "Score on the board's split, mean over all splits (4 decimals), and how many splits it beats run16 on.",
+  fn: (splits) => {
+    const by = d3.group(splits, (r) => r.model);
+    return [...by].map(([model, rs]) => ({
+      model,
+      group: rs[0].group,
+      order: rs[0].model_order,
+      board: rs.find((r) => r.board_split).acc,
+      mean: Math.round(d3.mean(rs, (r) => r.acc) * 10000) / 10000,
+      ahead: rs.filter((r) => r.diff_vs_run16 > 0).length,
+    })).sort((a, b) => b.mean - a.mean);
+  },
+});
+dash.calc('aves_ahead', {
+  inputs: ['split_summary'],
+  title: 'Downloaded AVES vs run16',
+  description: 'How many downloaded AVES models there are, and the fewest splits any of them beats run16 on.',
+  fn: (split_summary) => {
+    const a = split_summary.filter((r) => r.group === 'AVES, downloaded');
+    return [{ n_models: a.length, min_ahead: d3.min(a, (r) => r.ahead) }];
+  },
+});
+dash.calc('run16_rank', {
+  inputs: ['splits'],
+  title: "Rank of the board's split for run16",
+  description: "Where the board's split falls among run16's scores on every split (1 = its best).",
+  fn: (splits) => {
+    const r = splits.filter((x) => x.model === 'run16').sort((a, b) => b.acc - a.acc);
+    const ord = ['1st', '2nd', '3rd'];
+    const i = r.findIndex((x) => x.board_split);
+    return [{ rank: ord[i] ?? `${i + 1}th` }];
+  },
+});
+dash.calc('resolved_count', {
+  inputs: ['vs_run16'],
+  title: 'Per-call-type differences that exclude zero',
+  description: 'Model-by-call-type comparisons with run16 whose 95% interval excludes zero, and how many 5% chance would give.',
+  fn: (vs_run16) => [{
+    resolved: vs_run16.filter((r) => r.resolved).length,
+    total: vs_run16.length,
+    expected: Math.round(vs_run16.length * 0.05),
+  }],
+});
+
+(() => {
+  const state = { diff: 'BirdAVES biox-large', confA: 'run16', confB: 'BirdAVES biox-large' };
+  const sels = { diff: document.getElementById('diff-model'), confA: document.getElementById('conf-a-model'), confB: document.getElementById('conf-b-model') };
+
+  const resolveColor = (c) => {
+    const el = document.createElement('span');
+    el.style.color = c; document.body.appendChild(el);
+    const v = getComputedStyle(el).color; el.remove(); return v;
+  };
+  const fmt2 = d3.format('.2f'), fmt4 = d3.format('.4f'), fmtS = d3.format('+.3f'), pct = d3.format('.0%');
+
+  function measure(svg, texts, size, weight) {
+    const t = svg.append('text').attr('font-size', size).attr('font-weight', weight || 400);
+    let w = 0;
+    for (const s of texts) { t.text(s); w = Math.max(w, t.node().getComputedTextLength()); }
+    t.remove(); return w;
+  }
+  function tipper(box) {
+    let tip = box.querySelector('.ct-tip');
+    if (!tip) { tip = document.createElement('div'); tip.className = 'ct-tip'; tip.hidden = true; box.appendChild(tip); }
+    return {
+      show(ev, k, v) {
+        tip.replaceChildren();
+        const a = document.createElement('div'); a.className = 'ct-tip-k'; a.textContent = k;
+        const b = document.createElement('div'); b.className = 'ct-tip-v'; b.textContent = v;
+        tip.append(a, b); tip.hidden = false;
+        const r = box.getBoundingClientRect();
+        let x = ev.clientX - r.left + 12, y = ev.clientY - r.top + 12;
+        const tw = tip.offsetWidth, th = tip.offsetHeight;
+        if (x + tw > box.clientWidth) x = ev.clientX - r.left - tw - 12;
+        if (x < 0) x = 4;
+        if (y + th > box.clientHeight) y = ev.clientY - r.top - th - 12;
+        tip.style.left = x + 'px'; tip.style.top = Math.max(0, y) + 'px';
+      },
+      hide() { tip.hidden = true; },
+    };
+  }
+  function failOrWait(el, ids) {
+    const st = ids.map((id) => dash.data(id).status);
+    if (st.every((s) => s === 'ok')) { el.classList.remove('dash-skeleton'); return false; }
+    el.querySelectorAll('svg').forEach((n) => n.remove());
+    if (st.some((s) => s === 'error' || s === 'missing' || s === 'declined' || s === 'connect')) {
+      el.classList.remove('dash-skeleton');
+      if (!el.querySelector('.ct-fail')) { const f = document.createElement('div'); f.className = 'ct-fail'; f.textContent = 'Failed to load'; el.appendChild(f); }
+    } else el.classList.add('dash-skeleton');
+    return true;
+  }
+  const clearFail = (el) => el.querySelectorAll('.ct-fail').forEach((n) => n.remove());
+
+  function fillSelect(sel, models, key) {
+    if (sel.options.length !== models.length) sel.replaceChildren(...models.map((m) => new Option(m, m)));
+    sel.value = state[key];
+  }
+
+  function draw() {
+    const R = dash.data('recall'), C = dash.data('call_types');
+    const ok = R.status === 'ok' && C.status === 'ok';
+    let order = [], names = {}, models = [];
+    if (ok) {
+      const mean = d3.rollup(R.data, (v) => d3.mean(v, (r) => r.recall), (r) => r.call_type);
+      order = [...mean].sort((a, b) => b[1] - a[1]).map((d) => d[0]);
+      names = Object.fromEntries(C.data.map((r) => [r.call_type, r]));
+      models = [...d3.group(R.data, (r) => r.model)].map(([m, rs]) => ({ model: m, group: rs[0].group, order: rs[0].model_order, overall: rs[0].overall })).sort((a, b) => a.order - b.order);
+    }
+    drawHeatmap(order, names, models);
+    drawDiff(order, names, models);
+    drawConf('conf-a', 'confA', order, models);
+    drawConf('conf-b', 'confB', order, models);
+    drawStrip();
+    drawTable();
+    document.querySelectorAll('.ct-take .ct-n, .ct-note .ct-n').forEach((el) => {
+      const s = dash.data(el.dataset.source).status;
+      if (s !== 'loading') el.classList.remove('dash-skeleton');
+    });
+  }
+
+  function drawHeatmap(order, names, models) {
+    const el = document.getElementById('heatmap');
+    if (failOrWait(el, ['recall', 'call_types'])) return;
+    clearFail(el);
+    d3.select(el).selectAll('svg').remove();
+    const rows = dash.data('recall').data;
+    const W = Math.max(el.clientWidth || 0, 680);
+    const svg = d3.select(el).append('svg').attr('width', '100%');
+    const labW = measure(svg, models.map((m) => m.model), 12.5, 500) + 14;
+    const groups = [...d3.group(models, (m) => m.group)];
+    const headH = 44, rowH = 26, grpH = 22, gapAll = 10;
+    const cellW = (W - labW - gapAll) / (order.length + 1);
+    let y = headH; const ys = new Map(), gys = [];
+    for (const [g, ms] of groups) { gys.push([g, y]); y += grpH; for (const m of ms) { ys.set(m.model, y); y += rowH; } y += 6; }
+    const H = y;
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('height', null);
+    const accent = resolveColor(dash.colors[0]);
+    const op = d3.scaleLinear([0.15, 1], [0.06, 0.92]).clamp(true);
+    const x = (i) => labW + i * cellW + (i >= order.length ? gapAll : 0);
+    const tip = tipper(el);
+    const head = svg.append('g');
+    order.forEach((c, i) => {
+      head.append('text').attr('x', x(i) + cellW / 2).attr('y', 16).attr('text-anchor', 'middle').attr('font-size', 12.5).attr('font-weight', 600).attr('fill', 'var(--color-fg)').text(c);
+      head.append('text').attr('x', x(i) + cellW / 2).attr('y', 32).attr('text-anchor', 'middle').attr('font-size', 10.5).attr('fill', 'var(--color-fg-muted)').text(`n ${names[c].n_clips}`);
+    });
+    head.append('text').attr('x', x(order.length) + cellW / 2).attr('y', 16).attr('text-anchor', 'middle').attr('font-size', 12.5).attr('font-weight', 600).attr('fill', 'var(--color-fg)').text('All');
+    for (const [g, gy] of gys) svg.append('text').attr('x', 0).attr('y', gy + 15).attr('font-size', 11).attr('fill', 'var(--color-fg-muted)').text(g);
+    const byKey = new Map(rows.map((r) => [r.model + '|' + r.call_type, r]));
+    for (const m of models) {
+      const yy = ys.get(m.model);
+      svg.append('text').attr('x', 0).attr('y', yy + rowH / 2 + 4).attr('font-size', 12.5).attr('font-weight', m.model === 'run16' ? 600 : 500).attr('fill', 'var(--color-fg)').text(m.model);
+      const cells = order.map((c) => byKey.get(m.model + '|' + c)).concat([{ model: m.model, call_type: 'All', recall: m.overall, all: true }]);
+      cells.forEach((r, i) => {
+        const g = svg.append('g');
+        g.append('rect').attr('x', x(i) + 1).attr('y', yy + 1).attr('width', cellW - 2).attr('height', rowH - 2).attr('rx', 3)
+          .attr('fill', accent).attr('fill-opacity', op(r.recall));
+        g.append('text').attr('x', x(i) + cellW / 2).attr('y', yy + rowH / 2 + 4).attr('text-anchor', 'middle').attr('font-size', 11)
+          .style('font-variant-numeric', 'tabular-nums')
+          .attr('fill', op(r.recall) > 0.5 ? 'var(--color-bg)' : 'var(--color-fg)').text(r.all ? fmt4(r.recall) : fmt2(r.recall));
+        g.on('mousemove', (ev) => tip.show(ev, r.all ? `${m.model} · all call types` : `${m.model} · ${r.call_type} ${names[r.call_type].name}`,
+          r.all ? `${fmt4(r.recall)} overall` : `${fmt2(r.recall)}  (${r.correct} of ${r.n} clips, ${names[r.call_type].n_birds} birds)`))
+          .on('mouseleave', tip.hide);
+      });
+    }
+  }
+
+  function drawDiff(order, names, models) {
+    const el = document.getElementById('diff');
+    const list = models.filter((m) => m.model !== 'run16').map((m) => m.model);
+    fillSelect(sels.diff, list, 'diff');
+    if (failOrWait(el, ['vs_run16', 'call_types']) || !order.length) return;
+    clearFail(el);
+    d3.select(el).selectAll('svg').remove();
+    const rows = dash.data('vs_run16').data.filter((r) => r.model === state.diff);
+    const by = new Map(rows.map((r) => [r.call_type, r]));
+    const W = Math.max(el.clientWidth || 0, 320);
+    const svg = d3.select(el).append('svg').attr('width', '100%');
+    const labels = order.map((c) => `${c}  ${names[c].name}`);
+    const labW = measure(svg, labels, 12, 400) + 12;
+    const valW = measure(svg, rows.map((r) => fmtS(r.diff)), 11, 400) + 10;
+    const rowH = 26, top = 6, axisH = 28;
+    const H = top + order.length * rowH + axisH;
+    svg.attr('viewBox', `0 0 ${W} ${H}`);
+    const m = d3.max(rows, (r) => Math.max(Math.abs(r.lo), Math.abs(r.hi))) || 0.1;
+    const xs = d3.scaleLinear([-m, m], [labW, W - valW]).nice();
+    const accent = resolveColor(dash.colors[0]);
+    const tip = tipper(el);
+    const ax = svg.append('g').attr('class', 'ct-axis').attr('transform', `translate(0,${top + order.length * rowH + 4})`)
+      .call(d3.axisBottom(xs).ticks(Math.max(3, Math.floor((W - labW - valW) / 70))).tickFormat(d3.format('+.2f')).tickSizeOuter(0));
+    ax.attr('font-size', null).attr('font-family', null);
+    xs.ticks(Math.max(3, Math.floor((W - labW - valW) / 70))).forEach((t) => svg.append('line').attr('x1', xs(t)).attr('x2', xs(t)).attr('y1', top).attr('y2', top + order.length * rowH).attr('stroke', 'var(--cds-chart-grid)'));
+    svg.append('line').attr('x1', xs(0)).attr('x2', xs(0)).attr('y1', top).attr('y2', top + order.length * rowH).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '3 3');
+    order.forEach((c, i) => {
+      const r = by.get(c); if (!r) return;
+      const yy = top + i * rowH + rowH / 2;
+      svg.append('text').attr('x', 0).attr('y', yy + 4).attr('font-size', 12).attr('fill', 'var(--color-fg)').text(labels[i]);
+      svg.append('line').attr('x1', xs(r.lo)).attr('x2', xs(r.hi)).attr('y1', yy).attr('y2', yy).attr('stroke', accent).attr('stroke-width', 2.2).attr('stroke-linecap', 'round');
+      svg.append('circle').attr('cx', xs(r.diff)).attr('cy', yy).attr('r', 5).attr('fill', r.resolved ? accent : 'var(--color-panel)').attr('stroke', accent).attr('stroke-width', 2)
+        .on('mousemove', (ev) => tip.show(ev, `${state.diff} minus run16 · ${c} ${names[c].name}`, `${fmtS(r.diff)}  [${fmtS(r.lo)}, ${fmtS(r.hi)}]  ${names[c].n_clips} clips, ${names[c].n_birds} birds`))
+        .on('mouseleave', tip.hide);
+      svg.append('text').attr('x', W).attr('y', yy + 4).attr('text-anchor', 'end').attr('font-size', 11).style('font-variant-numeric', 'tabular-nums').attr('fill', r.resolved ? 'var(--color-fg)' : 'var(--color-fg-muted)').text(fmtS(r.diff));
+    });
+  }
+
+  function drawConf(id, key, order, models) {
+    const el = document.getElementById(id);
+    fillSelect(sels[key], models.map((m) => m.model), key);
+    if (failOrWait(el, ['confusion']) || !order.length) return;
+    clearFail(el);
+    d3.select(el).selectAll('svg').remove();
+    const rows = dash.data('confusion').data.filter((r) => r.model === state[key]);
+    const cnt = new Map(rows.map((r) => [r.true_type + '|' + r.pred_type, r.count]));
+    const tot = d3.rollup(rows, (v) => d3.sum(v, (r) => r.count), (r) => r.true_type);
+    const W = Math.max(Math.min(el.clientWidth || 0, 520), 300);
+    const lab = 30, topL = 30;
+    const cell = (W - lab) / order.length;
+    const H = topL + cell * order.length + 4;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+    const accent = resolveColor(dash.colors[0]);
+    const tip = tipper(el);
+    svg.append('text').attr('x', lab).attr('y', 10).attr('font-size', 10.5).attr('fill', 'var(--color-fg-muted)').text('said →');
+    order.forEach((c, j) => svg.append('text').attr('x', lab + j * cell + cell / 2).attr('y', topL - 6).attr('text-anchor', 'middle').attr('font-size', 11).attr('font-weight', 600).attr('fill', 'var(--color-fg)').text(c));
+    order.forEach((t, i) => {
+      const n = tot.get(t) || 1;
+      svg.append('text').attr('x', 0).attr('y', topL + i * cell + cell / 2 + 4).attr('font-size', 11).attr('font-weight', 600).attr('fill', 'var(--color-fg)').text(t);
+      order.forEach((p, j) => {
+        const k = cnt.get(t + '|' + p) || 0, s = k / n;
+        const g = svg.append('g');
+        g.append('rect').attr('x', lab + j * cell + 1).attr('y', topL + i * cell + 1).attr('width', cell - 2).attr('height', cell - 2).attr('rx', 2)
+          .attr('fill', accent).attr('fill-opacity', s === 0 ? 0.03 : 0.08 + 0.84 * Math.sqrt(s))
+          .attr('stroke', i === j ? 'var(--color-fg)' : 'none').attr('stroke-opacity', 0.35);
+        if (s >= 0.05) g.append('text').attr('x', lab + j * cell + cell / 2).attr('y', topL + i * cell + cell / 2 + 3.5).attr('text-anchor', 'middle')
+          .attr('font-size', cell > 30 ? 10.5 : 9).style('font-variant-numeric', 'tabular-nums')
+          .attr('fill', 0.08 + 0.84 * Math.sqrt(s) > 0.5 ? 'var(--color-bg)' : 'var(--color-fg)').text(pct(s).replace('%', ''));
+        g.on('mousemove', (ev) => tip.show(ev, `${state[key]} · true ${t}, said ${p}`, `${pct(s)}  (${k} of ${n} clips)`)).on('mouseleave', tip.hide);
+      });
+    });
+  }
+
+  function drawStrip() {
+    const el = document.getElementById('strip');
+    if (failOrWait(el, ['splits', 'split_summary'])) return;
+    clearFail(el);
+    d3.select(el).selectAll('svg').remove();
+    const rows = dash.data('splits').data, summ = dash.data('split_summary').data;
+    const W = Math.max(el.clientWidth || 0, 600);
+    const svg = d3.select(el).append('svg').attr('width', '100%');
+    const labW = measure(svg, summ.map((s) => s.model), 12.5, 500) + 14;
+    const rowH = 26, top = 6, axisH = 28, right = 12;
+    const H = top + summ.length * rowH + axisH;
+    svg.attr('viewBox', `0 0 ${W} ${H}`);
+    const xs = d3.scaleLinear(d3.extent(rows, (r) => r.acc), [labW + 6, W - right]).nice();
+    const accent = resolveColor(dash.colors[0]);
+    const tip = tipper(el);
+    const nt = Math.max(3, Math.floor((W - labW) / 80));
+    xs.ticks(nt).forEach((t) => svg.append('line').attr('x1', xs(t)).attr('x2', xs(t)).attr('y1', top).attr('y2', top + summ.length * rowH).attr('stroke', 'var(--cds-chart-grid)'));
+    const ax = svg.append('g').attr('class', 'ct-axis').attr('transform', `translate(0,${top + summ.length * rowH + 4})`).call(d3.axisBottom(xs).ticks(nt).tickFormat(d3.format('.3f')).tickSizeOuter(0));
+    ax.attr('font-size', null).attr('font-family', null);
+    const r16 = summ.find((s) => s.model === 'run16');
+    if (r16) svg.append('line').attr('x1', xs(r16.mean)).attr('x2', xs(r16.mean)).attr('y1', top).attr('y2', top + summ.length * rowH).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 3');
+    const by = d3.group(rows, (r) => r.model);
+    summ.forEach((s, i) => {
+      const yy = top + i * rowH + rowH / 2;
+      svg.append('text').attr('x', 0).attr('y', yy + 4).attr('font-size', 12.5).attr('font-weight', s.model === 'run16' ? 600 : 500).attr('fill', s.group === 'AVES, downloaded' ? 'var(--color-fg-muted)' : 'var(--color-fg)').text(s.model);
+      const rs = by.get(s.model) || [];
+      svg.append('line').attr('x1', xs(d3.min(rs, (r) => r.acc))).attr('x2', xs(d3.max(rs, (r) => r.acc))).attr('y1', yy).attr('y2', yy).attr('stroke', 'var(--cds-chart-grid)').attr('stroke-width', 2);
+      rs.filter((r) => !r.board_split).forEach((r) => svg.append('circle').attr('cx', xs(r.acc)).attr('cy', yy).attr('r', 3.5).attr('fill', 'var(--cds-chart-muted)').attr('fill-opacity', 0.8)
+        .on('mousemove', (ev) => tip.show(ev, `${s.model} · split ${r.split}`, s.model === 'run16' ? fmt4(r.acc) : `${fmt4(r.acc)}  (${fmtS(r.diff_vs_run16)} vs run16 on this split)`)).on('mouseleave', tip.hide));
+      svg.append('line').attr('x1', xs(s.mean)).attr('x2', xs(s.mean)).attr('y1', yy - 8).attr('y2', yy + 8).attr('stroke', 'var(--color-fg)').attr('stroke-width', 2).attr('stroke-linecap', 'round');
+      const b = rs.find((r) => r.board_split);
+      if (b) svg.append('circle').attr('cx', xs(b.acc)).attr('cy', yy).attr('r', 5.5).attr('fill', 'none').attr('stroke', accent).attr('stroke-width', 2.2)
+        .on('mousemove', (ev) => tip.show(ev, `${s.model} · the board's split`, fmt4(b.acc))).on('mouseleave', tip.hide);
+    });
+  }
+
+  function drawTable() {
+    const tb = document.querySelector('#split-table tbody');
+    const S = dash.data('split_summary');
+    if (S.status !== 'ok') { tb.replaceChildren(); return; }
+    tb.replaceChildren(...S.data.map((s) => {
+      const tr = document.createElement('tr');
+      const cells = [[s.model, ''], [s.group, 'ct-grp'], [fmt4(s.board), 'ct-num'], [fmt4(s.mean), 'ct-num'], [String(s.ahead), 'ct-num']];
+      for (const [v, c] of cells) { const td = document.createElement('td'); td.textContent = v; if (c) td.className = c; tr.appendChild(td); }
+      return tr;
+    }));
+  }
+
+  sels.diff.addEventListener('change', () => { state.diff = sels.diff.value; draw(); });
+  sels.confA.addEventListener('change', () => { state.confA = sels.confA.value; draw(); });
+  sels.confB.addEventListener('change', () => { state.confB = sels.confB.value; draw(); });
+  dash.onData(draw);
+})();
+</script>

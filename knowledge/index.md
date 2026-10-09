@@ -2,7 +2,7 @@
 
 Generated 2026-10-09 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
 
-61 findings.
+62 findings.
 
 
 ## CONFIRMED (54)
@@ -726,7 +726,7 @@ A frame-level probe transfers between the Berkeley colony corpus and ETH BirdPar
 > Superseded by [019].
 
 
-## OPEN (2)
+## OPEN (3)
 
 ### [013] Multi-layer concatenation gives a small unconfirmed gain  ·  **OPEN**
 
@@ -751,3 +751,15 @@ Replacing the single threshold with a dual high/low threshold and tuning for the
 **Caveats.** The offset shrink was motivated by a real measured bias (+20 ms, duration ratio 1.20) and still did not help -- one frame is within the resolution, and shrinking breaks marginal overlap matches. No bootstrap has been run, so +0.009 must not be called an improvement yet. The likely bigger lever is a dedicated onset probe trained on 'is this frame within one frame of an onset', which needs the frame features (currently only on Savio).
 
 **Provenance.** analysis/onset_events_v2.json
+
+### [062] The fold split moves call-type scores as much as a training seed, and the board's split flatters run16  ·  **OPEN**
+
+Re-scoring the same cached embeddings on 10 different leave-birds-out fold splits moves each model's 11-class call-type accuracy by about 0.006 (SD). The board's split (random_state 0) is run16's second best of 10. Averaged over the 10 splits, every downloaded AVES and BirdAVES model scores above run16 (by +0.007 to +0.020) and beats it on 9 or 10 of the 10 splits, so the single-split "not distinguishable from run16" reads as a tie only because of where that split fell.
+
+**Evidence.** Mean over 10 splits (board split in brackets): run16 0.8311 (0.8379); AVES bio 0.8380 (0.8453), ahead on 9/10; AVES core 0.8422, 9/10; AVES all 0.8455, 10/10; BirdAVES biox-base 0.8448, 10/10; biox-large 0.8514 (0.8552), 10/10; bioxn-large 0.8456, 10/10. run19 0.8387, 8/10; DAPT replay x3 0.8416, 10/10; run16 seed 2 0.8221 (0.8224), 1/10, so the run16 seed gap is -0.0089 on average against -0.0155 on the board split. Per-model SD across splits 0.0055-0.0091.
+
+**Method.** zfeval/experiments/calltype_split_sensitivity.py -- same embeddings (features/ct11_<tag>_emb.npy), each model's reported layer, StandardScaler + LogisticRegression, StratifiedGroupKFold(5) with random_state 0-9; split 0 asserted to reproduce every board number exactly. Per-call-type breakdown in zfeval/experiments/calltype_per_class.py.
+
+**Caveats.** DRAFT, critic not yet run. The splits share the same 48 birds, so they are not independent replications: averaging removes fold-assignment noise but not bird-sampling uncertainty, and the per-split bird-bootstrap intervals still cross zero. Each model's layer was chosen on split 0, which favours split 0 for every model (most means sit below their split-0 score). Instrument trap found on the way: scikit-learn 1.7.2 (the scoring pipeline, /Library/Frameworks python3.10) and 1.8.0 (analysis_env) assign birds to folds differently for the same random_state (1.7.2 folds are uneven, 360-908 clips), so run16 scores 0.8379 under one and 0.8306 under the other; never compare numbers scored in different environments. Per call type: all models score 0.92-1.00 on So, DC, Be, Ag and 0.29-0.47 on Tu, where most misses go to Th and Ne; 14 of 165 per-type comparisons with run16 exclude zero against about 8 expected by chance.
+
+**Provenance.** analysis/calltype_split_sensitivity.json; analysis/calltype_per_class.json

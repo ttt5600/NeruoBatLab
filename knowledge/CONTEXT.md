@@ -1,6 +1,6 @@
 # Project context: zebra finch HuBERT
 
-Generated 2026-10-09. 61 findings: 56 live, 4 closed.
+Generated 2026-10-09. 62 findings: 57 live, 4 closed.
 
 Read the REFUTED section. Several of these ideas look obviously correct and are not; they have each cost a day.
 
@@ -457,6 +457,14 @@ Replacing the single threshold with a dual high/low threshold and tuning for the
 **Evidence.** Collar-50 F1, v1 -> v2: L6 0.814 -> 0.823 (+0.009), L9 0.810 -> 0.816 (+0.006), L3 0.809 -> 0.804 (-0.004), L0 0.798 -> 0.797 (-0.001). Overlap F1 L6 0.842 -> 0.849. Chosen parameters were thr_hi 0.5-0.7 with thr_lo 0.3 (hysteresis genuinely used), merge_gap 0 in every block, shrink 0 in every block.
 
 **Caveats.** The offset shrink was motivated by a real measured bias (+20 ms, duration ratio 1.20) and still did not help -- one frame is within the resolution, and shrinking breaks marginal overlap matches. No bootstrap has been run, so +0.009 must not be called an improvement yet. The likely bigger lever is a dedicated onset probe trained on 'is this frame within one frame of an onset', which needs the frame features (currently only on Savio).
+
+### [062] The fold split moves call-type scores as much as a training seed, and the board's split flatters run16  ·  **OPEN**
+
+Re-scoring the same cached embeddings on 10 different leave-birds-out fold splits moves each model's 11-class call-type accuracy by about 0.006 (SD). The board's split (random_state 0) is run16's second best of 10. Averaged over the 10 splits, every downloaded AVES and BirdAVES model scores above run16 (by +0.007 to +0.020) and beats it on 9 or 10 of the 10 splits, so the single-split "not distinguishable from run16" reads as a tie only because of where that split fell.
+
+**Evidence.** Mean over 10 splits (board split in brackets): run16 0.8311 (0.8379); AVES bio 0.8380 (0.8453), ahead on 9/10; AVES core 0.8422, 9/10; AVES all 0.8455, 10/10; BirdAVES biox-base 0.8448, 10/10; biox-large 0.8514 (0.8552), 10/10; bioxn-large 0.8456, 10/10. run19 0.8387, 8/10; DAPT replay x3 0.8416, 10/10; run16 seed 2 0.8221 (0.8224), 1/10, so the run16 seed gap is -0.0089 on average against -0.0155 on the board split. Per-model SD across splits 0.0055-0.0091.
+
+**Caveats.** DRAFT, critic not yet run. The splits share the same 48 birds, so they are not independent replications: averaging removes fold-assignment noise but not bird-sampling uncertainty, and the per-split bird-bootstrap intervals still cross zero. Each model's layer was chosen on split 0, which favours split 0 for every model (most means sit below their split-0 score). Instrument trap found on the way: scikit-learn 1.7.2 (the scoring pipeline, /Library/Frameworks python3.10) and 1.8.0 (analysis_env) assign birds to folds differently for the same random_state (1.7.2 folds are uneven, 360-908 clips), so run16 scores 0.8379 under one and 0.8306 under the other; never compare numbers scored in different environments. Per call type: all models score 0.92-1.00 on So, DC, Be, Ag and 0.29-0.47 on Tu, where most misses go to Th and Ne; 14 of 165 per-type comparisons with run16 exclude zero against about 8 expected by chance.
 
 
 ## Refuted — do not retry without new evidence
