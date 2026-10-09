@@ -1,6 +1,6 @@
 # Findings index
 
-Generated 2026-10-06 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
+Generated 2026-10-09 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
 
 61 findings.
 
@@ -335,15 +335,15 @@ On 8-way call-type classification -- the species-specific task where colony pret
 
 ### [034] The 2023 AVES call-type number was a padding artifact, not a fact about AVES  ·  **CONFIRMED**
 
-The ~60 percent that AVES scored on 11-way call type in the April 2023 notebook measures that notebook's preprocessing, not the encoder. Run with the audio handled correctly, the same checkpoint on the same 11 classes reaches 0.845.
+The 0.524 that AVES scored on 11-way call type in the April 2023 notebook (remembered as ~60 percent) measures that notebook's preprocessing, not the encoder. Run with the audio handled correctly, the same checkpoint on the same 11 classes reaches 0.845.
 
-**Evidence.** datasets/11905533/AVESZF.ipynb padded every clip to 250,606 samples (15.66 s) with pad_sequence and then mean-pooled the encoder output over all ~782 frames. The median clip in that corpus is 0.142 s, so a typical clip embedding was a mean over a frame axis that is 99.1 percent zeros. The same pipeline also half-wave rectified the waveform (wav[wav < 0] = 0 inside wav_resample) and trained a single nn.Linear with SGD lr 0.01, batch size 1, 5 epochs, on a random 80/20 split rather than leave-birds-out. Re-run with per-clip encoding (no padding), mean-pooling over real frames only, a converged logistic probe and leave-birds-out: AVES L3 0.8453 on 11 classes (3412 clips, 48 birds, majority 0.1797).
+**Evidence.** datasets/11905533/AVESZF.ipynb padded every clip to 250,606 samples (15.66 s) with pad_sequence and then mean-pooled the encoder output over all ~782 frames. The median clip is 0.124 s, so a typical clip embedding was a mean over a frame axis that is 99.2 percent zeros (median signal fraction 0.0079). The notebook's own saved test output is 0.524 (360/687 on its random split). The same pipeline also half-wave rectified the waveform (wav[wav < 0] = 0 inside wav_resample) and trained a single nn.Linear with SGD lr 0.01, batch size 1, 5 epochs, on a random 80/20 split rather than leave-birds-out. Re-run with per-clip encoding (no padding), mean-pooling over real frames only, a converged logistic probe and leave-birds-out: AVES L3 0.8453 on 11 classes (3412 clips, 48 birds, majority 0.1797).
 
 **Method.** Same checkpoint family -- aves-base-bio, the local fairseq copy and the torchaudio port carry matching configs (12 layers, 768-d, final_dim 256, label_rate 50, extractor default/group_norm, faav150k). No new AVES release is involved. Call types parsed by the notebook's own 2-character rule over AdultVocalizations + ChickVocalizations.
 
-**Caveats.** The fairseq task config records normalize: False, so AVES expects raw un-normalised audio -- which is what both this run and run11's own zf_hubert.embed_file path use, so preprocessing is not smuggling in an advantage. Watch the case trap when parsing types: blind title-casing rewrites DC to Dc and LT to Lt and silently drops 838 clips, which happened once here before it was caught by the class count coming back 9 instead of 11.
+**Caveats.** Corrected 2026-10-09: this finding said ~60 percent (the remembered number) and a 0.142 s median clip; the notebook output says 0.524 and the ablation JSON 0.124 s. Ablation ladder, 3412 clips, AVES L3: notebook pipeline rebuilt 0.514, minus rectify 0.586, minus padding 0.906, converged probe 0.884, leave-birds-out 0.845 -- padding is the step that matters. The fairseq task config records normalize: False, so AVES expects raw un-normalised audio -- which is what both this run and run11's own zf_hubert.embed_file path use, so preprocessing is not smuggling in an advantage. Watch the case trap when parsing types: blind title-casing rewrites DC to Dc and LT to Lt and silently drops 838 clips, which happened once here before it was caught by the class count coming back 9 instead of 11.
 
-**Provenance.** zfeval/experiments/calltype11.py; analysis/calltype11.json; datasets/11905533/AVESZF.ipynb
+**Provenance.** zfeval/experiments/calltype11.py; analysis/calltype11.json; datasets/11905533/AVESZF.ipynb; zfeval/experiments/aves_2023_ablation.py; analysis/aves_2023_ablation_n4000.json
 
 ### [035] run11 wins nowhere once layer choice is made out of fold  ·  **CONFIRMED**
 

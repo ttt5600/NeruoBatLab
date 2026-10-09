@@ -1,6 +1,6 @@
 # Project context: zebra finch HuBERT
 
-Generated 2026-10-06. 61 findings: 56 live, 4 closed.
+Generated 2026-10-09. 61 findings: 56 live, 4 closed.
 
 Read the REFUTED section. Several of these ideas look obviously correct and are not; they have each cost a day.
 
@@ -225,11 +225,11 @@ On 8-way call-type classification -- the species-specific task where colony pret
 
 ### [034] The 2023 AVES call-type number was a padding artifact, not a fact about AVES  ·  **CONFIRMED**
 
-The ~60 percent that AVES scored on 11-way call type in the April 2023 notebook measures that notebook's preprocessing, not the encoder. Run with the audio handled correctly, the same checkpoint on the same 11 classes reaches 0.845.
+The 0.524 that AVES scored on 11-way call type in the April 2023 notebook (remembered as ~60 percent) measures that notebook's preprocessing, not the encoder. Run with the audio handled correctly, the same checkpoint on the same 11 classes reaches 0.845.
 
-**Evidence.** datasets/11905533/AVESZF.ipynb padded every clip to 250,606 samples (15.66 s) with pad_sequence and then mean-pooled the encoder output over all ~782 frames. The median clip in that corpus is 0.142 s, so a typical clip embedding was a mean over a frame axis that is 99.1 percent zeros. The same pipeline also half-wave rectified the waveform (wav[wav < 0] = 0 inside wav_resample) and trained a single nn.Linear with SGD lr 0.01, batch size 1, 5 epochs, on a random 80/20 split rather than leave-birds-out. Re-run with per-clip encoding (no padding), mean-pooling over real frames only, a converged logistic probe and leave-birds-out: AVES L3 0.8453 on 11 classes (3412 clips, 48 birds, majority 0.1797).
+**Evidence.** datasets/11905533/AVESZF.ipynb padded every clip to 250,606 samples (15.66 s) with pad_sequence and then mean-pooled the encoder output over all ~782 frames. The median clip is 0.124 s, so a typical clip embedding was a mean over a frame axis that is 99.2 percent zeros (median signal fraction 0.0079). The notebook's own saved test output is 0.524 (360/687 on its random split). The same pipeline also half-wave rectified the waveform (wav[wav < 0] = 0 inside wav_resample) and trained a single nn.Linear with SGD lr 0.01, batch size 1, 5 epochs, on a random 80/20 split rather than leave-birds-out. Re-run with per-clip encoding (no padding), mean-pooling over real frames only, a converged logistic probe and leave-birds-out: AVES L3 0.8453 on 11 classes (3412 clips, 48 birds, majority 0.1797).
 
-**Caveats.** The fairseq task config records normalize: False, so AVES expects raw un-normalised audio -- which is what both this run and run11's own zf_hubert.embed_file path use, so preprocessing is not smuggling in an advantage. Watch the case trap when parsing types: blind title-casing rewrites DC to Dc and LT to Lt and silently drops 838 clips, which happened once here before it was caught by the class count coming back 9 instead of 11.
+**Caveats.** Corrected 2026-10-09: this finding said ~60 percent (the remembered number) and a 0.142 s median clip; the notebook output says 0.524 and the ablation JSON 0.124 s. Ablation ladder, 3412 clips, AVES L3: notebook pipeline rebuilt 0.514, minus rectify 0.586, minus padding 0.906, converged probe 0.884, leave-birds-out 0.845 -- padding is the step that matters. The fairseq task config records normalize: False, so AVES expects raw un-normalised audio -- which is what both this run and run11's own zf_hubert.embed_file path use, so preprocessing is not smuggling in an advantage. Watch the case trap when parsing types: blind title-casing rewrites DC to Dc and LT to Lt and silently drops 838 clips, which happened once here before it was caught by the class count coming back 9 instead of 11.
 
 ### [035] run11 wins nowhere once layer choice is made out of fold  ·  **CONFIRMED**
 
