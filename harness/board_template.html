@@ -103,14 +103,14 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 
   <section id="models">
     <h2>Models</h2>
-    <p class="lede">11-class call type, leave-birds-out ({{COHORT}}). Each line is the observed difference from run16 with its 95% bird-bootstrap interval. A filled dot means the interval excludes zero.</p>
+    <p class="lede">11-class call type, leave-birds-out ({{COHORT}}). Each line is the observed difference from run16 with its 95% bird-bootstrap interval. A filled dot means the interval excludes zero. {{SPLITNOTE}}</p>
     <div class="panel">
       <div class="scroll">{{FOREST}}</div>
       <div class="legend"><span><i class="sw ours"></i>ours, trained from scratch</span><span><i class="sw dapt"></i>AVES weights, continued on zebra finch</span><span><i class="sw aves"></i>AVES, downloaded</span><span><i class="sw open"></i>not distinguishable from run16</span></div>
     </div>
     <div class="panel scroll" style="margin-top:12px">
       <table>
-        <thead><tr><th>Model</th><th>What it is</th><th class="n">Call type</th><th class="n">vs run16</th><th class="n">ZF detection AUC</th><th class="n">BirdPark AP</th><th class="n">Chick AUC</th><th class="n">Finding</th><th>On Savio</th></tr></thead>
+        <thead><tr><th>Model</th><th>What it is</th><th class="n">Call type</th><th class="n">vs run16</th><th class="n">10-split mean</th><th class="n">ZF detection AUC</th><th class="n">BirdPark AP</th><th class="n">Chick AUC</th><th class="n">Finding</th><th>On Savio</th></tr></thead>
         <tbody>
 {{MODEL_ROWS}}
         </tbody>

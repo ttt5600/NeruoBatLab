@@ -58,6 +58,12 @@ def calltype():
     return acc
 
 
+def splits():
+    """Finding 062: each model re-scored on 10 fold splits. Keyed by display name without commas."""
+    d = load("calltype_split_sensitivity.json").get("models", {})
+    return {k.replace(",", ""): v for k, v in d.items()}
+
+
 def vs_ref():
     """X - run16 on 11-class call type, observed difference + bird-bootstrap interval, either direction."""
     out = {}
@@ -130,7 +136,7 @@ def chip(state):
 
 def main():
     now = dt.datetime.now().astimezone()
-    acc, vs = calltype(), vs_ref()
+    acc, vs, sp = calltype(), vs_ref(), splits()
     det = load("detection_variants.json").get("precommit", {})
     chick = load("chick_holdout_variants.json").get("precommit", {})
     reg = registry()
@@ -149,9 +155,12 @@ def main():
                  else ("<code>…/external/dapt</code>" if fam == "dapt" else "Mac only")))
         ffile = next(iter(sorted((ROOT / "knowledge/findings").glob(f"{finding}-*.yaml"))), None) if finding else None
         flink = (f'<a href="{GITHUB}knowledge/findings/{ffile.name}">{finding}</a>' if ffile else "")
+        s = sp.get(name.replace(",", ""))
+        stxt = (f'{s["mean"]:.4f}<br><span class="iv">' + ("reference" if key == REF else
+                f'beats run16 on {sum(x > 0 for x in s["diff_vs_run16"])}/{len(s["acc"])}') + '</span>') if s else "—"
         trs.append(f'<tr class="{fam}"><td class="nm"><span class="sw {fam}"></span>{html.escape(name)}</td>'
                    f'<td class="what">{html.escape(what)}</td><td class="n">{fmt(acc.get(key))}</td>'
-                   f'<td class="n vs">{vtxt}</td><td class="n">{fmt(j.get("zf", {}).get("auc"))}</td>'
+                   f'<td class="n vs">{vtxt}</td><td class="n">{stxt}</td><td class="n">{fmt(j.get("zf", {}).get("auc"))}</td>'
                    f'<td class="n">{fmt(j.get("bp", {}).get("ap"))}</td><td class="n">{fmt(c.get("auc"))}</td>'
                    f'<td class="n">{flink}</td><td class="path">{where}</td></tr>')
         if v and key != REF:
@@ -163,6 +172,10 @@ def main():
     best_name = next(n for k, n, *_ in MODELS if k == best)
     aves = [acc[k] for k, _, fam, *_ in MODELS if fam == "aves" and k in acc]
     seed = vs.get("run16_seed2")
+    r16 = sp.get("run16")
+    n_split = len(r16["acc"]) if r16 else 0
+    r16_rank = (sorted(r16["acc"], reverse=True).index(r16["acc"][0]) + 1) if r16 else None
+    ordinal = {1: "best", 2: "second best", 3: "third best"}
 
     # ---- experiments
     q = yaml.safe_load((ROOT / "harness/experiments.yaml").read_text())["experiments"]
@@ -260,8 +273,12 @@ def main():
                       + (f"vs run16 {vs[best][0]:+.4f} [{vs[best][1]:+.4f}, {vs[best][2]:+.4f}], "
                          f"{'resolved' if vs[best][3] else 'not distinguishable'}" if best in vs and best != REF else "")),
         "SEED": f"{abs(seed[0]):.4f}" if seed else "—",
-        "SEED_NOTE": (f"run16's second seed: {seed[0]:+.4f} [{seed[1]:+.4f}, {seed[2]:+.4f}]. Single runs cannot "
-                      "separate smaller gaps." if seed else ""),
+        "SEED_NOTE": (f"run16's second seed: {seed[0]:+.4f} [{seed[1]:+.4f}, {seed[2]:+.4f}] on the board's split"
+                      + (f", {sp['run16 seed 2']['diff_mean']:+.4f} averaged over {n_split} splits" if 'run16 seed 2' in sp else "")
+                      + ". Single runs cannot separate smaller gaps." if seed else ""),
+        "SPLITNOTE": (f"The 10-split column re-scores the same embeddings with the birds assigned to folds {n_split} different ways "
+                      f"(finding 062). The board's split is run16's {ordinal.get(r16_rank, str(r16_rank) + 'th best')} of {n_split}, "
+                      "so a single-split gap of about 0.01 is within what the split alone moves." if r16 else ""),
         "RUNNING": (", ".join(f'{e["id"]} ({e.get("job")})' for e in running) if running else "Nothing"),
         "RUNNING_NOTE": ("" if running else "The queue is empty; the next experiments wait for your decision."),
         "NEEDS": "".join(f"<li>{n}</li>" for n in needs),
