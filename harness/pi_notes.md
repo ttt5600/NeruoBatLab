@@ -79,3 +79,19 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
   needs-human pending the seed decision. Third idle wake in a row and the BRC cert expires 21:20,
   so the /loop lead stopped. Restart with `/loop follow harness/PI.md` after deciding on seeds.
 - Open for the user: seeds (E7/E8); usage-watch auto-resume collisions (2 so far).
+
+## 2026-10-11 13:05 — E10 (BEANS) started by hand; protocol problem before any download
+- AVES's published BEANS row (arXiv 2210.14493 Table 2: wtkn 0.879, bat 0.748, cbi 0.598, hbdb 0.810,
+  dogs 0.950, dcase 0.392, enab 0.555, hiceas 0.629, rfcx 0.130, gib 0.284, esc 0.773, sc 0.964) is
+  FINE-TUNED: whole network except the CNN, Adam, batch 32, lr swept {1e-5, 5e-5, 1e-4} x 50 epochs,
+  best on valid. E10 was approved as "no training", and its success criterion (reproduce AVES's
+  published numbers) cannot be met by a frozen probe. Needs the user's call on protocol.
+- Only aves-bio is published in Table 2; no per-task numbers for core/nonbio/all or BirdAVES there.
+- Download sizes (HEAD Content-Length, nothing downloaded): bats 5.2 GB, watkins 0.9, dogs 0.9,
+  humbugdb ~3.5 (3 parts found), dcase 1.9, enabirds 1.0, hiceas 1.4, hainan gibbons 11.9,
+  speech commands 2.4, esc50 (git clone, small). cbi and rfcx are Kaggle competitions: need the
+  user's Kaggle account + accepting each competition's rules. BEANS README says ~300 GB with the
+  processed copies; Mac has 252 GB free.
+- Licences: bats (Prat, Taub, Pratt, Yovel 2017, figshare 10.6084/m9.figshare.c.3666502) CC BY 4.0
+  per the Scientific Data article; figshare record itself not checked. All others NOT YET CHECKED;
+  BEANS's README lists none (BEANS code is MIT).
