@@ -19,9 +19,14 @@ one the under) at a .5 line, each with open and current values. Records with
 a line but no price are alternate lines the API lists without odds: dropped.
 Scorer markets (anytime TD etc.) have a price and no line: side = "yes".
 
-``current`` is the last price ESPN stored, NOT guaranteed to be the close:
-``last_updated`` is kept and ``hours_before`` (start - last_updated) lets a
-backtest drop lines that went stale days before the game.
+``current`` is the last price ESPN stored, NOT verified to be the close.
+Measured on NFL 2024 (57k prop sides): ``last_updated`` is a median 6.4 h
+AFTER kickoff (when ESPN closed the market), and 5% are stamped weeks
+later -- so the timestamp says nothing about when the price was set. Treat
+``current`` as approximately-closing; `collect.py snapshot` records true
+pre-game prices with their own timestamps going forward.
+Sanity check on the same data: over 48.6% / under 51.1% / push 0.3%, ROI
+-6.2% on both sides = the book's hold, as an efficient market should give.
 """
 from __future__ import annotations
 
