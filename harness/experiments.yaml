@@ -256,9 +256,17 @@ experiments:
   success: first, our re-scored AVES must reproduce AVES's published BEANS numbers within their reported
     spread (validates the scorer). Then report each of ours against AVES per task, with intervals
   script: null
-  status: approved
+  status: running
   priority: 1
   approved_download: true
+  protocol_change: '2026-10-11, started by hand: AVES''s published BEANS row is FINE-TUNED (whole net
+    minus CNN, lr sweep x 50 epochs), so a frozen probe cannot reproduce it and the original success
+    criterion cannot be met as written. User asked for all tasks; scoring is a FROZEN linear probe
+    on all 10 non-Kaggle tasks (beans_probe.py; layer chosen on valid, test at that layer, clips at
+    own length -- BEANS zero-pads, which is the finding-034 bug). The scorer check becomes: BEANS
+    split CSVs MD5-identical to BEANS''s (beans_fetch.sh). A fine-tuned check against the published
+    0.748 on bats (aves-bio vs run16 only) is a possible follow-up, not run. cbi/rfcx need the user''s
+    Kaggle account.'
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). The bats
     task is Egyptian fruit bat individual ID. Record each dataset''s size and licence in pi_notes.md before
     downloading. Scoring runs on the Mac or a Savio GPU, never as a training slot.'
