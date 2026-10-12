@@ -138,3 +138,7 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   mechanism = difference of ensemble gains). E21 (--only-b) submitted 39850689.
 - TODO (resumable): republish docs/model_board.html (rebuilt locally) and the roadmap scoreboard artifacts; finding
   063 needs ours-vs-AVES BEANS intervals (scripts now merge reruns; classification on the Mac, detection on Savio).
+
+## 2026-10-12 15:50 -- AGENT step 7 (task-list doc) checked
+- Doc 1e00135c (Zebra Finch Encoder Tasks, rev 29): no row changed state (E10 and DAPT rounds 3-4 are not rows; "change nothing else"), so no edit.
+- BEANS detection rerun vs AVES (job 39851650, 2 h limit) on its last task; E14 running; E22/E23/E24 queued.
