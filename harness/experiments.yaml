@@ -356,3 +356,49 @@ experiments:
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Choose the
     corpus (candidates include AudioSet''s animal and natural-sound classes and Xeno-canto). Post the
     choice, size and licence in the digest and wait one day before downloading.'
+- id: E17
+  roadmap: idea 6 (DAPT, round 3)
+  title: DAPT with AVES's own targets (run19's labels) on the replay x1 stream
+  baseline: daptreplay_5e5_step15000 (finding 058; same init, audio, order, steps, lr -- run11 labels) and
+    aves-base-bio (its starting weights)
+  change: 'targets only: run11 spectrogram k=100 -> AVES layer 6 k=200 (combined_aves_teacher, run19''s),
+    looked up per file for the same mix_zf_fsd50k1 audio (scripts/swap_labels.py)'
+  question: With AVES's own targets instead of ours, does continued pretraining keep AVES's strengths and
+    add ours -- i.e. beat AVES on call type without losing detection?
+  success: 'Pre-registered 2026-10-12. ALL of (1) 11-class call type above aves-base-bio 0.8453 with the
+    bird-bootstrap interval excluding zero (board protocol: own best layer, system python3 / sklearn 1.7.2
+    split); (2) in-distribution ZF detection AUC at the pre-committed arm not significantly below aves-base-bio''s
+    (paired_vs.py). BirdPark AP is reported with arm spread, not a criterion (cannot resolve under ~0.05 AP).
+    Read-outs, not criteria: call type vs daptreplay_5e5 (the mechanism), per-type cross-bird ABX vs AVES and
+    run16 (calltype_abx.py), CKA toward AVES vs run16 (calltype_controls.py). One run: a win needs a second
+    seed before it is called (057).'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v3_avesteacher.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv3_avesteacher_5e5
+  tag: daptv3aves_5e5_step15000
+  num_classes: 200
+  job_name: dapt_v3_aves
+  status: approved
+  priority: 1
+  notes: 'Approved by the user 2026-10-12 ("yes" to round 3, after the 10-11 call-type analysis: run16 and AVES
+    tie overall but are complementary -- ensemble +0.017 resolved -- and DAPT replay x3 drifted toward
+    our profile). Script = train_dapt_v2.sh replay arm with flags/paths only (num-classes 200, feature-type
+    hubert, label lookup, requeue+resume, LR from DAPT_LR). swap_labels.py tested locally on a synthetic
+    corpus (order kept, path match across root spellings, vocab and overwrite guards). Baseline call type
+    for daptreplay_5e5 scored 2026-10-12 on the Mac (run15_calltype.py).'
+- id: E18
+  roadmap: idea 6 (DAPT, round 3)
+  title: E17 at AVES's own peak learning rate (2e-4)
+  baseline: E17
+  change: peak lr 5e-5 -> 2e-4 (AVES's pretraining lr; every earlier DAPT peak was 1e-5..1e-4)
+  question: Once the targets are AVES's own, does letting the weights move further help?
+  success: 'Pre-registered 2026-10-12: call type above E17 with the bird-bootstrap interval excluding zero,
+    and the same detection guard as E17. Otherwise "not distinguishable"; one run each.'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v3_avesteacher_lr2e4.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv3_avesteacher_2e4
+  tag: daptv3aves_2e4_step15000
+  num_classes: 200
+  job_name: dapt_v3_lr2e4
+  status: approved
+  priority: 2
+  notes: 'Approved by the user 2026-10-12 (their larger-lr suggestion). Wrapper sets DAPT_LR=2e-4 and execs the
+    E17 script; own exp dir so it cannot resume E17.'

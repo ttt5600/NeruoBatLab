@@ -108,3 +108,18 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
   shutdown"); hubert_env's python gave EIO there but reads fine from dtn00. Jobs use
   PYTHONNOUSERSITE=1. If E7/E8 fail on start, check this first.
 - speech-commands (105k files) not run: too many files for Savio scratch; Mac run is ~11 h. Open.
+
+## 2026-10-12 11:30 -- LOOP GOAL from the user (standing until met)
+"Keep running things until we see improvement in call type and vocal detection; the eval is call type /
+vocal detection; use the harness." Stop rule (mine, written before results): an experiment whose 11-class
+call type beats the best AVES-base it is compared with (board protocol, bird-bootstrap interval excluding
+zero) with ZF detection AUC not significantly worse, REPRODUCED on a second seed. Until then: score every
+run, write the finding, submit the next approved entry, propose the next one from the evidence.
+Evidence driving the queue (10-11, scripts zfeval/experiments/calltype_{cluster_by_type,abx,controls}.py,
+JSONs in analysis/): run16 and AVES tie (ABX 0.1385 vs 0.139-0.146) but are complementary (prob-average
++0.016-0.019 over AVES, resolved; same-recipe pairs +0.002/+0.007 not); DAPT replay x3 drifted toward our
+profile (trained on run11 labels). -> E17 (DAPT + AVES targets) and E18 (same, lr 2e-4), user-approved.
+If E17/E18 do not beat AVES, next candidates: two-teacher targets (k-means on concatenated run16+AVES
+layer features), distil the run16+AVES ensemble.
+Savio cert expired 08:58; E17/E18 scripts built + on the push list, not yet submitted (need sv login).
+E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the user's direct approval.
