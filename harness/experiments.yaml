@@ -341,7 +341,9 @@ experiments:
   success: call type above birdaves-biox-base (0.8520) with the interval excluding zero; BirdPark reported
     with arm spread
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_birdaves.sh
-  status: submitted
+  status: done
+  finding: '066'
+  result: 'primary not met, wrong direction: call type 0.8341 vs birdaves-biox-base 0.8520, -0.0179 [-0.0343, -0.0023]; detection not distinguishable from BirdAVES or E19 (finding 066)'
   job: 39851972
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_birdaves
   tag: daptv4bird_2e4_step15000

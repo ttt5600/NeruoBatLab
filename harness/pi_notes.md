@@ -142,3 +142,7 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
 ## 2026-10-12 15:50 -- AGENT step 7 (task-list doc) checked
 - Doc 1e00135c (Zebra Finch Encoder Tasks, rev 29): no row changed state (E10 and DAPT rounds 3-4 are not rows; "change nothing else"), so no edit.
 - BEANS detection rerun vs AVES (job 39851650, 2 h limit) on its last task; E14 running; E22/E23/E24 queued.
+- 2026-10-12 17:0x E14 scored (job 39851972): call type 0.8341 vs BirdAVES 0.8520, -0.0179 [-0.0343, -0.0023]
+  (also at L3); detection not distinguishable from BirdAVES or E19; BirdPark pre-committed gain is an arm artefact
+  (4-5/12 arms). Finding 066 confirmed after critic (ACCEPT-WITH-CHANGES, all applied). E14 done. Stop rule not met.
+  Waiting on E23 (~17:05), E22 (~18:10), E24 (pending).
