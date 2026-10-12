@@ -2,7 +2,7 @@
 
 Generated 2026-10-12 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
 
-64 findings.
+65 findings.
 
 
 ## CONFIRMED (55)
@@ -750,7 +750,7 @@ A frame-level probe transfers between the Berkeley colony corpus and ETH BirdPar
 > Superseded by [019].
 
 
-## OPEN (4)
+## OPEN (5)
 
 ### [013] Multi-layer concatenation gives a small unconfirmed gain  ·  **OPEN**
 
@@ -811,3 +811,30 @@ humbugdb +0.002, esc50 -0.107*, hiceas -0.081*, enabirds -0.035*, dcase -0.048*,
 **Caveats.** A frozen probe, NOT AVES's published protocol (fine-tuning the whole network per task), so no number here is comparable to the published BEANS row (bats 0.748 fine-tuned vs 0.686 frozen here). One seed per model except run16. 11 models x 9 tasks: about 5% of null comparisons exclude zero by chance. PENDING for E10's own question: every interval here is against run16; none is ours against AVES. Until beans_probe.py / beans_detect.py are rerun with --baseline aves-base-bio (features cached), no claim that run19 or any of ours "closes the gap" to AVES is made. run19 and run20 are reported, not interpreted: run16 already trains on combined_zf_fsd (~108 h of FSD50K), so run20 REMOVES colony audio rather than adding general audio (and gets ~2x passes and a zebra-finch-shaped codebook; its pre-registered baseline run21 was not scored on BEANS); run19's targets come from AVES, itself trained on general audio; one run19 seed, E8 pending. Sits beside finding 039 (corpus as the live hypothesis) and 059 (run19 not distinguishable from run16 on call type) without settling either. Bootstrap units: dcase test = 232 chunks from 19 recordings; hainan-gibbons = 640 chunks from 4 recordings, so its chunk bootstrap is far too narrow and every model's mAP there is under 0.15 -- not interpretable. BEANS bats splits are random by file (session leakage possible). speech-commands not run; cbi and rfcx need a Kaggle account. Critic (fresh subagent, CRITIC.md, 2026-10-12): ACCEPT-WITH-CHANGES; applied: watkins "not distinguishable", gibbons "not interpretable", dcase bootstrap unit, run11 added, "5 of 9" wording, seed sentence narrowed, run19/run20 mechanism dropped from title and claim, confounds and 039/059 named, L40S. Not yet applied: ours-vs-AVES intervals (status stays open until they exist).
 
 **Provenance.** analysis/beans_{bats,watkins,dogs,humbugdb,esc50,hiceas,enabirds,dcase,hainan_gibbons}.json, key models.<tag>.test and models.<tag>.vs_run16_compute4x
+
+### [065] Adding run16's view to AVES's targets improves vocal detection in-distribution and on BirdPark against a matched control, but not call type (one seed each)  ·  **OPEN**
+
+With everything else fixed (AVES init, replay x1 stream, 15,000 updates, lr 2e-4, same per-dimension standardisation, same fit frames and k=200), clustering [run16 layer 6 | AVES layer 6] (E19) instead of AVES layer 6 alone (E21, the control) raises in-distribution ZF detection AUC and BirdPark AUC and AP, every paired interval excluding zero; E21 itself is not distinguishable from aves-base-bio on any detection measure. 11-class call type does not move: E19 minus E21 and E19 minus aves-base-bio both cross zero, so E19 misses its primary criterion. E19 ties run16 in-distribution and is far ahead of it on BirdPark. The label gate passed before any score was read (NMI with run16's labels 0.570 and with AVES's 0.503 against 0.416 between them). The pre-registered mechanism read-out on call type (paired difference of probability-average gains with run16) is not distinguishable from zero. E20 (E18 seed 2) fails E18's replication criterion: its ZF AUC gain over AVES does not resolve, while BirdPark again does.
+
+**Evidence.** E19 (daptv4two_2e4_step15000): call type 0.8441 at L0; pre-committed detection native_L6 ZF AUC 0.9724, BirdPark AUC 0.8969, AP 0.8490.
+E21 (daptv4aveso_2e4_step15000): call type 0.8476 at L3; pre-committed detection native_L3 ZF AUC 0.9686, BirdPark AUC 0.8857, AP 0.8195.
+E20 (daptv3aves_2e4s2_step15000): call type 0.8476 at L0; pre-committed detection matched_L3 ZF AUC 0.9685, BirdPark AUC 0.9076, AP 0.8471.
+E18 (daptv3aves_2e4_step15000): call type 0.8502 at L5; pre-committed detection matched_L6 ZF AUC 0.9696, BirdPark AUC 0.9057, AP 0.8441.
+E19 minus E21 (the one change: run16's block added to the targets), detection (observed, 1500-frame blocks): ZF AUC +0.0038 [+0.0015, +0.0054]; BirdPark AUC +0.0112 [+0.0037, +0.0348] (500: [+0.0008, +0.0281]); BirdPark AP +0.0294 [+0.0080, +0.0809] (500: [+0.0045, +0.0663]); AP blocks won 2/4.
+E19 minus aves-base-bio, detection (observed, 1500-frame blocks): ZF AUC +0.0051 [+0.0024, +0.0068]; BirdPark AUC +0.0139 [-0.0110, +0.0461] (500: [-0.0058, +0.0355]); BirdPark AP +0.0432 [-0.0017, +0.0829] (500: [+0.0094, +0.0754]); AP blocks won 3/4.
+E19 minus run16, detection (observed, 1500-frame blocks): ZF AUC +0.0006 [-0.0011, +0.0029]; BirdPark AUC +0.0884 [+0.0495, +0.1137] (500: [+0.0486, +0.1181]); BirdPark AP +0.1038 [+0.0443, +0.1584] (500: [+0.0514, +0.1526]); AP blocks won 4/4.
+E21 minus aves-base-bio, detection (observed, 1500-frame blocks): ZF AUC +0.0013 [-0.0004, +0.0026]; BirdPark AUC +0.0027 [-0.0341, +0.0274] (500: [-0.0197, +0.0194]); BirdPark AP +0.0138 [-0.0363, +0.0360] (500: [-0.0142, +0.0298]); AP blocks won 2/4.
+E20 minus aves-base-bio, detection (observed, 1500-frame blocks): ZF AUC +0.0011 [-0.0006, +0.0022]; BirdPark AUC +0.0245 [+0.0186, +0.0358] (500: [+0.0173, +0.0355]); BirdPark AP +0.0414 [+0.0319, +0.0529] (500: [+0.0290, +0.0567]); AP blocks won 4/4.
+E19 minus aves-base-bio, call type: -0.0012 [-0.0227, +0.0182].
+E19 minus E21, call type: -0.0035 [-0.0234, +0.0161].
+E21 minus aves-base-bio, call type: +0.0023 [-0.0135, +0.0166].
+E20 minus aves-base-bio, call type: +0.0023 [-0.0132, +0.0165].
+E20 minus E18, call type: -0.0026 [-0.0137, +0.0075].
+Probability-average gain with run16, E19 +0.0094 [-0.0003, +0.0205] vs E18 +0.0170 [+0.0031, +0.0324]; paired difference -0.0076 [-0.0188, +0.0033].
+Probability-average gain with run16, E19 +0.0094 [-0.0003, +0.0205] vs E21 +0.0149 [+0.0020, +0.0292]; paired difference -0.0056 [-0.0156, +0.0044].
+
+**Method.** E19 = slurm/train_dapt_v4_twoteacher.sh (scripts/two_teacher_labels.py builds the targets in the job; label NMI printed in the job log), E21 = slurm/train_dapt_v4_avesonly.sh (--only-b, same seed so the same fit files and frames), E20 = train_dapt_v3_avesteacher_lr2e4_seed2.sh. Scored by harness/score_run.sh (SCORE_HOST=savio-dtn). Detection contrasts: zfeval/experiments/paired_vs.py (observed differences, block bootstrap); call type: calltype_pair.py; gain differences: calltype_gain_diff.py (new, one paired bird bootstrap over both gains).
+
+**Caveats.** DRAFT, critic not yet run. One run each; E23 (E19 seed 2) and E24 (E21 seed 2) are submitted to replicate the E19-minus-E21 contrast. The detection arms differ (E19 native_L6, E21 native_L3), each pre-committed by out-of-fold ZF AUC. BirdPark intervals cover test-sample noise only (~4 blocks), not training-run variation (047); E19 minus E21 BirdPark AP has a wide interval. E19 minus run16 on BirdPark repeats what every DAPT arm shows (058) and is not specific to the targets; the target-specific claim rests on E19 minus E21 only. E19's call-type layer (L0) and E21's (L3) were chosen on call type. Call type sits 0.844-0.850 for every DAPT arm so far, against interval half-widths of ~0.015-0.02.
+
+**Provenance.** analysis/daptv4two_2e4_step15000_*.json, daptv4aveso_2e4_step15000_*.json, daptv3aves_2e4s2_step15000_*.json, detection_variants.json (precommit.<tag>.joint), paired_vs.json (<a>__vs__<b>), calltype_pairs.json

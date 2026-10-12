@@ -491,7 +491,7 @@ experiments:
   tag: daptv4aveso_2e4_step15000
   num_classes: 200
   job_name: dapt_v4_aveso
-  status: trained
+  status: scored
   trained_note: 'Job 39850689 finished 14:56 Oct 12; epoch=2-step=15000.ckpt; labels: NMI new-vs-run16 0.398, new-vs-AVES 0.554 (run16-vs-AVES 0.416), 200/200 clusters.'
   job: 39850689
   priority: 3
@@ -518,3 +518,38 @@ experiments:
   priority: 4
   notes: 'Self-approved 2026-10-12: lowprio, 1 L40 (~2.5 h), data on Savio, flags only (DAPT_STEPS, exp suffix,
     DAPT_DATA). Final checkpoint will be epoch=*-step=45000.ckpt.'
+- id: E23
+  roadmap: idea 6 (DAPT, round 4 replication)
+  title: E19, second seed
+  baseline: E19 (daptv4two_2e4_step15000) and E24 (its control's second seed)
+  change: --seed 2, E19's built labels read-only (otherwise E19)
+  question: Does E19's detection gain over its AVES-only control E21 (ZF AUC +0.0038 [+0.0015, +0.0054], BirdPark
+    AUC +0.0112 [+0.0037, +0.0348], AP +0.0294 [+0.0080, +0.0809], paired_vs.json) survive a second seed?
+  success: 'Pre-registered 2026-10-12: E23 minus E24 (both seed 2) resolved in the same direction on ZF detection AUC
+    and on BirdPark AP at 1500-frame blocks (paired_vs.py). Also reported: E23 minus aves-base-bio and minus
+    run16_compute4x on detection; call type against AVES (calltype_pair.py), no criterion.'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_seed2.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_s2
+  tag: daptv4two_2e4s2_step15000
+  num_classes: 200
+  job_name: dapt_v4_2t_s2
+  status: submitted
+  job: 39852046
+  priority: 2
+  notes: 'Self-approved 2026-10-12: lowprio, 1 L40, data on Savio, flags only (DAPT_SEED, suffix, DAPT_DATA).'
+- id: E24
+  roadmap: idea 6 (DAPT, round 4 replication)
+  title: E21 (AVES-only control), second seed
+  baseline: E21 (daptv4aveso_2e4_step15000)
+  change: --seed 2, E21's built --only-b labels read-only, run through the v4 script (identical training call)
+  question: Second seed of the control, so the E19-minus-E21 contrast can be replicated as E23 minus E24.
+  success: 'Pre-registered 2026-10-12: read-out only (see E23).'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_avesonly_seed2.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_avesonly_s2
+  tag: daptv4aveso_2e4s2_step15000
+  num_classes: 200
+  job_name: dapt_v4_ao_s2
+  status: submitted
+  job: 39852047
+  priority: 2
+  notes: 'Self-approved 2026-10-12: lowprio, 1 L40, data on Savio, flags only.'
