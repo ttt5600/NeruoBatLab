@@ -377,7 +377,9 @@ experiments:
   tag: daptv3aves_5e5_step15000
   num_classes: 200
   job_name: dapt_v3_aves
-  status: scored
+  status: done
+  finding: '064'
+  result: 'call type 0.8450, minus aves-base-bio -0.0003 [-0.0147, +0.0127] -- criterion not met; detection at the replay-arm level (finding 064)'
   trained_note: 'Job 39844771 COMPLETED 0:0 in 00:50:03 (11:30-12:20 Oct 12); epoch=2-step=15000.ckpt present; log: 285 files relabelled (199 of 200 ids), AVES 210 tensors transplanted, lr 5e-5.'
   job: 39844771
   priority: 1
@@ -400,7 +402,9 @@ experiments:
   tag: daptv3aves_2e4_step15000
   num_classes: 200
   job_name: dapt_v3_lr2e4
-  status: scored
+  status: done
+  finding: '064'
+  result: 'call type 0.8502, minus E17 +0.0053 [-0.0055, +0.0165] -- criterion not met; detection at the replay-arm level (finding 064)'
   trained_note: 'Job 39844772 COMPLETED 0:0 in 00:50:02; epoch=2-step=15000.ckpt present; log: same lookup, AVES init, lr 2e-4.'
   job: 39844772
   priority: 2
@@ -414,13 +418,20 @@ experiments:
     fit on 1M frames from a quarter of the replay x1 files (scripts/two_teacher_labels.py, built in the job)'
   question: Do targets that carry both teachers' views give one model what the run16+AVES probability
     average has (+0.0185 over AVES, resolved)?
-  success: 'Pre-registered 2026-10-12 before submission. PRIMARY: 11-class call type above aves-base-bio 0.8453
-    with the bird-bootstrap interval excluding zero (board protocol, calltype_run_bootstrap / calltype_pair.py),
-    and ZF detection AUC at the pre-committed arm not below aves-base-bio''s by a resolved margin. MECHANISM
-    (read-out): E19 + run16 probability-average gain over the better member NOT resolved (E18 + run16: +0.0170
-    resolved), i.e. E19 already holds what run16 adds. Label diagnostic before reading any score: NMI of the new
-    labels with each teacher''s labels both clearly above their mutual NMI (else the clustering collapsed to one
-    view and the run does not test the idea). One run: a win needs a second seed (057).'
+  success: 'Pre-registered 2026-10-12 before submission; AMENDED the same day after the critic, BEFORE the job log
+    (which prints the label NMI) or any score was read. LABEL GATE (read first): NMI(new, run16 labels) and
+    NMI(new, AVES labels) both exceed NMI(run16 labels, AVES labels) by at least 0.05, and differ from each other
+    by at most 0.10; otherwise the clustering collapsed onto one view and the run is reported as not testing the
+    idea. PRIMARY: 11-class call type above aves-base-bio 0.8453 with the bird-bootstrap interval excluding zero,
+    at its best layer AND reported at layer 3 (the gain the ensemble suggests, ~+0.0185, is about the interval
+    half-width, so this test has low power; a null is "not distinguishable", not "no effect"). ATTRIBUTION: E19
+    minus E21 (the --only-b control, same recipe) on call type, calltype_pair.py; E19 vs E18 alone confounds the
+    targets with the labelling recipe (per-dimension z-scoring, 1M-frame fit from 25% of the replay files vs
+    E18''s corpus-wide raw-feature codebook). MECHANISM read-out: the paired difference of gains (E19+run16 gain)
+    minus (E18+run16 gain), and E19+AVES, with E20 for seed spread -- a resolved average gain alone marks model
+    diversity, not run16''s content (finding 064: E17+E18 also gain +0.010). Detection: reported against
+    aves-base-bio and daptreplay_5e5 (every DAPT arm so far sits at or above AVES''s ZF AUC). One run: a win needs
+    a second seed (057).'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4
   tag: daptv4two_2e4_step15000
@@ -440,8 +451,8 @@ experiments:
   title: E18, second seed
   baseline: E18 (daptv3aves_2e4_step15000, seed 1337) and aves-base-bio
   change: --seed 2 (otherwise E18)
-  question: Does E18's detection gain over AVES (ZF AUC +0.0022 [+0.0008, +0.0036]; BirdPark AUC +0.025, AP
-    +0.038, both block sizes, 4/4 blocks; paired_vs.json) survive a second seed?
+  question: Does E18's detection gain over AVES (ZF AUC +0.0022 [+0.0008, +0.0036]; BirdPark AUC +0.0226, AP
+    +0.0383 observed, both block sizes, 4/4 blocks; paired_vs.json) survive a second seed?
   success: 'Pre-registered 2026-10-12: the same paired_vs.py comparison against aves-base-bio resolved in the
     same direction for ZF detection AUC AND BirdPark AP at both block sizes. Call type reported against AVES
     and E18 (calltype_pair.py), no criterion.'
@@ -455,3 +466,23 @@ experiments:
   priority: 2
   notes: 'Self-approved by the lead agent 2026-10-12: lowprio, 1 L40, data on Savio, flags only (DAPT_SEED env ->
     --seed, own exp dir; E17/E18 behaviour unchanged when unset). Replication required by the loop stop rule.'
+- id: E21
+  roadmap: idea 6 (DAPT, round 4 control)
+  title: E19's labelling recipe with AVES's block only (--only-b)
+  baseline: E19 (adds run16's block) and E18 (AVES targets, raw-feature codebook)
+  change: two_teacher_labels.py --only-b -- AVES layer 6 alone, same per-dimension standardisation, same fit
+    files and frames (same seed), k=200; otherwise E19
+  question: Is any E19 effect due to adding run16's view, or to the labelling recipe itself?
+  success: 'Pre-registered 2026-10-12: read-out only. E19 minus E21 is the attribution contrast (call type,
+    calltype_pair.py; detection, paired_vs.py); E21 minus E18 measures the recipe change. No criterion of its own.'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_avesonly.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_avesonly_2e4
+  tag: daptv4aveso_2e4_step15000
+  num_classes: 200
+  job_name: dapt_v4_aveso
+  status: submitted
+  job: 39850689
+  priority: 3
+  notes: 'Added 2026-10-12 on the critic''s recommendation (E19 was more than one change). Flags only against E19
+    (--only-b, exp dir, job name); --only-b tested locally (B-only labels: NMI 0.003 with A, 0.306 with B; same fit
+    frames as the two-teacher mode).'

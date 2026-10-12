@@ -1,45 +1,72 @@
 id: '064'
-title: DAPT with AVES's own targets ties AVES on call type, and at AVES's learning rate beats it on detection in-distribution and on BirdPark (one seed)
-status: open
-claim: >-
-  Continued pretraining from aves-base-bio on the replay x1 stream with AVES's layer-6 k=200 targets
-  (E17, lr 5e-5) or the same at AVES's own lr 2e-4 (E18) does not move 11-class call type away from AVES
-  (E17 -0.0003, E18 +0.0050, both intervals crossing zero; E18 minus E17 not distinguishable), so neither
-  meets its pre-registered call-type criterion. Both pass the detection guard and go further: against
-  aves-base-bio, E18 is ahead on in-distribution ZF detection AUC and on BirdPark AUC and AP with every
-  interval excluding zero at both block sizes and AP higher in all 4 BirdPark blocks; E17 is ahead on ZF AUC
-  and BirdPark AP, not on BirdPark AUC. The run16 + E18 probability average still beats E18 by a resolved
-  margin, so E18 does not contain what run16 adds on call type: AVES's targets keep the model on AVES's
-  side (it also stays at AVES's cross-bird ABX, not run16's). E18's detection gain is one seed; E20 replicates it.
-evidence: |-
-  E17 (daptv3aves_5e5_step15000): call type 0.8450 at L0; minus aves-base-bio -0.0003 [-0.0147, +0.0127], minus aves-base-core -0.0053 [-0.0171, +0.0073], minus run16 +0.0070 [-0.0144, +0.0271]. Pre-committed detection arm native_L6: ZF AUC 0.9695, BirdPark AP 0.8335. Cross-bird ABX error 0.1460.
-  E18 (daptv3aves_2e4_step15000): call type 0.8502 at L5; minus aves-base-bio +0.0050 [-0.0102, +0.0201], minus aves-base-core +0.0000 [-0.0136, +0.0160], minus run16 +0.0123 [-0.0088, +0.0325]. Pre-committed detection arm matched_L6: ZF AUC 0.9696, BirdPark AP 0.8441. Cross-bird ABX error 0.1437.
-  E17 minus aves-base-bio, detection (paired_vs.py, observed difference, block bootstrap): ZF AUC +0.0022 [+0.0013, +0.0039]; BirdPark AUC +0.0087 [-0.0106, +0.0365] (500-frame [-0.0071, +0.0289]); BirdPark AP +0.0278 [+0.0077, +0.0510] (500-frame [+0.0069, +0.0466]); AP higher in 4 of 4 1500-frame blocks.
-  E18 minus aves-base-bio, detection (paired_vs.py, observed difference, block bootstrap): ZF AUC +0.0023 [+0.0008, +0.0036]; BirdPark AUC +0.0226 [+0.0162, +0.0365] (500-frame [+0.0138, +0.0365]); BirdPark AP +0.0383 [+0.0294, +0.0469] (500-frame [+0.0253, +0.0504]); AP higher in 4 of 4 1500-frame blocks.
-  aves-base-bio: call type 0.8453 (L3); detection matched_L6 ZF AUC 0.9674, BirdPark AP 0.8057; ABX 0.1425; run16 ABX 0.1385.
+title: DAPT with AVES's own targets does not move call type away from AVES at either learning rate; its detection
+  sits at the level the run11-target replay arm already reached
+status: confirmed
+claim: 'Continued pretraining from aves-base-bio on the replay x1 stream with AVES''s layer-6 k=200 targets (E17,
+  lr 5e-5) or the same at AVES''s own lr 2e-4 (E18) leaves 11-class call type at AVES''s level: E17 -0.0003, E18
+  +0.0050 at their call-type-chosen layers, -0.0018 and -0.0026 at layer 3, every interval crossing zero; E18 minus
+  E17 not distinguishable. Neither meets its pre-registered call-type criterion. Detection is at or above the starting
+  weights, as it already was for the run11-target replay arm (finding 058): on ZF AUC and BirdPark AP E17/E18 are
+  not above daptreplay_5e5 (ZF 0.9695/0.9696 vs 0.9711; BirdPark AP 0.8335/0.8441 vs 0.8318), so the paired gains
+  over aves-base-bio below are what replay DAPT gives, not an effect of AVES''s targets. E20 (E18 seed 2) is pending.'
+evidence: 'E17 (daptv3aves_5e5_step15000): call type 0.8450 at L0; minus aves-base-bio -0.0003 [-0.0147, +0.0127],
+  minus aves-base-core -0.0053 [-0.0171, +0.0073], minus run16 +0.0070 [-0.0144, +0.0271]. Pre-committed detection
+  arm native_L6: ZF AUC 0.9695, BirdPark AP 0.8335. Cross-bird ABX error 0.1460.
+
+  E18 (daptv3aves_2e4_step15000): call type 0.8502 at L5; minus aves-base-bio +0.0050 [-0.0102, +0.0201], minus
+  aves-base-core +0.0000 [-0.0136, +0.0160], minus run16 +0.0123 [-0.0088, +0.0325]. Pre-committed detection arm
+  matched_L6: ZF AUC 0.9696, BirdPark AP 0.8441. Cross-bird ABX error 0.1437.
+
+  E17 minus aves-base-bio, detection (paired_vs.py, observed difference, block bootstrap): ZF AUC +0.0022 [+0.0013,
+  +0.0039]; BirdPark AUC +0.0087 [-0.0106, +0.0365] (500-frame [-0.0071, +0.0289]); BirdPark AP +0.0278 [+0.0077,
+  +0.0510] (500-frame [+0.0069, +0.0466]); AP higher in 4 of 4 1500-frame blocks.
+
+  E18 minus aves-base-bio, detection (paired_vs.py, observed difference, block bootstrap): ZF AUC +0.0023 [+0.0008,
+  +0.0036]; BirdPark AUC +0.0226 [+0.0162, +0.0365] (500-frame [+0.0138, +0.0365]); BirdPark AP +0.0383 [+0.0294,
+  +0.0469] (500-frame [+0.0253, +0.0504]); AP higher in 4 of 4 1500-frame blocks.
+
+  aves-base-bio: call type 0.8453 (L3); detection matched_L6 ZF AUC 0.9674, BirdPark AP 0.8057; ABX 0.1425; run16
+  ABX 0.1385.
+
   E18 minus E17: call type +0.0053 [-0.0055, +0.0165].
+
   E17 minus DAPT replay x1 (run11 targets, same everything else): call type +0.0053 [-0.0125, +0.0215].
+
   E18 + run16 probability average 0.8672, minus better member (daptv3aves_2e4_step15000) +0.0170 [+0.0031, +0.0324].
+
   E18 + AVES bio probability average 0.8587, minus better member (daptv3aves_2e4_step15000) +0.0085 [+0.0000, +0.0168].
-  run16 + AVES bio (reference) probability average 0.8637, minus better member (aves-base-bio) +0.0185 [+0.0040, +0.0347].
-method: >-
-  Scored by harness/score_run.sh (SCORE_HOST=savio-dtn; export verified bit-identical): run15_calltype.py,
-  run16_calltype_bootstrap.py (bird bootstrap, observed differences), detection_variants.py (pre-committed
-  arm by out-of-fold ZF AUC), chick_holdout_variants.py. Pairwise call type and probability averages:
-  zfeval/experiments/calltype_pair.py (asserts the board accuracy is reproduced; sklearn 1.7.2 split).
-  Detection against AVES: paired_vs.py --a TAG --b aves-base-bio (observed differences quoted, not the
-  printed bootstrap delta). ABX: calltype_abx.py.
-provenance: analysis/daptv3aves_{5e5,2e4}_step15000_calltype.json, *_bootstrap.json (vs.<tag>.<model>),
-  detection_variants.json (precommit.<tag>.joint), paired_vs.json (<tag>__vs__aves-base-bio), calltype_pairs.json,
-  calltype_abx.json
-caveats: >-
-  DRAFT, critic not yet run. One run per arm; E18's detection gain needs E20 (seed 2) before it is called.
-  BirdPark is ~4 independent 30 s blocks (046/047): the block bootstrap resolves here, but four blocks is
-  thin and earlier DAPT arms moved BirdPark AP by ~0.1 between checkpoints. E18's pre-committed arm is
-  matched_L6 while E17's is native_L6, so their detection rows are not at the same input normalisation.
-  ZF detection AUC gains (+0.002) are small in absolute terms; run16 (0.9718) remains above both in
-  distribution. E17 vs E18 differ in lr only, but one run each cannot rank the lrs. Not compared to the
-  10-split call-type mean (062), where AVES sits ~0.007 below its board score.
+
+  run16 + AVES bio (reference) probability average 0.8637, minus better member (aves-base-bio) +0.0185 [+0.0040,
+  +0.0347].
+
+  Layer 3 (not chosen on call type): E17 0.8435, minus aves-base-bio -0.0018 [-0.0174, +0.0124]; E18 0.8426, -0.0026
+  [-0.0244, +0.0177] (bootstrap.json vs.<tag>@L3).
+
+  BirdPark AP over all 12 arms, median (min-max): aves-base-bio 0.8115 (0.7354-0.8390); daptreplay_5e5 0.8354 (0.7419-0.8543);
+  E17 0.8324 (0.7862-0.8548); E18 0.8225 (0.7620-0.8484); aves-base-core 0.8061 (0.7498-0.8456) (detection_variants.json
+  zf_to_bp).
+
+  Other probability averages (calltype_pairs.json): E17 + E18 (same targets) +0.0103 [+0.0011, +0.0185] resolved;
+  E17 + run16 +0.0129 [-0.0003, +0.0276] not resolved.'
+method: 'Scored by harness/score_run.sh (SCORE_HOST=savio-dtn; export verified bit-identical): run15_calltype.py,
+  run16_calltype_bootstrap.py (bird bootstrap, observed differences), detection_variants.py (pre-committed arm by
+  out-of-fold ZF AUC), chick_holdout_variants.py. Pairwise call type and probability averages: zfeval/experiments/calltype_pair.py
+  (asserts the board accuracy is reproduced; sklearn 1.7.2 split). Detection against AVES: paired_vs.py --a TAG
+  --b aves-base-bio (observed differences quoted, not the printed bootstrap delta). ABX: calltype_abx.py.'
+provenance: analysis/daptv3aves_{5e5,2e4}_step15000_calltype.json, *_bootstrap.json (vs.<tag>.<model>), detection_variants.json
+  (precommit.<tag>.joint), paired_vs.json (<tag>__vs__aves-base-bio), calltype_pairs.json, calltype_abx.json
+caveats: 'One run per arm. Pre-registration said BirdPark AP is reported with arm spread and cannot resolve under
+  ~0.05 AP; the paired block-bootstrap intervals against aves-base-bio exclude zero, but they cover test-sample
+  noise only (moving 1500-frame blocks, ~4 per resample), not training-run variation, which moved BirdPark AP by
+  ~0.1 between checkpoints (047). E18''s 0.8441 equals birdaves-bioxn-large''s 0.8442 and lies inside aves-base-core''s
+  arm range, so ''above aves-base-bio'' means above its own starting weights. Its pre-committed arm is matched_L6,
+  E17''s native_L6. The call-type layers (E17 L0, E18 L5) were chosen on call type; layer 3 is reported beside them.
+  The probability-average test does not single out run16''s content: two models with the same targets (E17 + E18)
+  also gain a resolved +0.010, while E17 + run16 does not resolve, so a resolved average gain marks diversity, not
+  specifically run16''s view. Cross-bird ABX of E17/E18 (0.1460/0.1437) is not distinguishable from run16''s (0.1385)
+  or AVES''s (0.1425). Critic (fresh subagent, CRITIC.md, 2026-10-12): ACCEPT-WITH-CHANGES; applied: retitled to
+  the call-type null, detection compared with the pre-registered daptreplay_5e5 baseline, arm spread, block-bootstrap
+  scope, layer-3 rows, ABX claim dropped, E17+E18 and E17+run16 averages added.'
 tags:
 - dapt
 - targets

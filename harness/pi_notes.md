@@ -131,3 +131,10 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
 - BEANS detection job 39836981 COMPLETED rc=0 (4 tasks). JSONs copied to analysis/ (Mac's 8-model hiceas
   kept as beans_hiceas_mac.json). AVES family ahead of run16 on hiceas/enabirds/dcase, several resolved;
   run19 again closes part (hiceas +0.138*, dcase +0.054*); gibbons mAPs tiny. NEXT: E10 finding (critic).
+
+## 2026-10-12 13:35 -- E17/E18 done (finding 064 confirmed after critic); E19/E20/E21 submitted
+- Critic overturned my framing: E18 "beats AVES on detection" is the replay-DAPT effect (058), not the targets;
+  told the user. E19 amended before its log/scores were read (label NMI gate, L3, attribution via E21 control,
+  mechanism = difference of ensemble gains). E21 (--only-b) submitted 39850689.
+- TODO (resumable): republish docs/model_board.html (rebuilt locally) and the roadmap scoreboard artifacts; finding
+  063 needs ours-vs-AVES BEANS intervals (scripts now merge reruns; classification on the Mac, detection on Savio).

@@ -32,6 +32,8 @@ MODELS = [
     ("run15_combined", "run15", "ours", "run11's recipe on zebra finch + FSD50K (224 h), k=200", "051", "run15"),
     ("run11", "run11", "ours", "zebra finch only (116 h), spectrogram labels k=100, 1 GPU; the release model", "", "run11"),
     ("daptreplay3_5e5_step15000", "DAPT replay x3", "dapt", "AVES weights, continued on zebra finch with 41.8% general-audio replay", "060", "daptv2_replay_x3"),
+    ("daptv3aves_5e5_step15000", "DAPT, AVES targets", "dapt", "AVES weights, continued on the replay x1 stream with AVES's own layer-6 targets, lr 5e-5", "064", "daptv3_aves_5e5"),
+    ("daptv3aves_2e4_step15000", "DAPT, AVES targets, lr 2e-4", "dapt", "as above at AVES's own learning rate", "064", "daptv3_aves_2e4"),
     ("daptreplay_5e5_step15000", "DAPT replay x1", "dapt", "AVES weights, continued on zebra finch with 19.3% general-audio replay", "058", None),
     ("birdaves-biox-large", "BirdAVES biox-large", "aves", "downloaded; large, bird-heavy corpus", "", None),
     ("birdaves-biox-base", "BirdAVES biox-base", "aves", "downloaded; same size as ours, bird-heavy corpus", "", None),
