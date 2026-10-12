@@ -43,6 +43,8 @@ FRAME = DATA / "prop_frame.parquet"
 LEDGER = ROOT / "lab" / "reports" / "prop_loop_ledger.jsonl"
 HOLDOUT = 2025
 EV_MIN = 0.05
+MIN_WEEKS = 6   # weeks of props before the first test block
+BLOCK = 3       # weeks per walk-forward block
 PLAYERS = "https://github.com/nflverse/nflverse-data/releases/download/players/players.parquet"
 TEAM = {"WSH": "WAS", "LAR": "LA"}
 
@@ -254,10 +256,13 @@ def _trial_count() -> int:
 def cmd_loop() -> None:
     f = load()
     f = f[f["season"] != HOLDOUT]
+    # Walk-forward by WEEK BLOCK: free yardage props start in 2024 and 2025 is sealed, so
+    # season-level folds would leave nothing to test. Each 3-week block is predicted by a
+    # model fit on every earlier week (all markets' rows dated before the block).
+    f = f.assign(wk=f["season"] * 100 + f["week"])
+    weeks = sorted(f["wk"].unique())
+    blocks = [weeks[i:i + BLOCK] for i in range(MIN_WEEKS, len(weeks), BLOCK)]
     seasons = sorted(f["season"].unique())
-    if len(seasons) < 2:
-        print(f"need >= 2 non-holdout seasons for walk-forward, have {seasons}")
-        return
     markets = [m for m, g in f.groupby("market_n") if len(g) >= 400] + ["ALL"]
     models = _models()
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
@@ -272,8 +277,8 @@ def cmd_loop() -> None:
                 if mname.startswith("pca") and len(cols) <= int(mname[3:].split("_")[0]):
                     continue
                 bets = []
-                for y in seasons[1:]:
-                    tr, te = g[g["season"] < y], g[g["season"] == y]
+                for blk in blocks:
+                    tr, te = g[g["wk"] < blk[0]], g[g["wk"].isin(blk)]
                     if len(tr) < 200 or te.empty:
                         continue
                     model = mk().fit(tr[cols], tr["over"])
@@ -283,7 +288,8 @@ def cmd_loop() -> None:
                 units = float(b["profit"].sum()) if n else 0.0
                 p = float(np.mean(np.random.default_rng(0).choice(b["profit"].to_numpy(), (4000, n)).sum(1) <= 0)) if n else 1.0
                 rec = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "market": m,
-                       "features": sname, "model": mname, "test_seasons": seasons[1:], "bets": n,
+                       "features": sname, "model": mname, "seasons": [int(s) for s in seasons],
+                       "test_from_week": int(blocks[0][0]) if blocks else None, "bets": n,
                        "units": units, "roi": units / n if n else 0.0, "p": p,
                        "name": f"{m}|{sname}|{mname}"}
                 with LEDGER.open("a") as fh:

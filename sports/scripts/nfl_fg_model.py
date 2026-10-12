@@ -28,6 +28,10 @@ AMENDMENT (2026-10-12, after the `model` calibration table and BEFORE any prop
 result was computed): the fixed 2016-21 fit under-predicts 2022-25 at every
 quintile (league FG rate rose). Added walk-forward -- season Y predicted by a
 fit on all seasons < Y -- as the primary rule; the fixed fit is still reported.
+
+AMENDMENT 2 (2026-10-12, before any prop result): 2025 is the sealed season for
+every props search (prop_loop.py), so `props` scores 2024 only (ESPN has no
+kicker O/U lines for 2022-23). 2025 is scored once, later, by a human.
 """
 from __future__ import annotations
 
@@ -274,7 +278,7 @@ def cmd_props(t: pd.DataFrame) -> None:
     tm = tl[["date", "team", "season", "mu_fixed", "mu_wf", "fgm"]].copy()
     tm["date"] = pd.to_datetime(tm["date"]).dt.strftime("%Y-%m-%d")
     j0 = pr.merge(tm, on=["date", "team"], how="inner")
-    j0 = j0[j0["season"].isin(TEST)]
+    j0 = j0[j0["season"].isin(TEST) & (j0["season"] != 2025)]  # 2025 sealed
     for label, col in (("WALK-FORWARD (primary)", "mu_wf"), ("FIXED 2016-21 fit", "mu_fixed")):
         print(f"\n######## {label}")
         _prop_eval(j0.assign(mu=j0[col]))
