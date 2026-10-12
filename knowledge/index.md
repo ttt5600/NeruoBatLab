@@ -1,8 +1,8 @@
 # Findings index
 
-Generated 2026-10-09 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
+Generated 2026-10-12 by `build.py`. Do not edit by hand; edit `findings/*.yaml`.
 
-62 findings.
+64 findings.
 
 
 ## CONFIRMED (54)
@@ -726,7 +726,7 @@ A frame-level probe transfers between the Berkeley colony corpus and ETH BirdPar
 > Superseded by [019].
 
 
-## OPEN (3)
+## OPEN (5)
 
 ### [013] Multi-layer concatenation gives a small unconfirmed gain  ·  **OPEN**
 
@@ -763,3 +763,48 @@ Re-scoring the same cached embeddings on 10 different leave-birds-out fold split
 **Caveats.** DRAFT, critic not yet run. The splits share the same 48 birds, so they are not independent replications: averaging removes fold-assignment noise but not bird-sampling uncertainty, and the per-split bird-bootstrap intervals still cross zero. Each model's layer was chosen on split 0, which favours split 0 for every model (most means sit below their split-0 score). Instrument trap found on the way: scikit-learn 1.7.2 (the scoring pipeline, /Library/Frameworks python3.10) and 1.8.0 (analysis_env) assign birds to folds differently for the same random_state (1.7.2 folds are uneven, 360-908 clips), so run16 scores 0.8379 under one and 0.8306 under the other; never compare numbers scored in different environments. Per call type: all models score 0.92-1.00 on So, DC, Be, Ag and 0.29-0.47 on Tu, where most misses go to Th and Ne; 14 of 165 per-type comparisons with run16 exclude zero against about 8 expected by chance.
 
 **Provenance.** analysis/calltype_split_sensitivity.json; analysis/calltype_per_class.json
+
+### [063] On BEANS under a frozen probe, AVES is resolved ahead of run16 on 5 of the 9 tasks run, and run11 is resolved behind run16 on 6  ·  **OPEN**
+
+With every encoder frozen (mean-pooled layers, linear probe, layer chosen on valid), on the 9 BEANS tasks run (of 10 non-Kaggle), aves-base-bio is ahead of run16 with the 95% interval excluding zero on 5: bats, esc50, hiceas, enabirds, dcase. It is not distinguishable on watkins, humbugdb and dogs (dogs: run16 ahead on the point estimate), and hainan-gibbons is not interpretable. run11 is resolved behind run16 on 6 of 9 (dogs, esc50, hiceas, enabirds, dcase, gibbons), so most of run11's gap outside zebra finch was closed by run16. Each of AVES's resolved leads exceeds the run16 seed-to-seed gap on that task. Pre-registered question (E10): outside zebra finch our best model is behind AVES on most tasks where the test can tell; the "ours against AVES with intervals" half is pending (see caveats).
+
+**Evidence.** Test score (accuracy for classification, BEANS mAP for detection), observed difference from run16 and
+95% paired bootstrap interval (clips for classification, 60-s test chunks for detection):
+bats: run16 0.615; AVES bio 0.686 (+0.072 [+0.049, +0.094]); run19 0.683 (+0.069 [+0.047, +0.089]); run20 0.635 (+0.020 [-0.001, +0.041]); run16 seed 2 0.625 (+0.011 [-0.011, +0.032]); BirdAVES bioxn-large 0.685 (+0.071 [+0.047, +0.094])
+watkins: run16 0.844; AVES bio 0.876 (+0.032 [+0.000, +0.065]); run19 0.850 (+0.006 [-0.029, +0.041]); run20 0.847 (+0.003 [-0.029, +0.032]); run16 seed 2 0.853 (+0.009 [-0.018, +0.038]); BirdAVES bioxn-large 0.861 (+0.018 [-0.018, +0.053])
+dogs: run16 0.892; AVES bio 0.835 (-0.058 [-0.122, +0.007]); run19 0.842 (-0.050 [-0.108, +0.007]); run20 0.878 (-0.014 [-0.065, +0.036]); run16 seed 2 0.885 (-0.007 [-0.050, +0.036]); BirdAVES bioxn-large 0.871 (-0.022 [-0.094, +0.050])
+humbugdb: run16 0.754; AVES bio 0.771 (+0.017 [-0.002, +0.035]); run19 0.778 (+0.025 [+0.007, +0.042]); run20 0.751 (-0.003 [-0.020, +0.013]); run16 seed 2 0.764 (+0.010 [-0.006, +0.026]); BirdAVES bioxn-large 0.778 (+0.025 [+0.007, +0.042])
+esc50: run16 0.642; AVES bio 0.715 (+0.073 [+0.025, +0.120]); run19 0.693 (+0.050 [+0.007, +0.097]); run20 0.657 (+0.015 [-0.022, +0.050]); run16 seed 2 0.652 (+0.010 [-0.028, +0.052]); BirdAVES bioxn-large 0.780 (+0.138 [+0.090, +0.185])
+hiceas: run16 0.393; AVES bio 0.516 (+0.122 [+0.046, +0.204]); run19 0.531 (+0.138 [+0.054, +0.214]); run20 0.395 (+0.001 [-0.036, +0.047]); run16 seed 2 0.383 (-0.010 [-0.061, +0.032]); BirdAVES bioxn-large 0.449 (+0.055 [-0.033, +0.134])
+enabirds: run16 0.390; AVES bio 0.449 (+0.059 [+0.035, +0.085]); run19 0.404 (+0.014 [-0.006, +0.042]); run20 0.386 (-0.005 [-0.020, +0.012]); run16 seed 2 0.383 (-0.007 [-0.015, +0.009]); BirdAVES bioxn-large 0.563 (+0.172 [+0.133, +0.194])
+dcase: run16 0.209; AVES bio 0.282 (+0.073 [+0.018, +0.104]); run19 0.263 (+0.054 [+0.016, +0.075]); run20 0.218 (+0.009 [-0.015, +0.035]); run16 seed 2 0.230 (+0.021 [-0.007, +0.055]); BirdAVES bioxn-large 0.343 (+0.133 [+0.075, +0.166])
+hainan_gibbons: run16 0.069; AVES bio 0.019 (-0.050 [-0.090, -0.019]); run19 0.030 (-0.039 [-0.074, -0.010]); run20 0.038 (-0.031 [-0.063, -0.008]); run16 seed 2 0.036 (-0.033 [-0.063, +0.001]); BirdAVES bioxn-large 0.095 (+0.026 [-0.041, +0.111])
+run11 minus run16 (observed, * = interval excludes zero): bats -0.015, watkins -0.018, dogs -0.151*,
+humbugdb +0.002, esc50 -0.107*, hiceas -0.081*, enabirds -0.035*, dcase -0.048*, hainan_gibbons -0.025*.
+
+**Method.** zfeval/experiments/beans_probe.py (classification: own-length clips truncated to max_duration, never zero-padded -- finding 034; StandardScaler + LogisticRegression) and beans_detect.py (detection: BEANS RecognitionDataset windows, labels and AveragePrecision reimplemented and verified identical; per-class L2 logistic regression, C=1, L-BFGS). Splits made by BEANS's own scripts (beans_fetch.sh) and checked against BEANS's published MD5s. Detection ran on Savio (job 39836981, L40S); hiceas reproduced the Mac MPS run to ~0.0003 mAP at identical layers.
+
+**Caveats.** A frozen probe, NOT AVES's published protocol (fine-tuning the whole network per task), so no number here is comparable to the published BEANS row (bats 0.748 fine-tuned vs 0.686 frozen here). One seed per model except run16. 11 models x 9 tasks: about 5% of null comparisons exclude zero by chance. PENDING for E10's own question: every interval here is against run16; none is ours against AVES. Until beans_probe.py / beans_detect.py are rerun with --baseline aves-base-bio (features cached), no claim that run19 or any of ours "closes the gap" to AVES is made. run19 and run20 are reported, not interpreted: run16 already trains on combined_zf_fsd (~108 h of FSD50K), so run20 REMOVES colony audio rather than adding general audio (and gets ~2x passes and a zebra-finch-shaped codebook; its pre-registered baseline run21 was not scored on BEANS); run19's targets come from AVES, itself trained on general audio; one run19 seed, E8 pending. Sits beside finding 039 (corpus as the live hypothesis) and 059 (run19 not distinguishable from run16 on call type) without settling either. Bootstrap units: dcase test = 232 chunks from 19 recordings; hainan-gibbons = 640 chunks from 4 recordings, so its chunk bootstrap is far too narrow and every model's mAP there is under 0.15 -- not interpretable. BEANS bats splits are random by file (session leakage possible). speech-commands not run; cbi and rfcx need a Kaggle account. Critic (fresh subagent, CRITIC.md, 2026-10-12): ACCEPT-WITH-CHANGES; applied: watkins "not distinguishable", gibbons "not interpretable", dcase bootstrap unit, run11 added, "5 of 9" wording, seed sentence narrowed, run19/run20 mechanism dropped from title and claim, confounds and 039/059 named, L40S. Not yet applied: ours-vs-AVES intervals (status stays open until they exist).
+
+**Provenance.** analysis/beans_{bats,watkins,dogs,humbugdb,esc50,hiceas,enabirds,dcase,hainan_gibbons}.json, key models.<tag>.test and models.<tag>.vs_run16_compute4x
+
+### [064] DAPT with AVES's own targets ties AVES on call type, and at AVES's learning rate beats it on detection in-distribution and on BirdPark (one seed)  ·  **OPEN**
+
+Continued pretraining from aves-base-bio on the replay x1 stream with AVES's layer-6 k=200 targets (E17, lr 5e-5) or the same at AVES's own lr 2e-4 (E18) does not move 11-class call type away from AVES (E17 -0.0003, E18 +0.0050, both intervals crossing zero; E18 minus E17 not distinguishable), so neither meets its pre-registered call-type criterion. Both pass the detection guard and go further: against aves-base-bio, E18 is ahead on in-distribution ZF detection AUC and on BirdPark AUC and AP with every interval excluding zero at both block sizes and AP higher in all 4 BirdPark blocks; E17 is ahead on ZF AUC and BirdPark AP, not on BirdPark AUC. The run16 + E18 probability average still beats E18 by a resolved margin, so E18 does not contain what run16 adds on call type: AVES's targets keep the model on AVES's side (it also stays at AVES's cross-bird ABX, not run16's). E18's detection gain is one seed; E20 replicates it.
+
+**Evidence.** E17 (daptv3aves_5e5_step15000): call type 0.8450 at L0; minus aves-base-bio -0.0003 [-0.0147, +0.0127], minus aves-base-core -0.0053 [-0.0171, +0.0073], minus run16 +0.0070 [-0.0144, +0.0271]. Pre-committed detection arm native_L6: ZF AUC 0.9695, BirdPark AP 0.8335. Cross-bird ABX error 0.1460.
+E18 (daptv3aves_2e4_step15000): call type 0.8502 at L5; minus aves-base-bio +0.0050 [-0.0102, +0.0201], minus aves-base-core +0.0000 [-0.0136, +0.0160], minus run16 +0.0123 [-0.0088, +0.0325]. Pre-committed detection arm matched_L6: ZF AUC 0.9696, BirdPark AP 0.8441. Cross-bird ABX error 0.1437.
+E17 minus aves-base-bio, detection (paired_vs.py, observed difference, block bootstrap): ZF AUC +0.0022 [+0.0013, +0.0039]; BirdPark AUC +0.0087 [-0.0106, +0.0365] (500-frame [-0.0071, +0.0289]); BirdPark AP +0.0278 [+0.0077, +0.0510] (500-frame [+0.0069, +0.0466]); AP higher in 4 of 4 1500-frame blocks.
+E18 minus aves-base-bio, detection (paired_vs.py, observed difference, block bootstrap): ZF AUC +0.0023 [+0.0008, +0.0036]; BirdPark AUC +0.0226 [+0.0162, +0.0365] (500-frame [+0.0138, +0.0365]); BirdPark AP +0.0383 [+0.0294, +0.0469] (500-frame [+0.0253, +0.0504]); AP higher in 4 of 4 1500-frame blocks.
+aves-base-bio: call type 0.8453 (L3); detection matched_L6 ZF AUC 0.9674, BirdPark AP 0.8057; ABX 0.1425; run16 ABX 0.1385.
+E18 minus E17: call type +0.0053 [-0.0055, +0.0165].
+E17 minus DAPT replay x1 (run11 targets, same everything else): call type +0.0053 [-0.0125, +0.0215].
+E18 + run16 probability average 0.8672, minus better member (daptv3aves_2e4_step15000) +0.0170 [+0.0031, +0.0324].
+E18 + AVES bio probability average 0.8587, minus better member (daptv3aves_2e4_step15000) +0.0085 [+0.0000, +0.0168].
+run16 + AVES bio (reference) probability average 0.8637, minus better member (aves-base-bio) +0.0185 [+0.0040, +0.0347].
+
+**Method.** Scored by harness/score_run.sh (SCORE_HOST=savio-dtn; export verified bit-identical): run15_calltype.py, run16_calltype_bootstrap.py (bird bootstrap, observed differences), detection_variants.py (pre-committed arm by out-of-fold ZF AUC), chick_holdout_variants.py. Pairwise call type and probability averages: zfeval/experiments/calltype_pair.py (asserts the board accuracy is reproduced; sklearn 1.7.2 split). Detection against AVES: paired_vs.py --a TAG --b aves-base-bio (observed differences quoted, not the printed bootstrap delta). ABX: calltype_abx.py.
+
+**Caveats.** DRAFT, critic not yet run. One run per arm; E18's detection gain needs E20 (seed 2) before it is called. BirdPark is ~4 independent 30 s blocks (046/047): the block bootstrap resolves here, but four blocks is thin and earlier DAPT arms moved BirdPark AP by ~0.1 between checkpoints. E18's pre-committed arm is matched_L6 while E17's is native_L6, so their detection rows are not at the same input normalisation. ZF detection AUC gains (+0.002) are small in absolute terms; run16 (0.9718) remains above both in distribution. E17 vs E18 differ in lr only, but one run each cannot rank the lrs. Not compared to the 10-split call-type mean (062), where AVES sits ~0.007 below its board score.
+
+**Provenance.** analysis/daptv3aves_{5e5,2e4}_step15000_calltype.json, *_bootstrap.json (vs.<tag>.<model>), detection_variants.json (precommit.<tag>.joint), paired_vs.json (<tag>__vs__aves-base-bio), calltype_pairs.json, calltype_abx.json

@@ -37,7 +37,8 @@ N_BOOT, N_REFIT, SEED = 2000, 20, 0
 MODELS = [("run11", "ct11_run11_emb.npy"), ("run16", "ct11_run16_compute4x_emb.npy"),
           ("run16 seed 2", "ct11_run16_seed2_emb.npy"), ("run19", "ct11_run19_avesteacher_emb.npy"),
           ("AVES bio", "ct11_aves_emb.npy"), ("AVES core", "ct11_aves-base-core_emb.npy"),
-          ("AVES all", "ct11_aves-base-all_emb.npy"), ("BirdAVES biox-base", "ct11_birdaves-biox-base_emb.npy")]
+          ("AVES all", "ct11_aves-base-all_emb.npy"), ("BirdAVES biox-base", "ct11_birdaves-biox-base_emb.npy"),
+          ("DAPT v3 5e-5 (E17)", "ct11_daptv3aves_5e5_step15000_emb.npy"), ("DAPT v3 2e-4 (E18)", "ct11_daptv3aves_2e4_step15000_emb.npy")]
 
 
 def ward(X, k):

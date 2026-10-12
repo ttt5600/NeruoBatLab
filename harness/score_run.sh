@@ -25,7 +25,8 @@ LOG=$ROOT/harness/logs/score_${TAG}_$(date +%Y%m%d-%H%M%S).log
 exec > >(tee -a "$LOG") 2>&1
 
 # one SSH command at a time, never prompting; drop OpenSSH's post-quantum banner
-ssh_s() { ssh -o BatchMode=yes savio-login "$@" 2> >(grep -v -iE "post-quantum|store now|upgraded|pq.html" >&2); }
+H=${SCORE_HOST:-savio-login}   # savio-dtn while the login node's python gives EIO (2026-10-11)
+ssh_s() { ssh -o BatchMode=yes "$H" "$@" 2> >(grep -v -iE "post-quantum|store now|upgraded|pq.html" >&2); }
 run() { echo "+ $*"; [ -n "${DRY:-}" ] || "$@"; }
 
 echo "== score $TAG  (exp $EXP, $NC classes, job ${JOB:-?})  $(date)"
@@ -42,7 +43,7 @@ done
 echo "== 1. export on Savio"
 EXPORT="source $CONDA && conda activate hubert_env && python ~/export_weights.py --ckpt '$CKDIR/$CK' \
 --out $S/external/dapt/$TAG.pt --num-classes $NC --run-tag $TAG --wav $S/adultvoc_16k/BlaBla0506_110302-DC-01.wav"
-echo "+ ssh savio-login $EXPORT"
+echo "+ ssh $H $EXPORT"
 if [ -z "${DRY:-}" ]; then
     ssh_s "$EXPORT 2>&1 | grep -v WARNING | tail -6; test -s $S/external/dapt/$TAG.pt" \
         || { echo "FATAL: export failed or wrote nothing"; exit 3; }
@@ -51,9 +52,9 @@ fi
 echo "== 2. copy to the Mac"
 M=$ROOT/savio_artifacts
 run mkdir -p "$DAPT" "$M/metrics/$TAG" "$M/logs" "$M/analysis"
-run rsync -a "savio-login:$S/external/dapt/$TAG.pt" "$DAPT/"
+run rsync -a "$H:$S/external/dapt/$TAG.pt" "$DAPT/"
 for v in $(ssh_s "ls $EXP/lightning_logs 2>/dev/null | grep '^version_'"); do
-    run rsync -a "savio-login:$EXP/lightning_logs/$v/metrics.csv" "$M/metrics/$TAG/${TAG}_${v}_metrics.csv" || true
+    run rsync -a "$H:$EXP/lightning_logs/$v/metrics.csv" "$M/metrics/$TAG/${TAG}_${v}_metrics.csv" || true
 done
 [ -z "$JOB" ] || run rsync -a "savio-login:jobs/*_${JOB}.log" "$M/logs/" || true
 

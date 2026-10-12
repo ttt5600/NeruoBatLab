@@ -377,7 +377,8 @@ experiments:
   tag: daptv3aves_5e5_step15000
   num_classes: 200
   job_name: dapt_v3_aves
-  status: submitted
+  status: scored
+  trained_note: 'Job 39844771 COMPLETED 0:0 in 00:50:03 (11:30-12:20 Oct 12); epoch=2-step=15000.ckpt present; log: 285 files relabelled (199 of 200 ids), AVES 210 tensors transplanted, lr 5e-5.'
   job: 39844771
   priority: 1
   notes: 'Approved by the user 2026-10-12 ("yes" to round 3, after the 10-11 call-type analysis: run16 and AVES
@@ -399,8 +400,58 @@ experiments:
   tag: daptv3aves_2e4_step15000
   num_classes: 200
   job_name: dapt_v3_lr2e4
-  status: submitted
+  status: scored
+  trained_note: 'Job 39844772 COMPLETED 0:0 in 00:50:02; epoch=2-step=15000.ckpt present; log: same lookup, AVES init, lr 2e-4.'
   job: 39844772
   priority: 2
   notes: 'Approved by the user 2026-10-12 (their larger-lr suggestion). Wrapper sets DAPT_LR=2e-4 and execs the
     E17 script; own exp dir so it cannot resume E17.'
+- id: E19
+  roadmap: idea 6 (DAPT, round 4)
+  title: DAPT with two-teacher targets (k-means on run16 | AVES layer-6 features)
+  baseline: E18 (daptv3aves_2e4_step15000; same init, audio, order, steps, lr 2e-4 -- AVES-only targets)
+  change: 'targets only: AVES layer 6 k=200 -> k=200 on [run16 L6 | AVES L6], each teacher standardised,
+    fit on 1M frames from a quarter of the replay x1 files (scripts/two_teacher_labels.py, built in the job)'
+  question: Do targets that carry both teachers' views give one model what the run16+AVES probability
+    average has (+0.0185 over AVES, resolved)?
+  success: 'Pre-registered 2026-10-12 before submission. PRIMARY: 11-class call type above aves-base-bio 0.8453
+    with the bird-bootstrap interval excluding zero (board protocol, calltype_run_bootstrap / calltype_pair.py),
+    and ZF detection AUC at the pre-committed arm not below aves-base-bio''s by a resolved margin. MECHANISM
+    (read-out): E19 + run16 probability-average gain over the better member NOT resolved (E18 + run16: +0.0170
+    resolved), i.e. E19 already holds what run16 adds. Label diagnostic before reading any score: NMI of the new
+    labels with each teacher''s labels both clearly above their mutual NMI (else the clustering collapsed to one
+    view and the run does not test the idea). One run: a win needs a second seed (057).'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4
+  tag: daptv4two_2e4_step15000
+  num_classes: 200
+  job_name: dapt_v4_2teach
+  status: submitted
+  job: 39849102
+  priority: 1
+  notes: 'Proposed and submitted by the lead agent 2026-10-12 under the user''s standing order of that day ("keep
+    running things until we see improvement in call type and vocal detection"). NOT a flags-only change:
+    new script two_teacher_labels.py (tested locally on synthetic two-view data: NMI 0.35/0.31 with each
+    teacher vs 0.008 between them; order, lengths and TSV-mismatch guard checked). Inputs verified on Savio:
+    teacher TSVs identical (cmp), features float32 with equal frames per file. Critic on the design runs in
+    parallel; the job is cancelled if it finds a flaw.'
+- id: E20
+  roadmap: idea 6 (DAPT, round 3 replication)
+  title: E18, second seed
+  baseline: E18 (daptv3aves_2e4_step15000, seed 1337) and aves-base-bio
+  change: --seed 2 (otherwise E18)
+  question: Does E18's detection gain over AVES (ZF AUC +0.0022 [+0.0008, +0.0036]; BirdPark AUC +0.025, AP
+    +0.038, both block sizes, 4/4 blocks; paired_vs.json) survive a second seed?
+  success: 'Pre-registered 2026-10-12: the same paired_vs.py comparison against aves-base-bio resolved in the
+    same direction for ZF detection AUC AND BirdPark AP at both block sizes. Call type reported against AVES
+    and E18 (calltype_pair.py), no criterion.'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v3_avesteacher_lr2e4_seed2.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv3_avesteacher_2e4_s2
+  tag: daptv3aves_2e4s2_step15000
+  num_classes: 200
+  job_name: dapt_v3_2e4s2
+  status: submitted
+  job: 39850366
+  priority: 2
+  notes: 'Self-approved by the lead agent 2026-10-12: lowprio, 1 L40, data on Savio, flags only (DAPT_SEED env ->
+    --seed, own exp dir; E17/E18 behaviour unchanged when unset). Replication required by the loop stop rule.'

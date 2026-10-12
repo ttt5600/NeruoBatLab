@@ -123,3 +123,11 @@ If E17/E18 do not beat AVES, next candidates: two-teacher targets (k-means on co
 layer features), distil the run16+AVES ensemble.
 Savio cert expired 08:58; E17/E18 scripts built + on the push list, not yet submitted (need sv login).
 E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the user's direct approval.
+
+## 2026-10-12 11:35 -- loop wake: E17/E18 submitted (39844771/39844772); BEANS detection done
+- lab train's import check runs on the login node, whose python still gives EIO; ran the same check on
+  dtn (imports OK, flags present) and sbatched from ~/jobs with a ledger line. It caught a real bug first:
+  PYTHONNOUSERSITE=1 (copied from beans_detect.sh) would have hidden librosa -- removed.
+- BEANS detection job 39836981 COMPLETED rc=0 (4 tasks). JSONs copied to analysis/ (Mac's 8-model hiceas
+  kept as beans_hiceas_mac.json). AVES family ahead of run16 on hiceas/enabirds/dcase, several resolved;
+  run19 again closes part (hiceas +0.138*, dcase +0.054*); gibbons mAPs tiny. NEXT: E10 finding (critic).

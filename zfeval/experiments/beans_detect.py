@@ -195,8 +195,12 @@ def main():
                                   [E["valid"][:, l].astype(np.float32), E["test"][:, l].astype(np.float32)])
             va.append(mean_ap(sv, sp["valid"][1])); te.append(mean_ap(st_, sp["test"][1])); S.append(st_)
         b = int(np.argmax(va)); scores[tag] = S[b]
-        out["models"][tag] = dict(layer=b, valid=va[b], test=te[b], valid_by_layer=va, test_by_layer=te,
-                                  best_test_any_layer=max(te))
+        prev = out["models"].get(tag, {})            # a rerun against another --baseline must reproduce
+        if "test" in prev:                           # the stored score, and keeps its earlier vs_* keys
+            assert prev["layer"] == b and abs(prev["test"] - te[b]) < 1e-6, \
+                f"{tag}: rescored layer {b} test {te[b]} != stored layer {prev['layer']} test {prev['test']}"
+        out["models"].setdefault(tag, {}).update(dict(layer=b, valid=va[b], test=te[b], valid_by_layer=va,
+                                                      test_by_layer=te, best_test_any_layer=max(te)))
         print(f"  {tag:22s} layer {b:2d}  valid mAP {va[b]:.4f}  TEST mAP {te[b]:.4f}   "
               f"(best test at any layer {max(te):.4f}; probe {time.time()-t0:.0f}s)", flush=True)
         out_p.write_text(json.dumps(out, indent=1))

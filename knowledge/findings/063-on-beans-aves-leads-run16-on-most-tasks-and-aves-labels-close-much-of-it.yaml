@@ -1,0 +1,59 @@
+id: '063'
+title: On BEANS under a frozen probe, AVES is resolved ahead of run16 on 5 of the 9 tasks run, and run11 is resolved behind run16 on 6
+status: open
+claim: >-
+  With every encoder frozen (mean-pooled layers, linear probe, layer chosen on valid), on the 9 BEANS
+  tasks run (of 10 non-Kaggle), aves-base-bio is ahead of run16 with the 95% interval excluding zero on
+  5: bats, esc50, hiceas, enabirds, dcase. It is not distinguishable on watkins, humbugdb and dogs (dogs:
+  run16 ahead on the point estimate), and hainan-gibbons is not interpretable. run11 is resolved behind
+  run16 on 6 of 9 (dogs, esc50, hiceas, enabirds, dcase, gibbons), so most of run11's gap outside zebra
+  finch was closed by run16. Each of AVES's resolved leads exceeds the run16 seed-to-seed gap on that
+  task. Pre-registered question (E10): outside zebra finch our best model is behind AVES on most tasks
+  where the test can tell; the "ours against AVES with intervals" half is pending (see caveats).
+evidence: |-
+  Test score (accuracy for classification, BEANS mAP for detection), observed difference from run16 and
+  95% paired bootstrap interval (clips for classification, 60-s test chunks for detection):
+  bats: run16 0.615; AVES bio 0.686 (+0.072 [+0.049, +0.094]); run19 0.683 (+0.069 [+0.047, +0.089]); run20 0.635 (+0.020 [-0.001, +0.041]); run16 seed 2 0.625 (+0.011 [-0.011, +0.032]); BirdAVES bioxn-large 0.685 (+0.071 [+0.047, +0.094])
+  watkins: run16 0.844; AVES bio 0.876 (+0.032 [+0.000, +0.065]); run19 0.850 (+0.006 [-0.029, +0.041]); run20 0.847 (+0.003 [-0.029, +0.032]); run16 seed 2 0.853 (+0.009 [-0.018, +0.038]); BirdAVES bioxn-large 0.861 (+0.018 [-0.018, +0.053])
+  dogs: run16 0.892; AVES bio 0.835 (-0.058 [-0.122, +0.007]); run19 0.842 (-0.050 [-0.108, +0.007]); run20 0.878 (-0.014 [-0.065, +0.036]); run16 seed 2 0.885 (-0.007 [-0.050, +0.036]); BirdAVES bioxn-large 0.871 (-0.022 [-0.094, +0.050])
+  humbugdb: run16 0.754; AVES bio 0.771 (+0.017 [-0.002, +0.035]); run19 0.778 (+0.025 [+0.007, +0.042]); run20 0.751 (-0.003 [-0.020, +0.013]); run16 seed 2 0.764 (+0.010 [-0.006, +0.026]); BirdAVES bioxn-large 0.778 (+0.025 [+0.007, +0.042])
+  esc50: run16 0.642; AVES bio 0.715 (+0.073 [+0.025, +0.120]); run19 0.693 (+0.050 [+0.007, +0.097]); run20 0.657 (+0.015 [-0.022, +0.050]); run16 seed 2 0.652 (+0.010 [-0.028, +0.052]); BirdAVES bioxn-large 0.780 (+0.138 [+0.090, +0.185])
+  hiceas: run16 0.393; AVES bio 0.516 (+0.122 [+0.046, +0.204]); run19 0.531 (+0.138 [+0.054, +0.214]); run20 0.395 (+0.001 [-0.036, +0.047]); run16 seed 2 0.383 (-0.010 [-0.061, +0.032]); BirdAVES bioxn-large 0.449 (+0.055 [-0.033, +0.134])
+  enabirds: run16 0.390; AVES bio 0.449 (+0.059 [+0.035, +0.085]); run19 0.404 (+0.014 [-0.006, +0.042]); run20 0.386 (-0.005 [-0.020, +0.012]); run16 seed 2 0.383 (-0.007 [-0.015, +0.009]); BirdAVES bioxn-large 0.563 (+0.172 [+0.133, +0.194])
+  dcase: run16 0.209; AVES bio 0.282 (+0.073 [+0.018, +0.104]); run19 0.263 (+0.054 [+0.016, +0.075]); run20 0.218 (+0.009 [-0.015, +0.035]); run16 seed 2 0.230 (+0.021 [-0.007, +0.055]); BirdAVES bioxn-large 0.343 (+0.133 [+0.075, +0.166])
+  hainan_gibbons: run16 0.069; AVES bio 0.019 (-0.050 [-0.090, -0.019]); run19 0.030 (-0.039 [-0.074, -0.010]); run20 0.038 (-0.031 [-0.063, -0.008]); run16 seed 2 0.036 (-0.033 [-0.063, +0.001]); BirdAVES bioxn-large 0.095 (+0.026 [-0.041, +0.111])
+  run11 minus run16 (observed, * = interval excludes zero): bats -0.015, watkins -0.018, dogs -0.151*,
+  humbugdb +0.002, esc50 -0.107*, hiceas -0.081*, enabirds -0.035*, dcase -0.048*, hainan_gibbons -0.025*.
+method: >-
+  zfeval/experiments/beans_probe.py (classification: own-length clips truncated to max_duration, never
+  zero-padded -- finding 034; StandardScaler + LogisticRegression) and beans_detect.py (detection: BEANS
+  RecognitionDataset windows, labels and AveragePrecision reimplemented and verified identical; per-class
+  L2 logistic regression, C=1, L-BFGS). Splits made by BEANS's own scripts (beans_fetch.sh) and checked
+  against BEANS's published MD5s. Detection ran on Savio (job 39836981, L40S); hiceas reproduced the Mac
+  MPS run to ~0.0003 mAP at identical layers.
+provenance: analysis/beans_{bats,watkins,dogs,humbugdb,esc50,hiceas,enabirds,dcase,hainan_gibbons}.json,
+  key models.<tag>.test and models.<tag>.vs_run16_compute4x
+caveats: >-
+  A frozen probe, NOT AVES's published protocol (fine-tuning the whole network per task), so no number
+  here is comparable to the published BEANS row (bats 0.748 fine-tuned vs 0.686 frozen here). One seed
+  per model except run16. 11 models x 9 tasks: about 5% of null comparisons exclude zero by chance.
+  PENDING for E10's own question: every interval here is against run16; none is ours against AVES. Until
+  beans_probe.py / beans_detect.py are rerun with --baseline aves-base-bio (features cached), no claim that
+  run19 or any of ours "closes the gap" to AVES is made. run19 and run20 are reported, not interpreted:
+  run16 already trains on combined_zf_fsd (~108 h of FSD50K), so run20 REMOVES colony audio rather than
+  adding general audio (and gets ~2x passes and a zebra-finch-shaped codebook; its pre-registered
+  baseline run21 was not scored on BEANS); run19's targets come from AVES, itself trained on general
+  audio; one run19 seed, E8 pending. Sits beside finding 039 (corpus as the live hypothesis) and 059
+  (run19 not distinguishable from run16 on call type) without settling either. Bootstrap units: dcase
+  test = 232 chunks from 19 recordings; hainan-gibbons = 640 chunks from 4 recordings, so its chunk
+  bootstrap is far too narrow and every model's mAP there is under 0.15 -- not interpretable. BEANS bats
+  splits are random by file (session leakage possible). speech-commands not run; cbi and rfcx need a
+  Kaggle account. Critic (fresh subagent, CRITIC.md, 2026-10-12): ACCEPT-WITH-CHANGES; applied: watkins
+  "not distinguishable", gibbons "not interpretable", dcase bootstrap unit, run11 added, "5 of 9" wording,
+  seed sentence narrowed, run19/run20 mechanism dropped from title and claim, confounds and 039/059
+  named, L40S. Not yet applied: ours-vs-AVES intervals (status stays open until they exist).
+tags:
+- beans
+- generalisation
+- aves
+date: '2026-10-12'
