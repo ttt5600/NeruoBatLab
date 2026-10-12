@@ -256,7 +256,9 @@ experiments:
   success: first, our re-scored AVES must reproduce AVES's published BEANS numbers within their reported
     spread (validates the scorer). Then report each of ours against AVES per task, with intervals
   script: null
-  status: running
+  status: done
+  finding: '063'
+  result: 'frozen probe, 8 interpretable BEANS tasks: none of ours ahead of aves-base-bio; run16 behind on 5, run19 not distinguishable on 7 (one seed, AVES-own targets)'
   priority: 1
   approved_download: true
   protocol_change: '2026-10-11, started by hand: AVES''s published BEANS row is FINE-TUNED (whole net
