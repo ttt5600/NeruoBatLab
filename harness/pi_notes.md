@@ -95,3 +95,16 @@ Half-finished work, newest first. Each entry: date, what, where it stopped, next
 - Licences: bats (Prat, Taub, Pratt, Yovel 2017, figshare 10.6084/m9.figshare.c.3666502) CC BY 4.0
   per the Scientific Data article; figshare record itself not checked. All others NOT YET CHECKED;
   BEANS's README lists none (BEANS code is MIT).
+
+## 2026-10-11 20:45 — E10 progress; detection moved to Savio
+- Done on the Mac (frozen probe, analysis/beans_<task>.json): bats, watkins, dogs, humbugdb, esc50.
+  Every split CSV and audio file of all 10 non-Kaggle tasks matched BEANS's MD5s.
+- Detection (hiceas, enabirds, dcase, hainan-gibbons) would hold the Mac GPU ~a day; moved to Savio
+  as job 39836981 (beans_eval/zfeval/slurm/beans_detect.sh, 1 L40 lowprio, --requeue, cached per
+  model x split). beans_detect.py checked against BEANS's own RecognitionDataset (windows, offsets,
+  labels identical on valid+test of all 4) and metrics.AveragePrecision (identical to 6 dp).
+- hiceas on the Mac got 8/11 models before it was stopped; keep that JSON to compare MPS vs CUDA.
+- Savio login node 2026-10-11: its Lustre client lost OST006c ("Cannot send after transport endpoint
+  shutdown"); hubert_env's python gave EIO there but reads fine from dtn00. Jobs use
+  PYTHONNOUSERSITE=1. If E7/E8 fail on start, check this first.
+- speech-commands (105k files) not run: too many files for Savio scratch; Mac run is ~11 h. Open.

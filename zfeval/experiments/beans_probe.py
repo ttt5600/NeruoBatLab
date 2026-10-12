@@ -113,7 +113,7 @@ def main():
     print(f"[{a.task}] train {n['train']}  valid {n['valid']}  test {n['test']}  classes "
           f"{cfg['num_labels']}  max {cfg['max_duration']} s  test majority {maj:.4f}", flush=True)
 
-    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     FEAT.mkdir(parents=True, exist_ok=True); ANA.mkdir(parents=True, exist_ok=True)
     out_p = ANA / f"beans_{a.task}.json"
     out = json.loads(out_p.read_text()) if out_p.exists() else {}
