@@ -338,10 +338,19 @@ experiments:
   question: Can specialising the best same-size download beat it?
   success: call type above birdaves-biox-base (0.8520) with the interval excluding zero; BirdPark reported
     with arm spread
-  script: null
-  status: approved
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_birdaves.sh
+  status: submitted
+  job: 39851972
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_birdaves
+  tag: daptv4bird_2e4_step15000
+  num_classes: 200
+  job_name: dapt_v4_bird
   priority: 9
-  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Built 2026-10-12 by
+    the lead agent on the ROUND-4 recipe (E19: two-teacher targets, lr 2e-4, E19''s built labels read-only) rather
+    than round 2''s run11 targets, which rounds 3-4 superseded; the one change against E19 is the init
+    (birdaves-biox-base, identical torchaudio config, md5 41cff9c4495d on Savio). Baseline field kept as approved;
+    the effective baselines are E19 and birdaves-biox-base.'
 - id: E15
   roadmap: idea 7
   title: Bigger, more varied general-audio corpus
@@ -437,7 +446,8 @@ experiments:
   tag: daptv4two_2e4_step15000
   num_classes: 200
   job_name: dapt_v4_2teach
-  status: submitted
+  status: scored
+  trained_note: 'Job 39849102 COMPLETED 0:0 in 00:58:36; epoch=2-step=15000.ckpt; label gate PASSED (NMI new-vs-run16 0.570, new-vs-AVES 0.503, run16-vs-AVES 0.416; 200/200 clusters); AVES 210 tensors transplanted.'
   job: 39849102
   priority: 1
   notes: 'Proposed and submitted by the lead agent 2026-10-12 under the user''s standing order of that day ("keep
@@ -461,7 +471,8 @@ experiments:
   tag: daptv3aves_2e4s2_step15000
   num_classes: 200
   job_name: dapt_v3_2e4s2
-  status: submitted
+  status: scored
+  trained_note: 'Job 39850366 COMPLETED 0:0 in 00:54:50; epoch=2-step=15000.ckpt; seed 2, lr 2e-4, AVES init.'
   job: 39850366
   priority: 2
   notes: 'Self-approved by the lead agent 2026-10-12: lowprio, 1 L40, data on Savio, flags only (DAPT_SEED env ->
@@ -480,9 +491,30 @@ experiments:
   tag: daptv4aveso_2e4_step15000
   num_classes: 200
   job_name: dapt_v4_aveso
-  status: submitted
+  status: trained
+  trained_note: 'Job 39850689 finished 14:56 Oct 12; epoch=2-step=15000.ckpt; labels: NMI new-vs-run16 0.398, new-vs-AVES 0.554 (run16-vs-AVES 0.416), 200/200 clusters.'
   job: 39850689
   priority: 3
   notes: 'Added 2026-10-12 on the critic''s recommendation (E19 was more than one change). Flags only against E19
     (--only-b, exp dir, job name); --only-b tested locally (B-only labels: NMI 0.003 with A, 0.306 with B; same fit
     frames as the two-teacher mode).'
+- id: E22
+  roadmap: idea 6 (DAPT, round 4)
+  title: E19 trained 3x longer (45,000 updates)
+  baseline: E19 (daptv4two_2e4_step15000)
+  change: --max-updates 15000 -> 45000 (warmup kept at 750), E19's built labels read-only
+  question: Does longer continued pretraining on two-teacher targets absorb more of run16's view (E19 + run16
+    probability-average gain +0.0094, down from E18's +0.0170) and lift call type?
+  success: 'Pre-registered 2026-10-12: call type above E19 AND above aves-base-bio with bird-bootstrap intervals
+    excluding zero (calltype_pair.py), detection reported against aves-base-bio and run16 (paired_vs.py). Read-out:
+    E22 + run16 probability-average gain against E19''s.'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_45k.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_45k
+  tag: daptv4two45k_2e4_step45000
+  num_classes: 200
+  job_name: dapt_v4_45k
+  status: submitted
+  job: 39851973
+  priority: 4
+  notes: 'Self-approved 2026-10-12: lowprio, 1 L40 (~2.5 h), data on Savio, flags only (DAPT_STEPS, exp suffix,
+    DAPT_DATA). Final checkpoint will be epoch=*-step=45000.ckpt.'
