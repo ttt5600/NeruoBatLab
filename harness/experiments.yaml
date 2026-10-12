@@ -377,7 +377,8 @@ experiments:
   tag: daptv3aves_5e5_step15000
   num_classes: 200
   job_name: dapt_v3_aves
-  status: approved
+  status: submitted
+  job: 39844771
   priority: 1
   notes: 'Approved by the user 2026-10-12 ("yes" to round 3, after the 10-11 call-type analysis: run16 and AVES
     tie overall but are complementary -- ensemble +0.017 resolved -- and DAPT replay x3 drifted toward
@@ -398,7 +399,8 @@ experiments:
   tag: daptv3aves_2e4_step15000
   num_classes: 200
   job_name: dapt_v3_lr2e4
-  status: approved
+  status: submitted
+  job: 39844772
   priority: 2
   notes: 'Approved by the user 2026-10-12 (their larger-lr suggestion). Wrapper sets DAPT_LR=2e-4 and execs the
     E17 script; own exp dir so it cannot resume E17.'
