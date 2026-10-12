@@ -33,7 +33,7 @@ python -c "import torch; assert torch.cuda.is_available(), 'no GPU'" || exit 2
 rc=0
 for t in ${TASKS:-hiceas enabirds dcase hainan-gibbons}; do
     echo "== $t  $(date +%T)"
-    python -u beans_detect.py --task "$t" --batch 32 || { echo "FAILED $t"; rc=1; }
+    python -u beans_detect.py --task "$t" --batch 32 --baseline "${BASELINE:-run16_compute4x}" || { echo "FAILED $t"; rc=1; }
 done
 echo "== end $(date)  rc=$rc"
 exit $rc
