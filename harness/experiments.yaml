@@ -446,7 +446,9 @@ experiments:
   tag: daptv4two_2e4_step15000
   num_classes: 200
   job_name: dapt_v4_2teach
-  status: scored
+  status: done
+  finding: '065'
+  result: 'call type 0.8441, minus aves-base-bio -0.0012 [-0.0227, +0.0182] -- primary not met; ZF detection AUC +0.0038 over its control E21, 12/12 arms (finding 065)'
   trained_note: 'Job 39849102 COMPLETED 0:0 in 00:58:36; epoch=2-step=15000.ckpt; label gate PASSED (NMI new-vs-run16 0.570, new-vs-AVES 0.503, run16-vs-AVES 0.416; 200/200 clusters); AVES 210 tensors transplanted.'
   job: 39849102
   priority: 1
@@ -471,7 +473,9 @@ experiments:
   tag: daptv3aves_2e4s2_step15000
   num_classes: 200
   job_name: dapt_v3_2e4s2
-  status: scored
+  status: done
+  finding: '065'
+  result: 'replication criterion not met: ZF AUC minus AVES +0.0011 [-0.0006, +0.0022]; BirdPark again resolved (finding 065)'
   trained_note: 'Job 39850366 COMPLETED 0:0 in 00:54:50; epoch=2-step=15000.ckpt; seed 2, lr 2e-4, AVES init.'
   job: 39850366
   priority: 2
@@ -491,7 +495,9 @@ experiments:
   tag: daptv4aveso_2e4_step15000
   num_classes: 200
   job_name: dapt_v4_aveso
-  status: scored
+  status: done
+  finding: '065'
+  result: 'control: not distinguishable from aves-base-bio on call type and ZF AUC (finding 065)'
   trained_note: 'Job 39850689 finished 14:56 Oct 12; epoch=2-step=15000.ckpt; labels: NMI new-vs-run16 0.398, new-vs-AVES 0.554 (run16-vs-AVES 0.416), 200/200 clusters.'
   job: 39850689
   priority: 3
@@ -525,9 +531,11 @@ experiments:
   change: --seed 2, E19's built labels read-only (otherwise E19)
   question: Does E19's detection gain over its AVES-only control E21 (ZF AUC +0.0038 [+0.0015, +0.0054], BirdPark
     AUC +0.0112 [+0.0037, +0.0348], AP +0.0294 [+0.0080, +0.0809], paired_vs.json) survive a second seed?
-  success: 'Pre-registered 2026-10-12: E23 minus E24 (both seed 2) resolved in the same direction on ZF detection AUC
-    and on BirdPark AP at 1500-frame blocks (paired_vs.py). Also reported: E23 minus aves-base-bio and minus
-    run16_compute4x on detection; call type against AVES (calltype_pair.py), no criterion.'
+  success: 'Pre-registered 2026-10-12; AMENDED the same day before the job started (critic on finding 065: the
+    BirdPark contrast is arm-fragile). E23 minus E24 (both seed 2) ZF detection AUC resolved positive at the
+    pre-committed arms (paired_vs.py) AND E23 ahead of E24 at >= 10 of 12 arms (detection_variants.json
+    in_distribution). BirdPark reported with 12-arm medians and arm wins, not a criterion. Also reported: E23 minus
+    aves-base-bio and minus run16_compute4x on detection; call type against AVES (calltype_pair.py).'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_seed2.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_s2
   tag: daptv4two_2e4s2_step15000
