@@ -1,0 +1,89 @@
+== Mon Oct 12 14:22:04 PDT 2026  n0387.savio4  restart 0
+NVIDIA L40S, 46068 MiB
+== hiceas  14:22:56
+[hiceas] windows train 4457  valid 1485  test 1485  classes 1  width 10 s shift 5 s
+  test positives per class: [395]
+  run11                  layer  2  valid mAP 0.3584  TEST mAP 0.3125   (best test at any layer 0.3180; probe 17s)
+  run16_compute4x        layer  6  valid mAP 0.4480  TEST mAP 0.3935   (best test at any layer 0.3935; probe 10s)
+  run16_seed2            layer  6  valid mAP 0.5566  TEST mAP 0.3831   (best test at any layer 0.4132; probe 10s)
+  run19_avesteacher      layer 11  valid mAP 0.6573  TEST mAP 0.5315   (best test at any layer 0.5315; probe 9s)
+  run20_fsdonly          layer  1  valid mAP 0.5254  TEST mAP 0.3949   (best test at any layer 0.4364; probe 10s)
+  aves-base-core         layer 11  valid mAP 0.7502  TEST mAP 0.5778   (best test at any layer 0.5778; probe 8s)
+  aves-base-bio          layer  0  valid mAP 0.6908  TEST mAP 0.5160   (best test at any layer 0.5160; probe 7s)
+  aves-base-all          layer 11  valid mAP 0.7476  TEST mAP 0.4736   (best test at any layer 0.4913; probe 9s)
+  birdaves-biox-base     layer  1  valid mAP 0.5831  TEST mAP 0.4302   (best test at any layer 0.4890; probe 7s)
+  birdaves-biox-large    layer 22  valid mAP 0.6716  TEST mAP 0.4558   (best test at any layer 0.5226; probe 19s)
+  birdaves-bioxn-large   layer 22  valid mAP 0.6380  TEST mAP 0.4486   (best test at any layer 0.4925; probe 17s)
+  run11                  - aves-base-bio: -0.2035 [-0.2977, -0.1185]  *
+  run16_compute4x        - aves-base-bio: -0.1225 [-0.2037, -0.0460]  *
+  run16_seed2            - aves-base-bio: -0.1328 [-0.2169, -0.0541]  *
+  run19_avesteacher      - aves-base-bio: +0.0155 [-0.0681, +0.0948]
+  run20_fsdonly          - aves-base-bio: -0.1210 [-0.2052, -0.0320]  *
+  aves-base-core         - aves-base-bio: +0.0618 [-0.0116, +0.1342]
+  aves-base-all          - aves-base-bio: -0.0424 [-0.1255, +0.0443]
+  birdaves-biox-base     - aves-base-bio: -0.0858 [-0.1720, +0.0039]
+  birdaves-biox-large    - aves-base-bio: -0.0601 [-0.1612, +0.0385]
+  birdaves-bioxn-large   - aves-base-bio: -0.0674 [-0.1725, +0.0298]
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_hiceas.json
+== enabirds  14:25:26
+[enabirds] windows train 13629  valid 4543  test 4543  classes 34  width 2 s shift 1 s
+  test positives per class: [947, 7, 125, 6, 75, 573, 102, 54, 38, 191, 550, 29, 11, 186, 2174, 80, 35, 115, 51, 640, 71, 279, 22, 62, 50, 223, 198, 30, 484, 2, 8, 836, 48, 22]
+  run11                  layer  0  valid mAP 0.3688  TEST mAP 0.3553   (best test at any layer 0.3613; probe 108s)
+  run16_compute4x        layer  0  valid mAP 0.3991  TEST mAP 0.3904   (best test at any layer 0.3904; probe 105s)
+  run16_seed2            layer  0  valid mAP 0.3937  TEST mAP 0.3833   (best test at any layer 0.3833; probe 104s)
+  run19_avesteacher      layer  3  valid mAP 0.4165  TEST mAP 0.4044   (best test at any layer 0.4122; probe 106s)
+  run20_fsdonly          layer  0  valid mAP 0.3963  TEST mAP 0.3857   (best test at any layer 0.3857; probe 105s)
+  aves-base-core         layer  2  valid mAP 0.4324  TEST mAP 0.4183   (best test at any layer 0.4183; probe 108s)
+  aves-base-bio          layer  7  valid mAP 0.4588  TEST mAP 0.4494   (best test at any layer 0.4582; probe 107s)
+  aves-base-all          layer  8  valid mAP 0.4301  TEST mAP 0.4221   (best test at any layer 0.4266; probe 111s)
+  birdaves-biox-base     layer  4  valid mAP 0.5235  TEST mAP 0.5104   (best test at any layer 0.5262; probe 106s)
+  birdaves-biox-large    layer 17  valid mAP 0.5533  TEST mAP 0.5357   (best test at any layer 0.5420; probe 330s)
+  birdaves-bioxn-large   layer 14  valid mAP 0.5727  TEST mAP 0.5626   (best test at any layer 0.5788; probe 330s)
+  run11                  - aves-base-bio: -0.0942 [-0.1141, -0.0640]  *
+  run16_compute4x        - aves-base-bio: -0.0591 [-0.0851, -0.0352]  *
+  run16_seed2            - aves-base-bio: -0.0661 [-0.0829, -0.0386]  *
+  run19_avesteacher      - aves-base-bio: -0.0451 [-0.0572, -0.0215]  *
+  run20_fsdonly          - aves-base-bio: -0.0638 [-0.0911, -0.0374]  *
+  aves-base-core         - aves-base-bio: -0.0311 [-0.0461, -0.0136]  *
+  aves-base-all          - aves-base-bio: -0.0273 [-0.0384, -0.0071]  *
+  birdaves-biox-base     - aves-base-bio: +0.0610 [+0.0397, +0.0784]  *
+  birdaves-biox-large    - aves-base-bio: +0.0863 [+0.0641, +0.1106]  *
+  birdaves-bioxn-large   - aves-base-bio: +0.1131 [+0.0863, +0.1302]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_enabirds.json
+== dcase  14:55:07
+[dcase] windows train 41418  valid 13806  test 13530  classes 18  width 2 s shift 1 s
+  test positives per class: [40, 14, 58, 45, 308, 10, 33, 19, 9, 117, 356, 110, 105, 4, 15, 7, 459, 44]
+  run11                  layer  3  valid mAP 0.1336  TEST mAP 0.1608   (best test at any layer 0.1648; probe 214s)
+  run16_compute4x        layer 11  valid mAP 0.1713  TEST mAP 0.2091   (best test at any layer 0.2265; probe 204s)
+  run16_seed2            layer  8  valid mAP 0.1655  TEST mAP 0.2304   (best test at any layer 0.2304; probe 212s)
+  run19_avesteacher      layer 10  valid mAP 0.2570  TEST mAP 0.2631   (best test at any layer 0.3002; probe 206s)
+  run20_fsdonly          layer  4  valid mAP 0.1467  TEST mAP 0.2178   (best test at any layer 0.2232; probe 206s)
+  aves-base-core         layer  6  valid mAP 0.2248  TEST mAP 0.2540   (best test at any layer 0.2707; probe 211s)
+  aves-base-bio          layer  7  valid mAP 0.2587  TEST mAP 0.2821   (best test at any layer 0.2907; probe 204s)
+  aves-base-all          layer  4  valid mAP 0.2286  TEST mAP 0.3013   (best test at any layer 0.3064; probe 210s)
+  birdaves-biox-base     layer  9  valid mAP 0.3007  TEST mAP 0.2951   (best test at any layer 0.3323; probe 213s)
+  birdaves-biox-large    layer  9  valid mAP 0.3002  TEST mAP 0.3387   (best test at any layer 0.3483; probe 774s)
+  birdaves-bioxn-large   layer  9  valid mAP 0.3435  TEST mAP 0.3426   (best test at any layer 0.3590; probe 771s)
+  run11                  - aves-base-bio: -0.1213 [-0.1412, -0.0829]  *
+  run16_compute4x        - aves-base-bio: -0.0730 [-0.1043, -0.0178]  *
+  run16_seed2            - aves-base-bio: -0.0517 [-0.0878, +0.0098]
+  run19_avesteacher      - aves-base-bio: -0.0190 [-0.0467, +0.0159]
+  run20_fsdonly          - aves-base-bio: -0.0644 [-0.0945, -0.0082]  *
+  aves-base-core         - aves-base-bio: -0.0282 [-0.0573, +0.0050]
+  aves-base-all          - aves-base-bio: +0.0192 [-0.0121, +0.0540]
+  birdaves-biox-base     - aves-base-bio: +0.0130 [-0.0175, +0.0521]
+  birdaves-biox-large    - aves-base-bio: +0.0565 [+0.0088, +0.0919]  *
+  birdaves-bioxn-large   - aves-base-bio: +0.0605 [+0.0163, +0.0954]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_dcase.json
+== hainan-gibbons  15:57:22
+[hainan-gibbons] windows train 27840  valid 13920  test 18560  classes 3  width 4 s shift 2 s
+  test positives per class: [44, 372, 24]
+  run11                  layer  4  valid mAP 0.0374  TEST mAP 0.0443   (best test at any layer 0.0616; probe 117s)
+  run16_compute4x        layer 11  valid mAP 0.1033  TEST mAP 0.0689   (best test at any layer 0.0689; probe 109s)
+  run16_seed2            layer  8  valid mAP 0.0224  TEST mAP 0.0357   (best test at any layer 0.0471; probe 108s)
+  run19_avesteacher      layer  4  valid mAP 0.0630  TEST mAP 0.0304   (best test at any layer 0.0365; probe 107s)
+  run20_fsdonly          layer  1  valid mAP 0.0311  TEST mAP 0.0375   (best test at any layer 0.0470; probe 113s)
+  aves-base-core         layer  3  valid mAP 0.0972  TEST mAP 0.0620   (best test at any layer 0.0620; probe 114s)
+  aves-base-bio          layer  3  valid mAP 0.0549  TEST mAP 0.0189   (best test at any layer 0.0515; probe 121s)
+  aves-base-all          layer  7  valid mAP 0.1719  TEST mAP 0.0713   (best test at any layer 0.0713; probe 125s)
+  birdaves-biox-base     layer  6  valid mAP 0.1165  TEST mAP 0.0889   (best test at any layer 0.1016; probe 128s)

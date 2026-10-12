@@ -1,17 +1,16 @@
 id: '063'
 title: On BEANS under a frozen probe, AVES is resolved ahead of run16 on 5 of the 9 tasks run, and run11 is resolved
   behind run16 on 6
-status: open
+status: confirmed
 claim: 'With every encoder frozen (mean-pooled layers, linear probe, layer chosen on valid), on the 9 BEANS tasks
   run (of 10 non-Kaggle), aves-base-bio is ahead of run16 with the 95% interval excluding zero on 5: bats, esc50,
   hiceas, enabirds, dcase. It is not distinguishable on watkins, humbugdb and dogs (dogs: run16 ahead on the point
   estimate), and hainan-gibbons is not interpretable. run11 is resolved behind run16 on 6 of 9 (dogs, esc50, hiceas,
   enabirds, dcase, gibbons), so most of run11''s gap outside zebra finch was closed by run16. Each of AVES''s resolved
   leads exceeds the run16 seed-to-seed gap on that task. Pre-registered question (E10), ours against AVES with intervals,
-  on the 8 interpretable tasks: run16 is resolved behind aves-base-bio on 5 (bats, esc50, hiceas, enabirds, dcase),
-  its second seed on 4, run20 on 6, run11 on 7, and run19 on 1 (enabirds), not distinguishable from AVES on the
-  other 7. Outside zebra finch our from-scratch spectrogram-target models are behind AVES on most tasks; the one
-  model trained on AVES-made targets is level with it on all but one.'
+  on the 8 interpretable tasks: none of ours is resolved ahead of aves-base-bio on any of the 8; run16 seed 2 is
+  resolved behind on 4, run16 on 5, run20 on 6, run11 on 7. run19 (one seed, trained on aves-base-bio''s own layer-6
+  k=200 clusters) is not distinguishable from it on 7 and resolved behind on enabirds.'
 evidence: 'Test score (accuracy for classification, BEANS mAP for detection), observed difference from run16 and
 
   95% paired bootstrap interval (clips for classification, 60-s test chunks for detection):
@@ -76,7 +75,10 @@ evidence: 'Test score (accuracy for classification, BEANS mAP for detection), ob
 
   run11 minus aves-base-bio: bats -0.086 [-0.109, -0.063]*; watkins -0.050 [-0.088, -0.009]*; dogs -0.094 [-0.180,
   -0.014]*; humbugdb -0.016 [-0.033, +0.002]; esc50 -0.180 [-0.230, -0.130]*; hiceas -0.203 [-0.298, -0.119]*; enabirds
-  -0.094 [-0.114, -0.064]*; dcase -0.121 [-0.141, -0.083]*'
+  -0.094 [-0.114, -0.064]*; dcase -0.121 [-0.141, -0.083]*
+
+  birdaves-bioxn-large vs run19, point estimates only (no interval computed): esc50 0.780 vs 0.693; enabirds 0.563
+  vs 0.404; dcase 0.343 vs 0.263.'
 method: 'zfeval/experiments/beans_probe.py (classification: own-length clips truncated to max_duration, never zero-padded
   -- finding 034; StandardScaler + LogisticRegression) and beans_detect.py (detection: BEANS RecognitionDataset
   windows, labels and AveragePrecision reimplemented and verified identical; per-class L2 logistic regression, C=1,
@@ -89,20 +91,22 @@ caveats: 'A frozen probe, NOT AVES''s published protocol (fine-tuning the whole 
   here is comparable to the published BEANS row (bats 0.748 fine-tuned vs 0.686 frozen here). One seed per model
   except run16. 11 models x 9 tasks: about 5% of null comparisons exclude zero by chance. Ours-vs-AVES intervals
   added 2026-10-12 (reruns with --baseline aves-base-bio; each rerun asserted the stored layer and test score were
-  reproduced). run19''s parity with AVES is one seed (E8 pending) and is not a mechanism claim: its targets come
-  from AVES, itself trained on general audio. hainan-gibbons has no AVES-baseline intervals (the rerun hit its 2
-  h limit there) and is excluded as before. run19 and run20 are reported, not interpreted: run16 already trains
-  on combined_zf_fsd (~108 h of FSD50K), so run20 REMOVES colony audio rather than adding general audio (and gets
-  ~2x passes and a zebra-finch-shaped codebook; its pre-registered baseline run21 was not scored on BEANS); run19''s
-  targets come from AVES, itself trained on general audio; one run19 seed, E8 pending. Sits beside finding 039 (corpus
-  as the live hypothesis) and 059 (run19 not distinguishable from run16 on call type) without settling either. Bootstrap
-  units: dcase test = 232 chunks from 19 recordings; hainan-gibbons = 640 chunks from 4 recordings, so its chunk
-  bootstrap is far too narrow and every model''s mAP there is under 0.15 -- not interpretable. BEANS bats splits
-  are random by file (session leakage possible). speech-commands not run; cbi and rfcx need a Kaggle account. Critic
-  (fresh subagent, CRITIC.md, 2026-10-12): ACCEPT-WITH-CHANGES; applied: watkins "not distinguishable", gibbons
-  "not interpretable", dcase bootstrap unit, run11 added, "5 of 9" wording, seed sentence narrowed, run19/run20
-  mechanism dropped from title and claim, confounds and 039/059 named, L40S. Ours-vs-AVES intervals since added
-  (second critic pass pending).'
+  reproduced). run19 being not distinguishable from aves-base-bio is one seed (E8 pending) and is not a mechanism
+  claim: its targets are aves-base-bio''s own layer-6 clusters, so it approaches a distillation of the model it
+  is compared with. hainan-gibbons has no AVES-baseline intervals (the rerun hit its 2 h limit there) and is excluded
+  as before. run19 and run20 are reported, not interpreted: run16 already trains on combined_zf_fsd (~108 h of FSD50K),
+  so run20 REMOVES colony audio rather than adding general audio (and gets ~2x passes and a zebra-finch-shaped codebook;
+  its pre-registered baseline run21 was not scored on BEANS); Sits beside finding 039 (corpus as the live hypothesis)
+  and 059 (run19 not distinguishable from run16 on call type) without settling either. Bootstrap units: dcase test
+  = 232 chunks from 19 recordings; hainan-gibbons = 640 chunks from 4 recordings, so its chunk bootstrap is far
+  too narrow and every model''s mAP there is under 0.15 -- not interpretable. BEANS bats splits are random by file
+  (session leakage possible). speech-commands not run; cbi and rfcx need a Kaggle account. Critic (fresh subagent,
+  CRITIC.md, 2026-10-12): ACCEPT-WITH-CHANGES; applied: watkins "not distinguishable", gibbons "not interpretable",
+  dcase bootstrap unit, run11 added, "5 of 9" wording, seed sentence narrowed, run19/run20 mechanism dropped from
+  title and claim, confounds and 039/059 named, L40S. Second critic pass (2026-10-12, after the ours-vs-AVES intervals
+  were added): ACCEPT-WITH-CHANGES; applied: claim sentence rewritten to the per-model counts with no targets-as-cause
+  wording, ''parity'' -> ''not distinguishable'', run19 trained on aves-base-bio''s own clusters (near-distillation),
+  duplicate run19 sentence merged, birdaves-bioxn-large point gaps added, job 39851650 log copied.'
 tags:
 - beans
 - generalisation
