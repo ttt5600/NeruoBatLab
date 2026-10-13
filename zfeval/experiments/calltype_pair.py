@@ -28,9 +28,12 @@ OUT = ANA / "calltype_pairs.json"
 EMB_ALIAS = {"aves-base-bio": "aves"}                       # the first AVES cache predates the tag scheme
 
 
+CT_ALIAS = {"run15_combined": "run15"}   # tag -> call-type JSON stem where they differ
+
+
 def resolve(tag):
     emb = C11.FEAT / f"ct11_{EMB_ALIAS.get(tag, tag)}_emb.npy"
-    own = ANA / f"{tag}_calltype.json"
+    own = ANA / f"{CT_ALIAS.get(tag, tag)}_calltype.json"
     if own.exists():
         d = json.load(open(own)); layer, acc = d["best_layer11"], d["acc11"]
     else:

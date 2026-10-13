@@ -1,0 +1,304 @@
+<style>
+.fx { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); }
+.fx-head h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0 0 var(--cds-gap-xs); text-wrap: balance; }
+.fx-head p { margin: 0; color: var(--color-fg-muted); max-width: 72ch; font-size: var(--cds-font-size-body); }
+.fx-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cds-gap-md); }
+.fx-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; }
+.fx-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0 0 var(--cds-gap-xs); }
+.fx-note { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); margin: 0 0 var(--cds-gap-md); max-width: 80ch; }
+.fx-tile .lab { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.fx-tile .big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.fx-tile .sub { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.fx-chart { position: relative; min-height: 18rem; }
+.fx-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; }
+.fx-tip .k { color: var(--cds-text-secondary); }
+.fx-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-bottom: var(--cds-gap-sm); }
+.fx-legend span { display: inline-flex; align-items: center; gap: var(--cds-gap-xs); }
+.fx-legend i { width: .625rem; height: .625rem; border-radius: 50%; display: inline-block; }
+.fx-tools { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); margin-bottom: var(--cds-gap-sm); }
+.fx-tools input { font: inherit; padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); min-width: 0; flex: 1 1 14rem; }
+.fx-scroll { overflow: auto; max-height: 34rem; }
+.fx-table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.fx-table th, .fx-table td { padding: var(--cds-pad-xs) var(--cds-pad-sm); text-align: left; border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+.fx-table th { position: sticky; top: 0; background: var(--color-panel); font-weight: var(--cds-font-weight-medium); white-space: nowrap; }
+.fx-table th button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; padding: 0; }
+.fx-table th button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+.fx-table td.n, .fx-table th.n { text-align: right; }
+.fx-table td.wrap { min-width: 12rem; }
+.fx-chip { display: inline-block; padding: 0 var(--cds-pad-sm); border-radius: 999px; border: 1px solid var(--color-border-line); white-space: nowrap; }
+.fx-chip.closed { color: var(--color-ok); }
+.fx-chip.open { color: var(--color-warn); }
+.fx-chip.running { color: var(--color-fg); }
+.fx-up { color: var(--color-ok); }
+.fx-down { color: var(--color-bad); }
+.fx-fam { display: inline-flex; align-items: center; gap: var(--cds-gap-xs); white-space: nowrap; }
+.fx-fam i { width: .5rem; height: .5rem; border-radius: 50%; display: inline-block; }
+@media (max-width: 40rem) { .fx-hide-narrow { display: none; } }
+[data-dash-source-state=empty] { color: transparent; }
+[data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+</style>
+
+<div class="fx">
+  <header class="fx-head" id="top">
+    <h1>Finch encoder comparison</h1>
+    <p id="takeaway">Every encoder we have scored on the same 3,412 zebra finch calls (11 types, 48 birds, leave-birds-out probe).
+      Best call type: <b class="dash-skeleton" data-source="best" data-field="name" data-row="0">—</b> at
+      <b class="dash-skeleton" data-source="best" data-field="calltype" data-row="0">—</b>;
+      <b class="dash-skeleton" data-source="tally" data-field="above" data-row="0">—</b> of
+      <b class="dash-skeleton" data-source="tally" data-field="compared" data-row="0">—</b> models are resolved above AVES bio,
+      <b class="dash-skeleton" data-source="tally" data-field="below" data-row="0">—</b> resolved below.</p>
+  </header>
+
+  <section class="fx-tiles" aria-label="Headline figures">
+    <div class="fx-card fx-tile">
+      <div class="lab">AVES bio, the reference</div>
+      <div class="big dash-skeleton" data-source="models" data-field="calltype" data-where="tag=aves-base-bio">—</div>
+      <div class="sub">11-class call type, best layer</div>
+    </div>
+    <div class="fx-card fx-tile">
+      <div class="lab">Best of ours, from scratch</div>
+      <div class="big dash-skeleton" data-source="best_ours" data-field="calltype" data-row="0">—</div>
+      <div class="sub dash-skeleton" data-source="best_ours" data-field="name" data-row="0">—</div>
+    </div>
+    <div class="fx-card fx-tile">
+      <div class="lab">Best continued from AVES (DAPT)</div>
+      <div class="big dash-skeleton" data-source="best_dapt" data-field="calltype" data-row="0">—</div>
+      <div class="sub dash-skeleton" data-source="best_dapt" data-field="name" data-row="0">—</div>
+    </div>
+    <div class="fx-card fx-tile">
+      <div class="lab">Best other architecture</div>
+      <div class="big dash-skeleton" data-source="best_other" data-field="calltype" data-row="0">—</div>
+      <div class="sub dash-skeleton" data-source="best_other" data-field="name" data-row="0">—</div>
+    </div>
+  </section>
+
+  <section class="fx-card" id="forest">
+    <h2>Call type, each model minus AVES bio</h2>
+    <p class="fx-note">Observed difference with its 95% bird-bootstrap interval (48 birds). Filled dots exclude zero. Right of the line is better than AVES bio. Same-recipe seeds move this by up to about 0.02, so a single run inside that band is not evidence.</p>
+    <div class="fx-legend" id="legend" data-source="models"></div>
+    <div class="fx-chart dash-skeleton" id="forest-chart" data-source="models"></div>
+  </section>
+
+  <section class="fx-card" id="models">
+    <h2>Every model, how it differs, and its scores</h2>
+    <p class="fx-note">Detection is the pre-committed probe arm on our labelled recordings (ZF AUC) and the median over 12 arms on BirdPark, a held-out colony; it is not wired for the Hugging Face models yet. Label-free is bird-held-out cluster stability at k=30, layer 3. Click a header to sort.</p>
+    <div class="fx-tools"><input id="q" type="search" placeholder="Filter by name, family, input, objective or data" aria-label="Filter models"></div>
+    <div class="fx-scroll">
+      <table class="fx-table" id="models-table" data-source="models" data-row-key="name">
+        <thead><tr>
+          <th data-field="name"><button data-k="name">Model</button></th>
+          <th data-field="family"><button data-k="family">Family</button></th>
+          <th data-field="params_m" class="n"><button data-k="params_m">Params (M)</button></th>
+          <th data-field="input" class="fx-hide-narrow"><button data-k="input">Input</button></th>
+          <th data-field="objective" class="fx-hide-narrow"><button data-k="objective">Objective</button></th>
+          <th data-field="data" class="fx-hide-narrow"><button data-k="data">Pretraining data</button></th>
+          <th data-field="hours" class="n fx-hide-narrow"><button data-k="hours">Hours</button></th>
+          <th data-field="saw_test_birds" class="fx-hide-narrow"><button data-k="saw_test_birds">Heard test birds</button></th>
+          <th data-field="calltype" class="n"><button data-k="calltype">Call type</button></th>
+          <th data-field="best_layer" class="n"><button data-k="best_layer">Layer</button></th>
+          <th data-field="calltype_l3" class="n"><button data-k="calltype_l3">At L3</button></th>
+          <th data-field="diff_vs_aves" class="n"><button data-k="diff_vs_aves">vs AVES bio</button></th>
+          <th data-field="zf_auc" class="n"><button data-k="zf_auc">ZF AUC</button></th>
+          <th data-field="bp_ap_median" class="n"><button data-k="bp_ap_median">BirdPark AP</button></th>
+          <th data-field="labelfree_k30" class="n"><button data-k="labelfree_k30">Label-free</button></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="fx-card" id="variables">
+    <h2>What differs from AVES, and where each variable stands</h2>
+    <p class="fx-note">Closed means tested and settled for call type on this benchmark; open means untested or only tested outside our training code.</p>
+    <div class="fx-scroll">
+      <table class="fx-table" id="variables-table" data-source="variables" data-row-key="variable">
+        <thead><tr>
+          <th data-field="variable">Variable</th>
+          <th data-field="ours">Ours</th>
+          <th data-field="aves">AVES bio</th>
+          <th data-field="status">Status</th>
+          <th data-field="tests" class="fx-hide-narrow">Tested by</th>
+          <th data-field="verdict">What we found</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="fx-card" id="beans">
+    <h2>BEANS, other species and sounds</h2>
+    <p class="fx-note">Frozen-probe test score per task (finding 063), where AVES has a real lead over our models. The best score in each column is marked.</p>
+    <div class="fx-scroll">
+      <table class="fx-table" id="beans-table" data-source="beans_wide" data-row-key="name">
+        <thead><tr>
+          <th data-field="name">Model</th>
+          <th data-field="bats" class="n">Bats</th>
+          <th data-field="watkins" class="n">Watkins</th>
+          <th data-field="dogs" class="n">Dogs</th>
+          <th data-field="humbugdb" class="n">Mosquito</th>
+          <th data-field="esc50" class="n">ESC-50</th>
+          <th data-field="hiceas" class="n">HICEAS</th>
+          <th data-field="enabirds" class="n">enabirds</th>
+          <th data-field="dcase" class="n">DCASE</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+const num = (x) => (x === null || x === undefined || x === '' ? null : Number(x));
+const pick = (rows, fam) => {
+  const r = rows.filter((m) => (fam ? m.family === fam : true)).sort((a, b) => num(b.calltype) - num(a.calltype))[0];
+  return r ? [{ name: r.name, calltype: num(r.calltype) }] : [];
+};
+dash.calc('best', { inputs: ['models'], title: 'Highest call type', description: 'The model with the highest best-layer 11-class call-type accuracy.', fn: (models) => pick(models) });
+dash.calc('best_ours', { inputs: ['models'], title: 'Best of ours from scratch', description: 'Highest call type among our from-scratch models.', fn: (models) => pick(models, 'ours') });
+dash.calc('best_dapt', { inputs: ['models'], title: 'Best DAPT model', description: 'Highest call type among models continued from AVES or BirdAVES.', fn: (models) => pick(models, 'DAPT') });
+dash.calc('best_other', { inputs: ['models'], title: 'Best other architecture', description: 'Highest call type among the Hugging Face models.', fn: (models) => pick(models, 'other') });
+dash.calc('tally', { inputs: ['models'], title: 'Resolved against AVES bio', description: 'How many models have a call-type interval against AVES bio that excludes zero, in each direction.',
+  fn: (models) => {
+    const c = models.filter((m) => m.diff_vs_aves !== null && m.diff_vs_aves !== '');
+    const res = (m) => m.resolved === true || m.resolved === 'true';
+    return [{ compared: c.length, above: c.filter((m) => res(m) && Number(m.diff_vs_aves) > 0).length, below: c.filter((m) => res(m) && Number(m.diff_vs_aves) < 0).length }];
+  } });
+dash.calc('beans_wide', { inputs: ['beans'], title: 'BEANS by model', description: 'BEANS test scores, one row per model and one column per task.',
+  fn: (beans) => {
+    const by = new Map();
+    beans.forEach((r) => { if (!by.has(r.name)) by.set(r.name, { name: r.name, family: r.family }); by.get(r.name)[r.task] = Number(r.test); });
+    return [...by.values()];
+  } });
+</script>
+
+<script>
+(() => {
+  const FAMS = ['ours', 'DAPT', 'AVES', 'other'];
+  const LABEL = { ours: 'Ours, from scratch', DAPT: 'Ours, continued from AVES', AVES: 'AVES and BirdAVES', other: 'Other architectures' };
+  const col = (f) => dash.colors[Math.max(0, FAMS.indexOf(f))];
+  const f4 = d3.format('.4f'), s4 = d3.format('+.4f');
+  const fill = (sel, d, fmt) => { const el = document.querySelector(sel); if (!el) return; el.classList.remove('dash-skeleton'); el.textContent = d === null || d === undefined ? '—' : fmt ? fmt(d) : d; };
+  let sortKey = 'calltype', sortDir = -1;
+
+  function drawForest(rows) {
+    const box = document.getElementById('forest-chart');
+    box.classList.remove('dash-skeleton');
+    box.innerHTML = '';
+    const data = rows.filter((m) => m.diff_vs_aves !== null && m.diff_vs_aves !== '').map((m) => ({ ...m, d: num(m.diff_vs_aves), lo: num(m.lo), hi: num(m.hi) })).sort((a, b) => b.d - a.d);
+    if (!data.length) return;
+    const W = box.clientWidth || 640, rowH = 18, top = 10, bottom = 30;
+    const svg = d3.select(box).append('svg').attr('width', '100%');
+    const probe = svg.append('text').attr('font-size', 12);
+    let labW = 0; data.forEach((m) => { probe.text(m.name); labW = Math.max(labW, probe.node().getComputedTextLength()); }); probe.remove();
+    labW = Math.min(labW + 12, W * 0.45);
+    const H = top + bottom + rowH * data.length;
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('height', H);
+    const ext = d3.extent(data.flatMap((m) => [m.lo, m.hi]));
+    const lim = Math.max(Math.abs(ext[0]), Math.abs(ext[1])) * 1.05;
+    const x = d3.scaleLinear([-lim, lim], [labW, W - 12]);
+    svg.append('g').attr('transform', `translate(0,${H - bottom})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor((W - labW) / 80))).tickFormat(d3.format('+.2f')))
+      .attr('font-size', null).attr('font-family', null).call((g) => g.selectAll('text').attr('fill', 'var(--color-fg-muted)').attr('font-size', 11))
+      .call((g) => g.selectAll('line,path').attr('stroke', 'var(--cds-chart-axis)'));
+    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', top - 4).attr('y2', H - bottom).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 3');
+    const tip = d3.select(box).append('div').attr('class', 'fx-tip').style('opacity', 0);
+    const g = svg.selectAll('.r').data(data).join('g').attr('transform', (m, i) => `translate(0,${top + rowH * i + rowH / 2})`);
+    g.append('text').attr('x', labW - 8).attr('dy', '0.32em').attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg)').text((m) => m.name);
+    g.append('line').attr('x1', (m) => x(m.lo)).attr('x2', (m) => x(m.hi)).attr('stroke', (m) => col(m.family)).attr('stroke-width', 2).attr('stroke-linecap', 'round');
+    g.append('circle').attr('cx', (m) => x(m.d)).attr('r', 4.5).attr('stroke', (m) => col(m.family)).attr('stroke-width', 2)
+      .attr('fill', (m) => (m.resolved === true || m.resolved === 'true' ? col(m.family) : 'var(--color-panel)'));
+    g.append('rect').attr('x', 0).attr('width', W).attr('y', -rowH / 2).attr('height', rowH).attr('fill', 'transparent')
+      .on('mousemove', (ev, m) => {
+        const [px, py] = d3.pointer(ev, box);
+        tip.style('opacity', 1).html('');
+        tip.append('div').attr('class', 'k').text(m.name);
+        tip.append('div').text(`minus AVES bio ${s4(m.d)} [${s4(m.lo)}, ${s4(m.hi)}]`);
+        tip.append('div').text(`call type ${f4(num(m.calltype))} at layer ${m.best_layer}`);
+        const tw = tip.node().offsetWidth;
+        tip.style('left', `${Math.min(Math.max(0, px + 12), box.clientWidth - tw)}px`).style('top', `${py + 12}px`);
+      })
+      .on('mouseleave', () => tip.style('opacity', 0));
+  }
+
+  function drawLegend() {
+    const lg = document.getElementById('legend'); lg.innerHTML = '';
+    FAMS.forEach((f) => { const s = document.createElement('span'); const i = document.createElement('i'); i.style.background = col(f); s.append(i, document.createTextNode(LABEL[f])); lg.append(s); });
+  }
+
+  function drawModels(rows) {
+    const q = (document.getElementById('q').value || '').toLowerCase();
+    const shown = rows.filter((m) => !q || [m.name, m.family, m.input, m.objective, m.data].join(' ').toLowerCase().includes(q));
+    const isNum = ['params_m', 'hours', 'calltype', 'best_layer', 'calltype_l3', 'diff_vs_aves', 'zf_auc', 'bp_ap_median', 'labelfree_k30'].includes(sortKey);
+    shown.sort((a, b) => {
+      const va = isNum ? num(a[sortKey]) : String(a[sortKey]), vb = isNum ? num(b[sortKey]) : String(b[sortKey]);
+      if (va === null) return 1; if (vb === null) return -1;
+      return (va > vb ? 1 : va < vb ? -1 : 0) * sortDir;
+    });
+    document.querySelectorAll('#models-table th button').forEach((b) => b.parentElement.setAttribute('aria-sort', b.dataset.k === sortKey ? (sortDir > 0 ? 'ascending' : 'descending') : 'none'));
+    const tb = d3.select('#models-table tbody');
+    tb.selectAll('tr').data(shown, (m) => m.name).join('tr').each(function (m) {
+      const tr = d3.select(this); tr.selectAll('td').remove();
+      const td = (v, cls) => tr.append('td').attr('class', cls || null).text(v === null || v === undefined || v === '' ? '—' : v);
+      td(m.name);
+      const fam = tr.append('td').append('span').attr('class', 'fx-fam'); fam.append('i').style('background', col(m.family)); fam.append('span').text(m.family);
+      td(num(m.params_m) === null ? null : d3.format('.1f')(num(m.params_m)), 'n');
+      td(m.input, 'fx-hide-narrow'); td(m.objective, 'fx-hide-narrow wrap'); td(m.data, 'fx-hide-narrow wrap');
+      td(num(m.hours) === null ? null : d3.format(',')(num(m.hours)), 'n fx-hide-narrow');
+      td(m.saw_test_birds === true || m.saw_test_birds === 'true' ? 'yes' : 'no', 'fx-hide-narrow');
+      td(num(m.calltype) === null ? null : f4(num(m.calltype)), 'n'); td(m.best_layer, 'n');
+      td(num(m.calltype_l3) === null ? null : f4(num(m.calltype_l3)), 'n');
+      const d = num(m.diff_vs_aves), c = tr.append('td').attr('class', 'n');
+      if (d === null) c.text(m.tag === 'aves-base-bio' ? 'reference' : '—');
+      else { const res = m.resolved === true || m.resolved === 'true'; c.attr('class', 'n' + (res ? (d > 0 ? ' fx-up' : ' fx-down') : '')).text(`${s4(d)} [${s4(num(m.lo))}, ${s4(num(m.hi))}]`); }
+      td(num(m.zf_auc) === null ? null : f4(num(m.zf_auc)), 'n');
+      td(num(m.bp_ap_median) === null ? null : f4(num(m.bp_ap_median)), 'n');
+      td(num(m.labelfree_k30) === null ? null : f4(num(m.labelfree_k30)), 'n');
+    });
+  }
+
+  function drawVariables(rows) {
+    const tb = d3.select('#variables-table tbody');
+    tb.selectAll('tr').data(rows, (v) => v.variable).join('tr').each(function (v) {
+      const tr = d3.select(this); tr.selectAll('td').remove();
+      tr.append('td').text(v.variable); tr.append('td').attr('class', 'wrap').text(v.ours); tr.append('td').attr('class', 'wrap').text(v.aves);
+      const k = /closed/.test(v.status) ? 'closed' : /open/.test(v.status) ? 'open' : 'running';
+      tr.append('td').append('span').attr('class', `fx-chip ${k}`).text(v.status);
+      tr.append('td').attr('class', 'fx-hide-narrow wrap').text(v.tests); tr.append('td').attr('class', 'wrap').text(v.verdict);
+    });
+  }
+
+  function drawBeans(rows) {
+    const tasks = ['bats', 'watkins', 'dogs', 'humbugdb', 'esc50', 'hiceas', 'enabirds', 'dcase'];
+    const best = Object.fromEntries(tasks.map((t) => [t, d3.max(rows, (r) => num(r[t]))]));
+    const tb = d3.select('#beans-table tbody');
+    tb.selectAll('tr').data(rows, (r) => r.name).join('tr').each(function (r) {
+      const tr = d3.select(this); tr.selectAll('td').remove();
+      const nm = tr.append('td').append('span').attr('class', 'fx-fam'); nm.append('i').style('background', col(r.family)); nm.append('span').text(r.name);
+      tasks.forEach((t) => { const v = num(r[t]); tr.append('td').attr('class', 'n' + (v !== null && v === best[t] ? ' fx-up' : '')).text(v === null ? '—' : d3.format('.3f')(v)); });
+    });
+  }
+
+  document.querySelectorAll('#models-table th button').forEach((b) => b.addEventListener('click', () => {
+    if (sortKey === b.dataset.k) sortDir = -sortDir; else { sortKey = b.dataset.k; sortDir = ['name', 'family', 'input', 'objective', 'data'].includes(sortKey) ? 1 : -1; }
+    const s = dash.data('models'); if (s.status === 'ok') drawModels(s.data);
+  }));
+  document.getElementById('q').addEventListener('input', () => { const s = dash.data('models'); if (s.status === 'ok') drawModels(s.data); });
+
+  dash.onData(() => {
+    const m = dash.data('models');
+    if (m.status === 'ok') {
+      drawLegend(); drawForest(m.data); drawModels(m.data);
+      const ref = m.data.find((r) => r.tag === 'aves-base-bio'); fill('[data-where="tag=aves-base-bio"]', ref ? num(ref.calltype) : null, f4);
+    } else { document.getElementById('forest-chart').innerHTML = ''; d3.select('#models-table tbody').selectAll('tr').remove(); }
+    for (const id of ['best', 'best_ours', 'best_dapt', 'best_other']) {
+      const s = dash.data(id), r = s.status === 'ok' ? s.data[0] : null;
+      document.querySelectorAll(`[data-source="${id}"]`).forEach((el) => { el.classList.remove('dash-skeleton'); const f = el.dataset.field; el.textContent = r ? (f === 'calltype' ? f4(r.calltype) : r[f]) : '—'; });
+    }
+    const t = dash.data('tally'), tr = t.status === 'ok' ? t.data[0] : null;
+    document.querySelectorAll('[data-source="tally"]').forEach((el) => { el.classList.remove('dash-skeleton'); el.textContent = tr ? tr[el.dataset.field] : '—'; });
+    const v = dash.data('variables');
+    if (v.status === 'ok') drawVariables(v.data); else d3.select('#variables-table tbody').selectAll('tr').remove();
+    const b = dash.data('beans_wide');
+    if (b.status === 'ok') drawBeans(b.data); else d3.select('#beans-table tbody').selectAll('tr').remove();
+  });
+})();
+</script>

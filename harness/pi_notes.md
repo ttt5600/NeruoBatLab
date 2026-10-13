@@ -184,3 +184,9 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   0.8288 (n.d. from run16 -0.0091 [-0.0340, +0.0134] and AVES -0.0164 [-0.0357, +0.0037]), wavlm+ 0.8262 (below AVES
   resolved), data2vec 0.8118, wav2vec2 0.8022; all peak at L0-L1. AVES-nonbio = AVES-bio on call type and detection.
   E28 running (ETA 23:07), E29 pending. BRC cert expires 23:12 -> notified user (sv login).
+- 2026-10-12 23:50 E25 batch 2: AST 0.8338 (n.d. vs AVES/run16). WHISPER-BASE ENCODER 0.8643 at L0 (20.6M params):
+  above aves-base-bio +0.0191 [+0.0042, +0.0370] and run16 +0.0264 [+0.0048, +0.0489], resolved; NOT above
+  birdaves-biox-large (+0.0091 [-0.0098, +0.0292]) -> E25 criterion not met. Baselines: duration-only 0.393, Whisper's
+  own log-mel mean+std 0.667, +duration 0.723 -> not an artefact of length/padding. Replication (tiny, small) running.
+  Detection for HF models is not wired (detection_variants handles torchaudio/DAPT only) -> TODO before any claim.
+  E28a: 0.8417, vs E18 -0.0085 [-0.0219, +0.0025] n.d. E28b scoring.

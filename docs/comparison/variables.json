@@ -1,0 +1,90 @@
+[
+ {
+  "variable": "Model size",
+  "ours": "94.4M, 12 x 768",
+  "aves": "94.4M, 12 x 768 (large: 315M, 24 x 1024)",
+  "status": "closed",
+  "tests": "AVES variants; E27 proposed for large",
+  "verdict": "Identical for base models. Large BirdAVES is the best AVES on call type and BEANS."
+ },
+ {
+  "variable": "Input front end",
+  "ours": "raw waveform, 7-layer CNN",
+  "aves": "raw waveform, same CNN",
+  "status": "open",
+  "tests": "E25 (Whisper, AST use log-mel)",
+  "verdict": "Whisper encoders (log-mel) are the highest call-type scores so far; not yet tested inside our training."
+ },
+ {
+  "variable": "Training objective",
+  "ours": "HuBERT masked prediction",
+  "aves": "HuBERT masked prediction",
+  "status": "open",
+  "tests": "E25",
+  "verdict": "Supervised speech recognition (Whisper) scores higher than any masked-prediction model; contrastive and regression score lower."
+ },
+ {
+  "variable": "Masking",
+  "ours": "0.4 / 3 frames (34% of frames)",
+  "aves": "0.8 / 10 frames (54%)",
+  "status": "tested in DAPT",
+  "tests": "E28 (DAPT, 2 seeds); E29 (from scratch, running)",
+  "verdict": "In DAPT: no call-type change on either seed; detection gain on one seed only."
+ },
+ {
+  "variable": "Learning rate / warmup",
+  "ours": "1e-4, 3% warmup",
+  "aves": "2e-4, 32% warmup",
+  "status": "running",
+  "tests": "E29",
+  "verdict": "Bundled into E29 with masking."
+ },
+ {
+  "variable": "Compute (audio processed)",
+  "ours": "8,392 h (run16); 16,784 h (run17)",
+  "aves": "19,444 h",
+  "status": "closed",
+  "tests": "run16, run17 (052, 054, 070)",
+  "verdict": "run17 reached 86% of AVES with lower loss but no better call type."
+ },
+ {
+  "variable": "Training labels",
+  "ours": "iteration 1, spectrogram k-means",
+  "aves": "iteration 2, HuBERT layer 6 k-means",
+  "status": "closed",
+  "tests": "run18, run19, E17-E24 (056, 059, 064, 065, 067)",
+  "verdict": "Iteration 2 and AVES's own labels: no call-type gain; two-teacher labels' detection gain did not replicate."
+ },
+ {
+  "variable": "Data domain",
+  "ours": "half zebra finch, half general audio",
+  "aves": "general + animal",
+  "status": "closed",
+  "tests": "run20, run21, AVES nonbio, speech models",
+  "verdict": "AVES nonbio ties AVES bio; a speech-only HuBERT ties run16: domain barely matters here."
+ },
+ {
+  "variable": "Data amount",
+  "ours": "224 h",
+  "aves": "360 h (all: 5,054 h)",
+  "status": "partly",
+  "tests": "AVES core/bio/all; E15 proposed",
+  "verdict": "AVES 153 h vs 5,054 h tie on call type; larger corpora help BEANS more."
+ },
+ {
+  "variable": "Continued training from AVES (DAPT)",
+  "ours": "15k-45k updates on ZF + replay",
+  "aves": "none",
+  "status": "closed",
+  "tests": "E17-E24, E28, E22 (064-068)",
+  "verdict": "ZF detection AUC about +0.003 over AVES at every arm and seed; call type unchanged; BirdAVES start got worse."
+ },
+ {
+  "variable": "Seeds",
+  "ours": "2-3 per recipe",
+  "aves": "one release each",
+  "status": "measured",
+  "tests": "057, 067, 070",
+  "verdict": "Same-recipe seeds move call type by up to about 0.019, as much as most recipe changes."
+ }
+]

@@ -1,0 +1,618 @@
+[
+ {
+  "task": "bats",
+  "tag": "run11",
+  "name": "run11",
+  "family": "ours",
+  "test": 0.6
+ },
+ {
+  "task": "bats",
+  "tag": "run16_compute4x",
+  "name": "run16 (seed 1337)",
+  "family": "ours",
+  "test": 0.6145
+ },
+ {
+  "task": "bats",
+  "tag": "run16_seed2",
+  "name": "run16 seed 2",
+  "family": "ours",
+  "test": 0.6255
+ },
+ {
+  "task": "bats",
+  "tag": "run19_avesteacher",
+  "name": "run19 (AVES labels)",
+  "family": "ours",
+  "test": 0.683
+ },
+ {
+  "task": "bats",
+  "tag": "run20_fsdonly",
+  "name": "run20 (FSD50K only)",
+  "family": "ours",
+  "test": 0.635
+ },
+ {
+  "task": "bats",
+  "tag": "aves-base-core",
+  "name": "AVES core",
+  "family": "AVES",
+  "test": 0.6775
+ },
+ {
+  "task": "bats",
+  "tag": "aves-base-bio",
+  "name": "AVES bio",
+  "family": "AVES",
+  "test": 0.686
+ },
+ {
+  "task": "bats",
+  "tag": "aves-base-all",
+  "name": "AVES all",
+  "family": "AVES",
+  "test": 0.6555
+ },
+ {
+  "task": "bats",
+  "tag": "birdaves-biox-base",
+  "name": "BirdAVES biox base",
+  "family": "AVES",
+  "test": 0.686
+ },
+ {
+  "task": "bats",
+  "tag": "birdaves-biox-large",
+  "name": "BirdAVES biox large",
+  "family": "AVES",
+  "test": 0.695
+ },
+ {
+  "task": "bats",
+  "tag": "birdaves-bioxn-large",
+  "name": "BirdAVES bioxn large",
+  "family": "AVES",
+  "test": 0.685
+ },
+ {
+  "task": "watkins",
+  "tag": "run11",
+  "name": "run11",
+  "family": "ours",
+  "test": 0.826
+ },
+ {
+  "task": "watkins",
+  "tag": "run16_compute4x",
+  "name": "run16 (seed 1337)",
+  "family": "ours",
+  "test": 0.8437
+ },
+ {
+  "task": "watkins",
+  "tag": "run16_seed2",
+  "name": "run16 seed 2",
+  "family": "ours",
+  "test": 0.8525
+ },
+ {
+  "task": "watkins",
+  "tag": "run19_avesteacher",
+  "name": "run19 (AVES labels)",
+  "family": "ours",
+  "test": 0.8496
+ },
+ {
+  "task": "watkins",
+  "tag": "run20_fsdonly",
+  "name": "run20 (FSD50K only)",
+  "family": "ours",
+  "test": 0.8466
+ },
+ {
+  "task": "watkins",
+  "tag": "aves-base-core",
+  "name": "AVES core",
+  "family": "AVES",
+  "test": 0.8761
+ },
+ {
+  "task": "watkins",
+  "tag": "aves-base-bio",
+  "name": "AVES bio",
+  "family": "AVES",
+  "test": 0.8761
+ },
+ {
+  "task": "watkins",
+  "tag": "aves-base-all",
+  "name": "AVES all",
+  "family": "AVES",
+  "test": 0.8702
+ },
+ {
+  "task": "watkins",
+  "tag": "birdaves-biox-base",
+  "name": "BirdAVES biox base",
+  "family": "AVES",
+  "test": 0.8584
+ },
+ {
+  "task": "watkins",
+  "tag": "birdaves-biox-large",
+  "name": "BirdAVES biox large",
+  "family": "AVES",
+  "test": 0.8673
+ },
+ {
+  "task": "watkins",
+  "tag": "birdaves-bioxn-large",
+  "name": "BirdAVES bioxn large",
+  "family": "AVES",
+  "test": 0.8614
+ },
+ {
+  "task": "dogs",
+  "tag": "run11",
+  "name": "run11",
+  "family": "ours",
+  "test": 0.741
+ },
+ {
+  "task": "dogs",
+  "tag": "run16_compute4x",
+  "name": "run16 (seed 1337)",
+  "family": "ours",
+  "test": 0.8921
+ },
+ {
+  "task": "dogs",
+  "tag": "run16_seed2",
+  "name": "run16 seed 2",
+  "family": "ours",
+  "test": 0.8849
+ },
+ {
+  "task": "dogs",
+  "tag": "run19_avesteacher",
+  "name": "run19 (AVES labels)",
+  "family": "ours",
+  "test": 0.8417
+ },
+ {
+  "task": "dogs",
+  "tag": "run20_fsdonly",
+  "name": "run20 (FSD50K only)",
+  "family": "ours",
+  "test": 0.8777
+ },
+ {
+  "task": "dogs",
+  "tag": "aves-base-core",
+  "name": "AVES core",
+  "family": "AVES",
+  "test": 0.8273
+ },
+ {
+  "task": "dogs",
+  "tag": "aves-base-bio",
+  "name": "AVES bio",
+  "family": "AVES",
+  "test": 0.8345
+ },
+ {
+  "task": "dogs",
+  "tag": "aves-base-all",
+  "name": "AVES all",
+  "family": "AVES",
+  "test": 0.8345
+ },
+ {
+  "task": "dogs",
+  "tag": "birdaves-biox-base",
+  "name": "BirdAVES biox base",
+  "family": "AVES",
+  "test": 0.8561
+ },
+ {
+  "task": "dogs",
+  "tag": "birdaves-biox-large",
+  "name": "BirdAVES biox large",
+  "family": "AVES",
+  "test": 0.8777
+ },
+ {
+  "task": "dogs",
+  "tag": "birdaves-bioxn-large",
+  "name": "BirdAVES bioxn large",
+  "family": "AVES",
+  "test": 0.8705
+ },
+ {
+  "task": "humbugdb",
+  "tag": "run11",
+  "name": "run11",
+  "family": "ours",
+  "test": 0.7552
+ },
+ {
+  "task": "humbugdb",
+  "tag": "run16_compute4x",
+  "name": "run16 (seed 1337)",
+  "family": "ours",
+  "test": 0.7536
+ },
+ {
+  "task": "humbugdb",
+  "tag": "run16_seed2",
+  "name": "run16 seed 2",
+  "family": "ours",
+  "test": 0.7639
+ },
+ {
+  "task": "humbugdb",
+  "tag": "run19_avesteacher",
+  "name": "run19 (AVES labels)",
+  "family": "ours",
+  "test": 0.7784
+ },
+ {
+  "task": "humbugdb",
+  "tag": "run20_fsdonly",
+  "name": "run20 (FSD50K only)",
+  "family": "ours",
+  "test": 0.7509
+ },
+ {
+  "task": "humbugdb",
+  "tag": "aves-base-core",
+  "name": "AVES core",
+  "family": "AVES",
+  "test": 0.7708
+ },
+ {
+  "task": "humbugdb",
+  "tag": "aves-base-bio",
+  "name": "AVES bio",
+  "family": "AVES",
+  "test": 0.7708
+ },
+ {
+  "task": "humbugdb",
+  "tag": "aves-base-all",
+  "name": "AVES all",
+  "family": "AVES",
+  "test": 0.7773
+ },
+ {
+  "task": "humbugdb",
+  "tag": "birdaves-biox-base",
+  "name": "BirdAVES biox base",
+  "family": "AVES",
+  "test": 0.7698
+ },
+ {
+  "task": "humbugdb",
+  "tag": "birdaves-biox-large",
+  "name": "BirdAVES biox large",
+  "family": "AVES",
+  "test": 0.7735
+ },
+ {
+  "task": "humbugdb",
+  "tag": "birdaves-bioxn-large",
+  "name": "BirdAVES bioxn large",
+  "family": "AVES",
+  "test": 0.7784
+ },
+ {
+  "task": "esc50",
+  "tag": "run11",
+  "name": "run11",
+  "family": "ours",
+  "test": 0.535
+ },
+ {
+  "task": "esc50",
+  "tag": "run16_compute4x",
+  "name": "run16 (seed 1337)",
+  "family": "ours",
+  "test": 0.6425
+ },
+ {
+  "task": "esc50",
+  "tag": "run16_seed2",
+  "name": "run16 seed 2",
+  "family": "ours",
+  "test": 0.6525
+ },
+ {
+  "task": "esc50",
+  "tag": "run19_avesteacher",
+  "name": "run19 (AVES labels)",
+  "family": "ours",
+  "test": 0.6925
+ },
+ {
+  "task": "esc50",
+  "tag": "run20_fsdonly",
+  "name": "run20 (FSD50K only)",
+  "family": "ours",
+  "test": 0.6575
+ },
+ {
+  "task": "esc50",
+  "tag": "aves-base-core",
+  "name": "AVES core",
+  "family": "AVES",
+  "test": 0.6875
+ },
+ {
+  "task": "esc50",
+  "tag": "aves-base-bio",
+  "name": "AVES bio",
+  "family": "AVES",
+  "test": 0.715
+ },
+ {
+  "task": "esc50",
+  "tag": "aves-base-all",
+  "name": "AVES all",
+  "family": "AVES",
+  "test": 0.7125
+ },
+ {
+  "task": "esc50",
+  "tag": "birdaves-biox-base",
+  "name": "BirdAVES biox base",
+  "family": "AVES",
+  "test": 0.7125
+ },
+ {
+  "task": "esc50",
+  "tag": "birdaves-biox-large",
+  "name": "BirdAVES biox large",
+  "family": "AVES",
+  "test": 0.7625
+ },
+ {
+  "task": "esc50",
+  "tag": "birdaves-bioxn-large",
+  "name": "BirdAVES bioxn large",
+  "family": "AVES",
+  "test": 0.78
+ },
+ {
+  "task": "hiceas",
+  "tag": "run11",
+  "name": "run11",
+  "family": "ours",
+  "test": 0.3125
+ },
+ {
+  "task": "hiceas",
+  "tag": "run16_compute4x",
+  "name": "run16 (seed 1337)",
+  "family": "ours",
+  "test": 0.3935
+ },
+ {
+  "task": "hiceas",
+  "tag": "run16_seed2",
+  "name": "run16 seed 2",
+  "family": "ours",
+  "test": 0.3831
+ },
+ {
+  "task": "hiceas",
+  "tag": "run19_avesteacher",
+  "name": "run19 (AVES labels)",
+  "family": "ours",
+  "test": 0.5315
+ },
+ {
+  "task": "hiceas",
+  "tag": "run20_fsdonly",
+  "name": "run20 (FSD50K only)",
+  "family": "ours",
+  "test": 0.3949
+ },
+ {
+  "task": "hiceas",
+  "tag": "aves-base-core",
+  "name": "AVES core",
+  "family": "AVES",
+  "test": 0.5778
+ },
+ {
+  "task": "hiceas",
+  "tag": "aves-base-bio",
+  "name": "AVES bio",
+  "family": "AVES",
+  "test": 0.516
+ },
+ {
+  "task": "hiceas",
+  "tag": "aves-base-all",
+  "name": "AVES all",
+  "family": "AVES",
+  "test": 0.4736
+ },
+ {
+  "task": "hiceas",
+  "tag": "birdaves-biox-base",
+  "name": "BirdAVES biox base",
+  "family": "AVES",
+  "test": 0.4302
+ },
+ {
+  "task": "hiceas",
+  "tag": "birdaves-biox-large",
+  "name": "BirdAVES biox large",
+  "family": "AVES",
+  "test": 0.4558
+ },
+ {
+  "task": "hiceas",
+  "tag": "birdaves-bioxn-large",
+  "name": "BirdAVES bioxn large",
+  "family": "AVES",
+  "test": 0.4486
+ },
+ {
+  "task": "enabirds",
+  "tag": "run11",
+  "name": "run11",
+  "family": "ours",
+  "test": 0.3553
+ },
+ {
+  "task": "enabirds",
+  "tag": "run16_compute4x",
+  "name": "run16 (seed 1337)",
+  "family": "ours",
+  "test": 0.3904
+ },
+ {
+  "task": "enabirds",
+  "tag": "run16_seed2",
+  "name": "run16 seed 2",
+  "family": "ours",
+  "test": 0.3833
+ },
+ {
+  "task": "enabirds",
+  "tag": "run19_avesteacher",
+  "name": "run19 (AVES labels)",
+  "family": "ours",
+  "test": 0.4044
+ },
+ {
+  "task": "enabirds",
+  "tag": "run20_fsdonly",
+  "name": "run20 (FSD50K only)",
+  "family": "ours",
+  "test": 0.3857
+ },
+ {
+  "task": "enabirds",
+  "tag": "aves-base-core",
+  "name": "AVES core",
+  "family": "AVES",
+  "test": 0.4183
+ },
+ {
+  "task": "enabirds",
+  "tag": "aves-base-bio",
+  "name": "AVES bio",
+  "family": "AVES",
+  "test": 0.4494
+ },
+ {
+  "task": "enabirds",
+  "tag": "aves-base-all",
+  "name": "AVES all",
+  "family": "AVES",
+  "test": 0.4221
+ },
+ {
+  "task": "enabirds",
+  "tag": "birdaves-biox-base",
+  "name": "BirdAVES biox base",
+  "family": "AVES",
+  "test": 0.5104
+ },
+ {
+  "task": "enabirds",
+  "tag": "birdaves-biox-large",
+  "name": "BirdAVES biox large",
+  "family": "AVES",
+  "test": 0.5357
+ },
+ {
+  "task": "enabirds",
+  "tag": "birdaves-bioxn-large",
+  "name": "BirdAVES bioxn large",
+  "family": "AVES",
+  "test": 0.5626
+ },
+ {
+  "task": "dcase",
+  "tag": "run11",
+  "name": "run11",
+  "family": "ours",
+  "test": 0.1608
+ },
+ {
+  "task": "dcase",
+  "tag": "run16_compute4x",
+  "name": "run16 (seed 1337)",
+  "family": "ours",
+  "test": 0.2091
+ },
+ {
+  "task": "dcase",
+  "tag": "run16_seed2",
+  "name": "run16 seed 2",
+  "family": "ours",
+  "test": 0.2304
+ },
+ {
+  "task": "dcase",
+  "tag": "run19_avesteacher",
+  "name": "run19 (AVES labels)",
+  "family": "ours",
+  "test": 0.2631
+ },
+ {
+  "task": "dcase",
+  "tag": "run20_fsdonly",
+  "name": "run20 (FSD50K only)",
+  "family": "ours",
+  "test": 0.2178
+ },
+ {
+  "task": "dcase",
+  "tag": "aves-base-core",
+  "name": "AVES core",
+  "family": "AVES",
+  "test": 0.254
+ },
+ {
+  "task": "dcase",
+  "tag": "aves-base-bio",
+  "name": "AVES bio",
+  "family": "AVES",
+  "test": 0.2821
+ },
+ {
+  "task": "dcase",
+  "tag": "aves-base-all",
+  "name": "AVES all",
+  "family": "AVES",
+  "test": 0.3013
+ },
+ {
+  "task": "dcase",
+  "tag": "birdaves-biox-base",
+  "name": "BirdAVES biox base",
+  "family": "AVES",
+  "test": 0.2951
+ },
+ {
+  "task": "dcase",
+  "tag": "birdaves-biox-large",
+  "name": "BirdAVES biox large",
+  "family": "AVES",
+  "test": 0.3387
+ },
+ {
+  "task": "dcase",
+  "tag": "birdaves-bioxn-large",
+  "name": "BirdAVES bioxn large",
+  "family": "AVES",
+  "test": 0.3426
+ }
+]
