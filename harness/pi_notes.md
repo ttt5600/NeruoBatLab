@@ -157,3 +157,5 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   (replication failed). Key lesson: arm contrast on call type flips sign between seeds; bird bootstrap holds the model
   fixed. E22 preempted ~18:00, resumed from last.ckpt at step ~25.7k, ETA ~19:15. Critic flagged 052 (left confirmed
   after 057) for the same review -- TODO next idle wake. Next idle: E11 (label-free score column).
+- 2026-10-12 19:10 052 reviewed (critic flag from 067): run16 seed 2 n.d. from run15/run11 -> 052 moved to open with a
+  replication caveat; E7 (run16 seed 3, job 39732808) STARTED running ~19:01 after 4 days pending; it is the tiebreaker.

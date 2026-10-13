@@ -1,6 +1,6 @@
 id: '052'
-title: Four times the audio per update closes most of the AVES call-type gap
-status: confirmed
+title: Four times the audio per update closed most of the AVES call-type gap on one seed; the second seed did not reproduce the gain (057)
+status: open
 claim: >-
   run16 -- run15's exact recipe with the four requested GPUs actually realised, so each optimiser
   update sees 4.0x the audio (322 s vs 80.5 s) at the same 93750 updates and lr 1e-4 -- beats
@@ -43,6 +43,11 @@ provenance: >-
   analysis/run16_bootstrap.json; metrics savio_artifacts/metrics/run16/; log
   savio_artifacts/logs/train_run16_compute4x_39203444.log
 caveats: >-
+  REPLICATION (reviewed 2026-10-12, flagged by the critic on finding 067): run16 seed 2 (finding 057) is not
+  distinguishable from run15 (+0.0088 [-0.0099, +0.0282]) or run11 (+0.0106 [-0.0070, +0.0322]) at its best layer
+  (L0), nor at L3 (+0.0082 [-0.0145, +0.0286], +0.0100 [-0.0089, +0.0322]) (run16_seed2_bootstrap.json), so the
+  resolved margins over run15 and run11 rest on one seed; status moved from confirmed to open. E7 (run16 seed 3,
+  job 39732808, started 2026-10-12) is the tiebreaker. The seed-1 numbers below stand as measured.
   "Not distinguishable" is NOT "tied": every AVES point estimate is still ahead, by 0.007 to
   0.017, and the intervals are about 0.045 wide, so a real gap of that size could not be
   resolved here. The lever is "4x audio per update at fixed updates and lr", which bundles a 4x
@@ -70,3 +75,4 @@ tags:
 - calltype
 - ddp
 date: '2026-09-25'
+updated: '2026-10-12'
