@@ -595,8 +595,10 @@ experiments:
     go-ahead. Batch 1, 2026-10-12: aves-base-nonbio (AVES''s own 360 h non-animal control; already scored,
     call type 0.8470, when this note was written) and four same-size Hugging Face speech encoders, fixed before
     their scores were read (hubert-base-ls960, wav2vec2-base,
-    wavlm-base-plus, data2vec-audio-base), board protocol, 12 transformer layers, own feature extractor. Batch 2:
-    BEATs / EAT / BirdNET / Perch as downloads allow.'
+    wavlm-base-plus, data2vec-audio-base), board protocol, 12 transformer layers, own feature extractor. Batch 2, fixed 2026-10-12 23:15 before scoring: AST (MIT/ast-finetuned-audioset-10-10-0.4593,
+    spectrogram-patch ViT, supervised AudioSet) and the Whisper-base encoder, both transformers-native, pooled only
+    over tokens covering real audio (both pad to a fixed window; see real_token_index). BEATs / EAT / BirdNET / Perch
+    later (non-native code or Kaggle).'
 - id: E26
   title: Synthetic mixtures in the DAPT stream
   baseline: E19 / E23 (two-teacher DAPT, 2 seeds)
@@ -638,7 +640,7 @@ experiments:
   tag: daptv3aves_2e4m8_step15000
   num_classes: 200
   job_name: dapt_v3_m8l10
-  status: submitted
+  status: trained
   job: 39859244
   priority: 1
   notes: 'Approved by the user 2026-10-12 ("still think we could close the loop on some of these variables", after

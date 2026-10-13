@@ -37,15 +37,38 @@ MODELS = {
     "hf-wav2vec2-base": "facebook/wav2vec2-base",
     "hf-wavlm-base-plus": "microsoft/wavlm-base-plus",
     "hf-data2vec-audio-base": "facebook/data2vec-audio-base",
+    # batch 2 (other architectures; both pad to a fixed window, so pooling keeps only tokens over real audio)
+    "hf-ast-audioset": "MIT/ast-finetuned-audioset-10-10-0.4593",   # spectrogram-patch ViT, supervised AudioSet
+    "hf-whisper-base-enc": "openai/whisper-base",                     # Whisper encoder (log-mel conv + 6 blocks)
 }
+
+
+def real_token_index(tag, n_samples):
+    """Indices of the tokens that cover real audio, for the fixed-window models (None = all tokens).
+
+    AST: Kaldi fbank, 25 ms window / 10 ms hop -> n_frames; 16x16 patches at stride 10 over (128 mel, 1024
+    frames) -> 12 x 101 tokens in freq-major order after 2 special tokens; keep every frequency row of the
+    time columns that start inside the real frames. Whisper: 10 ms frames, conv stride 2 -> 20 ms positions.
+    Pooling over padding is the 2023 AVES bug (034); this keeps only real-audio tokens.
+    """
+    if tag == "hf-ast-audioset":
+        n_frames = max(1, 1 + (n_samples - 400) // 160)
+        t_keep = [t for t in range(101) if 10 * t < n_frames]
+        return np.array([2 + f * 101 + t for f in range(12) for t in t_keep])
+    if tag == "hf-whisper-base-enc":
+        return np.arange(max(1, int(np.ceil(n_samples / 160 / 2))))
+    return None
 
 
 def embed(tag, hf_id, paths, device):
     from transformers import AutoFeatureExtractor, AutoModel
     fe = AutoFeatureExtractor.from_pretrained(hf_id)
     m = AutoModel.from_pretrained(hf_id, output_hidden_states=True).to(device).eval()
+    if tag == "hf-whisper-base-enc":
+        m = m.get_encoder()
     cfg = m.config
-    nl, dim = int(cfg.num_hidden_layers), int(cfg.hidden_size)
+    nl = int(getattr(cfg, "encoder_layers", None) or cfg.num_hidden_layers)
+    dim = int(getattr(cfg, "d_model", None) or cfg.hidden_size)
     params = int(sum(p.numel() for p in m.parameters()))
     out = np.zeros((len(paths), nl, dim), dtype=np.float32)
     t0 = time.time()
@@ -54,12 +77,16 @@ def embed(tag, hf_id, paths, device):
             w = load_audio(p).squeeze(0).numpy()
             if w.shape[-1] < 400:
                 w = np.pad(w, (0, 400 - w.shape[-1]))
-            x = fe(w, sampling_rate=16000, return_tensors="pt").input_values.to(device)
+            enc = fe(w, sampling_rate=16000, return_tensors="pt")
+            x = (enc.input_features if "input_features" in enc else enc.input_values).to(device)
             hs = m(x).hidden_states
+            keep = real_token_index(tag, len(w))
             if len(hs) != nl + 1:
                 raise RuntimeError(f"{tag}: expected {nl + 1} hidden states, got {len(hs)}")
             for l in range(nl):
                 h = hs[l + 1].squeeze(0)
+                if keep is not None:
+                    h = h[torch.as_tensor(keep, device=h.device)]
                 if h.shape[-1] != dim:
                     raise RuntimeError(f"{tag}: dim {h.shape[-1]} != {dim}")
                 out[i, l] = h.mean(0).float().cpu().numpy()
