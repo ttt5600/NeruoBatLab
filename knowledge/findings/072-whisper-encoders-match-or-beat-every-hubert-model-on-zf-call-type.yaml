@@ -1,0 +1,62 @@
+id: '072'
+title: Whisper encoders match or beat every HuBERT-family model on zebra finch call type, and Whisper-small leads on detection
+status: open
+claim: 'Frozen and probed exactly like our models, the Whisper encoders (log-mel input, supervised speech recognition,
+  never trained on animal sound) are the strongest call-type encoders tested: Whisper-base scores 0.8643 (L0), resolved
+  above aves-base-bio (+0.0191 [+0.0042, +0.0370]) and run16 (+0.0264 [+0.0048, +0.0489]) but not above
+  birdaves-biox-large (+0.0091 [-0.0098, +0.0292]), and Whisper-small (88M, 12 x 768) scores 0.8599 at the fixed layer
+  3, resolved above run16 and not distinguishable from AVES, with the highest pre-committed in-distribution detection
+  AUC on the board (0.9733; above aves-base-bio +0.0059 [+0.0037, +0.0078], ahead at 10/12 arms); E25''s pre-registered
+  bar (call type above birdaves-biox-large, resolved) is not met by any model.'
+evidence: 'Call type (e25_hf_encoders.py; calltype_pair.py, bird bootstrap, observed): Whisper-tiny encoder (8.2M, 4 x
+  384) 0.8447 at L0; Whisper-base encoder (20.6M, 6 x 512) 0.8643 at L0, L3 0.8376; Whisper-small encoder (88.2M, 12 x
+  768) 0.8599 at L3 (best = L3). Whisper-small minus aves-base-bio +0.0147 [-0.0046, +0.0359], minus run16 +0.0220
+  [+0.0016, +0.0427], minus birdaves-biox-large +0.0047 [-0.0114, +0.0246]. Whisper-tiny minus aves-base-bio -0.0006
+  [-0.0190, +0.0178]. Whisper-base minus aves-base-core +0.0141 [-0.0052, +0.0355], minus birdaves-biox-base +0.0123
+  [-0.0022, +0.0288], minus E23 +0.0079 [-0.0072, +0.0240], minus AST +0.0305 [+0.0101, +0.0508].
+
+  Controls for Whisper-base: clip duration alone 0.393; Whisper''s own log-mel input, mean and std over real frames,
+  0.667; with duration 0.723 (same probe and folds; e25_whisper_controls.py -> analysis/e25_whisper_controls.json).
+
+  Other encoders, same protocol: AST (AudioSet, spectrogram patches, 86M) 0.8338 (vs aves-base-bio -0.0114 [-0.0338,
+  +0.0122]); HuBERT-base-ls960 (speech, same architecture as ours) 0.8288 (vs run16 -0.0091 [-0.0340, +0.0134], vs
+  aves-base-bio -0.0164 [-0.0357, +0.0037]); WavLM-base+ 0.8262 (vs aves-base-bio -0.0191 [-0.0372, -0.0007]);
+  data2vec-audio-base 0.8118 (vs aves-base-bio -0.0334 [-0.0552, -0.0115]); wav2vec2-base 0.8022 (vs aves-base-bio
+  -0.0431 [-0.0623, -0.0230]); aves-base-nonbio 0.8470 (vs aves-base-bio +0.0018 [-0.0154, +0.0189]).
+
+  Detection (detection_variants.json precommit; paired_vs.py observed, 1500-frame blocks): Whisper-small matched_L3 ZF
+  AUC 0.9733, BirdPark AP 0.8677; minus aves-base-bio ZF AUC +0.0059 [+0.0037, +0.0078], BirdPark AP +0.0620 [+0.0405,
+  +0.1105]; minus run16 ZF AUC +0.0015 [-0.0005, +0.0047]. Arms: ahead of aves-base-bio on ZF AUC at 10/12 (-0.0019 to
+  +0.0077) and BirdPark AP at 11/12; of run16 at 8/12 and 12/12; of E19 at 4/12 and 5/12. BirdPark AP 12-arm median
+  0.8526 (E23 0.8533, E19 0.8514). Next highest pre-committed ZF AUC: run18 0.9730, E19 0.9724. Whisper-base matched_L1
+  ZF AUC 0.9680 (vs aves-base-bio +0.0006 [-0.0025, +0.0024]; vs run16 -0.0038 [-0.0056, -0.0016]); Whisper-tiny
+  matched_L0 0.9641 (vs aves-base-bio -0.0033 [-0.0064, -0.0017]). aves-base-nonbio native_L1 ZF AUC 0.9670 (vs
+  aves-base-bio -0.0004 [-0.0030, +0.0014]).
+
+  Label-free k30 (labelfree_stability.json, L3): Whisper tiny 0.3361, base 0.4152, small 0.4388; AST 0.5898; data2vec
+  0.5591; aves-base-bio 0.4783.'
+method: 'zfeval/experiments/e25_hf_encoders.py: Hugging Face checkpoints (openai/whisper-*, MIT/ast-finetuned-audioset-10-10-0.4593,
+  facebook/hubert-base-ls960, facebook/wav2vec2-base, microsoft/wavlm-base-plus, facebook/data2vec-audio-base), each
+  clip encoded alone through the model''s own feature extractor, transformer-layer outputs mean-pooled; for the
+  fixed-window models (Whisper 30 s, AST 10.24 s) only tokens over real audio are pooled (real_token_index; the 034
+  padding trap). Board probe (StandardScaler + LogisticRegression, StratifiedGroupKFold(5) by bird, seed 0, sklearn
+  1.7.2). Detection: e25_whisper_frames.py wraps the Whisper encoder in extract_features() on detection_variants''
+  20 ms grid (frame counts checked: 1000 for a 20 s chunk, 149 for 3 s). aves-base-nonbio through aves_variants_calltype.py
+  and detection_variants.py. Models were fixed before their scores were read (experiments.yaml E25 notes), except
+  aves-base-nonbio, scored before the batch note.'
+provenance: 'analysis/hf-*_calltype.json, aves_variants_calltype.json, calltype_pairs.json ("<a> | <b>"), detection_variants.json
+  (precommit, in_distribution, zf_to_bp), paired_vs.json, labelfree_stability.json, e25_whisper_controls.json; features/ct11_hf-*_emb.npy'
+caveats: 'Off-the-shelf, one public checkpoint each, so there is no seed replication; the three Whisper sizes are
+  different models, not seeds, and only Whisper-base is resolved above aves-base-bio. Whisper''s best call-type layer
+  is the first (base) or third (small) block, so the gain sits near the front end; this does not separate the log-mel
+  front end from the supervised objective or the 680,000 h of training audio. Layer grids differ for the small
+  Whispers (tiny 8 arms, base 10, small 12), so pre-committed arms are chosen from fewer options for tiny and base.
+  BirdPark is about 4 independent blocks (047) and is not claimed. Label-free stability ranks these models differently
+  from call type (AST and data2vec high, Whisper low), consistent with 069. None of these models is ours: they point at what to change (front
+  end, objective), they do not meet the loop''s stop rule for our model.'
+tags:
+- off-the-shelf
+- whisper
+- call-type
+- detection
+date: '2026-10-13'

@@ -789,7 +789,7 @@
   "resolved": true,
   "zf_auc": null,
   "bp_ap_median": null,
-  "labelfree_k30": null
+  "labelfree_k30": 0.3846
  },
  {
   "tag": "hf-data2vec-audio-base",
@@ -811,7 +811,7 @@
   "resolved": true,
   "zf_auc": null,
   "bp_ap_median": null,
-  "labelfree_k30": null
+  "labelfree_k30": 0.5591
  },
  {
   "tag": "hf-ast-audioset",
@@ -833,7 +833,7 @@
   "resolved": false,
   "zf_auc": null,
   "bp_ap_median": null,
-  "labelfree_k30": null
+  "labelfree_k30": 0.5898
  },
  {
   "tag": "hf-whisper-tiny-enc",
@@ -853,9 +853,9 @@
   "lo": -0.019,
   "hi": 0.0178,
   "resolved": false,
-  "zf_auc": null,
-  "bp_ap_median": null,
-  "labelfree_k30": null
+  "zf_auc": 0.9641,
+  "bp_ap_median": 0.8294,
+  "labelfree_k30": 0.3361
  },
  {
   "tag": "hf-whisper-base-enc",
@@ -875,9 +875,9 @@
   "lo": 0.0042,
   "hi": 0.037,
   "resolved": true,
-  "zf_auc": null,
-  "bp_ap_median": null,
-  "labelfree_k30": null
+  "zf_auc": 0.968,
+  "bp_ap_median": 0.8167,
+  "labelfree_k30": 0.4152
  },
  {
   "tag": "hf-whisper-small-enc",
@@ -897,8 +897,8 @@
   "lo": -0.0046,
   "hi": 0.0359,
   "resolved": false,
-  "zf_auc": null,
-  "bp_ap_median": null,
-  "labelfree_k30": null
+  "zf_auc": 0.9733,
+  "bp_ap_median": 0.8526,
+  "labelfree_k30": 0.4388
  }
 ]

@@ -81,7 +81,7 @@
 
   <section class="fx-card" id="models">
     <h2>Every model, how it differs, and its scores</h2>
-    <p class="fx-note">Detection is the pre-committed probe arm on our labelled recordings (ZF AUC) and the median over 12 arms on BirdPark, a held-out colony; it is not wired for the Hugging Face models yet. Label-free is bird-held-out cluster stability at k=30, layer 3. Click a header to sort.</p>
+    <p class="fx-note">Detection is the pre-committed probe arm on our labelled recordings (ZF AUC) and the median over 12 arms on BirdPark, a held-out colony; it is wired for the Whisper encoders but not yet for the other Hugging Face models. Label-free is bird-held-out cluster stability at k=30, layer 3. Click a header to sort.</p>
     <div class="fx-tools"><input id="q" type="search" placeholder="Filter by name, family, input, objective or data" aria-label="Filter models"></div>
     <div class="fx-scroll">
       <table class="fx-table" id="models-table" data-source="models" data-row-key="name">
