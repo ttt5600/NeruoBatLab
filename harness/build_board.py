@@ -147,6 +147,7 @@ def main():
     acc, vs, sp = calltype(), vs_ref(), splits()
     det = load("detection_variants.json").get("precommit", {})
     chick = load("chick_holdout_variants.json").get("precommit", {})
+    lfree = load("labelfree_stability.json").get("models", {})
     reg = registry()
 
     # ---- models table + forest rows
@@ -169,7 +170,7 @@ def main():
         trs.append(f'<tr class="{fam}"><td class="nm"><span class="sw {fam}"></span>{html.escape(name)}</td>'
                    f'<td class="what">{html.escape(what)}</td><td class="n">{fmt(acc.get(key))}</td>'
                    f'<td class="n vs">{vtxt}</td><td class="n">{stxt}</td><td class="n">{fmt(j.get("zf", {}).get("auc"))}</td>'
-                   f'<td class="n">{fmt(j.get("bp", {}).get("ap"))}</td><td class="n">{fmt(c.get("auc"))}</td>'
+                   f'<td class="n">{fmt(j.get("bp", {}).get("ap"))}</td><td class="n">{fmt(c.get("auc"))}</td><td class="n">{fmt(lfree.get(key, {}).get("k30", {}).get("mean"))}</td>'
                    f'<td class="n">{flink}</td><td class="path">{where}</td></tr>')
         if v and key != REF:
             frows.append((name, fam, *v))

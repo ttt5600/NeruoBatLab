@@ -110,13 +110,13 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
     </div>
     <div class="panel scroll" style="margin-top:12px">
       <table>
-        <thead><tr><th>Model</th><th>What it is</th><th class="n">Call type</th><th class="n">vs run16</th><th class="n">10-split mean</th><th class="n">ZF detection AUC</th><th class="n">BirdPark AP</th><th class="n">Chick AUC</th><th class="n">Finding</th><th>On Savio</th></tr></thead>
+        <thead><tr><th>Model</th><th>What it is</th><th class="n">Call type</th><th class="n">vs run16</th><th class="n">10-split mean</th><th class="n">ZF detection AUC</th><th class="n">BirdPark AP</th><th class="n">Chick AUC</th><th class="n">Label-free k=30</th><th class="n">Finding</th><th>On Savio</th></tr></thead>
         <tbody>
 {{MODEL_ROWS}}
         </tbody>
       </table>
     </div>
-    <p class="sub" style="margin-top:8px">Detection and holdout columns use each model's pre-committed layer and input normalisation. BirdPark is four independent 30 s blocks, so its AP moves by up to 0.05 between arms. "…/" is <code>/global/scratch/users/jonathanswang/</code>; every folder there is shared with Julie and Bhavna.</p>
+    <p class="sub" style="margin-top:8px">Detection and holdout columns use each model's pre-committed layer and input normalisation. BirdPark is four independent 30 s blocks, so its AP moves by up to 0.05 between arms. "…/" is <code>/global/scratch/users/jonathanswang/</code>; every folder there is shared with Julie and Bhavna. Label-free k=30 is bird-held-out cluster stability (ARI, layer 3, 50 bird halvings; finding 069): does the model find the same 30 groups again in birds it has not seen? It uses no labels, and the halvings spread is wide.</p>
   </section>
 
   <section id="experiments">

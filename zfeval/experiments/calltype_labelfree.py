@@ -37,6 +37,7 @@ A = Path.home() / "zf_labelset/zf_detection_dataset_v1/analysis"
 OUT = A / "labelfree_stability.json"
 KS, B, SEED, REF = (30, 11), 50, 0, "aves-base-bio"
 EMB_ALIAS = {"aves-base-bio": "aves"}          # tag -> ct11 file stem where they differ
+CT_ALIAS = {"run15_combined": "run15"}         # tag -> call-type JSON stem where they differ
 
 
 def tags():
@@ -51,7 +52,7 @@ def emb(tag):
 
 def calltype_by_layer(tag):
     """Per-layer 11-class accuracy from the stored call-type JSONs (never recomputed here)."""
-    f = A / f"{tag}_calltype.json"
+    f = A / f"{CT_ALIAS.get(tag, tag)}_calltype.json"
     if f.exists():
         return json.load(open(f))["per_layer_acc11"]
     av = json.load(open(A / "aves_variants_calltype.json"))
@@ -124,16 +125,16 @@ def main():
         rng = np.random.default_rng(SEED)
         Xn = np.column_stack([rng.permutation(X[:, j]) for j in range(X.shape[1])])
         out["null_run16_shuffled"] = {f"k{k}": summary(v) for k, v in score(Xn, sp[:10]).items()}
-        ok = [t for t in models if models[t]["calltype_same_layer"] is not None]
-        rank = {}
-        for k in KS:
-            sc = [models[t][f"k{k}"]["mean"] for t in ok]
-            for col in ("calltype_same_layer", "calltype_best"):
-                r, p = spearmanr(sc, [models[t][col] for t in ok])
-                rank[f"k{k}_vs_{col}"] = dict(rho=float(r), p=float(p), n=len(ok))
-        out["rank_check"] = rank
         print("null (run16 L3, columns shuffled, 10 splits):", out["null_run16_shuffled"])
-        print(json.dumps(rank, indent=1))
+    ok = [t for t in models if models[t]["calltype_same_layer"] is not None]   # every model so far
+    rank = {}
+    for k in KS:
+        sc = [models[t][f"k{k}"]["mean"] for t in ok]
+        for col in ("calltype_same_layer", "calltype_best"):
+            r, p = spearmanr(sc, [models[t][col] for t in ok])
+            rank[f"k{k}_vs_{col}"] = dict(rho=float(r), p=float(p), n=len(ok))
+    out["rank_check"] = rank
+    print(json.dumps(rank, indent=1))
     OUT.write_text(json.dumps(out, indent=2))
     print(f"-> {OUT}")
 

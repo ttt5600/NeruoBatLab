@@ -283,8 +283,10 @@ experiments:
     with bats?
   success: a label-free score per model with an interval, added to score_run.sh and the model board, and
     a check of whether it ranks models the same way call type does
-  script: null
-  status: approved
+  status: done
+  finding: '069'
+  result: 'no model beats aves-base-bio on label-free k=30 stability (two-teacher arms lead on point estimates only); agreement with call type weak and unresolved among close models (rho +0.30 [-0.11, +0.64]), +0.90 on 050''s five encoders; added to score_run.sh and the board (finding 069)'
+  script: zfeval/experiments/calltype_labelfree.py
   priority: 2
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Pre-registered
     2026-10-12 before any score was read (zfeval/experiments/calltype_labelfree.py): 050''s bird-held-out stability,

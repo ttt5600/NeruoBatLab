@@ -165,3 +165,7 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   boundary (E22 lost >=6k steps over 3 preemptions). Fix candidate: save_last on the every-2500-step ModelCheckpoint
   (or resume from the newest stepstep=*.ckpt). Code change in the training script, not flags -> propose, don't
   self-approve; check how run16's resumes behaved first.
+- 2026-10-12 20:25 E11 done (idle analysis): label-free bird-held-out stability for 29 models; finding 069 (open)
+  after critic (ACCEPT-WITH-CHANGES, applied). No model beats AVES on it; weak agreement with call type among close
+  models, +0.90 on 050's five encoders; call type's own seed reliability is ~0.44. Added to score_run.sh (--only TAG)
+  and the board (Label-free k=30 column). Optional later: score both directions per halving.

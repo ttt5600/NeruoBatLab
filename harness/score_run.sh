@@ -35,7 +35,7 @@ CK=$(ssh_s "ls $CKDIR 2>/dev/null | grep -E '^epoch=[0-9]+-step=[0-9]+\.ckpt$' |
 echo "   final checkpoint: $CK"
 ssh_s "test -f ~/export_weights.py && test -f $S/adultvoc_16k/BlaBla0506_110302-DC-01.wav" \
     || { echo "FATAL: ~/export_weights.py or the verification clip is missing on Savio"; exit 2; }
-for f in run15_calltype run16_calltype_bootstrap detection_variants chick_holdout_variants; do
+for f in run15_calltype run16_calltype_bootstrap detection_variants chick_holdout_variants calltype_labelfree; do
     [ -f "$ROOT/zfeval/experiments/$f.py" ] || { echo "FATAL: zfeval/experiments/$f.py missing"; exit 2; }
 done
 "$PY" -c "import torch, sklearn, yaml" || { echo "FATAL: analysis python incomplete"; exit 2; }
@@ -65,14 +65,15 @@ run "$PY" zfeval/experiments/run16_calltype_bootstrap.py --tag "$TAG"
 run "$PY" zfeval/experiments/detection_variants.py --models "$TAG"
 run "$PY" zfeval/experiments/chick_holdout_variants.py --models "$TAG"
 run "$PY" zfeval/experiments/chick_holdout_variants.py --bootstrap --models "$TAG" --baseline run11
+run "$PY" zfeval/experiments/calltype_labelfree.py --only "$TAG"     # label-free column (E11)
 
 if [ -n "${DRY:-}" ]; then echo "DRY RUN OK: every input exists"; exit 0; fi
 for f in "${TAG}_calltype.json" "${TAG}_bootstrap.json"; do
     [ -s "$A/$f" ] || { echo "FATAL: $A/$f was not written"; exit 4; }
 done
-for f in detection_variants chick_holdout_variants; do
+for f in detection_variants chick_holdout_variants labelfree_stability; do
     grep -q "\"$TAG" "$A/$f.json" || { echo "FATAL: $TAG missing from $f.json"; exit 4; }
 done
 cp "$A/${TAG}_calltype.json" "$A/${TAG}_bootstrap.json" "$A/detection_variants.json" \
-   "$A/chick_holdout_variants.json" "$M/analysis/"
-echo "SCORED $TAG -> $A/${TAG}_calltype.json, ${TAG}_bootstrap.json, detection_variants.json, chick_holdout_variants.json"
+   "$A/chick_holdout_variants.json" "$A/labelfree_stability.json" "$M/analysis/"
+echo "SCORED $TAG -> $A/${TAG}_calltype.json, ${TAG}_bootstrap.json, detection_variants.json, chick_holdout_variants.json, labelfree_stability.json"

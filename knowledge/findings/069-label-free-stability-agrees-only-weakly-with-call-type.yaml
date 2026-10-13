@@ -1,0 +1,67 @@
+id: '069'
+title: Label-free stability agrees only weakly with call type among close models, and no model beats AVES on it
+status: open
+claim: 'Across the 29 cached encoders, finding 050''s bird-held-out cluster stability at the pre-registered k=30 (layer
+  3, 50 bird halvings) separates every model from a column-shuffled null by about 200x, resolves no model from aves-base-bio
+  (the two-teacher-target models lead on point estimates only), and agrees only weakly and unresolved with 11-class
+  call type at the same layer (Spearman rho +0.30, model-bootstrap interval [-0.11, +0.64]; the secondary k=11 gives
+  +0.45 [+0.10, +0.74]), while on 050''s own five encoders the same scores reproduce 050 (rho +0.90), so the weak
+  overall agreement comes from the 24 close arms added since, where call type itself moves between seeds by about
+  as much as the models differ.'
+evidence: 'Score per model (labelfree_stability.json models.<tag>.k30): range 0.4312 (run20_fsdonly) to 0.5455 (E22,
+  daptv4two45k_2e4_step45000), against a best-layer call-type range of 0.8118 to 0.8564 (same layer: 0.8089 run21_zfonly
+  to 0.8538 E22). Top five at k=30: E22 0.5455, E19
+  0.5427, E23 0.5424, E14 0.5235, run15_combined 0.5218; bottom five: birdaves-bioxn-large 0.4546, birdaves-biox-large
+  0.4513, run11 0.4454, run21_zfonly 0.4320, run20_fsdonly 0.4312. aves-base-bio 0.4783 [0.3950, 0.5476], run16_compute4x
+  0.4952 [0.4024, 0.5571].
+
+  Paired difference vs aves-base-bio over the same 50 halvings, k=30: no model resolved; largest E22 +0.0671 [-0.0072,
+  +0.1698], E19 +0.0643 [-0.0048, +0.1537], E23 +0.0640 [-0.0231, +0.1544]; run16 +0.0168 [-0.0728, +0.1118]; run11
+  -0.0329 [-0.1212, +0.0426]. k=11: only run11 (-0.1716 [-0.2764, -0.0280]) and run17_accum2 (-0.1302 [-0.2372,
+  -0.0295]) resolve, both below.
+
+  Rank check (rank_check, n=29): k30 vs call type at the same layer rho +0.304 (p 0.109), vs best layer +0.088 (p
+  0.648); k11 vs same layer +0.451 (p 0.014), vs best layer +0.289 (p 0.128). Bootstrap over models (2000 resamples,
+  seed 0, recomputed from the JSON): k30 same layer [-0.11, +0.64], k11 same layer [+0.10, +0.74]. Leave-one-model-out
+  k30 same-layer rho ranges +0.227 to +0.381 (recomputed by dropping each model).
+
+  050''s five encoders (run11, aves-base-bio, aves-base-all, aves-base-core, birdaves-biox-base): k30 vs same-layer call
+  type rho +0.90 (same-layer spread 0.038).
+
+  Seed pairs (run16 / seed 2, E19 / E23, E18 / E20, E21 / E24): same-layer call type moves 0.0073 to 0.0161 (16-36%
+  of its 0.045 range), the k30 score 0.0003 to 0.0117 (0-10% of its 0.114 range).
+
+  Null (null_run16_shuffled, run16 L3 with columns shuffled, 10 halvings): k30 0.0021 [-0.0001, 0.0044], k11 0.0014
+  [-0.0003, 0.0048].'
+method: 'zfeval/experiments/calltype_labelfree.py (new): for each of 50 random halvings of the 48 birds (seed 0, the
+  same halvings for every model), Ward-cluster each half of the standardised layer-3 (layer-6 for 24-layer models)
+  mean-pooled ct11 embeddings into k groups, carry half A''s centroids onto half B''s clips and score against B''s
+  own clustering with ARI. transfer_ari reproduces calltype_blindselect.py''s _transfer_agreement exactly on a test
+  split (0.580372 at k=11, 0.501458 at k=30, aves-base-bio). Call type per layer is read from the stored call-type
+  JSONs, not recomputed. Choices pre-registered in harness/experiments.yaml E11 (committed a55523d before any score
+  was read). Added to harness/score_run.sh (--only TAG) and as a board column.'
+provenance: 'analysis/labelfree_stability.json (models.<tag>.k30/k11, k30_minus_ref/k11_minus_ref, rank_check,
+  null_run16_shuffled, settings); per-layer call type from analysis/<tag>_calltype.json and aves_variants_calltype.json'
+caveats: 'The halving interval is a resampling spread, not an independent-sample CI: the 50 halvings reuse the same
+  48 birds; each halving scores one direction (A onto B), and B onto A can differ by about 0.06 on the same halving,
+  so scoring both directions would cut noise. The 29 models are not independent (many DAPT arms share init, data and
+  targets), so the Spearman p-values and the model bootstrap overstate the evidence. Low agreement here cannot be
+  read as the criterion failing: the call-type target is itself noisy among close models (seed reliability, 1 minus
+  seed-pair error variance over across-model variance: 0.44 for call type against 0.97 for the k30 score on four seed
+  pairs, which would cap an attainable rho near sqrt(0.44 x 0.97) = 0.65;
+  four pairs is thin). 050 validated against cluster-vote accuracy, this uses linear-probe accuracy. For the bat
+  case: the criterion separates real structure from the null and ranks large gaps (050''s encoders), but choosing
+  between close models is untested here, because the labelled metric cannot rank them either. Fixed layer 3 is not
+  every model''s best layer, deliberately (a label-free pipeline cannot pick a layer on labels), which is why the
+  same-layer rank check is primary. The three two-teacher-target models top the k=30 score, which fits a model trained
+  on k-means targets being more clusterable, but none resolves from AVES and the mechanism is untested. Critic (fresh
+  subagent, CRITIC.md, 2026-10-12): ACCEPT-WITH-CHANGES, keep open; applied: retitle and weak-agreement wording with
+  model-bootstrap intervals, 050 reconciliation (rho +0.90 on its five encoders; k~200 misreading removed), seed-reliability
+  and cluster-vote-vs-probe caveats, bat conclusion reworded, E11''s question answered, same-layer range, leave-one-out
+  range in place of the ad hoc n=27/28 values; two-direction scoring noted as optional.'
+tags:
+- label-free
+- clustering
+- call-type
+- evaluation
+date: '2026-10-12'
