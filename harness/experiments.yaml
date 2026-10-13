@@ -286,7 +286,11 @@ experiments:
   script: null
   status: approved
   priority: 2
-  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Pre-registered
+    2026-10-12 before any score was read (zfeval/experiments/calltype_labelfree.py): 050''s bird-held-out stability,
+    layer 3 (6 for 24-layer models), k=30 primary and k=11 secondary, 50 bird halvings shared by all models, seed 0;
+    percentile spread over halvings and paired difference vs aves-base-bio; rank check = Spearman rho vs call type
+    at the same layer and at the best layer; column-shuffled null must sit near 0.'
 - id: E16
   roadmap: idea 8
   kind: analysis
