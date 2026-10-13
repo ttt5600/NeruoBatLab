@@ -47,7 +47,7 @@ caveats: >-
   distinguishable from run15 (+0.0088 [-0.0099, +0.0282]) or run11 (+0.0106 [-0.0070, +0.0322]) at its best layer
   (L0), nor at L3 (+0.0082 [-0.0145, +0.0286], +0.0100 [-0.0089, +0.0322]) (run16_seed2_bootstrap.json), so the
   resolved margins over run15 and run11 rest on one seed; status moved from confirmed to open. E7 (run16 seed 3,
-  job 39732808, started 2026-10-12) is the tiebreaker. The seed-1 numbers below stand as measured.
+  job 39732808, started 2026-10-10, completed 2026-10-12) was the tiebreaker: it holds at the best layer, not at L3 (070). The seed-1 numbers below stand as measured.
   "Not distinguishable" is NOT "tied": every AVES point estimate is still ahead, by 0.007 to
   0.017, and the intervals are about 0.045 wide, so a real gap of that size could not be
   resolved here. The lever is "4x audio per update at fixed updates and lr", which bundles a 4x

@@ -203,7 +203,7 @@ experiments:
   success: none -- measures run-to-run spread. Report all three best-layer scores and the pairwise bird-bootstrap
     intervals; no variance estimate from n=3 beyond the range.
   script: pytorchAudio/examples/hubert/slurm/train_run16_seed3.sh
-  status: trained
+  status: scored
   priority: 3
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Submitted
     2026-10-08 02:20 as job 39732808 (confirmed in sacct and the ledger).'
