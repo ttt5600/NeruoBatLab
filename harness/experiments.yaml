@@ -619,15 +619,43 @@ experiments:
   priority: 6
   notes: 'Proposed 2026-10-12. Risk: 066 showed DAPT lowered BirdAVES base on call type. Approved by the user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
 - id: E28
-  title: AVES's masking in our training code
-  baseline: E19 / E23 (DAPT) and run16 / run16 seed 2 (from scratch)
-  change: 'mask_prob 0.4 -> 0.8 and mask_length 3 -> 10 frames (60 ms -> 200 ms spans), AVES-bio''s own values from
-    its checkpoint cfg; needs --mask-prob / --mask-length flags in train.py (defaults unchanged); everything else fixed'
-  question: Is masking the uncontrolled difference behind the AVES gap? Every run of ours, including all DAPT arms
-    continued from AVES, trained with 40% / 60 ms masking while AVES was pretrained with 0.8 / 200 ms.
-  success: to be pre-registered before submitting; 2 seeds per arm (067)
-  script: null
-  status: proposed
-  priority: 2
-  notes: 'Proposed 2026-10-12 from the controlled-variables audit (masking was never tested). Small code change (two
-    CLI flags), so it needs the user''s go-ahead.'
+  title: AVES's masking in DAPT (E18 recipe, 2 seeds)
+  baseline: E18 (seed 1337) and E20 (seed 2), the same recipe with our masking
+  change: 'mask_prob 0.4 -> 0.8 and mask_length 3 -> 10 frames (AVES-bio''s cfg values; 34% -> 54% of frames masked
+    on a 15 s crop), via new train.py flags --mask-prob/--mask-length (defaults unchanged); everything else = E18 / E20'
+  question: Every DAPT arm continued AVES's weights with our masking, not the masking AVES was pretrained with. Does
+    restoring AVES's masking change call type or detection?
+  success: 'Pre-registered 2026-10-12 before submission: PRIMARY call type above aves-base-bio with the bird-bootstrap
+    interval excluding zero on BOTH seeds (the loop stop rule), or ZF detection AUC above the same-seed baseline (E28a
+    vs E18, E28b vs E20) resolved at the pre-committed arms on BOTH seeds. Read-outs: per-layer call type minus the
+    same-seed baseline (sign agreement across layers and seeds), BirdPark as 12-arm medians, label-free k=30.'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v3_avesteacher_lr2e4_avesmask.sh (seed 2 = _avesmask_seed2.sh)
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv3_avesteacher_2e4_m08l10
+  tag: daptv3aves_2e4m8_step15000
+  num_classes: 200
+  job_name: dapt_v3_m8l10
+  status: approved
+  priority: 1
+  notes: 'Approved by the user 2026-10-12 ("still think we could close the loop on some of these variables", after
+    the controlled-variables audit). Seed-2 arm E28b: exp temp_train_daptv3_avesteacher_2e4_s2_m08l10, tag
+    daptv3aves_2e4s2m8_step15000, job dapt_v3_m8l10s2.'
+- id: E29
+  title: AVES-bio's recipe in our code, from scratch (2 seeds)
+  baseline: run17 (same compute bundle, our masking/lr/warmup), run16, aves-base-bio
+  change: 'run17 + mask 0.8/10, lr 1e-4 -> 2e-4, warmup 3125 -> 32000, max-updates 93750 -> 100000; corpus (224 h ZF
+    + FSD50K) and iteration-1 spectrogram k=200 targets unchanged'
+  question: With model, compute and every training knob matched to AVES-bio, is what remains (data, targets) the gap?
+  success: 'Pre-registered 2026-10-12 before submission: PRIMARY on BEANS (frozen probe, finding 063 protocol), where
+    a gap exists: on the 5 tasks where aves-base-bio leads run16 resolved (bats, esc50, hiceas, enabirds, dcase), E29
+    minus aves-base-bio is NOT resolved negative on at least 4 of 5, on BOTH seeds. Also reported: call type and ZF
+    detection vs run17, run16 and aves-base-bio; label-free k=30. If met, step back one knob at a time; if not, the
+    remaining difference is data and targets.'
+  script: pytorchAudio/examples/hubert/slurm/train_run29_avesrecipe.sh (seed 2 = train_run29_avesrecipe_seed2.sh)
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run29_avesrecipe
+  tag: run29_avesrecipe
+  num_classes: 200
+  job_name: hubert_run29
+  status: approved
+  priority: 1
+  notes: 'Approved by the user 2026-10-12 (same message as E28). ~12 h on 4 L40s per seed (run17 took 11 h for
+    93,750 updates). Seed-2 arm: exp temp_train_run29_avesrecipe_s2, tag run29_avesrecipe_s2, job hubert_run29s2.'
