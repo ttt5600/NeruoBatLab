@@ -588,7 +588,7 @@ experiments:
   success: call type above birdaves-biox-large with the bird-bootstrap interval excluding zero, or detection AUC above
     aves-base-bio resolved at the pre-committed arms
   script: null
-  status: proposed
+  status: approved
   priority: 3
   notes: 'Proposed 2026-10-12 after the user asked about other architectures. Needs: model downloads (Perch may need
     Kaggle, an open user decision), per-model embedding code, clip-by-clip (never batched) encoding. Needs the user''s
@@ -603,10 +603,10 @@ experiments:
     (BirdPark) and call type?
   success: to be pre-registered before building; at least 2 seeds per arm (finding 067)
   script: null
-  status: proposed
+  status: approved
   priority: 5
   notes: 'Proposed 2026-10-12 after the user asked about synthetic data. Expectation: more likely to help detection
-    robustness than call type, which looks label- and seed-noise-limited (067, 069). Needs the user''s go-ahead.'
+    robustness than call type, which looks label- and seed-noise-limited (067, 069). Approved by the user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
 - id: E27
   title: DAPT from the largest BirdAVES (biox-large)
   baseline: birdaves-biox-large (call type 0.8552, the best AVES version)
@@ -615,6 +615,19 @@ experiments:
   question: Does specialising the strongest download help, given that specialising BirdAVES base hurt (066)?
   success: to be pre-registered; 2 seeds per arm
   script: null
-  status: proposed
+  status: approved
   priority: 6
-  notes: 'Proposed 2026-10-12. Risk: 066 showed DAPT lowered BirdAVES base on call type. Needs the user''s go-ahead.'
+  notes: 'Proposed 2026-10-12. Risk: 066 showed DAPT lowered BirdAVES base on call type. Approved by the user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
+- id: E28
+  title: AVES's masking in our training code
+  baseline: E19 / E23 (DAPT) and run16 / run16 seed 2 (from scratch)
+  change: 'mask_prob 0.4 -> 0.8 and mask_length 3 -> 10 frames (60 ms -> 200 ms spans), AVES-bio''s own values from
+    its checkpoint cfg; needs --mask-prob / --mask-length flags in train.py (defaults unchanged); everything else fixed'
+  question: Is masking the uncontrolled difference behind the AVES gap? Every run of ours, including all DAPT arms
+    continued from AVES, trained with 40% / 60 ms masking while AVES was pretrained with 0.8 / 200 ms.
+  success: to be pre-registered before submitting; 2 seeds per arm (067)
+  script: null
+  status: proposed
+  priority: 2
+  notes: 'Proposed 2026-10-12 from the controlled-variables audit (masking was never tested). Small code change (two
+    CLI flags), so it needs the user''s go-ahead.'
