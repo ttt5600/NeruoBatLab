@@ -2,7 +2,7 @@
 
 frame_pass feeds chunks of up to ~20 s of 16 kHz audio and reads per-layer (1, T, dim) frame features on a 20 ms grid
 (frame i covers samples [320 i, 320 i + 400)). Whisper's encoder takes a 30 s log-mel window (10 ms hop, padded)
-and its stride-2 conv gives one position per 20 ms, so position i lines up with frame i to within a few ms. Only
+and its stride-2 conv gives one position per 20 ms, so position i is centred at sample 320 i, 12.5 ms before frame i's centre (320 i + 200). Only
 positions over real audio are returned (the rest of the 30 s window is padding), as in e25_hf_encoders.
 Needs transformers: run detection_variants.py from ~/zf_labelset/envs/e25/bin/python for these models.
 """

@@ -587,7 +587,9 @@ experiments:
     beat the HuBERT/AVES family on zebra finch call type or detection?
   success: call type above birdaves-biox-large with the bird-bootstrap interval excluding zero, or detection AUC above
     aves-base-bio resolved at the pre-committed arms
-  status: running
+  status: done
+  finding: '072'
+  result: 'detection branch met by Whisper-small only (ZF AUC +0.0059 [+0.0037, +0.0078] vs aves-base-bio; weak bar, DAPT clears it too); call-type branch (above birdaves-biox-large) not met; Whisper encoders are point-estimate leaders, not distinguishable from top AVES/DAPT; BEATs/EAT/BirdNET/Perch not run (finding 072)'
   script: zfeval/experiments/e25_hf_encoders.py (HF models); aves_variants_calltype.py (aves-base-nonbio)
   priority: 3
   notes: 'Proposed 2026-10-12 after the user asked about other architectures. Needs: model downloads (Perch may need
