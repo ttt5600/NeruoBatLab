@@ -179,3 +179,8 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   relaunched detached -> ~/jobs/maskcheck.out. Submit E28/E29 after it passes.
   E25 started: AVES-nonbio (360 h, no animal audio) downloaded; call type 0.8470 = AVES-bio (+0.0018 [-0.0154,
   +0.0189]), beats run11 +0.0352 [+0.0110, +0.0621] -> animal data buys nothing on ZF call type. Detection running.
+- 2026-10-12 22:45 E7 scored -> finding 070 (confirmed after critic): run16 seeds 0.8379/0.8224/0.8417; 052 holds at the
+  best layer on 2/3 seeds, at L3 on 1/3; 052 stays open. E25 batch 1 (HF, same size, speech only): hubert-ls960
+  0.8288 (n.d. from run16 -0.0091 [-0.0340, +0.0134] and AVES -0.0164 [-0.0357, +0.0037]), wavlm+ 0.8262 (below AVES
+  resolved), data2vec 0.8118, wav2vec2 0.8022; all peak at L0-L1. AVES-nonbio = AVES-bio on call type and detection.
+  E28 running (ETA 23:07), E29 pending. BRC cert expires 23:12 -> notified user (sv login).
