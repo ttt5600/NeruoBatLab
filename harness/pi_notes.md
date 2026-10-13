@@ -152,3 +152,8 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   +0.0032 vs AVES, 12/12 arms). Its pre-committed arm (native_L1) is a weak BirdPark arm: pre-committed BP AUC -0.0672
   vs AVES but 12-arm AP median 0.8533 vs 0.8115 -- arm fragility again, do not quote either direction. E23 criterion
   (E23-E24) waits on E24 (pending). Finding to be written with E24.
+- 2026-10-12 18:50 E24 scored (job 39852047). E23 criterion half-passed -> not met (pre-committed contrast +0.0002
+  n.d.; 11/12 arms). Finding 067 confirmed after critic (ACCEPT-WITH-CHANGES, applied); 065 moved confirmed -> open
+  (replication failed). Key lesson: arm contrast on call type flips sign between seeds; bird bootstrap holds the model
+  fixed. E22 preempted ~18:00, resumed from last.ckpt at step ~25.7k, ETA ~19:15. Critic flagged 052 (left confirmed
+  after 057) for the same review -- TODO next idle wake. Next idle: E11 (label-free score column).

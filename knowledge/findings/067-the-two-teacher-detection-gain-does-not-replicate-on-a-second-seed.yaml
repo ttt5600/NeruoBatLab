@@ -1,0 +1,83 @@
+id: '067'
+title: The two-teacher detection gain does not replicate on a second seed, and the seed outweighs the arm contrast
+  on call type
+status: confirmed
+claim: 'On a second seed (E23 = E19''s recipe, E24 = its AVES-only control E21), E23''s pre-registered replication
+  criterion half-passes and therefore fails: E23 is ahead of E24 on ZF detection AUC at 11 of 12 arms (-0.0003 to
+  +0.0031, against +0.0005 to +0.0061 on seed 1), but the contrast at the pre-committed arms is +0.0002 [-0.0013,
+  +0.0013], not resolved, and the control alone moved by finding 065''s whole gain between seeds (E24 minus E21 ZF
+  AUC +0.0039 at native_L6); on call type the two-teacher-minus-control gap changes sign between seeds (E19 minus
+  E21 negative at 10 of 12 layers, E23 minus E24 positive at 12 of 12, mean +0.0180), so a single-seed arm contrast
+  here is dominated by the training seed, which the bird bootstrap cannot see because it holds the trained model
+  fixed.'
+evidence: 'E23 (daptv4two_2e4s2_step15000): call type 0.8564 at L1, 0.8444 at L3; pre-committed detection native_L1
+  (chosen over matched_L3 by 0.0007 ZF AUC) ZF AUC 0.9705, AP 0.8694, BirdPark AUC 0.8158, AP 0.7604; matched_L3
+  BirdPark AUC 0.9134, AP 0.8725.
+
+  E24 (daptv4aveso_2e4s2_step15000): call type 0.8461 at L0, 0.8315 at L3; pre-committed detection native_L6 ZF AUC
+  0.9703, AP 0.8694, BirdPark AUC 0.8899, AP 0.8351.
+
+  Seed 1 for reference (finding 065): E19 call type 0.8441 (L0), ZF AUC 0.9724 (native_L6); E21 call type 0.8476
+  (L3), ZF AUC 0.9686 (native_L3).
+
+  E23 minus E24, detection (paired_vs.py, observed, 1500-frame blocks): ZF AUC +0.0002 [-0.0013, +0.0013]; ZF AP
+  -0.00003 [-0.0051, +0.0050]; BirdPark AUC -0.0740 [-0.1187, -0.0479], AP -0.0747 [-0.1440, -0.0367] (pre-committed
+  arms differ: E23 native_L1, E24 native_L6).
+
+  E23 minus E24, ZF AUC at every arm (detection_variants.json in_distribution): matched_L0 +0.0022, L1 +0.0022, L3
+  +0.0007, L6 -0.0003, L9 +0.0005, L11 +0.0023; native_L0 +0.0025, L1 +0.0031, L3 +0.0004, L6 +0.0001, L9 +0.0024,
+  L11 +0.0020 (11/12). E24 minus E21 (control, seed 2 minus seed 1): native_L6 +0.0039, matched_L6 +0.0038.
+
+  BirdPark over 12 arms (zf_to_bp): E23 ahead of E24 on AUC in 5/12, AP 7/12; medians AUC 0.8971 vs 0.8970, AP 0.8533
+  vs 0.8353.
+
+  Call type per layer (per_layer_acc11), arm contrast by seed: E19 minus E21 negative at 10/12 layers (mean -0.0040,
+  L3 -0.0108); E23 minus E24 positive at 12/12 (mean +0.0180, L3 +0.0129). Same recipe, seed 2 minus seed 1: E23
+  minus E19 positive at 10/12 (mean +0.0110, L3 +0.0076); E24 minus E21 negative at 11/12 (mean -0.0109, L3 -0.0161);
+  E20 minus E18 negative at 10/12 (mean -0.0046, L3 -0.0073).
+
+  Call type, bird bootstrap (calltype_pair.py; *_bootstrap.json for L3): E23 minus E19 +0.0123 [+0.0016, +0.0241]
+  (best layers L1 vs L0); E24 minus E21 -0.0015 [-0.0128, +0.0114] (best layers); E23 minus E24 +0.0103 [-0.0053,
+  +0.0256]; E23 minus aves-base-bio +0.0111 [-0.0060, +0.0274], at L3 -0.0009 [-0.0180, +0.0159]; E24 minus aves-base-bio
+  +0.0009 [-0.0137, +0.0158], at L3 -0.0138 [-0.0303, +0.0028]; E23 minus run16_compute4x +0.0185 [+0.0010, +0.0349];
+  E23 minus birdaves-biox-base +0.0044 [-0.0087, +0.0187], probability average +0.0138 [+0.0059, +0.0220] over BirdAVES.
+
+  Detection vs references (observed, 1500-frame blocks): E23 minus aves-base-bio ZF AUC +0.0032 [+0.0012, +0.0047],
+  ahead at 12/12 arms (+0.0022 to +0.0070); E24 minus aves-base-bio ZF AUC +0.0029 [+0.0016, +0.0044]; E23 minus
+  run16_compute4x ZF AUC -0.0013 [-0.0023, +0.0010]; E23 minus E19 ZF AUC -0.0019 [-0.0030, -0.0000], ahead at 5/12
+  arms. BirdPark at pre-committed arms (arm artefacts, see caveats): E23 minus aves-base-bio AUC -0.0672 [-0.1418,
+  -0.0147], AP -0.0453 [-0.1402, +0.0150], but AP ahead at 9/12 arms (median 0.8533 vs 0.8115); E23 minus E19 AUC
+  -0.0811 [-0.1389, -0.0510], AP -0.0886 [-0.1706, -0.0471]; E24 minus aves-base-bio AUC +0.0068 [-0.0247, +0.0368],
+  AP +0.0294 [-0.0150, +0.0629].'
+method: 'E23 = slurm/train_dapt_v4_twoteacher_seed2.sh (job 39852046), E24 = slurm/train_dapt_v4_avesonly_seed2.sh
+  (job 39852047, DAPT_DATA = E21''s built labels); both DAPT_SEED=2, otherwise E19 / E21 (logs confirm seed 2, seed-1
+  labels read-only, AVES init, 15,000 steps). Scored by harness/score_run.sh (SCORE_HOST=savio-dtn). Detection
+  contrasts: zfeval/experiments/paired_vs.py; call type: calltype_pair.py; per-layer and arm spreads from the call-type
+  JSONs and detection_variants.json. Criterion text: harness/experiments.yaml E23 success (amended and committed
+  15:15, before the job started 16:15).'
+provenance: analysis/daptv4two_2e4s2_step15000_calltype.json, daptv4two_2e4s2_step15000_bootstrap.json, daptv4aveso_2e4s2_step15000_calltype.json,
+  daptv4aveso_2e4s2_step15000_bootstrap.json, daptv4two_2e4_step15000_calltype.json, daptv4aveso_2e4_step15000_calltype.json,
+  daptv3aves_2e4_step15000_calltype.json, daptv3aves_2e4s2_step15000_calltype.json, detection_variants.json (precommit.<tag>,
+  in_distribution, zf_to_bp), paired_vs.json (daptv4two_2e4s2_step15000__vs__daptv4aveso_2e4s2_step15000, __vs__aves-base-bio,
+  __vs__run16_compute4x, __vs__daptv4two_2e4_step15000; daptv4aveso_2e4s2_step15000__vs__aves-base-bio), calltype_pairs.json;
+  savio_artifacts/logs/train_dapt_v4_2t_s2_39852046.log, train_dapt_v4_ao_s2_39852047.log
+caveats: 'Two seeds per arm. Seed variance on call type was first shown by 057 (run16 seed 2 minus seed 1 -0.0155
+  [-0.0289, -0.0017]); with E23 minus E19, two of four same-recipe seed pairs now resolve at their best layer, and
+  the per-layer spreads above do not depend on layer choice. This contradicts 065''s framing of its gain as "about
+  3.5x the E18-to-seed-2 gap": the control alone moved +0.0039 at L6 between seeds; 065 is moved to open. E23''s
+  0.8564 is the best of about 15 DAPT arms x 12 layers, and the same recipe at seed 1 scored 0.8441, so it is not
+  evidence for the recipe. The pre-committed arms differ between E23 and E24, as between E19 and E21; the 12 arms
+  share audio and labels and are not independent tests. E23''s pre-committed arm is a weak BirdPark arm (its matched_L3
+  reaches AUC 0.9134, AP 0.8725), so its pre-committed BirdPark deficits against E24, E19 and AVES are arm artefacts
+  in the same way E19''s gains were (065); BirdPark is not claimed in either direction. Critic (fresh subagent,
+  CRITIC.md, 2026-10-12): ACCEPT-WITH-CHANGES; applied: half-pass wording, seed-variance reframed (bootstrap holds
+  the model fixed) with per-layer and L3 rows, sign flip of the arm contrast, 057 citation and the 065 contradiction,
+  "highest DAPT arm" removed from the claim, E23 minus E19 BirdPark, AP bound, title matched to the file slug, 065
+  status to open.'
+tags:
+- dapt
+- targets
+- detection
+- call-type
+- seed-variance
+date: '2026-10-12'

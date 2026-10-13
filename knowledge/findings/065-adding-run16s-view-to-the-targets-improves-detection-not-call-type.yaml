@@ -1,11 +1,12 @@
 id: '065'
-title: Adding a second teacher's view (run16) to AVES's targets raises in-distribution vocal detection against a
-  matched control at every arm, but not call type, and BirdPark does not separate (one seed each)
-status: confirmed
+title: Adding a second teacher's view (run16) to AVES's targets raised in-distribution vocal detection against a
+  matched control on one seed, but did not replicate on a second (067); call type unchanged
+status: open
 claim: 'With everything else fixed (AVES init, replay x1 stream, 15,000 updates, lr 2e-4, same per-dimension standardisation,
   same fit frames, k=200), clustering [run16 layer 6 | AVES layer 6] (E19) instead of AVES layer 6 alone (E21, the
   control) raises in-distribution ZF detection AUC: +0.0038 [+0.0015, +0.0054] at the pre-committed arms, and E19
-  is ahead at all 12 of 12 arms (+0.0005 to +0.0061), about 3.5x the E18-to-seed-2 gap. BirdPark does not separate
+  is ahead at all 12 of 12 arms (+0.0005 to +0.0061); on a second seed this did not replicate at the pre-committed
+  arms (067). BirdPark does not separate
   them: the pre-committed contrast resolves, but it rests on E21''s arm, chosen over its matched_L3 by 0.0003 ZF
   AUC; arm by arm E19 is ahead on BirdPark AUC in 4 of 12 and AP in 7 of 12, with medians 0.8999 vs 0.9012 (AUC)
   and 0.8514 vs 0.8370 (AP). 11-class call type does not move (E19 minus E21 and minus aves-base-bio cross zero,
@@ -80,7 +81,10 @@ method: 'E19 = slurm/train_dapt_v4_twoteacher.sh (scripts/two_teacher_labels.py 
 provenance: analysis/daptv4two_2e4_step15000_*.json, daptv4aveso_2e4_step15000_*.json, daptv3aves_2e4s2_step15000_*.json,
   detection_variants.json (precommit.<tag>.joint), paired_vs.json (<a>__vs__<b>), calltype_pairs.json; savio_artifacts/logs/train_dapt_v4_2teach_39849102.log
   (label NMI)
-caveats: 'One run each; E23 (E19 seed 2) and E24 (E21 seed 2) are submitted to replicate the E19-minus-E21 contrast.
+caveats: 'REPLICATION FAILED (067, 2026-10-12): E23 minus E24 ZF AUC at the pre-committed arms +0.0002 [-0.0013,
+  +0.0013], though E23 is ahead at 11/12 arms; the control alone moved +0.0039 at L6 between seeds, so the earlier
+  "about 3.5x the E18-to-seed-2 gap" framing is withdrawn and the status moved from confirmed to open. The seed-1
+  numbers below stand as measured.
   The pre-committed arms differ (E19 native_L6, E21 native_L3; E20 matched_L3, E18 matched_L6). BirdPark intervals
   cover test-sample noise only (~4 blocks, 047). E19''s large BirdPark lead over run16 is the DAPT/selection effect
   seen in every AVES-init arm (run16''s native_L0 arm is the known selection trap, 061), not a target effect. Call-type
@@ -94,3 +98,4 @@ tags:
 - detection
 - call-type
 date: '2026-10-12'
+updated: '2026-10-12'
