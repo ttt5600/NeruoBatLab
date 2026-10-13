@@ -598,7 +598,9 @@ experiments:
     wavlm-base-plus, data2vec-audio-base), board protocol, 12 transformer layers, own feature extractor. Batch 2, fixed 2026-10-12 23:15 before scoring: AST (MIT/ast-finetuned-audioset-10-10-0.4593,
     spectrogram-patch ViT, supervised AudioSet) and the Whisper-base encoder, both transformers-native, pooled only
     over tokens covering real audio (both pad to a fixed window; see real_token_index). BEATs / EAT / BirdNET / Perch
-    later (non-native code or Kaggle).'
+    later (non-native code or Kaggle). Whisper-base encoder scored 0.8643 (above aves-base-bio and run16, resolved;
+    not above birdaves-biox-large, so the E25 criterion is not met); replication across sizes fixed before scoring:
+    whisper-tiny and whisper-small encoders, same pooling.'
 - id: E26
   title: Synthetic mixtures in the DAPT stream
   baseline: E19 / E23 (two-teacher DAPT, 2 seeds)

@@ -40,6 +40,9 @@ MODELS = {
     # batch 2 (other architectures; both pad to a fixed window, so pooling keeps only tokens over real audio)
     "hf-ast-audioset": "MIT/ast-finetuned-audioset-10-10-0.4593",   # spectrogram-patch ViT, supervised AudioSet
     "hf-whisper-base-enc": "openai/whisper-base",                     # Whisper encoder (log-mel conv + 6 blocks)
+    # replication of the Whisper result across sizes (fixed 2026-10-12 before scoring)
+    "hf-whisper-tiny-enc": "openai/whisper-tiny",                     # 4 blocks x 384
+    "hf-whisper-small-enc": "openai/whisper-small",                   # 12 blocks x 768 (our depth/width)
 }
 
 
@@ -55,7 +58,7 @@ def real_token_index(tag, n_samples):
         n_frames = max(1, 1 + (n_samples - 400) // 160)
         t_keep = [t for t in range(101) if 10 * t < n_frames]
         return np.array([2 + f * 101 + t for f in range(12) for t in t_keep])
-    if tag == "hf-whisper-base-enc":
+    if tag.startswith("hf-whisper"):
         return np.arange(max(1, int(np.ceil(n_samples / 160 / 2))))
     return None
 
@@ -64,7 +67,7 @@ def embed(tag, hf_id, paths, device):
     from transformers import AutoFeatureExtractor, AutoModel
     fe = AutoFeatureExtractor.from_pretrained(hf_id)
     m = AutoModel.from_pretrained(hf_id, output_hidden_states=True).to(device).eval()
-    if tag == "hf-whisper-base-enc":
+    if tag.startswith("hf-whisper"):
         m = m.get_encoder()
     cfg = m.config
     nl = int(getattr(cfg, "encoder_layers", None) or cfg.num_hidden_layers)
