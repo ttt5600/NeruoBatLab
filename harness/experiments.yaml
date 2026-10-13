@@ -612,6 +612,15 @@ experiments:
   question: Does training on calls placed in varied, known backgrounds improve detection on held-out recordings
     (BirdPark) and call type?
   success: to be pre-registered before building; at least 2 seeds per arm (finding 067)
+  design: 'Draft 2026-10-13 (not yet pre-registered): donors = the 3,412 curated call clips (already heard in pretraining;
+    their call-type labels are never used), windowed to energy support with a 1 ms taper (synth_timing.py); backgrounds
+    = FSD50K-eval clips already in the replay stream. NEVER BirdPark audio (it is the held-out evaluation). 20 s canvases,
+    2-8 calls each, SNR uniform -5 to +20 dB; about 25 h of mixtures replacing 25 h of the stream''s ZF audio so the stream
+    size and the 15,000 updates stay fixed. Targets: E19''s two-teacher k-means model applied (not refit) to run16 L6 |
+    AVES L6 features of the mixtures (teacher features need a Savio GPU job). Arms: E19 recipe seeds 1337 and 2 vs E19 /
+    E23. Candidate success: ZF detection AUC above the seed-matched E19/E23 at the pre-committed arms on both seeds; call
+    type and BirdPark 12-arm median reported. Open questions for the user: donors from the curated clips vs detector-mined
+    calls; whether 25 h is the right dose.'
   script: null
   status: approved
   priority: 5

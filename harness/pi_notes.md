@@ -190,3 +190,7 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   own log-mel mean+std 0.667, +duration 0.723 -> not an artefact of length/padding. Replication (tiny, small) running.
   Detection for HF models is not wired (detection_variants handles torchaudio/DAPT only) -> TODO before any claim.
   E28a: 0.8417, vs E18 -0.0085 [-0.0219, +0.0025] n.d. E28b scoring.
+- 2026-10-13 01:40 Night status: E25 done (072, open; Whisper = point-estimate leader), E28 done (071), E7 done (070).
+  E29 x2 pending (4-GPU lowprio). E30-E32 proposed, awaiting user. E26 design drafted in experiments.yaml (not
+  pre-registered; needs teacher features on Savio GPU and two user questions: donor source, dose). E27 needs a
+  large-model branch in lightning_modules (only hubert_pretrain_base is built) -- not started.
