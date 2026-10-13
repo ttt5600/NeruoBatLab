@@ -68,6 +68,7 @@ CKPTS = [
     ("aves-base-core",       "aves",     "ct11_aves-base-core_emb.npy"),
     ("aves-base-bio",        "aves",     "ct11_aves_emb.npy"),
     ("aves-base-all",        "aves",     "ct11_aves-base-all_emb.npy"),
+    ("aves-base-nonbio",     "aves",     "ct11_aves-base-nonbio_emb.npy"),   # E25: 360 h non-animal control
     ("birdaves-biox-base",   "birdaves", "ct11_birdaves-biox-base_emb.npy"),
     ("birdaves-biox-large",  "birdaves", "ct11_birdaves-biox-large_emb.npy"),
     ("birdaves-bioxn-large", "birdaves", "ct11_birdaves-bioxn-large_emb.npy"),
