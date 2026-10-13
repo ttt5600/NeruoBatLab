@@ -8,8 +8,11 @@ being right is. Read `knowledge/CONTEXT.md` first.
 
 Mark each check PASS or FAIL, with the evidence (file and key, or the line you checked):
 
-1. **Numbers exist.** Open the cited JSON files. Every number in the draft must appear there, rounded
-   honestly. One number you cannot find fails the whole draft.
+1. **Numbers exist.** Run `python3 harness/check_finding.py NNN`. Keyed numbers it verified are done;
+   check that each key is the RIGHT one (the model pair, layer and split the prose says), which the
+   script cannot judge. Verify every residue number by hand, by opening the file at a key. "Occurs
+   somewhere" in the script's output is not verification: a decoy number occurs somewhere 84-90% of
+   the time. One number you cannot find fails the whole draft.
 2. **Observed, not resampled.** The bootstrap scripts print a "delta" that is the mean of the
    resamples. The draft must quote the observed difference with its interval.
 3. **Claim follows the interval.** If the interval crosses zero, the only allowed wording is "not

@@ -27,6 +27,7 @@ Savio job watcher (launchd, every 5 min)          ~/.claude/savio-watch
 | `score_run.sh` | export → copy → call type, detection, holdouts. `DRY=1` checks inputs only |
 | `PI.md` | standing orders for the long-lived lead agent |
 | `CRITIC.md` | the checklist a fresh critic agent uses to try to break each finding |
+| `check_finding.py` | mechanical part of the critic: each keyed number looked up in its JSON (`test_check_finding.py`) |
 | `reports/`, `digest/` | one short report per iteration; one digest per day |
 | `logs/` | full agent transcripts and scoring logs |
 
@@ -61,7 +62,10 @@ agents.
 - **Approve** an experiment: set its `status: approved`. It starts when a slot frees (`max_concurrent`).
 - **Stop** one: set `status: rejected` (and `sv cancel JOBID` if it is running).
 - **Pause everything**: set `"enabled": false` under `harness` in `~/.claude/savio-watch/jobs.json`.
-- **Run an iteration now**: `bash harness/run_agent.sh "why"`.
+- **Run an iteration now**: `bash harness/run_agent.sh "why"`. It refuses while the lead's heartbeat
+  is fresh (one writer at a time); `HARNESS_FORCE=1` overrides.
+- **Check a finding's numbers**: `python3 harness/check_finding.py NNN`. Every claim number needs a
+  keyed entry in the finding's `numbers:` block; the rest is listed for the critic.
 - `needs-human` in the queue or a report means the agent stopped on purpose; the report says why.
 
 ## What it will not do

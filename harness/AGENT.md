@@ -25,6 +25,10 @@ The goal: an encoder that beats AVES on zebra finch call type and transfers to t
    - Next id in `knowledge/findings/`, same YAML shape as the newest one; `python3 knowledge/build.py`
      must pass.
    - Every number comes from the JSONs score_run.sh names. Cite the file and key in `provenance`.
+   - Back every number in `claim` with an entry in a `numbers:` block (value as written, JSON file,
+     key path; format in `harness/check_finding.py`), and as many `evidence` numbers as you can.
+     `python3 harness/check_finding.py NNN` must exit 0 before the critic sees the draft. A number
+     you cannot key to a JSON does not go in the claim.
      Quote observed differences with their bird-bootstrap interval (the printed bootstrap "delta" is
      the resample mean, not the observed difference).
    - The claim follows the interval. If it crosses zero, the result is "not distinguishable", and

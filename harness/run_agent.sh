@@ -15,6 +15,15 @@ if [ -s "$LOCK" ] && kill -0 "$(cat "$LOCK")" 2>/dev/null; then
     echo "$(date '+%F %T') agent already running (pid $(cat "$LOCK")); not starting: $REASON"
     exit 0
 fi
+# The long-lived lead (PI.md) owns the queue while its heartbeat is under 2 h old. tick.py already
+# stands down then; this covers a manual run. HARNESS_FORCE=1 overrides.
+HB=$H/.pi_heartbeat
+if [ -z "${HARNESS_FORCE:-}" ] && [ -f "$HB" ] \
+   && [ $(( $(date +%s) - $(stat -f %m "$HB") )) -lt 7200 ]; then
+    echo "$(date '+%F %T') lead agent alive (heartbeat $(cat "$HB")); not starting: $REASON"
+    echo "  (HARNESS_FORCE=1 to override)"
+    exit 0
+fi
 today=$(ls "$H/logs" 2>/dev/null | grep -c "^agent-$(date +%Y%m%d)-") || today=0
 if [ "$today" -ge "$MAX_RUNS_PER_DAY" ]; then
     echo "$(date '+%F %T') daily cap reached ($today/$MAX_RUNS_PER_DAY); not starting: $REASON"

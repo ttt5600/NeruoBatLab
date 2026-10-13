@@ -20,6 +20,7 @@
     "supersedes": "ids this replaces",
     "superseded_by": "id that replaced this",
     "tags": "for retrieval",
+    "numbers": "list of {value, file, key[, scale]}: each quoted literal, the analysis JSON it comes from, and the key path to it. Checked by harness/check_finding.py; every number in the claim must have one (from finding 073 on)",
     "date": "ISO date the finding reached its current status"
   },
   "rules": [

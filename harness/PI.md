@@ -17,6 +17,10 @@ After a summary or a restart, re-read them. Never act on a number you remember; 
 0. **Heartbeat.** Write the current time (`date -Iseconds`) to `harness/.pi_heartbeat`. While it is
    under 2 h old, tick.py stands down and leaves the pipeline to you. If you stop, the event-driven
    agents take over again.
+   Then check for an event-driven agent that started before your heartbeat did: if
+   `harness/.agent.lock` holds a live pid (`kill -0 $(cat harness/.agent.lock)`), it owns the queue
+   until it exits. Skip steps 2-4 and 7 this wake (no queue edits, scoring, submits or commits) and
+   wake again in 20 min.
 1. **Savio login.** Run `ssh -o BatchMode=yes savio-login true`.
    - If it is refused, the certificate has expired. Send one notification (`osascript -e 'display
      notification "run sv login" with title "Savio login expired"'`), skip all Savio work this wake,
@@ -35,7 +39,8 @@ After a summary or a restart, re-read them. Never act on a number you remember; 
    analysis entry ends like any experiment: a finding (after the critic), `status: done`, a board
    rebuild. Record what you did.
 5. **Critic.** Before a finding goes in as `confirmed`, and before you approve your own proposal,
-   spawn a fresh subagent (Agent tool) with `harness/CRITIC.md`, the draft, and the source JSON paths.
+   run `python3 harness/check_finding.py NNN` (it must exit 0), then spawn a fresh subagent (Agent
+   tool) with `harness/CRITIC.md`, the draft, the checker's output, and the source JSON paths.
    Apply its verdict: fix it, downgrade it to `open`, or drop it. Note the verdict in the finding's
    caveats.
 6. **Daily digest.** On the first wake after 09:00 local time each day:
