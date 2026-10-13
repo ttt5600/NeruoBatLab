@@ -194,3 +194,4 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   E29 x2 pending (4-GPU lowprio). E30-E32 proposed, awaiting user. E26 design drafted in experiments.yaml (not
   pre-registered; needs teacher features on Savio GPU and two user questions: donor source, dose). E27 needs a
   large-model branch in lightning_modules (only hubert_pretrain_base is built) -- not started.
+- 2026-10-13 10:03 Digest written (harness/digest/2026-10-13.md). E29 x2 + E8 still PENDING (Priority). Task-list doc: no state changes. c8e02f58 is on Lab_Remote (contained in updated-hyperparams). Waiting on user: E30-E32, E26 donor/dose, resume fix.
