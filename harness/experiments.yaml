@@ -577,3 +577,44 @@ experiments:
   job: 39852047
   priority: 2
   notes: 'Self-approved 2026-10-12: lowprio, 1 L40, data on Savio, flags only.'
+- id: E25
+  kind: analysis
+  title: Off-the-shelf encoders on our benchmarks (BEATs, EAT, BirdNET, Perch)
+  baseline: aves-base-bio and birdaves-biox-large (best AVES version on call type, 0.8552)
+  change: 'new evaluation, no training: frozen embeddings from public checkpoints of other architectures through the
+    same call-type probe, detection arms and label-free score'
+  question: Does a different architecture or training objective (spectrogram-patch SSL, supervised bird classifiers)
+    beat the HuBERT/AVES family on zebra finch call type or detection?
+  success: call type above birdaves-biox-large with the bird-bootstrap interval excluding zero, or detection AUC above
+    aves-base-bio resolved at the pre-committed arms
+  script: null
+  status: proposed
+  priority: 3
+  notes: 'Proposed 2026-10-12 after the user asked about other architectures. Needs: model downloads (Perch may need
+    Kaggle, an open user decision), per-model embedding code, clip-by-clip (never batched) encoding. Needs the user''s
+    go-ahead.'
+- id: E26
+  title: Synthetic mixtures in the DAPT stream
+  baseline: E19 / E23 (two-teacher DAPT, 2 seeds)
+  change: 'E19''s recipe with part of the replay stream replaced by synthetic mixtures: real zebra finch calls cut to
+    their energy support (synth_timing.py''s mixer) and added to call-free backgrounds (FSD50K, BirdPark-like room
+    noise) at random SNR and density; targets assigned by the same two-teacher k-means'
+  question: Does training on calls placed in varied, known backgrounds improve detection on held-out recordings
+    (BirdPark) and call type?
+  success: to be pre-registered before building; at least 2 seeds per arm (finding 067)
+  script: null
+  status: proposed
+  priority: 5
+  notes: 'Proposed 2026-10-12 after the user asked about synthetic data. Expectation: more likely to help detection
+    robustness than call type, which looks label- and seed-noise-limited (067, 069). Needs the user''s go-ahead.'
+- id: E27
+  title: DAPT from the largest BirdAVES (biox-large)
+  baseline: birdaves-biox-large (call type 0.8552, the best AVES version)
+  change: 'E19''s recipe starting from birdaves-biox-large (24 layers) instead of aves-base-bio; needs a large-model
+    config in the training scripts'
+  question: Does specialising the strongest download help, given that specialising BirdAVES base hurt (066)?
+  success: to be pre-registered; 2 seeds per arm
+  script: null
+  status: proposed
+  priority: 6
+  notes: 'Proposed 2026-10-12. Risk: 066 showed DAPT lowered BirdAVES base on call type. Needs the user''s go-ahead.'
