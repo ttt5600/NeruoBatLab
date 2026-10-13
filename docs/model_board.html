@@ -89,7 +89,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">HuBERT vocalization models · as of Oct 12, 2026 20:12</div>
+    <div class="eyebrow">HuBERT vocalization models · as of Oct 13, 2026 00:08</div>
     <h1>Zebra Finch Model Board</h1>
     <nav><a href="#models">Models</a><a href="#experiments">Experiments</a><a href="#automations">Savio automations</a><a href="#notebooks">Notebooks</a></nav>
   </header>
@@ -97,7 +97,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
   <div class="strip">
     <div class="fact"><span class="k">Best of ours, call type</span><span class="v">run19 0.8464</span><span class="note">AVES models score 0.845–0.855; vs run16 +0.0085 [-0.0127, +0.0293], not distinguishable</span></div>
     <div class="fact"><span class="k">Seed-to-seed gap</span><span class="v">0.0155</span><span class="note">run16's second seed: -0.0155 [-0.0289, -0.0017] on the board's split, -0.0089 averaged over 10 splits. Single runs cannot separate smaller gaps.</span></div>
-    <div class="fact"><span class="k">Training now</span><span class="v">E7 (39732808), E8 (39781626)</span><span class="note"></span></div>
+    <div class="fact"><span class="k">Training now</span><span class="v">E8 (39781626), E29 (39859251)</span><span class="note"></span></div>
     <div class="fact needs"><span class="k">Needs you</span><ul><li>Approve the fix for duplicate agents.</li></ul></div>
   </div>
 
@@ -105,28 +105,28 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
     <h2>Models</h2>
     <p class="lede">11-class call type, leave-birds-out (3,412 clips, 48 birds). Each line is the observed difference from run16 with its 95% bird-bootstrap interval. A filled dot means the interval excludes zero. The 10-split column re-scores the same embeddings with the birds assigned to folds 10 different ways (finding 062). The board's split is run16's second best of 10, so a single-split gap of about 0.01 is within what the split alone moves.</p>
     <div class="panel">
-      <div class="scroll"><svg viewBox="0 0 760 616" role="img" aria-label="Call type difference from run16 with intervals">
-<line x1="190.0" y1="26" x2="190.0" y2="590" class="grid"/>
-<text x="190.0" y="606" class="tick" text-anchor="middle">-0.05</text>
-<line x1="250.7" y1="26" x2="250.7" y2="590" class="grid"/>
-<text x="250.7" y="606" class="tick" text-anchor="middle">-0.04</text>
-<line x1="311.3" y1="26" x2="311.3" y2="590" class="grid"/>
-<text x="311.3" y="606" class="tick" text-anchor="middle">-0.03</text>
-<line x1="372.0" y1="26" x2="372.0" y2="590" class="grid"/>
-<text x="372.0" y="606" class="tick" text-anchor="middle">-0.02</text>
-<line x1="432.7" y1="26" x2="432.7" y2="590" class="grid"/>
-<text x="432.7" y="606" class="tick" text-anchor="middle">-0.01</text>
-<line x1="493.3" y1="26" x2="493.3" y2="590" class="grid"/>
-<text x="493.3" y="606" class="tick" text-anchor="middle">+0.00</text>
-<line x1="554.0" y1="26" x2="554.0" y2="590" class="grid"/>
-<text x="554.0" y="606" class="tick" text-anchor="middle">+0.01</text>
-<line x1="614.7" y1="26" x2="614.7" y2="590" class="grid"/>
-<text x="614.7" y="606" class="tick" text-anchor="middle">+0.02</text>
-<line x1="675.3" y1="26" x2="675.3" y2="590" class="grid"/>
-<text x="675.3" y="606" class="tick" text-anchor="middle">+0.03</text>
-<line x1="736.0" y1="26" x2="736.0" y2="590" class="grid"/>
-<text x="736.0" y="606" class="tick" text-anchor="middle">+0.04</text>
-<line x1="493.3" y1="20" x2="493.3" y2="590" class="zero"/>
+      <div class="scroll"><svg viewBox="0 0 760 688" role="img" aria-label="Call type difference from run16 with intervals">
+<line x1="190.0" y1="26" x2="190.0" y2="662" class="grid"/>
+<text x="190.0" y="678" class="tick" text-anchor="middle">-0.05</text>
+<line x1="250.7" y1="26" x2="250.7" y2="662" class="grid"/>
+<text x="250.7" y="678" class="tick" text-anchor="middle">-0.04</text>
+<line x1="311.3" y1="26" x2="311.3" y2="662" class="grid"/>
+<text x="311.3" y="678" class="tick" text-anchor="middle">-0.03</text>
+<line x1="372.0" y1="26" x2="372.0" y2="662" class="grid"/>
+<text x="372.0" y="678" class="tick" text-anchor="middle">-0.02</text>
+<line x1="432.7" y1="26" x2="432.7" y2="662" class="grid"/>
+<text x="432.7" y="678" class="tick" text-anchor="middle">-0.01</text>
+<line x1="493.3" y1="26" x2="493.3" y2="662" class="grid"/>
+<text x="493.3" y="678" class="tick" text-anchor="middle">+0.00</text>
+<line x1="554.0" y1="26" x2="554.0" y2="662" class="grid"/>
+<text x="554.0" y="678" class="tick" text-anchor="middle">+0.01</text>
+<line x1="614.7" y1="26" x2="614.7" y2="662" class="grid"/>
+<text x="614.7" y="678" class="tick" text-anchor="middle">+0.02</text>
+<line x1="675.3" y1="26" x2="675.3" y2="662" class="grid"/>
+<text x="675.3" y="678" class="tick" text-anchor="middle">+0.03</text>
+<line x1="736.0" y1="26" x2="736.0" y2="662" class="grid"/>
+<text x="736.0" y="678" class="tick" text-anchor="middle">+0.04</text>
+<line x1="493.3" y1="20" x2="493.3" y2="662" class="zero"/>
 <text x="493.3" y="16" class="tick" text-anchor="middle">run16</text>
 <text x="178" y="50.0" class="lab" text-anchor="end">DAPT, two-teacher targets, seed 2</text>
 <line x1="499.3" y1="46.0" x2="705.3" y2="46.0" class="ci dapt"/>
@@ -146,57 +146,66 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 <text x="178" y="170.0" class="lab" text-anchor="end">AVES core</text>
 <line x1="414.3" y1="166.0" x2="697.6" y2="166.0" class="ci aves"/>
 <circle cx="568.0" cy="166.0" r="5" class="aves dot-open"/>
-<text x="178" y="194.0" class="lab" text-anchor="end">AVES all</text>
-<line x1="421.2" y1="190.0" x2="673.4" y2="190.0" class="ci aves"/>
-<circle cx="553.8" cy="190.0" r="5" class="aves dot-open"/>
-<text x="178" y="218.0" class="lab" text-anchor="end">DAPT, AVES-only control</text>
-<line x1="405.9" y1="214.0" x2="677.8" y2="214.0" class="ci dapt"/>
-<circle cx="552.0" cy="214.0" r="5" class="dapt dot-open"/>
-<text x="178" y="242.0" class="lab" text-anchor="end">run19</text>
-<line x1="416.4" y1="238.0" x2="670.9" y2="238.0" class="ci ours"/>
-<circle cx="544.9" cy="238.0" r="5" class="ours dot-open"/>
-<text x="178" y="266.0" class="lab" text-anchor="end">DAPT, AVES-only control, seed 2</text>
-<line x1="412.8" y1="262.0" x2="664.9" y2="262.0" class="ci dapt"/>
-<circle cx="543.1" cy="262.0" r="5" class="dapt dot-open"/>
-<text x="178" y="290.0" class="lab" text-anchor="end">AVES bio</text>
-<line x1="390.3" y1="286.0" x2="676.0" y2="286.0" class="ci aves"/>
-<circle cx="537.8" cy="286.0" r="5" class="aves dot-open"/>
-<text x="178" y="314.0" class="lab" text-anchor="end">BirdAVES bioxn-large</text>
-<line x1="408.4" y1="310.0" x2="667.6" y2="310.0" class="ci aves"/>
+<text x="178" y="194.0" class="lab" text-anchor="end">DAPT, AVES masking, seed 2 (E28b)</text>
+<line x1="423.4" y1="190.0" x2="666.4" y2="190.0" class="ci dapt"/>
+<circle cx="555.6" cy="190.0" r="5" class="dapt dot-open"/>
+<text x="178" y="218.0" class="lab" text-anchor="end">AVES all</text>
+<line x1="421.2" y1="214.0" x2="673.4" y2="214.0" class="ci aves"/>
+<circle cx="553.8" cy="214.0" r="5" class="aves dot-open"/>
+<text x="178" y="242.0" class="lab" text-anchor="end">DAPT, AVES-only control</text>
+<line x1="405.9" y1="238.0" x2="677.8" y2="238.0" class="ci dapt"/>
+<circle cx="552.0" cy="238.0" r="5" class="dapt dot-open"/>
+<text x="178" y="266.0" class="lab" text-anchor="end">run19</text>
+<line x1="416.4" y1="262.0" x2="670.9" y2="262.0" class="ci ours"/>
+<circle cx="544.9" cy="262.0" r="5" class="ours dot-open"/>
+<text x="178" y="290.0" class="lab" text-anchor="end">DAPT, AVES-only control, seed 2</text>
+<line x1="412.8" y1="286.0" x2="664.9" y2="286.0" class="ci dapt"/>
+<circle cx="543.1" cy="286.0" r="5" class="dapt dot-open"/>
+<text x="178" y="314.0" class="lab" text-anchor="end">AVES bio</text>
+<line x1="390.3" y1="310.0" x2="676.0" y2="310.0" class="ci aves"/>
 <circle cx="537.8" cy="310.0" r="5" class="aves dot-open"/>
-<text x="178" y="338.0" class="lab" text-anchor="end">DAPT replay x3</text>
-<line x1="447.8" y1="334.0" x2="638.1" y2="334.0" class="ci dapt"/>
-<circle cx="536.0" cy="334.0" r="5" class="dapt dot-open"/>
-<text x="178" y="362.0" class="lab" text-anchor="end">DAPT, AVES targets</text>
-<line x1="406.1" y1="358.0" x2="657.7" y2="358.0" class="ci dapt"/>
+<text x="178" y="338.0" class="lab" text-anchor="end">BirdAVES bioxn-large</text>
+<line x1="408.4" y1="334.0" x2="667.6" y2="334.0" class="ci aves"/>
+<circle cx="537.8" cy="334.0" r="5" class="aves dot-open"/>
+<text x="178" y="362.0" class="lab" text-anchor="end">DAPT replay x3</text>
+<line x1="447.8" y1="358.0" x2="638.1" y2="358.0" class="ci dapt"/>
 <circle cx="536.0" cy="358.0" r="5" class="dapt dot-open"/>
-<text x="178" y="386.0" class="lab" text-anchor="end">DAPT, two-teacher targets</text>
-<line x1="413.5" y1="382.0" x2="638.5" y2="382.0" class="ci dapt"/>
-<circle cx="530.7" cy="382.0" r="5" class="dapt dot-open"/>
-<text x="178" y="410.0" class="lab" text-anchor="end">run20</text>
-<line x1="339.3" y1="406.0" x2="619.3" y2="406.0" class="ci ours"/>
-<circle cx="488.0" cy="406.0" r="5" class="ours dot-open"/>
-<text x="178" y="434.0" class="lab" text-anchor="end">run18</text>
-<line x1="391.1" y1="430.0" x2="548.8" y2="430.0" class="ci ours"/>
-<circle cx="475.6" cy="430.0" r="5" class="ours dot-open"/>
-<text x="178" y="458.0" class="lab" text-anchor="end">DAPT from BirdAVES, two-teacher targets</text>
-<line x1="379.2" y1="454.0" x2="552.4" y2="454.0" class="ci dapt"/>
-<circle cx="470.2" cy="454.0" r="5" class="dapt dot-open"/>
-<text x="178" y="482.0" class="lab" text-anchor="end">run17</text>
-<line x1="358.9" y1="478.0" x2="540.5" y2="478.0" class="ci ours"/>
-<circle cx="457.8" cy="478.0" r="5" class="ours dot-open"/>
-<text x="178" y="506.0" class="lab" text-anchor="end">run16, seed 2</text>
-<line x1="318.1" y1="502.0" x2="483.3" y2="502.0" class="ci ours"/>
-<circle cx="399.1" cy="502.0" r="5" class="ours dot-fill"/>
-<text x="178" y="530.0" class="lab" text-anchor="end">run21</text>
-<line x1="261.2" y1="526.0" x2="445.4" y2="526.0" class="ci ours"/>
-<circle cx="354.6" cy="526.0" r="5" class="ours dot-fill"/>
-<text x="178" y="554.0" class="lab" text-anchor="end">run15</text>
-<line x1="239.1" y1="550.0" x2="433.5" y2="550.0" class="ci ours"/>
-<circle cx="345.8" cy="550.0" r="5" class="ours dot-fill"/>
-<text x="178" y="578.0" class="lab" text-anchor="end">run11</text>
-<line x1="202.8" y1="574.0" x2="435.5" y2="574.0" class="ci ours"/>
-<circle cx="335.1" cy="574.0" r="5" class="ours dot-fill"/>
+<text x="178" y="386.0" class="lab" text-anchor="end">DAPT, AVES targets</text>
+<line x1="406.1" y1="382.0" x2="657.7" y2="382.0" class="ci dapt"/>
+<circle cx="536.0" cy="382.0" r="5" class="dapt dot-open"/>
+<text x="178" y="410.0" class="lab" text-anchor="end">DAPT, two-teacher targets</text>
+<line x1="413.5" y1="406.0" x2="638.5" y2="406.0" class="ci dapt"/>
+<circle cx="530.7" cy="406.0" r="5" class="dapt dot-open"/>
+<text x="178" y="434.0" class="lab" text-anchor="end">DAPT, AVES masking (E28a)</text>
+<line x1="365.9" y1="430.0" x2="651.2" y2="430.0" class="ci dapt"/>
+<circle cx="516.4" cy="430.0" r="5" class="dapt dot-open"/>
+<text x="178" y="458.0" class="lab" text-anchor="end">run16, seed 3</text>
+<line x1="448.7" y1="454.0" x2="584.7" y2="454.0" class="ci ours"/>
+<circle cx="516.4" cy="454.0" r="5" class="ours dot-open"/>
+<text x="178" y="482.0" class="lab" text-anchor="end">run20</text>
+<line x1="339.3" y1="478.0" x2="619.3" y2="478.0" class="ci ours"/>
+<circle cx="488.0" cy="478.0" r="5" class="ours dot-open"/>
+<text x="178" y="506.0" class="lab" text-anchor="end">run18</text>
+<line x1="391.1" y1="502.0" x2="548.8" y2="502.0" class="ci ours"/>
+<circle cx="475.6" cy="502.0" r="5" class="ours dot-open"/>
+<text x="178" y="530.0" class="lab" text-anchor="end">DAPT from BirdAVES, two-teacher targets</text>
+<line x1="379.2" y1="526.0" x2="552.4" y2="526.0" class="ci dapt"/>
+<circle cx="470.2" cy="526.0" r="5" class="dapt dot-open"/>
+<text x="178" y="554.0" class="lab" text-anchor="end">run17</text>
+<line x1="358.9" y1="550.0" x2="540.5" y2="550.0" class="ci ours"/>
+<circle cx="457.8" cy="550.0" r="5" class="ours dot-open"/>
+<text x="178" y="578.0" class="lab" text-anchor="end">run16, seed 2</text>
+<line x1="318.1" y1="574.0" x2="483.3" y2="574.0" class="ci ours"/>
+<circle cx="399.1" cy="574.0" r="5" class="ours dot-fill"/>
+<text x="178" y="602.0" class="lab" text-anchor="end">run21</text>
+<line x1="261.2" y1="598.0" x2="445.4" y2="598.0" class="ci ours"/>
+<circle cx="354.6" cy="598.0" r="5" class="ours dot-fill"/>
+<text x="178" y="626.0" class="lab" text-anchor="end">run15</text>
+<line x1="239.1" y1="622.0" x2="433.5" y2="622.0" class="ci ours"/>
+<circle cx="345.8" cy="622.0" r="5" class="ours dot-fill"/>
+<text x="178" y="650.0" class="lab" text-anchor="end">run11</text>
+<line x1="202.8" y1="646.0" x2="435.5" y2="646.0" class="ci ours"/>
+<circle cx="335.1" cy="646.0" r="5" class="ours dot-fill"/>
 </svg></div>
       <div class="legend"><span><i class="sw ours"></i>ours, trained from scratch</span><span><i class="sw dapt"></i>AVES weights, continued on zebra finch</span><span><i class="sw aves"></i>AVES, downloaded</span><span><i class="sw open"></i>not distinguishable from run16</span></div>
     </div>
@@ -222,6 +231,9 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 <tr class="dapt"><td class="nm"><span class="sw dapt"></span>DAPT, two-teacher targets, seed 2</td><td class="what">E19 at seed 2</td><td class="n">0.8564</td><td class="n vs">+0.0185<br><span class="iv">[+0.0010, +0.0349]</span></td><td class="n">—</td><td class="n">0.9705</td><td class="n">0.7604</td><td class="n">0.9939</td><td class="n">0.5424</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/067-the-two-teacher-detection-gain-does-not-replicate-on-a-second-seed.yaml">067</a></td><td class="path"><code>…/temp_train_daptv4_twoteacher_2e4_s2</code></td></tr>
 <tr class="dapt"><td class="nm"><span class="sw dapt"></span>DAPT, AVES-only control, seed 2</td><td class="what">E21 at seed 2</td><td class="n">0.8461</td><td class="n vs">+0.0082 <span class="nd">n.d.</span><br><span class="iv">[-0.0133, +0.0283]</span></td><td class="n">—</td><td class="n">0.9703</td><td class="n">0.8351</td><td class="n">0.9972</td><td class="n">0.5062</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/067-the-two-teacher-detection-gain-does-not-replicate-on-a-second-seed.yaml">067</a></td><td class="path"><code>…/temp_train_daptv4_twoteacher_2e4_avesonly_s2</code></td></tr>
 <tr class="dapt"><td class="nm"><span class="sw dapt"></span>DAPT, two-teacher targets, 45k updates</td><td class="what">E19 trained 3x longer</td><td class="n">0.8538</td><td class="n vs">+0.0158 <span class="nd">n.d.</span><br><span class="iv">[-0.0036, +0.0326]</span></td><td class="n">—</td><td class="n">0.9710</td><td class="n">0.6990</td><td class="n">0.9926</td><td class="n">0.5455</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/068-three-times-longer-dapt-does-not-separate-on-call-type.yaml">068</a></td><td class="path"><code>…/temp_train_daptv4_twoteacher_2e4_45k</code></td></tr>
+<tr class="dapt"><td class="nm"><span class="sw dapt"></span>DAPT, AVES masking (E28a)</td><td class="what">E18 with mask 0.8 / 10 frames</td><td class="n">0.8417</td><td class="n vs">+0.0038 <span class="nd">n.d.</span><br><span class="iv">[-0.0210, +0.0260]</span></td><td class="n">—</td><td class="n">0.9705</td><td class="n">0.8150</td><td class="n">0.9956</td><td class="n">0.5046</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/071-aves-masking-rate-in-dapt-leaves-call-type-not-distinguishable.yaml">071</a></td><td class="path"><code>…/external/dapt</code></td></tr>
+<tr class="dapt"><td class="nm"><span class="sw dapt"></span>DAPT, AVES masking, seed 2 (E28b)</td><td class="what">E20 with mask 0.8 / 10 frames</td><td class="n">0.8482</td><td class="n vs">+0.0103 <span class="nd">n.d.</span><br><span class="iv">[-0.0115, +0.0285]</span></td><td class="n">—</td><td class="n">0.9701</td><td class="n">0.8322</td><td class="n">0.9933</td><td class="n">0.4954</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/071-aves-masking-rate-in-dapt-leaves-call-type-not-distinguishable.yaml">071</a></td><td class="path"><code>…/external/dapt</code></td></tr>
+<tr class="ours"><td class="nm"><span class="sw ours"></span>run16, seed 3</td><td class="what">run16 exactly, third seed</td><td class="n">0.8417</td><td class="n vs">+0.0038 <span class="nd">n.d.</span><br><span class="iv">[-0.0074, +0.0151]</span></td><td class="n">—</td><td class="n">0.9713</td><td class="n">0.5128</td><td class="n">0.9908</td><td class="n">0.4862</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/070-three-run16-seeds-span-0-019.yaml">070</a></td><td class="path">Mac only</td></tr>
 <tr class="dapt"><td class="nm"><span class="sw dapt"></span>DAPT replay x1</td><td class="what">AVES weights, continued on zebra finch with 19.3% general-audio replay</td><td class="n">0.8397</td><td class="n vs">—</td><td class="n">—</td><td class="n">0.9711</td><td class="n">0.8318</td><td class="n">—</td><td class="n">0.5022</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/058-dapt-round-2-replay-arm-is-the-e5-baseline-not-distinguish.yaml">058</a></td><td class="path"><code>…/external/dapt</code></td></tr>
 <tr class="aves"><td class="nm"><span class="sw aves"></span>BirdAVES biox-large</td><td class="what">downloaded; large, bird-heavy corpus</td><td class="n">0.8552</td><td class="n vs">+0.0173 <span class="nd">n.d.</span><br><span class="iv">[-0.0061, +0.0391]</span></td><td class="n">0.8514<br><span class="iv">beats run16 on 10/10</span></td><td class="n">0.9703</td><td class="n">0.8362</td><td class="n">—</td><td class="n">0.4513</td><td class="n"></td><td class="path">Mac only</td></tr>
 <tr class="aves"><td class="nm"><span class="sw aves"></span>BirdAVES biox-base</td><td class="what">downloaded; same size as ours, bird-heavy corpus</td><td class="n">0.8520</td><td class="n vs">+0.0141 <span class="nd">n.d.</span><br><span class="iv">[-0.0070, +0.0341]</span></td><td class="n">0.8448<br><span class="iv">beats run16 on 10/10</span></td><td class="n">0.9697</td><td class="n">0.7914</td><td class="n">—</td><td class="n">0.4611</td><td class="n"></td><td class="path">Mac only</td></tr>
@@ -248,7 +260,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 <tr><td class="nm">E4</td><td>general audio only (FSD50K alone), run16&#x27;s recipe</td><td><span class="chip ok">done</span></td><td class="n">39661997</td><td class="n">061</td><td class="what">run20 minus run21 +0.0220 [-0.0008, +0.0412], run20 minus run16 -0.0009 [-0.0254, +0.0208] -- not distinguishable (not a match)</td></tr>
 <tr><td class="nm">E6</td><td>zebra finch only, the twin of E4</td><td><span class="chip ok">done</span></td><td class="n">39665377</td><td class="n">061</td><td class="what">run21 (ZF only) 0.8151, resolved below run16 (-0.0229 [-0.0383, -0.0079]); E4&#x27;s baseline</td></tr>
 <tr><td class="nm">E5</td><td>replay REPETITION dose for DAPT (x3)</td><td><span class="chip ok">done</span></td><td class="n">39671592</td><td class="n">060</td><td class="what">not met on all three conditions -- BirdPark AP x3 minus x1 -0.0012 [-0.0174, +0.0069]; not resolvable at ~0.05 AP</td></tr>
-<tr><td class="nm">E7</td><td>run16, third seed</td><td><span class="chip run">submitted</span></td><td class="n">39732808</td><td class="n"></td><td class="what">With three runs of one recipe, how far apart do run16-recipe call-type scores land, and is seed 2 or run16 the outlier?</td></tr>
+<tr><td class="nm">E7</td><td>run16, third seed</td><td><span class="chip idle">scored</span></td><td class="n">39732808</td><td class="n"></td><td class="what">With three runs of one recipe, how far apart do run16-recipe call-type scores land, and is seed 2 or run16 the outlier?</td></tr>
 <tr><td class="nm">E8</td><td>run19 (AVES teacher), second seed</td><td><span class="chip run">submitted</span></td><td class="n">39781626</td><td class="n"></td><td class="what">Does run19&#x27;s best-point-estimate call type (0.8464, finding 059) survive a second seed?</td></tr>
 <tr><td class="nm">E9</td><td>run20 (general audio only), second seed</td><td><span class="chip plan">approved</span></td><td class="n"></td><td class="n"></td><td class="what">Does general audio alone (finding 061) hold its level on a second seed?</td></tr>
 <tr><td class="nm">E10</td><td>Score the models on BEANS (12 public tasks, bats included)</td><td><span class="chip ok">done</span></td><td class="n"></td><td class="n">063</td><td class="what">frozen probe, 8 interpretable BEANS tasks: none of ours ahead of aves-base-bio; run16 behind on 5, run19 not distinguishable on 7 (one seed, AVES-own targets)</td></tr>
@@ -266,6 +278,11 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 <tr><td class="nm">E22</td><td>E19 trained 3x longer (45,000 updates)</td><td><span class="chip ok">done</span></td><td class="n">39851973</td><td class="n">068</td><td class="what">not met: call type 0.8538 (L3), minus E19 +0.0097 [-0.0066, +0.0246], minus aves-base-bio +0.0085 [-0.0174, +0.0315]; ZF AUC +0.0036 over AVES (12/12 arms), n.d. from E19 and run16; preempted 3x, each resume lost work back to the epoch-3 end (finding 068)</td></tr>
 <tr><td class="nm">E23</td><td>E19, second seed</td><td><span class="chip ok">done</span></td><td class="n">39852046</td><td class="n">067</td><td class="what">criterion half-passed, so not met: E23 minus E24 ZF AUC at pre-committed arms +0.0002 [-0.0013, +0.0013], ahead at 11/12 arms; call type 0.8564 vs AVES +0.0111 [-0.0060, +0.0274]; arm contrast on call type flips sign between seeds (finding 067)</td></tr>
 <tr><td class="nm">E24</td><td>E21 (AVES-only control), second seed</td><td><span class="chip ok">done</span></td><td class="n">39852047</td><td class="n">067</td><td class="what">control seed 2: call type 0.8461 (vs AVES +0.0009 [-0.0137, +0.0158]); ZF AUC vs AVES +0.0029 [+0.0016, +0.0044]; moved +0.0039 ZF AUC at L6 from E21 (finding 067)</td></tr>
+<tr><td class="nm">E25</td><td>Off-the-shelf encoders on our benchmarks (BEATs, EAT, BirdNET, Perch)</td><td><span class="chip run">running</span></td><td class="n"></td><td class="n"></td><td class="what">Does a different architecture or training objective (spectrogram-patch SSL, supervised bird classifiers) beat the HuBERT/AVES family on zebra finch call type or detection?</td></tr>
+<tr><td class="nm">E26</td><td>Synthetic mixtures in the DAPT stream</td><td><span class="chip plan">approved</span></td><td class="n"></td><td class="n"></td><td class="what">Does training on calls placed in varied, known backgrounds improve detection on held-out recordings (BirdPark) and call type?</td></tr>
+<tr><td class="nm">E27</td><td>DAPT from the largest BirdAVES (biox-large)</td><td><span class="chip plan">approved</span></td><td class="n"></td><td class="n"></td><td class="what">Does specialising the strongest download help, given that specialising BirdAVES base hurt (066)?</td></tr>
+<tr><td class="nm">E28</td><td>AVES&#x27;s masking in DAPT (E18 recipe, 2 seeds)</td><td><span class="chip ok">done</span></td><td class="n">39859244</td><td class="n">071</td><td class="what">not met: call type n.d. from the same-seed baseline on both seeds (-0.0085, +0.0006) and from AVES; ZF AUC above baseline on seed 2 only (+0.0017 [+0.0004, +0.0029]); mask embedding never restored in any DAPT arm (finding 071)</td></tr>
+<tr><td class="nm">E29</td><td>AVES-bio&#x27;s recipe in our code, from scratch (2 seeds)</td><td><span class="chip run">submitted</span></td><td class="n">39859251</td><td class="n"></td><td class="what">With model, compute and every training knob matched to AVES-bio, is what remains (data, targets) the gap?</td></tr>
         </tbody>
       </table>
     </div>
@@ -275,13 +292,13 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
     <h2>Savio automations</h2>
     <p class="lede">What runs on its own, and what it needs from you.</p>
     <div class="cards">
-<div class="card"><div class="ch"><h3>Savio login</h3><span class="chip ok">working</span></div><p>12-hour SSH certificate, valid until 2026-10-12 23:12. Renew with <code>sv login</code> (one PIN + code). Every automation below that touches Savio waits on this.</p></div>
+<div class="card"><div class="ch"><h3>Savio login</h3><span class="chip ok">working</span></div><p>12-hour SSH certificate, valid until 2026-10-13 11:45. Renew with <code>sv login</code> (one PIN + code). Every automation below that touches Savio waits on this.</p></div>
 <div class="card"><div class="ch"><h3>lab / sv commands</h3><span class="chip ok">working</span></div><p><code>sv train</code>, <code>sv status</code>, <code>sv log</code>, <code>sv gpu</code>, <code>sv notebook</code>, <code>sv data</code>, <code>sv share</code>. Training submissions run an import check first and go in a ledger.</p></div>
 <div class="card"><div class="ch"><h3>Shared data</h3><span class="chip ok">working</span></div><p>34 corpora, label sets and models registered in <code>datasets.tsv</code>, browsable under <code>…/lab_data</code>, read + write for Julie (jelie) and Bhavna (malladibhavna). New folders: <code>lab share</code>.</p></div>
 <div class="card"><div class="ch"><h3>Storage</h3><span class="chip ok">working</span></div><p>Home went from 47 GB (at its 50 GB cap) to 0.7 GB on Oct 4; conda envs, pip cache and JupyterLab live on scratch behind shortcuts. Env recipes in <code>~/env_specs</code>.</p></div>
-<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip ok">working</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-12 20:09, connected.</p></div>
+<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip ok">working</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-13 00:06, connected.</p></div>
 <div class="card"><div class="ch"><h3>Experiment harness</h3><span class="chip ok">working</span></div><p>Each poll, <code>tick.py</code> starts an agent when a run finishes, fails, or an approved experiment has a free slot (2 at a time, 6 agents a day). It stands down while the lead agent is alive.</p></div>
-<div class="card"><div class="ch"><h3>Lead agent</h3><span class="chip run">running</span></div><p>Long-lived <code>/loop</code> session (<code>harness/PI.md</code>). Last heartbeat Oct 12 19:57. </p></div>
+<div class="card"><div class="ch"><h3>Lead agent</h3><span class="chip run">running</span></div><p>Long-lived <code>/loop</code> session (<code>harness/PI.md</code>). Last heartbeat Oct 12 23:29. </p></div>
 <div class="card"><div class="ch"><h3>Critic</h3><span class="chip ok">working</span></div><p>A fresh agent tries to break every finding before it is recorded (<code>harness/CRITIC.md</code>). Findings 056–061 all came back accept-with-changes, changes applied.</p></div>
 <div class="card"><div class="ch"><h3>Jupyter on Savio</h3><span class="chip warn">partly tested</span></div><p>Kernel and the Mac-to-Savio tunnel are verified; the GPU notebook job itself has not run yet. Start one with <code>sv notebook HOURS</code>.</p></div>
 <div class="card"><div class="ch"><h3>Duplicate agents</h3><span class="chip bad">open issue</span></div><p>The usage watcher's auto-resume started a second agent in this project twice while the lead was running; both submitted the same job. Duplicates were cancelled. Fix: make auto-resume skip this project while the lead is alive.</p></div>

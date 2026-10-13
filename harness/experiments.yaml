@@ -642,7 +642,9 @@ experiments:
   tag: daptv3aves_2e4m8_step15000
   num_classes: 200
   job_name: dapt_v3_m8l10
-  status: trained
+  status: done
+  finding: '071'
+  result: 'not met: call type n.d. from the same-seed baseline on both seeds (-0.0085, +0.0006) and from AVES; ZF AUC above baseline on seed 2 only (+0.0017 [+0.0004, +0.0029]); mask embedding never restored in any DAPT arm (finding 071)'
   job: 39859244
   priority: 1
   notes: 'Approved by the user 2026-10-12 ("still think we could close the loop on some of these variables", after

@@ -1,0 +1,62 @@
+id: '071'
+title: AVES's masking rate and span in DAPT leave call type not distinguishable, and the detection criterion half-passes
+status: confirmed
+claim: 'Continuing AVES-bio with AVES''s masking rate and span (mask_prob 0.8, 10-frame spans; about half of the frames
+  masked against about a third with ours, 0.4 and 3 frames), everything else as E18 / E20, does not meet E28''s
+  pre-registered criterion: call type is not distinguishable from the same-seed baseline (seed 1337 -0.0085 [-0.0219,
+  +0.0025]; seed 2 +0.0006 [-0.0130, +0.0136]) or from aves-base-bio on either seed (also at layer 3), and the detection
+  criterion half-passes, with ZF AUC above the same-seed baseline on seed 2 (+0.0017 [+0.0004, +0.0029], 8/12 arms) but
+  not on seed 1337 (+0.0009 [-0.0012, +0.0018], 2/12 arms); per-layer call-type effects agree in sign across the two
+  seeds at only 6 of 12 layers.'
+evidence: 'E28a (daptv3aves_2e4m8_step15000, seed 1337): call type 0.8417 at L4, 0.8368 at L3; pre-committed native_L1
+  ZF AUC 0.9705, BirdPark AP 0.8150; BirdPark AP 12-arm median 0.8333; label-free k30 0.5046.
+
+  E28b (daptv3aves_2e4s2m8_step15000, seed 2): call type 0.8482 at L0, 0.8429 at L3; pre-committed native_L3 ZF AUC
+  0.9701, BirdPark AP 0.8322; median 0.8354; k30 0.4954.
+
+  Same-seed baselines (our masking): E18 0.8502 at L5 (L3 0.8426), pre-committed matched_L6 ZF AUC 0.9696, BirdPark
+  AP 0.8441, median 0.8225, k30 0.4976; E20 0.8476 at L0 (L3 0.8353), matched_L3 ZF AUC 0.9685, BirdPark AP 0.8471,
+  median 0.8389, k30 0.4859.
+
+  Call type (calltype_pair.py, bird bootstrap): E28a minus E18 -0.0085 [-0.0219, +0.0025]; E28b minus E20 +0.0006
+  [-0.0130, +0.0136]; E28a minus aves-base-bio -0.0035 [-0.0189, +0.0097]; E28b minus aves-base-bio +0.0029 [-0.0145,
+  +0.0186]. Per layer vs the same-seed baseline: E28a ahead at 3/12 layers (mean -0.0056), E28b at 7/12 (mean +0.0019); signs
+  agree across seeds at 6/12 layers. Layer 3 (<tag>_bootstrap.json vs["<tag>@L3"]): E28a minus aves-base-bio -0.0085
+  [-0.0239, +0.0050], E28b -0.0023 [-0.0213, +0.0144]; against the same-seed baseline at L3 -0.0059 and +0.0076 (no
+  interval in the sources).
+
+  Detection (paired_vs.py, observed, 1500-frame blocks): E28a minus E18 ZF AUC +0.0009 [-0.0012, +0.0018], arms 2/12
+  (-0.0033 to +0.0023), BirdPark AP -0.0290 [-0.0986, +0.0043], AUC -0.0322 [-0.0847, +0.0000]; E28b minus E20 ZF AUC
+  +0.0017 [+0.0004, +0.0029], arms 8/12 (-0.0024 to +0.0024), BirdPark AP -0.0149 [-0.0627, +0.0150]. E28a minus
+  aves-base-bio ZF AUC +0.0031 [+0.0008, +0.0044]; E28b +0.0028 [+0.0010, +0.0042]; both ahead at 12/12 arms. For
+  reference E20 minus aves-base-bio ZF AUC +0.0011 [-0.0006, +0.0022] (not resolved).
+
+  BirdPark arm spread (zf_to_bp, 12 arms) vs the same-seed baseline: E28a ahead on AP at 8/12 and AUC at 10/12 (its
+  pre-committed native_L1 is a weak arm); E28b ahead on AP at 5/12 and AUC at 4/12, so BirdPark changes sign between
+  seeds.'
+method: 'slurm/train_dapt_v3_avesteacher_lr2e4_avesmask.sh and _avesmask_seed2.sh (jobs 39859244/5): E18''s script
+  with DAPT_MASK=0.8,10 passed to new train.py flags --mask-prob/--mask-length (defaults unchanged; masked fraction on a 15 s crop measured
+  on Savio as 34% vs 54%, harness/experiments.yaml E28 notes; local torchaudio gives 35% vs 57%). Logs confirm mask 0.8,10, seeds 1337 and 2, AVES-bio init,
+  15,000 steps. Scored by harness/score_run.sh; call type calltype_pair.py; detection paired_vs.py.'
+provenance: 'analysis/daptv3aves_2e4m8_step15000_*.json, daptv3aves_2e4s2m8_step15000_*.json, daptv3aves_2e4_step15000_calltype.json,
+  daptv3aves_2e4s2_step15000_calltype.json, calltype_pairs.json, paired_vs.json (<a>__vs__<b>), detection_variants.json,
+  labelfree_stability.json; savio_artifacts/logs/train_dapt_v3_m8l10_39859244.log, train_dapt_v3_m8l10s2_39859245.log'
+caveats: 'Masking was changed only for the 15,000 DAPT updates on top of AVES''s 100,000 with its own masking, so this
+  tests switching the rate and span late, not training with them from the start (E29 does that, bundled with lr and
+  warmup). Every DAPT arm, baselines included, starts mask_generator fresh (job log: "[init-weights] transplanted 210
+  encoder tensors ... mask_generator and logit_generator ..."; the torchaudio port of AVES carries no mask embedding),
+  so AVES''s learned mask embedding was never restored; "AVES''s masking" here means its rate and span only. Two seeds
+  per arm; seed noise is large on both read-outs: call type moves about 0.01-0.02 between seeds (067, 070), the per-layer
+  masking effects (means -0.0056, +0.0019) are the size of E20 minus E18 (-0.0046, 067), and 067''s control moved ZF AUC
+  by +0.0039 between seeds, more than E28b''s +0.0017. "Stays at the AVES-init DAPT detection level" holds for E28a and
+  E28b against aves-base-bio, but E20 alone is not resolved above it. The pre-committed arms differ between E28 and its
+  baselines; BirdPark is not interpreted (about 4 independent blocks, 047). The call-type JSONs carry run15''s stale
+  note string. Critic (fresh subagent, CRITIC.md, 2026-10-13): ACCEPT-WITH-CHANGES; applied: title and claim say "not
+  distinguishable" and "half-passes", masked fractions cited to experiments.yaml and rounded, L3 intervals, BirdPark arm
+  spread and sign change, sign-agreement read-out, detection seed-noise and E20 caveats, mask_generator not restored.'
+tags:
+- dapt
+- masking
+- call-type
+- detection
+date: '2026-10-13'

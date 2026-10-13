@@ -101,6 +101,9 @@ def layer_grid(n_layers: int) -> list[int]:
 
 
 def spec(name: str) -> dict:
+    if name.startswith("hf-whisper"):                  # E25: Hugging Face Whisper encoders (needs transformers)
+        from e25_whisper_frames import whisper_spec
+        return whisper_spec(name)
     if name == "run11":
         return dict(kind="run11", n_layers=12, dim=768, weights=None, cfg=None)
     # Any self-describing export goes through this branch, not just DAPT checkpoints: run15
@@ -126,6 +129,9 @@ def load_model(name: str, s: dict, device: str):
     """load_aves generalised to any released config; strict about what may be missing."""
     if s["kind"] == "run11":
         m = load_run11(device)
+    elif s["kind"] == "hf-whisper":
+        from e25_whisper_frames import WhisperFrames
+        m = WhisperFrames(s["hf_id"], device)
     else:
         from torchaudio.models import wav2vec2_model
         cfg = dict(s["cfg"])
