@@ -146,3 +146,9 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   (also at L3); detection not distinguishable from BirdAVES or E19; BirdPark pre-committed gain is an arm artefact
   (4-5/12 arms). Finding 066 confirmed after critic (ACCEPT-WITH-CHANGES, all applied). E14 done. Stop rule not met.
   Waiting on E23 (~17:05), E22 (~18:10), E24 (pending).
+- 2026-10-12 17:25 E23 scored (job 39852046): call type 0.8564 L1, best DAPT so far but vs AVES +0.0111
+  [-0.0060, +0.0274] n.d.; vs E19 (same recipe, seed 1) +0.0123 [+0.0016, +0.0241] RESOLVED -> seed-to-seed spread
+  exceeds the bird-bootstrap interval (cf. 057). Stop rule not met. Detection at the AVES-init DAPT level (ZF AUC
+  +0.0032 vs AVES, 12/12 arms). Its pre-committed arm (native_L1) is a weak BirdPark arm: pre-committed BP AUC -0.0672
+  vs AVES but 12-arm AP median 0.8533 vs 0.8115 -- arm fragility again, do not quote either direction. E23 criterion
+  (E23-E24) waits on E24 (pending). Finding to be written with E24.

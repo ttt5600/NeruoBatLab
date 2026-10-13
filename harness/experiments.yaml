@@ -545,7 +545,8 @@ experiments:
   tag: daptv4two_2e4s2_step15000
   num_classes: 200
   job_name: dapt_v4_2t_s2
-  status: submitted
+  status: scored
+  result: 'interim, criterion needs E24: call type 0.8564 at L1 (vs aves-base-bio +0.0111 [-0.0060, +0.0274]; vs E19, same recipe seed 1, +0.0123 [+0.0016, +0.0241], so the bird bootstrap under-covers seed variance); ZF AUC native_L1 0.9705, vs AVES +0.0032 [+0.0012, +0.0047] at 12/12 arms, vs E19 -0.0019 [-0.0030, -0.0000]; pre-committed BirdPark arm is weak (AP 0.7604) while the 12-arm AP median is 0.8533'
   job: 39852046
   priority: 2
   notes: 'Self-approved 2026-10-12: lowprio, 1 L40, data on Savio, flags only (DAPT_SEED, suffix, DAPT_DATA).'
