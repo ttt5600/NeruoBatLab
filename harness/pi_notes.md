@@ -169,3 +169,13 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   after critic (ACCEPT-WITH-CHANGES, applied). No model beats AVES on it; weak agreement with call type among close
   models, +0.90 on 050's five encoders; call type's own seed reliability is ~0.44. Added to score_run.sh (--only TAG)
   and the board (Label-free k=30 column). Optional later: score both directions per halving.
+- 2026-10-12 22:20 Controlled-variables audit (user asked). AVES-bio cfg read from its checkpoint: mask 0.8/10
+  (ours 0.4/3; measured 54% vs 34% of frames masked), lr 2e-4, warmup 32k/100k, 700 s/update, iteration-2 targets,
+  seed 1337. Same as ours: size, input, optimiser, dropout, k=200. run17 already matched 86% of AVES compute.
+  User approved E25-E27 and closing variables -> E28 (DAPT + AVES masking, 2 seeds) and E29 (AVES recipe from
+  scratch, 2 seeds, judged on BEANS) pre-registered and pushed (eb788ae). train.py --mask-prob/--mask-length added
+  (defaults unchanged), committed in pytorchAudio (c8e02f58, not yet pushed to Lab_Remote), code on Savio.
+  dtn import check: first attempt hung (train.py --help slow/hung on dtn; stray procs killed, dtn master reset);
+  relaunched detached -> ~/jobs/maskcheck.out. Submit E28/E29 after it passes.
+  E25 started: AVES-nonbio (360 h, no animal audio) downloaded; call type 0.8470 = AVES-bio (+0.0018 [-0.0154,
+  +0.0189]), beats run11 +0.0352 [+0.0110, +0.0621] -> animal data buys nothing on ZF call type. Detection running.

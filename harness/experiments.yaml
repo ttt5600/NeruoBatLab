@@ -203,7 +203,7 @@ experiments:
   success: none -- measures run-to-run spread. Report all three best-layer scores and the pairwise bird-bootstrap
     intervals; no variance estimate from n=3 beyond the range.
   script: pytorchAudio/examples/hubert/slurm/train_run16_seed3.sh
-  status: submitted
+  status: trained
   priority: 3
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Submitted
     2026-10-08 02:20 as job 39732808 (confirmed in sacct and the ledger).'
@@ -634,11 +634,12 @@ experiments:
   tag: daptv3aves_2e4m8_step15000
   num_classes: 200
   job_name: dapt_v3_m8l10
-  status: approved
+  status: submitted
+  job: 39859244
   priority: 1
   notes: 'Approved by the user 2026-10-12 ("still think we could close the loop on some of these variables", after
     the controlled-variables audit). Seed-2 arm E28b: exp temp_train_daptv3_avesteacher_2e4_s2_m08l10, tag
-    daptv3aves_2e4s2m8_step15000, job dapt_v3_m8l10s2.'
+    daptv3aves_2e4s2m8_step15000, job dapt_v3_m8l10s2, slurm job 39859245. Submitted 2026-10-12 22:16 after the dtn check (defaults 0.4/3 -> 34% masked; 0.8/10 -> 54%).'
 - id: E29
   title: AVES-bio's recipe in our code, from scratch (2 seeds)
   baseline: run17 (same compute bundle, our masking/lr/warmup), run16, aves-base-bio
@@ -655,7 +656,8 @@ experiments:
   tag: run29_avesrecipe
   num_classes: 200
   job_name: hubert_run29
-  status: approved
+  status: submitted
+  job: 39859251
   priority: 1
   notes: 'Approved by the user 2026-10-12 (same message as E28). ~12 h on 4 L40s per seed (run17 took 11 h for
-    93,750 updates). Seed-2 arm: exp temp_train_run29_avesrecipe_s2, tag run29_avesrecipe_s2, job hubert_run29s2.'
+    93,750 updates). Seed-2 arm: exp temp_train_run29_avesrecipe_s2, tag run29_avesrecipe_s2, job hubert_run29s2, slurm job 39859252. First submission refused (header rewrite dropped the SBATCH block); fixed and submitted 22:19.'
