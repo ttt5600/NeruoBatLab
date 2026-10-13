@@ -104,6 +104,9 @@ def spec(name: str) -> dict:
     if name.startswith("hf-whisper"):                  # E25: Hugging Face Whisper encoders (needs transformers)
         from e25_whisper_frames import whisper_spec
         return whisper_spec(name)
+    if name.startswith("hf-") and not name.startswith("hf-ast"):   # E25 batch 1: HF waveform SSL encoders
+        from e25_hf_frames import hf_spec
+        return hf_spec(name)
     if name == "run11":
         return dict(kind="run11", n_layers=12, dim=768, weights=None, cfg=None)
     # Any self-describing export goes through this branch, not just DAPT checkpoints: run15
@@ -132,6 +135,9 @@ def load_model(name: str, s: dict, device: str):
     elif s["kind"] == "hf-whisper":
         from e25_whisper_frames import WhisperFrames
         m = WhisperFrames(s["hf_id"], device)
+    elif s["kind"] == "hf-ssl":
+        from e25_hf_frames import HFFrames
+        m = HFFrames(s["hf_id"], device)
     else:
         from torchaudio.models import wav2vec2_model
         cfg = dict(s["cfg"])

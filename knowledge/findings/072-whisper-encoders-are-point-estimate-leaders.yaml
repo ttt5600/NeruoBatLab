@@ -39,7 +39,16 @@ evidence: 'Call type (e25_hf_encoders.py; calltype_pair.py, bird bootstrap, obse
 
   Label-free k30 (labelfree_stability.json, layer index 3): Whisper tiny 0.3361 (minus aves-base-bio -0.1422 [-0.2054,
   -0.0540]), base 0.4152 (-0.0631 [-0.1438, +0.0174]), small 0.4388 (-0.0395 [-0.1151, +0.0115]); AST 0.5898; data2vec
-  0.5591; aves-base-bio 0.4783. Whisper-small BirdPark AP minus aves-base-bio over 12 arms: -0.0056 to +0.1100.'
+  0.5591; aves-base-bio 0.4783. Whisper-small BirdPark AP minus aves-base-bio over 12 arms: -0.0056 to +0.1100.
+
+  Detection, same-size speech SSL (added 2026-10-13; e25_hf_frames.py, whose HuBERT-ls960 frames equal torchaudio
+  HUBERT_BASE exactly on a 20 s chunk; detection_variants.json precommit, paired_vs.json observed): HuBERT-ls960 native_L3
+  ZF AUC 0.9646, minus aves-base-bio -0.0028 [-0.0047, -0.0013], minus run16 -0.0072 [-0.0094, -0.0042]; wav2vec2
+  matched_L1 0.9628, -0.0045 [-0.0067, -0.0027] and -0.0090 [-0.0103, -0.0064]; WavLM+ native_L3 0.9658, -0.0015
+  [-0.0038, +0.0002] and -0.0060 [-0.0088, -0.0029]; data2vec native_L0 0.9649, -0.0024 [-0.0044, +0.0012] and -0.0069
+  [-0.0087, -0.0027]. All four are below aves-base-bio on ZF AUC at 12/12 arms. So the speech SSL models sit at or
+  below AVES on both tasks; among speech-trained encoders only Whisper-small is above AVES on ZF AUC (Whisper-base
+  ties, Whisper-tiny is below).'
 method: 'zfeval/experiments/e25_hf_encoders.py: Hugging Face checkpoints (openai/whisper-*, MIT/ast-finetuned-audioset-10-10-0.4593,
   facebook/hubert-base-ls960, facebook/wav2vec2-base, microsoft/wavlm-base-plus, facebook/data2vec-audio-base), each
   clip encoded alone through the model''s own feature extractor, transformer-layer outputs mean-pooled; for the
