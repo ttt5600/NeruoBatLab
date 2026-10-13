@@ -99,6 +99,9 @@ def grade(league: str, season: int) -> None:
         print(f"{league} {season}: collect {missing} first")
         return
     g, p, b = (pd.read_parquet(need[k]) for k in ("games", "props", "box"))
+    if p.empty or "market" not in p.columns:
+        print(f"{league} {season}: no props on ESPN for this season -- nothing to grade")
+        return
     out = settle.grade(p, b, g)
     save(out, path(league, "graded", season))
     ok = out["profit"].notna()
@@ -153,15 +156,20 @@ def main() -> int:
     if not a.seasons:
         ap.error("--seasons is required")
     seasons = range(a.seasons[0], a.seasons[-1] + 1)
+    failed = []
     for s in seasons:
-        if a.kind == "grade":
-            grade(a.league, s)
-        else:
-            for k in (KINDS if a.kind == "all" else [a.kind]):
-                collect(k, a.league, s, a.refresh)
-            if a.kind == "all":
+        try:  # one bad season must not abort the rest of the league
+            if a.kind == "grade":
                 grade(a.league, s)
-    return 0
+            else:
+                for k in (KINDS if a.kind == "all" else [a.kind]):
+                    collect(k, a.league, s, a.refresh)
+                if a.kind == "all":
+                    grade(a.league, s)
+        except Exception as e:
+            print(f"!!! {a.league} {s} failed: {e.__class__.__name__}: {e}")
+            failed.append(s)
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
