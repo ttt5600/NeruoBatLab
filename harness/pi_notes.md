@@ -159,3 +159,9 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
   after 057) for the same review -- TODO next idle wake. Next idle: E11 (label-free score column).
 - 2026-10-12 19:10 052 reviewed (critic flag from 067): run16 seed 2 n.d. from run15/run11 -> 052 moved to open with a
   replication caveat; E7 (run16 seed 3, job 39732808) STARTED running ~19:01 after 4 days pending; it is the tiebreaker.
+- 2026-10-12 19:50 E22 scored (job 39851973): call type 0.8538 L3, n.d. from E19 and AVES -> criterion not met.
+  Finding 068 confirmed after critic (ACCEPT-WITH-CHANGES, applied). E22 done.
+  TODO (resume waste): last.ckpt is saved only at epoch end, so each lowprio preemption restarts from the last epoch
+  boundary (E22 lost >=6k steps over 3 preemptions). Fix candidate: save_last on the every-2500-step ModelCheckpoint
+  (or resume from the newest stepstep=*.ckpt). Code change in the training script, not flags -> propose, don't
+  self-approve; check how run16's resumes behaved first.

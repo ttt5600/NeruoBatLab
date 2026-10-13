@@ -39,6 +39,7 @@ MODELS = [
     ("daptv4bird_2e4_step15000", "DAPT from BirdAVES, two-teacher targets", "dapt", "E19's recipe with BirdAVES biox-base as the starting weights", "066", "daptv4_birdaves_2e4"),
     ("daptv4two_2e4s2_step15000", "DAPT, two-teacher targets, seed 2", "dapt", "E19 at seed 2", "067", "daptv4_twoteacher_2e4_s2"),
     ("daptv4aveso_2e4s2_step15000", "DAPT, AVES-only control, seed 2", "dapt", "E21 at seed 2", "067", "daptv4_avesonly_2e4_s2"),
+    ("daptv4two45k_2e4_step45000", "DAPT, two-teacher targets, 45k updates", "dapt", "E19 trained 3x longer", "068", "daptv4_twoteacher_45k"),
     ("daptreplay_5e5_step15000", "DAPT replay x1", "dapt", "AVES weights, continued on zebra finch with 19.3% general-audio replay", "058", None),
     ("birdaves-biox-large", "BirdAVES biox-large", "aves", "downloaded; large, bird-heavy corpus", "", None),
     ("birdaves-biox-base", "BirdAVES biox-base", "aves", "downloaded; same size as ours, bird-heavy corpus", "", None),

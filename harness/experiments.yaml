@@ -527,7 +527,9 @@ experiments:
   tag: daptv4two45k_2e4_step45000
   num_classes: 200
   job_name: dapt_v4_45k
-  status: submitted
+  status: done
+  finding: '068'
+  result: 'not met: call type 0.8538 (L3), minus E19 +0.0097 [-0.0066, +0.0246], minus aves-base-bio +0.0085 [-0.0174, +0.0315]; ZF AUC +0.0036 over AVES (12/12 arms), n.d. from E19 and run16; preempted 3x, each resume lost work back to the epoch-3 end (finding 068)'
   job: 39851973
   priority: 4
   notes: 'Self-approved 2026-10-12: lowprio, 1 L40 (~2.5 h), data on Savio, flags only (DAPT_STEPS, exp suffix,
