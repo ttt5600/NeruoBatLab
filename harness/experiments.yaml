@@ -592,8 +592,9 @@ experiments:
   priority: 3
   notes: 'Proposed 2026-10-12 after the user asked about other architectures. Needs: model downloads (Perch may need
     Kaggle, an open user decision), per-model embedding code, clip-by-clip (never batched) encoding. Needs the user''s
-    go-ahead. Batch 1 fixed 2026-10-12 before any score was read: aves-base-nonbio (AVES''s own
-    360 h non-animal control) and four same-size Hugging Face speech encoders (hubert-base-ls960, wav2vec2-base,
+    go-ahead. Batch 1, 2026-10-12: aves-base-nonbio (AVES''s own 360 h non-animal control; already scored,
+    call type 0.8470, when this note was written) and four same-size Hugging Face speech encoders, fixed before
+    their scores were read (hubert-base-ls960, wav2vec2-base,
     wavlm-base-plus, data2vec-audio-base), board protocol, 12 transformer layers, own feature extractor. Batch 2:
     BEATs / EAT / BirdNET / Perch as downloads allow.'
 - id: E26
