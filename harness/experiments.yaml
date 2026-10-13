@@ -671,3 +671,39 @@ experiments:
   priority: 1
   notes: 'Approved by the user 2026-10-12 (same message as E28). ~12 h on 4 L40s per seed (run17 took 11 h for
     93,750 updates). Seed-2 arm: exp temp_train_run29_avesrecipe_s2, tag run29_avesrecipe_s2, job hubert_run29s2, slurm job 39859252. First submission refused (header rewrite dropped the SBATCH block); fixed and submitted 22:19.'
+- id: E30
+  title: Our recipe with a log-mel front end
+  baseline: run17 (same compute bundle, waveform CNN front end) and E29 (AVES recipe, waveform)
+  change: 'replace the 7-layer waveform CNN with a Whisper-style front end (80-bin log-mel at 10 ms, two conv layers,
+    stride 2 -> 20 ms frames), keep the 12 x 768 transformer, masked prediction, k=200 targets, corpus and compute'
+  question: Finding 072's strongest encoders read log-mel; is the front end the lever inside our own recipe?
+  success: to be pre-registered before submission; 2 seeds per arm; call type and detection against run17 and AVES
+  script: null
+  status: proposed
+  priority: 2
+  notes: 'Proposed 2026-10-13 from finding 072. New model code (front end + frame alignment for labels); needs the
+    user''s go-ahead.'
+- id: E31
+  title: Whisper-small encoder continued on zebra finch (DAPT on Whisper)
+  baseline: hf-whisper-small-enc frozen (finding 072)
+  change: 'start from the Whisper-small encoder, add a masked-prediction head over k-means targets on its own layer-3
+    features, 15,000 updates on the replay x1 stream, lr and masking as E18'
+  question: Does specialising the strongest off-the-shelf encoder on finch audio raise call type or detection further?
+  success: to be pre-registered; 2 seeds; must beat frozen Whisper-small on call type or detection, resolved
+  script: null
+  status: proposed
+  priority: 3
+  notes: 'Proposed 2026-10-13 from finding 072. New training module (Whisper encoder + masked prediction); needs the
+    user''s go-ahead.'
+- id: E32
+  title: DAPT with AVES's learned mask embedding restored
+  baseline: E28a / E28b (AVES masking rate and span, fresh mask embedding)
+  change: 'E28''s recipe with mask_generator.mask_embedding initialised from AVES-bio''s fairseq checkpoint (mask_emb)
+    instead of fresh; everything else fixed'
+  question: Finding 071 found every DAPT arm started the mask embedding fresh; does restoring it matter?
+  success: to be pre-registered; 2 seeds against E28a/E28b
+  script: null
+  status: proposed
+  priority: 4
+  notes: 'Proposed 2026-10-13 from the 071 critic. Small code change (read mask_emb from datasets/11905533/aves-base-bio.pt
+    in the --init-weights transplant); needs the user''s go-ahead.'
