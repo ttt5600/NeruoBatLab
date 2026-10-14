@@ -1,0 +1,240 @@
+{
+ "snapshot": "2026-10-14",
+ "n_cells_tested": 2280,
+ "line_cuts": {
+  "mlb|total hits": [
+   0.5
+  ],
+  "mlb|total hits allowed": [
+   4.5,
+   5.5
+  ],
+  "mlb|total outs recorded": [
+   16.5,
+   17.5
+  ],
+  "mlb|total rbis": [
+   0.5
+  ],
+  "mlb|total strikeouts": [
+   4.5,
+   5.5
+  ],
+  "mlb|total walks allowed": [
+   1.5
+  ],
+  "nba|team total points": [
+   110.5,
+   116.5
+  ],
+  "nba|total 3-point field goals": [
+   1.5
+  ],
+  "nba|total assists": [
+   2.5,
+   4.5
+  ],
+  "nba|total blocks": [
+   0.5
+  ],
+  "nba|total field goals made": [
+   3.5,
+   5.5
+  ],
+  "nba|total points": [
+   10.5,
+   16.5
+  ],
+  "nba|total points and assists": [
+   11.5,
+   17.5
+  ],
+  "nba|total points and rebounds": [
+   13.5,
+   20.5
+  ],
+  "nba|total points, rebounds, and assists": [
+   15.5,
+   23.5
+  ],
+  "nba|total rebounds": [
+   3.5,
+   5.5
+  ],
+  "nba|total steals": [
+   0.5
+  ],
+  "nba|total turnovers": [
+   0.5,
+   1.5
+  ],
+  "nfl|longest reception": [
+   11.5,
+   17.5
+  ],
+  "nfl|longest rush": [
+   9.5,
+   13.5
+  ],
+  "nfl|team total points": [
+   23.5,
+   25.5
+  ],
+  "nfl|total carries": [
+   5.5,
+   12.5
+  ],
+  "nfl|total extra points made": [
+   1.5,
+   2.5
+  ],
+  "nfl|total field goals made": [
+   1.5
+  ],
+  "nfl|total kicking points": [
+   6.5,
+   7.5
+  ],
+  "nfl|total pass completions": [
+   19.5,
+   21.5
+  ],
+  "nfl|total passing attempts": [
+   30.5,
+   33.5
+  ],
+  "nfl|total passing interceptions": [
+   0.5
+  ],
+  "nfl|total passing plus rushing yards": [
+   238.16666666666663,
+   258.5
+  ],
+  "nfl|total passing touchdowns": [
+   1.5
+  ],
+  "nfl|total passing yards": [
+   224.5,
+   249.5
+  ],
+  "nfl|total receiving yards": [
+   29.5,
+   44.5
+  ],
+  "nfl|total receptions": [
+   2.5,
+   3.5
+  ],
+  "nfl|total rushing plus receiving yards": [
+   35.5,
+   62.5
+  ],
+  "nfl|total rushing yards": [
+   34.5,
+   59.5
+  ],
+  "nfl|total sacks": [
+   0.5
+  ],
+  "nfl|total tackles": [
+   2.5,
+   3.5
+  ],
+  "nfl|total tackles plus assists": [
+   4.5,
+   6.5
+  ],
+  "nhl|total assists": [
+   0.5
+  ],
+  "nhl|total blocked shots": [
+   1.5
+  ],
+  "nhl|total goals": [
+   0.5
+  ],
+  "nhl|total points": [
+   0.5
+  ],
+  "nhl|total saves": [
+   24.5,
+   26.5
+  ],
+  "nhl|total shots on goal": [
+   1.5,
+   2.5
+  ]
+ },
+ "survivors": [
+  {
+   "cell": "league=nba & side=under & line_b=high & provider=DraftKings",
+   "keys": "{\"league\": \"nba\", \"side\": \"under\", \"line_b\": \"high\", \"provider\": \"DraftKings\"}",
+   "roi": 0.019449254581885695,
+   "t": 5.190315114436488,
+   "clusters": 54399
+  },
+  {
+   "cell": "league=mlb & side=over & market_n=total hits & line_move=down",
+   "keys": "{\"league\": \"mlb\", \"side\": \"over\", \"market_n\": \"total hits\", \"line_move\": \"down\"}",
+   "roi": 0.3620063736263736,
+   "t": 4.993939549151679,
+   "clusters": 455
+  },
+  {
+   "cell": "league=nba & side=under & price_b=>2.3 & line_move=up",
+   "keys": "{\"league\": \"nba\", \"side\": \"under\", \"price_b\": \">2.3\", \"line_move\": \"up\"}",
+   "roi": 0.1510472103004292,
+   "t": 3.5461739774839063,
+   "clusters": 984
+  },
+  {
+   "cell": "league=nhl & side=under & market_n=total blocked shots & price_b=1.8-1.87",
+   "keys": "{\"league\": \"nhl\", \"side\": \"under\", \"market_n\": \"total blocked shots\", \"price_b\": \"1.8-1.87\"}",
+   "roi": 0.13016394052044608,
+   "t": 3.3351061804985553,
+   "clusters": 538
+  },
+  {
+   "cell": "league=mlb & side=over & line_move=down & price_move=drifted",
+   "keys": "{\"league\": \"mlb\", \"side\": \"over\", \"line_move\": \"down\", \"price_move\": \"drifted\"}",
+   "roi": 0.18619253731343283,
+   "t": 2.881334757813638,
+   "clusters": 670
+  },
+  {
+   "cell": "league=mlb & side=under & market_n=total strikeouts & line_move=up",
+   "keys": "{\"league\": \"mlb\", \"side\": \"under\", \"market_n\": \"total strikeouts\", \"line_move\": \"up\"}",
+   "roi": 0.09295320910973084,
+   "t": 2.385305251617977,
+   "clusters": 475
+  },
+  {
+   "cell": "league=nhl & side=under & price_b=1.6-1.8 & line_b=mid",
+   "keys": "{\"league\": \"nhl\", \"side\": \"under\", \"price_b\": \"1.6-1.8\", \"line_b\": \"mid\"}",
+   "roi": 0.10317686375321339,
+   "t": 2.3740088366197383,
+   "clusters": 389
+  },
+  {
+   "cell": "league=nfl & side=under & market_n=total tackles plus assists & line_move=up",
+   "keys": "{\"league\": \"nfl\", \"side\": \"under\", \"market_n\": \"total tackles plus assists\", \"line_move\": \"up\"}",
+   "roi": 0.10108274932614553,
+   "t": 2.2691562317511647,
+   "clusters": 371
+  },
+  {
+   "cell": "league=nhl & side=under & market_n=total saves & price_b=1.6-1.8",
+   "keys": "{\"league\": \"nhl\", \"side\": \"under\", \"market_n\": \"total saves\", \"price_b\": \"1.6-1.8\"}",
+   "roi": 0.06670136815920401,
+   "t": 2.1564310561495788,
+   "clusters": 804
+  },
+  {
+   "cell": "league=nba & side=under & price_b=>2.3 & line_b=high",
+   "keys": "{\"league\": \"nba\", \"side\": \"under\", \"price_b\": \">2.3\", \"line_b\": \"high\"}",
+   "roi": 0.056340710241893986,
+   "t": 2.1152268637653946,
+   "clusters": 2651
+  }
+ ]
+}
