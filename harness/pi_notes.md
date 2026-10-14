@@ -200,3 +200,12 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
 - 2026-10-13 18:48 E8 PREEMPTED 17:55 (2nd time; last.ckpt = epoch 13 step 35092), requeued, est. 18:02 Oct 14. E29a (job 39859251) RUNNING since 18:02 on n0387: script passes --mask-prob 0.8 --mask-length 10 (no hparams.yaml written); 1,254 steps/epoch, ~14 min/epoch -> ~18.5 h for 100k, ETA ~12:40 Oct 14 (my earlier ~12 h estimate was wrong). Step 3761 loss 3.64. E29b est. 02:04. Nothing to score tonight.
 - 2026-10-13 20:51 E29b (job 39859252, seed 2) RUNNING since 20:49 on n0388; ETA ~15:20 Oct 14 if not preempted. E29a step 16295 (on pace, ETA ~12:40). E8 requeued (est. 18:02 Oct 14). Cert expires 20:59 -> Savio checks pause until user sv login.
 - 2026-10-14 00:20 Cert renewed by user (valid 10-13 20:27 -> 10-14 08:27, verified locally). E29a step 36352, E29b step 20055 at 00:15 (~97 steps/min; ETA ~11:10 / ~14:00) -> another sv login needed before scoring. Peer session notes branch harness-upgrades (9b74023) unmerged; still following current PI.md.
+- 2026-10-14 04:40 E29 scoring plan (prepared; DRY=1 score_run.sh OK for run29_avesrecipe). Per seed, after its final
+  step-100000 checkpoint exists (A: tag run29_avesrecipe, exp temp_train_run29_avesrecipe, job 39859251; B: tag
+  run29_avesrecipe_s2, exp temp_train_run29_avesrecipe_s2, job 39859252):
+  1. SCORE_HOST=savio-dtn bash harness/score_run.sh <tag> /global/scratch/users/jonathanswang/<exp> 200 <job>
+  2. Mac: zfeval/experiments/beans_probe.py --task {bats,esc50} --models <tag> aves-base-bio run16_compute4x --baseline aves-base-bio
+  3. Savio: cd beans_eval && sbatch --export=ALL,TASKS="hiceas enabirds dcase",MODELS="<tag> aves-base-bio run16_compute4x",BASELINE=aves-base-bio zfeval/slurm/beans_detect.sh
+     (MODELS env added to beans_detect.sh 04:35, pushed; beans_probe.py on Savio updated to the merge-safe version)
+  E29 criterion: <tag> vs_aves-base-bio not resolved negative on >=4 of the 5 tasks, both seeds.
+  E29a step 62675 at 04:15 (ETA ~10:15), E29b 47631. Cert expires 08:27.

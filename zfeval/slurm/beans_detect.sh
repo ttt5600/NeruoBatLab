@@ -13,6 +13,8 @@
 #SBATCH --output=beans_detect_%j.log
 #
 #   sbatch zfeval/slurm/beans_detect.sh            (from /global/scratch/users/jonathanswang/beans_eval)
+#   sbatch --export=ALL,TASKS="hiceas enabirds dcase",MODELS="run29_avesrecipe aves-base-bio",BASELINE=aves-base-bio ...
+#     (MODELS unset = beans_probe.DEFAULT_MODELS; the baseline must be in MODELS to get vs_<baseline>)
 #
 # E10, the four BEANS detection tasks (beans_detect.py), moved off the Mac where they would hold the
 # GPU for about a day. Every model x split embedding is cached as it finishes, so a preempted job
@@ -33,7 +35,7 @@ python -c "import torch; assert torch.cuda.is_available(), 'no GPU'" || exit 2
 rc=0
 for t in ${TASKS:-hiceas enabirds dcase hainan-gibbons}; do
     echo "== $t  $(date +%T)"
-    python -u beans_detect.py --task "$t" --batch 32 --baseline "${BASELINE:-run16_compute4x}" || { echo "FAILED $t"; rc=1; }
+    python -u beans_detect.py --task "$t" --batch 32 --baseline "${BASELINE:-run16_compute4x}" ${MODELS:+--models $MODELS} || { echo "FAILED $t"; rc=1; }
 done
 echo "== end $(date)  rc=$rc"
 exit $rc
