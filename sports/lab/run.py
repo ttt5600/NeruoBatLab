@@ -3,6 +3,7 @@
     python lab/run.py schema  DATASET            # columns an agent can use
     python lab/run.py dev     lab/strategies/x.py  # walk-forward on DEV folds; appends ledger
     python lab/run.py ledger  [--dataset D]       # every trial so far
+    python lab/run.py leakcheck lab/strategies/x.py  # does bet() read later games? not a trial
     python lab/run.py promote lab/strategies/x.py --confirm-lockbox   # HUMAN ONLY
 
 Walk-forward: for each dev fold after the first few, fit() sees only earlier
@@ -33,6 +34,14 @@ from lab import sandbox as S
 
 LEDGER = Path(os.environ["LAB_LEDGER"]) if os.environ.get("LAB_LEDGER") else LAB / "ledger.jsonl"
 LOCKBOX_LOG = LAB / "lockbox.jsonl"
+LEAKCHECK_LOG = LAB / "leakcheck.jsonl"
+# The day-bootstrap p is meaningless on a handful of days: one winning day resamples to p = 0.
+# A dev result needs this many distinct betting days before it can meet the bar.
+MIN_BET_DAYS = 30
+
+
+def meets_bar(res: dict, n_trials: int) -> bool:
+    return res.get("bet_days", 0) >= MIN_BET_DAYS and res["p"] < 0.05 / n_trials
 
 
 def _load_meta(path: Path) -> dict:
@@ -56,12 +65,12 @@ def score(df: pd.DataFrame, stakes: pd.Series, fold_col: str) -> dict:
     df = df.assign(stake=s, profit=profit)
     bets = df[df["stake"] > 0]
     if bets.empty:
-        return {"bets": 0, "staked": 0.0, "units": 0.0, "roi": 0.0, "ci_lo": 0.0, "ci_hi": 0.0,
+        return {"bets": 0, "bet_days": 0, "staked": 0.0, "units": 0.0, "roi": 0.0, "ci_lo": 0.0, "ci_hi": 0.0,
                 "p": 1.0, "folds_positive": 0, "per_fold": {}}
     by_day = bets.groupby("date")["profit"].sum().to_numpy()
     boots = np.random.default_rng(0).choice(by_day, (5000, len(by_day))).sum(axis=1)
     per_fold = bets.groupby(fold_col)["profit"].sum().round(2)
-    return {"bets": int(len(bets)), "staked": float(bets["stake"].sum()),
+    return {"bets": int(len(bets)), "bet_days": int(len(by_day)), "staked": float(bets["stake"].sum()),
             "units": float(bets["profit"].sum()),
             "roi": float(bets["profit"].sum() / bets["stake"].sum()),
             "ci_lo": float(np.percentile(boots, 2.5)), "ci_hi": float(np.percentile(boots, 97.5)),
@@ -90,6 +99,55 @@ def walk_forward(path: Path, dataset: str, split: str) -> tuple[dict, pd.DataFra
     return score(tested, stakes, fold_col), tested.assign(stake=stakes)
 
 
+def lookahead_check(path: Path, dataset: str, n_folds: int = 3,
+                    cuts: tuple = (0.25, 0.5, 0.75)) -> dict:
+    """Does bet() read games that come later in its own slate?
+
+    bet() is handed a whole fold (an NFL season, an MLB month) at once, so a season-wide mean,
+    rank or z-score of a pre-game column quietly uses games that had not been played -- a leak
+    the sandbox cannot see, because no outcome column is involved. For a few dev folds, re-stake
+    the slate truncated at several dates and require every stake on the kept rows to be unchanged.
+    Whole days are kept, so same-day cross-sectional information is not flagged.
+
+    Prints no returns and is not a trial: it reads only stakes, never outcomes.
+    """
+    fold_col, dev_folds, _ = D.SPLITS[dataset]
+    df = D.load(dataset, "dev")
+    test_folds = dev_folds[D.MIN_TRAIN_FOLDS[dataset]:]
+    idx = np.unique(np.linspace(0, len(test_folds) - 1, min(n_folds, len(test_folds))).round().astype(int))
+    out: dict = {"folds": [], "nondeterministic": [], "leaks": []}
+    for f in [test_folds[i] for i in idx]:
+        train = df[df[fold_col].isin(dev_folds[:dev_folds.index(f)])]
+        slate = df[df[fold_col] == f].drop(columns=[c for c in D.OUTCOME_COLS if c in df.columns])
+        full = S.run_fold(path, train, slate)
+        out["folds"].append(str(f))
+        if not np.allclose(full.to_numpy(), S.run_fold(path, train, slate).to_numpy()):
+            out["nondeterministic"].append(str(f))   # cannot compare stakes that change run to run
+            continue
+        days = np.sort(slate["date"].unique())
+        for q in cuts:
+            cut = days[int(q * (len(days) - 1))]
+            part = slate[slate["date"] <= cut]
+            if part.empty or len(part) == len(slate):
+                continue
+            changed = (S.run_fold(path, train, part) - full.loc[part.index]).abs() > 1e-9
+            if changed.any():
+                out["leaks"].append({"fold": str(f), "cut": str(cut), "rows_changed": int(changed.sum()),
+                                     "rows_kept": int(len(part))})
+    out["pass"] = not out["leaks"] and not out["nondeterministic"]
+    return out
+
+
+def _print_lookahead(name: str, lc: dict) -> None:
+    print(f"lookahead check {name}: {'PASS' if lc['pass'] else 'FAIL'} (folds {', '.join(lc['folds'])})")
+    for l in lc["leaks"]:
+        print(f"  fold {l['fold']}: cutting the slate after {l['cut']} changed {l['rows_changed']} of "
+              f"{l['rows_kept']} earlier stakes -> bet() reads later games in its slate")
+    if lc["nondeterministic"]:
+        print(f"  stakes differ between two identical runs on fold(s) {lc['nondeterministic']}: "
+              "seed every random call so the check (and the result) is reproducible")
+
+
 def trials(dataset: str | None = None) -> list[dict]:
     if not LEDGER.exists():
         return []
@@ -113,6 +171,14 @@ def cmd_dev(args) -> int:
            "sha": S.source_hash(path), "dataset": meta.get("DATASET"),
            "hypothesis": meta.get("HYPOTHESIS"), "source": meta.get("SOURCE"),
            "status": status, "trial_number": n, **res}
+    # A result worth believing is a result worth attacking: check it for lookahead automatically.
+    lc = None
+    if status == "ok" and (meets_bar(res, n) or (res["roi"] > 0.15 and res["bets"] >= 100)):
+        try:
+            lc = lookahead_check(path, meta["DATASET"])
+            rec["lookahead"] = "pass" if lc["pass"] else "FAIL"
+        except S.StrategyRejected as e:
+            rec["lookahead"] = f"error: {str(e)[:200]}"
     with LEDGER.open("a") as f:
         f.write(json.dumps(rec) + "\n")
     if status != "ok":
@@ -123,8 +189,32 @@ def cmd_dev(args) -> int:
           f"ROI {res['roi']:+.2%}  95% CI [{res['ci_lo']:+.1f}, {res['ci_hi']:+.1f}]u  p {res['p']:.4f}")
     print(f"  folds positive {res['folds_positive']}/{len(res['per_fold'])}: {res['per_fold']}")
     print(f"  promotion bar after {n} trials: p < {bar:.5f} "
-          f"-> {'MEETS BAR (still only a hypothesis until the lockbox)' if res['p'] < bar else 'does not meet bar'}")
+          f"-> {'MEETS BAR (still only a hypothesis until the lockbox)' if meets_bar(res, n) else 'does not meet bar'}")
+    if res["bet_days"] < MIN_BET_DAYS:
+        print(f"  only {res['bet_days']} betting days (< {MIN_BET_DAYS}): the p-value is not meaningful")
+    if res["roi"] > 0.15 and res["bets"] >= 100:
+        print("  ROI above 15% on 100+ bets: suspect a leak before believing it")
+    if lc is not None:
+        _print_lookahead(path.stem, lc)
+    elif "lookahead" in rec:
+        print(f"  lookahead check {rec['lookahead']}")
     return 0
+
+
+def cmd_leakcheck(args) -> int:
+    path = Path(args.strategy)
+    try:
+        meta = _load_meta(path)
+        lc = lookahead_check(path, meta["DATASET"])
+    except (S.StrategyRejected, SyntaxError) as e:
+        print(f"REJECTED: {e}")
+        return 1
+    _print_lookahead(path.stem, lc)
+    with LEAKCHECK_LOG.open("a") as f:
+        f.write(json.dumps({"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                            "strategy": path.stem, "sha": S.source_hash(path), "dataset": meta["DATASET"],
+                            **lc}) + "\n")
+    return 0 if lc["pass"] else 1
 
 
 def cmd_ledger(args) -> int:
@@ -191,6 +281,12 @@ def cmd_promote(args) -> int:
         print(f"this exact code was already scored on the lockbox ({prior[0]['ts']}); "
               "re-scoring would turn the lockbox into a dev set. Refusing.")
         return 1
+    # The lockbox is spent once per strategy; never spend it on code that reads the future.
+    lc = lookahead_check(path, meta["DATASET"])
+    _print_lookahead(path.stem, lc)
+    if not lc["pass"]:
+        print("refusing the lockbox until the lookahead check passes on dev")
+        return 1
     n_dev = len({r["sha"] for r in trials(meta["DATASET"])})
     n_promoted = 1 + sum(1 for r in (json.loads(l) for l in LOCKBOX_LOG.read_text().splitlines())
                          if r["dataset"] == meta["DATASET"]) if LOCKBOX_LOG.exists() else 1
@@ -217,6 +313,7 @@ def main() -> int:
     a = sub.add_parser("ledger"); a.add_argument("--dataset"); a.add_argument("--tail", type=int, default=40)
     a.set_defaults(fn=cmd_ledger)
     a = sub.add_parser("schema"); a.add_argument("dataset"); a.set_defaults(fn=cmd_schema)
+    a = sub.add_parser("leakcheck"); a.add_argument("strategy"); a.set_defaults(fn=cmd_leakcheck)
     a = sub.add_parser("merge-ledger"); a.add_argument("file"); a.add_argument("--origin", default="cloud")
     a.set_defaults(fn=cmd_merge_ledger)
     a = sub.add_parser("export-dev"); a.set_defaults(fn=cmd_export_dev)

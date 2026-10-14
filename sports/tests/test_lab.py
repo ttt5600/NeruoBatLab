@@ -91,3 +91,62 @@ def test_registry_validates_and_dedupes(tmp_path, monkeypatch):
                                     "sources": ["not-a-url"]})) == 1
     assert registry.add(json.dumps({**GOOD, "title": "Other2", "mechanism": "another different thing",
                                     "testable_with": ["nba_points"]})) == 1
+
+
+# ---- the bar needs a sample: one winning day bootstraps to p = 0
+def test_one_winning_day_does_not_meet_the_bar():
+    df = pd.DataFrame({"date": ["2020-01-01"], "won": [1], "push": [0], "dec_odds": [2.0], "fold": [1]})
+    res = run.score(df, pd.Series([1.0], index=df.index), "fold")
+    assert res["p"] == 0.0 and res["bet_days"] == 1      # the artefact the rule exists for
+    assert not run.meets_bar(res, 1)
+    assert run.meets_bar({**res, "bet_days": run.MIN_BET_DAYS}, 1)
+
+
+def test_status_threshold_matches_run():
+    from lab import status
+    assert status.MIN_BET_DAYS == run.MIN_BET_DAYS
+    assert "## Trials by dataset" in status.build()
+
+
+# ---- lookahead check: bet() must not read later games in its own slate
+HEAD = ('import numpy as np, pandas as pd\nDATASET = "fake"\nHYPOTHESIS = "h"\nSOURCE = "test"\n'
+        'def fit(train):\n    return None\n')
+CLEAN = HEAD + 'def bet(m, s):\n    return pd.Series((s["line"] > 0.5).astype(float).to_numpy(), index=s.index)\n'
+SAME_DAY = HEAD + ('def bet(m, s):\n    # relative to the same DAY only: knowable before kickoff, must pass\n'
+                   '    d = s.groupby("date")["line"].transform("mean")\n'
+                   '    return pd.Series((s["line"] > d).astype(float).to_numpy(), index=s.index)\n')
+SEASON_MEAN = HEAD + ('def bet(m, s):\n    # above the SEASON mean: uses games not yet played\n'
+                      '    return pd.Series((s["line"] > s["line"].mean()).astype(float).to_numpy(), index=s.index)\n')
+SEASON_RANK = HEAD + ('def bet(m, s):\n    r = s["line"].rank(pct=True)\n'
+                      '    return pd.Series((r > 0.8).astype(float).to_numpy(), index=s.index)\n')
+UNSEEDED = HEAD + ('def bet(m, s):\n    x = np.random.default_rng().integers(0, 2, len(s)).astype(float)\n'
+                   '    return pd.Series(x, index=s.index)\n')
+
+
+@pytest.fixture
+def fake_lines(monkeypatch):
+    rng = np.random.default_rng(1)
+    rows = []
+    for fold in range(1, 5):
+        for i in range(60):
+            line = float(rng.random()) + 0.3 * (i / 60)      # drifts up through the season
+            rows.append(dict(opp_id=f"{fold}_{i}", fold=fold, date=f"2020-{fold:02d}-{i // 2 + 1:02d}",
+                             selection="a", dec_odds=1.95, line=line, won=int(rng.integers(0, 2)), push=0))
+    df = pd.DataFrame(rows)
+    monkeypatch.setitem(D.SPLITS, "fake", ("fold", [1, 2, 3, 4], []))
+    monkeypatch.setitem(D.MIN_TRAIN_FOLDS, "fake", 1)
+    monkeypatch.setattr(D, "load", lambda name, split: df)
+    return df
+
+
+@pytest.mark.parametrize("name,ok", [("CLEAN", True), ("SAME_DAY", True), ("SEASON_MEAN", False),
+                                     ("SEASON_RANK", False), ("UNSEEDED", False)])
+def test_lookahead_check(tmp_path, fake_lines, name, ok):
+    p = tmp_path / "s.py"
+    p.write_text(globals()[name])
+    lc = run.lookahead_check(p, "fake")
+    assert lc["pass"] is ok, lc
+    if name == "UNSEEDED":
+        assert lc["nondeterministic"] and not lc["leaks"]
+    if name.startswith("SEASON"):
+        assert lc["leaks"]

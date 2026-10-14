@@ -11,8 +11,15 @@ Working directory: `sports/`. Python: `../.venv_quant/bin/python`.
 ../.venv_quant/bin/python lab/registry.py list --testable
 ../.venv_quant/bin/python lab/run.py schema <dataset>
 ../.venv_quant/bin/python lab/run.py ledger [--dataset D]
+../.venv_quant/bin/python lab/run.py leakcheck lab/strategies/<name>.py   # free: NOT a trial
 ../.venv_quant/bin/python lab/run.py dev lab/strategies/<name>.py
 ```
+
+Read `lab/STATE.md` first: trials and bars per dataset, open candidates, untried registry entries.
+
+`bet()` receives a whole fold (a season, a month) at once. Anything computed over the slate --
+its mean, a rank, a quantile -- uses games that had not been played yet. Run `leakcheck` before
+`dev`: it costs no trial, and a strategy that fails it is worthless however good its dev number.
 
 ## A strategy file (`lab/strategies/<name>.py`)
 
@@ -41,7 +48,7 @@ blocked; the harness rejects code that tries.
 2. Pick up to the number of strategies given below from the registry's
    testable entries — highest evidence grade and clearest mechanism first —
    or your own idea if you can state why the market would miss it.
-3. Write each strategy, run `dev` once, read the result.
+3. Write each strategy, run `leakcheck` until it passes, then run `dev` once and read the result.
 4. Write the report file named below: each strategy, its dev numbers copied
    from the harness output, and what you would try next. Put requests for
    data or features the datasets lack under "## Data requests".
@@ -54,6 +61,7 @@ blocked; the harness rejects code that tries.
 - **Do not tune on dev.** No sweeping thresholds or re-running a variant
   because the last one missed. One principled version per hypothesis; if you
   must try a variant, say in HYPOTHESIS what changed and why, in advance.
+- **Fewer than 30 betting days is not evidence.** The harness will not count it as meeting the bar.
 - **A dev result is a hypothesis, not a finding.** Never write that a strategy
   "works" or "is profitable". Only the lockbox, scored by a human, says that.
 - Prefer strategies that bet less often with a stated reason over ones that

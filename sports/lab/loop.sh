@@ -2,6 +2,7 @@
 # Run agent iterations for the betting lab.
 #   bash lab/loop.sh research [N]     # N research topics (default 1)
 #   bash lab/loop.sh strategy [N] [K] # N strategy iterations, K strategies each (default 1, 3)
+#   bash lab/loop.sh critic lab/strategies/x.py   # fresh critic review before a human runs the lockbox
 # Env: LAB_MODEL (default sonnet), LAB_MAX_PER_DAY (default 12)
 #
 # Agents run headless with a TOOL ALLOWLIST, not bypassPermissions: research
@@ -10,8 +11,14 @@
 # else. The lockbox command is not on either list.
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 1          # -> sports/
-MODE=${1:?research|strategy}
-N=${2:-1}
+MODE=${1:?research|strategy|critic}
+if [ "$MODE" = critic ]; then
+    TARGET=${2:?critic needs a strategy file}
+    [ -f "$TARGET" ] || { echo "no such strategy: $TARGET"; exit 1; }
+    N=1
+else
+    N=${2:-1}
+fi
 K=${3:-3}
 MODEL=${LAB_MODEL:-sonnet}
 MAX=${LAB_MAX_PER_DAY:-12}
@@ -30,7 +37,18 @@ for i in $(seq 1 "$N"); do
     STAMP=$(date +%Y%m%d-%H%M%S)
     REPORT=lab/reports/$STAMP-$MODE.md
     LOG=lab/logs/$STAMP-$MODE.log
-    if [ "$MODE" = research ]; then
+    # Every agent starts from the same generated picture of the lab (lab/STATE.md).
+    $PY lab/status.py > /dev/null || { echo "lab/status.py failed; not starting an agent"; break; }
+    if [ "$MODE" = critic ]; then
+        PROMPT="$(cat lab/CRITIC.md)
+
+## This review
+Strategy: $TARGET
+Report file: $REPORT"
+        TOOLS=(Read Glob Grep "Edit($REPORT)"
+               "Bash($PY lab/run.py ledger:*)" "Bash($PY lab/run.py schema:*)"
+               "Bash($PY lab/run.py leakcheck:*)")
+    elif [ "$MODE" = research ]; then
         TOPIC=$($PY -c "import sys; sys.path.insert(0,'lab'); import registry as r; t=r.next_topic(); print(f\"{t['id']}: {t['topic']}\" if t else '')")
         [ -z "$TOPIC" ] && { echo "no pending topics"; break; }
         PROMPT="$(cat lab/RESEARCH_AGENT.md)
@@ -49,7 +67,8 @@ ${LAB_FOCUS:+Focus: $LAB_FOCUS}
 Report file: $REPORT"
         TOOLS=(Read Glob Grep "Edit(lab/strategies/**)" "Edit($REPORT)"
                "Bash($PY lab/registry.py list:*)" "Bash($PY lab/run.py dev:*)"
-               "Bash($PY lab/run.py ledger:*)" "Bash($PY lab/run.py schema:*)")
+               "Bash($PY lab/run.py ledger:*)" "Bash($PY lab/run.py schema:*)"
+               "Bash($PY lab/run.py leakcheck:*)")
     fi
     echo "$(date '+%F %T') $MODE iteration $i/$N -> $REPORT"
     claude -p --model "$MODEL" --allowedTools "${TOOLS[@]}" -- "$PROMPT" > "$LOG" 2>&1

@@ -9,6 +9,9 @@ Working directory: `sports/`. Python: `../.venv_quant/bin/python`.
 
 ## Your one job this iteration
 
+Read `lab/STATE.md` first: what has been tried, what is already in the registry, and which
+datasets exist. Prefer evidence that would change what gets tested next.
+
 Research the topic given below. Search widely: peer-reviewed papers and
 working papers first, then practitioner write-ups with real records or
 backtests, then claims. Look for both sides — for every claimed edge, search
