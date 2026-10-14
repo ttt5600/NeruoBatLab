@@ -1,0 +1,50 @@
+== Wed Oct 14 11:49:09 PDT 2026  n0388.savio4  restart 0
+NVIDIA L40S, 46068 MiB
+== hiceas  11:50:01
+[hiceas] windows train 4457  valid 1485  test 1485  classes 1  width 10 s shift 5 s
+  test positives per class: [395]
+[load] run29_avesrecipe_s2: 94.37M params, 12 layers, dim 768
+    run29_avesrecipe_s2/train embedded 4457 windows in 82s
+    run29_avesrecipe_s2/valid embedded 1485 windows in 18s
+    run29_avesrecipe_s2/test embedded 1485 windows in 21s
+  run29_avesrecipe_s2    layer 11  valid mAP 0.5576  TEST mAP 0.4093   (best test at any layer 0.4098; probe 17s)
+  aves-base-bio          layer  0  valid mAP 0.6908  TEST mAP 0.5160   (best test at any layer 0.5160; probe 8s)
+  run29_avesrecipe_s2    - aves-base-bio: -0.1066 [-0.1999, -0.0265]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_hiceas.json
+== enabirds  11:53:10
+[enabirds] windows train 13629  valid 4543  test 4543  classes 34  width 2 s shift 1 s
+  test positives per class: [947, 7, 125, 6, 75, 573, 102, 54, 38, 191, 550, 29, 11, 186, 2174, 80, 35, 115, 51, 640, 71, 279, 22, 62, 50, 223, 198, 30, 484, 2, 8, 836, 48, 22]
+[load] run29_avesrecipe_s2: 94.37M params, 12 layers, dim 768
+    run29_avesrecipe_s2/train 5000/13629  303 win/s  ~0 min left
+    run29_avesrecipe_s2/train 10000/13629  289 win/s  ~0 min left
+    run29_avesrecipe_s2/train embedded 13629 windows in 46s
+    run29_avesrecipe_s2/valid embedded 4543 windows in 15s
+    run29_avesrecipe_s2/test embedded 4543 windows in 15s
+  run29_avesrecipe_s2    layer  2  valid mAP 0.4049  TEST mAP 0.3902   (best test at any layer 0.3910; probe 104s)
+  aves-base-bio          layer  7  valid mAP 0.4588  TEST mAP 0.4494   (best test at any layer 0.4582; probe 103s)
+  run29_avesrecipe_s2    - aves-base-bio: -0.0593 [-0.0876, -0.0337]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_enabirds.json
+== dcase  11:58:23
+[dcase] windows train 41418  valid 13806  test 13530  classes 18  width 2 s shift 1 s
+  test positives per class: [40, 14, 58, 45, 308, 10, 33, 19, 9, 117, 356, 110, 105, 4, 15, 7, 459, 44]
+[load] run29_avesrecipe_s2: 94.37M params, 12 layers, dim 768
+    run29_avesrecipe_s2/train 5000/41418  399 win/s  ~2 min left
+    run29_avesrecipe_s2/train 10000/41418  410 win/s  ~1 min left
+    run29_avesrecipe_s2/train 15000/41418  412 win/s  ~1 min left
+    run29_avesrecipe_s2/train 20000/41418  400 win/s  ~1 min left
+    run29_avesrecipe_s2/train 25000/41418  388 win/s  ~1 min left
+    run29_avesrecipe_s2/train 30000/41418  388 win/s  ~0 min left
+    run29_avesrecipe_s2/train 35000/41418  380 win/s  ~0 min left
+    run29_avesrecipe_s2/train 40000/41418  374 win/s  ~0 min left
+    run29_avesrecipe_s2/train embedded 41418 windows in 110s
+    run29_avesrecipe_s2/valid 5000/13806  411 win/s  ~0 min left
+    run29_avesrecipe_s2/valid 10000/13806  411 win/s  ~0 min left
+    run29_avesrecipe_s2/valid embedded 13806 windows in 37s
+    run29_avesrecipe_s2/test 5000/13530  380 win/s  ~0 min left
+    run29_avesrecipe_s2/test 10000/13530  391 win/s  ~0 min left
+    run29_avesrecipe_s2/test embedded 13530 windows in 34s
+  run29_avesrecipe_s2    layer 10  valid mAP 0.1637  TEST mAP 0.2201   (best test at any layer 0.2245; probe 201s)
+  aves-base-bio          layer  7  valid mAP 0.2587  TEST mAP 0.2821   (best test at any layer 0.2907; probe 201s)
+  run29_avesrecipe_s2    - aves-base-bio: -0.0620 [-0.0935, -0.0116]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_dcase.json
+== end Wed Oct 14 12:09:14 PDT 2026  rc=0

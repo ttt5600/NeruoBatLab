@@ -1759,5 +1759,89 @@
       "resolved": false
     },
     "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run29_avesrecipe_s2 | aves-base-bio": {
+    "acc": {
+      "run29_avesrecipe_s2": 0.8367526377491208,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.008499413833528702,
+      "lo": -0.03133807337583562,
+      "hi": 0.012095129423127161,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8540445486518171,
+      "better_member": "aves-base-bio",
+      "diff": 0.008792497069167626,
+      "lo": -0.002794981359357171,
+      "hi": 0.01945349014212227,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run29_avesrecipe_s2 | run16_compute4x": {
+    "acc": {
+      "run29_avesrecipe_s2": 0.8367526377491208,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": -0.0011723329425556983,
+      "lo": -0.0204183059806872,
+      "hi": 0.016734214786832183,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8464243845252052,
+      "better_member": "run16_compute4x",
+      "diff": 0.008499413833528702,
+      "lo": -0.00302299745986033,
+      "hi": 0.018198284376177903,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run29_avesrecipe_s2 | run17_accum2": {
+    "acc": {
+      "run29_avesrecipe_s2": 0.8367526377491208,
+      "run17_accum2": 0.832063305978898
+    },
+    "a_minus_b": {
+      "diff": 0.004689331770222793,
+      "lo": -0.011253014223985095,
+      "hi": 0.022359601972796954,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8361664712778429,
+      "better_member": "run29_avesrecipe_s2",
+      "diff": -0.0005861664712778492,
+      "lo": -0.00945186774231587,
+      "hi": 0.007729858739834103,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run29_avesrecipe_s2 | run29_avesrecipe": {
+    "acc": {
+      "run29_avesrecipe_s2": 0.8367526377491208,
+      "run29_avesrecipe": 0.8300117233294255
+    },
+    "a_minus_b": {
+      "diff": 0.006740914419695265,
+      "lo": -0.00821355841752584,
+      "hi": 0.021769441760189388,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8390973036342321,
+      "better_member": "run29_avesrecipe_s2",
+      "diff": 0.0023446658851112856,
+      "lo": -0.006145009196689771,
+      "hi": 0.010810890198191161,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
   }
 }

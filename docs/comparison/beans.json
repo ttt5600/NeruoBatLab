@@ -77,6 +77,20 @@
   "test": 0.685
  },
  {
+  "task": "bats",
+  "tag": "run29_avesrecipe",
+  "name": "E29 AVES recipe (seed 1337)",
+  "family": "ours",
+  "test": 0.6615
+ },
+ {
+  "task": "bats",
+  "tag": "run29_avesrecipe_s2",
+  "name": "E29 AVES recipe seed 2",
+  "family": "ours",
+  "test": 0.646
+ },
+ {
   "task": "watkins",
   "tag": "run11",
   "name": "run11",
@@ -385,6 +399,20 @@
   "test": 0.78
  },
  {
+  "task": "esc50",
+  "tag": "run29_avesrecipe",
+  "name": "E29 AVES recipe (seed 1337)",
+  "family": "ours",
+  "test": 0.6975
+ },
+ {
+  "task": "esc50",
+  "tag": "run29_avesrecipe_s2",
+  "name": "E29 AVES recipe seed 2",
+  "family": "ours",
+  "test": 0.675
+ },
+ {
   "task": "hiceas",
   "tag": "run11",
   "name": "run11",
@@ -460,6 +488,20 @@
   "name": "BirdAVES bioxn large",
   "family": "AVES",
   "test": 0.4486
+ },
+ {
+  "task": "hiceas",
+  "tag": "run29_avesrecipe",
+  "name": "E29 AVES recipe (seed 1337)",
+  "family": "ours",
+  "test": 0.4165
+ },
+ {
+  "task": "hiceas",
+  "tag": "run29_avesrecipe_s2",
+  "name": "E29 AVES recipe seed 2",
+  "family": "ours",
+  "test": 0.4093
  },
  {
   "task": "enabirds",
@@ -539,6 +581,20 @@
   "test": 0.5626
  },
  {
+  "task": "enabirds",
+  "tag": "run29_avesrecipe",
+  "name": "E29 AVES recipe (seed 1337)",
+  "family": "ours",
+  "test": 0.3814
+ },
+ {
+  "task": "enabirds",
+  "tag": "run29_avesrecipe_s2",
+  "name": "E29 AVES recipe seed 2",
+  "family": "ours",
+  "test": 0.3902
+ },
+ {
   "task": "dcase",
   "tag": "run11",
   "name": "run11",
@@ -614,5 +670,19 @@
   "name": "BirdAVES bioxn large",
   "family": "AVES",
   "test": 0.3426
+ },
+ {
+  "task": "dcase",
+  "tag": "run29_avesrecipe",
+  "name": "E29 AVES recipe (seed 1337)",
+  "family": "ours",
+  "test": 0.2218
+ },
+ {
+  "task": "dcase",
+  "tag": "run29_avesrecipe_s2",
+  "name": "E29 AVES recipe seed 2",
+  "family": "ours",
+  "test": 0.2201
  }
 ]

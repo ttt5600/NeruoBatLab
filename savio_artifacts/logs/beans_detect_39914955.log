@@ -1,0 +1,30 @@
+== Wed Oct 14 12:10:35 PDT 2026  n0387.savio4  restart 0
+NVIDIA L40S, 46068 MiB
+== hiceas  12:11:31
+[hiceas] windows train 4457  valid 1485  test 1485  classes 1  width 10 s shift 5 s
+  test positives per class: [395]
+  run29_avesrecipe       layer  2  valid mAP 0.5749  TEST mAP 0.4165   (best test at any layer 0.4165; probe 16s)
+  run29_avesrecipe_s2    layer 11  valid mAP 0.5576  TEST mAP 0.4093   (best test at any layer 0.4098; probe 10s)
+  run16_compute4x        layer  6  valid mAP 0.4480  TEST mAP 0.3935   (best test at any layer 0.3935; probe 11s)
+  run29_avesrecipe       - run16_compute4x: +0.0231 [-0.0187, +0.0722]
+  run29_avesrecipe_s2    - run16_compute4x: +0.0158 [-0.0409, +0.0689]
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_hiceas.json
+== enabirds  12:12:36
+[enabirds] windows train 13629  valid 4543  test 4543  classes 34  width 2 s shift 1 s
+  test positives per class: [947, 7, 125, 6, 75, 573, 102, 54, 38, 191, 550, 29, 11, 186, 2174, 80, 35, 115, 51, 640, 71, 279, 22, 62, 50, 223, 198, 30, 484, 2, 8, 836, 48, 22]
+  run29_avesrecipe       layer  3  valid mAP 0.4054  TEST mAP 0.3814   (best test at any layer 0.3902; probe 115s)
+  run29_avesrecipe_s2    layer  2  valid mAP 0.4049  TEST mAP 0.3902   (best test at any layer 0.3910; probe 112s)
+  run16_compute4x        layer  0  valid mAP 0.3991  TEST mAP 0.3904   (best test at any layer 0.3904; probe 113s)
+  run29_avesrecipe       - run16_compute4x: -0.0090 [-0.0195, +0.0113]
+  run29_avesrecipe_s2    - run16_compute4x: -0.0002 [-0.0136, +0.0144]
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_enabirds.json
+== dcase  12:19:00
+[dcase] windows train 41418  valid 13806  test 13530  classes 18  width 2 s shift 1 s
+  test positives per class: [40, 14, 58, 45, 308, 10, 33, 19, 9, 117, 356, 110, 105, 4, 15, 7, 459, 44]
+  run29_avesrecipe       layer  5  valid mAP 0.1570  TEST mAP 0.2218   (best test at any layer 0.2385; probe 222s)
+  run29_avesrecipe_s2    layer 10  valid mAP 0.1637  TEST mAP 0.2201   (best test at any layer 0.2245; probe 219s)
+  run16_compute4x        layer 11  valid mAP 0.1713  TEST mAP 0.2091   (best test at any layer 0.2265; probe 226s)
+  run29_avesrecipe       - run16_compute4x: +0.0127 [-0.0090, +0.0391]
+  run29_avesrecipe_s2    - run16_compute4x: +0.0110 [-0.0168, +0.0431]
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_dcase.json
+== end Wed Oct 14 12:31:30 PDT 2026  rc=0

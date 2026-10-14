@@ -1,0 +1,50 @@
+== Wed Oct 14 10:32:35 PDT 2026  n0387.savio4  restart 0
+NVIDIA L40S, 46068 MiB
+== hiceas  10:33:28
+[hiceas] windows train 4457  valid 1485  test 1485  classes 1  width 10 s shift 5 s
+  test positives per class: [395]
+[load] run29_avesrecipe: 94.37M params, 12 layers, dim 768
+    run29_avesrecipe/train embedded 4457 windows in 76s
+    run29_avesrecipe/valid embedded 1485 windows in 17s
+    run29_avesrecipe/test embedded 1485 windows in 18s
+  run29_avesrecipe       layer  2  valid mAP 0.5749  TEST mAP 0.4165   (best test at any layer 0.4165; probe 16s)
+  aves-base-bio          layer  0  valid mAP 0.6908  TEST mAP 0.5160   (best test at any layer 0.5160; probe 7s)
+  run29_avesrecipe       - aves-base-bio: -0.0994 [-0.1757, -0.0234]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_hiceas.json
+== enabirds  10:36:17
+[enabirds] windows train 13629  valid 4543  test 4543  classes 34  width 2 s shift 1 s
+  test positives per class: [947, 7, 125, 6, 75, 573, 102, 54, 38, 191, 550, 29, 11, 186, 2174, 80, 35, 115, 51, 640, 71, 279, 22, 62, 50, 223, 198, 30, 484, 2, 8, 836, 48, 22]
+[load] run29_avesrecipe: 94.37M params, 12 layers, dim 768
+    run29_avesrecipe/train 5000/13629  363 win/s  ~0 min left
+    run29_avesrecipe/train 10000/13629  345 win/s  ~0 min left
+    run29_avesrecipe/train embedded 13629 windows in 39s
+    run29_avesrecipe/valid embedded 4543 windows in 14s
+    run29_avesrecipe/test embedded 4543 windows in 13s
+  run29_avesrecipe       layer  3  valid mAP 0.4054  TEST mAP 0.3814   (best test at any layer 0.3902; probe 110s)
+  aves-base-bio          layer  7  valid mAP 0.4588  TEST mAP 0.4494   (best test at any layer 0.4582; probe 111s)
+  run29_avesrecipe       - aves-base-bio: -0.0681 [-0.0831, -0.0410]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_enabirds.json
+== dcase  10:41:37
+[dcase] windows train 41418  valid 13806  test 13530  classes 18  width 2 s shift 1 s
+  test positives per class: [40, 14, 58, 45, 308, 10, 33, 19, 9, 117, 356, 110, 105, 4, 15, 7, 459, 44]
+[load] run29_avesrecipe: 94.37M params, 12 layers, dim 768
+    run29_avesrecipe/train 5000/41418  335 win/s  ~2 min left
+    run29_avesrecipe/train 10000/41418  387 win/s  ~1 min left
+    run29_avesrecipe/train 15000/41418  393 win/s  ~1 min left
+    run29_avesrecipe/train 20000/41418  394 win/s  ~1 min left
+    run29_avesrecipe/train 25000/41418  409 win/s  ~1 min left
+    run29_avesrecipe/train 30000/41418  408 win/s  ~0 min left
+    run29_avesrecipe/train 35000/41418  404 win/s  ~0 min left
+    run29_avesrecipe/train 40000/41418  406 win/s  ~0 min left
+    run29_avesrecipe/train embedded 41418 windows in 102s
+    run29_avesrecipe/valid 5000/13806  524 win/s  ~0 min left
+    run29_avesrecipe/valid 10000/13806  499 win/s  ~0 min left
+    run29_avesrecipe/valid embedded 13806 windows in 30s
+    run29_avesrecipe/test 5000/13530  379 win/s  ~0 min left
+    run29_avesrecipe/test 10000/13530  391 win/s  ~0 min left
+    run29_avesrecipe/test embedded 13530 windows in 34s
+  run29_avesrecipe       layer  5  valid mAP 0.1570  TEST mAP 0.2218   (best test at any layer 0.2385; probe 222s)
+  aves-base-bio          layer  7  valid mAP 0.2587  TEST mAP 0.2821   (best test at any layer 0.2907; probe 229s)
+  run29_avesrecipe       - aves-base-bio: -0.0603 [-0.0892, -0.0022]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_dcase.json
+== end Wed Oct 14 10:53:08 PDT 2026  rc=0

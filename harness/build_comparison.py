@@ -30,6 +30,8 @@ META = {
     "run19_avesteacher": ("run19 (AVES labels)", "ours", "waveform", "HuBERT masked prediction", ZFFSD, 224.42, True),
     "run20_fsdonly": ("run20 (FSD50K only)", "ours", "waveform", "HuBERT masked prediction", "FSD50K general audio", 108, False),
     "run21_zfonly": ("run21 (ZF only)", "ours", "waveform", "HuBERT masked prediction", ZF, 116, True),
+    "run29_avesrecipe": ("E29 AVES recipe (seed 1337)", "ours", "waveform", "HuBERT masked prediction", ZFFSD, 224.42, True),
+    "run29_avesrecipe_s2": ("E29 AVES recipe seed 2", "ours", "waveform", "HuBERT masked prediction", ZFFSD, 224.42, True),
     "daptreplay_5e5_step15000": ("DAPT replay x1", "DAPT", "waveform", "HuBERT masked prediction", MIX, None, True),
     "daptfreeze_5e5_step15000": ("DAPT frozen CNN", "DAPT", "waveform", "HuBERT masked prediction", MIX, None, True),
     "daptlr_1e5_step15000": ("DAPT lr 1e-5", "DAPT", "waveform", "HuBERT masked prediction", MIX, None, True),
