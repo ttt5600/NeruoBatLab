@@ -209,3 +209,11 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
      (MODELS env added to beans_detect.sh 04:35, pushed; beans_probe.py on Savio updated to the merge-safe version)
   E29 criterion: <tag> vs_aves-base-bio not resolved negative on >=4 of the 5 tasks, both seeds.
   E29a step 62675 at 04:15 (ETA ~10:15), E29b 47631. Cert expires 08:27.
+- 2026-10-14 10:10 E29a (39859251) COMPLETED 09:53 rc 0, max_steps=100000 reached; step-100000 ckpt NOT saved (not in top-5 by train_loss), so scoring uses epoch=78-step=99030 (last 970 steps, ~1%, at near-zero lr, absent). E8 restarted (RUNNING on n0387). Cert expired 08:27: dtn refuses new connections; login node works over the open master and its python now imports torch fine -> score_run.sh with default SCORE_HOST=savio-login, started 10:10.
+- 2026-10-14 10:35 E29a scored (score_run.sh rc 0; export verify max|diff| 0). Call type 0.8300 at L2 (L3 0.8200;
+  run29_avesrecipe_calltype.json); calltype_pairs.json observed: vs aves-base-bio -0.0152 [-0.0388, +0.0072], vs run16
+  -0.0079 [-0.0217, +0.0058], vs run17 -0.0021 [-0.0201, +0.0164], all n.d. Detection precommit native_L0 ZF AUC 0.9713;
+  paired_vs.json: vs aves-base-bio +0.0039 [+0.0010, +0.0061] (ahead 9/12 arms), vs run16 -0.0005 [-0.0016, +0.0015]
+  (3/12), vs run17 -0.0003 [-0.0021, +0.0010] (2/12). BirdPark AP 12-arm median 0.7598 (aves 0.8115, run16 0.7864,
+  run17 0.7713). Label-free k30 0.4842 (aves 0.4783). BEANS: detection job 39913752 (hiceas enabirds dcase, vs
+  aves-base-bio) submitted; bats + esc50 probes running on the Mac. E29b's BEANS job must go after 39913752 (same JSONs).

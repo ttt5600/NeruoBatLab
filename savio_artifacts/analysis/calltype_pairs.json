@@ -1,0 +1,1763 @@
+{
+  "run16_compute4x | aves-base-bio": {
+    "acc": {
+      "run16_compute4x": 0.8379249706916765,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.007327080890973003,
+      "lo": -0.030102738152665783,
+      "hi": 0.01698333005491106,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8637162954279015,
+      "better_member": "aves-base-bio",
+      "diff": 0.018464243845252026,
+      "lo": 0.004028919766922304,
+      "hi": 0.0346543092643092,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4_step15000 | daptv3aves_5e5_step15000": {
+    "acc": {
+      "daptv3aves_2e4_step15000": 0.8502344665885111,
+      "daptv3aves_5e5_step15000": 0.8449589683470106
+    },
+    "a_minus_b": {
+      "diff": 0.005275498241500531,
+      "lo": -0.005498679718832678,
+      "hi": 0.016517192757295136,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8604923798358733,
+      "better_member": "daptv3aves_2e4_step15000",
+      "diff": 0.01025791324736225,
+      "lo": 0.0011107101551473737,
+      "hi": 0.018499078365754557,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv3aves_2e4_step15000": 0.8502344665885111,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.004982415005861607,
+      "lo": -0.010150698806569283,
+      "hi": 0.020139202969514512,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8587338804220399,
+      "better_member": "daptv3aves_2e4_step15000",
+      "diff": 0.008499413833528813,
+      "lo": 0.0,
+      "hi": 0.016825405161629683,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4_step15000 | run16_compute4x": {
+    "acc": {
+      "daptv3aves_2e4_step15000": 0.8502344665885111,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.01230949589683461,
+      "lo": -0.00881247019417442,
+      "hi": 0.03246232886035944,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8672332942555686,
+      "better_member": "daptv3aves_2e4_step15000",
+      "diff": 0.016998827667057514,
+      "lo": 0.0030960006877953587,
+      "hi": 0.03235425033677768,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_5e5_step15000 | run16_compute4x": {
+    "acc": {
+      "daptv3aves_5e5_step15000": 0.8449589683470106,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.007033997655334079,
+      "lo": -0.014378322245734296,
+      "hi": 0.02709003875605489,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8578546307151231,
+      "better_member": "daptv3aves_5e5_step15000",
+      "diff": 0.01289566236811257,
+      "lo": -0.00028108849537488155,
+      "hi": 0.027645109245004323,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_5e5_step15000 | daptreplay_5e5_step15000": {
+    "acc": {
+      "daptv3aves_5e5_step15000": 0.8449589683470106,
+      "daptreplay_5e5_step15000": 0.8396834701055099
+    },
+    "a_minus_b": {
+      "diff": 0.005275498241500642,
+      "lo": -0.012483764740979546,
+      "hi": 0.02152211292910059,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8475967174677609,
+      "better_member": "daptv3aves_5e5_step15000",
+      "diff": 0.002637749120750321,
+      "lo": -0.006277882691733081,
+      "hi": 0.011861179282210815,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv4two_2e4_step15000": 0.8440797186400938,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.0011723329425556983,
+      "lo": -0.022729059462550008,
+      "hi": 0.018225040035066115,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8569753810082064,
+      "better_member": "aves-base-bio",
+      "diff": 0.011723329425556872,
+      "lo": -0.0033951907430353756,
+      "hi": 0.024562774021441396,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4_step15000 | daptv3aves_2e4_step15000": {
+    "acc": {
+      "daptv4two_2e4_step15000": 0.8440797186400938,
+      "daptv3aves_2e4_step15000": 0.8502344665885111
+    },
+    "a_minus_b": {
+      "diff": -0.006154747948417305,
+      "lo": -0.02464418632216405,
+      "hi": 0.011301352822267139,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8672332942555686,
+      "better_member": "daptv3aves_2e4_step15000",
+      "diff": 0.016998827667057514,
+      "lo": 0.006421842404497502,
+      "hi": 0.027318679158489182,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4_step15000 | run16_compute4x": {
+    "acc": {
+      "daptv4two_2e4_step15000": 0.8440797186400938,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.006154747948417305,
+      "lo": -0.013164309938790605,
+      "hi": 0.023923529154278454,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8534583821805393,
+      "better_member": "daptv4two_2e4_step15000",
+      "diff": 0.009378663540445475,
+      "lo": -0.00028712396993896825,
+      "hi": 0.02047848860369728,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4s2_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv3aves_2e4s2_step15000": 0.8475967174677609,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.0023446658851113966,
+      "lo": -0.013153918539309487,
+      "hi": 0.016533078760153034,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8581477139507621,
+      "better_member": "daptv3aves_2e4s2_step15000",
+      "diff": 0.010550996483001174,
+      "lo": 0.0006310840996563705,
+      "hi": 0.02186617285729576,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4s2_step15000 | daptv3aves_2e4_step15000": {
+    "acc": {
+      "daptv3aves_2e4s2_step15000": 0.8475967174677609,
+      "daptv3aves_2e4_step15000": 0.8502344665885111
+    },
+    "a_minus_b": {
+      "diff": -0.00263774912075021,
+      "lo": -0.013662940489502381,
+      "hi": 0.007522963933842697,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8645955451348183,
+      "better_member": "daptv3aves_2e4_step15000",
+      "diff": 0.014361078546307193,
+      "lo": 0.005704959061782583,
+      "hi": 0.0219336494152149,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4s2_step15000 | run16_compute4x": {
+    "acc": {
+      "daptv3aves_2e4s2_step15000": 0.8475967174677609,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.0096717467760844,
+      "lo": -0.01352739315008362,
+      "hi": 0.03109359203670589,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8643024618991794,
+      "better_member": "daptv3aves_2e4s2_step15000",
+      "diff": 0.01670574443141848,
+      "lo": 0.005270971840265118,
+      "hi": 0.029965336901365193,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4aveso_2e4_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv4aveso_2e4_step15000": 0.8475967174677609,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.0023446658851113966,
+      "lo": -0.01346066583289334,
+      "hi": 0.01659787762500118,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8581477139507621,
+      "better_member": "daptv4aveso_2e4_step15000",
+      "diff": 0.010550996483001174,
+      "lo": 0.0036814400624982455,
+      "hi": 0.01790831518258116,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4_step15000 | daptv4aveso_2e4_step15000": {
+    "acc": {
+      "daptv4two_2e4_step15000": 0.8440797186400938,
+      "daptv4aveso_2e4_step15000": 0.8475967174677609
+    },
+    "a_minus_b": {
+      "diff": -0.003516998827667095,
+      "lo": -0.023375114132747392,
+      "hi": 0.016145961269315327,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8604923798358733,
+      "better_member": "daptv4aveso_2e4_step15000",
+      "diff": 0.01289566236811246,
+      "lo": 0.0010136021430230764,
+      "hi": 0.02493301179941836,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4aveso_2e4_step15000 | run16_compute4x": {
+    "acc": {
+      "daptv4aveso_2e4_step15000": 0.8475967174677609,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.0096717467760844,
+      "lo": -0.01441068235028195,
+      "hi": 0.03040248402434476,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8625439624853458,
+      "better_member": "daptv4aveso_2e4_step15000",
+      "diff": 0.014947245017584931,
+      "lo": 0.0019677221793420684,
+      "hi": 0.029181037910022873,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4aveso_2e4_step15000 | daptv3aves_2e4_step15000": {
+    "acc": {
+      "daptv4aveso_2e4_step15000": 0.8475967174677609,
+      "daptv3aves_2e4_step15000": 0.8502344665885111
+    },
+    "a_minus_b": {
+      "diff": -0.00263774912075021,
+      "lo": -0.014506796771910264,
+      "hi": 0.007893444046848164,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8628370457209847,
+      "better_member": "daptv3aves_2e4_step15000",
+      "diff": 0.012602579132473646,
+      "lo": 0.002086988698017311,
+      "hi": 0.022098171791789013,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "gain_diff: daptv4two_2e4_step15000 vs daptv3aves_2e4_step15000 | ref run16_compute4x": {
+    "gain_a": {
+      "diff": 0.009378663540445475,
+      "lo": -0.00028712396993896825,
+      "hi": 0.02047848860369728,
+      "resolved": false
+    },
+    "gain_b": {
+      "diff": 0.016998827667057514,
+      "lo": 0.0030960006877953587,
+      "hi": 0.03235425033677768,
+      "resolved": true
+    },
+    "gain_a_minus_gain_b": {
+      "diff": -0.007620164126612039,
+      "lo": -0.018839987958265973,
+      "hi": 0.0033419318706387913,
+      "resolved": false
+    }
+  },
+  "gain_diff: daptv4two_2e4_step15000 vs daptv4aveso_2e4_step15000 | ref run16_compute4x": {
+    "gain_a": {
+      "diff": 0.009378663540445475,
+      "lo": -0.00028712396993896825,
+      "hi": 0.02047848860369728,
+      "resolved": false
+    },
+    "gain_b": {
+      "diff": 0.014947245017584931,
+      "lo": 0.0019677221793420684,
+      "hi": 0.029181037910022873,
+      "resolved": true
+    },
+    "gain_a_minus_gain_b": {
+      "diff": -0.005568581477139456,
+      "lo": -0.015645646829030652,
+      "hi": 0.004360830651381303,
+      "resolved": false
+    }
+  },
+  "daptv4bird_2e4_step15000 | birdaves-biox-base": {
+    "acc": {
+      "daptv4bird_2e4_step15000": 0.8341148886283705,
+      "birdaves-biox-base": 0.8519929660023446
+    },
+    "a_minus_b": {
+      "diff": -0.017878077373974177,
+      "lo": -0.03426964444947143,
+      "hi": -0.0023290602114667885,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8534583821805393,
+      "better_member": "birdaves-biox-base",
+      "diff": 0.0014654161781946229,
+      "lo": -0.008658739908739948,
+      "hi": 0.011311777849205394,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4bird_2e4_step15000 | daptv4two_2e4_step15000": {
+    "acc": {
+      "daptv4bird_2e4_step15000": 0.8341148886283705,
+      "daptv4two_2e4_step15000": 0.8440797186400938
+    },
+    "a_minus_b": {
+      "diff": -0.009964830011723325,
+      "lo": -0.02600860865518848,
+      "hi": 0.005296749480281973,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8490621336459554,
+      "better_member": "daptv4two_2e4_step15000",
+      "diff": 0.004982415005861607,
+      "lo": -0.003225946640340907,
+      "hi": 0.01242341597311423,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4bird_2e4_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv4bird_2e4_step15000": 0.8341148886283705,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.011137162954279023,
+      "lo": -0.03296345008314717,
+      "hi": 0.009473960792779162,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8552168815943728,
+      "better_member": "aves-base-bio",
+      "diff": 0.009964830011723325,
+      "lo": -0.0024200473015040134,
+      "hi": 0.021959201340227982,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4s2_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv4two_2e4s2_step15000": 0.8563892145369285,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.011137162954279023,
+      "lo": -0.006017311238932785,
+      "hi": 0.02742485122240813,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.861664712778429,
+      "better_member": "daptv4two_2e4s2_step15000",
+      "diff": 0.005275498241500531,
+      "lo": -0.003615459902127213,
+      "hi": 0.014126073546080638,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4s2_step15000 | birdaves-biox-base": {
+    "acc": {
+      "daptv4two_2e4s2_step15000": 0.8563892145369285,
+      "birdaves-biox-base": 0.8519929660023446
+    },
+    "a_minus_b": {
+      "diff": 0.004396248534583869,
+      "lo": -0.008736932149563743,
+      "hi": 0.018716997304814968,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8701641266119577,
+      "better_member": "daptv4two_2e4s2_step15000",
+      "diff": 0.013774912075029233,
+      "lo": 0.005868118505136277,
+      "hi": 0.022006589038545712,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4s2_step15000 | daptv4two_2e4_step15000": {
+    "acc": {
+      "daptv4two_2e4s2_step15000": 0.8563892145369285,
+      "daptv4two_2e4_step15000": 0.8440797186400938
+    },
+    "a_minus_b": {
+      "diff": 0.012309495896834721,
+      "lo": 0.0015704151726278538,
+      "hi": 0.024122141793758416,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8593200468933178,
+      "better_member": "daptv4two_2e4s2_step15000",
+      "diff": 0.0029308323563892458,
+      "lo": -0.0031706583220215525,
+      "hi": 0.008515879367039807,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4s2_step15000 | run16_compute4x": {
+    "acc": {
+      "daptv4two_2e4s2_step15000": 0.8563892145369285,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.018464243845252026,
+      "lo": 0.0009791887544327834,
+      "hi": 0.03494361545621981,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8610785463071512,
+      "better_member": "daptv4two_2e4s2_step15000",
+      "diff": 0.004689331770222682,
+      "lo": -0.00623706552859864,
+      "hi": 0.017337180557202604,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4aveso_2e4s2_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv4aveso_2e4s2_step15000": 0.8461313012895663,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.0008792497069167737,
+      "lo": -0.013686961967752015,
+      "hi": 0.015761550177325515,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8563892145369285,
+      "better_member": "daptv4aveso_2e4s2_step15000",
+      "diff": 0.01025791324736225,
+      "lo": 0.001018892128160903,
+      "hi": 0.019624091810353857,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4aveso_2e4s2_step15000 | daptv4aveso_2e4_step15000": {
+    "acc": {
+      "daptv4aveso_2e4s2_step15000": 0.8461313012895663,
+      "daptv4aveso_2e4_step15000": 0.8475967174677609
+    },
+    "a_minus_b": {
+      "diff": -0.0014654161781946229,
+      "lo": -0.012796904260299603,
+      "hi": 0.011358075766673205,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8537514654161782,
+      "better_member": "daptv4aveso_2e4_step15000",
+      "diff": 0.006154747948417305,
+      "lo": 0.0,
+      "hi": 0.012574990452097558,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two_2e4s2_step15000 | daptv4aveso_2e4s2_step15000": {
+    "acc": {
+      "daptv4two_2e4s2_step15000": 0.8563892145369285,
+      "daptv4aveso_2e4s2_step15000": 0.8461313012895663
+    },
+    "a_minus_b": {
+      "diff": 0.01025791324736225,
+      "lo": -0.005266442141180541,
+      "hi": 0.02562411664911667,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8610785463071512,
+      "better_member": "daptv4two_2e4s2_step15000",
+      "diff": 0.004689331770222682,
+      "lo": -0.0041848167483015675,
+      "hi": 0.014974515365968036,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two45k_2e4_step45000 | daptv4two_2e4_step15000": {
+    "acc": {
+      "daptv4two45k_2e4_step45000": 0.8537514654161782,
+      "daptv4two_2e4_step15000": 0.8440797186400938
+    },
+    "a_minus_b": {
+      "diff": 0.0096717467760844,
+      "lo": -0.0065722477772831075,
+      "hi": 0.02459294296465438,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8607854630715123,
+      "better_member": "daptv4two45k_2e4_step45000",
+      "diff": 0.007033997655334079,
+      "lo": -0.0010565197266352577,
+      "hi": 0.016214259020512177,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two45k_2e4_step45000 | aves-base-bio": {
+    "acc": {
+      "daptv4two45k_2e4_step45000": 0.8537514654161782,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.008499413833528702,
+      "lo": -0.017421230674862755,
+      "hi": 0.0314870690724976,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8686987104337632,
+      "better_member": "daptv4two45k_2e4_step45000",
+      "diff": 0.014947245017585042,
+      "lo": 0.0019516960373054336,
+      "hi": 0.028868157973465397,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two45k_2e4_step45000 | daptv4two_2e4s2_step15000": {
+    "acc": {
+      "daptv4two45k_2e4_step45000": 0.8537514654161782,
+      "daptv4two_2e4s2_step15000": 0.8563892145369285
+    },
+    "a_minus_b": {
+      "diff": -0.002637749120750321,
+      "lo": -0.017823747829500577,
+      "hi": 0.011134315604641584,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8587338804220399,
+      "better_member": "daptv4two_2e4s2_step15000",
+      "diff": 0.0023446658851113966,
+      "lo": -0.0056653657099481,
+      "hi": 0.009560376835097273,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv4two45k_2e4_step45000 | birdaves-biox-base": {
+    "acc": {
+      "daptv4two45k_2e4_step45000": 0.8537514654161782,
+      "birdaves-biox-base": 0.8519929660023446
+    },
+    "a_minus_b": {
+      "diff": 0.0017584994138335475,
+      "lo": -0.017137822686232325,
+      "hi": 0.018762646029769292,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8678194607268465,
+      "better_member": "daptv4two45k_2e4_step45000",
+      "diff": 0.014067995310668269,
+      "lo": 0.003973536722107196,
+      "hi": 0.025542665638138857,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "gain_diff: daptv4two45k_2e4_step45000 vs daptv4two_2e4_step15000 | ref run16_compute4x": {
+    "gain_a": {
+      "diff": 0.0038100820633060195,
+      "lo": -0.004394591987277816,
+      "hi": 0.014060241143925425,
+      "resolved": false
+    },
+    "gain_b": {
+      "diff": 0.009378663540445475,
+      "lo": -0.00028712396993896825,
+      "hi": 0.02047848860369728,
+      "resolved": false
+    },
+    "gain_a_minus_gain_b": {
+      "diff": -0.005568581477139456,
+      "lo": -0.011678543190149177,
+      "hi": 0.001799557303626509,
+      "resolved": false
+    }
+  },
+  "aves-base-nonbio | aves-base-bio": {
+    "acc": {
+      "aves-base-nonbio": 0.847010550996483,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.0017584994138335475,
+      "lo": -0.015381883702539123,
+      "hi": 0.01885897355854161,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8511137162954279,
+      "better_member": "aves-base-nonbio",
+      "diff": 0.004103165298944833,
+      "lo": -0.006918385166844778,
+      "hi": 0.015364697840915516,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "aves-base-nonbio | run16_compute4x": {
+    "acc": {
+      "aves-base-nonbio": 0.847010550996483,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.009085580304806551,
+      "lo": -0.011644527357106757,
+      "hi": 0.028514693046261277,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8601992966002344,
+      "better_member": "aves-base-nonbio",
+      "diff": 0.013188745603751384,
+      "lo": 0.0011620696387937863,
+      "hi": 0.026997900672480195,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "aves-base-nonbio | run11": {
+    "acc": {
+      "aves-base-nonbio": 0.847010550996483,
+      "run11": 0.8118405627198124
+    },
+    "a_minus_b": {
+      "diff": 0.035169988276670616,
+      "lo": 0.011026276797257015,
+      "hi": 0.06213010746540813,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8481828839390387,
+      "better_member": "aves-base-nonbio",
+      "diff": 0.0011723329425556983,
+      "lo": -0.013281426583481509,
+      "hi": 0.013681032388405151,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run16_seed3 | run16_seed2": {
+    "acc": {
+      "run16_seed3": 0.8417350527549824,
+      "run16_seed2": 0.8223915592028136
+    },
+    "a_minus_b": {
+      "diff": 0.0193434935521688,
+      "lo": 0.005216424313238772,
+      "hi": 0.03249662602171678,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8376318874560376,
+      "better_member": "run16_seed3",
+      "diff": -0.004103165298944833,
+      "lo": -0.011733111061703402,
+      "hi": 0.003426734752715904,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run16_seed3 | run16_compute4x": {
+    "acc": {
+      "run16_seed3": 0.8417350527549824,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.0038100820633059085,
+      "lo": -0.007352922693560154,
+      "hi": 0.015053522587946778,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8487690504103166,
+      "better_member": "run16_seed3",
+      "diff": 0.00703399765533419,
+      "lo": -0.0018399356488214363,
+      "hi": 0.01605219193116247,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-hubert-base-ls960 | aves-base-bio": {
+    "acc": {
+      "hf-hubert-base-ls960": 0.8288393903868698,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.016412661195779665,
+      "lo": -0.03566901789559263,
+      "hi": 0.003716937247192787,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.854630715123095,
+      "better_member": "aves-base-bio",
+      "diff": 0.009378663540445475,
+      "lo": 0.0003637416414654704,
+      "hi": 0.01941100705376733,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-hubert-base-ls960 | run16_compute4x": {
+    "acc": {
+      "hf-hubert-base-ls960": 0.8288393903868698,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": -0.009085580304806662,
+      "lo": -0.03402933905131733,
+      "hi": 0.013400470873946435,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8637162954279015,
+      "better_member": "run16_compute4x",
+      "diff": 0.02579132473622503,
+      "lo": 0.012531288492792994,
+      "hi": 0.040348037646981555,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-hubert-base-ls960 | run11": {
+    "acc": {
+      "hf-hubert-base-ls960": 0.8288393903868698,
+      "run11": 0.8118405627198124
+    },
+    "a_minus_b": {
+      "diff": 0.016998827667057403,
+      "lo": -0.012176192199242836,
+      "hi": 0.046506677561140485,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8484759671746777,
+      "better_member": "hf-hubert-base-ls960",
+      "diff": 0.019636576787807836,
+      "lo": 0.003610370056967233,
+      "hi": 0.036480978896088784,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-wavlm-base-plus | aves-base-bio": {
+    "acc": {
+      "hf-wavlm-base-plus": 0.8262016412661196,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.019050410316529875,
+      "lo": -0.037213339031949275,
+      "hi": -0.0007276615225283398,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8531652989449003,
+      "better_member": "aves-base-bio",
+      "diff": 0.007913247362250853,
+      "lo": -0.004730393574861427,
+      "hi": 0.02028471660987241,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-wavlm-base-plus | run16_compute4x": {
+    "acc": {
+      "hf-wavlm-base-plus": 0.8262016412661196,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": -0.011723329425556872,
+      "lo": -0.034500874042291796,
+      "hi": 0.00873568820304892,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8528722157092614,
+      "better_member": "run16_compute4x",
+      "diff": 0.014947245017584931,
+      "lo": 0.0035122577108974095,
+      "hi": 0.025484240803710173,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-wavlm-base-plus | run11": {
+    "acc": {
+      "hf-wavlm-base-plus": 0.8262016412661196,
+      "run11": 0.8118405627198124
+    },
+    "a_minus_b": {
+      "diff": 0.014361078546307193,
+      "lo": -0.0073807571409046455,
+      "hi": 0.03666117188144047,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8405627198124267,
+      "better_member": "hf-wavlm-base-plus",
+      "diff": 0.014361078546307082,
+      "lo": 0.003275010963455549,
+      "hi": 0.025546016649921916,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-ast-audioset | aves-base-bio": {
+    "acc": {
+      "hf-ast-audioset": 0.8338218053927315,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.011430246189917947,
+      "lo": -0.033832019575443996,
+      "hi": 0.012223616286633187,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8610785463071512,
+      "better_member": "aves-base-bio",
+      "diff": 0.015826494724501705,
+      "lo": 0.0036344956413449816,
+      "hi": 0.02979504882720382,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-ast-audioset | run16_compute4x": {
+    "acc": {
+      "hf-ast-audioset": 0.8338218053927315,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": -0.004103165298944944,
+      "lo": -0.027414760220001222,
+      "hi": 0.019395809638066114,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8625439624853458,
+      "better_member": "run16_compute4x",
+      "diff": 0.02461899179366933,
+      "lo": 0.013190162957286242,
+      "hi": 0.037651557632978096,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-ast-audioset | birdaves-biox-large": {
+    "acc": {
+      "hf-ast-audioset": 0.8338218053927315,
+      "birdaves-biox-large": 0.8552168815943728
+    },
+    "a_minus_b": {
+      "diff": -0.021395076201641272,
+      "lo": -0.05013892791554193,
+      "hi": 0.005148141763866407,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8686987104337632,
+      "better_member": "birdaves-biox-large",
+      "diff": 0.01348182883939042,
+      "lo": 0.0036514900957505536,
+      "hi": 0.023803619035291556,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4m8_step15000 | daptv3aves_2e4_step15000": {
+    "acc": {
+      "daptv3aves_2e4m8_step15000": 0.8417350527549824,
+      "daptv3aves_2e4_step15000": 0.8502344665885111
+    },
+    "a_minus_b": {
+      "diff": -0.008499413833528702,
+      "lo": -0.021868512157740903,
+      "hi": 0.0025284922654090626,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8587338804220399,
+      "better_member": "daptv3aves_2e4_step15000",
+      "diff": 0.008499413833528813,
+      "lo": -0.0009524719660139679,
+      "hi": 0.01613027486455587,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4m8_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv3aves_2e4m8_step15000": 0.8417350527549824,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.003516998827667095,
+      "lo": -0.0188684104810284,
+      "hi": 0.009742322660193457,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8560961313012896,
+      "better_member": "aves-base-bio",
+      "diff": 0.010844079718640098,
+      "lo": 0.003333322393879995,
+      "hi": 0.018746657788223913,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-base-enc | aves-base-bio": {
+    "acc": {
+      "hf-whisper-base-enc": 0.8643024618991794,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.019050410316529875,
+      "lo": 0.00424496112352786,
+      "hi": 0.03699833032447255,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.86957796014068,
+      "better_member": "hf-whisper-base-enc",
+      "diff": 0.005275498241500642,
+      "lo": -0.004772257616554245,
+      "hi": 0.015439283207460998,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-base-enc | run16_compute4x": {
+    "acc": {
+      "hf-whisper-base-enc": 0.8643024618991794,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.02637749120750288,
+      "lo": 0.004770001360984755,
+      "hi": 0.04892195470771034,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8739742086752638,
+      "better_member": "hf-whisper-base-enc",
+      "diff": 0.0096717467760844,
+      "lo": -0.001328694082331,
+      "hi": 0.020875086028504967,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-base-enc | birdaves-biox-large": {
+    "acc": {
+      "hf-whisper-base-enc": 0.8643024618991794,
+      "birdaves-biox-large": 0.8552168815943728
+    },
+    "a_minus_b": {
+      "diff": 0.009085580304806551,
+      "lo": -0.009847505818950336,
+      "hi": 0.02915011892415155,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8792497069167644,
+      "better_member": "hf-whisper-base-enc",
+      "diff": 0.014947245017585042,
+      "lo": 0.004274280700536023,
+      "hi": 0.02607702008942796,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-base-enc | aves-base-core": {
+    "acc": {
+      "hf-whisper-base-enc": 0.8643024618991794,
+      "aves-base-core": 0.8502344665885111
+    },
+    "a_minus_b": {
+      "diff": 0.014067995310668269,
+      "lo": -0.00516997578887409,
+      "hi": 0.03552498013325335,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8818874560375146,
+      "better_member": "hf-whisper-base-enc",
+      "diff": 0.017584994138335253,
+      "lo": 0.007758958540903129,
+      "hi": 0.028288691363990225,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-base-enc | birdaves-biox-base": {
+    "acc": {
+      "hf-whisper-base-enc": 0.8643024618991794,
+      "birdaves-biox-base": 0.8519929660023446
+    },
+    "a_minus_b": {
+      "diff": 0.012309495896834721,
+      "lo": -0.0021788397748660287,
+      "hi": 0.028844425382466985,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8833528722157092,
+      "better_member": "hf-whisper-base-enc",
+      "diff": 0.019050410316529875,
+      "lo": 0.008337696657611995,
+      "hi": 0.029819026594762307,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-base-enc | daptv4two_2e4s2_step15000": {
+    "acc": {
+      "hf-whisper-base-enc": 0.8643024618991794,
+      "daptv4two_2e4s2_step15000": 0.8563892145369285
+    },
+    "a_minus_b": {
+      "diff": 0.007913247362250853,
+      "lo": -0.007222704160816046,
+      "hi": 0.0240115621618565,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8798358733880423,
+      "better_member": "hf-whisper-base-enc",
+      "diff": 0.015533411488862892,
+      "lo": 0.005874771468505166,
+      "hi": 0.025923050710326346,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-base-enc | hf-ast-audioset": {
+    "acc": {
+      "hf-whisper-base-enc": 0.8643024618991794,
+      "hf-ast-audioset": 0.8338218053927315
+    },
+    "a_minus_b": {
+      "diff": 0.030480656506447823,
+      "lo": 0.010050411362618528,
+      "hi": 0.05082290353668117,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.873094958968347,
+      "better_member": "hf-whisper-base-enc",
+      "diff": 0.008792497069167626,
+      "lo": -0.0007090955143430415,
+      "hi": 0.01899722250216058,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4s2m8_step15000 | daptv3aves_2e4s2_step15000": {
+    "acc": {
+      "daptv3aves_2e4s2m8_step15000": 0.8481828839390387,
+      "daptv3aves_2e4s2_step15000": 0.8475967174677609
+    },
+    "a_minus_b": {
+      "diff": 0.0005861664712778492,
+      "lo": -0.01296014150117335,
+      "hi": 0.013617553959817808,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8552168815943728,
+      "better_member": "daptv3aves_2e4s2m8_step15000",
+      "diff": 0.007033997655334079,
+      "lo": -0.002537694142513036,
+      "hi": 0.01934046929261525,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptv3aves_2e4s2m8_step15000 | aves-base-bio": {
+    "acc": {
+      "daptv3aves_2e4s2m8_step15000": 0.8481828839390387,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.0029308323563892458,
+      "lo": -0.01448302119782749,
+      "hi": 0.018618429635427845,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8601992966002344,
+      "better_member": "daptv3aves_2e4s2m8_step15000",
+      "diff": 0.012016412661195686,
+      "lo": 0.0016344524104597888,
+      "hi": 0.023755724769629703,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-small-enc | aves-base-bio": {
+    "acc": {
+      "hf-whisper-small-enc": 0.8599062133645955,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.014654161781946007,
+      "lo": -0.004617765814266558,
+      "hi": 0.035906566826205556,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8669402110199297,
+      "better_member": "hf-whisper-small-enc",
+      "diff": 0.00703399765533419,
+      "lo": -0.001917600449581977,
+      "hi": 0.01534537759044102,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-small-enc | birdaves-biox-large": {
+    "acc": {
+      "hf-whisper-small-enc": 0.8599062133645955,
+      "birdaves-biox-large": 0.8552168815943728
+    },
+    "a_minus_b": {
+      "diff": 0.004689331770222682,
+      "lo": -0.011351671036078741,
+      "hi": 0.024571675708135822,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8736811254396248,
+      "better_member": "hf-whisper-small-enc",
+      "diff": 0.013774912075029344,
+      "lo": 0.002723166421711548,
+      "hi": 0.02398573794452537,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-small-enc | run16_compute4x": {
+    "acc": {
+      "hf-whisper-small-enc": 0.8599062133645955,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.02198124267291901,
+      "lo": 0.0016329039569168008,
+      "hi": 0.04270919158035145,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8701641266119577,
+      "better_member": "hf-whisper-small-enc",
+      "diff": 0.01025791324736225,
+      "lo": -0.0003535320240094536,
+      "hi": 0.020306704221040674,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-tiny-enc | aves-base-bio": {
+    "acc": {
+      "hf-whisper-tiny-enc": 0.8446658851113716,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.0005861664712778492,
+      "lo": -0.019002758195765888,
+      "hi": 0.017831696037081807,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8622508792497069,
+      "better_member": "aves-base-bio",
+      "diff": 0.016998827667057403,
+      "lo": 0.007191442341862147,
+      "hi": 0.02793558371179401,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-tiny-enc | birdaves-biox-large": {
+    "acc": {
+      "hf-whisper-tiny-enc": 0.8446658851113716,
+      "birdaves-biox-large": 0.8552168815943728
+    },
+    "a_minus_b": {
+      "diff": -0.010550996483001174,
+      "lo": -0.030044913548601223,
+      "hi": 0.009132704767760961,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8763188745603752,
+      "better_member": "birdaves-biox-large",
+      "diff": 0.021101992966002348,
+      "lo": 0.010573651691980929,
+      "hi": 0.03304562239613873,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-whisper-tiny-enc | run16_compute4x": {
+    "acc": {
+      "hf-whisper-tiny-enc": 0.8446658851113716,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": 0.006740914419695154,
+      "lo": -0.019105225536505063,
+      "hi": 0.032370062569634435,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8669402110199297,
+      "better_member": "hf-whisper-tiny-enc",
+      "diff": 0.022274325908558046,
+      "lo": 0.009537544357990152,
+      "hi": 0.03663503867572501,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-wav2vec2-base | aves-base-bio": {
+    "acc": {
+      "hf-wav2vec2-base": 0.802168815943728,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.04308323563892147,
+      "lo": -0.06232636389752491,
+      "hi": -0.023002505601572663,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8481828839390387,
+      "better_member": "aves-base-bio",
+      "diff": 0.0029308323563892458,
+      "lo": -0.007127766334624052,
+      "hi": 0.013245223908219623,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-wav2vec2-base | birdaves-biox-large": {
+    "acc": {
+      "hf-wav2vec2-base": 0.802168815943728,
+      "birdaves-biox-large": 0.8552168815943728
+    },
+    "a_minus_b": {
+      "diff": -0.05304806565064479,
+      "lo": -0.07646668047364993,
+      "hi": -0.030477420145792817,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8581477139507621,
+      "better_member": "birdaves-biox-large",
+      "diff": 0.0029308323563892458,
+      "lo": -0.008355867834343509,
+      "hi": 0.01386177870123462,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-wav2vec2-base | run16_compute4x": {
+    "acc": {
+      "hf-wav2vec2-base": 0.802168815943728,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": -0.035756154747948465,
+      "lo": -0.05797741529002868,
+      "hi": -0.014949663809176644,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.854630715123095,
+      "better_member": "run16_compute4x",
+      "diff": 0.01670574443141848,
+      "lo": 0.005441190000525728,
+      "hi": 0.028558320158523956,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-data2vec-audio-base | aves-base-bio": {
+    "acc": {
+      "hf-data2vec-audio-base": 0.8118405627198124,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.03341148886283707,
+      "lo": -0.05518372151988208,
+      "hi": -0.011456339040987142,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8522860492379836,
+      "better_member": "aves-base-bio",
+      "diff": 0.007033997655334079,
+      "lo": -0.0049108120076072044,
+      "hi": 0.018893927050770504,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-data2vec-audio-base | birdaves-biox-large": {
+    "acc": {
+      "hf-data2vec-audio-base": 0.8118405627198124,
+      "birdaves-biox-large": 0.8552168815943728
+    },
+    "a_minus_b": {
+      "diff": -0.04337631887456039,
+      "lo": -0.066687950884624,
+      "hi": -0.019042119193155013,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8599062133645955,
+      "better_member": "birdaves-biox-large",
+      "diff": 0.004689331770222682,
+      "lo": -0.008549811756711975,
+      "hi": 0.018337426766318752,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "hf-data2vec-audio-base | run16_compute4x": {
+    "acc": {
+      "hf-data2vec-audio-base": 0.8118405627198124,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": -0.026084407971864065,
+      "lo": -0.05163787760860701,
+      "hi": -0.002327176703646829,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8587338804220399,
+      "better_member": "run16_compute4x",
+      "diff": 0.020808909730363423,
+      "lo": 0.008280294673545246,
+      "hi": 0.03532374003351572,
+      "resolved": true
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run11 | aves-base-bio": {
+    "acc": {
+      "run11": 0.8118405627198124,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.03341148886283707,
+      "lo": -0.06091303375650315,
+      "hi": -0.006923922956107697,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8499413833528722,
+      "better_member": "aves-base-bio",
+      "diff": 0.004689331770222682,
+      "lo": -0.009592015612112084,
+      "hi": 0.018492874375585274,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptreplay_5e5_step15000 | aves-base-bio": {
+    "acc": {
+      "daptreplay_5e5_step15000": 0.8396834701055099,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.005568581477139567,
+      "lo": -0.02895032395479712,
+      "hi": 0.0189939401798194,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8525791324736225,
+      "better_member": "aves-base-bio",
+      "diff": 0.007327080890973003,
+      "lo": -0.006120021682457161,
+      "hi": 0.02201739284896094,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptfreeze_5e5_step15000 | aves-base-bio": {
+    "acc": {
+      "daptfreeze_5e5_step15000": 0.8449589683470106,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.0002930832356389246,
+      "lo": -0.011901007252861431,
+      "hi": 0.012766302081752865,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8511137162954279,
+      "better_member": "aves-base-bio",
+      "diff": 0.0058616647127783805,
+      "lo": -0.002050055706293291,
+      "hi": 0.014401658329938616,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptlr_1e5_step15000 | aves-base-bio": {
+    "acc": {
+      "daptlr_1e5_step15000": 0.843200468933177,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.002051582649472472,
+      "lo": -0.01741816401731431,
+      "hi": 0.014326457943792854,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8519929660023446,
+      "better_member": "aves-base-bio",
+      "diff": 0.006740914419695154,
+      "lo": -0.00030890793713318483,
+      "hi": 0.01418935987849525,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "daptshort_5e5_step2500 | aves-base-bio": {
+    "acc": {
+      "daptshort_5e5_step2500": 0.8443728018757327,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.0008792497069167737,
+      "lo": -0.022344752997686467,
+      "hi": 0.021008371778162133,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8566822977725674,
+      "better_member": "aves-base-bio",
+      "diff": 0.011430246189917947,
+      "lo": -0.0005812977729331591,
+      "hi": 0.024599063308292035,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "aves-base-core | aves-base-bio": {
+    "acc": {
+      "aves-base-core": 0.8502344665885111,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.004982415005861607,
+      "lo": -0.015081795796446602,
+      "hi": 0.023124855929890973,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8572684642438453,
+      "better_member": "aves-base-core",
+      "diff": 0.00703399765533419,
+      "lo": -0.0025700730334705406,
+      "hi": 0.018715057758572597,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "aves-base-all | aves-base-bio": {
+    "acc": {
+      "aves-base-all": 0.8478898007033998,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.002637749120750321,
+      "lo": -0.013039295888710334,
+      "hi": 0.01838219863790023,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8552168815943728,
+      "better_member": "aves-base-all",
+      "diff": 0.007327080890973003,
+      "lo": -0.0015449400695813852,
+      "hi": 0.016390061079800282,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "birdaves-biox-base | aves-base-bio": {
+    "acc": {
+      "birdaves-biox-base": 0.8519929660023446,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.006740914419695154,
+      "lo": -0.009950108286940542,
+      "hi": 0.022237901879989596,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8587338804220399,
+      "better_member": "birdaves-biox-base",
+      "diff": 0.006740914419695265,
+      "lo": -0.002309916117435626,
+      "hi": 0.016409162190126073,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "birdaves-biox-large | aves-base-bio": {
+    "acc": {
+      "birdaves-biox-large": 0.8552168815943728,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.009964830011723325,
+      "lo": -0.012380254220645062,
+      "hi": 0.03278907318780835,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8601992966002344,
+      "better_member": "birdaves-biox-large",
+      "diff": 0.004982415005861607,
+      "lo": -0.007470666347722668,
+      "hi": 0.015754577963449076,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "birdaves-bioxn-large | aves-base-bio": {
+    "acc": {
+      "birdaves-bioxn-large": 0.8452520515826495,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": 0.0,
+      "lo": -0.02043795282980809,
+      "hi": 0.020232880460216977,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8519929660023446,
+      "better_member": "birdaves-bioxn-large",
+      "diff": 0.006740914419695154,
+      "lo": -0.006426172415438247,
+      "hi": 0.020563088101887228,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run15_combined | aves-base-bio": {
+    "acc": {
+      "run15_combined": 0.813599062133646,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.03165298944900352,
+      "lo": -0.060278326745718036,
+      "hi": -0.003805212947030392,
+      "resolved": true
+    },
+    "ensemble": {
+      "acc": 0.8514067995310668,
+      "better_member": "aves-base-bio",
+      "diff": 0.006154747948417305,
+      "lo": -0.010539539743074672,
+      "hi": 0.023971316769546423,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run29_avesrecipe | aves-base-bio": {
+    "acc": {
+      "run29_avesrecipe": 0.8300117233294255,
+      "aves-base-bio": 0.8452520515826495
+    },
+    "a_minus_b": {
+      "diff": -0.015240328253223967,
+      "lo": -0.0387645297522698,
+      "hi": 0.007164760377992791,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8519929660023446,
+      "better_member": "aves-base-bio",
+      "diff": 0.006740914419695154,
+      "lo": -0.006241655798128687,
+      "hi": 0.01937480431294271,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run29_avesrecipe | run16_compute4x": {
+    "acc": {
+      "run29_avesrecipe": 0.8300117233294255,
+      "run16_compute4x": 0.8379249706916765
+    },
+    "a_minus_b": {
+      "diff": -0.007913247362250964,
+      "lo": -0.021683641899254646,
+      "hi": 0.005754210717507917,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.847010550996483,
+      "better_member": "run16_compute4x",
+      "diff": 0.009085580304806551,
+      "lo": -0.0014003192404403093,
+      "hi": 0.019867775431493564,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  },
+  "run29_avesrecipe | run17_accum2": {
+    "acc": {
+      "run29_avesrecipe": 0.8300117233294255,
+      "run17_accum2": 0.832063305978898
+    },
+    "a_minus_b": {
+      "diff": -0.002051582649472472,
+      "lo": -0.020142759682328645,
+      "hi": 0.016400482459611333,
+      "resolved": false
+    },
+    "ensemble": {
+      "acc": 0.8411488862837045,
+      "better_member": "run17_accum2",
+      "diff": 0.009085580304806551,
+      "lo": -0.005274023825741222,
+      "hi": 0.02338604042190283,
+      "resolved": false
+    },
+    "protocol": "board probe (cv_acc, sklearn 1.7.2 split), own best layers; bird bootstrap 2000, seed 0"
+  }
+}
