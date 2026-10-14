@@ -677,10 +677,15 @@ experiments:
   tag: run29_avesrecipe
   num_classes: 200
   job_name: hubert_run29
-  status: submitted
+  status: done
   job: 39859251
+  result: 'FAILED the pre-registered criterion on both seeds (finding 073): E29 minus aves-base-bio resolved negative on
+    4 of 5 BEANS tasks (bats, hiceas, enabirds, dcase), n.d. on esc50, on seed 1337 and seed 2. vs run16: resolved ahead
+    on bats (both seeds) and esc50 (seed 1337), n.d. on the detection tasks. ZF call type n.d. vs aves/run16/run17; ZF
+    detection AUC resolved above aves-base-bio on both seeds, ties run16/run17. Still unmatched vs AVES: corpus, targets,
+    feature penalty (AVES 10, ours 0), clip length (ours 20 s chunks, AVES crop-to-shortest <=15.6 s), ~92% audio, batch layout.'
   priority: 1
-  notes: 'Approved by the user 2026-10-12 (same message as E28). ~12 h on 4 L40s per seed (run17 took 11 h for
+  notes: 'Approved by the user 2026-10-12 (same message as E28). Took ~15 h on 4 L40s per seed (estimated ~12 h) (run17 took 11 h for
     93,750 updates). Seed-2 arm: exp temp_train_run29_avesrecipe_s2, tag run29_avesrecipe_s2, job hubert_run29s2, slurm job 39859252. First submission refused (header rewrite dropped the SBATCH block); fixed and submitted 22:19.'
 - id: E30
   title: Our recipe with a log-mel front end

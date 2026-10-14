@@ -27,17 +27,33 @@
   "variable": "Masking",
   "ours": "0.4 / 3 frames (34% of frames)",
   "aves": "0.8 / 10 frames (54%)",
-  "status": "tested in DAPT",
-  "tests": "E28 (DAPT, 2 seeds); E29 (from scratch, running)",
-  "verdict": "In DAPT: no call-type change on either seed; detection gain on one seed only."
+  "status": "tested",
+  "tests": "E28 (DAPT, 2 seeds); E29 (from scratch with lr/warmup/length, 2 seeds; 071, 073)",
+  "verdict": "In DAPT: no call-type change; detection gain on one seed. From scratch (E29, bundled): BEANS bats/esc50 above run16 but still below AVES on 4 of 5 tasks."
  },
  {
   "variable": "Learning rate / warmup",
   "ours": "1e-4, 3% warmup",
   "aves": "2e-4, 32% warmup",
-  "status": "running",
-  "tests": "E29",
-  "verdict": "Bundled into E29 with masking."
+  "status": "tested",
+  "tests": "E29 (073)",
+  "verdict": "Bundled with masking in E29: call type ties AVES and run16; BEANS stays below AVES on 4 of 5 tasks on both seeds."
+ },
+ {
+  "variable": "Feature penalty",
+  "ours": "0 (--feature-weight 0)",
+  "aves": "10 (fairseq loss_weights [10.0])",
+  "status": "open",
+  "tests": "none yet (found in 073's critic review)",
+  "verdict": "No run used AVES's 10: the early iter3-5 runs used 1, every run since 0."
+ },
+ {
+  "variable": "Clip length",
+  "ours": "fixed 20 s chunks",
+  "aves": "cropped to the batch's shortest clip, at most 15.6 s",
+  "status": "open",
+  "tests": "none yet (073)",
+  "verdict": "Every training script uses 20 s chunks."
  },
  {
   "variable": "Compute (audio processed)",
