@@ -1,14 +1,14 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-14 23:52
+Updated: 2026-10-15 00:45
 
 ## In flight
 - E8 run19 seed 2: resubmitted by tick.py as job 39945354 (old 39781626 hit REQUEUE_HOLD after 6 preemptions,
   cancelled). Resumes from last.ckpt epoch=34-step=87734 (~6k of 93,750 left). PENDING (Priority).
 - E9 run20 seed 2 (FSD50K only): job 39945376, submitted by tick.py 23:38. PENDING.
-- E16 (approved analysis, bats time expansion): Mac background run started 23:50 -- beans_probe.py --task bats,
-  models run16_compute4x / aves-base-bio at @te2 and @te4 vs their own F=1 (cached). Protocol pre-registered
-  (experiments.yaml E16, commit b480267). Results -> analysis/beans_bats.json models["<tag>@te<F>"].vs_<tag>.
-  Label-free half of E16 not yet designed (needs an individual-held-out E11 variant; pre-register before running).
+- E16 (approved analysis, bats time expansion). BEANS half DONE (beans_bats.json): F=4 resolved gain for both
+  run16 (+0.0800) and aves-base-bio (+0.0670); F=2 resolved for run16 only; run16 still below aves at F=4 (-0.0585).
+  Control @lpte4 (low-pass 8 kHz, then x4; pre-registered, commit ce2bbbf) running on the Mac since 00:46.
+  Label-free half not yet designed (needs an individual-held-out E11 variant; pre-register before running).
 
 ## Done since last digest (2026-10-14)
 - E29 FAILS (finding 073, confirmed): 4/5 BEANS tasks resolved below aves-base-bio on both seeds; feature penalty
@@ -18,8 +18,8 @@ Updated: 2026-10-14 23:52
 - Bats energy: ~91% of a typical bat clip's energy is above 8 kHz (mostly 8-16 kHz); see pi_notes 2026-10-14 23:49.
 
 ## Next action (in order)
-1. When E16 finishes: read beans_bats.json vs_<model> for @te2/@te4; draft finding (open until critic); then
-   pre-register the label-free half.
+1. When the control finishes: read beans_bats.json [<m>@lpte4].vs_<m>@te4 and vs_<m>; draft finding 074 (open
+   until critic); then pre-register the label-free half of E16.
 2. Score E8 when step 93,750 lands (score_run.sh run19_seed2 ...; final ckpt may be missing -> newest epoch ckpt).
 3. Digest after 09:00 Oct 15.
 
