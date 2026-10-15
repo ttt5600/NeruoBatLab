@@ -1,5 +1,5 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-15 01:27
+Updated: 2026-10-15 09:03
 
 ## In flight
 - E8 run19 seed 2: resubmitted by tick.py as job 39945354 (old 39781626 hit REQUEUE_HOLD after 6 preemptions,
@@ -18,9 +18,7 @@ Updated: 2026-10-15 01:27
 
 ## Next action (in order)
 1. Score E8 when step 93,750 lands (score_run.sh run19_seed2 ...; final ckpt may be missing -> newest epoch ckpt).
-2. Digest after 09:00 Oct 15: include E29/073, E16/074 (bats: slowing 4x +0.08 run16, +0.067 AVES; most of it
-   survives removing >8 kHz), and the needs-you list.
-3. E16 label-free half: design + pre-register (individual-held-out stability on bats embeddings).
+2. E16 label-free half: design + pre-register (individual-held-out stability on bats embeddings).
 
 ## Waiting on the user
 - New, from 073: test AVES's feature penalty (10) and/or clip cropping, one knob each on top of E29?
@@ -31,4 +29,4 @@ Updated: 2026-10-15 01:27
 - Older: speech-commands, Kaggle for cbi/rfcx/Perch, 615 GB deletion, intern details, 174-clip label audit.
 
 ## Clocks
-- BRC cert valid to 2026-10-15 11:03 (notify ~09:30). Digest due after 09:00 Oct 15 (last: 2026-10-14).
+- BRC cert valid to 2026-10-15 20:58. Digest 2026-10-15 written; next due after 09:00 Oct 16.

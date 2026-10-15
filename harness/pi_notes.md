@@ -237,3 +237,4 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
 - 2026-10-15 07:32 quiet: E8 + E9 PENDING.
 - 2026-10-15 08:33 quiet: E8 + E9 PENDING.
 - 2026-10-15 Memory map: knowledge/BRIEF.md (build.py, one line per finding) is the long-term entry point; PI.md gets a 4-layer table + tools index; AGENT.md reads BRIEF+STATE instead of the 173 KB CONTEXT.md.
+- 2026-10-15 09:03 digest 2026-10-15 written; task-list doc unchanged (no state change); cert renewed to 20:58.
