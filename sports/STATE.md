@@ -34,11 +34,12 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 2. Older pending lockbox decisions: west_coast_night, div_unders_late, rain+wind unders (NFL 2020-25).
 
 ## Next steps (in order)
-1. Kalshi temp consensus-reject paper trading (the only passed strategy) -- keep `kalshi_paper.py` running,
-   accumulate paper P&L; this is the realistic path to the >$100/month bar.
+1. Kalshi temp consensus-reject paper trading (the only passed strategy). As of 2026-10-15 the paper log
+   data/kalshi_paper.jsonl was EMPTY (never run). `validate` works (10-15 09:14: 3 same-day picks, depth
+   128-234 contracts within 1c). Session cron: `pick` daily 22:03, `settle` daily 10:07 -- session-only, dies
+   on clear/exit; re-create with CronCreate after a clear. `report` for P&L.
 2. Make the live loop durable (code outside ~/Desktop: launchd cannot read Desktop) and add Kalshi paper execution.
 3. If user buys Odds API: time-stamped puller (NBA props 2023+, 5-min snapshots) -> re-test DK-reference under only.
-4. Fix pattern_mine.py label: confirm prints two-sided p under a "one-sided" header (cosmetic; verdict unaffected).
 
 ## Dies with the session (restart by hand)
 - Live paper loop: `cd sports && ../.venv_quant/bin/python scripts/live_edges.py loop --every 10` (run_in_background).

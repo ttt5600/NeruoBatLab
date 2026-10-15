@@ -195,7 +195,8 @@ def cmd_confirm(snap: Path, confirm: bool) -> None:
         for rec in rows:
             fh.write(json.dumps(rec) + "\n")
     pd.set_option("display.width", 250, "display.max_colwidth", 95)
-    print(f"sealed-season confirmation of {len(rows)} survivors (one-sided Bonferroni bar p < {0.05 / k:.4f}):")
+    print(f"sealed-season confirmation of {len(rows)} survivors (one-sided Bonferroni bar p < {0.05 / k:.4f}; "
+          f"sealed_p is TWO-sided, pass = ROI > 0 and sealed_p/2 < bar):")
     print(r.to_string(index=False, float_format=lambda v: f"{v:.4g}"))
     print(f"\nPASS: {int(r.get('passes', pd.Series(dtype=bool)).fillna(False).sum())}")
 
