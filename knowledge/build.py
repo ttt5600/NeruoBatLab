@@ -2,6 +2,8 @@
 """Validate the findings store and render its two outputs.
 
   index.md    the full, human-readable table of everything, grouped by status
+  BRIEF.md    one line per finding (id, status, title, first sentence of the claim): the cheap
+              entry point for an agent resuming after /clear; open CONTEXT.md / a finding for detail
   CONTEXT.md  a compact digest meant to be pasted or loaded at the start of a session,
               so a cold agent starts with what is already known and -- just as important --
               what has already been refuted, instead of rediscovering it
@@ -113,6 +115,19 @@ def main():
             C.append(f"- **[{d['id']}] {d['title']}** — {d['claim']}"
                      + (f" _{d.get('evidence','')}_" if d.get("evidence") else ""))
     (ROOT / "CONTEXT.md").write_text("\n".join(C))
+
+    # BRIEF.md -- one line per finding, newest first; refuted/retracted flagged so they are not re-proposed
+    def first_sentence(t, n=220):
+        t = " ".join(str(t).split())
+        cut = t.find(". ")
+        t = t if cut < 0 else t[:cut + 1]
+        return t if len(t) <= n else t[:n - 1] + "\u2026"
+    B = [f"# Findings brief\n\nGenerated {today} by `build.py` ({len(ds)} findings). One line each, newest "
+         "first. REFUTED/RETRACTED ideas: do not retry without new evidence. Detail: CONTEXT.md or "
+         "findings/<id>-*.yaml.\n"]
+    for d in sorted(ds, key=lambda x: x["id"], reverse=True):
+        B.append(f"- [{d['id']}] {d['status'].upper()} -- {d['title']}: {first_sentence(d['claim'])}")
+    (ROOT / "BRIEF.md").write_text("\n".join(B) + "\n")
     print(f"wrote index.md ({len(ds)} findings) and CONTEXT.md ({len(live)} live, {len(dead)} closed)")
 
 

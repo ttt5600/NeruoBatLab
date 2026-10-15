@@ -9,8 +9,10 @@ The goal: an encoder that beats AVES on zebra finch call type and transfers to t
 
 ## Read first
 
-1. `knowledge/CONTEXT.md` (what is known, including refuted ideas -- do not re-propose those)
-2. `harness/experiments.yaml` (the queue) and the reason this iteration started (bottom of this prompt)
+1. `knowledge/BRIEF.md` (one line per finding, incl. REFUTED ideas -- do not re-propose those). Open
+   `knowledge/CONTEXT.md` or `findings/<id>-*.yaml` only for the findings you act on.
+2. `harness/STATE.md` (what is in flight) and the entries of `harness/experiments.yaml` you act on
+   (`grep -n -A40 'id: E8$'`; the whole file is ~50 KB), plus the reason this iteration started
 3. The last two files in `harness/reports/`
 
 ## Do, in order (skip a step when it has nothing to act on)

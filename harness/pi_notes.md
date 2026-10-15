@@ -229,3 +229,11 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
 - 2026-10-15 00:45 E16 BEANS half (beans_bats.json): run16 F1 0.6145, F2 0.6405 (+0.0260 [+0.0020, +0.0505]), F4 0.6945 (+0.0800 [+0.0560, +0.1020]); aves-base-bio F1 0.6860, F2 0.7050 (+0.0190 [-0.0030, +0.0405] n.d.), F4 0.7530 (+0.0670 [+0.0445, +0.0885]); run16@te4 - aves@te4 -0.0585 [-0.0795, -0.0380]. Control @lpte4 (lowpass 8k then x4) added + verified on tones, pre-registered; running.
 - 2026-10-15 01:21 E16 control (beans_bats.json): run16@lpte4 0.6695 (L3; best-any 0.6945) minus plain +0.0550 [+0.0330, +0.0765], minus @te4 -0.0250 [-0.0460, -0.0025]; aves@lpte4 0.7385 (L0) minus plain +0.0525 [+0.0325, +0.0715], minus @te4 -0.0145 [-0.0335, +0.0065] n.d. -> most of the F=4 gain is stretching (both models); >8 kHz content adds a resolved +0.025 for run16 only at the valid-chosen layer. Finding 074 drafted (open), critic running.
 - 2026-10-15 01:27 Finding 074 (E16 BEANS half) written after critic ACCEPT-WITH-CHANGES (kept open): share of F=4 gain kept by low-pass control run16 0.687 [0.464, 0.962], aves 0.784 [0.540, 1.118]; run16 layer-matched L0 te4-lpte4 +0.0000; e16_contrasts.py/json saved; level diff te4 vs lpte4 median 13.7 dB. Critic's citation of 054 for bats level normalisation was wrong (054 = compute); not cited.
+- 2026-10-15 02:28 quiet: E8 39945354 + E9 39945376 PENDING; daily idle-work budget used (E16), next idle item E16 label-free design deferred.
+- 2026-10-15 03:29 quiet: E8 + E9 PENDING.
+- 2026-10-15 04:29 quiet: E8 + E9 PENDING (waiting on Savio, not the user).
+- 2026-10-15 05:30 quiet: E8 + E9 PENDING.
+- 2026-10-15 06:31 quiet: E8 + E9 PENDING.
+- 2026-10-15 07:32 quiet: E8 + E9 PENDING.
+- 2026-10-15 08:33 quiet: E8 + E9 PENDING.
+- 2026-10-15 Memory map: knowledge/BRIEF.md (build.py, one line per finding) is the long-term entry point; PI.md gets a 4-layer table + tools index; AGENT.md reads BRIEF+STATE instead of the 173 KB CONTEXT.md.
