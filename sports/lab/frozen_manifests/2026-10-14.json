@@ -1,0 +1,212 @@
+{
+ "frozen": "2026-10-14",
+ "source": "ESPN core/site APIs via scripts/collect.py",
+ "sealed": {
+  "nba": 2026,
+  "nhl": 2026,
+  "mlb": 2025,
+  "nfl": 2025
+ },
+ "files": {
+  "nba/games_2022.parquet": {
+   "sha256": "0788671479b79bba4a6a82890e9c76e2d5671887d6021980b68fef07ac9ee765",
+   "bytes": 38959
+  },
+  "nba/games_2023.parquet": {
+   "sha256": "3f425fd917dbcf9c8c41ba61e5a727fd1a9d82c53479a82200c3b10ae50f778f",
+   "bytes": 40373
+  },
+  "nba/games_2024.parquet": {
+   "sha256": "db82b48bad6c0fc526aec1fc105dca240bbce54d89624e60dfefd26afb0c3e09",
+   "bytes": 40309
+  },
+  "nba/games_2025.parquet": {
+   "sha256": "f704059f741e07f7016c29f9b4c362c259797683260a26a9c6628d89c363dcca",
+   "bytes": 40668
+  },
+  "nba/games_2026.parquet": {
+   "sha256": "a26fe7e3ab7ebb6c41d276018af0376641066b9d659b7b1bb7b771c7057cf066",
+   "bytes": 40737
+  },
+  "nba/graded_2022.parquet": {
+   "sha256": "c35809b917bc3e40e88c1f63dc9b46d213fa7a3a386853bac6a06eb3e4de63ab",
+   "bytes": 38154
+  },
+  "nba/graded_2023.parquet": {
+   "sha256": "4c0c1eff80c1b2f6db116f8dd2d064ce4ab1611045a79493c7374500942b7e43",
+   "bytes": 6609280
+  },
+  "nba/graded_2024.parquet": {
+   "sha256": "a84856c435390c27f69ba584f2125170e54117a80333b48f1636097767fa9f2a",
+   "bytes": 6206935
+  },
+  "nba/graded_2025.parquet": {
+   "sha256": "85c6be440d97a1558a0b55352c644a9c42eb81cc60765fe3565277a90d938f5e",
+   "bytes": 2529801
+  },
+  "nba/graded_2026.parquet": {
+   "sha256": "445bc44e7516ac168523cc8973f82ab8a4a5464c9a72c63fb659d844161690d5",
+   "bytes": 594588
+  },
+  "nba/lines_2022.parquet": {
+   "sha256": "79f1eabb48d6e7c2e93e96650b135c4b316fc5c3980a781ee6cfb8f043a373d7",
+   "bytes": 165056
+  },
+  "nba/lines_2023.parquet": {
+   "sha256": "b070b8e08094e1e4af51108898b2df03b2b5280a48cf5db1e2bff1fbfc1f9e04",
+   "bytes": 190360
+  },
+  "nba/lines_2024.parquet": {
+   "sha256": "1f28b60ea58c9d776c765d8303259e775a5f26af97e0dbe4fcf3db45d5e8a25c",
+   "bytes": 346529
+  },
+  "nba/lines_2025.parquet": {
+   "sha256": "df02ec628f2ca314789735efa2d74271709d46d142f49963b30c0d2704525c89",
+   "bytes": 61299
+  },
+  "nba/lines_2026.parquet": {
+   "sha256": "9ebb16279fd0d22e6b6cf35f1895bd4732b7b2b5ad987e3b24236c2a317cd451",
+   "bytes": 59831
+  },
+  "nhl/games_2022.parquet": {
+   "sha256": "7d54374240f60a1f092ff0404c626c64d84122492272e75e1ad629325c4fec39",
+   "bytes": 41986
+  },
+  "nhl/games_2023.parquet": {
+   "sha256": "3ed9b2cbd184aab22c075052730245bb66f8dcbfda4f07a26d61f0cfed662154",
+   "bytes": 40594
+  },
+  "nhl/games_2024.parquet": {
+   "sha256": "d05fc87783b2ba42b5ac57da2d20d30a2ffa297305cecb432c0f9d4b8ebb0dae",
+   "bytes": 40035
+  },
+  "nhl/games_2025.parquet": {
+   "sha256": "dd99290cc7d6658d85d33ae308543da16b15a2a0266eb4af2188f95315dd5b6a",
+   "bytes": 40322
+  },
+  "nhl/games_2026.parquet": {
+   "sha256": "0151e5271a799b2862b25e0ef772c3baf641436c1080f9c1b8b9c2f6c1d36cfa",
+   "bytes": 38684
+  },
+  "nhl/graded_2024.parquet": {
+   "sha256": "443df593ae71504ad1b9e76722011e09ecc2f936623c3a2fc6ce9e159c35b598",
+   "bytes": 533424
+  },
+  "nhl/graded_2025.parquet": {
+   "sha256": "26f4dbdd5a7f9fa09e6510e0bfba8eaef507446c42194fe6fd0033553b4fada3",
+   "bytes": 1261685
+  },
+  "nhl/graded_2026.parquet": {
+   "sha256": "dcfa1e75034dfe0cf27733878bd0f8afa3385972c68feec33022b2527fc7c319",
+   "bytes": 549884
+  },
+  "nhl/lines_2022.parquet": {
+   "sha256": "3e9fe40445a457b671b5e8a47cc8982906c673fb7a297e6aa1644f68b8392f11",
+   "bytes": 154032
+  },
+  "nhl/lines_2023.parquet": {
+   "sha256": "94b339b478b50ad242e80f3814fecdb8d589ec91f52ec189d4e26d68316ffe03",
+   "bytes": 172715
+  },
+  "nhl/lines_2024.parquet": {
+   "sha256": "fdf477b33dda7f63c33f617d3d35be9d4c35ad1f804c3579fffd6999ab9e0285",
+   "bytes": 340650
+  },
+  "nhl/lines_2025.parquet": {
+   "sha256": "966baf2f7dfade30c445f640f223ec4c3c3b659c48b91adec7c186cbdc0d5e26",
+   "bytes": 54354
+  },
+  "nhl/lines_2026.parquet": {
+   "sha256": "1864f3af37456b23cf7fe54f2c2dd53cb5e751ced43e5d988a981b6d7d733c02",
+   "bytes": 56798
+  },
+  "mlb/games_2022.parquet": {
+   "sha256": "881c20a8f4b52d51ea88ae1f88fe2980a9f1d57a38c68c7d25a8c66df779fad5",
+   "bytes": 66693
+  },
+  "mlb/games_2023.parquet": {
+   "sha256": "6d8d62a528464a2f2f1bd86120c14f4ea0991675a54b0095d7e67140d5ba55b1",
+   "bytes": 65537
+  },
+  "mlb/games_2024.parquet": {
+   "sha256": "cbb14b4815b601e1965914c4d698cbe86c195df7648c6981cbfc106aba9110bc",
+   "bytes": 64367
+  },
+  "mlb/games_2025.parquet": {
+   "sha256": "08aff0876e069a6ff092d3a1905ace8c830be87b2ae22a9405118375ca1b3ca7",
+   "bytes": 64680
+  },
+  "mlb/graded_2024.parquet": {
+   "sha256": "435cb96db615dc7709933fa753c842f08e94109bb62e1010213598c2ebf91e32",
+   "bytes": 2103560
+  },
+  "mlb/graded_2025.parquet": {
+   "sha256": "b8c2bf6e9382d77c9c4567bab0f6f1faa4f84abbc8ec2d68b2d8cc85ce4d541d",
+   "bytes": 4134420
+  },
+  "mlb/lines_2022.parquet": {
+   "sha256": "5296020381d9e93cc511a9df1f1cd40bb1c67daa2fe96cfe2fe21720b95955da",
+   "bytes": 257267
+  },
+  "mlb/lines_2023.parquet": {
+   "sha256": "6ef15925a35f4e3e917334239361c379f00af2275f434793f47112c1e4940911",
+   "bytes": 269150
+  },
+  "mlb/lines_2024.parquet": {
+   "sha256": "2f8e7c511f2b9c6531bc47520eac195161b92b0aebf848e339a8844301fb47d4",
+   "bytes": 162792
+  },
+  "mlb/lines_2025.parquet": {
+   "sha256": "2452131ab2ab36d10559db5b15157481f11ff2133956ac374b8c3e9f8655b236",
+   "bytes": 79625
+  },
+  "nfl/games_2022.parquet": {
+   "sha256": "2845b5d6a16378c466d2678be816d51ae6e8b60df72b77140983140d1eb087d7",
+   "bytes": 18997
+  },
+  "nfl/games_2023.parquet": {
+   "sha256": "7bc3d9dfe37031965c6b3d20d2cd11247a20056615f189588d32f0250a771634",
+   "bytes": 19035
+  },
+  "nfl/games_2024.parquet": {
+   "sha256": "352ecf2083355514616c05ddc6d5dae3ce54cf8e4cf82bae01d2e2b4db5cca65",
+   "bytes": 19037
+  },
+  "nfl/games_2025.parquet": {
+   "sha256": "2ae926dbfefdeb3201bd3bce915280440376177be8b2f2ca4ca264a1207d9e50",
+   "bytes": 19051
+  },
+  "nfl/graded_2022.parquet": {
+   "sha256": "ed8bd874a33917ae4ae6dd23d25d3f28f118fd60957575ba6c89dfd8f4296f24",
+   "bytes": 130111
+  },
+  "nfl/graded_2023.parquet": {
+   "sha256": "10bb0d4e5c9e606be64b2b015812a3f6ac8b16cf7cae19b6b2e9efc02038f583",
+   "bytes": 158806
+  },
+  "nfl/graded_2024.parquet": {
+   "sha256": "2e25dffe8309b651f0a50eba4521fb06229ef44e87aa38aa5207a8df64ead2ad",
+   "bytes": 441504
+  },
+  "nfl/graded_2025.parquet": {
+   "sha256": "b766a0d013f5fb4866ec1c101f781e293b71eddb1f8b019d64284f66f72d16b5",
+   "bytes": 459697
+  },
+  "nfl/lines_2022.parquet": {
+   "sha256": "5974bd78130e67bb110aafa7df805837fc3432dfd90fc167d5aeedb053798c4b",
+   "bytes": 62341
+  },
+  "nfl/lines_2023.parquet": {
+   "sha256": "4668a03723dfd5275bac6b2564517feb4a653c0aa0357f6034eab79a210ebb72",
+   "bytes": 94019
+  },
+  "nfl/lines_2024.parquet": {
+   "sha256": "56624d682877bc7ae62f7ec0bd3fdc0305939f9115bf259ec5d5a0f9e345af9b",
+   "bytes": 30244
+  },
+  "nfl/lines_2025.parquet": {
+   "sha256": "5b236df7d0df7935c4e178af9054b285991bb112ae56f583e525dce3c6f7b922",
+   "bytes": 32203
+  }
+ }
+}

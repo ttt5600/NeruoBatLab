@@ -27,6 +27,21 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 
 ## WAITING ON USER
 1. "yes" to run `python scripts/pattern_mine.py confirm --confirm` (one shot on sealed seasons).
+   User said (2026-10-15) they will clear context and then say yes. RUNBOOK when they do:
+   - `cd sports && ../.venv_quant/bin/python scripts/pattern_mine.py confirm --confirm` (~5-15 min; reads
+     data/frozen/2026-10-14, sealed rows only; writes lab/reports/pattern_confirm.jsonl; refuses to run twice).
+     Code path verified 2026-10-15 on discovery rows: all 10 survivors reproduce their dev ROI exactly.
+   - Bar: one-sided p < 0.005 (0.05 / 10 survivors) AND sealed ROI > 0.
+   - PRE-REGISTERED reading (written before any sealed number existed):
+     Class A, suspected price/line-mismatch artifacts (a pass here is NOT an edge): the 5 cells containing
+       `line_move` (mlb hits over/down, nba under >2.3/up, mlb over down+drifted, mlb K under/up, nfl tackles under/up).
+     Class B, plausible: nba under high-line @DraftKings (expect ~0 sealed bets: sealed NBA is ESPN BET only ->
+       UNTESTABLE here), nba under >2.3 & high line, nhl blocked-shots under 1.8-1.87, nhl under 1.6-1.8 mid,
+       nhl saves under 1.6-1.8.
+   - PRE-REGISTERED Odds API decision: if any Class-B cell passes -> recommend buying ($119, 1 month) to re-test it
+     on time-stamped multi-book prices before paper trading. If none pass -> the only open lead is the DK under
+     (untestable on ESPN data); buying is then a $119 test of that single lead -- present it as the user's call.
+   - Afterwards: commit pattern_confirm.jsonl, add the verdict to notes/results.md, update this file, push.
 2. Odds API key (5M plan $119/mo) in `sports/.env` as `ODDS_API_KEY=` -> then write time-stamped puller.
 3. Older pending lockbox decisions: west_coast_night, div_unders_late, rain+wind unders (NFL 2020-25).
 
@@ -34,6 +49,19 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 1. On approval: run pattern confirm; record result here + notes/results.md.
 2. When key arrives: Odds API puller (NBA/NFL props 2023+, 5-min snapshots) -> re-test DK-reference consensus.
 3. Make the live loop durable (code outside ~/Desktop: launchd cannot read Desktop) and add Kalshi paper execution.
+
+## Dies with the session (restart by hand)
+- Live paper loop: `cd sports && ../.venv_quant/bin/python scripts/live_edges.py loop --every 10` (run_in_background).
+  Not running after a clear unless restarted. Flags/snapshots persist in data/live/.
+
+## Recovery if the worktree is gone
+- Code + notes + ledgers are on GitHub: `git -C <main repo> fetch` then
+  `git -C <main repo> worktree add .claude/worktrees/quant-trader worktree-quant-trader`; venv: `.venv_quant` (python 3.14, pandas, sklearn, scipy, pyarrow, requests).
+- Data is NOT on GitHub: rebuild with `collect.py all --league <lg> --seasons ...` (cached, hours).
+  A re-collected snapshot will NOT match `data/frozen/2026-10-14/MANIFEST.json` checksums (committed copy:
+  sports/lab/frozen_manifests/2026-10-14.json) -- if it differs, sealed results are no longer comparable; say so.
+- Trial counts that set significance bars: sports/lab/ledger.jsonl, lockbox.jsonl, reports/prop_loop_ledger.jsonl,
+  reports/pattern_survivors.json + pattern_cells.csv (all committed).
 
 ## Detail notes (nested)
 - notes/data.md — sources, coverage, frozen snapshot, known data quirks
