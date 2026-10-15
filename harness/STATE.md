@@ -1,11 +1,11 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-15 00:20
+Updated: 2026-10-14 23:52
 
 ## In flight
 - E8 run19 seed 2: resubmitted by tick.py as job 39945354 (old 39781626 hit REQUEUE_HOLD after 6 preemptions,
   cancelled). Resumes from last.ckpt epoch=34-step=87734 (~6k of 93,750 left). PENDING (Priority).
 - E9 run20 seed 2 (FSD50K only): job 39945376, submitted by tick.py 23:38. PENDING.
-- E16 (approved analysis, bats time expansion): Mac background run started 00:16 -- beans_probe.py --task bats,
+- E16 (approved analysis, bats time expansion): Mac background run started 23:50 -- beans_probe.py --task bats,
   models run16_compute4x / aves-base-bio at @te2 and @te4 vs their own F=1 (cached). Protocol pre-registered
   (experiments.yaml E16, commit b480267). Results -> analysis/beans_bats.json models["<tag>@te<F>"].vs_<tag>.
   Label-free half of E16 not yet designed (needs an individual-held-out E11 variant; pre-register before running).
@@ -15,7 +15,7 @@ Updated: 2026-10-15 00:20
   (AVES 10, ours 0) and clip length (ours 20 s chunks) were never matched.
 - E25 speech SSL detection: all four below aves-base-bio at 12/12 arms (072 evidence). 072 stays OPEN: Whisper-base
   is above AVES on call type only at its best layer (L0); Whisper-small (selection-free L3) is n.d.
-- Bats energy: ~91% of a typical bat clip's energy is above 8 kHz (mostly 8-16 kHz); see pi_notes 2026-10-15.
+- Bats energy: ~91% of a typical bat clip's energy is above 8 kHz (mostly 8-16 kHz); see pi_notes 2026-10-14 23:49.
 
 ## Next action (in order)
 1. When E16 finishes: read beans_bats.json vs_<model> for @te2/@te4; draft finding (open until critic); then
