@@ -203,7 +203,9 @@ experiments:
   success: none -- measures run-to-run spread. Report all three best-layer scores and the pairwise bird-bootstrap
     intervals; no variance estimate from n=3 beyond the range.
   script: pytorchAudio/examples/hubert/slurm/train_run16_seed3.sh
-  status: scored
+  status: done
+  finding: '070'
+  result: three run16 seeds span 0.8224-0.8417 (range 0.0193); which seed is the outlier depends on the layer
   priority: 3
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Submitted
     2026-10-08 02:20 as job 39732808 (confirmed in sacct and the ledger).'
@@ -223,12 +225,15 @@ experiments:
   script: pytorchAudio/examples/hubert/slurm/train_run19_seed2.sh
   status: submitted
   priority: 4
-  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Job 39781626
+    preempted 6 times, then Slurm REQUEUE_HOLD "launch failure limit exceeded" (user cannot scontrol
+    release it). 2026-10-14 23:45: cancelled that held job and resubmitted the same script as 39945354; it
+    resumes from last.ckpt epoch=34-step=87734.'
   exp_dir: /global/scratch/users/jonathanswang/temp_train_run19_seed2
   tag: run19_seed2
   num_classes: 200
   job_name: hubert_run19s2
-  job: 39781626
+  job: 39945354
 - id: E9
   roadmap: idea 1
   title: run20 (general audio only), second seed
@@ -241,9 +246,11 @@ experiments:
   tag: run20_seed2
   num_classes: 200
   job_name: hubert_run20s2
-  status: approved
+  status: submitted
+  job: 39945376
   priority: 5
-  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Submitted
+    2026-10-14 23:50 as job 39945376 (harness iteration 20261014-233254).'
 - id: E10
   roadmap: idea 2
   kind: analysis
