@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-15. Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-15 (after sealed pattern confirm). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -19,36 +19,26 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 - Only strategy past a sealed test: Kalshi temp "consensus-reject" (+1.45% ROI, 1,844 bets). Paper trader: `scripts/kalshi_paper.py`.
 - NFL/MLB game-line situational edges: priced in or too small (see notes/results.md).
 - Frozen snapshot `data/frozen/2026-10-14/` (sha256 MANIFEST). Sealed: nba 2026, nhl 2026, mlb 2025, nfl 2025.
-- Pattern mining (`scripts/pattern_mine.py discover`): 10 survivors in `lab/reports/pattern_survivors.json`.
-  5 look like line-move price/line artifacts; plausible: NBA under high-line @DraftKings +1.9%/54k,
-  NHL blocked-shots/saves/mid-line unders +6.7–13%. Overs heavily overpriced (NBA -11.9% vs unders -2.4%).
+- Pattern mining: 10 dev survivors -> SEALED CONFIRM RUN 2026-10-15 (done, never re-run): 0/10 pass.
+  `lab/reports/pattern_confirm.jsonl`. mlb hits over/line-down dev +36% -> sealed -5.4%/3,655 (t=-4.4):
+  the line-move artifact reading was right. NHL unders: +2.8%, -2.3%, -9.4% -> noise. NBA DK under: 0 sealed
+  bets (sealed NBA = ESPN BET only) -> still UNTESTED, the only open prop lead.
+  Overs heavily overpriced in dev (NBA -11.9% vs unders -2.4%) -- descriptive, not a strategy.
 - Live paper scanner Pinnacle no-vig vs Kalshi game contracts: `scripts/live_edges.py loop|report`
   (runs only while a session keeps it alive; 0 flags at EV>=2% so far).
 
 ## WAITING ON USER
-1. "yes" to run `python scripts/pattern_mine.py confirm --confirm` (one shot on sealed seasons).
-   User said (2026-10-15) they will clear context and then say yes. RUNBOOK when they do:
-   - `cd sports && ../.venv_quant/bin/python scripts/pattern_mine.py confirm --confirm` (~5-15 min; reads
-     data/frozen/2026-10-14, sealed rows only; writes lab/reports/pattern_confirm.jsonl; refuses to run twice).
-     Code path verified 2026-10-15 on discovery rows: all 10 survivors reproduce their dev ROI exactly.
-   - Bar: one-sided p < 0.005 (0.05 / 10 survivors) AND sealed ROI > 0.
-   - PRE-REGISTERED reading (written before any sealed number existed):
-     Class A, suspected price/line-mismatch artifacts (a pass here is NOT an edge): the 5 cells containing
-       `line_move` (mlb hits over/down, nba under >2.3/up, mlb over down+drifted, mlb K under/up, nfl tackles under/up).
-     Class B, plausible: nba under high-line @DraftKings (expect ~0 sealed bets: sealed NBA is ESPN BET only ->
-       UNTESTABLE here), nba under >2.3 & high line, nhl blocked-shots under 1.8-1.87, nhl under 1.6-1.8 mid,
-       nhl saves under 1.6-1.8.
-   - PRE-REGISTERED Odds API decision: if any Class-B cell passes -> recommend buying ($119, 1 month) to re-test it
-     on time-stamped multi-book prices before paper trading. If none pass -> the only open lead is the DK under
-     (untestable on ESPN data); buying is then a $119 test of that single lead -- present it as the user's call.
-   - Afterwards: commit pattern_confirm.jsonl, add the verdict to notes/results.md, update this file, push.
-2. Odds API key (5M plan $119/mo) in `sports/.env` as `ODDS_API_KEY=` -> then write time-stamped puller.
-3. Older pending lockbox decisions: west_coast_night, div_unders_late, rain+wind unders (NFL 2020-25).
+1. Odds API decision (pre-registered outcome of the sealed test, no Class-B pass): buying ($119, 1 month,
+   `ODDS_API_KEY=` in `sports/.env`) is a $119 test of ONE lead -- the NBA high-line under @DraftKings
+   (+1.9% dev, untestable on ESPN data). User's call; do not frame it as a likely winner.
+2. Older pending lockbox decisions: west_coast_night, div_unders_late, rain+wind unders (NFL 2020-25).
 
 ## Next steps (in order)
-1. On approval: run pattern confirm; record result here + notes/results.md.
-2. When key arrives: Odds API puller (NBA/NFL props 2023+, 5-min snapshots) -> re-test DK-reference consensus.
-3. Make the live loop durable (code outside ~/Desktop: launchd cannot read Desktop) and add Kalshi paper execution.
+1. Kalshi temp consensus-reject paper trading (the only passed strategy) -- keep `kalshi_paper.py` running,
+   accumulate paper P&L; this is the realistic path to the >$100/month bar.
+2. Make the live loop durable (code outside ~/Desktop: launchd cannot read Desktop) and add Kalshi paper execution.
+3. If user buys Odds API: time-stamped puller (NBA props 2023+, 5-min snapshots) -> re-test DK-reference under only.
+4. Fix pattern_mine.py label: confirm prints two-sided p under a "one-sided" header (cosmetic; verdict unaffected).
 
 ## Dies with the session (restart by hand)
 - Live paper loop: `cd sports && ../.venv_quant/bin/python scripts/live_edges.py loop --every 10` (run_in_background).
