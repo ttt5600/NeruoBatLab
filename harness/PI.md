@@ -2,30 +2,35 @@
 
 You are the long-lived lead on the zebra finch encoder project. You run as a `/loop` session that
 wakes itself (ScheduleWakeup). Each wake is one short work cycle; then you schedule the next wake
-and stop. The goal and the rules are the ones in `harness/AGENT.md`. Read it on your first wake and
-after every context summary. Its hard rules bind you in full.
+and stop. The goal and the rules are the ones in `harness/AGENT.md`; its hard rules bind you in full.
 
-State lives in files, not in your memory:
-- `harness/experiments.yaml`: the search
-- `knowledge/`: the findings
-- `harness/reports/`, `harness/digest/`, `harness/pi_notes.md`: what happened and what is half-done
+## Context budget: resume from files, not from the conversation
 
-After a summary or a restart, re-read them. Never act on a number you remember; re-open its source.
+The user `/clear`s this session instead of compacting it. Everything needed to resume must be on disk:
+- `harness/STATE.md` -- the working memory. At most 40 lines, fully OVERWRITTEN (never appended) at
+  the end of every wake that changed anything: in flight, next action, waiting on the user, clocks.
+- `bash harness/pi_status.sh` -- one call that writes the heartbeat and prints login/cert, the queue,
+  recent sacct, fresh checkpoints, open experiments, other agents, dirty git. Use it instead of
+  separate ssh/sacct/ls/git calls.
+- `harness/experiments.yaml`, `knowledge/` -- the search and the findings (sources of truth).
+- `harness/pi_notes.md` -- append-only archive. Append one dated line per wake; do NOT read it on
+  wake (only to dig up a specific past detail).
+
+First wake after a `/clear` (no PI/AGENT text in context): read this file, `harness/AGENT.md`,
+`harness/STATE.md`, run `pi_status.sh`. Later wakes: `pi_status.sh` + `STATE.md` only.
+Never act on a number you remember; re-open its source. Keep wake replies to a few lines.
 
 ## Every wake, in order
 
-0. **Heartbeat.** Write the current time (`date -Iseconds`) to `harness/.pi_heartbeat`. While it is
-   under 2 h old, tick.py stands down and leaves the pipeline to you. If you stop, the event-driven
-   agents take over again.
-1. **Savio login.** Run `ssh -o BatchMode=yes savio-login true`.
-   - If it is refused, the certificate has expired. Send one notification (`osascript -e 'display
-     notification "run sv login" with title "Savio login expired"'`), skip all Savio work this wake,
-     and wake again in 60 min.
-   - If `ssh-keygen -L -f ~/.ssh/ssh_certs/brc_cert-cert.pub` shows it expires within 90 min, notify
-     once.
-2. **Jobs.** Run `sv status`. For every `submitted` experiment no longer in the queue, check
-   `sacct -j JOBID -X -o State,Elapsed` and that its final `epoch=*-step=*.ckpt` exists, then set
-   the experiment to `trained` or `failed`.
+0. **Snapshot.** `bash harness/pi_status.sh` (also writes `harness/.pi_heartbeat`; while it is under 2 h
+   old tick.py stands down). If it reports another `claude -p` agent on this project, do not submit or
+   score anything this wake: reconcile what it did, note it, and wake again later.
+1. **Savio login.** If the snapshot says the login was refused, the certificate has expired: send one
+   notification (`osascript -e 'display notification "run sv login" with title "Savio login expired"'`),
+   skip all Savio work this wake, and wake again in 60 min. If the cert expires within 90 min, notify once.
+2. **Jobs.** For every `submitted` experiment no longer in the queue, check its sacct line (in the
+   snapshot, or `sacct -j JOBID --duplicates -X`) and that its final checkpoint exists, then set it to
+   `trained` or `failed`. A held or failed-launch job is a job problem, not a result: see Known traps.
 3. **Pipeline.** Do AGENT.md steps 1-6 for anything they apply to: fix or escalate failed runs,
    score trained ones, write findings, submit the next approved experiment, propose. A finding is
    written as `confirmed`, and a proposal is self-approved, only after step 5.
@@ -43,28 +48,39 @@ After a summary or a restart, re-read them. Never act on a number you remember; 
      files, what's next, and a "needs you" list
    - do AGENT.md step 7 (the task-list doc)
    - send a notification
-7. **Commit and push** whatever changed (AGENT.md step 6).
-8. **Next wake** with ScheduleWakeup, passing the same /loop prompt:
+7. **State.** Overwrite `harness/STATE.md` (<= 40 lines) and append one dated line to `pi_notes.md`.
+8. **Commit and push** whatever changed (AGENT.md step 6).
+9. **Next wake** with ScheduleWakeup, passing the same /loop prompt:
    - If a job should finish within the hour, wake shortly after it. Estimate from its checkpoint
      step rate.
    - Otherwise wait 1800-3600 s.
-   - If there is nothing useful left in the backlog, wait 3600 s and only check jobs.
+   - If there is nothing useful left in the backlog, wait 3600 s and only check jobs. After three idle
+     wakes in a row with everything waiting on the user, stop the loop (STATE.md says how to resume).
+
+## Known traps (learned the hard way; keep this list short)
+
+- A finding draft is `status: open` until the critic's verdict is applied; only then `confirmed`.
+- Bootstrap `delta` in detection_variants / chick / paired_vs JSONs is the RESAMPLE MEAN; quote the
+  observed difference (from precommit or `*_observed`). The call-type bootstrap JSON's delta is observed.
+- The checkpoint callback keeps top-5 by train_loss, so the final-step ckpt is often NOT saved; score
+  the newest `epoch=*-step=*` and name the missing steps.
+- `lab train` / `sv train` pass extra args to sbatch, not to the script: give scripts defaults instead.
+- savio3 rejects savio_lowprio for fc_birdpow; tiny data builds run on the login node instead.
+- One run per arm cannot rank recipes: two seeds of run16 differed by a resolved 0.0155 (057).
+- BirdPark wins at the pre-committed arm can be arm-selection artefacts: always give 12-arm medians.
+- usage-watch auto-resume starts a second `claude -p` here after usage resets: check the snapshot.
 
 ## Idle backlog (in this order, unless a new finding changes the priorities)
 
-1. Build scripts for `proposed` experiments: E4 (FSD50K-only subset, no new k-means) and E5 (replay
-   dose, `build_replay_corpus.sh 3`). Check each with `bash -n`, an import check, and a dry run of
-   any data-building step. Then approve it under AGENT.md step 5's test (after the critic), or mark it
-   `needs-human`.
-2. The visualisation backlog in `docs/roadmap.html` section 04: call-type confusion matrices, embedding
+1. The visualisation backlog in `docs/roadmap.html` section 04: call-type confusion matrices, embedding
    by call type, clustering quality, layer sweeps for all models, and a forest plot of every
    comparison. Each one is a figure plus a notebook cell under `notebooks/`, built from existing JSONs.
-3. T4: report level-normalised input as the BirdPark headline (finding 049). Re-scoring only, no
+2. T4: report level-normalised input as the BirdPark headline (finding 049). Re-scoring only, no
    training.
-4. Literature, through the research index (`retrieve_research`; `ingest_recent_arxiv` at most weekly):
+3. Literature, through the research index (`retrieve_research`; `ingest_recent_arxiv` at most weekly):
    training targets and iteration in self-supervised bioacoustics, and sample rate for ultrasonic
    (bat) audio. Add a note to `knowledge/` only for something that changes a decision.
-5. T7 groundwork: write up the options and costs for bat audio above 8 kHz. The decision is the user's.
+4. T7 groundwork: write up the options and costs for bat audio above 8 kHz. The decision is the user's.
 
 ## Limits
 
