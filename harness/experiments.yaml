@@ -330,6 +330,9 @@ experiments:
     carry nothing from above 8 kHz (verified: a 12 kHz tone is removed, amplitude 0.0000; a 6 kHz tone passes at 0.388
     of 0.4). Both models. Reading: @te4 minus @lpte4 resolved positive = the gain needs the content above 8 kHz;
     @lpte4 minus plain resolved positive = stretching alone helps; both can hold.'
+  progress: '2026-10-15 01:27: BEANS half done -> finding 074 (open, critic applied). F=4 resolved gain for both models (run16
+    +0.0800, aves +0.0670); the low-pass control keeps 0.69 / 0.78 of it. Label-free half still to be designed and
+    pre-registered; E16 stays approved until then.'
 - id: E12
   roadmap: idea 4
   title: 'Combine the winners: AVES-teacher labels on general audio only'

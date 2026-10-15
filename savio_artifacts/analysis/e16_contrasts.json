@@ -1,0 +1,88 @@
+{
+ "refit_test": {
+  "run16_compute4x|L0": 0.6145,
+  "run16_compute4x@te4|L0": 0.6945,
+  "run16_compute4x@lpte4|L3": 0.6695,
+  "run16_compute4x@lpte4|L0": 0.6945,
+  "aves-base-bio|L0": 0.686,
+  "aves-base-bio@te4|L0": 0.753,
+  "aves-base-bio@lpte4|L0": 0.7385
+ },
+ "run16_compute4x lpte4-plain (chosen)": {
+  "observed": 0.055,
+  "ci95": [
+   0.0329875,
+   0.07651249999999993
+  ]
+ },
+ "run16_compute4x te4-lpte4 (chosen)": {
+  "observed": 0.025,
+  "ci95": [
+   0.0025,
+   0.046
+  ]
+ },
+ "run16_compute4x stretch share minus >8k share = 2lp-pl-te": {
+  "observed": 0.03,
+  "ci95": [
+   -0.0060125,
+   0.0675
+  ]
+ },
+ "run16_compute4x share kept by lpte4 (chosen)": {
+  "observed": 0.6874999999999996,
+  "ci95": [
+   0.4636768929709941,
+   0.9621422558922549
+  ]
+ },
+ "run16_compute4x L0 matched te4-lpte4": {
+  "observed": 0.0,
+  "ci95": [
+   -0.0215,
+   0.0205
+  ]
+ },
+ "run16_compute4x L0 matched lpte4-plain": {
+  "observed": 0.08,
+  "ci95": [
+   0.057987500000000004,
+   0.101
+  ]
+ },
+ "run16_compute4x L0 2lp-pl-te": {
+  "observed": 0.08,
+  "ci95": [
+   0.0445,
+   0.117
+  ]
+ },
+ "aves-base-bio lpte4-plain (chosen)": {
+  "observed": 0.0525,
+  "ci95": [
+   0.0325,
+   0.0715
+  ]
+ },
+ "aves-base-bio te4-lpte4 (chosen)": {
+  "observed": 0.0145,
+  "ci95": [
+   -0.006512499999999999,
+   0.03351249999999993
+  ]
+ },
+ "aves-base-bio stretch share minus >8k share = 2lp-pl-te": {
+  "observed": 0.038,
+  "ci95": [
+   0.0055,
+   0.071
+  ]
+ },
+ "aves-base-bio share kept by lpte4 (chosen)": {
+  "observed": 0.7835820895522393,
+  "ci95": [
+   0.5398695767312528,
+   1.1177493606138102
+  ]
+ }
+}

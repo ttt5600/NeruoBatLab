@@ -1,27 +1,26 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-15 00:45
+Updated: 2026-10-15 01:27
 
 ## In flight
 - E8 run19 seed 2: resubmitted by tick.py as job 39945354 (old 39781626 hit REQUEUE_HOLD after 6 preemptions,
   cancelled). Resumes from last.ckpt epoch=34-step=87734 (~6k of 93,750 left). PENDING (Priority).
 - E9 run20 seed 2 (FSD50K only): job 39945376, submitted by tick.py 23:38. PENDING.
-- E16 (approved analysis, bats time expansion). BEANS half DONE (beans_bats.json): F=4 resolved gain for both
-  run16 (+0.0800) and aves-base-bio (+0.0670); F=2 resolved for run16 only; run16 still below aves at F=4 (-0.0585).
-  Control @lpte4 (low-pass 8 kHz, then x4; pre-registered, commit ce2bbbf) running on the Mac since 00:46.
-  Label-free half not yet designed (needs an individual-held-out E11 variant; pre-register before running).
+- E16 (approved analysis, bats time expansion): BEANS half DONE -> finding 074 (open). Label-free half not yet
+  designed (needs an individual-held-out E11 variant; pre-register before running). Nothing running on the Mac.
 
 ## Done since last digest (2026-10-14)
 - E29 FAILS (finding 073, confirmed): 4/5 BEANS tasks resolved below aves-base-bio on both seeds; feature penalty
   (AVES 10, ours 0) and clip length (ours 20 s chunks) were never matched.
 - E25 speech SSL detection: all four below aves-base-bio at 12/12 arms (072 evidence). 072 stays OPEN: Whisper-base
   is above AVES on call type only at its best layer (L0); Whisper-small (selection-free L3) is n.d.
-- Bats energy: ~91% of a typical bat clip's energy is above 8 kHz (mostly 8-16 kHz); see pi_notes 2026-10-14 23:49.
+- E16/074: bats ~91% energy above 8 kHz; slowing 4x raises BEANS bats run16 0.6145->0.6945, AVES 0.6860->0.7530;
+  low-pass-then-slow control keeps 0.69 / 0.78 of the gain.
 
 ## Next action (in order)
-1. When the control finishes: read beans_bats.json [<m>@lpte4].vs_<m>@te4 and vs_<m>; draft finding 074 (open
-   until critic); then pre-register the label-free half of E16.
-2. Score E8 when step 93,750 lands (score_run.sh run19_seed2 ...; final ckpt may be missing -> newest epoch ckpt).
-3. Digest after 09:00 Oct 15.
+1. Score E8 when step 93,750 lands (score_run.sh run19_seed2 ...; final ckpt may be missing -> newest epoch ckpt).
+2. Digest after 09:00 Oct 15: include E29/073, E16/074 (bats: slowing 4x +0.08 run16, +0.067 AVES; most of it
+   survives removing >8 kHz), and the needs-you list.
+3. E16 label-free half: design + pre-register (individual-held-out stability on bats embeddings).
 
 ## Waiting on the user
 - New, from 073: test AVES's feature penalty (10) and/or clip cropping, one knob each on top of E29?
