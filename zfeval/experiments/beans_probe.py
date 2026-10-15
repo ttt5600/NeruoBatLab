@@ -46,15 +46,24 @@ _resamplers: dict = {}
 
 
 def split_te(tag: str):
-    """E16 time expansion: "<model>@te<F>" = <model> on audio slowed F-fold (read as if recorded at sr / F)."""
-    base, _, f = tag.partition("@te")
-    return base, (int(f) if f else 1)
+    """E16 time expansion: "<model>@te<F>" = <model> on audio slowed F-fold (read as if recorded at sr / F).
+    "<model>@lpte<F>" = the control: low-pass at 8 kHz first (plain 16 kHz resampling), then slow F-fold, so the
+    clip is as long as @te<F> but carries none of the content above 8 kHz."""
+    for mark, lp in (("@lpte", True), ("@te", False)):
+        if mark in tag:
+            base, _, f = tag.partition(mark)
+            return base, int(f), lp
+    return tag, 1, False
 
 
-def load_clip(path: Path, max_s: float, te: int = 1) -> torch.Tensor:
+def load_clip(path: Path, max_s: float, te: int = 1, lp: bool = False) -> torch.Tensor:
     import torchaudio
     w, sr = torchaudio.load(str(path))
     w = w.mean(0, keepdim=True)
+    if lp and sr != SR:                                     # control: keep only what plain resampling keeps
+        if sr not in _resamplers:
+            _resamplers[sr] = torchaudio.transforms.Resample(sr, SR)
+        w, sr = _resamplers[sr](w), SR
     if te > 1:                                              # slow down F-fold: content at f Hz lands at f/F Hz
         assert sr % te == 0, f"{path}: sr {sr} not divisible by time-expansion factor {te}"
         sr, max_s = sr // te, max_s * te                    # and keep the same stretch of the recording
@@ -69,11 +78,11 @@ def load_clip(path: Path, max_s: float, te: int = 1) -> torch.Tensor:
 
 
 @torch.no_grad()
-def embed(model, paths, max_s, device, n_layers, dim, tag, te=1):
+def embed(model, paths, max_s, device, n_layers, dim, tag, te=1, lp=False):
     out = np.zeros((len(paths), n_layers, dim), dtype=np.float16)
     t0 = time.time()
     for i, p in enumerate(paths):
-        feats, _ = model.extract_features(load_clip(p, max_s, te).to(device), None)
+        feats, _ = model.extract_features(load_clip(p, max_s, te, lp).to(device), None)
         assert len(feats) == n_layers, f"{tag}: {len(feats)} layers, expected {n_layers}"
         for l in range(n_layers):
             out[i, l] = feats[l].squeeze(0).mean(0).float().cpu().numpy()
@@ -135,7 +144,7 @@ def main():
 
     preds = {}
     for tag in a.models:
-        base, te = split_te(tag)
+        base, te, lp = split_te(tag)
         s = spec(base)
         E, model = {}, None
         for sp in ("train", "valid", "test"):
@@ -146,7 +155,7 @@ def main():
             if model is None:
                 model, _ = load_model(base, s, device)
             E[sp] = embed(model, split[sp][0], cfg["max_duration"], device, s["n_layers"], s["dim"],
-                          f"{tag}/{sp}", te)
+                          f"{tag}/{sp}", te, lp)
             np.save(c, E[sp])
         del model; gc.collect()
         t0 = time.time()

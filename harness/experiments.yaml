@@ -324,6 +324,12 @@ experiments:
     (Welch; pi_notes 2026-10-14 23:49), so F = 2 and 4 bring 8-16 and 16-32 kHz into band and F = 8 adds little. The
     label-free half of the success criterion is pre-registered separately before it is run (it needs an
     individual-held-out variant of E11).'
+  control: 'Pre-registered 2026-10-15 00:45, after the F = 2/4 results and before this control was run. Time expansion both
+    moves content above 8 kHz into band and stretches each call over F times more frames. Control @lpte4: resample to
+    16 kHz first (keeps only 0-8 kHz, what plain resampling keeps), then slow 4-fold, so clips are as long as @te4 but
+    carry nothing from above 8 kHz (verified: a 12 kHz tone is removed, amplitude 0.0000; a 6 kHz tone passes at 0.388
+    of 0.4). Both models. Reading: @te4 minus @lpte4 resolved positive = the gain needs the content above 8 kHz;
+    @lpte4 minus plain resolved positive = stretching alone helps; both can hold.'
 - id: E12
   roadmap: idea 4
   title: 'Combine the winners: AVES-teacher labels on general audio only'
