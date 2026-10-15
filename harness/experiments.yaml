@@ -315,6 +315,15 @@ experiments:
   priority: 6
   requires: E10 and E11 done
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
+  protocol: 'Pre-registered 2026-10-15 00:15, before any expanded score. BEANS bats (250 kHz source, 10 individuals),
+    frozen-probe protocol of E10 (beans_probe.py, layer chosen on valid). Factors F = 2 and 4 (F = 1 = plain resampling,
+    the cached E10 features): audio read as if recorded at 250/F kHz, then resampled to 16 kHz, and max_duration scaled by
+    F so the same stretch of recording is kept (model tag suffix @te<F>). Models: run16_compute4x and aves-base-bio.
+    Read-out per model: test accuracy at F minus at F = 1, paired clip bootstrap (n 2000, seed 0). Why these factors: on
+    300 random train clips, median clip energy is 9% at 4-8 kHz, 76% at 8-16 kHz, 12% at 16-32 kHz, 0.3% above 32 kHz
+    (Welch; pi_notes 2026-10-15), so F = 2 and 4 bring 8-16 and 16-32 kHz into band and F = 8 adds little. The
+    label-free half of the success criterion is pre-registered separately before it is run (it needs an
+    individual-held-out variant of E11).'
 - id: E12
   roadmap: idea 4
   title: 'Combine the winners: AVES-teacher labels on general audio only'

@@ -45,10 +45,19 @@ AVES_FINETUNED = dict(watkins=0.879, bats=0.748, cbi=0.598, humbugdb=0.810, dogs
 _resamplers: dict = {}
 
 
-def load_clip(path: Path, max_s: float) -> torch.Tensor:
+def split_te(tag: str):
+    """E16 time expansion: "<model>@te<F>" = <model> on audio slowed F-fold (read as if recorded at sr / F)."""
+    base, _, f = tag.partition("@te")
+    return base, (int(f) if f else 1)
+
+
+def load_clip(path: Path, max_s: float, te: int = 1) -> torch.Tensor:
     import torchaudio
     w, sr = torchaudio.load(str(path))
     w = w.mean(0, keepdim=True)
+    if te > 1:                                              # slow down F-fold: content at f Hz lands at f/F Hz
+        assert sr % te == 0, f"{path}: sr {sr} not divisible by time-expansion factor {te}"
+        sr, max_s = sr // te, max_s * te                    # and keep the same stretch of the recording
     if sr != SR:
         if sr not in _resamplers:
             _resamplers[sr] = torchaudio.transforms.Resample(sr, SR)
@@ -60,11 +69,11 @@ def load_clip(path: Path, max_s: float) -> torch.Tensor:
 
 
 @torch.no_grad()
-def embed(model, paths, max_s, device, n_layers, dim, tag):
+def embed(model, paths, max_s, device, n_layers, dim, tag, te=1):
     out = np.zeros((len(paths), n_layers, dim), dtype=np.float16)
     t0 = time.time()
     for i, p in enumerate(paths):
-        feats, _ = model.extract_features(load_clip(p, max_s).to(device), None)
+        feats, _ = model.extract_features(load_clip(p, max_s, te).to(device), None)
         assert len(feats) == n_layers, f"{tag}: {len(feats)} layers, expected {n_layers}"
         for l in range(n_layers):
             out[i, l] = feats[l].squeeze(0).mean(0).float().cpu().numpy()
@@ -126,7 +135,8 @@ def main():
 
     preds = {}
     for tag in a.models:
-        s = spec(tag)
+        base, te = split_te(tag)
+        s = spec(base)
         E, model = {}, None
         for sp in ("train", "valid", "test"):
             c = FEAT / f"{a.task}_{sp}_{tag}.npy"
@@ -134,9 +144,9 @@ def main():
                 E[sp] = np.load(c)
                 continue
             if model is None:
-                model, _ = load_model(tag, s, device)
+                model, _ = load_model(base, s, device)
             E[sp] = embed(model, split[sp][0], cfg["max_duration"], device, s["n_layers"], s["dim"],
-                          f"{tag}/{sp}")
+                          f"{tag}/{sp}", te)
             np.save(c, E[sp])
         del model; gc.collect()
         t0 = time.time()
