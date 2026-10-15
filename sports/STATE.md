@@ -34,11 +34,15 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 2. Older pending lockbox decisions: west_coast_night, div_unders_late, rain+wind unders (NFL 2020-25).
 
 ## Next steps (in order)
-1. Kalshi temp consensus-reject paper trading (the only passed strategy). As of 2026-10-15 the paper log
-   data/kalshi_paper.jsonl was EMPTY (never run). `validate` works (10-15 09:14: 3 same-day picks, depth
-   128-234 contracts within 1c). Session cron: `pick` daily 22:03, `settle` daily 10:07 -- session-only, dies
-   on clear/exit; re-create with CronCreate after a clear. `report` for P&L.
-2. Make the live loop durable (code outside ~/Desktop: launchd cannot read Desktop) and add Kalshi paper execution.
+1. Kalshi temp consensus-reject paper trading (the only passed strategy) -- NOW DURABLE (2026-10-15):
+   launchd agent com.jonathanwang.quant-kalshi-paper runs pick 22:03 / settle 10:07 daily from
+   ~/.claude/quant-kalshi (code copy + own venv; launchd can't read Desktop). Verified via kickstart (exit 0).
+   CANONICAL LOG: ~/.claude/quant-kalshi/data/kalshi_paper.jsonl (the worktree's data/kalshi_paper.jsonl is
+   empty and unused). Run log: ~/.claude/quant-kalshi/run.log. P&L: `cd ~/.claude/quant-kalshi &&
+   .venv/bin/python scripts/kalshi_paper.py report`. After editing kalshi_paper.py or sports/: re-run
+   `bash sports/scripts/install_kalshi_paper_agent.sh`. First picks 2026-10-15 22:03.
+   Judge after ~4-6 weeks of picks: realised win rate vs backtest, and depth (contracts within 1c) -> $/month.
+2. Live Pinnacle-vs-Kalshi scanner (live_edges.py) is still session-only; low priority (0 flags >=2% EV so far).
 3. If user buys Odds API: time-stamped puller (NBA props 2023+, 5-min snapshots) -> re-test DK-reference under only.
 
 ## Dies with the session (restart by hand)
