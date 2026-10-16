@@ -30,7 +30,6 @@ Updated: 2026-10-15 22:14 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; written as th
 - E26: donor source (curated 3412 clips vs detector-mined) and dose (~25 h). T7: which bat recordings/approach.
 - Resume fix: save last.ckpt every 2,500 steps (E8 needed 6 preemptions + a REQUEUE_HOLD).
 - Older: speech-commands, Kaggle for cbi/rfcx/Perch, 615 GB deletion, intern details, 174-clip label audit.
-
 ## Sync state (verified 2026-10-15 21:55-22:14; resume: /loop follow harness/PI.md)
 - GitHub: project UMAP pushed (ttt5600/NeruoBatLab); pytorchAudio updated-hyperparams db5151b4 = Lab_Remote.
 - Savio: all 121 scp_to_savio.sh files identical; loss/ identical; BEANS eval code (beans_eval/) synced.
