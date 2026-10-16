@@ -1,0 +1,91 @@
+==============================================
+DAPT v4 control -- AVES-only targets via the two-teacher recipe (--only-b)   restart 0
+  lr 2e-4   init /global/scratch/users/jonathanswang/external/aves/aves-base-bio.torchaudio.pt
+  audio /global/scratch/users/jonathanswang/temp_files/mix_zf_fsd50k1   teachers /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/hubert_6 + /global/scratch/users/jonathanswang/temp_files/combined_aves_teacher/data/hubert_6
+  exp-dir /global/scratch/users/jonathanswang/temp_train_daptv4_avesonly_2e4   start Mon Oct 12 13:59:57 PDT 2026   node n0386.savio4
+==============================================
+/global/home/users/jonathanswang/pytorchAudio/examples/hubert/scripts/two_teacher_labels.py:108: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /opt/conda/conda-bld/pytorch_1711403378171/work/aten/src/ATen/native/ReduceOps.cpp:1760.)
+  stats = {k: (X.mean(0), X.std(0) + 1e-6) for k, X in (("a", A_), ("b", B_))}      # A: empty under --only-b
+[teacher_a] 763 files, 224.42 h, 40,395,560 frames, root=/global/scratch/users/jonathanswang/temp_files
+[teacher_b] 763 files, 224.42 h, 40,395,560 frames, root=/global/scratch/users/jonathanswang/temp_files
+[two-teacher] 285 target files, all found in the teachers' 763-file corpus
+[fit] 1,000,475 frames x 768 dims from 71 files (50s)
+[fit] done (61s) {"n_iter": 45, "inertia_ema": 636.6144865679523, "n_empty_clusters": 0, "fit_seconds": 4.670648813247681, "n_features_fit": 1000475}
+[apply] 50/285 (97s)
+[apply] 100/285 (136s)
+[apply] 150/285 (162s)
+[apply] 200/285 (176s)
+[apply] 250/285 (190s)
+[labels] 200 of 200 clusters used; NMI new-vs-run16 0.398, new-vs-AVES 0.554 (run16-vs-AVES labels 0.416, for scale)
+[out] 285 files, 143.82 h, 25,886,723 frames, root=/global/scratch/users/jonathanswang/temp_files
+[done] /global/scratch/users/jonathanswang/temp_train_daptv4_avesonly_2e4/data.partial (213s)
+[precheck] 285 files, vocabulary 200, --num-classes 200
+[rank: 0] Seed set to 1337
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `lightning.pytorch` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+GPUs requested 1, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 1, nodes 1
+[init-weights] transplanted 210 encoder tensors (94,370,944 params) from /global/scratch/users/jonathanswang/external/aves/aves-base-bio.torchaudio.pt (torchaudio state_dict); mask_generator and logit_generator (200 classes) left at random init
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/configuration_validator.py:70: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+You are using a CUDA device ('NVIDIA L40S') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name  | Type                | Params | Mode  | FLOPs
+--------------------------------------------------------------
+0 | model | HuBERTPretrainModel | 94.6 M | train | 0    
+--------------------------------------------------------------
+94.6 M    Trainable params
+0         Non-trainable params
+94.6 M    Total params
+378.479   Total estimated model params size (MB)
+204       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+SLURM auto-requeueing enabled. Setting signal handlers.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 10 worker processes in total. Our suggested max number of worker in current system is 8, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+[rank0]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/callbacks/model_checkpoint.py:401: Using ModelCheckpoint with manual optimization and every_n_train_steps, but no pre-optimization state was saved. The checkpoint will contain the model state AFTER optimization. To save the pre-optimization state, save the model state in training_step before optimizer.step(). Example:
+def training_step(self, batch, batch_idx):
+    # ... forward pass, loss calculation, backward pass ...
+    # Save model state before optimization
+    if not hasattr(self, 'saved_models'):
+        self.saved_models = {}
+    self.saved_models[batch_idx] = {
+        k: v.detach().clone() for k, v in self.layer.state_dict().items()
+    }
+    # Then perform optimization
+    optimizer.zero_grad()
+    self.manual_backward(loss)
+    optimizer.step()
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_feature_penalty', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('Gathered number of frames', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+Epoch 0, global step 6434: 'train_loss' reached 2.77025 (best 2.77025), saving model to '/global/scratch/users/jonathanswang/temp_train_daptv4_avesonly_2e4/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=0-step=6434.ckpt' as top 5
+Epoch 1, global step 12872: 'train_loss' reached 2.15247 (best 2.15247), saving model to '/global/scratch/users/jonathanswang/temp_train_daptv4_avesonly_2e4/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=1-step=12872.ckpt' as top 5
+Epoch 2, global step 15000: 'train_loss' reached 2.03987 (best 2.03987), saving model to '/global/scratch/users/jonathanswang/temp_train_daptv4_avesonly_2e4/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=2-step=15000.ckpt' as top 5
+`Trainer.fit` stopped: `max_steps=15000` reached.
+End time: Mon Oct 12 14:56:08 PDT 2026
+total 11058688
+drwxrwxr-x+ 2 jonathanswang ucb       4096 Oct 12 14:55 .
+drwxrwxr-x+ 5 jonathanswang ucb       4096 Oct 12 14:16 ..
+-rw-r--r--+ 1 jonathanswang ucb 1135714684 Oct 12 14:28 epoch=0-step=6434.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715258 Oct 12 14:48 epoch=1-step=12872.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715640 Oct 12 14:55 epoch=2-step=15000.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715640 Oct 12 14:55 last.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135714876 Oct 12 14:39 stepstep=10000.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135714876 Oct 12 14:47 stepstep=12500.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715258 Oct 12 14:55 stepstep=15000.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135714302 Oct 12 14:16 stepstep=2500.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135714302 Oct 12 14:23 stepstep=5000.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135714876 Oct 12 14:31 stepstep=7500.ckpt

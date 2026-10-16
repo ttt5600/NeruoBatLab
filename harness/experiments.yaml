@@ -342,7 +342,7 @@ experiments:
   progress: '2026-10-15 01:27: BEANS half done -> finding 074 (open, critic applied). F=4 resolved gain for both models (run16
     +0.0800, aves +0.0670); the low-pass control keeps 0.69 / 0.78 of it. Label-free half still to be designed and
     pre-registered; E16 stays approved until then.
-    2026-10-15 21:45: label-free half run (e16_labelfree.json): no arm distinguishable from plain; criterion NOT met.
+    2026-10-15 21:21: label-free half run (e16_labelfree.json): no arm distinguishable from plain; criterion NOT met.
     Finding 074 confirmed after critic.'
 - id: E12
   roadmap: idea 4

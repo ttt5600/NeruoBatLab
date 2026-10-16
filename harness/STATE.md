@@ -1,12 +1,13 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-15 21:47
+Updated: 2026-10-15 21:47 (lead: session_01EGDWEvYFd6zSmWQfUugJnH, chosen by the user 21:35; the fork 7115f6c0 stopped)
 
 ## In flight
 - E8 run19 seed 2: resubmitted by tick.py as job 39945354 (old 39781626 hit REQUEUE_HOLD after 6 preemptions,
   cancelled). Resumes from last.ckpt epoch=34-step=87734 (~6k of 93,750 left). PENDING; Slurm est. start 2026-10-17 05:06.
 - E9 run20 seed 2 (FSD50K only): job 39945376, submitted by tick.py 23:38. PENDING; est. start 2026-10-17 17:10.
 - E16 DONE: label-free half run as pre-registered; no arm distinguishable from plain -> criterion NOT met.
-  Finding 074 confirmed (critic ACCEPT-WITH-CHANGES, applied). Nothing running on the Mac.
+  Finding 074 confirmed (two parallel critics, both applied and merged). Nothing running on the Mac.
+- T7 groundwork written: docs/t7_bat_sample_rate_options.md (4 options + costs; decision is the user's).
 
 ## Done since last digest (2026-10-14)
 - E29 FAILS (finding 073, confirmed): 4/5 BEANS tasks resolved below aves-base-bio on both seeds; feature penalty

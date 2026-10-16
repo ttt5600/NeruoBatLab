@@ -16,8 +16,8 @@ claim: 'On BEANS bats (frozen probe, layer chosen on valid), reading the 250 kHz
   the ranking: at F = 4 run16 is still resolved below aves-base-bio (-0.0585). The pre-registered label-free half
   (E11''s held-out stability with bats individuals as the held-out groups, layer 3, k = 30) detected no gain: every
   time-expanded arm minus plain is not distinguishable, with point estimates below zero at F = 2 and 4 for both models
-  (run16 -0.0260, -0.0413; aves-base-bio -0.0404, -0.0328) and near zero or above for the low-pass control (+0.0036,
-  +0.0398). E16 required both halves for at least one factor, so its criterion is not met: time expansion helps a
+  (run16 -0.0260, -0.0413; aves-base-bio -0.0404, -0.0328) and +0.0036 and +0.0398 for the low-pass control,
+  also not distinguishable. E16 required both halves for at least one factor, so its criterion is not met: time expansion helps a
   probe tell individual bats apart, but was not shown to make the encoders'' clusters recur more across individuals.'
 evidence: 'beans_bats.json models.<tag>: test accuracy (layer) and vs_<baseline> (observed, paired clip bootstrap
   n 2000, seed 0, 2,000 test clips, 10 classes, test majority in the JSON). run16_compute4x 0.6145 (L0); @te2 0.6405
@@ -68,8 +68,12 @@ caveats: 'One task (BEANS bats: Egyptian fruit bats, 10 individuals, a classific
   possible (063). The label-free read-out is weak here: only 10 individuals (126 distinct unordered 5-vs-5 halvings), so the
   spread over halvings is wide (about +-0.07-0.08 at k30) and a modest gain could be missed. The spread is the
   2.5-97.5 percentile of per-halving differences over overlapping halvings, not a confidence interval of the mean, so the
-  pre-registered bar is strict and "criterion not met" is weak evidence of absence; it is read at layer 3 (E11''s
-  rule) while the BEANS probe chose layer 0 for most arms. The suggestion that time expansion adds individual-specific
+  pre-registered bar is strict and "criterion not met" is weak evidence of absence. Layer is not the reason the halves split: at layer 3 the probe gain is also there (beans_bats.json
+  test_by_layer[3], point estimates, no bootstrap: run16 plain 0.5915, @te4 0.6870, @lpte4 0.6695; aves plain 0.6630,
+  @te4 0.7280, @lpte4 0.7295). On BEANS bats the label is identity and identity is also the held-out group, so the
+  label-free score rewards structure shared across individuals, the opposite of what the probe rewards: the two halves
+  can move in opposite directions by design, and the score has not been calibrated on bats (069). The seed-0 draw of 50
+  halvings holds only 45 distinct directed halvings over 41 of the 126 partitions; k30 half-widths are 0.069-0.084. The suggestion that time expansion adds individual-specific
   detail (helping ID, not cross-individual stability) is an interpretation, not tested here. Layer chosen on valid
   (E10 protocol); best-test-any-layer equals the chosen layer''s score in every arm except run16@te2 (0.6450 vs 0.6405),
   aves@te2 (0.7060 vs 0.7050) and run16@lpte4 (0.6945 vs 0.6695). The last matters: at its best test layer run16''s
@@ -80,7 +84,9 @@ caveats: 'One task (BEANS bats: Egyptian fruit bats, 10 individuals, a classific
   leak corrected (-55 dB, not 0). Its claim that finding 054 asks for level-normalised bats input was checked and is
   wrong (054 is about compute), so it is not cited. Label-free half critic (fresh subagent, 2026-10-15 21:40): ACCEPT-WITH-CHANGES; all numbers and the
   pre-registered protocol verified; applied: "no gain" -> not distinguishable / not shown, spread defined as a percentile
-  over overlapping halvings (weak evidence of absence), +-0.07-0.08. 126 = unordered halvings (transfer_ari is directional).'
+  over overlapping halvings (weak evidence of absence), +-0.07-0.08. 126 = unordered halvings (transfer_ari is directional). A second, parallel critic run (the lead session,
+  same day; recomputed all 8 arms from the embeddings to 4 dp) added the control wording, the layer-3 probe numbers,
+  the identity-as-held-out-group caveat and the 45-distinct-halvings count; merged here.'
 tags:
 - bats
 - sample-rate

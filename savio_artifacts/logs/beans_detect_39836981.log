@@ -1,0 +1,543 @@
+== Sun Oct 11 20:46:19 PDT 2026  n0386.savio4  restart 0
+NVIDIA L40S, 46068 MiB
+== hiceas  20:47:17
+[hiceas] windows train 4457  valid 1485  test 1485  classes 1  width 10 s shift 5 s
+  test positives per class: [395]
+[load] run11: 94.37M params, 12 layers, dim 768
+    run11/train embedded 4457 windows in 69s
+    run11/valid embedded 1485 windows in 17s
+    run11/test embedded 1485 windows in 18s
+  run11                  layer  2  valid mAP 0.3584  TEST mAP 0.3125   (best test at any layer 0.3180; probe 18s)
+[load] run16_compute4x: 94.37M params, 12 layers, dim 768
+    run16_compute4x/train embedded 4457 windows in 31s
+    run16_compute4x/valid embedded 1485 windows in 10s
+    run16_compute4x/test embedded 1485 windows in 10s
+  run16_compute4x        layer  6  valid mAP 0.4480  TEST mAP 0.3935   (best test at any layer 0.3935; probe 9s)
+[load] run16_seed2: 94.37M params, 12 layers, dim 768
+    run16_seed2/train embedded 4457 windows in 32s
+    run16_seed2/valid embedded 1485 windows in 11s
+    run16_seed2/test embedded 1485 windows in 10s
+  run16_seed2            layer  6  valid mAP 0.5566  TEST mAP 0.3831   (best test at any layer 0.4132; probe 9s)
+[load] run19_avesteacher: 94.37M params, 12 layers, dim 768
+    run19_avesteacher/train embedded 4457 windows in 32s
+    run19_avesteacher/valid embedded 1485 windows in 11s
+    run19_avesteacher/test embedded 1485 windows in 11s
+  run19_avesteacher      layer 11  valid mAP 0.6573  TEST mAP 0.5315   (best test at any layer 0.5315; probe 8s)
+[load] run20_fsdonly: 94.37M params, 12 layers, dim 768
+    run20_fsdonly/train embedded 4457 windows in 32s
+    run20_fsdonly/valid embedded 1485 windows in 11s
+    run20_fsdonly/test embedded 1485 windows in 11s
+  run20_fsdonly          layer  1  valid mAP 0.5254  TEST mAP 0.3949   (best test at any layer 0.4364; probe 11s)
+[load] aves-base-core: 94.37M params, 12 layers, dim 768
+    aves-base-core/train embedded 4457 windows in 31s
+    aves-base-core/valid embedded 1485 windows in 10s
+    aves-base-core/test embedded 1485 windows in 11s
+  aves-base-core         layer 11  valid mAP 0.7502  TEST mAP 0.5778   (best test at any layer 0.5778; probe 8s)
+[load] aves-base-bio: 94.37M params, 12 layers, dim 768
+    aves-base-bio/train embedded 4457 windows in 31s
+    aves-base-bio/valid embedded 1485 windows in 10s
+    aves-base-bio/test embedded 1485 windows in 10s
+  aves-base-bio          layer  0  valid mAP 0.6908  TEST mAP 0.5160   (best test at any layer 0.5160; probe 7s)
+[load] aves-base-all: 94.37M params, 12 layers, dim 768
+    aves-base-all/train embedded 4457 windows in 31s
+    aves-base-all/valid embedded 1485 windows in 10s
+    aves-base-all/test embedded 1485 windows in 10s
+  aves-base-all          layer 11  valid mAP 0.7476  TEST mAP 0.4736   (best test at any layer 0.4913; probe 13s)
+[load] birdaves-biox-base: 94.37M params, 12 layers, dim 768
+    birdaves-biox-base/train embedded 4457 windows in 37s
+    birdaves-biox-base/valid embedded 1485 windows in 10s
+    birdaves-biox-base/test embedded 1485 windows in 10s
+  birdaves-biox-base     layer  1  valid mAP 0.5831  TEST mAP 0.4302   (best test at any layer 0.4890; probe 7s)
+[load] birdaves-biox-large: 315.43M params, 24 layers, dim 1024
+    birdaves-biox-large/train embedded 4457 windows in 76s
+    birdaves-biox-large/valid embedded 1485 windows in 24s
+    birdaves-biox-large/test embedded 1485 windows in 24s
+  birdaves-biox-large    layer 22  valid mAP 0.6716  TEST mAP 0.4558   (best test at any layer 0.5226; probe 20s)
+[load] birdaves-bioxn-large: 315.43M params, 24 layers, dim 1024
+    birdaves-bioxn-large/train embedded 4457 windows in 74s
+    birdaves-bioxn-large/valid embedded 1485 windows in 24s
+    birdaves-bioxn-large/test embedded 1485 windows in 24s
+  birdaves-bioxn-large   layer 22  valid mAP 0.6380  TEST mAP 0.4486   (best test at any layer 0.4925; probe 19s)
+  run11                  - run16_compute4x: -0.0810 [-0.1513, -0.0152]  *
+  run16_seed2            - run16_compute4x: -0.0104 [-0.0609, +0.0324]
+  run19_avesteacher      - run16_compute4x: +0.1380 [+0.0536, +0.2137]  *
+  run20_fsdonly          - run16_compute4x: +0.0015 [-0.0355, +0.0471]
+  aves-base-core         - run16_compute4x: +0.1843 [+0.1164, +0.2488]  *
+  aves-base-bio          - run16_compute4x: +0.1225 [+0.0460, +0.2037]  *
+  aves-base-all          - run16_compute4x: +0.0801 [-0.0047, +0.1656]
+  birdaves-biox-base     - run16_compute4x: +0.0367 [-0.0427, +0.1182]
+  birdaves-biox-large    - run16_compute4x: +0.0623 [-0.0268, +0.1476]
+  birdaves-bioxn-large   - run16_compute4x: +0.0551 [-0.0326, +0.1338]
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_hiceas.json
+== enabirds  21:03:59
+[enabirds] windows train 13629  valid 4543  test 4543  classes 34  width 2 s shift 1 s
+  test positives per class: [947, 7, 125, 6, 75, 573, 102, 54, 38, 191, 550, 29, 11, 186, 2174, 80, 35, 115, 51, 640, 71, 279, 22, 62, 50, 223, 198, 30, 484, 2, 8, 836, 48, 22]
+[load] run11: 94.37M params, 12 layers, dim 768
+    run11/train 5000/13629  216 win/s  ~1 min left
+    run11/train 10000/13629  274 win/s  ~0 min left
+    run11/train embedded 13629 windows in 46s
+    run11/valid embedded 4543 windows in 12s
+    run11/test embedded 4543 windows in 12s
+  run11                  layer  0  valid mAP 0.3688  TEST mAP 0.3553   (best test at any layer 0.3613; probe 117s)
+[load] run16_compute4x: 94.37M params, 12 layers, dim 768
+    run16_compute4x/train 5000/13629  558 win/s  ~0 min left
+    run16_compute4x/train 10000/13629  594 win/s  ~0 min left
+    run16_compute4x/train embedded 13629 windows in 23s
+    run16_compute4x/valid embedded 4543 windows in 7s
+    run16_compute4x/test embedded 4543 windows in 7s
+  run16_compute4x        layer  0  valid mAP 0.3991  TEST mAP 0.3904   (best test at any layer 0.3904; probe 107s)
+[load] run16_seed2: 94.37M params, 12 layers, dim 768
+    run16_seed2/train 5000/13629  648 win/s  ~0 min left
+    run16_seed2/train 10000/13629  645 win/s  ~0 min left
+    run16_seed2/train embedded 13629 windows in 21s
+    run16_seed2/valid embedded 4543 windows in 7s
+    run16_seed2/test embedded 4543 windows in 7s
+  run16_seed2            layer  0  valid mAP 0.3937  TEST mAP 0.3833   (best test at any layer 0.3833; probe 108s)
+[load] run19_avesteacher: 94.37M params, 12 layers, dim 768
+    run19_avesteacher/train 5000/13629  643 win/s  ~0 min left
+    run19_avesteacher/train 10000/13629  645 win/s  ~0 min left
+    run19_avesteacher/train embedded 13629 windows in 21s
+    run19_avesteacher/valid embedded 4543 windows in 7s
+    run19_avesteacher/test embedded 4543 windows in 7s
+  run19_avesteacher      layer  3  valid mAP 0.4165  TEST mAP 0.4044   (best test at any layer 0.4122; probe 110s)
+[load] run20_fsdonly: 94.37M params, 12 layers, dim 768
+    run20_fsdonly/train 5000/13629  419 win/s  ~0 min left
+    run20_fsdonly/train 10000/13629  508 win/s  ~0 min left
+    run20_fsdonly/train embedded 13629 windows in 25s
+    run20_fsdonly/valid embedded 4543 windows in 7s
+    run20_fsdonly/test embedded 4543 windows in 7s
+  run20_fsdonly          layer  0  valid mAP 0.3963  TEST mAP 0.3857   (best test at any layer 0.3857; probe 111s)
+[load] aves-base-core: 94.37M params, 12 layers, dim 768
+    aves-base-core/train 5000/13629  608 win/s  ~0 min left
+    aves-base-core/train 10000/13629  599 win/s  ~0 min left
+    aves-base-core/train embedded 13629 windows in 22s
+    aves-base-core/valid embedded 4543 windows in 7s
+    aves-base-core/test embedded 4543 windows in 7s
+  aves-base-core         layer  2  valid mAP 0.4324  TEST mAP 0.4183   (best test at any layer 0.4183; probe 109s)
+[load] aves-base-bio: 94.37M params, 12 layers, dim 768
+    aves-base-bio/train 5000/13629  599 win/s  ~0 min left
+    aves-base-bio/train 10000/13629  625 win/s  ~0 min left
+    aves-base-bio/train embedded 13629 windows in 22s
+    aves-base-bio/valid embedded 4543 windows in 7s
+    aves-base-bio/test embedded 4543 windows in 7s
+  aves-base-bio          layer  7  valid mAP 0.4588  TEST mAP 0.4494   (best test at any layer 0.4582; probe 108s)
+[load] aves-base-all: 94.37M params, 12 layers, dim 768
+    aves-base-all/train 5000/13629  595 win/s  ~0 min left
+    aves-base-all/train 10000/13629  617 win/s  ~0 min left
+    aves-base-all/train embedded 13629 windows in 22s
+    aves-base-all/valid embedded 4543 windows in 7s
+    aves-base-all/test embedded 4543 windows in 7s
+  aves-base-all          layer  8  valid mAP 0.4301  TEST mAP 0.4221   (best test at any layer 0.4266; probe 109s)
+[load] birdaves-biox-base: 94.37M params, 12 layers, dim 768
+    birdaves-biox-base/train 5000/13629  490 win/s  ~0 min left
+    birdaves-biox-base/train 10000/13629  561 win/s  ~0 min left
+    birdaves-biox-base/train embedded 13629 windows in 23s
+    birdaves-biox-base/valid embedded 4543 windows in 8s
+    birdaves-biox-base/test embedded 4543 windows in 7s
+  birdaves-biox-base     layer  4  valid mAP 0.5235  TEST mAP 0.5104   (best test at any layer 0.5262; probe 109s)
+[load] birdaves-biox-large: 315.43M params, 24 layers, dim 1024
+    birdaves-biox-large/train 5000/13629  273 win/s  ~1 min left
+    birdaves-biox-large/train 10000/13629  294 win/s  ~0 min left
+    birdaves-biox-large/train embedded 13629 windows in 49s
+    birdaves-biox-large/valid embedded 4543 windows in 15s
+    birdaves-biox-large/test embedded 4543 windows in 15s
+  birdaves-biox-large    layer 17  valid mAP 0.5533  TEST mAP 0.5357   (best test at any layer 0.5420; probe 329s)
+[load] birdaves-bioxn-large: 315.43M params, 24 layers, dim 1024
+    birdaves-bioxn-large/train 5000/13629  248 win/s  ~1 min left
+    birdaves-bioxn-large/train 10000/13629  273 win/s  ~0 min left
+    birdaves-bioxn-large/train embedded 13629 windows in 49s
+    birdaves-bioxn-large/valid embedded 4543 windows in 15s
+    birdaves-bioxn-large/test embedded 4543 windows in 15s
+  birdaves-bioxn-large   layer 14  valid mAP 0.5727  TEST mAP 0.5626   (best test at any layer 0.5788; probe 330s)
+  run11                  - run16_compute4x: -0.0351 [-0.0455, -0.0168]  *
+  run16_seed2            - run16_compute4x: -0.0070 [-0.0155, +0.0088]
+  run19_avesteacher      - run16_compute4x: +0.0140 [-0.0065, +0.0415]
+  run20_fsdonly          - run16_compute4x: -0.0047 [-0.0201, +0.0120]
+  aves-base-core         - run16_compute4x: +0.0279 [+0.0092, +0.0486]  *
+  aves-base-bio          - run16_compute4x: +0.0591 [+0.0352, +0.0851]  *
+  aves-base-all          - run16_compute4x: +0.0317 [+0.0091, +0.0607]  *
+  birdaves-biox-base     - run16_compute4x: +0.1201 [+0.0915, +0.1402]  *
+  birdaves-biox-large    - run16_compute4x: +0.1453 [+0.1115, +0.1744]  *
+  birdaves-bioxn-large   - run16_compute4x: +0.1722 [+0.1334, +0.1939]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_enabirds.json
+== dcase  21:44:25
+[dcase] windows train 41418  valid 13806  test 13530  classes 18  width 2 s shift 1 s
+  test positives per class: [40, 14, 58, 45, 308, 10, 33, 19, 9, 117, 356, 110, 105, 4, 15, 7, 459, 44]
+[load] run11: 94.37M params, 12 layers, dim 768
+    run11/train 5000/41418  192 win/s  ~3 min left
+    run11/train 10000/41418  260 win/s  ~2 min left
+    run11/train 15000/41418  300 win/s  ~1 min left
+    run11/train 20000/41418  328 win/s  ~1 min left
+    run11/train 25000/41418  347 win/s  ~1 min left
+    run11/train 30000/41418  357 win/s  ~1 min left
+    run11/train 35000/41418  369 win/s  ~0 min left
+    run11/train 40000/41418  378 win/s  ~0 min left
+    run11/train embedded 41418 windows in 109s
+    run11/valid 5000/13806  446 win/s  ~0 min left
+    run11/valid 10000/13806  451 win/s  ~0 min left
+    run11/valid embedded 13806 windows in 31s
+    run11/test 5000/13530  461 win/s  ~0 min left
+    run11/test 10000/13530  459 win/s  ~0 min left
+    run11/test embedded 13530 windows in 30s
+  run11                  layer  3  valid mAP 0.1336  TEST mAP 0.1608   (best test at any layer 0.1648; probe 226s)
+[load] run16_compute4x: 94.37M params, 12 layers, dim 768
+    run16_compute4x/train 5000/41418  776 win/s  ~1 min left
+    run16_compute4x/train 10000/41418  786 win/s  ~1 min left
+    run16_compute4x/train 15000/41418  791 win/s  ~1 min left
+    run16_compute4x/train 20000/41418  791 win/s  ~0 min left
+    run16_compute4x/train 25000/41418  790 win/s  ~0 min left
+    run16_compute4x/train 30000/41418  792 win/s  ~0 min left
+    run16_compute4x/train 35000/41418  792 win/s  ~0 min left
+    run16_compute4x/train 40000/41418  790 win/s  ~0 min left
+    run16_compute4x/train embedded 41418 windows in 52s
+    run16_compute4x/valid 5000/13806  787 win/s  ~0 min left
+    run16_compute4x/valid 10000/13806  792 win/s  ~0 min left
+    run16_compute4x/valid embedded 13806 windows in 17s
+    run16_compute4x/test 5000/13530  794 win/s  ~0 min left
+    run16_compute4x/test 10000/13530  793 win/s  ~0 min left
+    run16_compute4x/test embedded 13530 windows in 17s
+  run16_compute4x        layer 11  valid mAP 0.1713  TEST mAP 0.2091   (best test at any layer 0.2265; probe 222s)
+[load] run16_seed2: 94.37M params, 12 layers, dim 768
+    run16_seed2/train 5000/41418  447 win/s  ~1 min left
+    run16_seed2/train 10000/41418  553 win/s  ~1 min left
+    run16_seed2/train 15000/41418  614 win/s  ~1 min left
+    run16_seed2/train 20000/41418  649 win/s  ~1 min left
+    run16_seed2/train 25000/41418  673 win/s  ~0 min left
+    run16_seed2/train 30000/41418  690 win/s  ~0 min left
+    run16_seed2/train 35000/41418  704 win/s  ~0 min left
+    run16_seed2/train 40000/41418  712 win/s  ~0 min left
+    run16_seed2/train embedded 41418 windows in 58s
+    run16_seed2/valid 5000/13806  685 win/s  ~0 min left
+    run16_seed2/valid 10000/13806  678 win/s  ~0 min left
+    run16_seed2/valid embedded 13806 windows in 20s
+    run16_seed2/test 5000/13530  780 win/s  ~0 min left
+    run16_seed2/test 10000/13530  788 win/s  ~0 min left
+    run16_seed2/test embedded 13530 windows in 17s
+  run16_seed2            layer  8  valid mAP 0.1655  TEST mAP 0.2304   (best test at any layer 0.2304; probe 219s)
+[load] run19_avesteacher: 94.37M params, 12 layers, dim 768
+    run19_avesteacher/train 5000/41418  684 win/s  ~1 min left
+    run19_avesteacher/train 10000/41418  699 win/s  ~1 min left
+    run19_avesteacher/train 15000/41418  708 win/s  ~1 min left
+    run19_avesteacher/train 20000/41418  716 win/s  ~0 min left
+    run19_avesteacher/train 25000/41418  700 win/s  ~0 min left
+    run19_avesteacher/train 30000/41418  707 win/s  ~0 min left
+    run19_avesteacher/train 35000/41418  710 win/s  ~0 min left
+    run19_avesteacher/train 40000/41418  718 win/s  ~0 min left
+    run19_avesteacher/train embedded 41418 windows in 58s
+    run19_avesteacher/valid 5000/13806  797 win/s  ~0 min left
+    run19_avesteacher/valid 10000/13806  782 win/s  ~0 min left
+    run19_avesteacher/valid embedded 13806 windows in 18s
+    run19_avesteacher/test 5000/13530  800 win/s  ~0 min left
+    run19_avesteacher/test 10000/13530  788 win/s  ~0 min left
+    run19_avesteacher/test embedded 13530 windows in 17s
+  run19_avesteacher      layer 10  valid mAP 0.2570  TEST mAP 0.2631   (best test at any layer 0.3002; probe 225s)
+[load] run20_fsdonly: 94.37M params, 12 layers, dim 768
+    run20_fsdonly/train 5000/41418  473 win/s  ~1 min left
+    run20_fsdonly/train 10000/41418  579 win/s  ~1 min left
+    run20_fsdonly/train 15000/41418  629 win/s  ~1 min left
+    run20_fsdonly/train 20000/41418  659 win/s  ~1 min left
+    run20_fsdonly/train 25000/41418  681 win/s  ~0 min left
+    run20_fsdonly/train 30000/41418  693 win/s  ~0 min left
+    run20_fsdonly/train 35000/41418  704 win/s  ~0 min left
+    run20_fsdonly/train 40000/41418  712 win/s  ~0 min left
+    run20_fsdonly/train embedded 41418 windows in 59s
+    run20_fsdonly/valid 5000/13806  762 win/s  ~0 min left
+    run20_fsdonly/valid 10000/13806  766 win/s  ~0 min left
+    run20_fsdonly/valid embedded 13806 windows in 18s
+    run20_fsdonly/test 5000/13530  800 win/s  ~0 min left
+    run20_fsdonly/test 10000/13530  695 win/s  ~0 min left
+    run20_fsdonly/test embedded 13530 windows in 19s
+  run20_fsdonly          layer  4  valid mAP 0.1467  TEST mAP 0.2178   (best test at any layer 0.2232; probe 222s)
+[load] aves-base-core: 94.37M params, 12 layers, dim 768
+    aves-base-core/train 5000/41418  616 win/s  ~1 min left
+    aves-base-core/train 10000/41418  684 win/s  ~1 min left
+    aves-base-core/train 15000/41418  717 win/s  ~1 min left
+    aves-base-core/train 20000/41418  733 win/s  ~0 min left
+    aves-base-core/train 25000/41418  738 win/s  ~0 min left
+    aves-base-core/train 30000/41418  743 win/s  ~0 min left
+    aves-base-core/train 35000/41418  747 win/s  ~0 min left
+    aves-base-core/train 40000/41418  749 win/s  ~0 min left
+    aves-base-core/train embedded 41418 windows in 55s
+    aves-base-core/valid 5000/13806  786 win/s  ~0 min left
+    aves-base-core/valid 10000/13806  620 win/s  ~0 min left
+    aves-base-core/valid embedded 13806 windows in 21s
+    aves-base-core/test 5000/13530  833 win/s  ~0 min left
+    aves-base-core/test 10000/13530  824 win/s  ~0 min left
+    aves-base-core/test embedded 13530 windows in 17s
+  aves-base-core         layer  6  valid mAP 0.2248  TEST mAP 0.2540   (best test at any layer 0.2707; probe 224s)
+[load] aves-base-bio: 94.37M params, 12 layers, dim 768
+    aves-base-bio/train 5000/41418  531 win/s  ~1 min left
+    aves-base-bio/train 10000/41418  556 win/s  ~1 min left
+    aves-base-bio/train 15000/41418  590 win/s  ~1 min left
+    aves-base-bio/train 20000/41418  623 win/s  ~1 min left
+    aves-base-bio/train 25000/41418  647 win/s  ~0 min left
+    aves-base-bio/train 30000/41418  663 win/s  ~0 min left
+    aves-base-bio/train 35000/41418  677 win/s  ~0 min left
+    aves-base-bio/train 40000/41418  688 win/s  ~0 min left
+    aves-base-bio/train embedded 41418 windows in 60s
+    aves-base-bio/valid 5000/13806  804 win/s  ~0 min left
+    aves-base-bio/valid 10000/13806  804 win/s  ~0 min left
+    aves-base-bio/valid embedded 13806 windows in 17s
+    aves-base-bio/test 5000/13530  813 win/s  ~0 min left
+    aves-base-bio/test 10000/13530  810 win/s  ~0 min left
+    aves-base-bio/test embedded 13530 windows in 17s
+  aves-base-bio          layer  7  valid mAP 0.2587  TEST mAP 0.2821   (best test at any layer 0.2907; probe 224s)
+[load] aves-base-all: 94.37M params, 12 layers, dim 768
+    aves-base-all/train 5000/41418  618 win/s  ~1 min left
+    aves-base-all/train 10000/41418  661 win/s  ~1 min left
+    aves-base-all/train 15000/41418  592 win/s  ~1 min left
+    aves-base-all/train 20000/41418  633 win/s  ~1 min left
+    aves-base-all/train 25000/41418  661 win/s  ~0 min left
+    aves-base-all/train 30000/41418  679 win/s  ~0 min left
+    aves-base-all/train 35000/41418  695 win/s  ~0 min left
+    aves-base-all/train 40000/41418  706 win/s  ~0 min left
+    aves-base-all/train embedded 41418 windows in 59s
+    aves-base-all/valid 5000/13806  749 win/s  ~0 min left
+    aves-base-all/valid 10000/13806  773 win/s  ~0 min left
+    aves-base-all/valid embedded 13806 windows in 18s
+    aves-base-all/test 5000/13530  779 win/s  ~0 min left
+    aves-base-all/test 10000/13530  787 win/s  ~0 min left
+    aves-base-all/test embedded 13530 windows in 17s
+  aves-base-all          layer  4  valid mAP 0.2286  TEST mAP 0.3013   (best test at any layer 0.3064; probe 224s)
+[load] birdaves-biox-base: 94.37M params, 12 layers, dim 768
+    birdaves-biox-base/train 5000/41418  498 win/s  ~1 min left
+    birdaves-biox-base/train 10000/41418  606 win/s  ~1 min left
+    birdaves-biox-base/train 15000/41418  644 win/s  ~1 min left
+    birdaves-biox-base/train 20000/41418  676 win/s  ~1 min left
+    birdaves-biox-base/train 25000/41418  700 win/s  ~0 min left
+    birdaves-biox-base/train 30000/41418  713 win/s  ~0 min left
+    birdaves-biox-base/train 35000/41418  725 win/s  ~0 min left
+    birdaves-biox-base/train 40000/41418  721 win/s  ~0 min left
+    birdaves-biox-base/train embedded 41418 windows in 57s
+    birdaves-biox-base/valid 5000/13806  790 win/s  ~0 min left
+    birdaves-biox-base/valid 10000/13806  796 win/s  ~0 min left
+    birdaves-biox-base/valid embedded 13806 windows in 17s
+    birdaves-biox-base/test 5000/13530  790 win/s  ~0 min left
+    birdaves-biox-base/test 10000/13530  798 win/s  ~0 min left
+    birdaves-biox-base/test embedded 13530 windows in 17s
+  birdaves-biox-base     layer  9  valid mAP 0.3007  TEST mAP 0.2951   (best test at any layer 0.3323; probe 221s)
+[load] birdaves-biox-large: 315.43M params, 24 layers, dim 1024
+    birdaves-biox-large/train 5000/41418  267 win/s  ~2 min left
+    birdaves-biox-large/train 10000/41418  292 win/s  ~2 min left
+    birdaves-biox-large/train 15000/41418  304 win/s  ~1 min left
+    birdaves-biox-large/train 20000/41418  310 win/s  ~1 min left
+    birdaves-biox-large/train 25000/41418  314 win/s  ~1 min left
+    birdaves-biox-large/train 30000/41418  318 win/s  ~1 min left
+    birdaves-biox-large/train 35000/41418  321 win/s  ~0 min left
+    birdaves-biox-large/train 40000/41418  323 win/s  ~0 min left
+    birdaves-biox-large/train embedded 41418 windows in 128s
+    birdaves-biox-large/valid 5000/13806  340 win/s  ~0 min left
+    birdaves-biox-large/valid 10000/13806  338 win/s  ~0 min left
+    birdaves-biox-large/valid embedded 13806 windows in 41s
+    birdaves-biox-large/test 5000/13530  341 win/s  ~0 min left
+    birdaves-biox-large/test 10000/13530  334 win/s  ~0 min left
+    birdaves-biox-large/test embedded 13530 windows in 41s
+  birdaves-biox-large    layer  9  valid mAP 0.3002  TEST mAP 0.3387   (best test at any layer 0.3483; probe 794s)
+[load] birdaves-bioxn-large: 315.43M params, 24 layers, dim 1024
+    birdaves-bioxn-large/train 5000/41418  186 win/s  ~3 min left
+    birdaves-bioxn-large/train 10000/41418  220 win/s  ~2 min left
+    birdaves-bioxn-large/train 15000/41418  234 win/s  ~2 min left
+    birdaves-bioxn-large/train 20000/41418  241 win/s  ~1 min left
+    birdaves-bioxn-large/train 25000/41418  246 win/s  ~1 min left
+    birdaves-bioxn-large/train 30000/41418  250 win/s  ~1 min left
+    birdaves-bioxn-large/train 35000/41418  252 win/s  ~0 min left
+    birdaves-bioxn-large/train 40000/41418  254 win/s  ~0 min left
+    birdaves-bioxn-large/train embedded 41418 windows in 163s
+    birdaves-bioxn-large/valid 5000/13806  230 win/s  ~1 min left
+    birdaves-bioxn-large/valid 10000/13806  248 win/s  ~0 min left
+    birdaves-bioxn-large/valid embedded 13806 windows in 55s
+    birdaves-bioxn-large/test 5000/13530  271 win/s  ~1 min left
+    birdaves-bioxn-large/test 10000/13530  266 win/s  ~0 min left
+    birdaves-bioxn-large/test embedded 13530 windows in 51s
+  birdaves-bioxn-large   layer  9  valid mAP 0.3435  TEST mAP 0.3426   (best test at any layer 0.3590; probe 796s)
+  run11                  - run16_compute4x: -0.0483 [-0.0832, -0.0266]  *
+  run16_seed2            - run16_compute4x: +0.0213 [-0.0066, +0.0547]
+  run19_avesteacher      - run16_compute4x: +0.0540 [+0.0159, +0.0747]  *
+  run20_fsdonly          - run16_compute4x: +0.0086 [-0.0153, +0.0346]
+  aves-base-core         - run16_compute4x: +0.0448 [+0.0049, +0.0709]  *
+  aves-base-bio          - run16_compute4x: +0.0730 [+0.0178, +0.1043]  *
+  aves-base-all          - run16_compute4x: +0.0922 [+0.0400, +0.1225]  *
+  birdaves-biox-base     - run16_compute4x: +0.0860 [+0.0418, +0.1180]  *
+  birdaves-biox-large    - run16_compute4x: +0.1295 [+0.0683, +0.1592]  *
+  birdaves-bioxn-large   - run16_compute4x: +0.1335 [+0.0747, +0.1659]  *
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_dcase.json
+== hainan-gibbons  23:13:41
+[hainan-gibbons] windows train 27840  valid 13920  test 18560  classes 3  width 4 s shift 2 s
+  test positives per class: [44, 372, 24]
+[load] run11: 94.37M params, 12 layers, dim 768
+    run11/train 5000/27840  132 win/s  ~3 min left
+    run11/train 10000/27840  169 win/s  ~2 min left
+    run11/train 15000/27840  186 win/s  ~1 min left
+    run11/train 20000/27840  192 win/s  ~1 min left
+    run11/train 25000/27840  198 win/s  ~0 min left
+    run11/train embedded 27840 windows in 138s
+    run11/valid 5000/13920  234 win/s  ~1 min left
+    run11/valid 10000/13920  233 win/s  ~0 min left
+    run11/valid embedded 13920 windows in 60s
+    run11/test 5000/18560  227 win/s  ~1 min left
+    run11/test 10000/18560  227 win/s  ~1 min left
+    run11/test 15000/18560  224 win/s  ~0 min left
+    run11/test embedded 18560 windows in 82s
+  run11                  layer  4  valid mAP 0.0374  TEST mAP 0.0443   (best test at any layer 0.0616; probe 131s)
+[load] run16_compute4x: 94.37M params, 12 layers, dim 768
+    run16_compute4x/train 5000/27840  394 win/s  ~1 min left
+    run16_compute4x/train 10000/27840  391 win/s  ~1 min left
+    run16_compute4x/train 15000/27840  392 win/s  ~1 min left
+    run16_compute4x/train 20000/27840  391 win/s  ~0 min left
+    run16_compute4x/train 25000/27840  392 win/s  ~0 min left
+    run16_compute4x/train embedded 27840 windows in 71s
+    run16_compute4x/valid 5000/13920  392 win/s  ~0 min left
+    run16_compute4x/valid 10000/13920  391 win/s  ~0 min left
+    run16_compute4x/valid embedded 13920 windows in 36s
+    run16_compute4x/test 5000/18560  394 win/s  ~1 min left
+    run16_compute4x/test 10000/18560  344 win/s  ~0 min left
+    run16_compute4x/test 15000/18560  358 win/s  ~0 min left
+    run16_compute4x/test embedded 18560 windows in 51s
+  run16_compute4x        layer 11  valid mAP 0.1033  TEST mAP 0.0689   (best test at any layer 0.0689; probe 140s)
+[load] run16_seed2: 94.37M params, 12 layers, dim 768
+    run16_seed2/train 5000/27840  306 win/s  ~1 min left
+    run16_seed2/train 10000/27840  347 win/s  ~1 min left
+    run16_seed2/train 15000/27840  364 win/s  ~1 min left
+    run16_seed2/train 20000/27840  372 win/s  ~0 min left
+    run16_seed2/train 25000/27840  374 win/s  ~0 min left
+    run16_seed2/train embedded 27840 windows in 74s
+    run16_seed2/valid 5000/13920  396 win/s  ~0 min left
+    run16_seed2/valid 10000/13920  394 win/s  ~0 min left
+    run16_seed2/valid embedded 13920 windows in 35s
+    run16_seed2/test 5000/18560  378 win/s  ~1 min left
+    run16_seed2/test 10000/18560  385 win/s  ~0 min left
+    run16_seed2/test 15000/18560  388 win/s  ~0 min left
+    run16_seed2/test embedded 18560 windows in 48s
+  run16_seed2            layer  8  valid mAP 0.0224  TEST mAP 0.0357   (best test at any layer 0.0471; probe 107s)
+[load] run19_avesteacher: 94.37M params, 12 layers, dim 768
+    run19_avesteacher/train 5000/27840  396 win/s  ~1 min left
+    run19_avesteacher/train 10000/27840  394 win/s  ~1 min left
+    run19_avesteacher/train 15000/27840  395 win/s  ~1 min left
+    run19_avesteacher/train 20000/27840  391 win/s  ~0 min left
+    run19_avesteacher/train 25000/27840  382 win/s  ~0 min left
+    run19_avesteacher/train embedded 27840 windows in 73s
+    run19_avesteacher/valid 5000/13920  395 win/s  ~0 min left
+    run19_avesteacher/valid 10000/13920  385 win/s  ~0 min left
+    run19_avesteacher/valid embedded 13920 windows in 36s
+    run19_avesteacher/test 5000/18560  397 win/s  ~1 min left
+    run19_avesteacher/test 10000/18560  396 win/s  ~0 min left
+    run19_avesteacher/test 15000/18560  395 win/s  ~0 min left
+    run19_avesteacher/test embedded 18560 windows in 51s
+  run19_avesteacher      layer  4  valid mAP 0.0630  TEST mAP 0.0304   (best test at any layer 0.0365; probe 140s)
+[load] run20_fsdonly: 94.37M params, 12 layers, dim 768
+    run20_fsdonly/train 5000/27840  354 win/s  ~1 min left
+    run20_fsdonly/train 10000/27840  361 win/s  ~1 min left
+    run20_fsdonly/train 15000/27840  368 win/s  ~1 min left
+    run20_fsdonly/train 20000/27840  373 win/s  ~0 min left
+    run20_fsdonly/train 25000/27840  378 win/s  ~0 min left
+    run20_fsdonly/train embedded 27840 windows in 74s
+    run20_fsdonly/valid 5000/13920  382 win/s  ~0 min left
+    run20_fsdonly/valid 10000/13920  387 win/s  ~0 min left
+    run20_fsdonly/valid embedded 13920 windows in 36s
+    run20_fsdonly/test 5000/18560  328 win/s  ~1 min left
+    run20_fsdonly/test 10000/18560  358 win/s  ~0 min left
+    run20_fsdonly/test 15000/18560  368 win/s  ~0 min left
+    run20_fsdonly/test embedded 18560 windows in 50s
+  run20_fsdonly          layer  1  valid mAP 0.0311  TEST mAP 0.0375   (best test at any layer 0.0470; probe 139s)
+[load] aves-base-core: 94.37M params, 12 layers, dim 768
+    aves-base-core/train 5000/27840  386 win/s  ~1 min left
+    aves-base-core/train 10000/27840  394 win/s  ~1 min left
+    aves-base-core/train 15000/27840  400 win/s  ~1 min left
+    aves-base-core/train 20000/27840  396 win/s  ~0 min left
+    aves-base-core/train 25000/27840  396 win/s  ~0 min left
+    aves-base-core/train embedded 27840 windows in 70s
+    aves-base-core/valid 5000/13920  399 win/s  ~0 min left
+    aves-base-core/valid 10000/13920  399 win/s  ~0 min left
+    aves-base-core/valid embedded 13920 windows in 35s
+    aves-base-core/test 5000/18560  393 win/s  ~1 min left
+    aves-base-core/test 10000/18560  395 win/s  ~0 min left
+    aves-base-core/test 15000/18560  398 win/s  ~0 min left
+    aves-base-core/test embedded 18560 windows in 51s
+  aves-base-core         layer  3  valid mAP 0.0972  TEST mAP 0.0620   (best test at any layer 0.0620; probe 133s)
+[load] aves-base-bio: 94.37M params, 12 layers, dim 768
+    aves-base-bio/train 5000/27840  323 win/s  ~1 min left
+    aves-base-bio/train 10000/27840  339 win/s  ~1 min left
+    aves-base-bio/train 15000/27840  351 win/s  ~1 min left
+    aves-base-bio/train 20000/27840  360 win/s  ~0 min left
+    aves-base-bio/train 25000/27840  368 win/s  ~0 min left
+    aves-base-bio/train embedded 27840 windows in 76s
+    aves-base-bio/valid 5000/13920  403 win/s  ~0 min left
+    aves-base-bio/valid 10000/13920  405 win/s  ~0 min left
+    aves-base-bio/valid embedded 13920 windows in 34s
+    aves-base-bio/test 5000/18560  369 win/s  ~1 min left
+    aves-base-bio/test 10000/18560  377 win/s  ~0 min left
+    aves-base-bio/test 15000/18560  379 win/s  ~0 min left
+    aves-base-bio/test embedded 18560 windows in 49s
+  aves-base-bio          layer  3  valid mAP 0.0549  TEST mAP 0.0189   (best test at any layer 0.0515; probe 136s)
+[load] aves-base-all: 94.37M params, 12 layers, dim 768
+    aves-base-all/train 5000/27840  387 win/s  ~1 min left
+    aves-base-all/train 10000/27840  393 win/s  ~1 min left
+    aves-base-all/train 15000/27840  395 win/s  ~1 min left
+    aves-base-all/train 20000/27840  397 win/s  ~0 min left
+    aves-base-all/train 25000/27840  384 win/s  ~0 min left
+    aves-base-all/train embedded 27840 windows in 73s
+    aves-base-all/valid 5000/13920  350 win/s  ~0 min left
+    aves-base-all/valid 10000/13920  371 win/s  ~0 min left
+    aves-base-all/valid embedded 13920 windows in 37s
+    aves-base-all/test 5000/18560  399 win/s  ~1 min left
+    aves-base-all/test 10000/18560  398 win/s  ~0 min left
+    aves-base-all/test 15000/18560  400 win/s  ~0 min left
+    aves-base-all/test embedded 18560 windows in 51s
+  aves-base-all          layer  7  valid mAP 0.1719  TEST mAP 0.0713   (best test at any layer 0.0713; probe 127s)
+[load] birdaves-biox-base: 94.37M params, 12 layers, dim 768
+    birdaves-biox-base/train 5000/27840  380 win/s  ~1 min left
+    birdaves-biox-base/train 10000/27840  390 win/s  ~1 min left
+    birdaves-biox-base/train 15000/27840  388 win/s  ~1 min left
+    birdaves-biox-base/train 20000/27840  387 win/s  ~0 min left
+    birdaves-biox-base/train 25000/27840  385 win/s  ~0 min left
+    birdaves-biox-base/train embedded 27840 windows in 72s
+    birdaves-biox-base/valid 5000/13920  381 win/s  ~0 min left
+    birdaves-biox-base/valid 10000/13920  384 win/s  ~0 min left
+    birdaves-biox-base/valid embedded 13920 windows in 36s
+    birdaves-biox-base/test 5000/18560  385 win/s  ~1 min left
+    birdaves-biox-base/test 10000/18560  370 win/s  ~0 min left
+    birdaves-biox-base/test 15000/18560  359 win/s  ~0 min left
+    birdaves-biox-base/test embedded 18560 windows in 51s
+  birdaves-biox-base     layer  6  valid mAP 0.1165  TEST mAP 0.0889   (best test at any layer 0.1016; probe 108s)
+[load] birdaves-biox-large: 315.43M params, 24 layers, dim 1024
+    birdaves-biox-large/train 5000/27840  156 win/s  ~2 min left
+    birdaves-biox-large/train 10000/27840  159 win/s  ~2 min left
+    birdaves-biox-large/train 15000/27840  159 win/s  ~1 min left
+    birdaves-biox-large/train 20000/27840  158 win/s  ~1 min left
+    birdaves-biox-large/train 25000/27840  158 win/s  ~0 min left
+    birdaves-biox-large/train embedded 27840 windows in 176s
+    birdaves-biox-large/valid 5000/13920  146 win/s  ~1 min left
+    birdaves-biox-large/valid 10000/13920  153 win/s  ~0 min left
+    birdaves-biox-large/valid embedded 13920 windows in 90s
+    birdaves-biox-large/test 5000/18560  165 win/s  ~1 min left
+    birdaves-biox-large/test 10000/18560  165 win/s  ~1 min left
+    birdaves-biox-large/test 15000/18560  165 win/s  ~0 min left
+    birdaves-biox-large/test embedded 18560 windows in 113s
+  birdaves-biox-large    layer 21  valid mAP 0.1820  TEST mAP 0.1449   (best test at any layer 0.1876; probe 499s)
+[load] birdaves-bioxn-large: 315.43M params, 24 layers, dim 1024
+    birdaves-bioxn-large/train 5000/27840  113 win/s  ~3 min left
+    birdaves-bioxn-large/train 10000/27840  121 win/s  ~2 min left
+    birdaves-bioxn-large/train 15000/27840  123 win/s  ~2 min left
+    birdaves-bioxn-large/train 20000/27840  125 win/s  ~1 min left
+    birdaves-bioxn-large/train 25000/27840  126 win/s  ~0 min left
+    birdaves-bioxn-large/train embedded 27840 windows in 218s
+    birdaves-bioxn-large/valid 5000/13920  134 win/s  ~1 min left
+    birdaves-bioxn-large/valid 10000/13920  133 win/s  ~0 min left
+    birdaves-bioxn-large/valid embedded 13920 windows in 105s
+    birdaves-bioxn-large/test 5000/18560  131 win/s  ~2 min left
+    birdaves-bioxn-large/test 10000/18560  132 win/s  ~1 min left
+    birdaves-bioxn-large/test 15000/18560  133 win/s  ~0 min left
+    birdaves-bioxn-large/test embedded 18560 windows in 140s
+  birdaves-bioxn-large   layer 18  valid mAP 0.3322  TEST mAP 0.0953   (best test at any layer 0.1912; probe 497s)
+  run11                  - run16_compute4x: -0.0246 [-0.0521, -0.0053]  *
+  run16_seed2            - run16_compute4x: -0.0331 [-0.0629, +0.0014]
+  run19_avesteacher      - run16_compute4x: -0.0385 [-0.0738, -0.0102]  *
+  run20_fsdonly          - run16_compute4x: -0.0313 [-0.0634, -0.0076]  *
+  aves-base-core         - run16_compute4x: -0.0068 [-0.0352, +0.0196]
+  aves-base-bio          - run16_compute4x: -0.0499 [-0.0898, -0.0188]  *
+  aves-base-all          - run16_compute4x: +0.0024 [-0.0461, +0.0541]
+  birdaves-biox-base     - run16_compute4x: +0.0201 [-0.0177, +0.0962]
+  birdaves-biox-large    - run16_compute4x: +0.0760 [+0.0269, +0.1459]  *
+  birdaves-bioxn-large   - run16_compute4x: +0.0264 [-0.0413, +0.1111]
+[out] /global/home/users/jonathanswang/zf_labelset/zf_detection_dataset_v1/analysis/beans_hainan_gibbons.json
+== end Mon Oct 12 00:33:09 PDT 2026  rc=0

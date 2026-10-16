@@ -82,6 +82,8 @@ Never act on a number you remember; re-open its source. Keep wake replies to a f
 - One run per arm cannot rank recipes: two seeds of run16 differed by a resolved 0.0155 (057).
 - BirdPark wins at the pre-committed arm can be arm-selection artefacts: always give 12-arm medians.
 - usage-watch auto-resume starts a second `claude -p` here after usage resets: check the snapshot.
+- A forked interactive session can run this same loop (2026-10-15: two leads both confirmed 074). The
+  heartbeat now carries the writer's session id; `!! another lead` in the snapshot means stop and ask the user.
 
 ## Idle backlog (in this order, unless a new finding changes the priorities)
 

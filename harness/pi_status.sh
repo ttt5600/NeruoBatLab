@@ -7,7 +7,16 @@ set -uo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd); cd "$ROOT"
 Q() { grep -v -iE 'post-quantum|store now|upgraded|pq.html|mux_client|ControlSocket'; }
 
-[ -n "${NOHB:-}" ] || date -Iseconds > harness/.pi_heartbeat
+# The heartbeat carries the writer's session id: a second lead (e.g. a forked interactive session, which the
+# 'claude -p' check below cannot see) shows up as a fresh heartbeat with a different id. tick.py reads mtime only.
+ME=${CLAUDE_CODE_BRIDGE_SESSION_ID:-pid${CLAUDE_PID:-$PPID}}
+HB=harness/.pi_heartbeat
+if [ -f "$HB" ]; then
+    prev=$(awk '{print $2}' "$HB"); age=$(( $(date +%s) - $(stat -f %m "$HB") ))
+    [ -n "$prev" ] && [ "$prev" != "$ME" ] && [ "$age" -lt 7200 ] && \
+        echo "!! another lead ($prev) wrote the heartbeat $((age / 60)) min ago -- stand down / reconcile"
+fi
+[ -n "${NOHB:-}" ] || echo "$(date -Iseconds) $ME" > "$HB"
 echo "== $(date '+%F %H:%M')"
 
 # other agents on this repo (the usage-watch auto-resume has collided twice)
