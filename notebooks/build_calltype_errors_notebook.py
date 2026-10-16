@@ -53,6 +53,13 @@ Be and LT are mostly chick calls. Di has 18 clips from 11 birds, so read its int
 bars.
 """)
 
+md(r"""
+> **Embeddings: CPU, not MPS (2026-10-16).** On this Mac, torch 2.8's MPS attention returns wrong outputs for
+> inputs of 2-8 frames (about 45-185 ms), which is most call-type clips. Every number here is computed from CPU
+> embeddings (`features/ct11_<tag>_cpuemb.npy`, `analysis/calltype_cpu_rescore.json`), which agree with float64 to
+> about 1e-5. The board's original MPS numbers are kept unchanged beside them; the correction is finding 076.
+""")
+
 co(r"""
 import json, warnings
 from pathlib import Path
@@ -462,29 +469,7 @@ different recipes *and* across the seed pairs (E19/E23, E21/E24, E18/E20).
 """)
 
 co(r"""
-import sys
-sys.path.insert(0, str(Path.cwd().parent / "zfeval/experiments")); sys.path.insert(0, str(Path.cwd().parent / "zfeval"))
-from aves_calltype import cv_acc
-
-AVJ = json.loads((ANA / "aves_variants_calltype.json").read_text())["models"]
-def reported(tag):
-    if tag in AVJ:
-        return AVJ[tag]["best_11"]["layer"], AVJ[tag]["best_11"]["acc"]
-    p = ANA / f"{tag}_calltype.json"
-    if not p.exists():
-        return None
-    d = json.loads(p.read_text())
-    return d["best_layer11"], d["acc11"]
-
-def oof_hit(tag):
-    layer, acc_rep = reported(tag)
-    f = {"aves-base-bio": "ct11_aves_emb.npy"}.get(tag, f"ct11_{tag}_emb.npy")
-    X = np.ascontiguousarray(np.load(FEAT / f, mmap_mode="r")[:, layer])
-    a, _, Pt = cv_acc(X, y, birds, return_proba=True)
-    assert abs(a - acc_rep) < 1e-9, (tag, a, acc_rep)
-    return (Pt.argmax(1) == y).astype(float), layer, a
-
-# readable names, grouped by round; experiment ids from harness/experiments.yaml
+DB = json.loads((ANA / "dapt_calltype_by_type.json").read_text())
 LABEL = {
     "dapt5e5_step15000": "R1 ZF only, lr 5e-5", "dapt1e4_step15000": "R1 ZF only, lr 1e-4",
     "daptshort_5e5_step2500": "R2 ZF only, 2,500 updates", "daptlr_1e5_step15000": "R2 ZF only, lr 1e-5",
@@ -496,50 +481,45 @@ LABEL = {
     "daptv4two_2e4_step15000": "E19 two-teacher targets", "daptv4two_2e4s2_step15000": "E23 = E19, seed 2",
     "daptv4aveso_2e4_step15000": "E21 AVES-only control", "daptv4aveso_2e4s2_step15000": "E24 = E21, seed 2",
     "daptv4two45k_2e4_step45000": "E22 E19 x3 longer (45k)", "daptv4bird_2e4_step15000": "E14 E19 from BirdAVES",
+    "aves-base-core": "download: AVES core", "aves-base-all": "download: AVES all", "aves-base-nonbio": "download: AVES nonbio",
+    "birdaves-biox-base": "download: BirdAVES biox-base", "birdaves-biox-large": "download: BirdAVES biox-large",
+    "birdaves-bioxn-large": "download: BirdAVES bioxn-large",
 }
-PARENT = {t: "aves-base-bio" for t in LABEL}
-PARENT["daptv4bird_2e4_step15000"] = "birdaves-biox-base"      # E14 starts from BirdAVES, not AVES-bio
 
-dapt = [t for t in LABEL if (FEAT / f"ct11_{t}_emb.npy").exists() and reported(t)]
-missing = [t for t in LABEL if t not in dapt]
-parent_hit = {p: oof_hit(p)[0] for p in set(PARENT[t] for t in dapt)}
-rows, sig, info = [], [], {}
-for t in dapt:
-    h, layer, a = oof_hit(t)
-    obs, lo, hi, (oa, la, ha) = recall_diff(h, parent_hit[PARENT[t]])
-    rows.append(list(obs[oi]) + [oa])
-    sig.append([bool(lo[i] > 0 or hi[i] < 0) for i in oi] + [bool(la > 0 or ha < 0)])
-    info[t] = (layer, a)
-H = pd.DataFrame(rows, index=dapt, columns=ORDER + ["ALL"])
-S = pd.DataFrame(sig, index=dapt, columns=ORDER + ["ALL"])
-if missing:
-    print("not scored on call type yet:", missing)
+def heat(block, keys, title, ax):
+    H = pd.DataFrame([[block[t]["vs_parent"][c]["diff"] for c in ORDER + ["ALL"]] for t in keys], index=keys, columns=ORDER + ["ALL"])
+    S = pd.DataFrame([[block[t]["vs_parent"][c]["resolved"] for c in ORDER + ["ALL"]] for t in keys], index=keys, columns=ORDER + ["ALL"])
+    lim = 100 * np.nanmax(np.abs(H.drop(columns=["Di", "ALL"]).values))
+    im = ax.imshow(np.clip(100 * H.values, -lim, lim), cmap=DIV, vmin=-lim, vmax=lim, aspect="auto")
+    for r in range(H.shape[0]):
+        for c in range(H.shape[1]):
+            v = 100 * H.values[r, c]
+            ax.text(c, r, f"{v:+.0f}" + ("\u2022" if S.values[r, c] else ""), ha="center", va="center", fontsize=7,
+                    color="white" if abs(v) > 0.8 * lim else INK)
+    ax.set_xticks(range(H.shape[1])); ax.set_xticklabels(H.columns)
+    ax.set_yticks(range(H.shape[0]))
+    ax.set_yticklabels([f"{LABEL.get(t, t)}  (L{block[t]['layer']}, {block[t]['acc11']:.3f})"
+                        + ("  vs BirdAVES" if block[t]["parent"] != "aves-base-bio" else "") for t in keys], fontsize=7.5)
+    ax.axvline(len(ORDER) - 0.5, color="white", lw=3)
+    ax.set_title(title, loc="left", color=INK, fontsize=10)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    return im
 
-fig, ax = plt.subplots(figsize=(11.5, 0.38 * len(H) + 1.6))
-lim = 100 * np.nanmax(np.abs(H.drop(columns=["Di", "ALL"]).values))   # Di (18 clips) would set the scale alone
-im = ax.imshow(np.clip(100 * H.values, -lim, lim), cmap=DIV, vmin=-lim, vmax=lim, aspect="auto")
-for r in range(H.shape[0]):
-    for c in range(H.shape[1]):
-        v = 100 * H.values[r, c]
-        ax.text(c, r, f"{v:+.0f}" + ("\u2022" if S.values[r, c] else ""), ha="center", va="center",
-                fontsize=7, color="white" if abs(v) > 0.8 * lim else INK)
-ax.set_xticks(range(H.shape[1])); ax.set_xticklabels(H.columns)
-ax.set_yticks(range(H.shape[0]))
-ax.set_yticklabels([f"{LABEL[t]}  (L{info[t][0]}, {info[t][1]:.3f})" + ("  vs BirdAVES" if PARENT[t] != "aves-base-bio" else "")
-                    for t in H.index], fontsize=7.5)
-ax.axvline(len(ORDER) - 0.5, color="white", lw=3)
-fig.colorbar(im, ax=ax, shrink=0.7, label="recall minus parent (percentage points; Di clipped)")
-ax.set_title("Every DAPT checkpoint vs its parent, per call type  (\u2022 = 95% bird-bootstrap interval excludes 0)",
-             loc="left", color=INK)
-for sp in ax.spines.values(): sp.set_visible(False)
-plt.tight_layout(); plt.show()
+dk = list(DB["dapt"]["best"]); dl = list(DB["downloads"]["best"])
+fig, axes = plt.subplots(2, 1, figsize=(11.5, 0.36 * (len(dk) + len(dl)) + 3), gridspec_kw={"height_ratios": [len(dk), len(dl)]})
+im = heat(DB["dapt"]["best"], dk, "DAPT checkpoints minus their parent, per call type, each at its own best layer  (\u2022 = 95% interval excludes 0)", axes[0])
+heat(DB["downloads"]["best"], dl, "Control: the other downloaded AVES models minus AVES-bio, same reading", axes[1])
+fig.colorbar(im, ax=axes, shrink=0.6, label="recall difference (percentage points; Di clipped)")
+plt.show()
 
-print(f"{len(H)} DAPT checkpoints. Overall accuracy vs parent resolved: {int(S['ALL'].sum())} "
-      f"(up {int((S['ALL'] & (H['ALL'] > 0)).sum())}, down {int((S['ALL'] & (H['ALL'] < 0)).sum())})")
-cons = pd.DataFrame({"higher than parent (point)": (H > 0).sum(), "lower than parent (point)": (H < 0).sum(),
-                     "higher, resolved": (S & (H > 0)).sum(), "lower, resolved": (S & (H < 0)).sum()}).T
-display(cons[ORDER + ["ALL"]])
-display(pd.DataFrame({"median diff": H.median()}).T[ORDER + ["ALL"]].style.format("{:+.3f}"))
+P8 = DB["pattern"]
+tab = pd.DataFrame({k: {c: f"{P8[k][c]['above_point']} up / {P8[k][c]['below_point']} down  (med {P8[k][c]['median']:+.3f})"
+                        for c in ORDER + ["ALL"]} for k in ("dapt_best", "dapt_L3", "downloads_best", "downloads_L3")}).T
+tab.index = ["DAPT, own best layers (17, AVES-bio parent)", "DAPT, both at layer 3", "downloads, own best layers",
+             "downloads, both at layer 3"]
+display(tab[["Te", "Ne", "Th", "Tu", "Ag", "Wh", "Be", "LT", "ALL"]])
+print("A per-type DAPT effect is only DAPT-specific if the DAPT rows differ from the downloads' rows: any other encoder")
+print("compared with AVES-bio's particular layer moves the same types the same way.")
 """)
 
 md(r"""
@@ -554,37 +534,27 @@ selection).
 """)
 
 co(r"""
-traj = {}
-for lr in ("5e5", "1e4"):
-    for step in (2500, 5000, 7500, 10000, 12500, 15000):
-        t = f"dapt{lr}_step{step}"
-        p = ANA / f"{t}_bootstrap.json"
-        if p.exists():
-            v = json.loads(p.read_text())["vs"]
-            traj.setdefault(lr, []).append((step, v[t]["aves-base-bio"], v[f"{t}@L3"]["aves-base-bio"]))
-if not traj:
-    print("no round-1 checkpoint has been scored on call type yet")
-else:
-    fig, axes = plt.subplots(1, 2, figsize=(13, 4), sharey=True)
-    col = {"5e5": "#2a78d6", "1e4": "#eb6834"}
-    for k, ax in enumerate(axes):
-        for lr, pts in traj.items():
-            st = np.array([p[0] for p in pts]) + (-150 if lr == "5e5" else 150)
-            d = [p[1 + k] for p in pts]
-            ax.errorbar(st, [x["delta"] for x in d],
-                        yerr=[[x["delta"] - x["lo"] for x in d], [x["hi"] - x["delta"] for x in d]],
-                        fmt="o-", color=col[lr], lw=1.5, ms=5, capsize=0, label=f"lr {lr.replace('e', 'e-')}")
-        ax.axhline(0, color=MUTED, lw=1)
-        ax.set_xlabel("updates of continued pretraining on zebra finch")
-        ax.set_title(["at each checkpoint's best layer", "at layer 3 (no layer selection)"][k], loc="left")
-        ax.yaxis.grid(True, color=GRID); ax.set_axisbelow(True)
-    axes[0].set_ylabel("call-type accuracy minus AVES-bio"); axes[0].legend(frameon=False)
-    fig.suptitle("Round-1 DAPT (zebra finch only): call type along the trajectory", x=0.01, ha="left", color=INK)
-    plt.tight_layout(); plt.show()
-    rows = [dict(lr=lr, step=p[0], best_layer_diff=p[1]["delta"], lo=p[1]["lo"], hi=p[1]["hi"],
-                 L3_diff=p[2]["delta"], L3_lo=p[2]["lo"], L3_hi=p[2]["hi"]) for lr, pts in traj.items() for p in pts]
-    display(pd.DataFrame(rows).style.format({c: "{:+.4f}" for c in
-            ["best_layer_diff", "lo", "hi", "L3_diff", "L3_lo", "L3_hi"]}).hide(axis="index"))
+R1 = DB["round1"]
+fig, axes = plt.subplots(1, 2, figsize=(13, 4), sharey=True)
+col = {"5e5": "#2a78d6", "1e4": "#eb6834"}
+rows = []
+for k, (key, title) in enumerate((("best", "at each checkpoint's best layer"), ("L3", "both at layer 3 (no layer selection)"))):
+    ax = axes[k]
+    for lr in ("5e5", "1e4"):
+        steps = [2500, 5000, 7500, 10000, 12500, 15000]
+        d = [R1[key][f"dapt{lr}_step{s_}"] for s_ in steps]
+        st = np.array(steps) + (-150 if lr == "5e5" else 150)
+        ax.errorbar(st, [x["diff"] for x in d], yerr=[[x["diff"] - x["lo"] for x in d], [x["hi"] - x["diff"] for x in d]],
+                    fmt="o-", color=col[lr], lw=1.5, ms=5, capsize=0, label=f"lr {lr.replace('e', 'e-')}")
+        for s_, x in zip(steps, d):
+            rows.append(dict(reading=key, lr=lr, step=s_, diff=x["diff"], lo=x["lo"], hi=x["hi"], resolved=x["resolved"]))
+    ax.axhline(0, color=MUTED, lw=1)
+    ax.set_xlabel("updates of continued pretraining on zebra finch"); ax.set_title(title, loc="left")
+    ax.yaxis.grid(True, color=GRID); ax.set_axisbelow(True)
+axes[0].set_ylabel("call-type accuracy minus AVES-bio"); axes[0].legend(frameon=False)
+fig.suptitle("Round-1 DAPT (zebra finch only): call type along the trajectory", x=0.01, ha="left", color=INK)
+plt.tight_layout(); plt.show()
+display(pd.DataFrame(rows).style.format({"diff": "{:+.4f}", "lo": "{:+.4f}", "hi": "{:+.4f}"}).hide(axis="index"))
 """)
 
 md(r"""
@@ -631,33 +601,23 @@ AVES notebook used one, finding 034. It is used here only as a diagnostic, never
 """)
 
 co(r"""
-from sklearn.model_selection import StratifiedKFold
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-
-def random_split_pred(tag):
-    f = {"aves-base-bio": "ct11_aves_emb.npy"}.get(tag, f"ct11_{tag}_emb.npy")
-    X = np.ascontiguousarray(np.load(FEAT / f, mmap_mode="r")[:, int(Z[f"layer__{tag}"])])
-    p = np.zeros(len(y), int)
-    for tr, te in StratifiedKFold(5, shuffle=True, random_state=0).split(X, y):
-        p[te] = make_pipeline(StandardScaler(), LogisticRegression(max_iter=4000)).fit(X[tr], y[tr]).predict(X[te])
-    return p
-
+BG = DB["bird_generalisation"]
 rows = {}
 for t in (AV, DA):
-    pr = random_split_pred(t)
-    rows[(NAME[t], "random split")] = list(per_type_recall((pr == y).astype(float))[oi]) + [(pr == y).mean()]
-    rows[(NAME[t], "leave birds out")] = list(per_type_recall(hit[t])[oi]) + [hit[t].mean()]
+    rows[(NAME[t], "random split")] = [BG[t]["random_split"][c] for c in ORDER] + [BG[t]["acc_random_split"]]
+    rows[(NAME[t], "leave birds out")] = [BG[t]["leave_birds_out"][c] for c in ORDER] + [BG[t]["acc_leave_birds_out"]]
 RS = pd.DataFrame(rows, index=ORDER + ["ALL"]).T
 display(RS.style.format("{:.2f}").background_gradient(cmap=SEQ, vmin=0.3, vmax=1, axis=None))
-for m in (NAME[AV], NAME[DA]):
-    gap = RS.loc[(m, "random split")] - RS.loc[(m, "leave birds out")]
-    print(f"{m:18s} recall lost to new birds: " + "  ".join(f"{c} {gap[c]:+.2f}" for c in ["Tu", "Th", "Ne", "Te", "ALL"]))
-d_rand = RS.loc[(NAME[DA], "random split"), "ALL"] - RS.loc[(NAME[AV], "random split"), "ALL"]
-d_lbo = RS.loc[(NAME[DA], "leave birds out"), "ALL"] - RS.loc[(NAME[AV], "leave birds out"), "ALL"]
-print(f"\nDAPT minus AVES-bio, overall: random split {d_rand:+.4f}, leave birds out {d_lbo:+.4f}")
-print("Every bird in this test set is also in DAPT's pretraining audio (finding 028).")
+for t in (AV, DA):
+    b = BG[t]
+    print(f"{NAME[t]:18s} errors the leaky split removes: soft calls (Te/Ne/Th/Tu) {b['share_soft_errors_removed']:.0%} "
+          f"({b['soft_errors_lbo']} -> {b['soft_errors_random']}), other types {b['share_other_errors_removed']:.0%} "
+          f"({b['other_errors_lbo']} -> {b['other_errors_random']})")
+g = BG["E23_extra_gain_on_random_split"]
+print(f"\nE23 minus AVES-bio: random split {g['gain_random']:+.4f}, leave birds out {g['gain_lbo']:+.4f}; "
+      f"difference {g['diff']:+.4f} [{g['lo']:+.4f}, {g['hi']:+.4f}] ({'resolved' if g['resolved'] else 'not distinguishable'})")
+print("Every bird in this test set is also in DAPT's pretraining audio (finding 028). The random split also lets clips")
+print("from the same recording session into training, so it is more than 'the probe heard this bird's voice'.")
 """)
 
 md(r"""
