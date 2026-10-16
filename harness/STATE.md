@@ -3,8 +3,8 @@ Updated: 2026-10-15 09:03
 
 ## In flight
 - E8 run19 seed 2: resubmitted by tick.py as job 39945354 (old 39781626 hit REQUEUE_HOLD after 6 preemptions,
-  cancelled). Resumes from last.ckpt epoch=34-step=87734 (~6k of 93,750 left). PENDING (Priority).
-- E9 run20 seed 2 (FSD50K only): job 39945376, submitted by tick.py 23:38. PENDING.
+  cancelled). Resumes from last.ckpt epoch=34-step=87734 (~6k of 93,750 left). PENDING; Slurm est. start 2026-10-17 05:06.
+- E9 run20 seed 2 (FSD50K only): job 39945376, submitted by tick.py 23:38. PENDING; est. start 2026-10-17 17:10.
 - E16 (approved analysis, bats time expansion): BEANS half DONE -> finding 074 (open). Label-free half not yet
   designed (needs an individual-held-out E11 variant; pre-register before running). Nothing running on the Mac.
 

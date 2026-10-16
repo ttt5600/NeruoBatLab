@@ -238,3 +238,8 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
 - 2026-10-15 08:33 quiet: E8 + E9 PENDING.
 - 2026-10-15 Memory map: knowledge/BRIEF.md (build.py, one line per finding) is the long-term entry point; PI.md gets a 4-layer table + tools index; AGENT.md reads BRIEF+STATE instead of the 173 KB CONTEXT.md.
 - 2026-10-15 09:03 digest 2026-10-15 written; task-list doc unchanged (no state change); cert renewed to 20:58.
+- 2026-10-15 10:04 quiet: E8 + E9 PENDING; idle budget for 10-15 used by E16 (00:00-02:30).
+- 2026-10-15 11:05 quiet: E8 + E9 PENDING.
+- 2026-10-15 12:06 quiet: E8 + E9 PENDING.
+- 2026-10-15 13:07 quiet: Slurm est. start E8 39945354 2026-10-17 05:06, E9 39945376 2026-10-17 17:10.
+- 2026-10-15 21:12 User: 'let's keep going' -> continuing past the daily idle budget. E16 label-free half pre-registered (experiments.yaml E16 labelfree_protocol) + e16_labelfree.py written; running next.

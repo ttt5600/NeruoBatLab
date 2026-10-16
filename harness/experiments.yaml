@@ -330,6 +330,15 @@ experiments:
     carry nothing from above 8 kHz (verified: a 12 kHz tone is removed, amplitude 0.0000; a 6 kHz tone passes at 0.388
     of 0.4). Both models. Reading: @te4 minus @lpte4 resolved positive = the gain needs the content above 8 kHz;
     @lpte4 minus plain resolved positive = stretching alone helps; both can hold.'
+  labelfree_protocol: 'Pre-registered 2026-10-15 21:12, before any bats label-free score was computed. E11''s bird-held-out
+    stability (calltype_labelfree.py functions ward / transfer_ari, unchanged) with bats INDIVIDUALS as the held-out
+    groups: clips = BEANS bats valid + test (4,000 clips, 10 individuals, the cached beans_probe features); B = 50
+    random halvings of the 10 individuals (5 vs 5), seed 0, the same halvings for every arm; per-dimension
+    standardisation; layer 3 (E11''s rule for 12-layer models); k = 30 primary, 11 secondary. Arms: run16_compute4x and
+    aves-base-bio at plain, @te2, @te4 and @lpte4. Read-out per model: score(arm) minus score(plain), paired over the 50
+    halvings; "interval excluding zero" = its 2.5-97.5 percentile over halvings (as E11; the halvings overlap, so this
+    is a resampling spread). Check: a column-shuffled null for one arm must sit near 0. Labels are used only to define
+    the halvings, never in the score. Script zfeval/experiments/e16_labelfree.py; output analysis/e16_labelfree.json.'
   progress: '2026-10-15 01:27: BEANS half done -> finding 074 (open, critic applied). F=4 resolved gain for both models (run16
     +0.0800, aves +0.0670); the low-pass control keeps 0.69 / 0.78 of it. Label-free half still to be designed and
     pre-registered; E16 stays approved until then.'
