@@ -2,6 +2,7 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-16 | NFL location: west_early_east (Pacific team at ET venue <2pm ET, bet home) + den_altitude_home | nfl_spread dev 2009-19 | -10.6%/110 p=.86; -7.4%/94 p=.76 | NO EDGE; circadian mirror fails -> weakens west_coast_night |
 | 10-16 | 2-leg cross-game parlays of high-prob legs (dec<=1.50), 2 trials | props non-sealed + NFL ML dev 2006-19 | props -9.3%/105k (legs -4.7%, compounding predicts -9.2%); NFL ML -1.35%/885 ns | NO EDGE: parlays square the legs' edge |
 | 10-15 | stocks dev: dip/rip, tech->sectors gate, learned lead-lag graph, 2% daily loss cap (11 trials) | ETFs+mega-tech 2006-18 | 0/11; tech gate -6.3%/yr t=-2.6; best dip/rip QQQ 5% +2.1%/yr p=.05 | no edge; loss cap = risk control only |
 | 10-15 | pattern-mine SEALED confirm (10 survivors, run once) | frozen 2026-10-14 sealed seasons | 0/10 pass (bar p<.005 & ROI>0). mlb hits over/down: dev +36% -> sealed -5.4%/3,655 (t=-4.4, artifact confirmed, reversed). NHL blocked-shots under +2.8%/223 t=0.45; NHL mid-line under -2.3%/839; NHL saves under -9.4%/158; MLB K under/up +0.6%/646; NBA DK under: 0 sealed bets (UNTESTABLE) | FAILED. Pre-registered: no Class-B pass -> Odds API only buys a test of the DK under; user's call. Note: script prints two-sided p (header says one-sided); verdict unaffected |

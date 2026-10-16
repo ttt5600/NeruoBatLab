@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-16 eve (Kalshi paper TIMING BUG fixed: per-city 22:00 local; parlay test 0/2). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-16 eve (Kalshi paper timing fixed; parlays 0/2; location NFL 0/2). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -76,11 +76,15 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
    `ODDS_API_KEY=` in `sports/.env`) is a $119 test of ONE lead -- the NBA high-line under @DraftKings
    (+1.9% dev, untestable on ESPN data). User's call; do not frame it as a likely winner.
 2. Older pending lockbox decisions: west_coast_night, div_unders_late, pre_rain_unders (causal, NFL 2020-25).
+   NOTE for west_coast_night: its circadian MIRROR (west team at early ET kickoff) lost -10.6% on dev 10-16 --
+   if body clock were the cause both halves should show it, so +21.5%/107 is likelier noise. Tell the user.
 
 ## Next steps (in order) -- a fresh session starts at the first unblocked one
 1. Kalshi weather paper trading runs itself (launchd, see below). Each session: `cd ~/.claude/quant-kalshi &&
    .venv/bin/python scripts/kalshi_paper.py report` and note picks/P&L here. Judge after 4-6 weeks.
-2. Sports, user's ideas: (a) DONE 10-16 parlays 0/2 (see above); (b) DONE 10-16 (see above; lockbox needs yes); (c) venue-location features (altitude, travel, timezone) on NFL/MLB/NBA dev.
+2. Sports, user's ideas: (a) DONE 10-16 parlays 0/2 (see above); (b) DONE 10-16 (see above; lockbox needs yes); (c) DONE 10-16 NFL: west_early_east -10.6%/110,
+   den_altitude_home -7.4%/94 (both ns, wrong sign). MLB/NBA/NHL game tables have NO moneylines (all NaN), so
+   location tests there need prices first (Odds API or another source).
 3. Stocks: next ideas in the STOCKS section; add trials via TRIALS in stocks_bt.py (ledger counts them).
 4. Polymarket US: check legal access for the user's state; if yes, scan its weather markets with the
    consensus-reject rule (paper only).
