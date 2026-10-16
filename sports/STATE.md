@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-15 (after sealed pattern confirm). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-15 late (sealed confirm 0/10; Kalshi paper launchd; stocks 0/11 dev; user said go wide). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -27,23 +27,57 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 - Live paper scanner Pinnacle no-vig vs Kalshi game contracts: `scripts/live_edges.py loop|report`
   (runs only while a session keeps it alive; 0 flags at EV>=2% so far).
 
+## USER DIRECTION (2026-10-15) -- go wide, everything that can earn >= $100/month
+User wants: stocks, Polymarket, sportsbooks ("bet until limited; limits come ~$50k won" -- user's number,
+unverified), 2-leg high-probability parlays to look recreational, in-game weather + location features for
+sports, stock rules (trim on rises / buy dips, tech->industries graph model) with a hard daily loss cap.
+"Start backtesting all of these." Same protocol everywhere: dev -> sealed (user yes) -> paper -> small real.
+- Robinhood: official "Agentic Trading" (May 2026, MCP, dedicated funded account) is STOCKS ONLY in beta;
+  event contracts "coming". No unofficial login libraries. Re-check when event contracts land.
+- Polymarket: only the US-regulated product, never the intl site via VPN. Weather markets there = try the
+  consensus-reject rule. Earlier Kalshi-Polymarket arb scan: <1c.
+- Sportsbooks: manual bets only (no bot, ToS). Sign-up promos are the one sure +EV (one-time per book; legal
+  only in states with online books -- NOT California). Parlays: book margin compounds per leg (2 legs at
+  -110 ~ 9% hold) so each leg needs its own edge; testable on our prop/game data -> next sports task.
+- In-game weather/location = existing NFL leads (rain+wind unders oracle, west_coast_night, div_unders_late):
+  sealed lockbox needs user's explicit yes; rain/wind also needs a FORECAST-based (not observed) version.
+- QUESTIONS OUT to user (unanswered): (1) which US state? (2) total capital available?
+
+## STOCKS (started 2026-10-15)
+- Frozen: `scripts/stocks_freeze.py` -> data/stocks/frozen_2026-10-15.parquet (18 tickers 2005-2025, sha256
+  097a14686d31; gitignored). Backtester `scripts/stocks_bt.py dev`: DEV 2006-2018, SEALED 2019-2025 (dropped
+  at load; no confirm command written yet). Close-to-close, 2 bps/trade, alpha vs own buy-and-hold, HAC t.
+  Ledger lab/stocks_ledger.jsonl (bar = 0.05/#trials; 11 so far -> p < 0.0045).
+- DEV RESULT: 0/11. dip_rip (SPY/QQQ x band 3/5/10%) alpha -1.1..+2.1%/yr, best QQQ 5% p=0.05 (not near bar);
+  tech_gate (hold 8 sectors only if tech rose) -6.3%/yr t=-2.6 (do NOT flip it post-hoc); graph_leadlag
+  (ridge lead-lag, top-3) -1.0%/yr; 2% daily loss cap on SPY/QQQ: ~+1.3%/yr ns, smaller DD, fills optimistic.
+- Next stock ideas (each = new ledger trials): cross-sectional momentum/short-term reversal on sectors,
+  supplier->customer lead-lag (Cohen-Frazzini economic links) needs a supplier graph we don't have,
+  vol-targeting with loss cap (risk control, not alpha). Baseline truth: index fund ~7%/yr = $100/mo on ~$17k.
+
 ## WAITING ON USER
 1. Odds API decision (pre-registered outcome of the sealed test, no Class-B pass): buying ($119, 1 month,
    `ODDS_API_KEY=` in `sports/.env`) is a $119 test of ONE lead -- the NBA high-line under @DraftKings
    (+1.9% dev, untestable on ESPN data). User's call; do not frame it as a likely winner.
 2. Older pending lockbox decisions: west_coast_night, div_unders_late, rain+wind unders (NFL 2020-25).
 
-## Next steps (in order)
-1. Kalshi temp consensus-reject paper trading (the only passed strategy) -- NOW DURABLE (2026-10-15):
-   launchd agent com.jonathanwang.quant-kalshi-paper runs pick 22:03 / settle 10:07 daily from
-   ~/.claude/quant-kalshi (code copy + own venv; launchd can't read Desktop). Verified via kickstart (exit 0).
-   CANONICAL LOG: ~/.claude/quant-kalshi/data/kalshi_paper.jsonl (the worktree's data/kalshi_paper.jsonl is
-   empty and unused). Run log: ~/.claude/quant-kalshi/run.log. P&L: `cd ~/.claude/quant-kalshi &&
-   .venv/bin/python scripts/kalshi_paper.py report`. After editing kalshi_paper.py or sports/: re-run
-   `bash sports/scripts/install_kalshi_paper_agent.sh`. First picks 2026-10-15 22:03.
-   Judge after ~4-6 weeks of picks: realised win rate vs backtest, and depth (contracts within 1c) -> $/month.
-2. Live Pinnacle-vs-Kalshi scanner (live_edges.py) is still session-only; low priority (0 flags >=2% EV so far).
-3. If user buys Odds API: time-stamped puller (NBA props 2023+, 5-min snapshots) -> re-test DK-reference under only.
+## Next steps (in order) -- a fresh session starts at the first unblocked one
+1. Kalshi weather paper trading runs itself (launchd, see below). Each session: `cd ~/.claude/quant-kalshi &&
+   .venv/bin/python scripts/kalshi_paper.py report` and note picks/P&L here. Judge after 4-6 weeks.
+2. Sports, user's ideas: (a) 2-leg parlay test on existing prop/game data (does combining two +EV-looking legs
+   survive the compounded hold?); (b) forecast-based (not observed) NFL rain/wind unders on dev via
+   open-meteo historical forecasts; (c) venue-location features (altitude, travel, timezone) on NFL/MLB/NBA dev.
+3. Stocks: next ideas in the STOCKS section; add trials via TRIALS in stocks_bt.py (ledger counts them).
+4. Polymarket US: check legal access for the user's state; if yes, scan its weather markets with the
+   consensus-reject rule (paper only).
+5. Kalshi real-money execution path (dry-run default, user-set caps, kill switch; key in sports/.env by user).
+6. If user buys Odds API: time-stamped puller -> re-test DK-reference NBA under only.
+7. live_edges.py scanner is session-only; low priority.
+
+## Kalshi paper trader (durable)
+launchd com.jonathanwang.quant-kalshi-paper: pick 22:03 / settle 10:07 daily from ~/.claude/quant-kalshi
+(code copy + own venv; launchd can't read Desktop). Canonical log ~/.claude/quant-kalshi/data/kalshi_paper.jsonl,
+run log ~/.claude/quant-kalshi/run.log. After editing kalshi_paper.py or sports/: `bash sports/scripts/install_kalshi_paper_agent.sh`.
 
 ## Dies with the session (restart by hand)
 - Live paper loop: `cd sports && ../.venv_quant/bin/python scripts/live_edges.py loop --every 10` (run_in_background).
@@ -51,7 +85,7 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 
 ## Recovery if the worktree is gone
 - Code + notes + ledgers are on GitHub: `git -C <main repo> fetch` then
-  `git -C <main repo> worktree add .claude/worktrees/quant-trader worktree-quant-trader`; venv: `.venv_quant` (python 3.14, pandas, sklearn, scipy, pyarrow, requests).
+  `git -C <main repo> worktree add .claude/worktrees/quant-trader worktree-quant-trader`; venv: `.venv_quant` (python 3.14, pandas, sklearn, scipy, pyarrow, requests, yfinance, statsmodels).
 - Data is NOT on GitHub: rebuild with `collect.py all --league <lg> --seasons ...` (cached, hours).
   A re-collected snapshot will NOT match `data/frozen/2026-10-14/MANIFEST.json` checksums (committed copy:
   sports/lab/frozen_manifests/2026-10-14.json) -- if it differs, sealed results are no longer comparable; say so.
