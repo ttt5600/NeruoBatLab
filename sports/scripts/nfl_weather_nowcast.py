@@ -55,7 +55,7 @@ def frame(seasons=DEV) -> pd.DataFrame:
     raw = nfl.raw_games()
     # same filter + per stadium-season request span as nfl_game_weather.py -> cached responses
     raw = raw[(raw.season >= 2006) & (raw.season <= 2025) & raw.roof.isin(["outdoors", "open"])]
-    g = nfl.from_raw(raw).assign(stadium_id=raw["stadium_id"].to_numpy())
+    g = nfl.from_raw(raw).merge(raw[["game_id", "stadium_id"]], on="game_id", validate="1:1")  # by key: from_raw re-sorts rows
     rows = []
     for sid, grp in g.groupby("stadium_id"):
         lat, lon = STADIUMS[sid]

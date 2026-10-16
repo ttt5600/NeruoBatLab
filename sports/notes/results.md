@@ -16,13 +16,21 @@
 | 10-09 | NFL scan 72 tests | dev 2006-19 | div unders, wind unders survive | lockbox pending |
 | 10-09 | west_coast_night | NFL dev | +21.5%/107 p.007 | lockbox pending |
 | 10-09 | div_unders_late (post-hoc wk>=10) | NFL dev | +9.8%/623 | lockbox pending |
-| 10-09 | rain+wind unders (oracle, observed wx) | NFL dev | +32.7%/70 | needs forecast test (lockbox) |
-| 10-16 | pre_rain_unders (wx 3h pre-kickoff, causal) | NFL dev 06-19 | +12.4%/217 p.029 | below bar .0083 (6 trials) |
-| 10-16 | pre_rain_wind_unders (causal) | NFL dev 06-19 | +16.0%/67 p.093 | below bar |
-| 10-16 | pre_rain_unders SEALED (user yes) | NFL 2020-25 | +13.3%/101 p.074, 4/6 seasons | FAIL (bar .05); size replicated, n too small -> forward paper only |
+| 10-09 | rain+wind unders (oracle, observed wx) | NFL dev | ~~+32.7%/70~~ BUG (wx joined to wrong games, 53%) -> corrected +21.4%/70 p.033 | oracle only |
+| 10-16 | pre_rain_unders (wx 3h pre-kickoff, causal) | NFL dev 06-19 | ~~+12.4%/217~~ BUG -> corrected +8.0%/219 p.11, 11/14 seasons | below bar .0083; forward paper (live_signals.py) |
+| 10-16 | pre_rain_wind_unders (causal) | NFL dev 06-19 | ~~+16.0%/67~~ BUG -> corrected -10.2%/67 | dead |
+| 10-16 | pre_rain_unders SEALED (user yes) | NFL 2020-25 | +13.3%/101 p.074 | INVALID: scored on misaligned wx. Not re-scored (needs user yes; corrected dev no longer earns it) |
 | 10-08 | Kalshi temp consensus-reject | lockbox | +1.45%/1,844 | PASSED — only real strategy |
 | earlier | MLB strikeout props model | 2025 lines | +1.1u/1,970 | break-even |
 
 Research takeaways (reports/Sports betting edge research.md): no published lasting edge on US closing lines;
 graph methods (GNN/BN/causal discovery) have no market-tested win; calibration + decorrelation from the book +
 CLV evaluation are what work; t > sqrt(2 ln N) for N trials.
+
+### 2026-10-16 bug: NFL game weather joined by row position
+`nfl.from_raw()` re-sorts rows; nfl_game_weather.py attached `stadium_id` with `.to_numpy()` (by position), so
+53% of games got another stadium's weather. Every rain/wind number before 2026-10-16 was wrong (oracle +32.7% was
+really +21.4%; causal rain +12.4% -> +8.0%; rain+wind +16% -> -10.2%). Fixed by merging on game_id
+(validate="1:1"); rebuilt data/nfl_game_wx.parquet, 100% stadium match. Corrected oracle: rain is -1.9 pts beyond
+the close (se 0.86), wind -0.24 pts/mph (se 0.07) -- the market under-reacts to weather, but rain visible 3 h before
+kickoff captures only part of it. Lesson: join on keys; assert alignment after any transform.

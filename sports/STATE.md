@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-16 (causal NFL pre-kickoff rain test: positive, below bar; user: weather = stadium weather). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-16 pm (weather JOIN BUG found+fixed; corrected rain edge +8% p=.11; live_signals.py paper engine on launchd). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -41,10 +41,15 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
   -110 ~ 9% hold) so each leg needs its own edge; testable on our prop/game data -> next sports task.
 - USER 2026-10-16: "weather" = weather AT THE STADIUM as a sports feature, NOT betting on weather markets
   (Polymarket/Kalshi weather). Open question to user: keep or stop the Kalshi temp paper trader + Polymarket step 4?
-- DONE 2026-10-16: causal NFL weather (scripts/nfl_weather_nowcast.py, ERA5 3h before kickoff, dev 2006-19):
-  pre_rain_unders +12.4%/217 p=.029, pre_rain_wind_unders +16.0%/67 p=.093; nfl_total bar now p<.0083 -> NOT past.
-  81% of pre-kickoff-rain games stay wet. Real NWP forecast archives start 2021 (= lockbox) so dev can't test them.
-  Sealed 2020-25 score of pre_rain_unders would be the honest next step -- needs the user's explicit yes.
+- 2026-10-16 BUG: all NFL weather results before today used weather joined to the WRONG game (53%). Fixed.
+  Corrected dev (2006-19): pre_rain_unders +8.0%/219 p=.11 (bar .0083) NOT past; rain+wind pre-kickoff -10.2% dead;
+  oracle (observed in-game) rain+wind +21.4%/70, rain -1.9 pts beyond close. The sealed score I ran (+13.3%/101,
+  FAIL) is INVALID (buggy data); not re-scored -- would need user's yes, and corrected dev doesn't earn it.
+- USER 2026-10-16: wants iteration (many small edges) + real-time system -> eventually a wallet to auto-bet.
+  Built scripts/live_signals.py: signal registry -> Kalshi pricing -> paper picks + settle. First signal
+  nfl_pre_rain (forward paper test on fresh 2026 games). Kalshi KXNFLTOTAL = liquid (1c spread, 1e4+ size).
+  Bovada etc: NOT automated (offshore/unlicensed in US + ToS). Wallet = Kalshi API key in sports/.env, only after
+  forward paper shows an edge, with caps + kill switch.
 - In-game weather/location = existing NFL leads (rain+wind unders oracle, west_coast_night, div_unders_late):
   sealed lockbox needs user's explicit yes; rain/wind also needs a FORECAST-based (not observed) version.
 - QUESTIONS OUT to user (unanswered): (1) which US state? (2) total capital available?
@@ -83,6 +88,13 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 launchd com.jonathanwang.quant-kalshi-paper: pick 22:03 / settle 10:07 daily from ~/.claude/quant-kalshi
 (code copy + own venv; launchd can't read Desktop). Canonical log ~/.claude/quant-kalshi/data/kalshi_paper.jsonl,
 run log ~/.claude/quant-kalshi/run.log. After editing kalshi_paper.py or sports/: `bash sports/scripts/install_kalshi_paper_agent.sh`.
+
+## Live signal engine (durable, paper)
+launchd com.jonathanwang.quant-live-signals: `live_signals.py tick` every 15 min from ~/.claude/quant-kalshi.
+Logs ~/.claude/quant-kalshi/data/live_signals.jsonl (picks+settles), live_signals_eval.jsonl (every game evaluated),
+live_signals.log (non-empty ticks only). Report: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/live_signals.py report`.
+After editing live_signals.py / sports/: `bash sports/scripts/install_live_signals_agent.sh`. Add signals to SIGNALS.
+Rain fires ~15-20x/season, so judging it takes seasons -- the engine's value is hosting MORE signals.
 
 ## Dies with the session (restart by hand)
 - Live paper loop: `cd sports && ../.venv_quant/bin/python scripts/live_edges.py loop --every 10` (run_in_background).
