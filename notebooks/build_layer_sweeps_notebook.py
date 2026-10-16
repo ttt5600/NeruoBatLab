@@ -33,6 +33,10 @@ each encoder is *reported* at; hollow markers are the other layers. For BirdPark
 values are for auditing only (detection_variants.json caveats): the reported value is the one at the
 layer frozen on zebra finch, never the maximum over the curve.
 
+**What the lines are.** The encoders differ in more than one way at once (starting weights, corpus,
+targets, compute, size). The section *What differs between these models* tabulates that for every
+line, and the legend carries the main facts for the coloured ones.
+
 **Depth axis.** Most encoders have 12 blocks. The 24-block BirdAVES-large models and the 4- and
 6-block Whisper encoders are rescaled onto the same 0–11 axis (block *i* of *L* sits at
 11·*i*/(*L*−1)), so "late" means the same thing for every line.
@@ -107,9 +111,43 @@ The five coloured lines are the comparison points the project argues about:
 - **E23 DAPT**, AVES continued on zebra finch with two-teacher targets at seed 2. It is the
   highest DAPT point on call type.
 - **Whisper-small**, the off-the-shelf point-estimate leader (072).
+
+These five are not one variable apart. Before comparing their lines, the next section says what each
+one *is*.
+
+## What differs between these models
+
+Two lines on the same axes are only a comparison of *something* if you know what separates the two
+models. This table lists, for every encoder scored on call type, what it was made from and how: where
+its weights started, what audio it trained on and how many hours, what targets it predicted, how much
+compute it got, how big it is, which seed, and which experiment and finding describe it. The
+`baseline` and `differs from baseline` columns name the run it was built to be compared with and the one
+thing changed against it.
+
+**Rules of the table** (`notebooks/model_facts.py`, also written to `notebooks/model_facts.csv`):
+
+- Every value is read from a file when the cell runs: the training scripts' `train.py` calls, the
+  compute JSONs, `detection_variants.json` and the call-type JSONs, `harness/experiments.yaml`,
+  `harness/build_board.py` / `build_comparison.py`, and the findings. Prose values are checked
+  verbatim against their file, so a stale value stops the notebook. The `source` column names the file
+  and key for every cell.
+- **An empty cell means no source states it.** Nothing is filled by analogy: run16's measured audio per
+  update is *not* copied to run18, even though run18 used run16's script.
+- **Audio per update** is measured for five models only (checkpoint step counts over the corpus size:
+  run11, run15, run16, run17, AVES-bio). For the others the table gives the batch *cap*
+  (`--seconds-per-batch` × GPUs × accumulation), which the realised batch stays under (run11: 80.3 s
+  realised against an 87.5 s cap).
+- **GPUs** are the GPUs actually used (srun ranks), not the ones reserved: run11 and run15 reserved
+  four and used one (044, 051).
+- **No scores.** Accuracies are being re-scored on the Mac (MPS bug); this table only says what each
+  model is.
 """)
 
 co(r"""
+import sys
+sys.path.insert(0, str(Path.cwd()))                 # model_facts.py sits next to this notebook
+from model_facts import facts, short_label, unknowns, cross_checks, COLUMN_NOTES
+
 # Categorical slots 1-5 of the reference palette, in fixed order; context lines are one grey.
 HL = [  # key, label, colour
     ("aves-base-bio",              "AVES-bio",       "#2a78d6"),
@@ -119,6 +157,63 @@ HL = [  # key, label, colour
     ("hf-whisper-small-enc",       "Whisper-small",  "#e87ba4"),
 ]
 SEEDS = ["run16_seed2", "run16_seed3"]          # drawn in run16's colour, dashed
+
+FACTS = facts(write_csv=True)                    # also refreshes notebooks/model_facts.csv
+missing = sorted((set(CT) | set(DET)) - set(FACTS.index))
+assert not missing, f"encoders in the figure without a facts row: {missing}"
+
+def show_facts(df):
+    # strings for display: blanks stay visibly blank, big numbers get units
+    f = df.copy().astype(object)
+    fmt = {"corpus_hours": lambda v: f"{v:,.2f}".rstrip("0").rstrip("."),
+           "total_audio_h": lambda v: f"{v:,.1f}".rstrip("0").rstrip("."),
+           "params": lambda v: f"{v / 1e6:.2f}M", "lr": lambda v: f"{v:.0e}",
+           "updates": lambda v: f"{int(v):,}", "warmup": lambda v: f"{int(v):,}"}
+    for c, g in fmt.items():
+        if c in df:
+            f[c] = df[c].map(lambda v, g=g: "" if pd.isna(v) else g(v))
+    return f.where(f.notna(), "").astype(str).replace({"<NA>": "", "nan": ""})
+
+# ---- 1. the reference encoders side by side, every fact; shaded rows are the ones that differ
+ref_tags = ["run11", "run16_compute4x", *SEEDS, "aves-base-bio", "daptv4two_2e4s2_step15000",
+            "hf-whisper-small-enc"]
+ref_names = {**{k: l for k, l, _ in HL}, "run16_seed2": "run16 seed 2", "run16_seed3": "run16 seed 3"}
+rows = ["family", "init", "training_corpus", "corpus_hours", "targets", "objective", "input",
+        "updates", "warmup", "lr", "accumulate", "gpus", "gpus_requested", "audio_per_update_s",
+        "audio_per_update_cap_s", "total_audio_h", "epochs", "mask", "seed", "params", "layers",
+        "embed_dim", "saw_test_birds", "experiment", "finding", "baseline", "differs_from_baseline",
+        "notes"]
+H = show_facts(FACTS.loc[ref_tags, rows]).T
+H.columns = [ref_names[t] for t in ref_tags]
+differs = H.apply(lambda r: r.nunique() > 1, axis=1)
+display(H.style.apply(lambda r: ["background-color: #fbf0d9" if differs[r.name] else "" for _ in r], axis=1)
+         .set_properties(**{"text-align": "left", "font-size": "11px"}))
+print(f"identical across these {len(ref_tags)}: {', '.join(H.index[~differs])}")
+for c, why in COLUMN_NOTES.items():
+    print(f"  {c}: {why}")
+""")
+
+co(r"""
+# ---- 2. every encoder in the figure, compact: one row each, the facts that separate them
+compact = ["display_name", "family", "init", "training_corpus", "corpus_hours", "targets", "updates",
+           "gpus", "audio_per_update_s", "total_audio_h", "lr", "mask", "seed", "params", "layers",
+           "embed_dim", "experiment", "finding", "baseline", "differs_from_baseline"]
+tags = [t for t in FACTS.index if t in CT or t in DET]
+C = show_facts(FACTS.loc[tags, compact])
+display(C.style.set_properties(**{"text-align": "left", "font-size": "10.5px"})
+         .set_table_styles([{"selector": "th", "props": [("text-align", "left")]}]))
+
+u = unknowns(FACTS.loc[tags])
+print(f"{len(tags)} encoders. Cells no source fills, by column:")
+for c, ts in u.items():
+    if c in compact:
+        print(f"  {c:22s} {len(ts):2d} empty" + (f"  ({', '.join(ts)})" if len(ts) <= 6 else ""))
+print("\nWhere the sources disagree about what a model is:")
+for line in cross_checks(FACTS):
+    print("  -", line)
+""")
+
+co(r"""
 CONTEXT = "#b9b8b3"
 INK, MUTED = "#0b0b0b", "#52514e"
 HL_KEYS = {k for k, _, _ in HL} | set(SEEDS)
@@ -197,18 +292,21 @@ for ax in axes[2:]:
     ax.set_ylim(lo_bp, 0.9)                              # same scale for the two BirdPark panels
 
 from matplotlib.lines import Line2D
-handles = [Line2D([], [], color=c, lw=2, label=l) for _, l, c in HL]
-handles += [Line2D([], [], color="#eb6834", lw=1.1, ls="--", label="run16 seeds 2, 3"),
-            Line2D([], [], color=CONTEXT, lw=0.9, label="every other scored encoder"),
+# legend labels carry what each reference encoder IS (model_facts.py), not just its name
+seed_diff = " / ".join(FACTS.loc[SEEDS, "differs_from_baseline"])
+handles = [Line2D([], [], color=c, lw=2, label=short_label(FACTS, k, l)) for k, l, c in HL]
+handles += [Line2D([], [], color="#eb6834", lw=1.1, ls="--",
+                   label=f"run16 seeds 2, 3 — same as run16 except\n{seed_diff}"),
+            Line2D([], [], color=CONTEXT, lw=0.9, label="every other scored encoder\n(section above)"),
             Line2D([], [], marker="o", ls="none", color=MUTED, mec="white", ms=6,
                    label="reported layer"),
             Line2D([], [], marker="o", ls="none", mfc="white", mec=MUTED, ms=5,
                    label="other layers")]
-fig.legend(handles=handles, loc="lower center", ncol=5, frameon=False, fontsize=8.5,
-           bbox_to_anchor=(0.5, -0.02))
+fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False, fontsize=8.5,
+           bbox_to_anchor=(0.5, 0.0), labelspacing=1.0, columnspacing=2.5, handlelength=2.4)
 fig.suptitle("Which encoder looks best depends on the layer you read it at", x=0.01, ha="left",
              fontsize=12, color=INK)
-fig.tight_layout(rect=(0, 0.05, 1, 0.97))
+fig.tight_layout(rect=(0, 0.15, 1, 0.97))
 out = Path("figures"); out.mkdir(exist_ok=True)
 fig.savefig(out / "07_layer_sweeps.png", dpi=150, bbox_inches="tight")
 plt.show()
@@ -355,6 +453,7 @@ bootstraps (call type) and block bootstraps (detection) at the pre-committed arm
 The grey lines are context, not a population: they are whichever encoders happened to be scored,
 many of them variants of one another.
 
+Model facts: `notebooks/model_facts.py` (every cell's file and key in its `source` column).
 Sources: `aves_variants_calltype.json`, `<tag>_calltype.json` (per_layer_acc11 / best_layer11),
 `detection_variants.json` (precommit.joint, in_distribution, zf_to_bp, layer_grids,
 bootstrap.run11_vs_logenergy), all under `~/zf_labelset/zf_detection_dataset_v1/analysis/`.
