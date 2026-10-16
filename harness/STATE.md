@@ -31,10 +31,11 @@ Updated: 2026-10-15 22:14 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; written as th
 - Resume fix: save last.ckpt every 2,500 steps (E8 needed 6 preemptions + a REQUEUE_HOLD).
 - Older: speech-commands, Kaggle for cbi/rfcx/Perch, 615 GB deletion, intern details, 174-clip label audit.
 
-## Sync state (verified 2026-10-15 21:55-22:14)
+## Sync state (verified 2026-10-15 21:55-22:14; resume: /loop follow harness/PI.md)
 - GitHub: project UMAP pushed (ttt5600/NeruoBatLab); pytorchAudio updated-hyperparams db5151b4 = Lab_Remote.
 - Savio: all 121 scp_to_savio.sh files identical; loss/ identical; BEANS eval code (beans_eval/) synced.
 - Dashboard https://claude.ai/artifact/RRGaF3dkeK3mNd3gjX5GQ7: 43 models, 0 mismatches vs source JSONs.
 
 ## Clocks
 - BRC cert EXPIRED 20:58 Oct 15: `sv login` before E8 starts (~Oct 17 05:00). Next digest after 09:00 Oct 16.
+- /clear at ~22:20 Oct 15: a heartbeat from session_01EGDWEvYFd6zSmWQfUugJnH is THIS lead before the clear, not another lead.
