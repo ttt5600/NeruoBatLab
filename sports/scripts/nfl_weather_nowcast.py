@@ -2,6 +2,7 @@
 
     python scripts/nfl_weather_nowcast.py            # print results
     python scripts/nfl_weather_nowcast.py --ledger   # also append the trials to lab/ledger.jsonl
+    python scripts/nfl_weather_nowcast.py sealed --confirm   # ONE-TIME lockbox score (human yes required)
 
 The oracle (nfl_weather_oracle.py) used ERA5 weather observed DURING the game,
 which no bettor has. Here the signal is the stadium weather over the 3 hours up
@@ -15,6 +16,9 @@ Pre-registered before looking (2026-10-16), dev 2006-2019 only, bet the under:
   T1 pre_rain_wind_unders : pre precip >= 1 mm and pre wind mean >= 12 mph
   T2 pre_rain_unders      : pre precip >= 1 mm
 (wind-only is ledger trial 1, wind_unders, already scored -- not repeated.)
+
+Sealed (user said yes 2026-10-16): ONLY pre_rain_unders, lockbox seasons 2020-2025,
+promotion #1 on nfl_total -> PASS iff bootstrap p < 0.05 and units > 0. Scored once.
 """
 from __future__ import annotations
 
@@ -36,6 +40,8 @@ from nfl_game_weather import STADIUMS, hourly
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "lab" / "ledger.jsonl"
 DEV = (2006, 2019)
+SEALED = (2020, 2025)
+LOCKBOX_LOG = ROOT / "lab" / "lockbox.jsonl"
 TRIALS = {
     "pre_rain_wind_unders": ("Rain + wind visible before kickoff (3h pre-kickoff precip >= 1 mm and wind mean >= 12 mph, "
                              "ERA5 at the stadium) predicts the under beyond the closing total. Causal version of the "
@@ -45,7 +51,7 @@ TRIALS = {
 }
 
 
-def frame() -> pd.DataFrame:
+def frame(seasons=DEV) -> pd.DataFrame:
     raw = nfl.raw_games()
     # same filter + per stadium-season request span as nfl_game_weather.py -> cached responses
     raw = raw[(raw.season >= 2006) & (raw.season <= 2025) & raw.roof.isin(["outdoors", "open"])]
@@ -54,7 +60,7 @@ def frame() -> pd.DataFrame:
     for sid, grp in g.groupby("stadium_id"):
         lat, lon = STADIUMS[sid]
         for season, sg in grp.groupby("season"):
-            if not DEV[0] <= season <= DEV[1]:
+            if not seasons[0] <= season <= seasons[1]:
                 continue
             t0, t1 = sg["start_utc"].min(), sg["start_utc"].max() + pd.Timedelta(hours=5)
             h = hourly(lat, lon, t0.date().isoformat(), t1.date().isoformat())
@@ -87,7 +93,39 @@ def score(s: pd.DataFrame, rng) -> dict:
             "per_fold": {str(k): v for k, v in per.items()}}
 
 
+def sealed() -> int:
+    if "--confirm" not in sys.argv:
+        print("lockbox scoring is a human decision; pass --confirm")
+        return 1
+    name = "pre_rain_unders"
+    hyp, rule = TRIALS[name]
+    sha = hashlib.sha256((name + hyp).encode()).hexdigest()[:12]
+    prior = [json.loads(l) for l in LOCKBOX_LOG.read_text().splitlines() if l.strip()]
+    if any(r["sha"] == sha for r in prior):
+        print(f"{name} was already scored on the lockbox; re-scoring would make it a dev set. Refusing.")
+        return 1
+    n_promoted = 1 + sum(r["dataset"] == "nfl_total" for r in prior)
+    dev_trials = len({json.loads(l)["sha"] for l in LEDGER.read_text().splitlines()
+                      if l.strip() and json.loads(l).get("status") == "ok" and json.loads(l)["dataset"] == "nfl_total"})
+    d = frame(SEALED)
+    s = d[rule(d)]
+    res = score(s, np.random.default_rng(0))
+    bar = 0.05 / n_promoted
+    rec = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": name, "sha": sha,
+           "dataset": "nfl_total", "dev_trials": dev_trials, "promotion_number": n_promoted, **res}
+    with LOCKBOX_LOG.open("a") as f:
+        f.write(json.dumps(rec) + "\n")
+    print(f"LOCKBOX {name} seasons {SEALED[0]}-{SEALED[1]}: {len(d)} outdoor games, {res['bets']} bets, "
+          f"resid {s.resid.mean():+.2f} pts")
+    print(f"  units {res['units']:+.2f}  ROI {res['roi']:+.2%}  95% CI [{res['ci_lo']:+.1f}, {res['ci_hi']:+.1f}]u  "
+          f"p {res['p']:.4f}  seasons positive {res['folds_positive']}/{len(res['per_fold'])}  {res['per_fold']}")
+    print(f"  verdict: {'PASS' if res['p'] < bar and res['units'] > 0 else 'FAIL'} (bar p < {bar:.4f})")
+    return 0
+
+
 def main() -> int:
+    if "sealed" in sys.argv:
+        return sealed()
     d = frame()
     print(f"dev outdoor games with pre-kickoff weather + close: {len(d)}")
     rain_pre, rain_game = d.pre_precip >= 1, d.game_precip >= 1
