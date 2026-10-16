@@ -32,6 +32,7 @@ from sports import wx
 LOG = Path(__file__).resolve().parents[1] / "data" / "kalshi_paper.jsonl"
 MODELS = ["gfs_seamless", "ecmwf_ifs025", "icon_seamless", "gem_seamless", "ncep_nbm_conus"]
 MARGIN = 3.0
+DECISION_HOUR = 22  # city-local, the night before (matches lab/strategies + wx.decision_ts)
 H = {"User-Agent": "Mozilla/5.0"}
 
 
@@ -72,10 +73,17 @@ def book_depth(ticker):
     return best, d1, d2
 
 
-def cmd_pick(days_ahead: int = 1, log: bool = True):
+def cmd_pick(days_ahead: int = 1, log: bool = True, only_local_hour: int | None = None):
+    """only_local_hour: skip cities where it is not that hour locally. The backtest decides at
+    DECISION_HOUR (22:00) CITY-local the night before, so the agent runs `pick-due` hourly and each
+    city is picked in its own 22:xx hour. (One 22:03 Pacific run looked up the day AFTER tomorrow
+    for ET/CT cities -- 5 of 7 found no open event on 2026-10-15.)"""
     now = datetime.now(timezone.utc)
+    seen = {json.loads(l)["ticker"] for l in LOG.read_text().splitlines()} if LOG.exists() else set()
     picks = []
     for series, (station, tz) in wx.CITIES.items():
+        if only_local_hour is not None and now.astimezone(ZoneInfo(tz)).hour != only_local_hour:
+            continue
         tomorrow = (now.astimezone(ZoneInfo(tz)) + timedelta(days=days_ahead)).date()
         ev = f"{series}-{tomorrow.strftime('%y%b%d').upper()}"
         ms = requests.get(f"{wx.API}/markets", headers=H, timeout=30,
@@ -96,6 +104,8 @@ def cmd_pick(days_ahead: int = 1, log: bool = True):
             if not (bid > 0 and ask < 1 and ask - bid <= 0.10 and ask > 0.01):
                 continue
             if not rejected(m.get("strike_type"), fl, ca, vals):
+                continue
+            if log and m["ticker"] in seen:  # launchd catch-up after sleep must not double-log
                 continue
             best, d1, d2 = book_depth(m["ticker"])
             picks.append({"logged_at": now.isoformat(timespec="seconds"), "city": series, "event": ev,
@@ -136,7 +146,9 @@ def cmd_report():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "report"
-    if cmd == "validate":  # today's open markets: exercises the live path, logs nothing
+    if cmd == "pick-due":  # hourly from launchd: cities whose local clock reads 22:xx
+        cmd_pick(only_local_hour=DECISION_HOUR)
+    elif cmd == "validate":  # today's open markets: exercises the live path, logs nothing
         cmd_pick(days_ahead=0, log=False)
     else:
         {"pick": cmd_pick, "settle": cmd_settle, "report": cmd_report}[cmd]()

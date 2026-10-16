@@ -1,8 +1,8 @@
 #!/bin/bash
 # Install (or refresh) the durable Kalshi paper trader: launchd cannot read ~/Desktop (TCC),
 # so code + venv + log live in ~/.claude/quant-kalshi. Re-run after editing kalshi_paper.py or sports/.
-#   pick   daily 22:03 local (matches the backtest's evening forecast)
-#   settle daily 10:07 local
+#   pick-due hourly at :03 -- each city is picked at 22:xx in ITS OWN time zone (the backtest's decision time)
+#   settle   daily 10:07 local
 # Paper only: kalshi_paper.py places no orders. Log: ~/.claude/quant-kalshi/data/kalshi_paper.jsonl
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
@@ -35,17 +35,17 @@ cat > "$PLIST" <<EOF
   <key>Label</key><string>$LABEL</string>
   <key>ProgramArguments</key><array><string>/bin/bash</string><string>$DST/dispatch.sh</string></array>
   <key>StartCalendarInterval</key><array>
-    <dict><key>Hour</key><integer>22</integer><key>Minute</key><integer>3</integer></dict>
+    <dict><key>Minute</key><integer>3</integer></dict>
     <dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>7</integer></dict>
   </array>
   <key>StandardErrorPath</key><string>$DST/launchd.err</string>
 </dict></plist>
 EOF
 
-# one agent, two times: pick in the evening, settle otherwise
+# one agent: :03 every hour -> pick-due (no-op unless a city is at 22:xx); 10:07 -> settle
 cat > "$DST/dispatch.sh" <<EOF
 #!/bin/bash
-if [ "\$(date +%H)" -ge 18 ]; then exec "$DST/run.sh" pick; else exec "$DST/run.sh" settle; fi
+if [ "\$(date +%M)" -lt 5 ]; then exec "$DST/run.sh" pick-due; else exec "$DST/run.sh" settle; fi
 EOF
 chmod +x "$DST/dispatch.sh"
 

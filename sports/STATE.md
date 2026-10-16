@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-16 pm (weather JOIN BUG found+fixed; corrected rain edge +8% p=.11; live_signals.py paper engine on launchd). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-16 eve (Kalshi paper TIMING BUG fixed: per-city 22:00 local; parlay test 0/2). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -39,6 +39,11 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 - Sportsbooks: manual bets only (no bot, ToS). Sign-up promos are the one sure +EV (one-time per book; legal
   only in states with online books -- NOT California). Parlays: book margin compounds per leg (2 legs at
   -110 ~ 9% hold) so each leg needs its own edge; testable on our prop/game data -> next sports task.
+- PARLAYS TESTED 2026-10-16 (scripts/parlay_test.py, dev only, 2 trials): 0/2. Props legs at dec<=1.50 lose
+  -4.7% each -> 105k cross-game 2-leg parlays -9.3% +-0.3% (compounding predicts -9.2%; hit rate 56% feels good,
+  payout doesn't cover it). NFL ML favourites -1.2% single -> parlay -1.35% (n=885, ns). Parlays square the
+  legs' edge; they can't create one. Favourite-longshot bias is real (prop favs -5% vs longshots -17.6%) but
+  favourites are still negative. Same-game parlays untested (no SGP prices).
 - USER 2026-10-16: "weather" = weather AT THE STADIUM as a sports feature, NOT betting on weather markets
   (Polymarket/Kalshi weather). Open question to user: keep or stop the Kalshi temp paper trader + Polymarket step 4?
 - 2026-10-16 BUG: all NFL weather results before today used weather joined to the WRONG game (53%). Fixed.
@@ -75,8 +80,7 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 ## Next steps (in order) -- a fresh session starts at the first unblocked one
 1. Kalshi weather paper trading runs itself (launchd, see below). Each session: `cd ~/.claude/quant-kalshi &&
    .venv/bin/python scripts/kalshi_paper.py report` and note picks/P&L here. Judge after 4-6 weeks.
-2. Sports, user's ideas: (a) 2-leg parlay test on existing prop/game data (does combining two +EV-looking legs
-   survive the compounded hold?); (b) DONE 10-16 (see above; lockbox needs yes); (c) venue-location features (altitude, travel, timezone) on NFL/MLB/NBA dev.
+2. Sports, user's ideas: (a) DONE 10-16 parlays 0/2 (see above); (b) DONE 10-16 (see above; lockbox needs yes); (c) venue-location features (altitude, travel, timezone) on NFL/MLB/NBA dev.
 3. Stocks: next ideas in the STOCKS section; add trials via TRIALS in stocks_bt.py (ledger counts them).
 4. Polymarket US: check legal access for the user's state; if yes, scan its weather markets with the
    consensus-reject rule (paper only).
@@ -85,7 +89,11 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 7. live_edges.py scanner is session-only; low priority.
 
 ## Kalshi paper trader (durable)
-launchd com.jonathanwang.quant-kalshi-paper: pick 22:03 / settle 10:07 daily from ~/.claude/quant-kalshi
+2026-10-16 FIX: the old single 22:03-PT run looked up the day AFTER tomorrow for ET/CT cities (5/7 "no open event"
+on 10-15; only DEN logged, 1 pick). Backtest decides at 22:00 CITY-local. Now `pick-due` runs hourly at :03 and
+picks each city in its own 22:xx hour (NY/MIA/PHL 19:03 PT, CHI/AUS 20:03, DEN 21:03, LAX 22:03); log is deduped
+by ticker. Paper record effectively starts 2026-10-16 evening.
+launchd com.jonathanwang.quant-kalshi-paper: pick-due hourly :03 / settle 10:07 daily from ~/.claude/quant-kalshi
 (code copy + own venv; launchd can't read Desktop). Canonical log ~/.claude/quant-kalshi/data/kalshi_paper.jsonl,
 run log ~/.claude/quant-kalshi/run.log. After editing kalshi_paper.py or sports/: `bash sports/scripts/install_kalshi_paper_agent.sh`.
 
