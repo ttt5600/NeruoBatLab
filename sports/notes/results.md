@@ -19,6 +19,7 @@
 | 10-09 | rain+wind unders (oracle, observed wx) | NFL dev | +32.7%/70 | needs forecast test (lockbox) |
 | 10-16 | pre_rain_unders (wx 3h pre-kickoff, causal) | NFL dev 06-19 | +12.4%/217 p.029 | below bar .0083 (6 trials) |
 | 10-16 | pre_rain_wind_unders (causal) | NFL dev 06-19 | +16.0%/67 p.093 | below bar |
+| 10-16 | pre_rain_unders SEALED (user yes) | NFL 2020-25 | +13.3%/101 p.074, 4/6 seasons | FAIL (bar .05); size replicated, n too small -> forward paper only |
 | 10-08 | Kalshi temp consensus-reject | lockbox | +1.45%/1,844 | PASSED — only real strategy |
 | earlier | MLB strikeout props model | 2025 lines | +1.1u/1,970 | break-even |
 
