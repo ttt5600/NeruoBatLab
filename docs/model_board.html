@@ -89,7 +89,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">HuBERT vocalization models · as of Oct 15, 2026 21:30</div>
+    <div class="eyebrow">HuBERT vocalization models · as of Oct 15, 2026 22:12</div>
     <h1>Zebra Finch Model Board</h1>
     <nav><a href="#models">Models</a><a href="#experiments">Experiments</a><a href="#automations">Savio automations</a><a href="#notebooks">Notebooks</a></nav>
   </header>
@@ -299,9 +299,9 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 <div class="card"><div class="ch"><h3>lab / sv commands</h3><span class="chip ok">working</span></div><p><code>sv train</code>, <code>sv status</code>, <code>sv log</code>, <code>sv gpu</code>, <code>sv notebook</code>, <code>sv data</code>, <code>sv share</code>. Training submissions run an import check first and go in a ledger.</p></div>
 <div class="card"><div class="ch"><h3>Shared data</h3><span class="chip ok">working</span></div><p>34 corpora, label sets and models registered in <code>datasets.tsv</code>, browsable under <code>…/lab_data</code>, read + write for Julie (jelie) and Bhavna (malladibhavna). New folders: <code>lab share</code>.</p></div>
 <div class="card"><div class="ch"><h3>Storage</h3><span class="chip ok">working</span></div><p>Home went from 47 GB (at its 50 GB cap) to 0.7 GB on Oct 4; conda envs, pip cache and JupyterLab live on scratch behind shortcuts. Env recipes in <code>~/env_specs</code>.</p></div>
-<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip ok">working</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-15 21:29, connected.</p></div>
+<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip ok">working</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-15 22:09, connected.</p></div>
 <div class="card"><div class="ch"><h3>Experiment harness</h3><span class="chip ok">working</span></div><p>Each poll, <code>tick.py</code> starts an agent when a run finishes, fails, or an approved experiment has a free slot (2 at a time, 6 agents a day). It stands down while the lead agent is alive.</p></div>
-<div class="card"><div class="ch"><h3>Lead agent</h3><span class="chip run">running</span></div><p>Long-lived <code>/loop</code> session (<code>harness/PI.md</code>). Last heartbeat Oct 15 21:29. </p></div>
+<div class="card"><div class="ch"><h3>Lead agent</h3><span class="chip run">running</span></div><p>Long-lived <code>/loop</code> session (<code>harness/PI.md</code>). Last heartbeat Oct 15 21:47. </p></div>
 <div class="card"><div class="ch"><h3>Critic</h3><span class="chip ok">working</span></div><p>A fresh agent tries to break every finding before it is recorded (<code>harness/CRITIC.md</code>). Findings 056–061 all came back accept-with-changes, changes applied.</p></div>
 <div class="card"><div class="ch"><h3>Jupyter on Savio</h3><span class="chip warn">partly tested</span></div><p>Kernel and the Mac-to-Savio tunnel are verified; the GPU notebook job itself has not run yet. Start one with <code>sv notebook HOURS</code>.</p></div>
 <div class="card"><div class="ch"><h3>Duplicate agents</h3><span class="chip bad">open issue</span></div><p>The usage watcher's auto-resume started a second agent in this project twice while the lead was running; both submitted the same job. Duplicates were cancelled. Fix: make auto-resume skip this project while the lead is alive.</p></div>

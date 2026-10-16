@@ -96,6 +96,14 @@
   "verdict": "ZF detection AUC about +0.003 over AVES at every arm and seed; call type unchanged; BirdAVES start got worse."
  },
  {
+  "variable": "Bat audio above 8 kHz (input sample rate)",
+  "ours": "16 kHz: bat energy above 8 kHz is discarded (~91% of it)",
+  "aves": "16 kHz, same",
+  "status": "tested (bats only)",
+  "tests": "E16 (074)",
+  "verdict": "Slowing 250 kHz bat audio 4x: BEANS bats +0.080 (run16), +0.067 (AVES), mostly from the stretch itself; no gain on the label-free score."
+ },
+ {
   "variable": "Seeds",
   "ours": "2-3 per recipe",
   "aves": "one release each",

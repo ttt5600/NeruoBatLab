@@ -149,6 +149,8 @@ def main():
              tests="AVES core/bio/all; E15 proposed", verdict="AVES 153 h vs 5,054 h tie on call type; larger corpora help BEANS more."),
         dict(variable="Continued training from AVES (DAPT)", ours="15k-45k updates on ZF + replay", aves="none", status="closed",
              tests="E17-E24, E28, E22 (064-068)", verdict="ZF detection AUC about +0.003 over AVES at every arm and seed; call type unchanged; BirdAVES start got worse."),
+        dict(variable="Bat audio above 8 kHz (input sample rate)", ours="16 kHz: bat energy above 8 kHz is discarded (~91% of it)", aves="16 kHz, same", status="tested (bats only)",
+             tests="E16 (074)", verdict="Slowing 250 kHz bat audio 4x: BEANS bats +0.080 (run16), +0.067 (AVES), mostly from the stretch itself; no gain on the label-free score."),
         dict(variable="Seeds", ours="2-3 per recipe", aves="one release each", status="measured",
              tests="057, 067, 070", verdict="Same-recipe seeds move call type by up to about 0.019, as much as most recipe changes."),
     ]
