@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-15 late (sealed confirm 0/10; Kalshi paper launchd; stocks 0/11 dev; user said go wide). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-16 (causal NFL pre-kickoff rain test: positive, below bar; user: weather = stadium weather). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -39,6 +39,12 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 - Sportsbooks: manual bets only (no bot, ToS). Sign-up promos are the one sure +EV (one-time per book; legal
   only in states with online books -- NOT California). Parlays: book margin compounds per leg (2 legs at
   -110 ~ 9% hold) so each leg needs its own edge; testable on our prop/game data -> next sports task.
+- USER 2026-10-16: "weather" = weather AT THE STADIUM as a sports feature, NOT betting on weather markets
+  (Polymarket/Kalshi weather). Open question to user: keep or stop the Kalshi temp paper trader + Polymarket step 4?
+- DONE 2026-10-16: causal NFL weather (scripts/nfl_weather_nowcast.py, ERA5 3h before kickoff, dev 2006-19):
+  pre_rain_unders +12.4%/217 p=.029, pre_rain_wind_unders +16.0%/67 p=.093; nfl_total bar now p<.0083 -> NOT past.
+  81% of pre-kickoff-rain games stay wet. Real NWP forecast archives start 2021 (= lockbox) so dev can't test them.
+  Sealed 2020-25 score of pre_rain_unders would be the honest next step -- needs the user's explicit yes.
 - In-game weather/location = existing NFL leads (rain+wind unders oracle, west_coast_night, div_unders_late):
   sealed lockbox needs user's explicit yes; rain/wind also needs a FORECAST-based (not observed) version.
 - QUESTIONS OUT to user (unanswered): (1) which US state? (2) total capital available?
@@ -59,14 +65,13 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 1. Odds API decision (pre-registered outcome of the sealed test, no Class-B pass): buying ($119, 1 month,
    `ODDS_API_KEY=` in `sports/.env`) is a $119 test of ONE lead -- the NBA high-line under @DraftKings
    (+1.9% dev, untestable on ESPN data). User's call; do not frame it as a likely winner.
-2. Older pending lockbox decisions: west_coast_night, div_unders_late, rain+wind unders (NFL 2020-25).
+2. Older pending lockbox decisions: west_coast_night, div_unders_late, pre_rain_unders (causal, NFL 2020-25).
 
 ## Next steps (in order) -- a fresh session starts at the first unblocked one
 1. Kalshi weather paper trading runs itself (launchd, see below). Each session: `cd ~/.claude/quant-kalshi &&
    .venv/bin/python scripts/kalshi_paper.py report` and note picks/P&L here. Judge after 4-6 weeks.
 2. Sports, user's ideas: (a) 2-leg parlay test on existing prop/game data (does combining two +EV-looking legs
-   survive the compounded hold?); (b) forecast-based (not observed) NFL rain/wind unders on dev via
-   open-meteo historical forecasts; (c) venue-location features (altitude, travel, timezone) on NFL/MLB/NBA dev.
+   survive the compounded hold?); (b) DONE 10-16 (see above; lockbox needs yes); (c) venue-location features (altitude, travel, timezone) on NFL/MLB/NBA dev.
 3. Stocks: next ideas in the STOCKS section; add trials via TRIALS in stocks_bt.py (ledger counts them).
 4. Polymarket US: check legal access for the user's state; if yes, scan its weather markets with the
    consensus-reject rule (paper only).
