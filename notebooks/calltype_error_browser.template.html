@@ -1,0 +1,328 @@
+<title>Zebra Finch Call Confusions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --bg: #f5f6f7; --surface: #ffffff; --ink: #15171a; --muted: #5d636b; --faint: #8b9198;
+  --line: #e0e3e7; --accent: #2a78d6; --accent-ink: #1c5cab; --err: #c03a3a; --ok: #1d7f49;
+  --chip: #eef1f4; --focus: #2a78d6;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111315; --surface: #1a1d20; --ink: #e9ecef; --muted: #a2a9b1; --faint: #78808a;
+    --line: #2c3136; --accent: #3987e5; --accent-ink: #86b6ef; --err: #e66767; --ok: #45c07c;
+    --chip: #23272b; --focus: #6da7ec;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111315; --surface: #1a1d20; --ink: #e9ecef; --muted: #a2a9b1; --faint: #78808a;
+  --line: #2c3136; --accent: #3987e5; --accent-ink: #86b6ef; --err: #e66767; --ok: #45c07c;
+  --chip: #23272b; --focus: #6da7ec;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 14px; line-height: 1.45; }
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: 20px; padding-block: 20px 40px; display: grid; gap: 18px; }
+header { display: grid; gap: 6px; }
+h1 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 72ch; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.bar { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; }
+.group { display: grid; gap: 6px; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); font-weight: 500; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { font: inherit; border: 0; background: transparent; color: var(--ink); padding: 7px 12px; cursor: pointer; display: grid; text-align: left; gap: 1px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button small { color: var(--faint); font-size: 11px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.seg button[aria-pressed="true"] small { color: rgba(255,255,255,0.8); }
+button:focus-visible, select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; }
+.main { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 900px) { .main { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 10px; }
+.matrix-panel { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); }
+@media (max-width: 900px) { .matrix-panel { position: static; } }
+.mscroll { overflow-x: auto; }
+table.m { border-collapse: separate; border-spacing: 2px; font-family: var(--mono); font-size: 11px; margin: 0 auto; }
+table.m th { font-weight: 500; color: var(--muted); padding: 2px 4px; }
+table.m th.row { text-align: right; cursor: pointer; }
+table.m th.row:hover { color: var(--accent-ink); }
+table.m td { width: 32px; height: 28px; text-align: center; border-radius: 4px; cursor: pointer; color: var(--ink); font-variant-numeric: tabular-nums; }
+table.m td.zero { color: var(--faint); cursor: default; }
+table.m td.diag { font-weight: 500; }
+table.m td.sel, table.m th.sel { outline: 2px solid var(--ink); outline-offset: -1px; }
+table.m td:not(.zero):hover { outline: 2px solid var(--accent); outline-offset: -1px; }
+.axis { display: flex; justify-content: space-between; color: var(--faint); font-size: 11px; }
+.hint { color: var(--muted); font-size: 12px; margin: 0; }
+.selhead { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+.selhead h2 { font-size: 17px; font-weight: 600; margin: 0; }
+.ref { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.ref .strip { display: grid; gap: 6px; }
+.ref .imgs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(214px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: grid; }
+.spec { position: relative; display: block; width: 100%; border: 0; padding: 0; background: #000; cursor: pointer; aspect-ratio: 208 / 112; max-width: 100%; }
+.spec img { display: block; width: 100%; height: 100%; object-fit: fill; }
+.spec .play { position: absolute; left: 8px; bottom: 6px; width: 24px; height: 24px; border-radius: 50%; background: rgba(0,0,0,0.55); display: grid; place-items: center; }
+.spec .play svg { width: 10px; height: 10px; fill: #fff; }
+.spec.playing .play { background: var(--accent); }
+.spec .dur { position: absolute; right: 6px; bottom: 5px; color: #fff; font: 11px var(--mono); text-shadow: 0 0 3px #000; }
+.spec .khz { position: absolute; left: 6px; top: 4px; color: rgba(255,255,255,0.75); font: 10px var(--mono); }
+.body { padding: 10px 12px 12px; display: grid; gap: 7px; }
+.call { display: flex; align-items: baseline; gap: 6px; font-weight: 600; font-size: 15px; }
+.call .arrow { color: var(--faint); font-weight: 400; }
+.call .bad { color: var(--err); }
+.call .good { color: var(--ok); }
+.stats { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 2px 14px; font-size: 12px; }
+.stats dt { color: var(--faint); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; }
+.stats dd { margin: 0; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.others { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { font-size: 11px; background: var(--chip); border-radius: 999px; padding: 2px 8px; color: var(--muted); font-family: var(--mono); }
+.chip.r { color: var(--ok); }
+.chip.w { color: var(--err); }
+.meta { color: var(--faint); font-size: 11px; font-family: var(--mono); overflow-wrap: anywhere; }
+.more { justify-self: center; font: inherit; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; padding: 8px 16px; cursor: pointer; }
+.empty { color: var(--muted); padding: 24px; text-align: center; }
+footer { color: var(--muted); font-size: 12px; max-width: 90ch; display: grid; gap: 6px; }
+footer p { margin: 0; }
+@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } .card:hover { border-color: var(--faint); } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Zebra Finch Call Confusions</h1>
+    <p class="lede">Every call-type mistake made by the leave-birds-out probe on three encoders, with each clip's spectrogram and sound. Click a cell of the matrix to see the clips behind it. Click a spectrogram to play it.</p>
+  </header>
+
+  <div class="bar">
+    <div class="group"><span class="label">Encoder</span><div class="seg" id="models" role="group" aria-label="Encoder"></div></div>
+    <div class="group"><span class="label">Show</span><div class="seg" id="views" role="group" aria-label="Which clips"></div></div>
+    <div class="group"><label class="label" for="sort">Sort clips by</label>
+      <select id="sort">
+        <option value="conf">Most confident mistake first</option>
+        <option value="far">Farthest from its own type first</option>
+        <option value="near">Closest to the called type first</option>
+        <option value="bird">Bird</option>
+      </select></div>
+  </div>
+
+  <div class="main">
+    <section class="panel matrix-panel" aria-label="Confusion matrix">
+      <div class="selhead"><span class="label" id="mtitle">Confusion matrix</span></div>
+      <div class="mscroll"><table class="m" id="matrix"></table></div>
+      <div class="axis"><span>rows: true type</span><span>columns: what the probe called it</span></div>
+      <p class="hint" id="mhint"></p>
+    </section>
+
+    <section style="display:grid; gap:14px; min-width:0">
+      <div class="panel">
+        <div class="selhead"><h2 id="seltitle"></h2><span class="meta" id="selcount"></span></div>
+        <p class="hint" id="seldesc"></p>
+        <div class="ref" id="ref"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <button class="more" id="more" hidden>Show more</button>
+    </section>
+  </div>
+
+  <footer>
+    <p><b>How the numbers are made.</b> Clip embeddings are mean-pooled at each encoder's reported best layer. A logistic-regression probe is trained on four fifths of the birds and tested on the rest, five times, so every prediction is for a bird the probe never saw. <span class="num">p</span> is the probe's probability for the type it chose, <span class="num">p(true)</span> its probability for the correct type, and <span class="num">rank</span> where the correct type came among the 11.</p>
+    <p><b>Distances</b> (<span class="num">d true</span>, <span class="num">d called</span>) are measured from the clip to the centre of the true type and of the called type. They are computed in a 10-dimensional LDA space fitted on the training birds and scaled so that 1.0 is as far out as a typical member of that type. A mistake with d called below 1 sits inside the other type's cluster.</p>
+    <p>Audio: Elie &amp; Theunissen zebra finch vocalization corpus (CC BY 4.0), peak-normalised for listening. Spectrograms 0–10 kHz, each clip stretched to the card width; duration is printed on the image. Built by <span class="num">notebooks/build_calltype_error_browser.py</span> from <span class="num">calltype_errors.npz</span>.</p>
+  </footer>
+</div>
+<audio id="player" preload="none"></audio>
+
+<script>
+const D = /*__DATA__*/null;
+const IMG = /*__IMG__*/null;
+const AUD = /*__AUD__*/null;
+const AV = "AVES-bio", DA = "E23 DAPT";
+const VIEWS = [
+  ["errors", "Mistakes", "of this encoder"],
+  ["fixed", "DAPT fixed", "AVES wrong, DAPT right"],
+  ["broke", "DAPT broke", "AVES right, DAPT wrong"],
+  ["all3", "All three wrong", "possible label errors"],
+];
+const byI = new Map(D.clips.map(c => [c.i, c]));
+const st = { model: DA, view: "errors", sel: null, sort: "conf", shown: 48 };
+try { const s = JSON.parse(localStorage.getItem("ctc-state") || "{}"); if (D.models.includes(s.model)) st.model = s.model; if (s.sort) st.sort = s.sort; } catch (e) {}
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+
+// the model whose wrong call a clip is filed under, per view
+function errModel() { return st.view === "fixed" ? AV : st.view === "broke" ? DA : st.model; }
+function inView(c) {
+  const w = m => c.m[m].c !== c.y;
+  if (st.view === "errors") return w(st.model);
+  if (st.view === "fixed") return w(AV) && !w(DA);
+  if (st.view === "broke") return !w(AV) && w(DA);
+  return D.models.every(w);
+}
+function viewClips() { return D.clips.filter(inView); }
+
+function renderControls() {
+  $("models").innerHTML = D.models.map(m =>
+    `<button type="button" aria-pressed="${m === st.model}" data-m="${esc(m)}" ${st.view === "fixed" || st.view === "broke" ? "disabled" : ""}>
+       <span>${esc(m)}</span><small class="num">acc ${D.acc[m].toFixed(4)} · L${D.layer[m]}</small></button>`).join("");
+  $("views").innerHTML = VIEWS.map(([k, l, s]) =>
+    `<button type="button" aria-pressed="${k === st.view}" data-v="${k}"><span>${l}</span><small>${s}</small></button>`).join("");
+  $("sort").value = st.sort;
+}
+
+function matrixCounts() {
+  if (st.view === "errors") return D.conf[st.model];
+  const em = errModel(), M = {};
+  D.order.forEach(a => { M[a] = {}; D.order.forEach(b => M[a][b] = 0); });
+  viewClips().forEach(c => M[c.y][c.m[em].c]++);
+  return M;
+}
+
+function renderMatrix() {
+  const M = matrixCounts(), O = D.order;
+  let h = `<thead><tr><th></th>${O.map(b => `<th scope="col" title="${esc(D.full[b])}">${b}</th>`).join("")}</tr></thead><tbody>`;
+  O.forEach(a => {
+    const n = D.counts[a];
+    const rowSel = st.sel && st.sel.t === a && !st.sel.c;
+    h += `<tr><th class="row${rowSel ? " sel" : ""}" scope="row" data-t="${a}" title="${esc(D.full[a])}: all ${st.view === "errors" ? "mistakes" : "clips in this view"}">${a}</th>`;
+    O.forEach(b => {
+      const v = M[a][b], share = v / n, diag = a === b;
+      const pct = Math.round(Math.min(1, share) * 100 * 0.92);
+      const bg = v ? `background: color-mix(in oklab, var(--accent) ${Math.max(6, pct)}%, var(--surface));` : "";
+      const fg = share > 0.5 ? "color:#fff;" : "";
+      const sel = st.sel && st.sel.t === a && st.sel.c === b;
+      h += `<td class="${v ? "" : "zero"}${diag ? " diag" : ""}${sel ? " sel" : ""}" style="${bg}${fg}" data-t="${a}" data-c="${b}"
+             title="${a} called ${b}: ${v} of ${n} (${(100 * share).toFixed(1)}%)">${v || "·"}</td>`;
+    });
+    h += "</tr>";
+  });
+  $("matrix").innerHTML = h + "</tbody>";
+  const vc = viewClips().length;
+  $("mtitle").textContent = st.view === "errors" ? `${st.model}: true type × called type` :
+    `${VIEWS.find(v => v[0] === st.view)[1]}: true type × wrong call (${errModel()})`;
+  $("mhint").innerHTML = st.view === "errors"
+    ? `Shade = share of the true type's clips. The diagonal is correct calls; click it for typical examples of that type. ${D.nclips.toLocaleString()} clips, ${D.nbirds} birds.`
+    : `${vc} clips in this view. Shade = share of the true type's clips.`;
+}
+
+function selected() {
+  let cs = viewClips();
+  const em = errModel();
+  if (st.sel) {
+    if (st.sel.c && st.sel.c === st.sel.t && st.view === "errors") {
+      return (D.typical[st.model][st.sel.t] || []).map(i => byI.get(i));
+    }
+    cs = cs.filter(c => c.y === st.sel.t && (!st.sel.c || c.m[em].c === st.sel.c));
+  }
+  const key = {
+    conf: c => -c.m[em].p, far: c => -c.m[em].dt, near: c => c.m[em].dc, bird: c => c.b,
+  }[st.sort];
+  return cs.slice().sort((a, b) => { const x = key(a), y = key(b); return x < y ? -1 : x > y ? 1 : 0; });
+}
+
+function thumb(i, label) {
+  return `<button type="button" class="spec" data-i="${i}" aria-label="Play ${esc(label)}">
+    <img src="${IMG[i]}" alt="Spectrogram of ${esc(label)}" loading="lazy" width="208" height="112">
+    <span class="play"><svg viewBox="0 0 10 10"><path d="M2 1 L9 5 L2 9 Z"/></svg></span>
+    <span class="dur">${byI.get(i).ms} ms</span></button>`;
+}
+
+function card(c) {
+  const em = errModel(), r = c.m[em], ok = r.c === c.y;
+  const others = D.models.filter(m => m !== em).map(m => {
+    const o = c.m[m], good = o.c === c.y;
+    return `<span class="chip ${good ? "r" : "w"}" title="${esc(m)}: ${o.top.map(t => t[0] + " " + t[1].toFixed(2)).join(", ")}">${esc(m)}: ${o.c}${good ? " ✓" : " " + o.p.toFixed(2)}</span>`;
+  }).join("");
+  return `<article class="card">
+    <div style="position:relative">${thumb(c.i, c.y + " clip from " + c.b)}<span class="khz" style="position:absolute;left:6px;top:4px;color:rgba(255,255,255,.75);font:10px var(--mono)">10 kHz</span></div>
+    <div class="body">
+      <div class="call"><span title="${esc(D.full[c.y])}">${c.y}</span><span class="arrow">→</span>
+        <span class="${ok ? "good" : "bad"}" title="${esc(D.full[r.c])}">${r.c}</span>
+        <span class="meta" style="margin-left:auto">${esc(em)}</span></div>
+      <dl class="stats">
+        <div><dt>p</dt><dd>${r.p.toFixed(2)}</dd></div>
+        <div><dt>p(true)</dt><dd>${r.pt.toFixed(3)}</dd></div>
+        <div><dt>rank</dt><dd>${r.rk}</dd></div>
+        <div><dt>d true</dt><dd>${r.dt.toFixed(2)}</dd></div>
+        <div><dt>d called</dt><dd>${r.dc.toFixed(2)}</dd></div>
+        <div><dt>2nd</dt><dd>${r.top[1][0]} ${r.top[1][1].toFixed(2)}</dd></div>
+      </dl>
+      <div class="others">${others}</div>
+      <div class="meta">${esc(c.b)} · #${c.i} · ${esc(c.f)}</div>
+    </div></article>`;
+}
+
+function renderSelection() {
+  const em = errModel(), cs = selected();
+  let title, desc = "";
+  if (!st.sel) {
+    title = st.view === "errors" ? `All mistakes of ${st.model}` : VIEWS.find(v => v[0] === st.view)[1];
+    desc = "Pick a cell in the matrix to narrow this down to one confusion.";
+  } else if (st.sel.c === st.sel.t && st.view === "errors") {
+    title = `Typical ${st.sel.t} (${D.full[st.sel.t]})`;
+    desc = `The three correctly called ${st.sel.t} clips nearest the centre of the type, for ${st.model}.`;
+  } else if (st.sel.c) {
+    title = `${st.sel.t} called ${st.sel.c}`;
+    desc = `${D.full[st.sel.t]} clips that ${em} called ${D.full[st.sel.c]}. For comparison, typical members of both types:`;
+  } else {
+    title = `${st.sel.t} (${D.full[st.sel.t]}), every wrong call`;
+  }
+  $("seltitle").textContent = title;
+  $("selcount").textContent = `${cs.length} clip${cs.length === 1 ? "" : "s"}`;
+  $("seldesc").textContent = desc;
+  const refTypes = st.sel && st.sel.c && st.sel.c !== st.sel.t ? [st.sel.t, st.sel.c] : [];
+  const tm = st.view === "errors" ? st.model : em;
+  $("ref").innerHTML = refTypes.map(t => `<div class="strip"><span class="label">typical ${t} · ${esc(D.full[t])}</span>
+      <div class="imgs">${(D.typical[tm][t] || []).map(i => thumb(i, "typical " + t)).join("")}</div></div>`).join("");
+  $("ref").hidden = !refTypes.length;
+  const shown = cs.slice(0, st.shown);
+  $("grid").innerHTML = shown.length ? shown.map(card).join("") : `<div class="empty">No clips here.</div>`;
+  $("more").hidden = cs.length <= st.shown;
+  $("more").textContent = `Show more (${cs.length - st.shown} left)`;
+}
+
+function render() {
+  renderControls(); renderMatrix(); renderSelection();
+  try { localStorage.setItem("ctc-state", JSON.stringify({ model: st.model, sort: st.sort })); } catch (e) {}
+}
+
+const player = $("player"); let playingBtn = null;
+function stopPlaying() { if (playingBtn) playingBtn.classList.remove("playing"); playingBtn = null; }
+player.addEventListener("ended", stopPlaying);
+document.addEventListener("click", e => {
+  const sp = e.target.closest(".spec");
+  if (sp) {
+    const i = sp.dataset.i;
+    if (playingBtn === sp && !player.paused) { player.pause(); stopPlaying(); return; }
+    stopPlaying(); player.src = AUD[i]; player.currentTime = 0;
+    player.play().then(() => { playingBtn = sp; sp.classList.add("playing"); }).catch(() => {});
+    return;
+  }
+  const mb = e.target.closest("#models button");
+  if (mb && !mb.disabled) { st.model = mb.dataset.m; st.shown = 48; render(); return; }
+  const vb = e.target.closest("#views button");
+  if (vb) { st.view = vb.dataset.v; st.sel = null; st.shown = 48; render(); return; }
+  const td = e.target.closest("#matrix td");
+  if (td && !td.classList.contains("zero")) {
+    const t = td.dataset.t, c = td.dataset.c;
+    st.sel = st.sel && st.sel.t === t && st.sel.c === c ? null : { t, c }; st.shown = 48; render(); return;
+  }
+  const th = e.target.closest("#matrix th.row");
+  if (th) { const t = th.dataset.t; st.sel = st.sel && st.sel.t === t && !st.sel.c ? null : { t }; st.shown = 48; render(); return; }
+});
+$("sort").addEventListener("change", e => { st.sort = e.target.value; render(); });
+$("more").addEventListener("click", () => { st.shown += 48; renderSelection(); });
+
+// open on the most frequent confusion of E23 DAPT, so the first view shows real clips
+(() => {
+  const M = D.conf[st.model]; let best = null;
+  D.order.forEach(a => D.order.forEach(b => { if (a !== b && (!best || M[a][b] > best[2])) best = [a, b, M[a][b]]; }));
+  if (best) st.sel = { t: best[0], c: best[1] };
+  render();
+})();
+</script>

@@ -759,3 +759,29 @@ experiments:
   priority: 4
   notes: 'Proposed 2026-10-13 from the 071 critic. Small code change (read mask_emb from datasets/11905533/aves-base-bio.pt
     in the --init-weights transplant); needs the user''s go-ahead.'
+- id: E33
+  title: Voice-invariant DAPT (pitch-shifted input, unchanged targets)
+  baseline: E19 / E23 (two-teacher targets, AVES init, replay x1, 15,000 updates, lr 2e-4; seeds 1 and 2)
+  change: 'E19''s recipe with each training crop pitch-shifted by a random amount (uniform, +-2 semitones,
+    duration preserved) before the encoder, while the k-means targets stay the ones computed on the original
+    audio; new train.py flag --pitch-shift-semitones (default 0 = unchanged). Everything else fixed.'
+  question: 'Notebook 08 section 11 (2026-10-15): call-type errors are concentrated in Tu/Th/Ne/Te and are mostly
+    about new birds -- Tu recall is ~0.40 leave-birds-out vs ~0.72 when the test birds are in training, and DAPT
+    gains more on the random split (+0.019) than across birds (+0.011) while its Tu recall falls. If DAPT is
+    learning the 48 corpus birds'' voices, does forcing its targets to be invariant to voice (ContentVec-style)
+    raise leave-birds-out call type?'
+  success: 'to be pre-registered before submission. Candidate: PRIMARY 11-class call type above the seed-matched
+    E19/E23 with the bird-bootstrap interval excluding 0 on both seeds; SECONDARY Tu and Th recall vs the same
+    baseline (per-type intervals, notebook 08 section 8 protocol); report ZF detection AUC at the pre-committed arm
+    so a call-type gain bought with detection is visible.'
+  pretest: 'Mac only, no training: re-encode the 3,412 call-type clips pitch-shifted by -2/-1/+1/+2 semitones through
+    aves-base-bio and E23, and measure how many call-type predictions flip (and in which types) and how much a
+    bird-identity probe degrades. If +-1-2 semitones barely moves either, pitch is not the voice axis and E33
+    should change its augmentation (spectral tilt / formant) before any GPU time is spent.'
+  script: null
+  status: proposed
+  priority: 1
+  notes: 'Proposed 2026-10-15 by the lead after the user redirected the project to ZF specialization on call
+    type (skip BEANS). Needs code (augmentation in the dataset path, labels untouched) so it is not
+    self-approvable under AGENT.md step 5; needs the user''s go. Cost ~E19 x 2 seeds. Note the eval birds are
+    all in DAPT''s pretraining audio (finding 028), so leave-birds-out call type is the right primary.'

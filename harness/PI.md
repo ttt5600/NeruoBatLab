@@ -87,6 +87,10 @@ Never act on a number you remember; re-open its source. Keep wake replies to a f
 
 ## Idle backlog (in this order, unless a new finding changes the priorities)
 
+0. USER PRIORITY (2026-10-15): specialization on zebra finch, judged on CALL TYPE. Skip BEANS and
+   other-animal evaluations unless the user asks. DAPT-for-call-type work and per-call-type visual
+   analysis (notebooks/08_calltype_errors.ipynb, the error browser artifact
+   https://claude.ai/artifact/8vsjrxjswggK2eZpuBxUbu) come before everything below.
 1. The visualisation backlog in `docs/roadmap.html` section 04: call-type confusion matrices, embedding
    by call type, clustering quality, layer sweeps for all models, and a forest plot of every
    comparison. Each one is a figure plus a notebook cell under `notebooks/`, built from existing JSONs.
