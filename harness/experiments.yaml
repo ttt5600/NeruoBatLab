@@ -311,7 +311,7 @@ experiments:
   success: on BEANS bats (E10) and the label-free score (E11), time-expanded input beats plain resampling
     with intervals excluding zero for at least one factor
   script: null
-  status: approved
+  status: done
   priority: 6
   requires: E10 and E11 done
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
@@ -341,7 +341,9 @@ experiments:
     the halvings, never in the score. Script zfeval/experiments/e16_labelfree.py; output analysis/e16_labelfree.json.'
   progress: '2026-10-15 01:27: BEANS half done -> finding 074 (open, critic applied). F=4 resolved gain for both models (run16
     +0.0800, aves +0.0670); the low-pass control keeps 0.69 / 0.78 of it. Label-free half still to be designed and
-    pre-registered; E16 stays approved until then.'
+    pre-registered; E16 stays approved until then.
+    2026-10-15 21:45: label-free half run (e16_labelfree.json): no arm distinguishable from plain; criterion NOT met.
+    Finding 074 confirmed after critic.'
 - id: E12
   roadmap: idea 4
   title: 'Combine the winners: AVES-teacher labels on general audio only'

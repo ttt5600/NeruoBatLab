@@ -243,3 +243,4 @@ E17/E18 go beyond max_concurrent (E7/E8 still pending since 10-08/09) on the use
 - 2026-10-15 12:06 quiet: E8 + E9 PENDING.
 - 2026-10-15 13:07 quiet: Slurm est. start E8 39945354 2026-10-17 05:06, E9 39945376 2026-10-17 17:10.
 - 2026-10-15 21:12 User: 'let's keep going' -> continuing past the daily idle budget. E16 label-free half pre-registered (experiments.yaml E16 labelfree_protocol) + e16_labelfree.py written; running next.
+- 2026-10-15 21:47 E16 done: label-free half critic ACCEPT-WITH-CHANGES applied; 074 confirmed (criterion not met); E8/E9 PENDING; cert expired.
