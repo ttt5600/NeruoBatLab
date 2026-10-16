@@ -10,8 +10,9 @@ time, this measures on the Mac, with frozen encoders, what a small pitch shift d
 If (b) collapses while (a) holds, pitch carries voice and not call type, and E33's augmentation targets
 the right thing. If (a) collapses too, pitch is part of the call-type code and E33 should not shift it.
 
-Shift: torchaudio.functional.pitch_shift on the 16 kHz waveform (phase vocoder + resample; duration
-preserved). Very short clips get some phase-vocoder smearing; this is a diagnostic, not a score.
+Shift: librosa.effects.pitch_shift on the 16 kHz waveform (phase vocoder + soxr resample; duration
+preserved). torchaudio.functional.pitch_shift was tried first and is unusable here: it resamples between
+coprime rates (e.g. 17,959 -> 16,000 Hz for 2 semitones) and builds a 16,000-phase sinc kernel per clip. Very short clips get some phase-vocoder smearing; this is a diagnostic, not a score.
 The unshifted path is checked against the cached board embeddings before anything else.
 
     python zfeval/experiments/e33_pitch_pretest.py   -> analysis/e33_pitch_pretest.json
@@ -19,7 +20,7 @@ The unshifted path is checked against the cached board embeddings before anythin
 from __future__ import annotations
 import json, sys, time, warnings
 from pathlib import Path
-import numpy as np, torch, torchaudio
+import numpy as np, torch, librosa
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1])); sys.path.insert(0, str(Path(__file__).resolve().parent))
 warnings.filterwarnings("ignore")
@@ -34,7 +35,8 @@ from sklearn.linear_model import LogisticRegression                         # no
 FEAT = Path.home() / "zf_labelset/zf_detection_dataset_v1/features"
 ANA = Path.home() / "zf_labelset/zf_detection_dataset_v1/analysis"
 OUT = ANA / "e33_pitch_pretest.json"
-MODELS = {"aves-base-bio": ("ct11_aves_emb.npy", 3), "daptv4two_2e4s2_step15000": ("ct11_daptv4two_2e4s2_step15000_emb.npy", 1)}
+# CPU caches from calltype_cpu_rescore.py; the layer is read from calltype_cpu_rescore.json (CPU best layer)
+MODELS = {"aves-base-bio": "ct11_aves-base-bio_cpuemb.npy", "daptv4two_2e4s2_step15000": "ct11_daptv4two_2e4s2_step15000_cpuemb.npy"}
 SHIFTS = [-2, -1, 0, 1, 2]
 
 
@@ -44,7 +46,8 @@ def encode(model, paths, layer, device, shift):
     for i, p in enumerate(paths):
         w = load_audio(p)
         if shift:
-            w = torchaudio.functional.pitch_shift(w, SR, shift, n_fft=512, hop_length=128)
+            w = torch.from_numpy(librosa.effects.pitch_shift(w.squeeze(0).numpy(), sr=SR, n_steps=shift, n_fft=512,
+                                                             hop_length=128, res_type="soxr_hq")).unsqueeze(0)
         if w.shape[-1] < 400:
             w = torch.nn.functional.pad(w, (0, 400 - w.shape[-1]))
         feats, _ = model.extract_features(w.to(device), None)
@@ -53,7 +56,8 @@ def encode(model, paths, layer, device, shift):
 
 
 def main():
-    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    device = "cpu"     # MPS attention is wrong for 2-8 frame inputs (most of these clips); see calltype_cpu_rescore.py
+    torch.set_num_threads(8)
     rows = [r for r in collect() if r[3] in KEEP11]
     paths = [r[0] for r in rows]
     birds = np.array([r[1].lower() for r in rows])
@@ -68,16 +72,18 @@ def main():
                  StratifiedKFold(5, shuffle=True, random_state=0).split(bid_idx, yb[bid_idx])]
     res = dict(shifts=SHIFTS, classes=classes, n_clips=len(y), n_birds_bird_probe=int(len(set(yb[okb]))),
                note=__doc__.split("\n\n")[1], models={})
-    for tag, (cache, layer) in MODELS.items():
+    best = json.loads((ANA / "calltype_cpu_rescore.json").read_text())["models"]
+    for tag, cache in MODELS.items():
+        layer = int(best[tag]["best_layer_cpu"])
         t0 = time.time()
         s = spec(tag); model, _ = load_model(tag, s, device); model.eval()
         ref = np.load(FEAT / cache, mmap_mode="r")[:20, layer]
         chk = encode(model, paths[:20], layer, device, 0)
         diff = float(np.abs(chk - ref).max())
-        print(f"[{tag}] unshifted path vs cached board embeddings: max abs diff {diff:.2e}", flush=True)
-        assert diff < 1e-2, f"{tag}: encoding path does not reproduce the cache ({diff})"
+        print(f"[{tag}] unshifted path vs CPU cache: max abs diff {diff:.2e}", flush=True)
+        assert diff < 1e-3, f"{tag}: encoding path does not reproduce the CPU cache ({diff})"
         E = {sh: (np.ascontiguousarray(np.load(FEAT / cache, mmap_mode="r")[:, layer]) if sh == 0
-                  else encode(model, paths, layer, device, sh)) for sh in SHIFTS}
+                  else encode(model, paths, layer, device, sh)) for sh in SHIFTS}   # 0 = the CPU cache
         print(f"[{tag}] encoded {len(SHIFTS) - 1} shifts in {time.time() - t0:.0f}s", flush=True)
         pred = {sh: np.zeros(len(y), int) for sh in SHIFTS}
         for tr, te in ct_folds:

@@ -765,11 +765,13 @@ experiments:
   change: 'E19''s recipe with each training crop pitch-shifted by a random amount (uniform, +-2 semitones,
     duration preserved) before the encoder, while the k-means targets stay the ones computed on the original
     audio; new train.py flag --pitch-shift-semitones (default 0 = unchanged). Everything else fixed.'
-  question: 'Notebook 08 section 11 (2026-10-15): call-type errors are concentrated in Tu/Th/Ne/Te and are mostly
-    about new birds -- Tu recall is ~0.40 leave-birds-out vs ~0.72 when the test birds are in training, and DAPT
-    gains more on the random split (+0.019) than across birds (+0.011) while its Tu recall falls. If DAPT is
-    learning the 48 corpus birds'' voices, does forcing its targets to be invariant to voice (ContentVec-style)
-    raise leave-birds-out call type?'
+  question: 'Does making DAPT''s input voice-variable while its targets stay fixed (ContentVec-style) raise
+    leave-birds-out call type, in particular tuck (Tu), the one call type DAPT lowers in nearly every endpoint?
+    Motivation (notebook 08, 2026-10-15; MPS-era numbers, being re-scored on CPU, see the MPS caveat in notes): every
+    test bird is in DAPT''s pretraining audio (028), and a random clip split lifts tuck recall a lot. The critic of 075
+    found the "errors are mostly about new birds" reading NOT supported (the random split removes only ~43% of
+    AVES-bio''s soft-call errors; DAPT''s extra leaky-split gain is not distinguishable), so this is a hypothesis to
+    test, not a measured cause.'
   success: 'to be pre-registered before submission. Candidate: PRIMARY 11-class call type above the seed-matched
     E19/E23 with the bird-bootstrap interval excluding 0 on both seeds; SECONDARY Tu and Th recall vs the same
     baseline (per-type intervals, notebook 08 section 8 protocol); report ZF detection AUC at the pre-committed arm
@@ -784,4 +786,7 @@ experiments:
   notes: 'Proposed 2026-10-15 by the lead after the user redirected the project to ZF specialization on call
     type (skip BEANS). Needs code (augmentation in the dataset path, labels untouched) so it is not
     self-approvable under AGENT.md step 5; needs the user''s go. Cost ~E19 x 2 seeds. Note the eval birds are
-    all in DAPT''s pretraining audio (finding 028), so leave-birds-out call type is the right primary.'
+    all in DAPT''s pretraining audio (finding 028), so leave-birds-out call type is the right primary.
+    2026-10-16: all Mac call-type embeddings were computed on MPS, whose attention is wrong for 2-8 frame inputs
+    (most call-type clips); the motivation numbers are being re-scored on CPU (calltype_cpu_rescore.py). The
+    pre-test must run on CPU.'
