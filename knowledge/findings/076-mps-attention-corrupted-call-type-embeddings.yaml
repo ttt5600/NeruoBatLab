@@ -1,0 +1,50 @@
+id: '076'
+title: The Mac's MPS attention is wrong for 2-8 frame inputs, so every call-type score computed on the Mac is off; re-encoded on CPU the board's accuracies move by up to 0.014 and its ranking changes
+status: open
+claim: 'On this Mac (torch 2.8.0), scaled-dot-product attention on the MPS backend returns wrong outputs when the
+  sequence has 2 to 8 frames (about 45-185 ms of 16 kHz audio); 1 frame and 9 or more frames agree with the CPU to about
+  1e-6, and the CNN front end and feed-forward blocks are unaffected. CPU fp32 agrees with fp64 to about 1e-5, so the
+  CPU is the correct reference. Every call-type embedding cache on the Mac (features/ct11_<tag>_emb.npy) was computed on
+  MPS, and the median call-type clip is about 7 frames, so 1,939-1,940 of the 3,412 clips are mis-encoded in each of the
+  47 models re-encoded so far. Re-scored on CPU with the unchanged board protocol, the best-layer 11-class accuracy moves
+  by -0.0132 to +0.0138 (median +0.0000, mean absolute change 0.0047), the chosen best layer changes for 35 of 47 models,
+  and the ranking changes (Spearman 0.754 between the MPS and CPU accuracies): BirdAVES bioxn-large goes from 15th
+  (0.8453) to 1st (0.8590), biox-large from 2nd (0.8552) to 0.8420, and E23 DAPT from 1st (0.8564) to 0.8482. Any
+  call-type number in an earlier finding is an MPS number and must be re-read from analysis/calltype_cpu_rescore.json
+  before it is compared with anything. Detection, which extracts frames from 20 s chunks (about 1,000 frames), is not
+  affected.'
+evidence: 'mps_sdpa_diagnostic.json: layer0_by_T attention max abs diff MPS vs CPU on random (1, T, 768) input: T=1
+  2.4e-07; T=2..8 0.36-0.67; T=9..64 5.7e-07 to 1.2e-06; feed_forward at most about 2e-05 at every T. ten_clips:
+  cpu32_vs_fp64_by_layer 3.6e-06..1.4e-05, mps32_vs_fp64_by_layer 0.28..3.8; the one bad clip of the ten is 1,671
+  samples (4 frames). all_clips: 1,940 of 3,412 aves-base-bio clips changed by more than 1e-2; none of the 1-frame clips;
+  1 clip with more than 8 frames. calltype_cpu_rescore.json models.<tag>: acc11_mps, best_layer_mps (the stored board
+  values), acc11_cpu, best_layer_cpu, per_layer_acc11_cpu, n_clips_changed (1,939-1,940 for all 47); e.g.
+  aves-base-bio 0.8453 L3 -> 0.8438 L0, run16_compute4x 0.8379 L7 -> 0.8353 L8, run11 0.8118 L3 -> 0.8180 L2,
+  daptv4two_2e4s2_step15000 0.8564 L1 -> 0.8482 L0, daptv3aves_2e4s2_step15000 0.8476 L0 -> 0.8570 L0,
+  birdaves-bioxn-large 0.8453 L1 -> 0.8590 L1, birdaves-biox-large 0.8552 L2 -> 0.8420 L1. The CPU path reproduces the
+  board probe exactly from a single-file pack of the clips (eval pack check: 0.8437866 both ways).'
+method: 'zfeval/experiments/mps_sdpa_diagnostic.py (attention vs feed-forward by sequence length; fp64 reference on real
+  clips; per-clip change by frame count). zfeval/experiments/calltype_cpu_rescore.py re-encodes the 3,412 clips with the
+  same embed_all (each clip alone at its own length, mean-pooled, every layer) on device cpu, writes
+  features/ct11_<tag>_cpuemb.npy beside the MPS caches (nothing overwritten) and re-runs the board probe (cv_acc,
+  leave-birds-out StratifiedGroupKFold(5) seed 0, sklearn 1.7.2) at every layer. Found while setting up the E33 pre-test,
+  whose CPU path did not reproduce the cached embeddings.'
+provenance: 'analysis/mps_sdpa_diagnostic.json; analysis/calltype_cpu_rescore.json; features/ct11_<tag>_cpuemb.npy;
+  zfeval/experiments/{mps_sdpa_diagnostic,calltype_cpu_rescore}.py.'
+caveats: 'Scope, stated as far as it is known. Affected (read the MPS ct11 caches): every call-type accuracy, per-class,
+  confusion, split-sensitivity, label-free stability, clustering (Ward AMI), identity-probe and ABX-style analysis built
+  from features/ct11_*_emb.npy (33 scripts in zfeval/experiments import them), so findings 033-035, 040, 042, 050-075
+  that quote call-type numbers carry MPS numbers. Likely affected, not yet re-run: the chick holdout (chick_holdout_variants
+  encodes short chick calls one clip at a time on MPS), finetune_calltype (trained and evaluated on MPS), and any Mac
+  analysis that fed 45-185 ms windows to an encoder (synth_timing to be audited). Not affected: detection and BirdPark
+  (frames from 20 s chunks), anything computed on Savio (CUDA; eval_model.py checks the GPU against the CPU on 1-9
+  frame clips before scoring). The 8 Hugging Face encoders (Whisper and others) use their own attention code and are
+  being re-scored separately; they are not in the 47. CPU-vs-CUDA agreement has not yet been measured on Savio (job
+  40036098 queued). The magnitude of the change (up to 0.014) is the size of the seed-to-seed spread (057, 070), so
+  most pairwise conclusions need re-reading rather than reversal, but rankings among close models do change.'
+tags:
+- methodology
+- bug
+- call-type
+- correction
+date: '2026-10-17'
