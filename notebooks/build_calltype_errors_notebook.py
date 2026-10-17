@@ -558,11 +558,14 @@ display(pd.DataFrame(rows).style.format({"diff": "{:+.4f}", "lo": "{:+.4f}", "hi
 """)
 
 md(r"""
-**Reading the trajectories.** Continuing AVES-bio on zebra finch audio alone never raised call type,
-at any of the 12 checkpoints or either learning rate. The point estimates sit at or below the parent
-throughout, more clearly at the fixed layer 3 than at each checkpoint's own best layer. No single
-checkpoint is resolved from the parent, and there is no rising trend to extend. More specialisation
-on the same audio is not the road to a call-type gain.
+**Reading the trajectories (CPU embeddings).** At each checkpoint's own best layer, no zebra-finch-only
+checkpoint is distinguishable from AVES-bio at either learning rate. At the fixed layer 3, the two
+earliest checkpoints at lr 5e-5 (2,500 and 5,000 updates) are resolved above AVES-bio, and the
+advantage shrinks as training continues; at lr 1e-4 nothing is resolved. Read this as a hint, not a
+result: it is 2 of 24 contrasts, layer 3 is a layer where AVES-bio is weaker than at its own best
+layer, and the 12 checkpoints come from only two training runs. If it is real, it says a short,
+gentle specialisation helps call type and longer training erodes the gain, which would need its own
+replication (a second seed of the early checkpoints) before anyone builds on it.
 """)
 
 md(r"""
@@ -586,6 +589,8 @@ print(f"\nAVES-bio fully fine-tuned on call type: {ft['mean']:.4f} (seeds: "
       + ", ".join(f"{v:.4f}" for v in ft["per_seed_mean"].values())
       + f"); same-script frozen layer 3: {FT['frozen_L3']['aves']['mean']:.4f}")
 print("note: finetune_calltype.json averages accuracy over folds, the board pools clips; the two differ slightly")
+print("CAUTION: finetune_calltype ran on the Mac's MPS backend (meta.device), whose attention is wrong for 2-8 frame")
+print("clips, so the fine-tune number is affected by the same bug and is not a trustworthy ceiling until rerun on CPU/CUDA.")
 print(f"best frozen points on the board: E23 DAPT {(pred[DA] == y).mean():.4f}, AVES-bio {(pred[AV] == y).mean():.4f}")
 """)
 
@@ -623,51 +628,41 @@ print("from the same recording session into training, so it is more than 'the pr
 md(r"""
 ## What this does and does not license
 
-Every number behind these statements is printed in the cell it cites.
+Every number behind these statements is printed in the cell it cites. All of it is on CPU embeddings;
+the earlier MPS-based version of this notebook drew several conclusions that did not survive the
+correction (finding 076), which is why some of what follows reverses it.
 
 **Supported.**
 
-- **The errors live in four call types.** Tuck, thuk, nest and tet (Tu, Th, Ne, Te) carry most of
-  every encoder's mistakes, against a much smaller share of the clips (section 10). The largest
-  single confusion is tuck called thuk, and tuck is recalled less than half the time by all three
-  encoders (sections 1 and 3).
-- **DAPT moves the boundary between these types; it does not sharpen it.** E23 DAPT's overall gain
-  over AVES-bio is not resolved (section 2). Across every DAPT checkpoint the per-type pattern
-  repeats: Ag and Th recall go up, Te and Tu go down, and overall accuracy does not move (section 8).
-  That is a trade between neighbouring types, not new separability.
-- **The soft-call errors are mostly about new birds.** When the test birds' other calls are in
-  training, tuck recall nearly doubles (section 11). DAPT's advantage over its parent is larger on
-  that leaky split than across birds, and its tuck recall across birds goes down. Every bird in
-  this test set is in DAPT's pretraining audio, so the most economical reading is that continued
-  pretraining on these 48 birds teaches their voices more than it teaches call categories.
-- **The mistakes are confident, and usually near misses.** About half of the errors have
-  confidence above 0.9, and the true type is most often the probe's second guess (section 4). This
-  is a representation limit; no threshold on the probe recovers it.
-- **Call types are separable, but not clusters.** Nearest-centroid classification in the raw
-  embedding is far below the linear probe, and most of the gap closes in the LDA space (section 5).
-  For label-free unit discovery this matters: clustering the raw embedding will not return call
-  types as its clusters, even where a linear readout finds them.
-- **Specialising longer on zebra finch alone does not help either.** The 12 round-1 checkpoints
-  (AVES-bio continued on zebra finch only, two learning rates, every 2,500 updates) sit at or below
-  the parent on call type throughout, none resolved (section 9).
-- **The headroom on this task is small.** Fine-tuning all of AVES on the call-type labels reaches
-  about what the best frozen probes reach (section 10). A DAPT gain would have to come from tuck,
-  thuk and nest across birds, because that is where the remaining errors are.
+- **The errors live in four call types.** Tuck, thuk, nest and tet (Tu, Th, Ne, Te) are about half of the
+  clips and about four fifths of every encoder's mistakes (section 10). The largest single confusion is
+  tuck called thuk, and tuck is recalled less than half the time (sections 1 and 3).
+- **No single DAPT checkpoint is clearly better than its parent.** Most DAPT endpoints sit slightly above
+  AVES-bio on point estimates; one is resolved at its own best layer and none at layer 3 (section 8). A
+  small positive effect of continued pretraining on call type is possible, but no run shows it, and the
+  endpoints share a parent and mostly a recipe, so their agreement is not replication.
+- **Zebra-finch-only specialisation (round 1)** is not distinguishable from AVES-bio at any checkpoint at
+  its best layer; at layer 3 only its two earliest low-learning-rate checkpoints are resolved above
+  (section 9). Weak hint, see the reading there.
+- **Per-type shifts are not DAPT-specific.** The other downloaded AVES models move the same call types the
+  same way against AVES-bio (section 8), so a per-type DAPT story needs more than a comparison with
+  AVES-bio's particular layer.
+- **The mistakes are confident near misses** (section 4): about half the errors have confidence above 0.9
+  and the true type is usually the second guess.
+- **Call types are separable, but not clusters** (section 5): nearest-centroid classification in the raw
+  embedding is far below the linear probe, and most of the gap closes in the LDA space. Clustering the raw
+  embedding will not return call types as its clusters.
 
 **Not supported.**
 
-- Per-type differences from one checkpoint (sections 2-7) are single runs. The evidence for the
-  DAPT pattern is section 8's consistency, and those checkpoints share a parent and mostly a recipe,
-  so they are not independent replications.
-- "All three wrong and agreeing" clips (section 7) are candidates for label errors, not
-  established ones. They need listening: use the error browser's *All three wrong* view.
-- Section 11's random split is a diagnostic of where errors come from, never a score.
-
-**What it suggests for DAPT.** Specialising on the same birds the test uses rewards learning their
-voices. The DAPT change that follows from these numbers is one that removes voice, not one that adds
-more of the same audio: E33 in `harness/experiments.yaml` (pitch-shifted input with fixed targets,
-the bird version of ContentVec), with a frozen-encoder pre-test (`e33_pitch_pretest.py`) that checks
-first whether pitch is a voice axis that call type does not need.
+- "The soft-call errors are mostly about new birds." Letting the test birds' other clips into training
+  removes a similar or smaller share of soft-call errors than of other errors, and DAPT's gain is not
+  larger on that leaky split (section 11). Generalising to new birds matters for every call type, not
+  especially for the soft ones.
+- A supervised ceiling from the fine-tune experiment: it ran on the faulty MPS backend (section 10).
+- Per-type differences from one checkpoint (sections 2-7) are single runs.
+- "All three wrong and agreeing" clips (section 7) are candidates for label errors, not established ones;
+  a separate audit (cohort_audit) is checking duplicates and conflicting labels in the cohort itself.
 """)
 
 nb["cells"] = C
