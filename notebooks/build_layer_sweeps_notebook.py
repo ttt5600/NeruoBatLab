@@ -73,6 +73,18 @@ if r15:
     CT["run15_combined"] = dict(acc=r15["per_layer_acc11"], best=r15["best_layer11"],
                                 src="run15_calltype.json")
 
+# Finding 076: the Mac's MPS attention is wrong for 2-8 frame clips, so the per-layer call-type scores above are
+# replaced by the CPU re-score wherever it exists; any model without one keeps its MPS numbers and is listed.
+CPU_RS = load("calltype_cpu_rescore.json").get("models", {})
+STILL_MPS = []
+for m in list(CT):
+    if m in CPU_RS:
+        CT[m] = dict(acc=list(CPU_RS[m]["per_layer_acc11_cpu"]), best=int(CPU_RS[m]["best_layer_cpu"]),
+                     src="calltype_cpu_rescore.json (CPU)")
+    else:
+        STILL_MPS.append(m)
+print(f"call type on CPU embeddings for {len(CT) - len(STILL_MPS)} encoders; still MPS (not yet re-scored): {STILL_MPS}")
+
 # ---- detection: in-distribution ZF AUC and ZF->BirdPark AP, on each model's layer grid, at the
 # normalisation ('matched' or 'native') that the pre-committed joint arm chose
 D = load("detection_variants.json")
@@ -454,7 +466,7 @@ The grey lines are context, not a population: they are whichever encoders happen
 many of them variants of one another.
 
 Model facts: `notebooks/model_facts.py` (every cell's file and key in its `source` column).
-Sources: `aves_variants_calltype.json`, `<tag>_calltype.json` (per_layer_acc11 / best_layer11),
+Sources: call type from `calltype_cpu_rescore.json` (CPU, finding 076) where present, else `aves_variants_calltype.json` / `<tag>_calltype.json` (MPS, listed in the first cell's output),
 `detection_variants.json` (precommit.joint, in_distribution, zf_to_bp, layer_grids,
 bootstrap.run11_vs_logenergy), all under `~/zf_labelset/zf_detection_dataset_v1/analysis/`.
 """)
