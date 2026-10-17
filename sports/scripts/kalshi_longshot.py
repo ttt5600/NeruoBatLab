@@ -20,6 +20,11 @@ Pre-registered 2026-10-17, before any price was looked at:
   L2 headyes ladders: buy YES on any rung with YES ask >= 0.90
   5 trials -> bar p < 0.01, one-sided bootstrap over EVENTS (rungs of one game are not independent).
   Sealed pass = p < 0.05 / (#trials promoted) and units > 0.
+
+Timing check (2026-10-17, vs nflverse / local MLB-NBA-NHL start times): in 2025 expiration - start
+= 3.0 h for 247/247 NFL, 2100/2120 MLB, 458/465 NBA, 634/637 NHL -> dev decisions are pre-game.
+In 2026 Kalshi set 19 NFL games to start + 6 h, which puts exp - 4 h AFTER kickoff. MUST FIX
+BEFORE `sealed`: price 2026 events at the real start - 1 h (schedule join), drop unmatched.
 """
 from __future__ import annotations
 
@@ -69,7 +74,8 @@ def settled(series: str) -> pd.DataFrame:
     df = df.drop_duplicates("ticker")
     df = df[df["result"].isin(["yes", "no"]) & df["expected_expiration_time"].notna()].copy()
     df["series"] = series
-    df["decision_ts"] = (pd.to_datetime(df["expected_expiration_time"], utc=True) - pd.Timedelta(hours=4)).astype("int64") // 10**9
+    dec = pd.to_datetime(df["expected_expiration_time"], utc=True, format="ISO8601") - pd.Timedelta(hours=4)
+    df["decision_ts"] = ((dec - pd.Timestamp("1970-01-01", tz="UTC")) // pd.Timedelta(seconds=1)).astype(int)  # unit-safe
     # event date from the ticker: KXNFLGAME-25SEP04DALPHI -> 2025-09-04
     df["event_date"] = pd.to_datetime(df["event_ticker"].str.split("-").str[1].str[:7], format="%y%b%d", errors="coerce")
     keep = ["series", "ticker", "event_ticker", "event_date", "decision_ts", "result", "floor_strike", "yes_sub_title"]
@@ -81,7 +87,9 @@ def _px(candles, t):
     if not c:
         return np.nan, np.nan
     last = c[-1]
-    g = lambda side: pd.to_numeric((last.get(side) or {}).get("close_dollars"), errors="coerce")
+    def g(side):  # live endpoint: close_dollars; /historical: close
+        v = last.get(side) or {}
+        return pd.to_numeric(v.get("close_dollars", v.get("close")), errors="coerce")
     return g("yes_bid"), g("yes_ask")
 
 
@@ -232,6 +240,7 @@ def cmd_sealed() -> int:
     if "--confirm" not in sys.argv:
         print("sealed scoring is the user's decision; pass --confirm")
         return 1
+    raise SystemExit("blocked: 2026 decision times can fall after kickoff (see docstring); fix timing first")
     names = [a for a in sys.argv[2:] if a in TRIALS]
     if not names:
         print(f"name the promoted trial(s): {TRIALS}")
