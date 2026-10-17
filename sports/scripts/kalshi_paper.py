@@ -30,6 +30,7 @@ import requests
 from sports import wx
 
 LOG = Path(__file__).resolve().parents[1] / "data" / "kalshi_paper.jsonl"
+DONE = LOG.with_name("kalshi_paper_done.json")  # city-nights already evaluated
 MODELS = ["gfs_seamless", "ecmwf_ifs025", "icon_seamless", "gem_seamless", "ncep_nbm_conus"]
 MARGIN = 3.0
 DECISION_HOUR = 22  # city-local, the night before (matches lab/strategies + wx.decision_ts)
@@ -73,19 +74,25 @@ def book_depth(ticker):
     return best, d1, d2
 
 
-def cmd_pick(days_ahead: int = 1, log: bool = True, only_local_hour: int | None = None):
-    """only_local_hour: skip cities where it is not that hour locally. The backtest decides at
-    DECISION_HOUR (22:00) CITY-local the night before, so the agent runs `pick-due` hourly and each
-    city is picked in its own 22:xx hour. (One 22:03 Pacific run looked up the day AFTER tomorrow
-    for ET/CT cities -- 5 of 7 found no open event on 2026-10-15.)"""
+def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
+    """due_only: evaluate a city only in its DECISION window -- 22:00-23:59 CITY-local, the night before
+    (the backtest decides at 22:00 city-local) -- and only once per city-night (DONE file).
+    History: a single 22:03-PT run looked up the day AFTER tomorrow for ET/CT cities (10-15); then an
+    exact-22:xx rule missed every city on 10-16 because launchd ran late (19:09, 20:17, ...) after sleep.
+    The 23:xx grace hour keeps the same local date, so 'tomorrow' is unchanged; lateness is logged."""
     now = datetime.now(timezone.utc)
     seen = {json.loads(l)["ticker"] for l in LOG.read_text().splitlines()} if LOG.exists() else set()
+    done = set(json.loads(DONE.read_text())) if DONE.exists() else set()
     picks = []
     for series, (station, tz) in wx.CITIES.items():
-        if only_local_hour is not None and now.astimezone(ZoneInfo(tz)).hour != only_local_hour:
+        local = now.astimezone(ZoneInfo(tz))
+        if due_only and local.hour not in (DECISION_HOUR, DECISION_HOUR + 1):
             continue
-        tomorrow = (now.astimezone(ZoneInfo(tz)) + timedelta(days=days_ahead)).date()
+        tomorrow = (local + timedelta(days=days_ahead)).date()
         ev = f"{series}-{tomorrow.strftime('%y%b%d').upper()}"
+        if due_only and ev in done:
+            continue
+        late_min = (local.hour - DECISION_HOUR) * 60 + local.minute
         ms = requests.get(f"{wx.API}/markets", headers=H, timeout=30,
                           params={"event_ticker": ev, "limit": 100}).json().get("markets", [])
         if not ms:
@@ -96,6 +103,8 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, only_local_hour: int | None 
         if len(vals) < 3:
             print(f"{series}: only {len(vals)} model forecasts; skipping")
             continue
+        if due_only and log:
+            done.add(ev)  # evaluated this city-night; a later run in the window must not re-pick it
         for m in ms:
             ask = float(m.get("yes_ask_dollars") or 0)
             bid = float(m.get("yes_bid_dollars") or 0)
@@ -112,11 +121,13 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, only_local_hour: int | None 
                           "ticker": m["ticker"], "strike_type": m.get("strike_type"), "floor": fl, "cap": ca,
                           "forecasts": fc, "yes_bid": bid, "yes_ask": ask, "no_price": round(1 - bid, 4),
                           "fee_per_contract": round(wx.FEE_RATE * (1 - bid) * bid, 4),
-                          "depth_1c": d1, "depth_2c": d2, "result": None})
+                          "depth_1c": d1, "depth_2c": d2, "late_min": late_min, "result": None})
     if log:
         with LOG.open("a") as f:
             for p in picks:
                 f.write(json.dumps(p) + "\n")
+        if due_only:
+            DONE.write_text(json.dumps(sorted(done)))
     for p in picks:
         print(f"PICK {p['ticker']}: buy NO @ {p['no_price']:.2f}  depth {p['depth_1c']:.0f} (1c) / "
               f"{p['depth_2c']:.0f} (2c) contracts  forecasts {p['forecasts']}")
@@ -146,8 +157,9 @@ def cmd_report():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "report"
-    if cmd == "pick-due":  # hourly from launchd: cities whose local clock reads 22:xx
-        cmd_pick(only_local_hour=DECISION_HOUR)
+    if cmd == "tick":  # hourly from launchd: pick any city in its decision window, then settle (idempotent)
+        cmd_pick(due_only=True)
+        cmd_settle()
     elif cmd == "validate":  # today's open markets: exercises the live path, logs nothing
         cmd_pick(days_ahead=0, log=False)
     else:

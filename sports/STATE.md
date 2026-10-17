@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-16 eve (Kalshi paper timing fixed; parlays 0/2; location NFL 0/2). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-17 am (Kalshi paper 2nd timing bug fixed: late launchd runs; stocks 3 more trials 0/3). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -67,11 +67,16 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 - DEV RESULT: 0/11. dip_rip (SPY/QQQ x band 3/5/10%) alpha -1.1..+2.1%/yr, best QQQ 5% p=0.05 (not near bar);
   tech_gate (hold 8 sectors only if tech rose) -6.3%/yr t=-2.6 (do NOT flip it post-hoc); graph_leadlag
   (ridge lead-lag, top-3) -1.0%/yr; 2% daily loss cap on SPY/QQQ: ~+1.3%/yr ns, smaller DD, fills optimistic.
-- Next stock ideas (each = new ledger trials): cross-sectional momentum/short-term reversal on sectors,
-  supplier->customer lead-lag (Cohen-Frazzini economic links) needs a supplier graph we don't have,
-  vol-targeting with loss cap (risk control, not alpha). Baseline truth: index fund ~7%/yr = $100/mo on ~$17k.
+- 2026-10-17 +3 trials (14 total, bar p < 0.0036): sector_momentum 12-1 top-3 +0.6%/yr p=.40; sector_reversal
+  weekly bottom-3 -0.6%/yr; vol_target SPY 10% (Moreira-Muir) alpha +2.7%/yr t=1.97 p=.024 (not past bar),
+  Sharpe 0.67 vs 0.47, maxDD -25% vs -55%, but CAGR 6.4% vs 7.5% (75% avg exposure) -> RISK CONTROL, not more
+  money; the principled form of the user's daily-loss-cap idea. Only beats B&H in dollars with leverage.
+- Remaining stock ideas: supplier->customer lead-lag (Cohen-Frazzini) needs a supplier graph we don't have.
+  Honest read after 14 trials: simple ETF timing rules don't beat holding. Baseline: index fund ~7%/yr =
+  $100/mo on ~$17k.
 
 ## WAITING ON USER
+0. Keep the Mac awake for kickoffs/22:00-local picks? (pmset wake schedule) -- see Live signal engine RISK.
 1. Odds API decision (pre-registered outcome of the sealed test, no Class-B pass): buying ($119, 1 month,
    `ODDS_API_KEY=` in `sports/.env`) is a $119 test of ONE lead -- the NBA high-line under @DraftKings
    (+1.9% dev, untestable on ESPN data). User's call; do not frame it as a likely winner.
@@ -93,11 +98,16 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 7. live_edges.py scanner is session-only; low priority.
 
 ## Kalshi paper trader (durable)
+2026-10-17 FIX #2: the 10-16 minute-based dispatch (:00-:04 -> pick, else settle) lost EVERY pick on 10-16 because
+launchd ran late after sleep (19:09, 20:17, 21:10, 22:13). Now one `tick` per hourly run = pick each city in its
+decision window 22:00-23:59 CITY-local (once per city-night, data/kalshi_paper_done.json) + settle. Each pick logs
+late_min. Lesson: never infer which job to run from the wall clock when the scheduler can be late.
+Paper so far: 1 pick (DEN 10-16, NO @0.99) settled WIN +0.01u. Real record starts 2026-10-17 evening.
 2026-10-16 FIX: the old single 22:03-PT run looked up the day AFTER tomorrow for ET/CT cities (5/7 "no open event"
 on 10-15; only DEN logged, 1 pick). Backtest decides at 22:00 CITY-local. Now `pick-due` runs hourly at :03 and
 picks each city in its own 22:xx hour (NY/MIA/PHL 19:03 PT, CHI/AUS 20:03, DEN 21:03, LAX 22:03); log is deduped
 by ticker. Paper record effectively starts 2026-10-16 evening.
-launchd com.jonathanwang.quant-kalshi-paper: pick-due hourly :03 / settle 10:07 daily from ~/.claude/quant-kalshi
+launchd com.jonathanwang.quant-kalshi-paper: `tick` hourly at :03 from ~/.claude/quant-kalshi
 (code copy + own venv; launchd can't read Desktop). Canonical log ~/.claude/quant-kalshi/data/kalshi_paper.jsonl,
 run log ~/.claude/quant-kalshi/run.log. After editing kalshi_paper.py or sports/: `bash sports/scripts/install_kalshi_paper_agent.sh`.
 
@@ -107,6 +117,10 @@ Logs ~/.claude/quant-kalshi/data/live_signals.jsonl (picks+settles), live_signal
 live_signals.log (non-empty ticks only). Report: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/live_signals.py report`.
 After editing live_signals.py / sports/: `bash sports/scripts/install_live_signals_agent.sh`. Add signals to SIGNALS.
 Rain fires ~15-20x/season, so judging it takes seasons -- the engine's value is hosting MORE signals.
+RISK (2026-10-17): the signal window is 10-50 min before kickoff, but launchd has run 10-70 min late while the Mac
+sleeps (14 runs in ~21 h instead of ~84). Games will be MISSED (sample loss, not bias: sleep is unrelated to rain).
+Fix needs the Mac awake at kickoffs (`sudo pmset repeat wake ...` or Amphetamine/caffeinate) -- USER's call.
+First real NFL slate since install: Sun 2026-10-18; check live_signals_eval.jsonl after it.
 
 ## Dies with the session (restart by hand)
 - Live paper loop: `cd sports && ../.venv_quant/bin/python scripts/live_edges.py loop --every 10` (run_in_background).

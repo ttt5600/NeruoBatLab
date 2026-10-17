@@ -1,8 +1,8 @@
 #!/bin/bash
 # Install (or refresh) the durable Kalshi paper trader: launchd cannot read ~/Desktop (TCC),
 # so code + venv + log live in ~/.claude/quant-kalshi. Re-run after editing kalshi_paper.py or sports/.
-#   pick-due hourly at :03 -- each city is picked at 22:xx in ITS OWN time zone (the backtest's decision time)
-#   settle   daily 10:07 local
+#   tick hourly at :03 = pick every city in its decision window (22:00-23:59 CITY-local, once per
+#   city-night) + settle. No wall-clock dispatch: launchd runs late after sleep (10-16 lost every pick).
 # Paper only: kalshi_paper.py places no orders. Log: ~/.claude/quant-kalshi/data/kalshi_paper.jsonl
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
@@ -20,7 +20,7 @@ fi
 
 cat > "$DST/run.sh" <<EOF
 #!/bin/bash
-# \$1 = pick | settle. Appends a timestamped run record to run.log.
+# \$1 = tick | pick | settle. Appends a timestamped run record to run.log.
 cd "$DST"
 echo "=== \$(date '+%F %T') \$1" >> run.log
 "$DST/.venv/bin/python" scripts/kalshi_paper.py "\$1" >> run.log 2>&1
@@ -36,16 +36,14 @@ cat > "$PLIST" <<EOF
   <key>ProgramArguments</key><array><string>/bin/bash</string><string>$DST/dispatch.sh</string></array>
   <key>StartCalendarInterval</key><array>
     <dict><key>Minute</key><integer>3</integer></dict>
-    <dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>7</integer></dict>
   </array>
   <key>StandardErrorPath</key><string>$DST/launchd.err</string>
 </dict></plist>
 EOF
 
-# one agent: :03 every hour -> pick-due (no-op unless a city is at 22:xx); 10:07 -> settle
 cat > "$DST/dispatch.sh" <<EOF
 #!/bin/bash
-if [ "\$(date +%M)" -lt 5 ]; then exec "$DST/run.sh" pick-due; else exec "$DST/run.sh" settle; fi
+exec "$DST/run.sh" tick
 EOF
 chmod +x "$DST/dispatch.sh"
 

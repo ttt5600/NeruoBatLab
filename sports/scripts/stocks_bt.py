@@ -133,11 +133,63 @@ def loss_cap(px, asset, cap):
     return r.dropna(), (c / pc - 1).dropna(), 1 - hit.mean()
 
 
+def _rebalance(c: pd.DataFrame, score_fn, when: pd.Series, k: int, top: bool) -> pd.DataFrame:
+    """Equal-weight the k best (top=True) or worst sectors by score_fn at each `when` close; hold until next."""
+    sc = score_fn(c)
+    pos = pd.DataFrame(np.nan, index=c.index, columns=c.columns)
+    for t in c.index[when.reindex(c.index, fill_value=False).to_numpy()]:
+        s = sc.loc[t].dropna()
+        if len(s) < k:
+            continue
+        pick = s.sort_values(ascending=not top).index[:k]
+        pos.loc[t] = 0.0
+        pos.loc[t, pick] = 1.0 / k
+    return pos.ffill().fillna(0.0)
+
+
+def sector_momentum(px, k=3):
+    """Industry momentum (Moskowitz & Grinblatt 1999, J Finance): at each month end hold the k sectors with the
+    best 12-month return skipping the latest month (12-1); benchmark = equal-weight all 9 sectors."""
+    c = px["close"][SECTORS]
+    idx = c.index.to_series()
+    month_end = idx.dt.month != idx.shift(-1).dt.month
+    pos = _rebalance(c, lambda x: x.shift(21) / x.shift(252) - 1, month_end, k, top=True)
+    bh = pd.DataFrame(1.0 / len(SECTORS), index=c.index, columns=SECTORS)
+    live = pos.sum(axis=1) > 0
+    first = live.idxmax()
+    return run_positions(pos.loc[first:], c), run_positions(bh.loc[first:], c), pos.loc[first:].sum(axis=1).mean()
+
+
+def sector_reversal(px, k=3):
+    """Short-term reversal (Lehmann 1990; Jegadeesh 1990 for stocks): each week's last trading day hold the k
+    sectors with the WORST prior-week return; benchmark = equal-weight 9 sectors."""
+    c = px["close"][SECTORS]
+    idx = c.index.to_series()
+    week_end = (idx.dt.isocalendar().week != idx.shift(-1).dt.isocalendar().week).fillna(True).astype(bool)
+    pos = _rebalance(c, lambda x: x / x.shift(5) - 1, week_end, k, top=False)
+    bh = pd.DataFrame(1.0 / len(SECTORS), index=c.index, columns=SECTORS)
+    first = (pos.sum(axis=1) > 0).idxmax()
+    return run_positions(pos.loc[first:], c), run_positions(bh.loc[first:], c), pos.loc[first:].sum(axis=1).mean()
+
+
+def vol_target(px, asset, target=0.10, n=20):
+    """Volatility-managed exposure (Moreira & Muir 2017, J Finance): weight = min(1, target / trailing n-day
+    realised vol). Long-only, no leverage. Benchmark = buy-and-hold the same asset."""
+    c = px["close"][asset]
+    rv = c.pct_change().rolling(n).std() * np.sqrt(252)
+    w = (target / rv).clip(upper=1.0).dropna()
+    pos = w.to_frame(asset)
+    bh = pd.DataFrame(1.0, index=w.index, columns=[asset])
+    return run_positions(pos, px["close"]), run_positions(bh, px["close"]), w.mean()
+
+
 TRIALS = (
     [("dip_rip", {"asset": a, "band": b}) for a in ["SPY", "QQQ"] for b in [0.03, 0.05, 0.10]]
     + [("tech_gate", {"signal": "XLK"}), ("tech_gate", {"signal": "MEGA_TECH"})]
     + [("graph_leadlag", {"k": 3})]
     + [("loss_cap", {"asset": a, "cap": 0.02}) for a in ["SPY", "QQQ"]]
+    # 2026-10-17: published-literature sector/vol ideas (registered before scoring)
+    + [("sector_momentum", {"k": 3}), ("sector_reversal", {"k": 3}), ("vol_target", {"asset": "SPY", "target": 0.10})]
 )
 
 
@@ -150,6 +202,12 @@ def run_trial(px, name, p):
         return graph_leadlag(px, p["k"])
     if name == "loss_cap":
         return loss_cap(px, p["asset"], p["cap"])
+    if name == "sector_momentum":
+        return sector_momentum(px, p["k"])
+    if name == "sector_reversal":
+        return sector_reversal(px, p["k"])
+    if name == "vol_target":
+        return vol_target(px, p["asset"], p["target"])
     raise KeyError(name)
 
 

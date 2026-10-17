@@ -2,6 +2,7 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-17 | stocks: sector momentum 12-1, weekly sector reversal, SPY vol-target 10% | ETFs dev 2006-18 (14 trials) | +0.6%/yr ns; -0.6%/yr; vol-target alpha +2.7%/yr p=.024 (bar .0036), maxDD -25% vs -55%, CAGR 6.4 vs 7.5% | NO EDGE; vol-target = risk control only |
 | 10-16 | NFL location: west_early_east (Pacific team at ET venue <2pm ET, bet home) + den_altitude_home | nfl_spread dev 2009-19 | -10.6%/110 p=.86; -7.4%/94 p=.76 | NO EDGE; circadian mirror fails -> weakens west_coast_night |
 | 10-16 | 2-leg cross-game parlays of high-prob legs (dec<=1.50), 2 trials | props non-sealed + NFL ML dev 2006-19 | props -9.3%/105k (legs -4.7%, compounding predicts -9.2%); NFL ML -1.35%/885 ns | NO EDGE: parlays square the legs' edge |
 | 10-15 | stocks dev: dip/rip, tech->sectors gate, learned lead-lag graph, 2% daily loss cap (11 trials) | ETFs+mega-tech 2006-18 | 0/11; tech gate -6.3%/yr t=-2.6; best dip/rip QQQ 5% +2.1%/yr p=.05 | no edge; loss cap = risk control only |
