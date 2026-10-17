@@ -780,6 +780,16 @@ experiments:
     aves-base-bio and E23, and measure how many call-type predictions flip (and in which types) and how much a
     bird-identity probe degrades. If +-1-2 semitones barely moves either, pitch is not the voice axis and E33
     should change its augmentation (spectral tilt / formant) before any GPU time is spent.'
+  pretest_result: 'Done 2026-10-17 (analysis/e33_pitch_pretest.json; CPU; probe trained on unshifted clips, tested on
+    shifted ones). Bird ID (47 birds, random clip split) falls from 0.7258 to 0.6235/0.5897 at -1/+1 semitone for
+    aves-base-bio and from 0.7689 to 0.5830/0.5323 for E23; call type falls from 0.8438 to 0.8400/0.8057 and from 0.8482
+    to 0.8326/0.7963. So pitch is mainly a voice axis (bird ID drops 2-5x more, relatively), but NOT call-type neutral:
+    upward shifts move tuck recall up (aves-base-bio 0.38 -> 0.43 -> 0.45 at +1/+2) while thuk (0.68 -> 0.49 -> 0.47)
+    and tet (0.89 -> 0.81 -> 0.68) fall, i.e. pitch carries part of the very tuck/thuk/tet distinction where the errors
+    are. Lead''s reading: a +-2 semitone pitch augmentation would likely erase a cue the soft calls need; if E33 runs at
+    all, use small shifts (<= 0.5 semitone) or a different voice axis (spectral tilt / formant), and it is the user''s
+    call. Caveats: this measures the frozen representation''s sensitivity, not what a model trained with the
+    augmentation would learn; phase-vocoder artefacts on 2-8 frame clips are part of the shift.'
   script: null
   status: proposed
   priority: 1
