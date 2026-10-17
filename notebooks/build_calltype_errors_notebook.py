@@ -666,6 +666,7 @@ correction (finding 076), which is why some of what follows reverses it.
 """)
 
 nb["cells"] = C
+nb.metadata["kernelspec"] = {"name": "zf-py310", "display_name": "ZF analysis (Python 3.10)", "language": "python"}
 out = Path(__file__).resolve().parent / "08_calltype_errors.ipynb"
 nbf.write(nb, out)
 print(f"wrote {out}")

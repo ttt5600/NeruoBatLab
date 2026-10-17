@@ -460,6 +460,7 @@ bootstrap.run11_vs_logenergy), all under `~/zf_labelset/zf_detection_dataset_v1/
 """)
 
 nb["cells"] = C
+nb.metadata["kernelspec"] = {"name": "zf-py310", "display_name": "ZF analysis (Python 3.10)", "language": "python"}
 out = Path(__file__).resolve().parent / "07_layer_sweeps.ipynb"
 nbf.write(nb, out)
 print(f"wrote {out}")
