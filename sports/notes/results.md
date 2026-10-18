@@ -2,6 +2,7 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-18 | Kalshi MAKER: rest bid at T-3h, fill = trade-through by T-1h, maker fee | Kalshi winners 2025 dev, 5,029 events | MK1 dog 20-50c +9.8%/898 fills p.009 3/3q (bar .0063); MK2 fav 50-80c -5.4%/893. Robust: verified +11.3%, looser fill +9.4%/2,895, always-filled +7.6%; taker on same set +1.3-3.7% | NOT past bar; band chosen after seeing dev calibration (partly post-hoc); league-inconsistent (MLB/NBA +, NFL/NHL -); mostly spread capture; contradicts paper (favs >50c should be +). Sealed candidate |
 | 10-18 | Kalshi sports favourite-longshot, 1 h pre-start, taker fees (6 trials, G4 post-hoc) | Kalshi 2025-04..12, 9,312 events | G1 fav>=85% +2.0%/383 p.062 3/3q; G2 fav65-85 -5.6%/1,346; G3 dog<=15% -45%/367; ladder tails +0.5%/377, +0.4%/88; G4 dog20-50 (post-hoc) +1.4%/4,429 p.21 | none past bar .0083. Longshots <10c badly overpriced (paper replicated); ladders well calibrated. Sealed (2026, ~140k rows) BLOCKED on start-time join |
 | 10-17 | MLB open->close ML move >=4pp: follow vs fade, at close | SBRO 2010-18 | follow -3.0%/3,308; fade -2.3%/3,308 | NO EDGE: close efficient both ways |
 | 10-17 | NBA decorrelated models: Elo disagree >=0.10 ML; walk-forward logit edge >=3% | NBA 2007-19 | +0.6%/3,916 p.40; -4.2%/744 | NO EDGE (Brier mkt .199 < Elo .207) |
