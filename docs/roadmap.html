@@ -479,6 +479,11 @@ footer {
           <td><span class="chip c-done">= run16</span></td>
         </tr>
         <tr>
+          <td class="name">ours-on-general, seed 2 <span style="font-weight:400;color:var(--muted)">(E9)</span></td><td>FSD50K 108 h</td><td>random</td><td>it1 spec k=200</td>
+          <td class="num">322</td><td class="num">0.8324 <span style="font-weight:400;color:var(--muted)">CPU</span></td><td class="num">0.9659</td><td class="num">0.7687</td>
+          <td><span class="chip c-done">holds level (078)</span></td>
+        </tr>
+        <tr>
           <td class="name">ours-on-ZF-only <span style="font-weight:400;color:var(--muted)">(run21, twin)</span></td><td>ZF 116 h</td><td>random</td><td>it1 spec k=200</td>
           <td class="num">322</td><td class="num">0.8151</td><td class="num">0.9699</td><td class="num">0.8083</td>
           <td><span class="chip c-fail">&lt; run16</span></td>
@@ -487,6 +492,11 @@ footer {
           <td class="name">aves-teacher <span style="font-weight:400;color:var(--muted)">(run19)</span></td><td>ZF + FSD 224 h</td><td>random</td><td>it2 <em>AVES</em>-L6 k=200</td>
           <td class="num">322</td><td class="num">0.8464</td><td class="num">0.9717</td><td class="num">0.8115</td>
           <td><span class="chip c-done">highest, = run16</span></td>
+        </tr>
+        <tr>
+          <td class="name">aves-teacher, seed 2 <span style="font-weight:400;color:var(--muted)">(E8)</span></td><td>ZF + FSD 224 h</td><td>random</td><td>it2 <em>AVES</em>-L6 k=200</td>
+          <td class="num">322</td><td class="num">0.8546 <span style="font-weight:400;color:var(--muted)">CPU</span></td><td class="num">0.9708</td><td class="num">0.8641</td>
+          <td><span class="chip c-done">both seeds &gt; run16 seeds (077)</span></td>
         </tr>
         <tr>
           <td class="name">run15 <span style="font-weight:400;color:var(--muted)">(combined-it1)</span></td><td>ZF + FSD 224 h</td><td>random</td><td>it1 spec k=200</td>
@@ -518,6 +528,9 @@ footer {
   </div>
 
   <p style="font-size:.9rem;color:var(--muted)">
+    Call-type numbers marked <em>CPU</em> come from <code>analysis/calltype_cpu_rescore.json</code>; the
+    unmarked ones were encoded on the Mac's MPS backend, which mis-encodes 2-8 frame clips (finding 076),
+    and are not comparable with them (CPU: run19 0.8458, run16 0.8353, run20 0.8283).
     <code>run17</code>'s 0.5720 is the raw-input trap above, not a broken model: with normalised
     input its BirdPark AP is 0.7728, in line with run16. <code>run12</code> / <code>run13</code> predate the current holdout protocol and were scored
     only in-distribution (0.905 / 0.913 against <code>run11</code>'s 0.921). They are listed because

@@ -1,0 +1,94 @@
+==============================================
+HuBERT run18 -- run16 recipe on iteration-2 labels (run16 layer 6, k=200)
+Start: Sat Oct 17 00:20:29 PDT 2026
+==============================================
+[precheck] audio OK: 763 files, 224.42 h under /global/scratch/users/jonathanswang/temp_files (9 rows probed head/middle/tail)
+[precheck] labels: 40,395,560 frames, vocabulary 200, --num-classes 200
+0, NVIDIA L40S, 46068 MiB
+1, NVIDIA L40S, 46068 MiB
+2, NVIDIA L40S, 46068 MiB
+3, NVIDIA L40S, 46068 MiB
+PyTorch: 2.2.2 | CUDA: True 12.1
+GPUs visible: 4
+[resume] found /global/scratch/users/jonathanswang/temp_train_run19_seed2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt -- continuing rather than restarting
+
+Starting training...
+
+[rank: 0] Seed set to 2
+[rank: 2] Seed set to 2
+[rank: 3] Seed set to 2
+[rank: 1] Seed set to 2
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `lightning.pytorch` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/configuration_validator.py:70: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+You are using a CUDA device ('NVIDIA L40S') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/callbacks/model_checkpoint.py:881: Checkpoint directory /global/scratch/users/jonathanswang/temp_train_run19_seed2/checkpoints_ZF_test_pipeline_hubert_pretrain_base exists and is not empty.
+Restoring states from the checkpoint path at /global/scratch/users/jonathanswang/temp_train_run19_seed2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+
+  | Name  | Type                | Params | Mode  | FLOPs
+--------------------------------------------------------------
+0 | model | HuBERTPretrainModel | 94.6 M | train | 0    
+--------------------------------------------------------------
+94.6 M    Trainable params
+0         Non-trainable params
+94.6 M    Total params
+378.479   Total estimated model params size (MB)
+204       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+Restored all states from the checkpoint at /global/scratch/users/jonathanswang/temp_train_run19_seed2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py:224: You're resuming from a checkpoint that ended before the epoch ended and your dataloader is not resumable. This can cause unreliable results if further training is done. Consider using an end-of-epoch checkpoint or make your dataloader resumable by implementing the `state_dict` / `load_state_dict` interface.
+[rank1]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank2]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank3]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_feature_penalty', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('Gathered number of frames', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+Epoch 34, global step 87735: 'train_loss' was not in top 5
+Epoch 35, global step 90239: 'train_loss' reached 1.54349 (best 1.54349), saving model to '/global/scratch/users/jonathanswang/temp_train_run19_seed2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=35-step=90239.ckpt' as top 5
+Epoch 36, global step 92746: 'train_loss' reached 1.54010 (best 1.54010), saving model to '/global/scratch/users/jonathanswang/temp_train_run19_seed2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=36-step=92746.ckpt' as top 5
+Epoch 37, global step 93750: 'train_loss' reached 1.53412 (best 1.53412), saving model to '/global/scratch/users/jonathanswang/temp_train_run19_seed2/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=37-step=93750.ckpt' as top 5
+`Trainer.fit` stopped: `max_steps=93750` reached.
+
+End: Sat Oct 17 00:47:40 PDT 2026   train.py exit=0
+-rw-rwxr--+ 1 jonathanswang ucb 1135715512 Oct 14 19:40 epoch=34-step=87734.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715448 Oct 17 00:33 epoch=35-step=90239.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715448 Oct 17 00:42 epoch=36-step=92746.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715512 Oct 17 00:47 epoch=37-step=93750.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715512 Oct 17 00:47 last.ckpt

@@ -205,7 +205,8 @@ experiments:
   script: pytorchAudio/examples/hubert/slurm/train_run16_seed3.sh
   status: done
   finding: '070'
-  result: three run16 seeds span 0.8224-0.8417 (range 0.0193); which seed is the outlier depends on the layer
+  result: three run16 seeds span 0.8224-0.8417 (range 0.0193); which seed is the outlier depends on the
+    layer
   priority: 3
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Submitted
     2026-10-08 02:20 as job 39732808 (confirmed in sacct and the ledger).'
@@ -223,12 +224,15 @@ experiments:
   success: both run19 seeds above both run16 seeds at the best layer would make "AVES targets help" worth
     a powered test; anything else, report the range
   script: pytorchAudio/examples/hubert/slurm/train_run19_seed2.sh
-  status: submitted
+  status: done
+  finding: '077'
+  result: 'CPU call type 0.8546 (seed 1 0.8458): both run19 seeds above all three run16 seeds at best layer and
+    L3 -> bar for a powered test met; only the pairs vs run16 seed 2 resolve'
   priority: 4
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Job 39781626
-    preempted 6 times, then Slurm REQUEUE_HOLD "launch failure limit exceeded" (user cannot scontrol
-    release it). 2026-10-14 23:45: cancelled that held job and resubmitted the same script as 39945354; it
-    resumes from last.ckpt epoch=34-step=87734.'
+    preempted 6 times, then Slurm REQUEUE_HOLD "launch failure limit exceeded" (user cannot scontrol release
+    it). 2026-10-14 23:45: cancelled that held job and resubmitted the same script as 39945354; it resumes
+    from last.ckpt epoch=34-step=87734.'
   exp_dir: /global/scratch/users/jonathanswang/temp_train_run19_seed2
   tag: run19_seed2
   num_classes: 200
@@ -246,7 +250,10 @@ experiments:
   tag: run20_seed2
   num_classes: 200
   job_name: hubert_run20s2
-  status: submitted
+  status: done
+  finding: '078'
+  result: 'CPU call type 0.8324 (seed 1 0.8283), seed pair +0.0041 [-0.0104, +0.0172]; level with run16, resolved
+    below run19_seed2'
   job: 39945376
   priority: 5
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Submitted
@@ -265,17 +272,17 @@ experiments:
   script: null
   status: done
   finding: '063'
-  result: 'frozen probe, 8 interpretable BEANS tasks: none of ours ahead of aves-base-bio; run16 behind on 5, run19 not distinguishable on 7 (one seed, AVES-own targets)'
+  result: 'frozen probe, 8 interpretable BEANS tasks: none of ours ahead of aves-base-bio; run16 behind
+    on 5, run19 not distinguishable on 7 (one seed, AVES-own targets)'
   priority: 1
   approved_download: true
   protocol_change: '2026-10-11, started by hand: AVES''s published BEANS row is FINE-TUNED (whole net
-    minus CNN, lr sweep x 50 epochs), so a frozen probe cannot reproduce it and the original success
-    criterion cannot be met as written. User asked for all tasks; scoring is a FROZEN linear probe
-    on all 10 non-Kaggle tasks (beans_probe.py; layer chosen on valid, test at that layer, clips at
-    own length -- BEANS zero-pads, which is the finding-034 bug). The scorer check becomes: BEANS
-    split CSVs MD5-identical to BEANS''s (beans_fetch.sh). A fine-tuned check against the published
-    0.748 on bats (aves-bio vs run16 only) is a possible follow-up, not run. cbi/rfcx need the user''s
-    Kaggle account.'
+    minus CNN, lr sweep x 50 epochs), so a frozen probe cannot reproduce it and the original success criterion
+    cannot be met as written. User asked for all tasks; scoring is a FROZEN linear probe on all 10 non-Kaggle
+    tasks (beans_probe.py; layer chosen on valid, test at that layer, clips at own length -- BEANS zero-pads,
+    which is the finding-034 bug). The scorer check becomes: BEANS split CSVs MD5-identical to BEANS''s
+    (beans_fetch.sh). A fine-tuned check against the published 0.748 on bats (aves-bio vs run16 only)
+    is a possible follow-up, not run. cbi/rfcx need the user''s Kaggle account.'
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). The bats
     task is Egyptian fruit bat individual ID. Record each dataset''s size and licence in pi_notes.md before
     downloading. Scoring runs on the Mac or a Savio GPU, never as a training slot.'
@@ -291,15 +298,18 @@ experiments:
   success: a label-free score per model with an interval, added to score_run.sh and the model board, and
     a check of whether it ranks models the same way call type does
   status: done
-  finding: '069'
-  result: 'no model beats aves-base-bio on label-free k=30 stability (two-teacher arms lead on point estimates only); agreement with call type weak and unresolved among close models (rho +0.30 [-0.11, +0.64]), +0.90 on 050''s five encoders; added to score_run.sh and the board (finding 069)'
+  finding: 069
+  result: no model beats aves-base-bio on label-free k=30 stability (two-teacher arms lead on point estimates
+    only); agreement with call type weak and unresolved among close models (rho +0.30 [-0.11, +0.64]),
+    +0.90 on 050's five encoders; added to score_run.sh and the board (finding 069)
   script: zfeval/experiments/calltype_labelfree.py
   priority: 2
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Pre-registered
-    2026-10-12 before any score was read (zfeval/experiments/calltype_labelfree.py): 050''s bird-held-out stability,
-    layer 3 (6 for 24-layer models), k=30 primary and k=11 secondary, 50 bird halvings shared by all models, seed 0;
-    percentile spread over halvings and paired difference vs aves-base-bio; rank check = Spearman rho vs call type
-    at the same layer and at the best layer; column-shuffled null must sit near 0.'
+    2026-10-12 before any score was read (zfeval/experiments/calltype_labelfree.py): 050''s bird-held-out
+    stability, layer 3 (6 for 24-layer models), k=30 primary and k=11 secondary, 50 bird halvings shared
+    by all models, seed 0; percentile spread over halvings and paired difference vs aves-base-bio; rank
+    check = Spearman rho vs call type at the same layer and at the best layer; column-shuffled null must
+    sit near 0.'
 - id: E16
   roadmap: idea 8
   kind: analysis
@@ -315,35 +325,38 @@ experiments:
   priority: 6
   requires: E10 and E11 done
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats).'
-  protocol: 'Pre-registered 2026-10-14 23:49 (commit b480267), before any expanded score. BEANS bats (250 kHz source, 10 individuals),
-    frozen-probe protocol of E10 (beans_probe.py, layer chosen on valid). Factors F = 2 and 4 (F = 1 = plain resampling,
-    the cached E10 features): audio read as if recorded at 250/F kHz, then resampled to 16 kHz, and max_duration scaled by
-    F so the same stretch of recording is kept (model tag suffix @te<F>). Models: run16_compute4x and aves-base-bio.
-    Read-out per model: test accuracy at F minus at F = 1, paired clip bootstrap (n 2000, seed 0). Why these factors: on
-    300 random train clips, median clip energy is 9% at 4-8 kHz, 76% at 8-16 kHz, 12% at 16-32 kHz, 0.3% above 32 kHz
-    (Welch; pi_notes 2026-10-14 23:49), so F = 2 and 4 bring 8-16 and 16-32 kHz into band and F = 8 adds little. The
-    label-free half of the success criterion is pre-registered separately before it is run (it needs an
-    individual-held-out variant of E11).'
-  control: 'Pre-registered 2026-10-15 00:45, after the F = 2/4 results and before this control was run. Time expansion both
-    moves content above 8 kHz into band and stretches each call over F times more frames. Control @lpte4: resample to
-    16 kHz first (keeps only 0-8 kHz, what plain resampling keeps), then slow 4-fold, so clips are as long as @te4 but
-    carry nothing from above 8 kHz (verified: a 12 kHz tone is removed, amplitude 0.0000; a 6 kHz tone passes at 0.388
-    of 0.4). Both models. Reading: @te4 minus @lpte4 resolved positive = the gain needs the content above 8 kHz;
-    @lpte4 minus plain resolved positive = stretching alone helps; both can hold.'
-  labelfree_protocol: 'Pre-registered 2026-10-15 21:12, before any bats label-free score was computed. E11''s bird-held-out
-    stability (calltype_labelfree.py functions ward / transfer_ari, unchanged) with bats INDIVIDUALS as the held-out
-    groups: clips = BEANS bats valid + test (4,000 clips, 10 individuals, the cached beans_probe features); B = 50
-    random halvings of the 10 individuals (5 vs 5), seed 0, the same halvings for every arm; per-dimension
-    standardisation; layer 3 (E11''s rule for 12-layer models); k = 30 primary, 11 secondary. Arms: run16_compute4x and
-    aves-base-bio at plain, @te2, @te4 and @lpte4. Read-out per model: score(arm) minus score(plain), paired over the 50
-    halvings; "interval excluding zero" = its 2.5-97.5 percentile over halvings (as E11; the halvings overlap, so this
-    is a resampling spread). Check: a column-shuffled null for one arm must sit near 0. Labels are used only to define
+  protocol: 'Pre-registered 2026-10-14 23:49 (commit b480267), before any expanded score. BEANS bats (250
+    kHz source, 10 individuals), frozen-probe protocol of E10 (beans_probe.py, layer chosen on valid).
+    Factors F = 2 and 4 (F = 1 = plain resampling, the cached E10 features): audio read as if recorded
+    at 250/F kHz, then resampled to 16 kHz, and max_duration scaled by F so the same stretch of recording
+    is kept (model tag suffix @te<F>). Models: run16_compute4x and aves-base-bio. Read-out per model:
+    test accuracy at F minus at F = 1, paired clip bootstrap (n 2000, seed 0). Why these factors: on 300
+    random train clips, median clip energy is 9% at 4-8 kHz, 76% at 8-16 kHz, 12% at 16-32 kHz, 0.3% above
+    32 kHz (Welch; pi_notes 2026-10-14 23:49), so F = 2 and 4 bring 8-16 and 16-32 kHz into band and F
+    = 8 adds little. The label-free half of the success criterion is pre-registered separately before
+    it is run (it needs an individual-held-out variant of E11).'
+  control: 'Pre-registered 2026-10-15 00:45, after the F = 2/4 results and before this control was run.
+    Time expansion both moves content above 8 kHz into band and stretches each call over F times more
+    frames. Control @lpte4: resample to 16 kHz first (keeps only 0-8 kHz, what plain resampling keeps),
+    then slow 4-fold, so clips are as long as @te4 but carry nothing from above 8 kHz (verified: a 12
+    kHz tone is removed, amplitude 0.0000; a 6 kHz tone passes at 0.388 of 0.4). Both models. Reading:
+    @te4 minus @lpte4 resolved positive = the gain needs the content above 8 kHz; @lpte4 minus plain resolved
+    positive = stretching alone helps; both can hold.'
+  labelfree_protocol: 'Pre-registered 2026-10-15 21:12, before any bats label-free score was computed.
+    E11''s bird-held-out stability (calltype_labelfree.py functions ward / transfer_ari, unchanged) with
+    bats INDIVIDUALS as the held-out groups: clips = BEANS bats valid + test (4,000 clips, 10 individuals,
+    the cached beans_probe features); B = 50 random halvings of the 10 individuals (5 vs 5), seed 0, the
+    same halvings for every arm; per-dimension standardisation; layer 3 (E11''s rule for 12-layer models);
+    k = 30 primary, 11 secondary. Arms: run16_compute4x and aves-base-bio at plain, @te2, @te4 and @lpte4.
+    Read-out per model: score(arm) minus score(plain), paired over the 50 halvings; "interval excluding
+    zero" = its 2.5-97.5 percentile over halvings (as E11; the halvings overlap, so this is a resampling
+    spread). Check: a column-shuffled null for one arm must sit near 0. Labels are used only to define
     the halvings, never in the score. Script zfeval/experiments/e16_labelfree.py; output analysis/e16_labelfree.json.'
-  progress: '2026-10-15 01:27: BEANS half done -> finding 074 (open, critic applied). F=4 resolved gain for both models (run16
-    +0.0800, aves +0.0670); the low-pass control keeps 0.69 / 0.78 of it. Label-free half still to be designed and
-    pre-registered; E16 stays approved until then.
-    2026-10-15 21:21: label-free half run (e16_labelfree.json): no arm distinguishable from plain; criterion NOT met.
-    Finding 074 confirmed after critic.'
+  progress: '2026-10-15 01:27: BEANS half done -> finding 074 (open, critic applied). F=4 resolved gain
+    for both models (run16 +0.0800, aves +0.0670); the low-pass control keeps 0.69 / 0.78 of it. Label-free
+    half still to be designed and pre-registered; E16 stays approved until then. 2026-10-15 21:21: label-free
+    half run (e16_labelfree.json): no arm distinguishable from plain; criterion NOT met. Finding 074 confirmed
+    after critic.'
 - id: E12
   roadmap: idea 4
   title: 'Combine the winners: AVES-teacher labels on general audio only'
@@ -353,12 +366,21 @@ experiments:
   question: Do the two positive signals (AVES labels, general audio) add up?
   success: call type above both run19 and run20 with intervals excluding zero; otherwise report it as
     not additive
-  script: null
-  status: approved
+  script: pytorchAudio/examples/hubert/slurm/train_run22_avesfsd.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run22_avesfsd
+  tag: run22_avesfsd
+  num_classes: 200
+  job_name: hubert_run22
+  status: submitted
+  job: 40090445
   priority: 7
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Build with
     scripts/subset_corpus.py on combined_aves_teacher/data/hubert_6 (as build_fsd_only_corpus.sh did for
-    the spectrogram labels) and train_run20_fsdonly.sh with only DATA/EXP changed.'
+    the spectrogram labels) and train_run20_fsdonly.sh with only DATA/EXP changed. 2026-10-17 20:40 (harness
+    20261017-203222): corpus built on the login node with build_fsd_only_corpus.sh (SRC/OUT overridden) ->
+    temp_files/fsd_only_avesteacher/data/hubert_6, 643/763 files, 108.39 h, 200 cluster ids, km_model symlinked;
+    same file set as run20. Submitted as job 40090445. Score on CPU (finding 076): compare with run19 and run20
+    via calltype_cpu_rescore.json + seed_pairs_cpu.py.'
 - id: E13
   roadmap: idea 5
   title: 'Stronger teacher: labels from BirdAVES'
@@ -373,7 +395,11 @@ experiments:
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). biox-base
     (0.8520) has our architecture and should load through build_teacher as-is. biox-large (0.8552) needs
     build_teacher to build a large model first; only use it if that is added and verified to load cleanly.
-    The checkpoints may only be on the Mac (~/zf_labelset/external/aves): copy to Savio external/aves.'
+    The checkpoints may only be on the Mac (~/zf_labelset/external/aves): copy to Savio external/aves. 2026-10-17 (harness 20261017-203222): NOT submitted.
+    The premise numbers above are MPS (finding 076). On CPU (calltype_cpu_rescore.json) biox-base is 0.8476 vs
+    aves-base-bio 0.8438 (+0.0038, untested interval) and biox-large 0.8420, so the "stronger teacher" is not
+    clearly stronger; bioxn-large (0.8590) is the CPU leader but is a large model. Also needs a relabel job +
+    a dependent training job and an unverified build_teacher load. Human: confirm the teacher choice.'
 - id: E14
   roadmap: idea 6
   title: Start from BirdAVES and specialise it on zebra finch
@@ -385,18 +411,19 @@ experiments:
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_birdaves.sh
   status: done
   finding: '066'
-  result: 'primary not met, wrong direction: call type 0.8341 vs birdaves-biox-base 0.8520, -0.0179 [-0.0343, -0.0023]; detection not distinguishable from BirdAVES or E19 (finding 066)'
+  result: 'primary not met, wrong direction: call type 0.8341 vs birdaves-biox-base 0.8520, -0.0179 [-0.0343,
+    -0.0023]; detection not distinguishable from BirdAVES or E19 (finding 066)'
   job: 39851972
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_birdaves
   tag: daptv4bird_2e4_step15000
   num_classes: 200
   job_name: dapt_v4_bird
   priority: 9
-  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Built 2026-10-12 by
-    the lead agent on the ROUND-4 recipe (E19: two-teacher targets, lr 2e-4, E19''s built labels read-only) rather
-    than round 2''s run11 targets, which rounds 3-4 superseded; the one change against E19 is the init
-    (birdaves-biox-base, identical torchaudio config, md5 41cff9c4495d on Savio). Baseline field kept as approved;
-    the effective baselines are E19 and birdaves-biox-base.'
+  notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Built 2026-10-12
+    by the lead agent on the ROUND-4 recipe (E19: two-teacher targets, lr 2e-4, E19''s built labels read-only)
+    rather than round 2''s run11 targets, which rounds 3-4 superseded; the one change against E19 is the
+    init (birdaves-biox-base, identical torchaudio config, md5 41cff9c4495d on Savio). Baseline field
+    kept as approved; the effective baselines are E19 and birdaves-biox-base.'
 - id: E15
   roadmap: idea 7
   title: Bigger, more varied general-audio corpus
@@ -414,19 +441,19 @@ experiments:
 - id: E17
   roadmap: idea 6 (DAPT, round 3)
   title: DAPT with AVES's own targets (run19's labels) on the replay x1 stream
-  baseline: daptreplay_5e5_step15000 (finding 058; same init, audio, order, steps, lr -- run11 labels) and
-    aves-base-bio (its starting weights)
+  baseline: daptreplay_5e5_step15000 (finding 058; same init, audio, order, steps, lr -- run11 labels)
+    and aves-base-bio (its starting weights)
   change: 'targets only: run11 spectrogram k=100 -> AVES layer 6 k=200 (combined_aves_teacher, run19''s),
     looked up per file for the same mix_zf_fsd50k1 audio (scripts/swap_labels.py)'
-  question: With AVES's own targets instead of ours, does continued pretraining keep AVES's strengths and
-    add ours -- i.e. beat AVES on call type without losing detection?
+  question: With AVES's own targets instead of ours, does continued pretraining keep AVES's strengths
+    and add ours -- i.e. beat AVES on call type without losing detection?
   success: 'Pre-registered 2026-10-12. ALL of (1) 11-class call type above aves-base-bio 0.8453 with the
     bird-bootstrap interval excluding zero (board protocol: own best layer, system python3 / sklearn 1.7.2
     split); (2) in-distribution ZF detection AUC at the pre-committed arm not significantly below aves-base-bio''s
-    (paired_vs.py). BirdPark AP is reported with arm spread, not a criterion (cannot resolve under ~0.05 AP).
-    Read-outs, not criteria: call type vs daptreplay_5e5 (the mechanism), per-type cross-bird ABX vs AVES and
-    run16 (calltype_abx.py), CKA toward AVES vs run16 (calltype_controls.py). One run: a win needs a second
-    seed before it is called (057).'
+    (paired_vs.py). BirdPark AP is reported with arm spread, not a criterion (cannot resolve under ~0.05
+    AP). Read-outs, not criteria: call type vs daptreplay_5e5 (the mechanism), per-type cross-bird ABX
+    vs AVES and run16 (calltype_abx.py), CKA toward AVES vs run16 (calltype_controls.py). One run: a win
+    needs a second seed before it is called (057).'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v3_avesteacher.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv3_avesteacher_5e5
   tag: daptv3aves_5e5_step15000
@@ -434,24 +461,26 @@ experiments:
   job_name: dapt_v3_aves
   status: done
   finding: '064'
-  result: 'call type 0.8450, minus aves-base-bio -0.0003 [-0.0147, +0.0127] -- criterion not met; detection at the replay-arm level (finding 064)'
-  trained_note: 'Job 39844771 COMPLETED 0:0 in 00:50:03 (11:30-12:20 Oct 12); epoch=2-step=15000.ckpt present; log: 285 files relabelled (199 of 200 ids), AVES 210 tensors transplanted, lr 5e-5.'
+  result: call type 0.8450, minus aves-base-bio -0.0003 [-0.0147, +0.0127] -- criterion not met; detection
+    at the replay-arm level (finding 064)
+  trained_note: 'Job 39844771 COMPLETED 0:0 in 00:50:03 (11:30-12:20 Oct 12); epoch=2-step=15000.ckpt
+    present; log: 285 files relabelled (199 of 200 ids), AVES 210 tensors transplanted, lr 5e-5.'
   job: 39844771
   priority: 1
-  notes: 'Approved by the user 2026-10-12 ("yes" to round 3, after the 10-11 call-type analysis: run16 and AVES
-    tie overall but are complementary -- ensemble +0.017 resolved -- and DAPT replay x3 drifted toward
-    our profile). Script = train_dapt_v2.sh replay arm with flags/paths only (num-classes 200, feature-type
-    hubert, label lookup, requeue+resume, LR from DAPT_LR). swap_labels.py tested locally on a synthetic
-    corpus (order kept, path match across root spellings, vocab and overwrite guards). Baseline call type
-    for daptreplay_5e5 scored 2026-10-12 on the Mac (run15_calltype.py).'
+  notes: 'Approved by the user 2026-10-12 ("yes" to round 3, after the 10-11 call-type analysis: run16
+    and AVES tie overall but are complementary -- ensemble +0.017 resolved -- and DAPT replay x3 drifted
+    toward our profile). Script = train_dapt_v2.sh replay arm with flags/paths only (num-classes 200,
+    feature-type hubert, label lookup, requeue+resume, LR from DAPT_LR). swap_labels.py tested locally
+    on a synthetic corpus (order kept, path match across root spellings, vocab and overwrite guards).
+    Baseline call type for daptreplay_5e5 scored 2026-10-12 on the Mac (run15_calltype.py).'
 - id: E18
   roadmap: idea 6 (DAPT, round 3)
   title: E17 at AVES's own peak learning rate (2e-4)
   baseline: E17
   change: peak lr 5e-5 -> 2e-4 (AVES's pretraining lr; every earlier DAPT peak was 1e-5..1e-4)
   question: Once the targets are AVES's own, does letting the weights move further help?
-  success: 'Pre-registered 2026-10-12: call type above E17 with the bird-bootstrap interval excluding zero,
-    and the same detection guard as E17. Otherwise "not distinguishable"; one run each.'
+  success: 'Pre-registered 2026-10-12: call type above E17 with the bird-bootstrap interval excluding
+    zero, and the same detection guard as E17. Otherwise "not distinguishable"; one run each.'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v3_avesteacher_lr2e4.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv3_avesteacher_2e4
   tag: daptv3aves_2e4_step15000
@@ -459,34 +488,38 @@ experiments:
   job_name: dapt_v3_lr2e4
   status: done
   finding: '064'
-  result: 'call type 0.8502, minus E17 +0.0053 [-0.0055, +0.0165] -- criterion not met; detection at the replay-arm level (finding 064)'
-  trained_note: 'Job 39844772 COMPLETED 0:0 in 00:50:02; epoch=2-step=15000.ckpt present; log: same lookup, AVES init, lr 2e-4.'
+  result: call type 0.8502, minus E17 +0.0053 [-0.0055, +0.0165] -- criterion not met; detection at the
+    replay-arm level (finding 064)
+  trained_note: 'Job 39844772 COMPLETED 0:0 in 00:50:02; epoch=2-step=15000.ckpt present; log: same lookup,
+    AVES init, lr 2e-4.'
   job: 39844772
   priority: 2
-  notes: 'Approved by the user 2026-10-12 (their larger-lr suggestion). Wrapper sets DAPT_LR=2e-4 and execs the
-    E17 script; own exp dir so it cannot resume E17.'
+  notes: Approved by the user 2026-10-12 (their larger-lr suggestion). Wrapper sets DAPT_LR=2e-4 and execs
+    the E17 script; own exp dir so it cannot resume E17.
 - id: E19
   roadmap: idea 6 (DAPT, round 4)
   title: DAPT with two-teacher targets (k-means on run16 | AVES layer-6 features)
   baseline: E18 (daptv3aves_2e4_step15000; same init, audio, order, steps, lr 2e-4 -- AVES-only targets)
   change: 'targets only: AVES layer 6 k=200 -> k=200 on [run16 L6 | AVES L6], each teacher standardised,
-    fit on 1M frames from a quarter of the replay x1 files (scripts/two_teacher_labels.py, built in the job)'
+    fit on 1M frames from a quarter of the replay x1 files (scripts/two_teacher_labels.py, built in the
+    job)'
   question: Do targets that carry both teachers' views give one model what the run16+AVES probability
     average has (+0.0185 over AVES, resolved)?
-  success: 'Pre-registered 2026-10-12 before submission; AMENDED the same day after the critic, BEFORE the job log
-    (which prints the label NMI) or any score was read. LABEL GATE (read first): NMI(new, run16 labels) and
-    NMI(new, AVES labels) both exceed NMI(run16 labels, AVES labels) by at least 0.05, and differ from each other
-    by at most 0.10; otherwise the clustering collapsed onto one view and the run is reported as not testing the
-    idea. PRIMARY: 11-class call type above aves-base-bio 0.8453 with the bird-bootstrap interval excluding zero,
-    at its best layer AND reported at layer 3 (the gain the ensemble suggests, ~+0.0185, is about the interval
-    half-width, so this test has low power; a null is "not distinguishable", not "no effect"). ATTRIBUTION: E19
-    minus E21 (the --only-b control, same recipe) on call type, calltype_pair.py; E19 vs E18 alone confounds the
-    targets with the labelling recipe (per-dimension z-scoring, 1M-frame fit from 25% of the replay files vs
-    E18''s corpus-wide raw-feature codebook). MECHANISM read-out: the paired difference of gains (E19+run16 gain)
-    minus (E18+run16 gain), and E19+AVES, with E20 for seed spread -- a resolved average gain alone marks model
-    diversity, not run16''s content (finding 064: E17+E18 also gain +0.010). Detection: reported against
-    aves-base-bio and daptreplay_5e5 (every DAPT arm so far sits at or above AVES''s ZF AUC). One run: a win needs
-    a second seed (057).'
+  success: 'Pre-registered 2026-10-12 before submission; AMENDED the same day after the critic, BEFORE
+    the job log (which prints the label NMI) or any score was read. LABEL GATE (read first): NMI(new,
+    run16 labels) and NMI(new, AVES labels) both exceed NMI(run16 labels, AVES labels) by at least 0.05,
+    and differ from each other by at most 0.10; otherwise the clustering collapsed onto one view and the
+    run is reported as not testing the idea. PRIMARY: 11-class call type above aves-base-bio 0.8453 with
+    the bird-bootstrap interval excluding zero, at its best layer AND reported at layer 3 (the gain the
+    ensemble suggests, ~+0.0185, is about the interval half-width, so this test has low power; a null
+    is "not distinguishable", not "no effect"). ATTRIBUTION: E19 minus E21 (the --only-b control, same
+    recipe) on call type, calltype_pair.py; E19 vs E18 alone confounds the targets with the labelling
+    recipe (per-dimension z-scoring, 1M-frame fit from 25% of the replay files vs E18''s corpus-wide raw-feature
+    codebook). MECHANISM read-out: the paired difference of gains (E19+run16 gain) minus (E18+run16 gain),
+    and E19+AVES, with E20 for seed spread -- a resolved average gain alone marks model diversity, not
+    run16''s content (finding 064: E17+E18 also gain +0.010). Detection: reported against aves-base-bio
+    and daptreplay_5e5 (every DAPT arm so far sits at or above AVES''s ZF AUC). One run: a win needs a
+    second seed (057).'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4
   tag: daptv4two_2e4_step15000
@@ -494,26 +527,28 @@ experiments:
   job_name: dapt_v4_2teach
   status: done
   finding: '065'
-  result: 'call type 0.8441, minus aves-base-bio -0.0012 [-0.0227, +0.0182] -- primary not met; ZF detection AUC +0.0038 over its control E21, 12/12 arms (finding 065)'
-  trained_note: 'Job 39849102 COMPLETED 0:0 in 00:58:36; epoch=2-step=15000.ckpt; label gate PASSED (NMI new-vs-run16 0.570, new-vs-AVES 0.503, run16-vs-AVES 0.416; 200/200 clusters); AVES 210 tensors transplanted.'
+  result: call type 0.8441, minus aves-base-bio -0.0012 [-0.0227, +0.0182] -- primary not met; ZF detection
+    AUC +0.0038 over its control E21, 12/12 arms (finding 065)
+  trained_note: Job 39849102 COMPLETED 0:0 in 00:58:36; epoch=2-step=15000.ckpt; label gate PASSED (NMI
+    new-vs-run16 0.570, new-vs-AVES 0.503, run16-vs-AVES 0.416; 200/200 clusters); AVES 210 tensors transplanted.
   job: 39849102
   priority: 1
-  notes: 'Proposed and submitted by the lead agent 2026-10-12 under the user''s standing order of that day ("keep
-    running things until we see improvement in call type and vocal detection"). NOT a flags-only change:
-    new script two_teacher_labels.py (tested locally on synthetic two-view data: NMI 0.35/0.31 with each
-    teacher vs 0.008 between them; order, lengths and TSV-mismatch guard checked). Inputs verified on Savio:
-    teacher TSVs identical (cmp), features float32 with equal frames per file. Critic on the design runs in
-    parallel; the job is cancelled if it finds a flaw.'
+  notes: 'Proposed and submitted by the lead agent 2026-10-12 under the user''s standing order of that
+    day ("keep running things until we see improvement in call type and vocal detection"). NOT a flags-only
+    change: new script two_teacher_labels.py (tested locally on synthetic two-view data: NMI 0.35/0.31
+    with each teacher vs 0.008 between them; order, lengths and TSV-mismatch guard checked). Inputs verified
+    on Savio: teacher TSVs identical (cmp), features float32 with equal frames per file. Critic on the
+    design runs in parallel; the job is cancelled if it finds a flaw.'
 - id: E20
   roadmap: idea 6 (DAPT, round 3 replication)
   title: E18, second seed
   baseline: E18 (daptv3aves_2e4_step15000, seed 1337) and aves-base-bio
   change: --seed 2 (otherwise E18)
-  question: Does E18's detection gain over AVES (ZF AUC +0.0022 [+0.0008, +0.0036]; BirdPark AUC +0.0226, AP
-    +0.0383 observed, both block sizes, 4/4 blocks; paired_vs.json) survive a second seed?
-  success: 'Pre-registered 2026-10-12: the same paired_vs.py comparison against aves-base-bio resolved in the
-    same direction for ZF detection AUC AND BirdPark AP at both block sizes. Call type reported against AVES
-    and E18 (calltype_pair.py), no criterion.'
+  question: Does E18's detection gain over AVES (ZF AUC +0.0022 [+0.0008, +0.0036]; BirdPark AUC +0.0226,
+    AP +0.0383 observed, both block sizes, 4/4 blocks; paired_vs.json) survive a second seed?
+  success: 'Pre-registered 2026-10-12: the same paired_vs.py comparison against aves-base-bio resolved
+    in the same direction for ZF detection AUC AND BirdPark AP at both block sizes. Call type reported
+    against AVES and E18 (calltype_pair.py), no criterion.'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v3_avesteacher_lr2e4_seed2.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv3_avesteacher_2e4_s2
   tag: daptv3aves_2e4s2_step15000
@@ -521,21 +556,25 @@ experiments:
   job_name: dapt_v3_2e4s2
   status: done
   finding: '065'
-  result: 'replication criterion not met: ZF AUC minus AVES +0.0011 [-0.0006, +0.0022]; BirdPark again resolved (finding 065)'
-  trained_note: 'Job 39850366 COMPLETED 0:0 in 00:54:50; epoch=2-step=15000.ckpt; seed 2, lr 2e-4, AVES init.'
+  result: 'replication criterion not met: ZF AUC minus AVES +0.0011 [-0.0006, +0.0022]; BirdPark again
+    resolved (finding 065)'
+  trained_note: Job 39850366 COMPLETED 0:0 in 00:54:50; epoch=2-step=15000.ckpt; seed 2, lr 2e-4, AVES
+    init.
   job: 39850366
   priority: 2
-  notes: 'Self-approved by the lead agent 2026-10-12: lowprio, 1 L40, data on Savio, flags only (DAPT_SEED env ->
-    --seed, own exp dir; E17/E18 behaviour unchanged when unset). Replication required by the loop stop rule.'
+  notes: 'Self-approved by the lead agent 2026-10-12: lowprio, 1 L40, data on Savio, flags only (DAPT_SEED
+    env -> --seed, own exp dir; E17/E18 behaviour unchanged when unset). Replication required by the loop
+    stop rule.'
 - id: E21
   roadmap: idea 6 (DAPT, round 4 control)
   title: E19's labelling recipe with AVES's block only (--only-b)
   baseline: E19 (adds run16's block) and E18 (AVES targets, raw-feature codebook)
-  change: two_teacher_labels.py --only-b -- AVES layer 6 alone, same per-dimension standardisation, same fit
-    files and frames (same seed), k=200; otherwise E19
+  change: two_teacher_labels.py --only-b -- AVES layer 6 alone, same per-dimension standardisation, same
+    fit files and frames (same seed), k=200; otherwise E19
   question: Is any E19 effect due to adding run16's view, or to the labelling recipe itself?
-  success: 'Pre-registered 2026-10-12: read-out only. E19 minus E21 is the attribution contrast (call type,
-    calltype_pair.py; detection, paired_vs.py); E21 minus E18 measures the recipe change. No criterion of its own.'
+  success: 'Pre-registered 2026-10-12: read-out only. E19 minus E21 is the attribution contrast (call
+    type, calltype_pair.py; detection, paired_vs.py); E21 minus E18 measures the recipe change. No criterion
+    of its own.'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_avesonly.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_avesonly_2e4
   tag: daptv4aveso_2e4_step15000
@@ -544,46 +583,50 @@ experiments:
   status: done
   finding: '065'
   result: 'control: not distinguishable from aves-base-bio on call type and ZF AUC (finding 065)'
-  trained_note: 'Job 39850689 finished 14:56 Oct 12; epoch=2-step=15000.ckpt; labels: NMI new-vs-run16 0.398, new-vs-AVES 0.554 (run16-vs-AVES 0.416), 200/200 clusters.'
+  trained_note: 'Job 39850689 finished 14:56 Oct 12; epoch=2-step=15000.ckpt; labels: NMI new-vs-run16
+    0.398, new-vs-AVES 0.554 (run16-vs-AVES 0.416), 200/200 clusters.'
   job: 39850689
   priority: 3
-  notes: 'Added 2026-10-12 on the critic''s recommendation (E19 was more than one change). Flags only against E19
-    (--only-b, exp dir, job name); --only-b tested locally (B-only labels: NMI 0.003 with A, 0.306 with B; same fit
-    frames as the two-teacher mode).'
+  notes: 'Added 2026-10-12 on the critic''s recommendation (E19 was more than one change). Flags only
+    against E19 (--only-b, exp dir, job name); --only-b tested locally (B-only labels: NMI 0.003 with
+    A, 0.306 with B; same fit frames as the two-teacher mode).'
 - id: E22
   roadmap: idea 6 (DAPT, round 4)
   title: E19 trained 3x longer (45,000 updates)
   baseline: E19 (daptv4two_2e4_step15000)
   change: --max-updates 15000 -> 45000 (warmup kept at 750), E19's built labels read-only
-  question: Does longer continued pretraining on two-teacher targets absorb more of run16's view (E19 + run16
-    probability-average gain +0.0094, down from E18's +0.0170) and lift call type?
-  success: 'Pre-registered 2026-10-12: call type above E19 AND above aves-base-bio with bird-bootstrap intervals
-    excluding zero (calltype_pair.py), detection reported against aves-base-bio and run16 (paired_vs.py). Read-out:
-    E22 + run16 probability-average gain against E19''s.'
+  question: Does longer continued pretraining on two-teacher targets absorb more of run16's view (E19
+    + run16 probability-average gain +0.0094, down from E18's +0.0170) and lift call type?
+  success: 'Pre-registered 2026-10-12: call type above E19 AND above aves-base-bio with bird-bootstrap
+    intervals excluding zero (calltype_pair.py), detection reported against aves-base-bio and run16 (paired_vs.py).
+    Read-out: E22 + run16 probability-average gain against E19''s.'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_45k.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_45k
   tag: daptv4two45k_2e4_step45000
   num_classes: 200
   job_name: dapt_v4_45k
   status: done
-  finding: '068'
-  result: 'not met: call type 0.8538 (L3), minus E19 +0.0097 [-0.0066, +0.0246], minus aves-base-bio +0.0085 [-0.0174, +0.0315]; ZF AUC +0.0036 over AVES (12/12 arms), n.d. from E19 and run16; preempted 3x, each resume lost work back to the epoch-3 end (finding 068)'
+  finding: 068
+  result: 'not met: call type 0.8538 (L3), minus E19 +0.0097 [-0.0066, +0.0246], minus aves-base-bio +0.0085
+    [-0.0174, +0.0315]; ZF AUC +0.0036 over AVES (12/12 arms), n.d. from E19 and run16; preempted 3x,
+    each resume lost work back to the epoch-3 end (finding 068)'
   job: 39851973
   priority: 4
-  notes: 'Self-approved 2026-10-12: lowprio, 1 L40 (~2.5 h), data on Savio, flags only (DAPT_STEPS, exp suffix,
-    DAPT_DATA). Final checkpoint will be epoch=*-step=45000.ckpt.'
+  notes: 'Self-approved 2026-10-12: lowprio, 1 L40 (~2.5 h), data on Savio, flags only (DAPT_STEPS, exp
+    suffix, DAPT_DATA). Final checkpoint will be epoch=*-step=45000.ckpt.'
 - id: E23
   roadmap: idea 6 (DAPT, round 4 replication)
   title: E19, second seed
   baseline: E19 (daptv4two_2e4_step15000) and E24 (its control's second seed)
   change: --seed 2, E19's built labels read-only (otherwise E19)
-  question: Does E19's detection gain over its AVES-only control E21 (ZF AUC +0.0038 [+0.0015, +0.0054], BirdPark
-    AUC +0.0112 [+0.0037, +0.0348], AP +0.0294 [+0.0080, +0.0809], paired_vs.json) survive a second seed?
-  success: 'Pre-registered 2026-10-12; AMENDED the same day before the job started (critic on finding 065: the
-    BirdPark contrast is arm-fragile). E23 minus E24 (both seed 2) ZF detection AUC resolved positive at the
-    pre-committed arms (paired_vs.py) AND E23 ahead of E24 at >= 10 of 12 arms (detection_variants.json
-    in_distribution). BirdPark reported with 12-arm medians and arm wins, not a criterion. Also reported: E23 minus
-    aves-base-bio and minus run16_compute4x on detection; call type against AVES (calltype_pair.py).'
+  question: Does E19's detection gain over its AVES-only control E21 (ZF AUC +0.0038 [+0.0015, +0.0054],
+    BirdPark AUC +0.0112 [+0.0037, +0.0348], AP +0.0294 [+0.0080, +0.0809], paired_vs.json) survive a
+    second seed?
+  success: 'Pre-registered 2026-10-12; AMENDED the same day before the job started (critic on finding
+    065: the BirdPark contrast is arm-fragile). E23 minus E24 (both seed 2) ZF detection AUC resolved
+    positive at the pre-committed arms (paired_vs.py) AND E23 ahead of E24 at >= 10 of 12 arms (detection_variants.json
+    in_distribution). BirdPark reported with 12-arm medians and arm wins, not a criterion. Also reported:
+    E23 minus aves-base-bio and minus run16_compute4x on detection; call type against AVES (calltype_pair.py).'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_seed2.sh
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_s2
   tag: daptv4two_2e4s2_step15000
@@ -591,7 +634,9 @@ experiments:
   job_name: dapt_v4_2t_s2
   status: done
   finding: '067'
-  result: 'criterion half-passed, so not met: E23 minus E24 ZF AUC at pre-committed arms +0.0002 [-0.0013, +0.0013], ahead at 11/12 arms; call type 0.8564 vs AVES +0.0111 [-0.0060, +0.0274]; arm contrast on call type flips sign between seeds (finding 067)'
+  result: 'criterion half-passed, so not met: E23 minus E24 ZF AUC at pre-committed arms +0.0002 [-0.0013,
+    +0.0013], ahead at 11/12 arms; call type 0.8564 vs AVES +0.0111 [-0.0060, +0.0274]; arm contrast on
+    call type flips sign between seeds (finding 067)'
   job: 39852046
   priority: 2
   notes: 'Self-approved 2026-10-12: lowprio, 1 L40, data on Savio, flags only (DAPT_SEED, suffix, DAPT_DATA).'
@@ -599,7 +644,8 @@ experiments:
   roadmap: idea 6 (DAPT, round 4 replication)
   title: E21 (AVES-only control), second seed
   baseline: E21 (daptv4aveso_2e4_step15000)
-  change: --seed 2, E21's built --only-b labels read-only, run through the v4 script (identical training call)
+  change: --seed 2, E21's built --only-b labels read-only, run through the v4 script (identical training
+    call)
   question: Second seed of the control, so the E19-minus-E21 contrast can be replicated as E23 minus E24.
   success: 'Pre-registered 2026-10-12: read-out only (see E23).'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_avesonly_seed2.sh
@@ -609,7 +655,8 @@ experiments:
   job_name: dapt_v4_ao_s2
   status: done
   finding: '067'
-  result: 'control seed 2: call type 0.8461 (vs AVES +0.0009 [-0.0137, +0.0158]); ZF AUC vs AVES +0.0029 [+0.0016, +0.0044]; moved +0.0039 ZF AUC at L6 from E21 (finding 067)'
+  result: 'control seed 2: call type 0.8461 (vs AVES +0.0009 [-0.0137, +0.0158]); ZF AUC vs AVES +0.0029
+    [+0.0016, +0.0044]; moved +0.0039 ZF AUC at L6 from E21 (finding 067)'
   job: 39852047
   priority: 2
   notes: 'Self-approved 2026-10-12: lowprio, 1 L40, data on Savio, flags only.'
@@ -617,73 +664,83 @@ experiments:
   kind: analysis
   title: Off-the-shelf encoders on our benchmarks (BEATs, EAT, BirdNET, Perch)
   baseline: aves-base-bio and birdaves-biox-large (best AVES version on call type, 0.8552)
-  change: 'new evaluation, no training: frozen embeddings from public checkpoints of other architectures through the
-    same call-type probe, detection arms and label-free score'
-  question: Does a different architecture or training objective (spectrogram-patch SSL, supervised bird classifiers)
-    beat the HuBERT/AVES family on zebra finch call type or detection?
-  success: call type above birdaves-biox-large with the bird-bootstrap interval excluding zero, or detection AUC above
-    aves-base-bio resolved at the pre-committed arms
+  change: 'new evaluation, no training: frozen embeddings from public checkpoints of other architectures
+    through the same call-type probe, detection arms and label-free score'
+  question: Does a different architecture or training objective (spectrogram-patch SSL, supervised bird
+    classifiers) beat the HuBERT/AVES family on zebra finch call type or detection?
+  success: call type above birdaves-biox-large with the bird-bootstrap interval excluding zero, or detection
+    AUC above aves-base-bio resolved at the pre-committed arms
   status: done
   finding: '072'
-  result: 'detection branch met by Whisper-small only (ZF AUC +0.0059 [+0.0037, +0.0078] vs aves-base-bio; weak bar, DAPT clears it too); call-type branch (above birdaves-biox-large) not met; Whisper encoders are point-estimate leaders, not distinguishable from top AVES/DAPT; BEATs/EAT/BirdNET/Perch not run (finding 072)'
+  result: detection branch met by Whisper-small only (ZF AUC +0.0059 [+0.0037, +0.0078] vs aves-base-bio;
+    weak bar, DAPT clears it too); call-type branch (above birdaves-biox-large) not met; Whisper encoders
+    are point-estimate leaders, not distinguishable from top AVES/DAPT; BEATs/EAT/BirdNET/Perch not run
+    (finding 072)
   script: zfeval/experiments/e25_hf_encoders.py (HF models); aves_variants_calltype.py (aves-base-nonbio)
   priority: 3
-  notes: 'Proposed 2026-10-12 after the user asked about other architectures. Needs: model downloads (Perch may need
-    Kaggle, an open user decision), per-model embedding code, clip-by-clip (never batched) encoding. Needs the user''s
-    go-ahead. Batch 1, 2026-10-12: aves-base-nonbio (AVES''s own 360 h non-animal control; already scored,
-    call type 0.8470, when this note was written) and four same-size Hugging Face speech encoders, fixed before
-    their scores were read (hubert-base-ls960, wav2vec2-base,
-    wavlm-base-plus, data2vec-audio-base), board protocol, 12 transformer layers, own feature extractor. Batch 2, fixed 2026-10-12 23:15 before scoring: AST (MIT/ast-finetuned-audioset-10-10-0.4593,
-    spectrogram-patch ViT, supervised AudioSet) and the Whisper-base encoder, both transformers-native, pooled only
-    over tokens covering real audio (both pad to a fixed window; see real_token_index). BEATs / EAT / BirdNET / Perch
-    later (non-native code or Kaggle). Whisper-base encoder scored 0.8643 (above aves-base-bio and run16, resolved;
-    not above birdaves-biox-large, so the E25 criterion is not met); replication across sizes fixed before scoring:
-    whisper-tiny and whisper-small encoders, same pooling.'
+  notes: 'Proposed 2026-10-12 after the user asked about other architectures. Needs: model downloads (Perch
+    may need Kaggle, an open user decision), per-model embedding code, clip-by-clip (never batched) encoding.
+    Needs the user''s go-ahead. Batch 1, 2026-10-12: aves-base-nonbio (AVES''s own 360 h non-animal control;
+    already scored, call type 0.8470, when this note was written) and four same-size Hugging Face speech
+    encoders, fixed before their scores were read (hubert-base-ls960, wav2vec2-base, wavlm-base-plus,
+    data2vec-audio-base), board protocol, 12 transformer layers, own feature extractor. Batch 2, fixed
+    2026-10-12 23:15 before scoring: AST (MIT/ast-finetuned-audioset-10-10-0.4593, spectrogram-patch ViT,
+    supervised AudioSet) and the Whisper-base encoder, both transformers-native, pooled only over tokens
+    covering real audio (both pad to a fixed window; see real_token_index). BEATs / EAT / BirdNET / Perch
+    later (non-native code or Kaggle). Whisper-base encoder scored 0.8643 (above aves-base-bio and run16,
+    resolved; not above birdaves-biox-large, so the E25 criterion is not met); replication across sizes
+    fixed before scoring: whisper-tiny and whisper-small encoders, same pooling.'
 - id: E26
   title: Synthetic mixtures in the DAPT stream
   baseline: E19 / E23 (two-teacher DAPT, 2 seeds)
-  change: 'E19''s recipe with part of the replay stream replaced by synthetic mixtures: real zebra finch calls cut to
-    their energy support (synth_timing.py''s mixer) and added to call-free backgrounds (FSD50K, BirdPark-like room
-    noise) at random SNR and density; targets assigned by the same two-teacher k-means'
+  change: 'E19''s recipe with part of the replay stream replaced by synthetic mixtures: real zebra finch
+    calls cut to their energy support (synth_timing.py''s mixer) and added to call-free backgrounds (FSD50K,
+    BirdPark-like room noise) at random SNR and density; targets assigned by the same two-teacher k-means'
   question: Does training on calls placed in varied, known backgrounds improve detection on held-out recordings
     (BirdPark) and call type?
   success: to be pre-registered before building; at least 2 seeds per arm (finding 067)
-  design: 'Draft 2026-10-13 (not yet pre-registered): donors = the 3,412 curated call clips (already heard in pretraining;
-    their call-type labels are never used), windowed to energy support with a 1 ms taper (synth_timing.py); backgrounds
-    = FSD50K-eval clips already in the replay stream. NEVER BirdPark audio (it is the held-out evaluation). 20 s canvases,
-    2-8 calls each, SNR uniform -5 to +20 dB; about 25 h of mixtures replacing 25 h of the stream''s ZF audio so the stream
-    size and the 15,000 updates stay fixed. Targets: E19''s two-teacher k-means model applied (not refit) to run16 L6 |
-    AVES L6 features of the mixtures (teacher features need a Savio GPU job). Arms: E19 recipe seeds 1337 and 2 vs E19 /
-    E23. Candidate success: ZF detection AUC above the seed-matched E19/E23 at the pre-committed arms on both seeds; call
-    type and BirdPark 12-arm median reported. Open questions for the user: donors from the curated clips vs detector-mined
-    calls; whether 25 h is the right dose.'
+  design: 'Draft 2026-10-13 (not yet pre-registered): donors = the 3,412 curated call clips (already heard
+    in pretraining; their call-type labels are never used), windowed to energy support with a 1 ms taper
+    (synth_timing.py); backgrounds = FSD50K-eval clips already in the replay stream. NEVER BirdPark audio
+    (it is the held-out evaluation). 20 s canvases, 2-8 calls each, SNR uniform -5 to +20 dB; about 25
+    h of mixtures replacing 25 h of the stream''s ZF audio so the stream size and the 15,000 updates stay
+    fixed. Targets: E19''s two-teacher k-means model applied (not refit) to run16 L6 | AVES L6 features
+    of the mixtures (teacher features need a Savio GPU job). Arms: E19 recipe seeds 1337 and 2 vs E19
+    / E23. Candidate success: ZF detection AUC above the seed-matched E19/E23 at the pre-committed arms
+    on both seeds; call type and BirdPark 12-arm median reported. Open questions for the user: donors
+    from the curated clips vs detector-mined calls; whether 25 h is the right dose.'
   script: null
   status: approved
   priority: 5
-  notes: 'Proposed 2026-10-12 after the user asked about synthetic data. Expectation: more likely to help detection
-    robustness than call type, which looks label- and seed-noise-limited (067, 069). Approved by the user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
+  notes: 'Proposed 2026-10-12 after the user asked about synthetic data. Expectation: more likely to help
+    detection robustness than call type, which looks label- and seed-noise-limited (067, 069). Approved
+    by the user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
 - id: E27
   title: DAPT from the largest BirdAVES (biox-large)
   baseline: birdaves-biox-large (call type 0.8552, the best AVES version)
-  change: 'E19''s recipe starting from birdaves-biox-large (24 layers) instead of aves-base-bio; needs a large-model
-    config in the training scripts'
-  question: Does specialising the strongest download help, given that specialising BirdAVES base hurt (066)?
+  change: E19's recipe starting from birdaves-biox-large (24 layers) instead of aves-base-bio; needs a
+    large-model config in the training scripts
+  question: Does specialising the strongest download help, given that specialising BirdAVES base hurt
+    (066)?
   success: to be pre-registered; 2 seeds per arm
   script: null
   status: approved
   priority: 6
-  notes: 'Proposed 2026-10-12. Risk: 066 showed DAPT lowered BirdAVES base on call type. Approved by the user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
+  notes: 'Proposed 2026-10-12. Risk: 066 showed DAPT lowered BirdAVES base on call type. Approved by the
+    user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
 - id: E28
   title: AVES's masking in DAPT (E18 recipe, 2 seeds)
   baseline: E18 (seed 1337) and E20 (seed 2), the same recipe with our masking
-  change: 'mask_prob 0.4 -> 0.8 and mask_length 3 -> 10 frames (AVES-bio''s cfg values; 34% -> 54% of frames masked
-    on a 15 s crop), via new train.py flags --mask-prob/--mask-length (defaults unchanged); everything else = E18 / E20'
-  question: Every DAPT arm continued AVES's weights with our masking, not the masking AVES was pretrained with. Does
-    restoring AVES's masking change call type or detection?
-  success: 'Pre-registered 2026-10-12 before submission: PRIMARY call type above aves-base-bio with the bird-bootstrap
-    interval excluding zero on BOTH seeds (the loop stop rule), or ZF detection AUC above the same-seed baseline (E28a
-    vs E18, E28b vs E20) resolved at the pre-committed arms on BOTH seeds. Read-outs: per-layer call type minus the
-    same-seed baseline (sign agreement across layers and seeds), BirdPark as 12-arm medians, label-free k=30.'
+  change: mask_prob 0.4 -> 0.8 and mask_length 3 -> 10 frames (AVES-bio's cfg values; 34% -> 54% of frames
+    masked on a 15 s crop), via new train.py flags --mask-prob/--mask-length (defaults unchanged); everything
+    else = E18 / E20
+  question: Every DAPT arm continued AVES's weights with our masking, not the masking AVES was pretrained
+    with. Does restoring AVES's masking change call type or detection?
+  success: 'Pre-registered 2026-10-12 before submission: PRIMARY call type above aves-base-bio with the
+    bird-bootstrap interval excluding zero on BOTH seeds (the loop stop rule), or ZF detection AUC above
+    the same-seed baseline (E28a vs E18, E28b vs E20) resolved at the pre-committed arms on BOTH seeds.
+    Read-outs: per-layer call type minus the same-seed baseline (sign agreement across layers and seeds),
+    BirdPark as 12-arm medians, label-free k=30.'
   script: pytorchAudio/examples/hubert/slurm/train_dapt_v3_avesteacher_lr2e4_avesmask.sh (seed 2 = _avesmask_seed2.sh)
   exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv3_avesteacher_2e4_m08l10
   tag: daptv3aves_2e4m8_step15000
@@ -691,23 +748,27 @@ experiments:
   job_name: dapt_v3_m8l10
   status: done
   finding: '071'
-  result: 'not met: call type n.d. from the same-seed baseline on both seeds (-0.0085, +0.0006) and from AVES; ZF AUC above baseline on seed 2 only (+0.0017 [+0.0004, +0.0029]); mask embedding never restored in any DAPT arm (finding 071)'
+  result: 'not met: call type n.d. from the same-seed baseline on both seeds (-0.0085, +0.0006) and from
+    AVES; ZF AUC above baseline on seed 2 only (+0.0017 [+0.0004, +0.0029]); mask embedding never restored
+    in any DAPT arm (finding 071)'
   job: 39859244
   priority: 1
-  notes: 'Approved by the user 2026-10-12 ("still think we could close the loop on some of these variables", after
-    the controlled-variables audit). Seed-2 arm E28b: exp temp_train_daptv3_avesteacher_2e4_s2_m08l10, tag
-    daptv3aves_2e4s2m8_step15000, job dapt_v3_m8l10s2, slurm job 39859245. Submitted 2026-10-12 22:16 after the dtn check (defaults 0.4/3 -> 34% masked; 0.8/10 -> 54%).'
+  notes: 'Approved by the user 2026-10-12 ("still think we could close the loop on some of these variables",
+    after the controlled-variables audit). Seed-2 arm E28b: exp temp_train_daptv3_avesteacher_2e4_s2_m08l10,
+    tag daptv3aves_2e4s2m8_step15000, job dapt_v3_m8l10s2, slurm job 39859245. Submitted 2026-10-12 22:16
+    after the dtn check (defaults 0.4/3 -> 34% masked; 0.8/10 -> 54%).'
 - id: E29
   title: AVES-bio's recipe in our code, from scratch (2 seeds)
   baseline: run17 (same compute bundle, our masking/lr/warmup), run16, aves-base-bio
-  change: 'run17 + mask 0.8/10, lr 1e-4 -> 2e-4, warmup 3125 -> 32000, max-updates 93750 -> 100000; corpus (224 h ZF
-    + FSD50K) and iteration-1 spectrogram k=200 targets unchanged'
-  question: With model, compute and every training knob matched to AVES-bio, is what remains (data, targets) the gap?
-  success: 'Pre-registered 2026-10-12 before submission: PRIMARY on BEANS (frozen probe, finding 063 protocol), where
-    a gap exists: on the 5 tasks where aves-base-bio leads run16 resolved (bats, esc50, hiceas, enabirds, dcase), E29
-    minus aves-base-bio is NOT resolved negative on at least 4 of 5, on BOTH seeds. Also reported: call type and ZF
-    detection vs run17, run16 and aves-base-bio; label-free k=30. If met, step back one knob at a time; if not, the
-    remaining difference is data and targets.'
+  change: run17 + mask 0.8/10, lr 1e-4 -> 2e-4, warmup 3125 -> 32000, max-updates 93750 -> 100000; corpus
+    (224 h ZF + FSD50K) and iteration-1 spectrogram k=200 targets unchanged
+  question: With model, compute and every training knob matched to AVES-bio, is what remains (data, targets)
+    the gap?
+  success: 'Pre-registered 2026-10-12 before submission: PRIMARY on BEANS (frozen probe, finding 063 protocol),
+    where a gap exists: on the 5 tasks where aves-base-bio leads run16 resolved (bats, esc50, hiceas,
+    enabirds, dcase), E29 minus aves-base-bio is NOT resolved negative on at least 4 of 5, on BOTH seeds.
+    Also reported: call type and ZF detection vs run17, run16 and aves-base-bio; label-free k=30. If met,
+    step back one knob at a time; if not, the remaining difference is data and targets.'
   script: pytorchAudio/examples/hubert/slurm/train_run29_avesrecipe.sh (seed 2 = train_run29_avesrecipe_seed2.sh)
   exp_dir: /global/scratch/users/jonathanswang/temp_train_run29_avesrecipe
   tag: run29_avesrecipe
@@ -715,88 +776,98 @@ experiments:
   job_name: hubert_run29
   status: done
   job: 39859251
-  result: 'FAILED the pre-registered criterion on both seeds (finding 073): E29 minus aves-base-bio resolved negative on
-    4 of 5 BEANS tasks (bats, hiceas, enabirds, dcase), n.d. on esc50, on seed 1337 and seed 2. vs run16: resolved ahead
-    on bats (both seeds) and esc50 (seed 1337), n.d. on the detection tasks. ZF call type n.d. vs aves/run16/run17; ZF
-    detection AUC resolved above aves-base-bio on both seeds, ties run16/run17. Still unmatched vs AVES: corpus, targets,
-    feature penalty (AVES 10, ours 0), clip length (ours 20 s chunks, AVES crop-to-shortest <=15.6 s), ~92% audio, batch layout.'
+  result: 'FAILED the pre-registered criterion on both seeds (finding 073): E29 minus aves-base-bio resolved
+    negative on 4 of 5 BEANS tasks (bats, hiceas, enabirds, dcase), n.d. on esc50, on seed 1337 and seed
+    2. vs run16: resolved ahead on bats (both seeds) and esc50 (seed 1337), n.d. on the detection tasks.
+    ZF call type n.d. vs aves/run16/run17; ZF detection AUC resolved above aves-base-bio on both seeds,
+    ties run16/run17. Still unmatched vs AVES: corpus, targets, feature penalty (AVES 10, ours 0), clip
+    length (ours 20 s chunks, AVES crop-to-shortest <=15.6 s), ~92% audio, batch layout.'
   priority: 1
-  notes: 'Approved by the user 2026-10-12 (same message as E28). Took ~15 h on 4 L40s per seed (estimated ~12 h) (run17 took 11 h for
-    93,750 updates). Seed-2 arm: exp temp_train_run29_avesrecipe_s2, tag run29_avesrecipe_s2, job hubert_run29s2, slurm job 39859252. First submission refused (header rewrite dropped the SBATCH block); fixed and submitted 22:19.'
+  notes: 'Approved by the user 2026-10-12 (same message as E28). Took ~15 h on 4 L40s per seed (estimated
+    ~12 h) (run17 took 11 h for 93,750 updates). Seed-2 arm: exp temp_train_run29_avesrecipe_s2, tag run29_avesrecipe_s2,
+    job hubert_run29s2, slurm job 39859252. First submission refused (header rewrite dropped the SBATCH
+    block); fixed and submitted 22:19.'
 - id: E30
   title: Our recipe with a log-mel front end
   baseline: run17 (same compute bundle, waveform CNN front end) and E29 (AVES recipe, waveform)
-  change: 'replace the 7-layer waveform CNN with a Whisper-style front end (80-bin log-mel at 10 ms, two conv layers,
-    stride 2 -> 20 ms frames), keep the 12 x 768 transformer, masked prediction, k=200 targets, corpus and compute'
+  change: replace the 7-layer waveform CNN with a Whisper-style front end (80-bin log-mel at 10 ms, two
+    conv layers, stride 2 -> 20 ms frames), keep the 12 x 768 transformer, masked prediction, k=200 targets,
+    corpus and compute
   question: Finding 072's strongest encoders read log-mel; is the front end the lever inside our own recipe?
-  success: to be pre-registered before submission; 2 seeds per arm; call type and detection against run17 and AVES
+  success: to be pre-registered before submission; 2 seeds per arm; call type and detection against run17
+    and AVES
   script: null
   status: proposed
   priority: 2
-  notes: 'Proposed 2026-10-13 from finding 072. New model code (front end + frame alignment for labels); needs the
-    user''s go-ahead.'
+  notes: Proposed 2026-10-13 from finding 072. New model code (front end + frame alignment for labels);
+    needs the user's go-ahead.
 - id: E31
   title: Whisper-small encoder continued on zebra finch (DAPT on Whisper)
   baseline: hf-whisper-small-enc frozen (finding 072)
-  change: 'start from the Whisper-small encoder, add a masked-prediction head over k-means targets on its own layer-3
-    features, 15,000 updates on the replay x1 stream, lr and masking as E18'
-  question: Does specialising the strongest off-the-shelf encoder on finch audio raise call type or detection further?
+  change: start from the Whisper-small encoder, add a masked-prediction head over k-means targets on its
+    own layer-3 features, 15,000 updates on the replay x1 stream, lr and masking as E18
+  question: Does specialising the strongest off-the-shelf encoder on finch audio raise call type or detection
+    further?
   success: to be pre-registered; 2 seeds; must beat frozen Whisper-small on call type or detection, resolved
   script: null
   status: proposed
   priority: 3
-  notes: 'Proposed 2026-10-13 from finding 072. New training module (Whisper encoder + masked prediction); needs the
-    user''s go-ahead.'
+  notes: Proposed 2026-10-13 from finding 072. New training module (Whisper encoder + masked prediction);
+    needs the user's go-ahead.
 - id: E32
   title: DAPT with AVES's learned mask embedding restored
   baseline: E28a / E28b (AVES masking rate and span, fresh mask embedding)
-  change: 'E28''s recipe with mask_generator.mask_embedding initialised from AVES-bio''s fairseq checkpoint (mask_emb)
-    instead of fresh; everything else fixed'
+  change: E28's recipe with mask_generator.mask_embedding initialised from AVES-bio's fairseq checkpoint
+    (mask_emb) instead of fresh; everything else fixed
   question: Finding 071 found every DAPT arm started the mask embedding fresh; does restoring it matter?
   success: to be pre-registered; 2 seeds against E28a/E28b
   script: null
   status: proposed
   priority: 4
-  notes: 'Proposed 2026-10-13 from the 071 critic. Small code change (read mask_emb from datasets/11905533/aves-base-bio.pt
-    in the --init-weights transplant); needs the user''s go-ahead.'
+  notes: Proposed 2026-10-13 from the 071 critic. Small code change (read mask_emb from datasets/11905533/aves-base-bio.pt
+    in the --init-weights transplant); needs the user's go-ahead.
 - id: E33
   title: Voice-invariant DAPT (pitch-shifted input, unchanged targets)
-  baseline: E19 / E23 (two-teacher targets, AVES init, replay x1, 15,000 updates, lr 2e-4; seeds 1 and 2)
-  change: 'E19''s recipe with each training crop pitch-shifted by a random amount (uniform, +-2 semitones,
+  baseline: E19 / E23 (two-teacher targets, AVES init, replay x1, 15,000 updates, lr 2e-4; seeds 1 and
+    2)
+  change: E19's recipe with each training crop pitch-shifted by a random amount (uniform, +-2 semitones,
     duration preserved) before the encoder, while the k-means targets stay the ones computed on the original
-    audio; new train.py flag --pitch-shift-semitones (default 0 = unchanged). Everything else fixed.'
-  question: 'Does making DAPT''s input voice-variable while its targets stay fixed (ContentVec-style) raise
-    leave-birds-out call type, in particular tuck (Tu), the one call type DAPT lowers in nearly every endpoint?
-    Motivation (notebook 08, 2026-10-15; MPS-era numbers, being re-scored on CPU, see the MPS caveat in notes): every
-    test bird is in DAPT''s pretraining audio (028), and a random clip split lifts tuck recall a lot. The critic of 075
-    found the "errors are mostly about new birds" reading NOT supported (the random split removes only ~43% of
-    AVES-bio''s soft-call errors; DAPT''s extra leaky-split gain is not distinguishable), so this is a hypothesis to
-    test, not a measured cause.'
+    audio; new train.py flag --pitch-shift-semitones (default 0 = unchanged). Everything else fixed.
+  question: 'Does making DAPT''s input voice-variable while its targets stay fixed (ContentVec-style)
+    raise leave-birds-out call type, in particular tuck (Tu), the one call type DAPT lowers in nearly
+    every endpoint? Motivation (notebook 08, 2026-10-15; MPS-era numbers, being re-scored on CPU, see
+    the MPS caveat in notes): every test bird is in DAPT''s pretraining audio (028), and a random clip
+    split lifts tuck recall a lot. The critic of 075 found the "errors are mostly about new birds" reading
+    NOT supported (the random split removes only ~43% of AVES-bio''s soft-call errors; DAPT''s extra leaky-split
+    gain is not distinguishable), so this is a hypothesis to test, not a measured cause.'
   success: 'to be pre-registered before submission. Candidate: PRIMARY 11-class call type above the seed-matched
-    E19/E23 with the bird-bootstrap interval excluding 0 on both seeds; SECONDARY Tu and Th recall vs the same
-    baseline (per-type intervals, notebook 08 section 8 protocol); report ZF detection AUC at the pre-committed arm
-    so a call-type gain bought with detection is visible.'
-  pretest: 'Mac only, no training: re-encode the 3,412 call-type clips pitch-shifted by -2/-1/+1/+2 semitones through
-    aves-base-bio and E23, and measure how many call-type predictions flip (and in which types) and how much a
-    bird-identity probe degrades. If +-1-2 semitones barely moves either, pitch is not the voice axis and E33
-    should change its augmentation (spectral tilt / formant) before any GPU time is spent.'
-  pretest_result: 'Done 2026-10-17 (analysis/e33_pitch_pretest.json; CPU; probe trained on unshifted clips, tested on
-    shifted ones). Bird ID (47 birds, random clip split) falls from 0.7258 to 0.6235/0.5897 at -1/+1 semitone for
-    aves-base-bio and from 0.7689 to 0.5830/0.5323 for E23; call type falls from 0.8438 to 0.8400/0.8057 and from 0.8482
-    to 0.8326/0.7963. So pitch is mainly a voice axis (bird ID drops 2-5x more, relatively), but NOT call-type neutral:
-    upward shifts move tuck recall up (aves-base-bio 0.38 -> 0.43 -> 0.45 at +1/+2) while thuk (0.68 -> 0.49 -> 0.47)
-    and tet (0.89 -> 0.81 -> 0.68) fall, i.e. pitch carries part of the very tuck/thuk/tet distinction where the errors
-    are. Lead''s reading: a +-2 semitone pitch augmentation would likely erase a cue the soft calls need; if E33 runs at
-    all, use small shifts (<= 0.5 semitone) or a different voice axis (spectral tilt / formant), and it is the user''s
-    call. Caveats: this measures the frozen representation''s sensitivity, not what a model trained with the
-    augmentation would learn; phase-vocoder artefacts on 2-8 frame clips are part of the shift.'
+    E19/E23 with the bird-bootstrap interval excluding 0 on both seeds; SECONDARY Tu and Th recall vs
+    the same baseline (per-type intervals, notebook 08 section 8 protocol); report ZF detection AUC at
+    the pre-committed arm so a call-type gain bought with detection is visible.'
+  pretest: 'Mac only, no training: re-encode the 3,412 call-type clips pitch-shifted by -2/-1/+1/+2 semitones
+    through aves-base-bio and E23, and measure how many call-type predictions flip (and in which types)
+    and how much a bird-identity probe degrades. If +-1-2 semitones barely moves either, pitch is not
+    the voice axis and E33 should change its augmentation (spectral tilt / formant) before any GPU time
+    is spent.'
+  pretest_result: 'Done 2026-10-17 (analysis/e33_pitch_pretest.json; CPU; probe trained on unshifted clips,
+    tested on shifted ones). Bird ID (47 birds, random clip split) falls from 0.7258 to 0.6235/0.5897
+    at -1/+1 semitone for aves-base-bio and from 0.7689 to 0.5830/0.5323 for E23; call type falls from
+    0.8438 to 0.8400/0.8057 and from 0.8482 to 0.8326/0.7963. So pitch is mainly a voice axis (bird ID
+    drops 2-5x more, relatively), but NOT call-type neutral: upward shifts move tuck recall up (aves-base-bio
+    0.38 -> 0.43 -> 0.45 at +1/+2) while thuk (0.68 -> 0.49 -> 0.47) and tet (0.89 -> 0.81 -> 0.68) fall,
+    i.e. pitch carries part of the very tuck/thuk/tet distinction where the errors are. Lead''s reading:
+    a +-2 semitone pitch augmentation would likely erase a cue the soft calls need; if E33 runs at all,
+    use small shifts (<= 0.5 semitone) or a different voice axis (spectral tilt / formant), and it is
+    the user''s call. Caveats: this measures the frozen representation''s sensitivity, not what a model
+    trained with the augmentation would learn; phase-vocoder artefacts on 2-8 frame clips are part of
+    the shift.'
   script: null
   status: proposed
   priority: 1
-  notes: 'Proposed 2026-10-15 by the lead after the user redirected the project to ZF specialization on call
-    type (skip BEANS). Needs code (augmentation in the dataset path, labels untouched) so it is not
-    self-approvable under AGENT.md step 5; needs the user''s go. Cost ~E19 x 2 seeds. Note the eval birds are
-    all in DAPT''s pretraining audio (finding 028), so leave-birds-out call type is the right primary.
-    2026-10-16: all Mac call-type embeddings were computed on MPS, whose attention is wrong for 2-8 frame inputs
-    (most call-type clips); the motivation numbers are being re-scored on CPU (calltype_cpu_rescore.py). The
-    pre-test must run on CPU.'
+  notes: 'Proposed 2026-10-15 by the lead after the user redirected the project to ZF specialization on
+    call type (skip BEANS). Needs code (augmentation in the dataset path, labels untouched) so it is not
+    self-approvable under AGENT.md step 5; needs the user''s go. Cost ~E19 x 2 seeds. Note the eval birds
+    are all in DAPT''s pretraining audio (finding 028), so leave-birds-out call type is the right primary.
+    2026-10-16: all Mac call-type embeddings were computed on MPS, whose attention is wrong for 2-8 frame
+    inputs (most call-type clips); the motivation numbers are being re-scored on CPU (calltype_cpu_rescore.py).
+    The pre-test must run on CPU.'

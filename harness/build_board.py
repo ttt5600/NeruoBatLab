@@ -23,6 +23,8 @@ REF = "run16_compute4x"
 # key, display name, family, what it is, finding, registry name (Savio folder)
 MODELS = [
     ("run19_avesteacher", "run19", "ours", "run16's recipe, labels from AVES layer 6 (k=200)", "059", "run19_avesteacher"),
+    ("run19_seed2", "run19, seed 2", "ours", "run19 exactly, second seed (E8)", "077", "run19_seed2"),
+    ("run20_seed2", "run20, seed 2", "ours", "run20 exactly, second seed (E9)", "078", "run20_seed2"),
     ("run16_compute4x", "run16", "ours", "run15 on 4 GPUs: 4x the audio per update (reference)", "052", "run16"),
     ("run20_fsdonly", "run20", "ours", "run16's recipe on general audio only (FSD50K, 108 h)", "061", "run20_fsdonly"),
     ("run18_iter2", "run18", "ours", "run16's recipe, labels from run16 layer 6 (iteration 2)", "056", "run18"),
