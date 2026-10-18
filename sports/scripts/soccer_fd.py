@@ -1,0 +1,144 @@
+"""European soccer 1X2 (football-data.co.uk): price shopping vs the market / vs Pinnacle. DEV only.
+
+    python scripts/soccer_fd.py build           # download 22 divisions x 2012-13..2025-26 (cached) -> data/soccer_fd.parquet
+    python scripts/soccer_fd.py dev [--ledger]
+
+Data: per match, pre-close odds collected by football-data.co.uk (Fri afternoon for weekend games,
+Tue for midweek): Pinnacle PS*, Bet365 B365*, best price across books BbMx*/Max*, average BbAv*/Avg*;
+and Pinnacle CLOSING PSC*. Outcome FTR (H/D/A).
+Pre-registered 2026-10-18, before any download. DEV = seasons 2012-13 .. 2018-19; SEALED = 2019-20+.
+All bets at PRE-CLOSE prices (what was available when the snapshot was taken).
+  S1 kaunitz05   : p_cons = 1/Avg (with margin); bet the outcome if Max > 1/(p_cons - 0.05) (Kaunitz et al. 2017)
+  S2 max_vs_pin3 : p_pin = Pinnacle pre-close de-vigged (proportional); bet at Max if Max*p_pin - 1 >= 0.03
+  S3 b365_vs_pin3: same, at Bet365's price only (one soft book a US-style bettor could actually use)
+  S4 fav_close13 : back the outcome priced <= 1.30 at Pinnacle CLOSE, at the close price (favourite-longshot)
+Dataset soccer_fd, 4 trials -> bar p < 0.0125. Bootstrap over matches. Also printed (not trials): CLV of S1-S3 bets
+= mean(price taken * Pinnacle-close fair prob) - 1.
+Caveat: Max includes stale / error quotes that books void ("palps"); S3 is the honest version.
+"""
+from __future__ import annotations
+
+import hashlib
+import io
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+import numpy as np
+import pandas as pd
+
+from sports.http import fetch
+
+OUT = ROOT / "data" / "soccer_fd.parquet"
+LEDGER = ROOT / "lab" / "ledger.jsonl"
+DATASET = "soccer_fd"
+DIVS = ["E0", "E1", "E2", "E3", "EC", "SC0", "SC1", "SC2", "SC3", "D1", "D2", "I1", "I2", "SP1", "SP2",
+        "F1", "F2", "N1", "B1", "P1", "T1", "G1"]
+SEASONS = [f"{y % 100:02d}{(y + 1) % 100:02d}" for y in range(2012, 2026)]
+DEV = SEASONS[:7]  # 1213..1819
+SIDES = "HDA"
+
+
+def cmd_build() -> int:
+    fs = []
+    for s in SEASONS:
+        for div in DIVS:
+            try:
+                b = fetch(f"https://www.football-data.co.uk/mmz4281/{s}/{div}.csv", binary=True)
+            except Exception as e:
+                print(s, div, "missing", str(e)[:60])
+                continue
+            d = pd.read_csv(io.BytesIO(b), encoding="latin1", on_bad_lines="skip")
+            d = d.dropna(subset=["FTR"]) if "FTR" in d else d.iloc[0:0]
+            row = {"season": s, "div": div, "date": d.get("Date"), "home": d.get("HomeTeam"), "away": d.get("AwayTeam"),
+                   "ftr": d["FTR"]}
+            for x in SIDES:
+                for key, cands in (("pin", [f"PS{x}"]), ("b365", [f"B365{x}"]), ("max", [f"Max{x}", f"BbMx{x}"]),
+                                   ("avg", [f"Avg{x}", f"BbAv{x}"]), ("pinc", [f"PSC{x}"])):
+                    col = next((c for c in cands if c in d), None)
+                    row[f"{key}_{x}"] = pd.to_numeric(d[col], errors="coerce") if col else np.nan
+            fs.append(pd.DataFrame(row))
+        print(s, "done", flush=True)
+    out = pd.concat(fs, ignore_index=True)
+    out.to_parquet(OUT, index=False)
+    print(f"-> {OUT} ({len(out)} matches)")
+    return 0
+
+
+def _fair(d, key):
+    inv = np.column_stack([1 / d[f"{key}_{x}"] for x in SIDES])
+    return inv / inv.sum(1, keepdims=True)
+
+
+def bets(d: pd.DataFrame, name: str) -> pd.DataFrame:
+    rows = []
+    p_pin, p_pinc = _fair(d, "pin"), _fair(d, "pinc")
+    for i, x in enumerate(SIDES):
+        won = (d.ftr == x).to_numpy()
+        mx, avg, b365, pinc = (d[f"{k}_{x}"].to_numpy() for k in ("max", "avg", "b365", "pinc"))
+        if name == "kaunitz05":
+            price, sel = mx, mx > 1 / (1 / avg - 0.05)
+        elif name == "max_vs_pin3":
+            price, sel = mx, mx * p_pin[:, i] - 1 >= 0.03
+        elif name == "b365_vs_pin3":
+            price, sel = b365, b365 * p_pin[:, i] - 1 >= 0.03
+        else:
+            price, sel = pinc, pinc <= 1.30
+        sel = sel & np.isfinite(price) & (price > 1)
+        rows.append(pd.DataFrame({"match": d.index[sel], "season": d.season[sel].to_numpy(), "price": price[sel],
+                                  "won": won[sel], "clv": price[sel] * p_pinc[sel, i] - 1}))
+    b = pd.concat(rows)
+    b["pnl"] = np.where(b.won, b.price - 1, -1.0)
+    return b
+
+
+def score(b, rng) -> dict:
+    pm = b.groupby("match")["pnl"].sum().to_numpy()
+    boots = np.array([rng.choice(pm, len(pm)).sum() for _ in range(3000)])
+    per = b.groupby("season")["pnl"].sum().round(2)
+    return {"bets": int(len(b)), "staked": float(len(b)), "units": float(b.pnl.sum()), "roi": float(b.pnl.mean()),
+            "ci_lo": float(np.quantile(boots, .025)), "ci_hi": float(np.quantile(boots, .975)),
+            "p": float(np.mean(boots <= 0)), "folds_positive": int((per > 0).sum()), "per_fold": {str(k): v for k, v in per.items()}}
+
+
+def cmd_dev() -> int:
+    d = pd.read_parquet(OUT)
+    d = d[d.season.isin(DEV)].reset_index(drop=True)
+    need = [f"{k}_{x}" for k in ("pin", "max", "avg", "pinc") for x in SIDES]
+    d = d.dropna(subset=need)
+    d = d[(d[need] > 1).all(1)].reset_index(drop=True)
+    over = lambda k: np.median(sum(1 / d[f"{k}_{x}"] for x in SIDES) - 1)
+    print(f"DEV matches {len(d)} ({d.season.min()}..{d.season.max()}, {d['div'].nunique()} divs); overround median: "
+          f"pin {over('pin'):+.3f} pinc {over('pinc'):+.3f} avg {over('avg'):+.3f} max {over('max'):+.3f} (max < 0 = arb-ish)")
+    pc = _fair(d, "pinc")
+    hit = np.column_stack([(d.ftr == x) for x in SIDES])
+    print(f"sanity: Pinnacle-close Brier {np.mean((pc - hit) ** 2):.4f}")
+    prior = [json.loads(l) for l in LEDGER.read_text().splitlines() if l.strip()]
+    shas = {r["sha"] for r in prior if r.get("status") == "ok" and r["dataset"] == DATASET}
+    recs = []
+    for name in ("kaunitz05", "max_vs_pin3", "b365_vs_pin3", "fav_close13"):
+        b = bets(d, name)
+        r = score(b, np.random.default_rng(0))
+        sha = hashlib.sha256(("soccer_fd:" + name).encode()).hexdigest()[:12]
+        shas.add(sha)
+        print(f"{name:13s} bets {r['bets']:6d}  units {r['units']:+8.1f}  ROI {r['roi']:+6.2%}  "
+              f"95%CI [{r['ci_lo']:+.0f}, {r['ci_hi']:+.0f}]  p {r['p']:.4f}  seasons+ {r['folds_positive']}/7  "
+              f"CLV {b.clv.mean():+.2%}  avg price {b.price.mean():.2f}")
+        recs.append({"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": f"soccer_{name}", "sha": sha,
+                     "dataset": DATASET, "hypothesis": f"pre-registered in scripts/soccer_fd.py ({name})",
+                     "source": "Kaunitz et al. 2017; +EV vs Pinnacle", "status": "ok", "trial_number": len(shas), **r})
+    print(f"{DATASET} trials {len(shas)} -> bar p < {0.05 / len(shas):.4f}")
+    if "--ledger" in sys.argv:
+        with LEDGER.open("a") as f:
+            for r in recs:
+                f.write(json.dumps(r) + "\n")
+    return 0
+
+
+if __name__ == "__main__":
+    cmd = sys.argv[1] if len(sys.argv) > 1 else ""
+    raise SystemExit({"build": cmd_build, "dev": cmd_dev}.get(cmd, lambda: print(__doc__) or 1)())
