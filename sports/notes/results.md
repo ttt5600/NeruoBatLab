@@ -2,6 +2,7 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-17 | NBA angles x5: rest edge ATS, big-spread dog, heavy fav ML, b2b unders, home dog ML | NBA 2007-19, 15,519 g (kyleskom SBR sqlite) | -1.5%/4361; +0.6%/1218; -2.7%/4239; -3.7%/5469; -3.9%/4766 | NO EDGE. Caught: file Spread is UNSIGNED (fav line) -> pre-fix big-dog +7.2% p=.002 was an artifact; fixed via ML favourite |
 | 10-17 | MLB fav >=60% at OPEN vs CLOSE (FLB-at-open thesis) | SBRO 2010-18, 22,140 games | open -2.70%/8,768, close -2.59%/8,768, 0/9 seasons each | NO EDGE: favourites lose ~the vig at both; no open-line FLB |
 | 10-17 | NFL online angles x5: big_fav_fade, dome_team_cold, primetime_unders, elo_disagree_ml, heavy_fav_ml | NFL dev 2009-19 | -2.7%/383; +3.1%/33; +1.4%/542; -0.9%/1557; -1.1%/833 (all p>.36) | NO EDGE: popular angles priced in |
 | 10-17 | stocks: sector momentum 12-1, weekly sector reversal, SPY vol-target 10% | ETFs dev 2006-18 (14 trials) | +0.6%/yr ns; -0.6%/yr; vol-target alpha +2.7%/yr p=.024 (bar .0036), maxDD -25% vs -55%, CAGR 6.4 vs 7.5% | NO EDGE; vol-target = risk control only |
