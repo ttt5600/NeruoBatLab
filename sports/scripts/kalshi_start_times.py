@@ -53,7 +53,11 @@ def cmd_match() -> int:
         for r in e.itertuples():
             day = by_day.get(r.event_date)
             st = pd.NaT
-            if day is not None:
+            # 2026 MLB-style tickers embed the ET start: 26AUG171340STLCING1 -> 13:40 ET (+ doubleheader tag)
+            if r.teams[:4].isdigit():
+                st = (pd.Timestamp(f"{r.event_date:%Y-%m-%d} {r.teams[:2]}:{r.teams[2:4]}")
+                      .tz_localize("America/New_York").tz_convert("UTC"))
+            elif day is not None:
                 exact = day[(day.away.str.upper() + day.home.str.upper()) == r.teams]
                 if len(exact) == 1:
                     st = exact.start_utc.iloc[0]
