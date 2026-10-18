@@ -29,6 +29,7 @@ S6 CLV = -0.32% (p .79), S3/S5 B365 = +0.50% (p .022). The selection rule had th
   S7 b365_pow3 / S8 wh_pow3 (flagged: method chosen after seeing dev calibration): select with POWER de-vig of
      Pinnacle pre-close, book price * p_pow - 1 >= 0.03 and price < 10; PRIMARY = CLV vs POWER de-vig of Pinnacle close.
   S9 bw_pow3 (pre-registered 2026-10-18 before the BW column was built): same rule at bwin (Entain, co-owner of BetMGM).
+  S12 best3_pow3 (pre-registered 2026-10-18): best of B365 / WH / bwin, same rule -- accounts at three books.
 """
 from __future__ import annotations
 
@@ -114,6 +115,9 @@ def bets(d: pd.DataFrame, name: str) -> pd.DataFrame:
             price, sel = mx, mx * p_pin[:, i] - 1 >= 0.03
         elif name in ("b365_vs_pin3", "b365_clv"):
             price, sel = b365, b365 * p_pin[:, i] - 1 >= 0.03
+        elif name == "best3_pow3":
+            bk = np.nanmax(np.column_stack([d[f"{k}_{x}"].to_numpy() for k in ("b365", "wh", "bw")]), axis=1)
+            price, sel = bk, (bk * p_pow[:, i] - 1 >= 0.03) & (bk < 10)
         elif name in ("b365_pow3", "wh_pow3", "bw_pow3"):
             bk = d[f"{name.split('_')[0]}_{x}"].to_numpy()
             price, sel = bk, (bk * p_pow[:, i] - 1 >= 0.03) & (bk < 10)
@@ -186,7 +190,7 @@ def cmd_sealed() -> int:
     if "--confirm" not in sys.argv:
         print("sealed scoring is the user's decision; pass --confirm")
         return 1
-    names = [a for a in sys.argv[2:] if a in ("b365_pow3", "wh_pow3", "bw_pow3")]
+    names = [a for a in sys.argv[2:] if a in ("b365_pow3", "wh_pow3", "bw_pow3", "best3_pow3")]
     if not names:
         print("name the trial(s): b365_pow3 wh_pow3")
         return 1
