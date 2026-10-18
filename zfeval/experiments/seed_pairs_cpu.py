@@ -8,6 +8,9 @@ StratifiedGroupKFold(5) seed 0), 95% bird bootstrap (2,000 resamples of the 48 b
 (A minus B on the full data), not the resample mean.
 
     python zfeval/experiments/seed_pairs_cpu.py A:B [A:B ...]   -> appends to analysis/seed_pairs_cpu.json under "A | B"
+    python zfeval/experiments/seed_pairs_cpu.py --layer 3 A:B ...  -> both models at a FIXED layer (no selection on the
+        board split), pooled accuracy asserted against per_layer_acc11_cpu[3]; written to seed_pairs_cpu_L3.json so the
+        board (which reads seed_pairs_cpu.json) never mixes the two
 """
 from __future__ import annotations
 import json, sys, warnings
@@ -22,6 +25,7 @@ from aves_calltype import cv_acc                                           # noq
 FEAT = Path.home() / "zf_labelset/zf_detection_dataset_v1/features"
 ANA = Path.home() / "zf_labelset/zf_detection_dataset_v1/analysis"
 OUT = ANA / "seed_pairs_cpu.json"
+FIXED = None                                   # --layer N: every model at layer N
 CPU = json.loads((ANA / "calltype_cpu_rescore.json").read_text())["models"]
 
 
@@ -36,15 +40,16 @@ def main(pairs):
 
     def hit(tag):
         if tag not in hits:
-            L = int(CPU[tag]["best_layer_cpu"])
+            L = int(CPU[tag]["best_layer_cpu"]) if FIXED is None else FIXED
+            want = CPU[tag]["acc11_cpu"] if FIXED is None else CPU[tag]["per_layer_acc11_cpu"][FIXED]
             E = np.load(FEAT / f"ct11_{tag}_cpuemb.npy", mmap_mode="r")
             a, _, P = cv_acc(np.ascontiguousarray(E[:, L]), y, birds, return_proba=True)
-            assert abs(a - CPU[tag]["acc11_cpu"]) < 1e-9, (tag, a, CPU[tag]["acc11_cpu"])
+            assert abs(a - want) < 1e-9, (tag, a, want)
             hits[tag] = ((P.argmax(1) == y).astype(float), L, a)
         return hits[tag]
 
     res = json.loads(OUT.read_text()) if OUT.exists() else dict(
-        protocol="CPU embeddings; each model at its CPU best layer; cv_acc leave-birds-out SGKF(5) seed 0; "
+        protocol=f"CPU embeddings; {'each model at its CPU best layer' if FIXED is None else f'every model at fixed layer {FIXED}'}; cv_acc leave-birds-out SGKF(5) seed 0; "
                  "bird bootstrap 2000 seed 0; observed differences", pairs={})
     for a, b in pairs:
         ha, la, aa = hit(a); hb, lb, ab = hit(b)
@@ -60,4 +65,8 @@ def main(pairs):
 
 
 if __name__ == "__main__":
-    main([tuple(p.split(":")) for p in sys.argv[1:]])
+    args = sys.argv[1:]
+    if "--layer" in args:
+        i = args.index("--layer"); FIXED = int(args[i + 1]); del args[i:i + 2]
+        OUT = ANA / f"seed_pairs_cpu_L{FIXED}.json"
+    main([tuple(p.split(":")) for p in args])

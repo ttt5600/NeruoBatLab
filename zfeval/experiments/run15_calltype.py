@@ -82,7 +82,8 @@ def main():
                per_layer_acc8=[float(a) for a in accs8], best_layer8=int(bl8),
                acc8=float(accs8[bl8]),
                split="leave-birds-out StratifiedGroupKFold(5), seed 0",
-               note="run11 recipe, combined ZF+FSD50K corpus 224.42 h, k=200 vocabulary")
+               note=("run11 recipe, combined ZF+FSD50K corpus 224.42 h, k=200 vocabulary" if TAG == "run15_combined" else
+                     "device as printed; corpus and recipe: see the experiment entry (harness/experiments.yaml)"))
     OUT.write_text(json.dumps(res, indent=2))
 
     print()

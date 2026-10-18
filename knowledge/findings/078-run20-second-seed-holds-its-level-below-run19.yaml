@@ -1,14 +1,16 @@
 id: '078'
-title: General audio alone holds its level on a second seed (CPU call type 0.8324 vs 0.8283), level with run16 and below both run19 seeds; on CPU it was never above run16
-status: open
+title: General audio alone holds its level on a second seed (CPU call type 0.8324 vs 0.8283, +0.0041 [-0.0104, +0.0172]); not distinguishable from run16 seed 1; resolved below run19 seed 2 only
+status: confirmed
 claim: 'A second seed of run20 (E9, run20_seed2: run16''s recipe on the FSD50K rows only, spectrogram k=200 labels)
   scores 0.8324 on 11-class call type at its CPU best layer (L5), against 0.8283 (L6) for the first seed; the seed
   pair differs by +0.0041 [-0.0104, +0.0172], so general audio alone holds its level. E9 was pre-registered as a
   spread measurement with no success criterion. On CPU embeddings (076) neither run20 seed is above run16 seed 1
-  (0.8353; -0.0029 [-0.0272, +0.0178] and -0.0070 [-0.0355, +0.0167]), so 061''s "general audio alone matches the
-  mixed corpus" stands as "not distinguishable", but the near-tie of its MPS numbers (0.8370 vs 0.8379) becomes a
-  small deficit on CPU: both run20 seeds sit below run16 seeds 1 and 3 (0.8353, 0.8411) and above seed 2 (0.8198). run20_seed2 is resolved below run19_seed2 (-0.0223 [-0.0419, -0.0049]) and not
-  distinguishable from run19''s first seed (-0.0135 [-0.0338, +0.0026]).'
+  (0.8353; -0.0029 [-0.0272, +0.0178] and -0.0070 [-0.0355, +0.0167]), so 061''s run20-vs-run16 reading stands on
+  CPU: not distinguishable, and by E4''s pre-registered rule not a "match". The near-tie of 061''s MPS point estimates
+  (0.8370 vs 0.8379) becomes a lower point estimate on CPU, still not distinguishable. In point estimates only (no
+  interval was computed for these pairs) both run20 seeds sit below run16 seeds 1 and 3 (0.8353, 0.8411) and above
+  seed 2 (0.8198). run20_seed2 is resolved below run19_seed2 (-0.0223 [-0.0419, -0.0049]) and not distinguishable
+  from run19''s first seed (-0.0135 [-0.0338, +0.0026]); run20''s first seed was not paired with either run19 seed.'
 evidence: 'CPU call type (calltype_cpu_rescore.json models.<tag>; best layer / layer 3): run20_seed2 0.8324 L5 / 0.8203;
   run20_fsdonly 0.8283 L6 / 0.8200; run21_zfonly 0.8127 L1 / 0.8107; run16_compute4x 0.8353 L8 / 0.8312; run16_seed2
   0.8198 L1; run16_seed3 0.8411 L4; run19_avesteacher 0.8458 L1; run19_seed2 0.8546 L1; aves-base-bio 0.8438 L0.
@@ -23,8 +25,10 @@ evidence: 'CPU call type (calltype_cpu_rescore.json models.<tag>; best layer / l
   run20_seed2 - run19_avesteacher -0.0135 [-0.0338, +0.0026].
 
   Detection (detection_variants.json precommit; not affected by 076): run20_seed2 joint arm matched_L3, ZF AUC
-  0.9659, BirdPark AP 0.7687 (native_L3 0.7448); run20_fsdonly joint arm native_L3, ZF AUC 0.9674, BirdPark AP 0.8266
-  (matched_L3 0.6374). The two seeds swap which arm is better on BirdPark, the arm-selection noise of 049/061.'
+  0.9659, BirdPark AP 0.7687 (native_L0 0.7448); run20_fsdonly joint arm native_L3, ZF AUC 0.9674, BirdPark AP 0.8266
+  (matched_L0 0.6374). The pre-committed arm changes between the seeds (matched vs native, and layer 3 vs layer 0).
+  BirdPark AP over all 12 arms (zf_to_bp): run20_seed2 0.5968-0.8318, median 0.7525; run20_fsdonly 0.6374-0.8576,
+  median 0.7777 -- the arm choice moves BirdPark far more than the seed (049/061).'
 method: 'slurm/train_run20_seed2.sh (train_run20_fsdonly.sh with --seed 2), job 39945376, COMPLETED after 05:37:49 at
   step 93,750 (epoch=77). harness/score_run.sh (export verified bit-identical) for detection and the MPS call-type
   JSON; zfeval/experiments/calltype_cpu_rescore.py --only run20_seed2 for the CPU call type;
@@ -33,10 +37,16 @@ provenance: 'analysis/calltype_cpu_rescore.json (models.run20_seed2, run20_fsdon
   run16_seed2, run16_seed3, run19_avesteacher, run19_seed2, aves-base-bio: acc11_cpu, best_layer_cpu, acc11_L3_cpu);
   analysis/seed_pairs_cpu.json (pairs); analysis/run20_seed2_calltype.json (MPS, superseded by the CPU score);
   analysis/detection_variants.json (precommit.run20_seed2, precommit.run20_fsdonly); savio_artifacts/logs/*_39945376.log.'
-caveats: 'Not yet reviewed by a critic. Best layers chosen on the reported metric (035); layer 3 given beside them.
+caveats: 'Critic (2026-10-18): ACCEPT-WITH-CHANGES, applied: retitled (the old title''s "below both run19 seeds"
+  and "never above run16" were not supported: both run20 seeds are above run16 seed 2 in point estimates, and only the
+  pair against run19 seed 2 resolves); "small deficit" -> not distinguishable; 061 is now quoted correctly (it says
+  NOT a "match" under E4''s rule); detection arms relabelled native_L0 / matched_L0; 0.0087 -> 0.0088 and 0.0024 ->
+  0.0023 (from unrounded values); BirdPark 12-arm spread added. The note field in run20_seed2_calltype.json says
+  "combined ZF+FSD50K corpus 224.42 h", fixed text from the scoring script; this run used the FSD50K-only 643 files
+  (108.39 h, job log 39945376). Best layers chosen on the reported metric (035); layer 3 given beside them.
   run21 (the zebra-finch-only twin) has one seed, so the run20-vs-run21 contrast rests on a single baseline run.
   This finding does not edit 061; it re-reads 061''s call-type comparison on CPU embeddings, where the run20 point
-  estimate drops by 0.0087 and run21''s by 0.0024. The chick-holdout and label-free numbers score_run.sh wrote for
+  estimate drops by 0.0088 and run21''s by 0.0023. The chick-holdout and label-free numbers score_run.sh wrote for
   run20_seed2 were computed from MPS embeddings (076) and are not quoted.'
 tags:
 - seed-variance

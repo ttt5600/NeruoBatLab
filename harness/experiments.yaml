@@ -252,8 +252,8 @@ experiments:
   job_name: hubert_run20s2
   status: done
   finding: '078'
-  result: 'CPU call type 0.8324 (seed 1 0.8283), seed pair +0.0041 [-0.0104, +0.0172]; level with run16, resolved
-    below run19_seed2'
+  result: 'CPU call type 0.8324 (seed 1 0.8283), seed pair +0.0041 [-0.0104, +0.0172]; not distinguishable from
+    run16 seed 1, resolved below run19_seed2 only (critic-corrected 2026-10-18)'
   job: 39945376
   priority: 5
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Submitted

@@ -42,6 +42,7 @@ provenance: >-
   precommit); analysis/chick_holdout_variants.json (precommit.run16_seed2, precommit.run11,
   bootstrap.run16_seed2_vs_run11 -- resample-mean delta; printed AMI -0.0240 vs observed -0.0495).
 caveats: >-
+  CPU re-read (079, 2026-10-18): this pair is not resolved at best layers on CPU (+0.0155 [-0.0026, +0.0340]) but is at a fixed layer 3 (+0.0185 [+0.0028, +0.0340]); the lesson survives, also via seed 3 vs seed 2.
   Two runs are one draw of training-run variation, not an estimate of its variance: run16 may be
   the lucky draw, seed 2 the unlucky one, or either typical. What is established is that a gap of
   about 0.015 on call type can arise between two runs of the same recipe. That gap comes from the

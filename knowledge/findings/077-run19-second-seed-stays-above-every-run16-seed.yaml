@@ -1,6 +1,6 @@
 id: '077'
-title: run19's second seed scores 0.8546 on CPU call type, so both AVES-teacher seeds sit above all three run16 seeds; E8's bar for a powered test is met, but no single pair against run16 seed 1 or 3 resolves
-status: open
+title: run19's second seed scores 0.8546 on CPU call type, so both AVES-teacher seeds sit above all three run16 seeds in point estimates; E8's bar for a powered test is met, but no single pair against run16 seed 1 or 3 resolves
+status: confirmed
 claim: 'A second seed of run19 (E8, run19_seed2: run16''s recipe with AVES layer-6 k=200 targets) scores 0.8546 on
   11-class call type at its CPU best layer (L1), against 0.8458 (L1) for run19''s first seed. Both run19 seeds are above
   all three run16 seeds (0.8353, 0.8198, 0.8411) at the best layer and at layer 3, which meets E8''s pre-registered
@@ -12,7 +12,7 @@ claim: 'A second seed of run19 (E8, run19_seed2: run16''s recipe with AVES layer
 evidence: 'CPU call type (calltype_cpu_rescore.json models.<tag>, finding 076 protocol; best layer / layer 3):
   run19_seed2 0.8546 L1 / 0.8514; run19_avesteacher 0.8458 L1 / 0.8441; run16_compute4x 0.8353 L8 / 0.8312;
   run16_seed2 0.8198 L1 / 0.8127; run16_seed3 0.8411 L4 / 0.8368; aves-base-bio 0.8438 L0 / 0.8362. run19_seed2 is
-  6th of the 56 models on the CPU board (behind hf-whisper-base-enc 0.8646, hf-whisper-small-enc 0.8599,
+  6th of the 57 models on the CPU board (behind hf-whisper-base-enc 0.8646, hf-whisper-small-enc 0.8599,
   birdaves-bioxn-large 0.8590, daptv3aves_2e4s2_step15000 0.8570, dapt5e5_step5000 0.8567). Its MPS score
   (run19_seed2_calltype.json acc11) was 0.8476 at L0; 1,939 of 3,412 clips changed between devices.
 
@@ -21,12 +21,15 @@ evidence: 'CPU call type (calltype_cpu_rescore.json models.<tag>, finding 076 pr
   aves-base-bio +0.0108 [-0.0039, +0.0263]; run19_avesteacher - aves-base-bio +0.0021 [-0.0139, +0.0200];
   run19_seed2 - run16_compute4x +0.0193 [-0.0059, +0.0432]; - run16_seed2 +0.0349 [+0.0106, +0.0597]; - run16_seed3
   +0.0135 [-0.0064, +0.0310]; run19_avesteacher - run16_compute4x +0.0106 [-0.0127, +0.0341]; - run16_seed2 +0.0261
-  [+0.0041, +0.0502]; - run16_seed3 +0.0047 [-0.0119, +0.0206]. Sanity: the same script reproduces 076''s run16
-  seed pair, run16_compute4x - run16_seed2 +0.0155 [-0.0026, +0.0340].
+  [+0.0041, +0.0502]; - run16_seed3 +0.0047 [-0.0119, +0.0206]. The same file gives the run16 seed pair
+  run16_compute4x - run16_seed2 +0.0155 [-0.0026, +0.0340] (seed_pairs_cpu.json; not in 076, whose summary has only
+  run16_seed_spread 0.0214).
 
   Detection (detection_variants.json precommit; not affected by 076): run19_seed2 joint arm native_L3, ZF AUC 0.9708,
   BirdPark AP 0.8641 (matched_L3 BirdPark AP 0.8793); run19_avesteacher joint arm matched_L1, ZF AUC 0.9717, BirdPark
-  AP 0.8115. The pre-committed arm differs between the seeds.'
+  AP 0.8115. The pre-committed arm differs between the seeds. BirdPark AP over all 12 arms (zf_to_bp): run19_seed2
+  0.7942-0.8793, median 0.8413; run19_avesteacher 0.6423-0.8671, median 0.8480 (four 30 s blocks; arm choice moves
+  it by more than the seeds differ).'
 method: 'slurm/train_run19_seed2.sh (train_run19_avesteacher.sh with --seed 2). Job 39781626 was preempted 6 times
   and REQUEUE_HOLD-ed; resubmitted as 39945354 from last.ckpt epoch=34-step=87734, COMPLETED at step 93,750
   (epoch=37). harness/score_run.sh (export verified bit-identical) for detection and the MPS call-type JSON;
@@ -37,7 +40,14 @@ provenance: 'analysis/calltype_cpu_rescore.json (models.run19_seed2, run19_avest
   run16_seed3, aves-base-bio: acc11_cpu, best_layer_cpu, acc11_L3_cpu); analysis/seed_pairs_cpu.json (pairs);
   analysis/run19_seed2_calltype.json (MPS, superseded by the CPU score); analysis/detection_variants.json
   (precommit.run19_seed2, precommit.run19_avesteacher); savio_artifacts/logs/*_39945354.log.'
-caveats: 'Not yet reviewed by a critic. Best layers are chosen on the reported metric (035), which is why layer 3 is
+caveats: 'Critic (2026-10-18): ACCEPT-WITH-CHANGES, applied: the run16 seed pair is no longer called a sanity
+  check of 076; the contradictions with 057 and 070 are named below; 56 -> 57 models; BirdPark arm spread added;
+  "point estimates" in the title. Contradictions: (057) on CPU the run16 seed gap is +0.0155 [-0.0026, +0.0340],
+  NOT resolved, where 057 (MPS) reported -0.0155 [-0.0289, -0.0017] resolved; (070) at layer 3 run16 seed 3 (0.8368)
+  is above seed 1 (0.8312) on CPU, against 070''s "seed 1 highest at layer 3". This finding believes the CPU numbers
+  (076: CPU fp32 matches fp64 to ~1e-5; MPS does not). 059''s 0.8464 for run19 was MPS; its CPU value is 0.8458.
+  The log of 39781626 (steps 0-87,734) is not in savio_artifacts; the mask-flag commit c8e02f58 landed mid-run with
+  defaults unchanged. Best layers are chosen on the reported metric (035), which is why layer 3 is
   given beside them; both readings put both run19 seeds above all run16 seeds. Seeds also differ in preemption
   history (run19_seed2 was preempted 6 times and resumed from last.ckpt), which the seed label does not capture. Two
   seeds vs three seeds gives ranges, not variances; a "powered test" means more seeds per arm or a paired design, not

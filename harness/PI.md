@@ -21,8 +21,10 @@ Never act on a number you remember; re-open its source. Keep wake replies to a f
 
 ### Tools (all exist; read a script's docstring before first use)
 - `harness/score_run.sh TAG EXP NC JOB` -- export + call type + detection + chick (`DRY=1` to check inputs).
-- `zfeval/experiments/run16_calltype_bootstrap.py --tag T [--also A,B]` -- call-type bird bootstrap
-  (OBSERVED delta) vs the AVES field, run11/15/16, plus any `--also` models.
+- Call type is CPU only (finding 076; MPS caches are wrong for 2-8 frame clips):
+  `zfeval/experiments/calltype_cpu_rescore.py --only T` (score -> calltype_cpu_rescore.json) and
+  `zfeval/experiments/seed_pairs_cpu.py T:REF [...]` (OBSERVED difference + bird bootstrap -> seed_pairs_cpu.json).
+  `run16_calltype_bootstrap.py` and every `ct11_<tag>_emb.npy` reader are MPS: do not quote them.
 - `zfeval/experiments/paired_vs.py --a X --b Y` -- detection/BirdPark paired bootstrap vs any reference
   (`--check X` reproduces a stored vs-run11 record). Writes analysis/paired_vs.json.
 - BEANS: `zfeval/experiments/beans_probe.py --task {bats,esc50} --models ... --baseline ...` (Mac);
@@ -79,7 +81,9 @@ Never act on a number you remember; re-open its source. Keep wake replies to a f
   the newest `epoch=*-step=*` and name the missing steps.
 - `lab train` / `sv train` pass extra args to sbatch, not to the script: give scripts defaults instead.
 - savio3 rejects savio_lowprio for fc_birdpow; tiny data builds run on the login node instead.
-- One run per arm cannot rank recipes: two seeds of run16 differed by a resolved 0.0155 (057).
+- One run per arm cannot rank recipes: three run16 seeds span 0.015-0.021 on call type (079, CPU); at a fixed
+  layer 3 seed 1 minus seed 2 is resolved (+0.0185) on all 10 fold splits -- as large as most effects we test.
+  Best-layer single-split gaps also carry winner's-curse layer picks: give layer 3 beside them.
 - BirdPark wins at the pre-committed arm can be arm-selection artefacts: always give 12-arm medians.
 - usage-watch auto-resume starts a second `claude -p` here after usage resets: check the snapshot.
 - A forked interactive session can run this same loop (2026-10-15: two leads both confirmed 074). The

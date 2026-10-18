@@ -3,6 +3,9 @@
 
     python3 calltype_labelfree.py              # every cached ct11 embedding
     python3 calltype_labelfree.py --only TAG   # add or refresh one model (merges into the JSON)
+    python3 calltype_labelfree.py --cpu        # the same score on the CPU embeddings (ct11_<tag>_cpuemb.npy) and
+                                               # CPU call type -> labelfree_stability_cpu.json. The MPS caches are
+                                               # wrong for 2-8 frame clips (finding 076); this is the one to quote.
 
 Finding 050's bird-held-out stability, the label-free criterion that ranked encoders the right way
 (compactness criteria ranked them backwards). For each of B random halvings of the 48 birds: Ward-
@@ -18,7 +21,7 @@ Choices fixed before any score was read (E11, 2026-10-12):
           not an independent-sample CI); paired difference vs aves-base-bio the same way
   check   Spearman rho, across models, between the score and 11-class call type at the same layer
           and at each model's best layer; a column-shuffled null for one model must sit near 0
-Writes analysis/labelfree_stability.json.
+Writes analysis/labelfree_stability.json (--cpu: analysis/labelfree_stability_cpu.json, nothing else changes).
 """
 from __future__ import annotations
 import argparse, json, sys, warnings
@@ -38,20 +41,33 @@ OUT = A / "labelfree_stability.json"
 KS, B, SEED, REF = (30, 11), 50, 0, "aves-base-bio"
 EMB_ALIAS = {"aves-base-bio": "aves"}          # tag -> ct11 file stem where they differ
 CT_ALIAS = {"run15_combined": "run15"}         # tag -> call-type JSON stem where they differ
+CPU = False                                    # --cpu: CPU caches + CPU call type (finding 076)
+
+
+def use_cpu():
+    global CPU, OUT
+    CPU, OUT = True, A / "labelfree_stability_cpu.json"
 
 
 def tags():
+    if CPU:                                    # tags are the file stems; no aliases for the CPU caches
+        return sorted(p.name[5:-len("_cpuemb.npy")] for p in C11.FEAT.glob("ct11_*_cpuemb.npy"))
     stems = sorted(p.name[5:-8] for p in C11.FEAT.glob("ct11_*_emb.npy"))
     inv = {v: k for k, v in EMB_ALIAS.items()}
     return [inv.get(s, s) for s in stems]
 
 
 def emb(tag):
+    if CPU:
+        return np.load(C11.FEAT / f"ct11_{tag}_cpuemb.npy", mmap_mode="r")
     return np.load(C11.FEAT / f"ct11_{EMB_ALIAS.get(tag, tag)}_emb.npy", mmap_mode="r")
 
 
 def calltype_by_layer(tag):
     """Per-layer 11-class accuracy from the stored call-type JSONs (never recomputed here)."""
+    if CPU:
+        rec = json.load(open(A / "calltype_cpu_rescore.json"))["models"].get(tag)
+        return rec["per_layer_acc11_cpu"] if rec else None
     f = A / f"{CT_ALIAS.get(tag, tag)}_calltype.json"
     if f.exists():
         return json.load(open(f))["per_layer_acc11"]
@@ -90,12 +106,17 @@ def summary(v):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--only"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--only"); ap.add_argument("--cpu", action="store_true")
+    a = ap.parse_args()
+    if a.cpu:
+        use_cpu()
     rows = [r for r in C11.collect() if r[3] in C11.KEEP11]
     birds = np.array([r[1].lower() for r in rows])
     sp = splits(birds)
     out = json.load(open(OUT)) if OUT.exists() else {}
     out.update(settings=dict(ks=list(KS), B=B, seed=SEED, ref=REF, n_clips=len(rows), n_birds=int(len(np.unique(birds))),
+                             embeddings="CPU (ct11_<tag>_cpuemb.npy), call type from calltype_cpu_rescore.json"
+                             if CPU else "MPS (ct11_<tag>_emb.npy) -- wrong for 2-8 frame clips, finding 076",
                              layer_rule="3 for 12-layer models, 6 for 24-layer models", primary_k=KS[0]))
     models = out.setdefault("models", {})
     per_split = {}

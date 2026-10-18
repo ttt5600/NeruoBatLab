@@ -1,0 +1,70 @@
+id: '079'
+title: On CPU, 057's run16 seed pair is not resolved at the best layers, but at a fixed layer 3 it is (+0.0185 [+0.0028, +0.0340]) and holds on all 10 fold splits (mean +0.0148); seed noise stays at 0.015-0.02
+status: confirmed
+claim: 'Re-read on CPU embeddings (076), finding 057''s pair is not resolved at the board''s split and each model''s
+  best layer: run16 minus its seed-2 rerun is +0.0155 [-0.0026, +0.0340] (057, MPS: +0.0155 [+0.0017, +0.0289]). At
+  a fixed layer 3 the same pair is resolved, +0.0185 [+0.0028, +0.0340], and so is seed 3 minus seed 2, +0.0240
+  [+0.0064, +0.0427] (seed 3 minus run16 +0.0056 [-0.0052, +0.0172]); the best-layer seed 3 minus seed 2 is also
+  resolved (+0.0214 [+0.0032, +0.0394]) but carries split-0 layer selection. Over 10 fold splits at layer 3, run16
+  minus seed 2 is positive on all 10 (+0.0085 to +0.0193, mean +0.0148) and seed 3 minus seed 2 on all 10 (mean
+  +0.0155), so at layer 3 the gap does not depend on fold assignment (agreement across splits is not a bird-level
+  interval: the splits reuse the same 48 birds). The board split is favourable to these gaps at layer 3 (+0.0185 vs
+  a 10-split mean of +0.0148; +0.0240 vs +0.0155). At each model''s best layer the 10-split mean of run16 minus seed
+  2 shrinks to +0.0029 (-0.0100 to +0.0155): run16''s L8 is a winner''s-curse pick on split 0 (its 10-split mean at
+  L8, 0.8277, is below its layer-3 mean, 0.8307), and split 0 is also simply a bad split for seed 2 (-0.0050 below
+  its mean at its best layer, -0.0032 at layer 3). The gap depends on the layer (+0.0053 at L1 to +0.0229 at L8 on
+  the board split). 057''s lesson -- two runs of one recipe can differ by more than the bird bootstrap resolves --
+  stands on CPU, and the three run16 seeds span 0.0155 in 10-split mean at layer 3 (0.0111-0.0240 per split) and
+  0.0214 at the board split''s best layers, so the 0.015-0.02 bar for single comparisons stands.'
+evidence: 'Board split, CPU (calltype_cpu_rescore.json models.<tag>; best layer / layer 3): run16_compute4x 0.8353 L8 /
+  0.8312; run16_seed2 0.8198 L1 / 0.8127; run16_seed3 0.8411 L4 / 0.8368 (MPS best: 0.8379 L7, 0.8224 L0). Per-layer
+  run16 minus seed 2: +0.0053 to +0.0229, positive at 12 of 12 layers. seed_pairs_cpu.json (observed, 95% bird
+  bootstrap): "run16_compute4x | run16_seed2" +0.0155 [-0.0026, +0.0340]; "run16_seed3 | run16_seed2" +0.0214
+  [+0.0032, +0.0394] resolved; "run16_seed3 | run16_compute4x" +0.0059 [-0.0081, +0.0199]. Fixed layer 3
+  (seed_pairs_cpu_L3.json, pooled accuracy asserted against per_layer_acc11_cpu[3]): "run16_compute4x | run16_seed2"
+  +0.0185 [+0.0028, +0.0340]; "run16_seed3 | run16_seed2" +0.0240 [+0.0064, +0.0427]; "run16_seed3 |
+  run16_compute4x" +0.0056 [-0.0052, +0.0172]. Per-layer run16 minus seed 2 sorted: layer 3''s +0.0185 is the 10th
+  smallest of 12.
+
+  10 fold splits, fixed layer 3 (calltype_split_sensitivity_cpu_L3.json; split 0 reproduces per_layer_acc11_cpu[3]):
+  means run16_compute4x 0.8307 (sd 0.0057), run16_seed2 0.8159 (sd 0.0061), run16_seed3 0.8314 (sd 0.0053); seed 2
+  minus run16 per split -0.0185, -0.0135, -0.0138, -0.0170, -0.0149, -0.0132, -0.0155, -0.0141, -0.0193, -0.0085
+  (mean -0.0148, sd 0.0031); seed 3 minus seed 2 mean +0.0155 (min +0.0067); seed 3 minus run16 mean +0.0006.
+
+  10 fold splits, each model''s CPU best layer (calltype_split_sensitivity_cpu.json): means 0.8277 / 0.8248 / 0.8340;
+  seed 2 minus run16 per split -0.0155 (split 0), -0.0003, +0.0100, -0.0053, -0.0138, -0.0082, -0.0050, +0.0038,
+  +0.0050, +0.0003 (mean -0.0029, sd 0.0082); seed 3 ahead of seed 2 on 10 of 10 (mean +0.0092, min +0.0003). Split
+  0 ranks run16 2nd of 10 (+0.0076 above its 10-split mean; run16''s L8 10-split mean 0.8277 is below its L3 mean
+  0.8307, the selection effect) and seed 2 8th (-0.0050 below its mean; at layer 3 split 0 is -0.0032 below seed 2''s
+  mean, so this part is a bad split, not selection); three-seed span per split 0.0003-0.0226 (mean 0.0112), split 0
+  0.0214.'
+method: 'No new embeddings. calltype_split_sensitivity.py --cpu (each model at best_layer_cpu) and --cpu --layer 3 (new
+  modes, 2026-10-18): CPU caches features/ct11_<tag>_cpuemb.npy, board probe (StandardScaler + LogisticRegression),
+  only StratifiedGroupKFold(5)''s random_state varied 0-9; split 0 asserted to reproduce the CPU board score exactly.
+  Pairs from seed_pairs_cpu.py (observed difference, bird bootstrap 2,000 resamples of 48 birds, seed 0), at best
+  layers and with the new --layer 3 mode. Layer 3 is the no-selection check harness/CRITIC.md check 4 asks for.'
+provenance: 'analysis/calltype_cpu_rescore.json (models.run16_compute4x, run16_seed2, run16_seed3); analysis/seed_pairs_cpu.json
+  ("run16_compute4x | run16_seed2", "run16_seed3 | run16_seed2", "run16_seed3 | run16_compute4x");
+  analysis/seed_pairs_cpu_L3.json (the same three pairs at layer 3);
+  analysis/calltype_split_sensitivity_cpu.json and calltype_split_sensitivity_cpu_L3.json (models.*.acc, mean, sd,
+  diff_vs_run16, diff_mean); zfeval/experiments/calltype_split_sensitivity.py, seed_pairs_cpu.py.'
+caveats: 'Critic (2026-10-18): first pass DOWNGRADE-TO-OPEN on a draft that claimed most of the seed gap was the fold
+  split and put seed noise at ~0.01; the requested seed 3 vs seed 2 pair and the fixed-layer-3 10-split run refuted
+  that and the draft was rewritten. Second pass ACCEPT-WITH-CHANGES, applied: layer-3 bird-bootstrap intervals run
+  and quoted; only run16''s +0.0076 attributed to layer selection, seed 2''s -0.0050 to a bad split; layer dependence
+  stated; layer-3 rationale cites CRITIC.md, not 035; a --layer variable clash in calltype_split_sensitivity.py
+  fixed (it did not affect any JSON quoted here); pointer caveats added to 057 and 062. Does not edit 057 (MPS numbers stay as recorded).
+  Contradictions: 062 (MPS, layers L7/L0) had seed 2 minus run16 -0.0089 averaged over 10 splits, ahead on 1 of 10;
+  on CPU at best layers it is -0.0029, ahead on 4 of 10 (device and layer choice both changed, so the shift is not
+  attributable to either alone); superseded by the numbers here. 070 said seed 1 is highest at layer 3; on CPU at the
+  board split seed 3 (0.8368) is above seed 1 (0.8312), and over 10 splits at layer 3 they tie (0.8314 vs 0.8307).
+  076 printed the CPU seed spread as 0.0213; calltype_cpu_rescore_summary.json run16_seed_spread.cpu is 0.021395.
+  The 10 splits reuse the same 3,412 clips and 48 birds, so their spread is a resampling spread and no interval is
+  claimed for a 10-split mean. Three seeds give a range, not a variance (E7). As in 057, the runs differ in seed and
+  in preemption/resume history, which the seed label does not capture.'
+tags:
+- seed-variance
+- evaluation
+- call-type
+- correction
+date: '2026-10-18'

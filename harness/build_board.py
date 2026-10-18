@@ -60,36 +60,26 @@ def load(name):
     return json.loads(p.read_text()) if p.exists() else {}
 
 
+# Call type comes ONLY from the CPU re-encode (finding 076: the Mac's MPS attention is wrong for 2-8 frame clips, so
+# every ct11_<tag>_emb.npy and the JSONs built from them -- <tag>_calltype.json, *_bootstrap.json,
+# calltype_split_sensitivity.json, labelfree_stability.json -- are off). A model missing from a CPU file shows "—".
 def calltype():
-    acc = {}
-    for m in load("aves_variants_calltype.json").get("models", {}).items():
-        acc[m[0]] = m[1]["best_11"]["acc"]
-    for key, *_ in MODELS:
-        d = load(f"{key}_calltype.json") or (load("run15_calltype.json") if key == "run15_combined" else {})
-        if "acc11" in d:
-            acc[key] = d["acc11"]
-    return acc
+    return {k: v["acc11_cpu"] for k, v in load("calltype_cpu_rescore.json").get("models", {}).items()}
 
 
 def splits():
-    """Finding 062: each model re-scored on 10 fold splits. Keyed by display name without commas."""
-    d = load("calltype_split_sensitivity.json").get("models", {})
-    return {k.replace(",", ""): v for k, v in d.items()}
+    """Finding 062's 10 fold splits, re-run on the CPU caches. Keyed by tag."""
+    return load("calltype_split_sensitivity_cpu.json").get("models", {})
 
 
 def vs_ref():
-    """X - run16 on 11-class call type, observed difference + bird-bootstrap interval, either direction."""
+    """X - run16 on 11-class call type from seed_pairs_cpu.json: observed difference + bird-bootstrap interval."""
     out = {}
-    for f in A.glob("*_bootstrap.json"):
-        vs = json.loads(f.read_text()).get("vs", {})
-        for a, row in vs.items():
-            if "@" in a:
-                continue
-            for b, v in row.items():
-                if a == REF and b not in out:
-                    out[b] = (-v["delta"], -v["hi"], -v["lo"], v["resolved"])
-                elif b == REF:
-                    out[a] = (v["delta"], v["lo"], v["hi"], v["resolved"])
+    for v in load("seed_pairs_cpu.json").get("pairs", {}).values():
+        if v["b"] == REF:
+            out[v["a"]] = (v["diff"], v["lo"], v["hi"], v["resolved"])
+        elif v["a"] == REF and v["b"] not in out:
+            out[v["b"]] = (-v["diff"], -v["hi"], -v["lo"], v["resolved"])
     return out
 
 
@@ -152,7 +142,7 @@ def main():
     acc, vs, sp = calltype(), vs_ref(), splits()
     det = load("detection_variants.json").get("precommit", {})
     chick = load("chick_holdout_variants.json").get("precommit", {})
-    lfree = load("labelfree_stability.json").get("models", {})
+    lfree = load("labelfree_stability_cpu.json").get("models", {})
     reg = registry()
 
     # ---- models table + forest rows
@@ -169,7 +159,7 @@ def main():
                  else ("<code>…/external/dapt</code>" if fam == "dapt" else "Mac only")))
         ffile = next(iter(sorted((ROOT / "knowledge/findings").glob(f"{finding}-*.yaml"))), None) if finding else None
         flink = (f'<a href="{GITHUB}knowledge/findings/{ffile.name}">{finding}</a>' if ffile else "")
-        s = sp.get(name.replace(",", ""))
+        s = sp.get(key)
         stxt = (f'{s["mean"]:.4f}<br><span class="iv">' + ("reference" if key == REF else
                 f'beats run16 on {sum(x > 0 for x in s["diff_vs_run16"])}/{len(s["acc"])}') + '</span>') if s else "—"
         trs.append(f'<tr class="{fam}"><td class="nm"><span class="sw {fam}"></span>{html.escape(name)}</td>'
@@ -186,7 +176,7 @@ def main():
     best_name = next(n for k, n, *_ in MODELS if k == best)
     aves = [acc[k] for k, _, fam, *_ in MODELS if fam == "aves" and k in acc]
     seed = vs.get("run16_seed2")
-    r16 = sp.get("run16")
+    r16 = sp.get(REF)
     n_split = len(r16["acc"]) if r16 else 0
     r16_rank = (sorted(r16["acc"], reverse=True).index(r16["acc"][0]) + 1) if r16 else None
     ordinal = {1: "best", 2: "second best", 3: "third best"}
@@ -288,7 +278,7 @@ def main():
                          f"{'resolved' if vs[best][3] else 'not distinguishable'}" if best in vs and best != REF else "")),
         "SEED": f"{abs(seed[0]):.4f}" if seed else "—",
         "SEED_NOTE": (f"run16's second seed: {seed[0]:+.4f} [{seed[1]:+.4f}, {seed[2]:+.4f}] on the board's split"
-                      + (f", {sp['run16 seed 2']['diff_mean']:+.4f} averaged over {n_split} splits" if 'run16 seed 2' in sp else "")
+                      + (f", {sp['run16_seed2']['diff_mean']:+.4f} averaged over {n_split} splits" if 'run16_seed2' in sp else "")
                       + ". Single runs cannot separate smaller gaps." if seed else ""),
         "SPLITNOTE": (f"The 10-split column re-scores the same embeddings with the birds assigned to folds {n_split} different ways "
                       f"(finding 062). The board's split is run16's {ordinal.get(r16_rank, str(r16_rank) + 'th best')} of {n_split}, "

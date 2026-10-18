@@ -16,7 +16,7 @@ method: zfeval/experiments/calltype_split_sensitivity.py -- same embeddings (fea
   random_state 0-9; split 0 asserted to reproduce every board number exactly. Per-call-type breakdown
   in zfeval/experiments/calltype_per_class.py.
 provenance: analysis/calltype_split_sensitivity.json; analysis/calltype_per_class.json
-caveats: 'DRAFT, critic not yet run. The splits share the same 48 birds, so they are not independent
+caveats: 'CPU re-read (079, 2026-10-18): the run16 seed numbers here are MPS and superseded; see calltype_split_sensitivity_cpu.json and _cpu_L3.json. DRAFT, critic not yet run. The splits share the same 48 birds, so they are not independent
   replications: averaging removes fold-assignment noise but not bird-sampling uncertainty, and the
   per-split bird-bootstrap intervals still cross zero. Each model''s layer was chosen on split 0, which
   favours split 0 for every model (most means sit below their split-0 score). Instrument trap found

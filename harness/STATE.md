@@ -1,36 +1,33 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-17 20:35 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; written as the resume point before a /clear)
+Updated: 2026-10-18 13:15 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user: "logged in keep going")
 
-## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts). HAND OFF
-tasks to agents/sessions and paste back only summaries. Memory: feedback_specialization_not_beans.md.
+## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts).
+Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never quote ct11_<tag>_emb.npy readers.
 
-## Settled since Oct 15 (all committed)
-- 076 CONFIRMED: Mac MPS attention wrong for 2-8 frame inputs -> every Mac call-type cache was wrong. ALL 55 models now
-  re-scored on CPU: analysis/calltype_cpu_rescore.json (+ _summary.json); USE ONLY these. Whisper/AST unchanged (0 clips).
-  CPU top: whisper-base 0.8646, whisper-small 0.8599, bioxn-large 0.8590, E20 DAPT 0.8570; AVES-bio 0.8438.
-- 075 CONFIRMED: DAPT does not raise call type beyond what any AVES-family model shows vs AVES-bio; E20's resolved gain
-  is the board split's best case (1/10 splits). Soft calls Tu/Th/Ne/Te = ~50% of clips, ~80% of errors.
-- Cohort audit (analysis/cohort_audit.json): 33 duplicate copies, 1 Ne/Wh double label, 21 parser drops -> harmless
-  (<=0.0033); board's fold split (seed 0) is favourable -> PROPOSED: 10-split-mean column beside the board (user's call).
-- E33 pre-test done (experiments.yaml E33 pretest_result): pitch = voice axis but also separates tuck vs thuk/tet ->
-  recommended NOT to run E33 at +-2 semitones.
-- Savio `lab eval MODEL` built + pushed (INTERN.md s7; pack lab_data/eval/calltype11_pack.npz; leaderboard
-  lab_data/eval/results). Job 40036098 (E23 seed 2) checked 2026-10-17: see DONE block.
-- Notebooks (kernel "ZF analysis (Python 3.10)" = zf-py310): 07_layer_sweeps (CPU call type + model facts table,
-  notebooks/model_facts.py/.csv), 08_calltype_errors (CPU). Error browser v2: https://claude.ai/artifact/8vsjrxjswggK2eZpuBxUbu
-- Jupyter server (Anaconda, port 8888, token in $CLAUDE_JOB_DIR/tmp/jupyter_token) may still be running.
+## This wake (2026-10-18): the pipeline moved to CPU call type everywhere
+- score_run.sh: calltype_cpu_rescore.py --only TAG + seed_pairs_cpu.py TAG:aves-base-bio TAG:run16_compute4x +
+  calltype_labelfree.py --cpu; MPS bootstrap dropped; DRY run vs run22 OK. Chick holdout still MPS (all models).
+- Board (build_board.py) reads only CPU: calltype_cpu_rescore.json, seed_pairs_cpu.json (24 new X|run16 pairs),
+  calltype_split_sensitivity_cpu.json (new --cpu mode), labelfree_stability_cpu.json (new --cpu mode).
+- CPU vs run16: only bioxn-large +0.0237 [+0.0033, +0.0427] (best layer L1) and run21 -0.0226 resolved, of 29.
+- 077 + 078 CONFIRMED after critic (changes applied; E9 result line corrected).
+- Draft 079 (open, critic running): 057's run16 seed gap not resolved on CPU (+0.0155 [-0.0026, +0.0340]); over 10
+  splits the 3 run16 seeds span 0.0092 (board split 0.0214) -> seed noise ~0.01. PI.md trap line updated.
+- run15_calltype.py no longer stamps run15's corpus note on other tags. Digest 2026-10-18 drafted; task doc T3.
 
-## DONE 2026-10-17: `lab embed` (user request) -- pytorchAudio 6adfedbd, pushed to Savio, verified on L40S
-embed.py MODEL AUDIO -> windows (--win/--hop) | frames (20 ms, 2 s seam margins) | segments (TSV); one memmapped
-embeddings.npy + index/files TSV + meta.json; resumes; decode_events/frame_labels for onsets. Defaults: zscore for
-windows/frames (049), raw for segments (board). tests/test_embed.py 8/8 on Mac + Savio; jobs 40090428/29 rows
-re-checked on CPU (1e-6 windows, f16-limited 3e-4 frames). Test outputs: scratch emb_test/. User got the
-onset/offset explainer in chat (offered a page). Job 40036098 checked: CUDA==CPU 3e-5; E23s2 0.8494 vs CPU board 0.8482.
+## In flight
+- E12 = run22 (40090445): preempted 2x, requeued at step 41,018; Slurm est. restart 2026-10-19 14:39. Score with
+  `bash harness/score_run.sh run22_avesfsd /global/scratch/users/jonathanswang/temp_train_run22_avesfsd 200 40090445`.
+- If this wake ended early: finish = label-free CPU json -> build_board.py -> republish board artifact
+  (https://claude.ai/artifact/3LSJjzp7pLS4JCWviA1wpb) -> 079 critic verdict -> digest CRITIC line -> commit + push.
+
+## Next (lead)
+- Chick holdout on CPU for every model (048/076 scope). Board: HF encoders absent (Whisper-base 0.8646 leads CPU).
+- E15 corpus research (post choice + size + licence in a digest, then wait a day) if the user wants E15.
 
 ## Waiting on the user
-- sv login renewed by user 2026-10-17 ~20:30 (12 h cert): `sv status`, E8/E9 still unchecked.
-- Decisions: E33 (rec: no at +-2 st), 10-split column, cancel E9?, cohort fix (versioned), BeVo split comparison (agent
-  plan in chat: our probe on their split; map at analysis/bevo/), AVEX as a baseline, WiSE-FT weight-average test.
-- Older: E30-32, E26 donors, resume fix, label audit.
+- E13 teacher (biox-base 0.8476 ~ AVES-bio 0.8438 on CPU; bioxn-large 0.8590 is large), E26 success + donors,
+  E27 24-layer branch, E15 corpus, E33 (rec: no at +-2 st), 10-split headline, BeVo split, AVEX, WiSE-FT.
+- Older: E30-32, label audit. Savio cert valid to 2026-10-19 00:52.
 
 ## Resume: /loop follow harness/PI.md  (first wake: read PI.md, AGENT.md, this file, knowledge/BRIEF.md, pi_status.sh)
