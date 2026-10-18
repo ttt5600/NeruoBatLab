@@ -52,8 +52,9 @@ def _parse(tk, candles, t_start):
     g = lambda c, side, f: _num((c.get(side) or {}).get(f + "_dollars", (c.get(side) or {}).get(f)))
     lows = [g(c, "price", "low") for c in win]
     lows = [x for x in lows if pd.notna(x)]
+    highs = [x for x in (g(c, "price", "high") for c in win) if pd.notna(x)]
     return {"ticker": tk, "bid_post": g(last, "yes_bid", "close"), "ask_post": g(last, "yes_ask", "close"),
-            "min_trade_after": min(lows) if lows else np.nan}
+            "min_trade_after": min(lows) if lows else np.nan, "max_trade_after": max(highs) if highs else np.nan}
 
 
 def cmd_build(sealed: bool = False) -> int:
