@@ -26,7 +26,10 @@ URL = ("https://www.sportsbookreviewsonline.com/wp-content/uploads/"
 
 def season(year: int) -> pd.DataFrame:
     d = pd.read_excel(io.BytesIO(fetch(URL.format(y=year), binary=True)))
-    d.columns = ["date", "rot", "vh", "team", "pitcher"] + [f"i{i}" for i in range(1, 10)] + \
+    if d.shape[1] == 21:  # 2010-2013 files have no run-line columns
+        d.insert(17, "rl", np.nan)
+        d.insert(18, "rl_odds", np.nan)
+    d.columns =["date", "rot", "vh", "team", "pitcher"] + [f"i{i}" for i in range(1, 10)] + \
                 ["final", "ml_open", "ml_close", "rl", "rl_odds", "ou_open", "ou_open_odds",
                  "ou_close", "ou_close_odds"]
     d = d.reset_index(drop=True)
@@ -45,6 +48,8 @@ def season(year: int) -> pd.DataFrame:
         "under_odds": pd.to_numeric(b["ou_close_odds"], errors="coerce"),
         "ml_close_away": pd.to_numeric(a["ml_close"], errors="coerce"),
         "ml_close_home": pd.to_numeric(b["ml_close"], errors="coerce"),
+        "ml_open_away": pd.to_numeric(a["ml_open"], errors="coerce"),
+        "ml_open_home": pd.to_numeric(b["ml_open"], errors="coerce"),
     })
     g["season"] = year
     g["game_no"] = g.groupby(["date", "home_code"]).cumcount()  # doubleheaders
