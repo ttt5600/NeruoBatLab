@@ -22,6 +22,12 @@ Added 2026-10-18 after S1-S4 were scored:
      WH*p_pin - 1 >= 0.03. PRIMARY statistic = CLV (bootstrap p, H0 mean CLV <= 0); ROI reported too.
   Why CLV: at mean odds ~6.5 ROI has sd ~4.6% after 3,000 bets; CLV vs the calibrated Pinnacle close is far
   less noisy and is how +EV bettors measure edge (Buchdahl). Assumes Pinnacle close is the truth.
+
+2026-10-18 WITHDRAWN: S6's CLV pass (+3.97%, p<.001) is a de-vig artifact. Proportional de-vig of Pinnacle CLOSE
+overstates longshots (hit/fair 0.80 at odds 10-20, 0.67 at 20+; power de-vig ~1.00 below 10). With power de-vig
+S6 CLV = -0.32% (p .79), S3/S5 B365 = +0.50% (p .022). The selection rule had the same bias -> it picked longshots.
+  S7 b365_pow3 / S8 wh_pow3 (flagged: method chosen after seeing dev calibration): select with POWER de-vig of
+     Pinnacle pre-close, book price * p_pow - 1 >= 0.03 and price < 10; PRIMARY = CLV vs POWER de-vig of Pinnacle close.
 """
 from __future__ import annotations
 
@@ -81,9 +87,23 @@ def _fair(d, key):
     return inv / inv.sum(1, keepdims=True)
 
 
+def _power(d, key):
+    """p_i = (1/o_i)^k, k solved so the three sum to 1 (puts more of the margin on longshots)."""
+    from scipy.optimize import brentq
+    inv = np.column_stack([1 / d[f"{key}_{x}"].to_numpy() for x in SIDES])
+    out = np.empty_like(inv)
+    for j, r in enumerate(inv):
+        k = brentq(lambda k: (r ** k).sum() - 1, 0.3, 4.0)
+        out[j] = r ** k
+    return out
+
+
 def bets(d: pd.DataFrame, name: str) -> pd.DataFrame:
     rows = []
     p_pin, p_pinc = _fair(d, "pin"), _fair(d, "pinc")
+    p_pow = _power(d, "pin") if name.endswith("pow3") else None
+    if p_pow is not None:
+        p_pinc = _power(d, "pinc")  # CLV measured against the calibrated (power) close
     for i, x in enumerate(SIDES):
         won = (d.ftr == x).to_numpy()
         mx, avg, b365, pinc = (d[f"{k}_{x}"].to_numpy() for k in ("max", "avg", "b365", "pinc"))
@@ -93,6 +113,9 @@ def bets(d: pd.DataFrame, name: str) -> pd.DataFrame:
             price, sel = mx, mx * p_pin[:, i] - 1 >= 0.03
         elif name in ("b365_vs_pin3", "b365_clv"):
             price, sel = b365, b365 * p_pin[:, i] - 1 >= 0.03
+        elif name in ("b365_pow3", "wh_pow3"):
+            bk = d[f"{'b365' if name.startswith('b365') else 'wh'}_{x}"].to_numpy()
+            price, sel = bk, (bk * p_pow[:, i] - 1 >= 0.03) & (bk < 10)
         elif name == "wh_vs_pin3":
             wh = d[f"wh_{x}"].to_numpy()
             price, sel = wh, wh * p_pin[:, i] - 1 >= 0.03
@@ -130,7 +153,8 @@ def cmd_followup() -> int:
     prior = [json.loads(l) for l in LEDGER.read_text().splitlines() if l.strip()]
     shas = {r["sha"] for r in prior if r.get("status") == "ok" and r["dataset"] == DATASET}
     recs = []
-    for name in ("b365_clv", "wh_vs_pin3"):
+    names = [a for a in sys.argv[2:] if not a.startswith("--")] or ["b365_clv", "wh_vs_pin3"]
+    for name in names:
         b = bets(d, name)
         r = score(b, np.random.default_rng(0))
         pc = clv_p(b, np.random.default_rng(1))
