@@ -2,6 +2,7 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-18 | SOCCER S12 dose-response (descriptive, not trials) | dev | CLV by edge threshold 0/2/3/5/10%: +0.7/+2.1/+2.9/+4.9/+10.6%; lower divs CLV +2.9% (2,230), top +2.6% (374) | monotonic -> looks like a real mispricing |
 | 10-18 | SOCCER S12 best of B365/WH/bwin, power-devig vs Pinnacle, >=3%, price<10 | dev 2012-19 | CLV +2.87% p<.001 (7/7 seasons); ROI +8.5%/2,604 p.008 (6/7) | strongest lead; ~370 bets/yr ~ $90/mo at $100 stakes before limits; sealed needed |
 | 10-18 | SOCCER S9 bwin (Entain/BetMGM parent) power-devig vs Pinnacle | dev 2012-19 | CLV +2.95% p<.001 (6/7 seasons), ROI -0.8%/301 (noise) | 3 books agree CLV +2.6-3.0% -> structural soft-vs-sharp gap; bwin rarely offers it |
 | 10-18 | SOCCER price shopping vs Pinnacle (football-data.co.uk, 22 divs) | dev 2012-19, 52,177 matches | S1 Kaunitz -3.4%/873; S2 best-price +3.8%/14,905 p.018 (Max has palps); S3 B365 -0.8%/3,092; S4 fav<=1.30 at close +1.8%/2,333 p.03; S6 WH CLV +3.97% WITHDRAWN (proportional de-vig overstates longshots: hit/fair .80 at 10-20, .67 at 20+). POWER de-vig, price<10: S7 B365 CLV +2.57% p<.001 ROI +9.8%/1,623 (6/7 seasons); S8 WH CLV +2.81% p<.001 ROI +10.4%/910 | S7/S8 PASS dev bar (.0063) on CLV -- but power method chosen after dev calibration -> sealed 2019-26 must confirm. Classic soft-vs-sharp +EV: books limit winners; B365 not legal in CA |
