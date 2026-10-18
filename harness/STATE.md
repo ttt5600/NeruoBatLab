@@ -1,35 +1,37 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-17 02:00 (lead: session_01EGDWEvYFd6zSmWQfUugJnH)
+Updated: 2026-10-17 20:35 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; written as the resume point before a /clear)
 
-## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Wants visual notebooks, and tasks HANDED OFF to
-agents with only summaries pasted back (2026-10-16). Memory: feedback_specialization_not_beans.md.
+## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts). HAND OFF
+tasks to agents/sessions and paste back only summaries. Memory: feedback_specialization_not_beans.md.
 
-## MPS BUG (076 draft, critic running): torch 2.8 MPS SDPA wrong for T=2..8 frames. CPU re-score done for 47/55
-(analysis/calltype_cpu_rescore.json; features/ct11_<tag>_cpuemb.npy). USE ONLY CPU call-type numbers from now on.
-Board moved -0.013..+0.014, ranking changed (bioxn-large 0.8590 now top; E20 daptv3aves_2e4s2 0.8570; E23 0.8482).
+## Settled since Oct 15 (all committed)
+- 076 CONFIRMED: Mac MPS attention wrong for 2-8 frame inputs -> every Mac call-type cache was wrong. ALL 55 models now
+  re-scored on CPU: analysis/calltype_cpu_rescore.json (+ _summary.json); USE ONLY these. Whisper/AST unchanged (0 clips).
+  CPU top: whisper-base 0.8646, whisper-small 0.8599, bioxn-large 0.8590, E20 DAPT 0.8570; AVES-bio 0.8438.
+- 075 CONFIRMED: DAPT does not raise call type beyond what any AVES-family model shows vs AVES-bio; E20's resolved gain
+  is the board split's best case (1/10 splits). Soft calls Tu/Th/Ne/Te = ~50% of clips, ~80% of errors.
+- Cohort audit (analysis/cohort_audit.json): 33 duplicate copies, 1 Ne/Wh double label, 21 parser drops -> harmless
+  (<=0.0033); board's fold split (seed 0) is favourable -> PROPOSED: 10-split-mean column beside the board (user's call).
+- E33 pre-test done (experiments.yaml E33 pretest_result): pitch = voice axis but also separates tuck vs thuk/tet ->
+  recommended NOT to run E33 at +-2 semitones.
+- Savio `lab eval MODEL` built + pushed (INTERN.md s7; pack lab_data/eval/calltype11_pack.npz; leaderboard
+  lab_data/eval/results). First job 40036098 (E23) queued Oct 16 -- RESULT NEVER CHECKED (cert expired).
+- Notebooks (kernel "ZF analysis (Python 3.10)" = zf-py310): 07_layer_sweeps (CPU call type + model facts table,
+  notebooks/model_facts.py/.csv), 08_calltype_errors (CPU). Error browser v2: https://claude.ai/artifact/8vsjrxjswggK2eZpuBxUbu
+- Jupyter server (Anaconda, port 8888, token in $CLAUDE_JOB_DIR/tmp/jupyter_token) may still be running.
 
-## Delivered since 2026-10-16
-- Savio `lab eval MODEL` (eval_model.py + slurm/eval_model.sh, MODEL= at top; INTERN.md s7; pack lab_data/eval/
-  calltype11_pack.npz; shared leaderboard lab_data/eval/results). Job 40036098 (E23) queued -- result unseen.
-- Notebook 07 + model facts (notebooks/model_facts.py/.csv); notebook 08 + browser v2 on CPU (8vsjrxjswggK2eZpuBxUbu).
-- Agents' summaries pasted to user: paper 2610.16382 (BeVo; split leaks; AFDD descriptors useful), lit review
-  (WiSE-FT etc.), size-matched comparison (same-size bar biox-base = aves-all 0.8476; ours level with it).
-
-## In flight
-- Agents: HF re-score (8 tags, transformers env), cohort audit (duplicates / Ne-Wh label conflict / parser drops ->
-  analysis/cohort_audit.json), critic for 076.
-- Mac: E33 pitch pre-test on CPU (task brmq5yq1s, log $CLAUDE_JOB_DIR/tmp/e33_pretest.log -> analysis/e33_pitch_pretest.json).
-- Savio: BRC CERT EXPIRED 10:44 Oct 16 (notified). E8 39945354 / E9 39945376 / eval 40036098 status unknown.
-
-## Done 01:50-02:00: 076 CONFIRMED (MPS bug); 075 CONFIRMED (DAPT = any AVES-family shift vs AVES-bio; E20 gain is the
-board split's best case, 1/10 splits); cohort audit (analysis/cohort_audit.json): duplicates harmless (<=0.0033), seed-0 split
-favourable -> propose a 10-split-mean column BESIDE the board (user decision; never replace).
-
-## Next action
-1. E33 pre-test result (AVES-bio half: pitch +-1 st cuts bird-ID 0.73->0.59-0.62 but ALSO call type 0.8438->0.8057 at +1) -> E33 entry + tell user. HF re-score -> add to 076 table.
-4. Notebook 07 call-type panel -> CPU numbers (build_layer_sweeps reads <tag>_calltype.json = MPS; switch to cpu JSON).
-5. When the user logs in: sv status; check eval job 40036098 (CPU vs CUDA agreement), E8/E9.
+## NEW USER REQUEST (not started; hand off to an agent)
+Embedding automation (Savio `lab embed` + Mac): MODEL + wav folder/list -> embeddings, options: (A) detection windows of a
+chosen length/hop (e.g. 1 s or 0.5 s; virtual chunking by offsets, no per-chunk wavs; one output file + index TSV);
+(B) frame-level (20 ms) embeddings of continuous files for onset/offset decoding. Reuse eval_model.py's loader + CPU/GPU
+check. Also ANSWER the user's question: how speech systems get word onsets/offsets from continuous audio (VAD frame
+classification + smoothing/hysteresis; keyword spotting sliding windows; CTC spikes + forced alignment (torchaudio /
+MFA / WhisperX); DCASE SED thresholds + collars) and map it to ours (findings 018, 022, 023, 032; temporal-resolution memory).
 
 ## Waiting on the user
-- sv login. E33 go/no-go after pre-test. Cancel E9? Hand off BeVo split comparison + cohort fix (asked 10:20 Oct 16).
+- sv login (cert expired 10:44 Oct 16): then `sv status`, `sv eval list` (job 40036098: CUDA vs CPU agreement), E8/E9.
+- Decisions: E33 (rec: no at +-2 st), 10-split column, cancel E9?, cohort fix (versioned), BeVo split comparison (agent
+  plan in chat: our probe on their split; map at analysis/bevo/), AVEX as a baseline, WiSE-FT weight-average test.
 - Older: E30-32, E26 donors, resume fix, label audit.
+
+## Resume: /loop follow harness/PI.md  (first wake: read PI.md, AGENT.md, this file, knowledge/BRIEF.md, pi_status.sh)
