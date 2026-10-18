@@ -75,6 +75,15 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
   Honest read after 14 trials: simple ETF timing rules don't beat holding. Baseline: index fund ~7%/yr =
   $100/mo on ~$17k.
 
+## AUTONOMOUS LOOP (user 2026-10-17: "keep searching ... loops while I'm out ... only backtest matters")
+Done 10-17 (all dev, all in ledger): NFL online angles 0/5; MLB fav-at-open (SBRO 2010-18) -2.7%;
+NBA (new data: data/nba_odds/OddsData.sqlite, 2007-26, SPREAD COLUMN IS UNSIGNED -> sign from ML fav)
+angles 0/5 + Elo/logit models 0/2. Running: scripts/kalshi_longshot.py build (all Kalshi sports markets,
+1 h pre-start price) -> then `dev --ledger` (5 pre-registered trials). kalshi_longshot sealed is BLOCKED
+until 2026 start times come from schedules (Kalshi changed expiration offsets in 2026).
+Idea queue: Kalshi maker-side (post bids on longshots); NBA totals model; NHL (no odds data yet);
+college (needs collegefootballdata key from user).
+
 ## WAITING ON USER
 0. Keep the Mac awake for kickoffs/22:00-local picks? (pmset wake schedule) -- see Live signal engine RISK.
 1. Odds API decision (pre-registered outcome of the sealed test, no Class-B pass): buying ($119, 1 month,
