@@ -85,6 +85,10 @@ Idea queue: Kalshi maker-side (post bids on longshots); NBA totals model; NHL (n
 college (needs collegefootballdata key from user).
 
 ## WAITING ON USER
+0. NEW 2026-10-18 -- Kalshi sports sealed test (one shot, 2026 events, ~13.5k with verified start times,
+   leak-free prices built, nothing scored): candidates G1_fav85 (dev +2.0%/383 p .062; verified-start +1.9%/179)
+   and G4_dog2050 (POST-HOC, dev +1.4%/4,429; verified +2.4%/3,462 p .12). Neither passed the dev bar (.0083).
+   Command if user says yes: `python scripts/kalshi_longshot.py sealed --confirm G1_fav85 [G4_dog2050]`.
 0. Keep the Mac awake for kickoffs/22:00-local picks? (pmset wake schedule) -- see Live signal engine RISK.
 1. Odds API decision (pre-registered outcome of the sealed test, no Class-B pass): buying ($119, 1 month,
    `ODDS_API_KEY=` in `sports/.env`) is a $119 test of ONE lead -- the NBA high-line under @DraftKings

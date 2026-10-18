@@ -26,6 +26,8 @@ Timing check (2026-10-17, vs nflverse / local MLB-NBA-NHL start times): in 2025 
 = 3.0 h for 247/247 NFL, 2100/2120 MLB, 458/465 NBA, 634/637 NHL -> dev decisions are pre-game.
 In 2026 Kalshi set 19 NFL games to start + 6 h, which puts exp - 4 h AFTER kickoff. MUST FIX
 BEFORE `sealed`: price 2026 events at the real start - 1 h (schedule join), drop unmatched.
+FIXED 2026-10-18: `sealed` reads data/kalshi_sports_prices_sealed.parquet (kalshi_start_times.py reprice;
+13,454/16,426 sealed events with a verified start; 2026 MLB start read from the ticker).
 """
 from __future__ import annotations
 
@@ -244,13 +246,14 @@ def cmd_sealed() -> int:
     if "--confirm" not in sys.argv:
         print("sealed scoring is the user's decision; pass --confirm")
         return 1
-    raise SystemExit("blocked: 2026 decision times can fall after kickoff (see docstring); fix timing first")
     names = [a for a in sys.argv[2:] if a in TRIALS]
     if not names:
         print(f"name the promoted trial(s): {TRIALS}")
         return 1
     prior = [json.loads(l) for l in LOCKBOX_LOG.read_text().splitlines() if l.strip()]
-    df = pd.read_parquet(OUT)
+    # Leak-free sealed prices: real start - 1 h (scripts/kalshi_start_times.py reprice, 2026-10-18);
+    # events without a verified start are dropped. Never the exp-4h prices in OUT (those leak in 2026).
+    df = pd.read_parquet(ROOT / "data" / "kalshi_sports_prices_sealed.parquet")
     df = df[df.event_date >= SPLIT]
     n_prom = sum(r["dataset"] == DATASET for r in prior) + len(names)
     for name in names:
