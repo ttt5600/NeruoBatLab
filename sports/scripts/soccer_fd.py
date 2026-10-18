@@ -28,6 +28,7 @@ overstates longshots (hit/fair 0.80 at odds 10-20, 0.67 at 20+; power de-vig ~1.
 S6 CLV = -0.32% (p .79), S3/S5 B365 = +0.50% (p .022). The selection rule had the same bias -> it picked longshots.
   S7 b365_pow3 / S8 wh_pow3 (flagged: method chosen after seeing dev calibration): select with POWER de-vig of
      Pinnacle pre-close, book price * p_pow - 1 >= 0.03 and price < 10; PRIMARY = CLV vs POWER de-vig of Pinnacle close.
+  S9 bw_pow3 (pre-registered 2026-10-18 before the BW column was built): same rule at bwin (Entain, co-owner of BetMGM).
 """
 from __future__ import annotations
 
@@ -70,7 +71,7 @@ def cmd_build() -> int:
             row = {"season": s, "div": div, "date": d.get("Date"), "home": d.get("HomeTeam"), "away": d.get("AwayTeam"),
                    "ftr": d["FTR"]}
             for x in SIDES:
-                for key, cands in (("pin", [f"PS{x}"]), ("b365", [f"B365{x}"]), ("wh", [f"WH{x}"]), ("max", [f"Max{x}", f"BbMx{x}"]),
+                for key, cands in (("pin", [f"PS{x}"]), ("b365", [f"B365{x}"]), ("wh", [f"WH{x}"]), ("bw", [f"BW{x}"]), ("max", [f"Max{x}", f"BbMx{x}"]),
                                    ("avg", [f"Avg{x}", f"BbAv{x}"]), ("pinc", [f"PSC{x}"])):
                     col = next((c for c in cands if c in d), None)
                     row[f"{key}_{x}"] = pd.to_numeric(d[col], errors="coerce") if col else np.nan
@@ -113,8 +114,8 @@ def bets(d: pd.DataFrame, name: str) -> pd.DataFrame:
             price, sel = mx, mx * p_pin[:, i] - 1 >= 0.03
         elif name in ("b365_vs_pin3", "b365_clv"):
             price, sel = b365, b365 * p_pin[:, i] - 1 >= 0.03
-        elif name in ("b365_pow3", "wh_pow3"):
-            bk = d[f"{'b365' if name.startswith('b365') else 'wh'}_{x}"].to_numpy()
+        elif name in ("b365_pow3", "wh_pow3", "bw_pow3"):
+            bk = d[f"{name.split('_')[0]}_{x}"].to_numpy()
             price, sel = bk, (bk * p_pow[:, i] - 1 >= 0.03) & (bk < 10)
         elif name == "wh_vs_pin3":
             wh = d[f"wh_{x}"].to_numpy()
@@ -185,7 +186,7 @@ def cmd_sealed() -> int:
     if "--confirm" not in sys.argv:
         print("sealed scoring is the user's decision; pass --confirm")
         return 1
-    names = [a for a in sys.argv[2:] if a in ("b365_pow3", "wh_pow3")]
+    names = [a for a in sys.argv[2:] if a in ("b365_pow3", "wh_pow3", "bw_pow3")]
     if not names:
         print("name the trial(s): b365_pow3 wh_pow3")
         return 1
