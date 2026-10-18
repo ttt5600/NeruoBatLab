@@ -15,6 +15,13 @@ All bets at PRE-CLOSE prices (what was available when the snapshot was taken).
 Dataset soccer_fd, 4 trials -> bar p < 0.0125. Bootstrap over matches. Also printed (not trials): CLV of S1-S3 bets
 = mean(price taken * Pinnacle-close fair prob) - 1.
 Caveat: Max includes stale / error quotes that books void ("palps"); S3 is the honest version.
+
+Added 2026-10-18 after S1-S4 were scored:
+  S5 b365_clv (POST-HOC: CLV was printed alongside S3): H0 mean CLV <= 0 for the S3 bets; bootstrap over matches.
+  S6 wh_vs_pin3 (pre-registered before the WH column was built): William Hill pre-close price, bet if
+     WH*p_pin - 1 >= 0.03. PRIMARY statistic = CLV (bootstrap p, H0 mean CLV <= 0); ROI reported too.
+  Why CLV: at mean odds ~6.5 ROI has sd ~4.6% after 3,000 bets; CLV vs the calibrated Pinnacle close is far
+  less noisy and is how +EV bettors measure edge (Buchdahl). Assumes Pinnacle close is the truth.
 """
 from __future__ import annotations
 
@@ -57,7 +64,7 @@ def cmd_build() -> int:
             row = {"season": s, "div": div, "date": d.get("Date"), "home": d.get("HomeTeam"), "away": d.get("AwayTeam"),
                    "ftr": d["FTR"]}
             for x in SIDES:
-                for key, cands in (("pin", [f"PS{x}"]), ("b365", [f"B365{x}"]), ("max", [f"Max{x}", f"BbMx{x}"]),
+                for key, cands in (("pin", [f"PS{x}"]), ("b365", [f"B365{x}"]), ("wh", [f"WH{x}"]), ("max", [f"Max{x}", f"BbMx{x}"]),
                                    ("avg", [f"Avg{x}", f"BbAv{x}"]), ("pinc", [f"PSC{x}"])):
                     col = next((c for c in cands if c in d), None)
                     row[f"{key}_{x}"] = pd.to_numeric(d[col], errors="coerce") if col else np.nan
@@ -84,8 +91,11 @@ def bets(d: pd.DataFrame, name: str) -> pd.DataFrame:
             price, sel = mx, mx > 1 / (1 / avg - 0.05)
         elif name == "max_vs_pin3":
             price, sel = mx, mx * p_pin[:, i] - 1 >= 0.03
-        elif name == "b365_vs_pin3":
+        elif name in ("b365_vs_pin3", "b365_clv"):
             price, sel = b365, b365 * p_pin[:, i] - 1 >= 0.03
+        elif name == "wh_vs_pin3":
+            wh = d[f"wh_{x}"].to_numpy()
+            price, sel = wh, wh * p_pin[:, i] - 1 >= 0.03
         else:
             price, sel = pinc, pinc <= 1.30
         sel = sel & np.isfinite(price) & (price > 1)
@@ -103,6 +113,44 @@ def score(b, rng) -> dict:
     return {"bets": int(len(b)), "staked": float(len(b)), "units": float(b.pnl.sum()), "roi": float(b.pnl.mean()),
             "ci_lo": float(np.quantile(boots, .025)), "ci_hi": float(np.quantile(boots, .975)),
             "p": float(np.mean(boots <= 0)), "folds_positive": int((per > 0).sum()), "per_fold": {str(k): v for k, v in per.items()}}
+
+
+def clv_p(b, rng) -> float:
+    pm = b.groupby("match")["clv"].sum().to_numpy()
+    boots = np.array([rng.choice(pm, len(pm)).mean() for _ in range(3000)])
+    return float(np.mean(boots <= 0))
+
+
+def cmd_followup() -> int:
+    d = pd.read_parquet(OUT)
+    d = d[d.season.isin(DEV)].reset_index(drop=True)
+    need = [f"{k}_{x}" for k in ("pin", "pinc") for x in SIDES]
+    d = d.dropna(subset=need)
+    d = d[(d[need] > 1).all(1)].reset_index(drop=True)
+    prior = [json.loads(l) for l in LEDGER.read_text().splitlines() if l.strip()]
+    shas = {r["sha"] for r in prior if r.get("status") == "ok" and r["dataset"] == DATASET}
+    recs = []
+    for name in ("b365_clv", "wh_vs_pin3"):
+        b = bets(d, name)
+        r = score(b, np.random.default_rng(0))
+        pc = clv_p(b, np.random.default_rng(1))
+        sha = hashlib.sha256(("soccer_fd:" + name).encode()).hexdigest()[:12]
+        shas.add(sha)
+        print(f"{name:11s} bets {r['bets']:5d}  CLV {b.clv.mean():+.2%} (p {pc:.4f})  ROI {r['roi']:+6.2%} (p {r['p']:.3f})  "
+              f"seasons ROI+ {r['folds_positive']}/7  CLV>0 seasons {int((b.groupby('season').clv.mean() > 0).sum())}/7  "
+              f"avg price {b.price.mean():.2f}")
+        rec = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": f"soccer_{name}", "sha": sha,
+               "dataset": DATASET, "hypothesis": f"scripts/soccer_fd.py ({name}){' POST-HOC' if name == 'b365_clv' else ''}",
+               "source": "CLV as edge test (Buchdahl)", "status": "ok", "trial_number": len(shas), **r,
+               "clv": float(b.clv.mean()), "p_clv": pc}
+        rec["p"] = pc  # primary statistic for these two is CLV
+        recs.append(rec)
+    print(f"{DATASET} trials {len(shas)} -> bar p < {0.05 / len(shas):.4f}")
+    if "--ledger" in sys.argv:
+        with LEDGER.open("a") as f:
+            for r in recs:
+                f.write(json.dumps(r) + "\n")
+    return 0
 
 
 def cmd_dev() -> int:
@@ -141,4 +189,4 @@ def cmd_dev() -> int:
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
-    raise SystemExit({"build": cmd_build, "dev": cmd_dev}.get(cmd, lambda: print(__doc__) or 1)())
+    raise SystemExit({"build": cmd_build, "dev": cmd_dev, "followup": cmd_followup}.get(cmd, lambda: print(__doc__) or 1)())
