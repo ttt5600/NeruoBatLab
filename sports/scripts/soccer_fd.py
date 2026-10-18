@@ -177,6 +177,45 @@ def cmd_followup() -> int:
     return 0
 
 
+def cmd_sealed() -> int:
+    """ONE-TIME sealed score (2019-20+), user's explicit yes required. Pre-registered 2026-10-18 before any sealed
+    row was scored: trials named on the command line (S7 b365_pow3 and/or S8 wh_pow3), same rules as dev.
+    PASS iff mean CLV (power de-vig of Pinnacle close) > 0 with bootstrap p < 0.05 / (#soccer_fd promotions incl.
+    these) AND ROI > 0 is reported alongside (ROI is noisy; CLV is the primary statistic)."""
+    if "--confirm" not in sys.argv:
+        print("sealed scoring is the user's decision; pass --confirm")
+        return 1
+    names = [a for a in sys.argv[2:] if a in ("b365_pow3", "wh_pow3")]
+    if not names:
+        print("name the trial(s): b365_pow3 wh_pow3")
+        return 1
+    lock = ROOT / "lab" / "lockbox.jsonl"
+    prior = [json.loads(l) for l in lock.read_text().splitlines() if l.strip()]
+    d = pd.read_parquet(OUT)
+    d = d[~d.season.isin(DEV)].reset_index(drop=True)
+    need = [f"{k}_{x}" for k in ("pin", "pinc") for x in SIDES]
+    d = d.dropna(subset=need)
+    d = d[(d[need] > 1).all(1)].reset_index(drop=True)
+    n_prom = sum(r["dataset"] == DATASET for r in prior) + len(names)
+    bar = 0.05 / n_prom
+    for name in names:
+        sha = hashlib.sha256(("soccer_fd:" + name).encode()).hexdigest()[:12]
+        if any(r["sha"] == sha for r in prior):
+            print(f"{name} already scored on the lockbox; refusing")
+            continue
+        b = bets(d, name)
+        r = score(b, np.random.default_rng(0))
+        pc = clv_p(b, np.random.default_rng(1))
+        verdict = "PASS" if (pc < bar and b.clv.mean() > 0) else "FAIL"
+        with lock.open("a") as f:
+            f.write(json.dumps({"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": f"soccer_{name}",
+                                "sha": sha, "dataset": DATASET, "promotion_number": n_prom, **r,
+                                "clv": float(b.clv.mean()), "p_clv": pc, "verdict": verdict}) + "\n")
+        print(f"SEALED {name}: matches {len(d)} bets {r['bets']} CLV {b.clv.mean():+.2%} (p {pc:.4f}) ROI {r['roi']:+.2%} "
+              f"(p {r['p']:.3f}) seasons ROI+ {r['folds_positive']}/{len(r['per_fold'])} -> {verdict} (bar {bar:.4f})")
+    return 0
+
+
 def cmd_dev() -> int:
     d = pd.read_parquet(OUT)
     d = d[d.season.isin(DEV)].reset_index(drop=True)
@@ -213,4 +252,4 @@ def cmd_dev() -> int:
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
-    raise SystemExit({"build": cmd_build, "dev": cmd_dev, "followup": cmd_followup}.get(cmd, lambda: print(__doc__) or 1)())
+    raise SystemExit({"build": cmd_build, "dev": cmd_dev, "followup": cmd_followup, "sealed": cmd_sealed}.get(cmd, lambda: print(__doc__) or 1)())
