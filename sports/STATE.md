@@ -89,6 +89,9 @@ college (needs collegefootballdata key from user).
    (p<.001), ROI +9.8%/1,623, 6/7 seasons; S8 wh_pow3 CLV +2.81%, ROI +10.4%/910. Passed dev bar on CLV, but the
    power de-vig was chosen after seeing dev calibration -> needs the sealed 2019-20..2025-26 score (user's yes).
    Real-world: B365/WH limit winners; not available in California; ~230 B365 bets/yr across 22 leagues.
+   S12 best3_pow3 (best of B365/WH/bwin): CLV +2.87% p<.001, ROI +8.5%/2,604 p .008 -> ~370 bets/yr.
+   Sealed (one shot, on yes): `python scripts/soccer_fd.py sealed --confirm best3_pow3 [b365_pow3 wh_pow3]`.
+   Recommend scoring best3_pow3 alone (fewer promotions = lower bar). tennis-data.co.uk blocks automation (403).
 0. NEW 2026-10-18 -- Kalshi sports sealed test (one shot, 2026 events, ~13.5k with verified start times,
    leak-free prices built, nothing scored): candidates G1_fav85 (dev +2.0%/383 p .062; verified-start +1.9%/179)
    and G4_dog2050 (POST-HOC, dev +1.4%/4,429; verified +2.4%/3,462 p .12). Neither passed the dev bar (.0083).
