@@ -92,6 +92,8 @@ college (needs collegefootballdata key from user).
    ALSO maker_dog2050 (dev +9.8%/898 fills p .009, bar .0063; robust to fill rule; partly post-hoc; mostly
    spread capture -> fill realism is the risk). Sealed candles: `kalshi_maker.py build-sealed` (prices only);
    score on yes: `python scripts/kalshi_maker.py sealed --confirm`.
+   10-18 symmetric ladder maker test: YES -2.6%, NO +2.7% (net ~0) -> spread capture does NOT survive
+   adverse selection on ladders; maker_dog2050 is weaker than its +9.8% suggests.
 0. Keep the Mac awake for kickoffs/22:00-local picks? (pmset wake schedule) -- see Live signal engine RISK.
 1. Odds API decision (pre-registered outcome of the sealed test, no Class-B pass): buying ($119, 1 month,
    `ODDS_API_KEY=` in `sports/.env`) is a $119 test of ONE lead -- the NBA high-line under @DraftKings
