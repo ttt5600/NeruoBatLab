@@ -18,6 +18,7 @@ Pre-registered 2026-10-17, before any price was looked at:
   G3 dog15   winners: back the underdog when its mid <= 0.15
   L1 tailno  ladders: buy NO on any rung with YES ask <= 0.10
   L2 headyes ladders: buy YES on any rung with YES ask >= 0.90
+  G4 dog2050 (POST-HOC, 2026-10-18, after dev calibration): back the underdog when its mid is in [0.20, 0.50)
   5 trials -> bar p < 0.01, one-sided bootstrap over EVENTS (rungs of one game are not independent).
   Sealed pass = p < 0.05 / (#trials promoted) and units > 0.
 
@@ -52,7 +53,7 @@ LADDERS = ["KXNFLTOTAL", "KXNFLSPREAD", "KXNBATOTAL", "KXNBASPREAD", "KXMLBTOTAL
            "KXNHLTOTAL", "KXNHLSPREAD", "KXNCAAFTOTAL", "KXNCAAFSPREAD"]
 SPLIT = pd.Timestamp("2026-01-01")
 FEE = 0.07
-TRIALS = ["G1_fav85", "G2_fav65", "G3_dog15", "L1_tailno", "L2_headyes"]
+TRIALS = ["G1_fav85", "G2_fav65", "G3_dog15", "L1_tailno", "L2_headyes", "G4_dog2050"]
 
 
 def settled(series: str) -> pd.DataFrame:
@@ -166,7 +167,10 @@ def trial_frame(df: pd.DataFrame, name: str) -> pd.DataFrame:
         wb = winner_bets(df[df.kind == "winner"])
         fav = wb.groupby("event")["mid"].transform("max") == wb["mid"]
         sel = {"G1_fav85": fav & (wb.mid >= 0.85), "G2_fav65": fav & (wb.mid >= 0.65) & (wb.mid < 0.85),
-               "G3_dog15": (~fav) & (wb.mid <= 0.15)}[name]
+               "G3_dog15": (~fav) & (wb.mid <= 0.15),
+               # G4 is POST-HOC (added 2026-10-18 after seeing the dev calibration table: 35-50c sides hit +2.7pp,
+               # 50-65c -2.9pp). Counts as a trial; only the sealed set can confirm it.
+               "G4_dog2050": (~fav) & (wb.mid >= 0.20) & (wb.mid < 0.50)}[name]
         s = wb[sel]
         p, c = pnl(s.cost.to_numpy(), s.won.to_numpy())
         return pd.DataFrame({"event": s.event.to_numpy(), "series": s.series.to_numpy(), "date": s.event_date.to_numpy(),

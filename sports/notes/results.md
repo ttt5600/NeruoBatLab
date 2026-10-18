@@ -2,6 +2,7 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-18 | Kalshi sports favourite-longshot, 1 h pre-start, taker fees (6 trials, G4 post-hoc) | Kalshi 2025-04..12, 9,312 events | G1 fav>=85% +2.0%/383 p.062 3/3q; G2 fav65-85 -5.6%/1,346; G3 dog<=15% -45%/367; ladder tails +0.5%/377, +0.4%/88; G4 dog20-50 (post-hoc) +1.4%/4,429 p.21 | none past bar .0083. Longshots <10c badly overpriced (paper replicated); ladders well calibrated. Sealed (2026, ~140k rows) BLOCKED on start-time join |
 | 10-17 | MLB open->close ML move >=4pp: follow vs fade, at close | SBRO 2010-18 | follow -3.0%/3,308; fade -2.3%/3,308 | NO EDGE: close efficient both ways |
 | 10-17 | NBA decorrelated models: Elo disagree >=0.10 ML; walk-forward logit edge >=3% | NBA 2007-19 | +0.6%/3,916 p.40; -4.2%/744 | NO EDGE (Brier mkt .199 < Elo .207) |
 | 10-17 | NBA angles x5: rest edge ATS, big-spread dog, heavy fav ML, b2b unders, home dog ML | NBA 2007-19, 15,519 g (kyleskom SBR sqlite) | -1.5%/4361; +0.6%/1218; -2.7%/4239; -3.7%/5469; -3.9%/4766 | NO EDGE. Caught: file Spread is UNSIGNED (fav line) -> pre-fix big-dog +7.2% p=.002 was an artifact; fixed via ML favourite |
