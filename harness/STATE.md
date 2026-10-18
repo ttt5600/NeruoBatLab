@@ -15,21 +15,20 @@ tasks to agents/sessions and paste back only summaries. Memory: feedback_special
 - E33 pre-test done (experiments.yaml E33 pretest_result): pitch = voice axis but also separates tuck vs thuk/tet ->
   recommended NOT to run E33 at +-2 semitones.
 - Savio `lab eval MODEL` built + pushed (INTERN.md s7; pack lab_data/eval/calltype11_pack.npz; leaderboard
-  lab_data/eval/results). First job 40036098 (E23) queued Oct 16 -- RESULT NEVER CHECKED (cert expired).
+  lab_data/eval/results). Job 40036098 (E23 seed 2) checked 2026-10-17: see DONE block.
 - Notebooks (kernel "ZF analysis (Python 3.10)" = zf-py310): 07_layer_sweeps (CPU call type + model facts table,
   notebooks/model_facts.py/.csv), 08_calltype_errors (CPU). Error browser v2: https://claude.ai/artifact/8vsjrxjswggK2eZpuBxUbu
 - Jupyter server (Anaconda, port 8888, token in $CLAUDE_JOB_DIR/tmp/jupyter_token) may still be running.
 
-## NEW USER REQUEST (not started; hand off to an agent)
-Embedding automation (Savio `lab embed` + Mac): MODEL + wav folder/list -> embeddings, options: (A) detection windows of a
-chosen length/hop (e.g. 1 s or 0.5 s; virtual chunking by offsets, no per-chunk wavs; one output file + index TSV);
-(B) frame-level (20 ms) embeddings of continuous files for onset/offset decoding. Reuse eval_model.py's loader + CPU/GPU
-check. Also ANSWER the user's question: how speech systems get word onsets/offsets from continuous audio (VAD frame
-classification + smoothing/hysteresis; keyword spotting sliding windows; CTC spikes + forced alignment (torchaudio /
-MFA / WhisperX); DCASE SED thresholds + collars) and map it to ours (findings 018, 022, 023, 032; temporal-resolution memory).
+## DONE 2026-10-17: `lab embed` (user request) -- pytorchAudio 6adfedbd, pushed to Savio, verified on L40S
+embed.py MODEL AUDIO -> windows (--win/--hop) | frames (20 ms, 2 s seam margins) | segments (TSV); one memmapped
+embeddings.npy + index/files TSV + meta.json; resumes; decode_events/frame_labels for onsets. Defaults: zscore for
+windows/frames (049), raw for segments (board). tests/test_embed.py 8/8 on Mac + Savio; jobs 40090428/29 rows
+re-checked on CPU (1e-6 windows, f16-limited 3e-4 frames). Test outputs: scratch emb_test/. User got the
+onset/offset explainer in chat (offered a page). Job 40036098 checked: CUDA==CPU 3e-5; E23s2 0.8494 vs CPU board 0.8482.
 
 ## Waiting on the user
-- sv login (cert expired 10:44 Oct 16): then `sv status`, `sv eval list` (job 40036098: CUDA vs CPU agreement), E8/E9.
+- sv login renewed by user 2026-10-17 ~20:30 (12 h cert): `sv status`, E8/E9 still unchecked.
 - Decisions: E33 (rec: no at +-2 st), 10-split column, cancel E9?, cohort fix (versioned), BeVo split comparison (agent
   plan in chat: our probe on their split; map at analysis/bevo/), AVEX as a baseline, WiSE-FT weight-average test.
 - Older: E30-32, E26 donors, resume fix, label audit.
