@@ -2,6 +2,7 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-17 | MLB open->close ML move >=4pp: follow vs fade, at close | SBRO 2010-18 | follow -3.0%/3,308; fade -2.3%/3,308 | NO EDGE: close efficient both ways |
 | 10-17 | NBA decorrelated models: Elo disagree >=0.10 ML; walk-forward logit edge >=3% | NBA 2007-19 | +0.6%/3,916 p.40; -4.2%/744 | NO EDGE (Brier mkt .199 < Elo .207) |
 | 10-17 | NBA angles x5: rest edge ATS, big-spread dog, heavy fav ML, b2b unders, home dog ML | NBA 2007-19, 15,519 g (kyleskom SBR sqlite) | -1.5%/4361; +0.6%/1218; -2.7%/4239; -3.7%/5469; -3.9%/4766 | NO EDGE. Caught: file Spread is UNSIGNED (fav line) -> pre-fix big-dog +7.2% p=.002 was an artifact; fixed via ML favourite |
 | 10-17 | MLB fav >=60% at OPEN vs CLOSE (FLB-at-open thesis) | SBRO 2010-18, 22,140 games | open -2.70%/8,768, close -2.59%/8,768, 0/9 seasons each | NO EDGE: favourites lose ~the vig at both; no open-line FLB |
