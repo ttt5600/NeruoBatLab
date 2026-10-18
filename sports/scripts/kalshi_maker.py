@@ -34,6 +34,7 @@ from sports.http import fetch_many
 import kalshi_longshot as K
 
 OUT = ROOT / "data" / "kalshi_maker_candles.parquet"
+OUT_SEALED = ROOT / "data" / "kalshi_maker_candles_sealed.parquet"
 MAKER_FEE = 0.0175
 
 
@@ -55,10 +56,19 @@ def _parse(tk, candles, t_start):
             "min_trade_after": min(lows) if lows else np.nan}
 
 
-def cmd_build() -> int:
+def cmd_build(sealed: bool = False) -> int:
     px = pd.read_parquet(K.OUT)
-    w = px[(px.kind == "winner") & (px.event_date < K.SPLIT)].copy()
-    w["t_start"] = w.decision_ts + 3600  # decision_ts = exp - 4h = start - 1h for 2025 events
+    if not sealed:
+        w = px[(px.kind == "winner") & (px.event_date < K.SPLIT)].copy()
+        w["t_start"] = w.decision_ts + 3600  # decision_ts = exp - 4h = start - 1h for 2025 events
+        dest = OUT
+    else:  # 2026: verified real start times only (kalshi_start_times.py), never exp-based (leaks in 2026)
+        st = pd.read_parquet(ROOT / "data" / "kalshi_event_starts.parquet").dropna(subset=["start_utc"])
+        w = px[(px.kind == "winner") & (px.event_date >= K.SPLIT)].merge(st[["event_ticker", "start_utc"]], on="event_ticker")
+        w["t_start"] = ((pd.to_datetime(w.start_utc, utc=True) - pd.Timestamp("1970-01-01", tz="UTC"))
+                        // pd.Timedelta(seconds=1)).astype(int)
+        w = w.drop(columns=["start_utc"])
+        dest = OUT_SEALED
     rows = []
     for series, mk in w.groupby("series"):
         ev = mk.groupby("event_ticker")["t_start"].min()
@@ -83,8 +93,8 @@ def cmd_build() -> int:
         print(f"{series}: {len(ev)} events", flush=True)
     c = pd.DataFrame(rows)
     out = w.drop(columns=["yes_bid", "yes_ask"]).merge(c, on="ticker", how="inner")
-    out.to_parquet(OUT, index=False)
-    print(f"-> {OUT} ({len(out)} markets)")
+    out.to_parquet(dest, index=False)
+    print(f"-> {dest} ({len(out)} markets){' -- prices only, NOT scored' if sealed else ''}")
     return 0
 
 
@@ -126,6 +136,41 @@ def cmd_dev() -> int:
     return 0
 
 
+def cmd_sealed() -> int:
+    """ONE-TIME sealed score of maker_dog2050 (2026 events, verified start). Needs the user's explicit yes.
+    Pre-registered 2026-10-18 before any sealed candle existed: same rule as dev; PASS iff p < 0.05 / n_promoted
+    (kalshi_sports promotions incl. this one) and units > 0."""
+    if "--confirm" not in sys.argv:
+        print("sealed scoring is the user's decision; pass --confirm")
+        return 1
+    name = "maker_dog2050"
+    sha = hashlib.sha256(("kalshi_maker:" + name).encode()).hexdigest()[:12]
+    prior = [json.loads(l) for l in K.LOCKBOX_LOG.read_text().splitlines() if l.strip()]
+    if any(r["sha"] == sha for r in prior):
+        print("already scored on the lockbox; refusing")
+        return 1
+    d = pd.read_parquet(OUT_SEALED)
+    d = d[d.event_date >= K.SPLIT]
+    d = d[d.bid_post.notna() & d.ask_post.notna() & (d.bid_post > 0) & (d.ask_post - d.bid_post <= 0.05)].copy()
+    d["mid"] = (d.bid_post + d.ask_post) / 2
+    d = d[d.groupby("event_ticker")["ticker"].transform("count") == 2]
+    d["is_fav"] = d.groupby("event_ticker")["mid"].transform("max") == d["mid"]
+    s = d[(~d.is_fav) & (d.mid >= 0.20) & (d.mid < 0.50) & (d.min_trade_after < d.bid_post)]
+    cost = s.bid_post + MAKER_FEE * s.bid_post * (1 - s.bid_post)
+    t = pd.DataFrame({"event": s.event_ticker.to_numpy(), "series": s.series.to_numpy(), "date": s.event_date.to_numpy(),
+                      "pnl": np.where(s.result == "yes", 1 - cost, -cost), "stake": cost.to_numpy()})
+    r = K.score(t, np.random.default_rng(0))
+    n_prom = 1 + sum(x["dataset"] == K.DATASET for x in prior)
+    bar = 0.05 / n_prom
+    with K.LOCKBOX_LOG.open("a") as f:
+        f.write(json.dumps({"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": f"kalshi_{name}",
+                            "sha": sha, "dataset": K.DATASET, "promotion_number": n_prom, **r}, default=str) + "\n")
+    print(f"SEALED {name}: filled {r['bets']} units {r['units']:+.1f} ROI {r['roi']:+.2%} p {r['p']:.4f} "
+          f"quarters+ {r['folds_positive']}/{len(r['per_fold'])} -> {'PASS' if r['p'] < bar and r['units'] > 0 else 'FAIL'} (bar {bar:.4f})")
+    return 0
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
-    raise SystemExit({"build": cmd_build, "dev": cmd_dev}.get(cmd, lambda: print(__doc__) or 1)())
+    raise SystemExit({"build": cmd_build, "build-sealed": lambda: cmd_build(sealed=True), "dev": cmd_dev,
+                      "sealed": cmd_sealed}.get(cmd, lambda: print(__doc__) or 1)())
