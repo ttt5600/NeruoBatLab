@@ -10,7 +10,11 @@ breakdown is guaranteed to be of the same predictions the board scores.
 Differences are OBSERVED differences (not the resample mean), with percentile intervals.
 Classes are small (Di has 18 clips from few birds), so read the intervals before the bars.
 
-  python calltype_per_class.py   -> analysis/calltype_per_class.json
+  python calltype_per_class.py         -> analysis/calltype_per_class.json      (MPS caches; superseded by 076)
+  python calltype_per_class.py --cpu   -> analysis/calltype_per_class_cpu.json  (CPU caches, CPU best layer)
+
+--cpu reads features/ct11_<tag>_cpuemb.npy, probes each model's CPU best layer from calltype_cpu_rescore.json and
+asserts the overall accuracy reproduces acc11_cpu there, so the breakdown is of the predictions the board scores.
 """
 from __future__ import annotations
 import json, sys, time, warnings
@@ -61,7 +65,30 @@ MODELS = [
 ]
 
 
-def main():
+# --cpu: label, group, tag (cache ct11_<tag>_cpuemb.npy; layer and accuracy from calltype_cpu_rescore.json)
+CPU_MODELS = [
+    ("run11", "ours", "run11"), ("run15", "ours", "run15_combined"), ("run16", "ours", "run16_compute4x"),
+    ("run16 seed 2", "ours", "run16_seed2"), ("run16 seed 3", "ours", "run16_seed3"), ("run17", "ours", "run17_accum2"),
+    ("run18", "ours", "run18_iter2"), ("run19", "ours", "run19_avesteacher"), ("run19 seed 2", "ours", "run19_seed2"),
+    ("run20", "ours", "run20_fsdonly"), ("run21", "ours", "run21_zfonly"),
+    ("DAPT replay x3", "dapt", "daptreplay3_5e5_step15000"),
+    ("AVES bio", "aves", "aves-base-bio"), ("AVES core", "aves", "aves-base-core"), ("AVES all", "aves", "aves-base-all"),
+    ("BirdAVES biox-base", "aves", "birdaves-biox-base"), ("BirdAVES biox-large", "aves", "birdaves-biox-large"),
+    ("BirdAVES bioxn-large", "aves", "birdaves-bioxn-large"),
+    ("HuBERT base (speech)", "other", "hf-hubert-base-ls960"), ("Whisper base", "other", "hf-whisper-base-enc"),
+    ("Whisper small", "other", "hf-whisper-small-enc"),
+]
+
+
+def cpu_models():
+    cpu = json.load(open(ANA / "calltype_cpu_rescore.json"))["models"]
+    return [(lab, grp, f"ct11_{t}_cpuemb.npy", (cpu[t]["best_layer_cpu"], cpu[t]["acc11_cpu"]), t)
+            for lab, grp, t in CPU_MODELS]
+
+
+def main(use_cpu=False):
+    models = cpu_models() if use_cpu else [m + (None,) for m in MODELS]
+    out_path = ANA / "calltype_per_class_cpu.json" if use_cpu else OUT
     rows = [r for r in collect() if r[3] in KEEP11]
     birds = np.array([r[1].lower() for r in rows])
     tt = np.array([r[3] for r in rows])
@@ -78,9 +105,11 @@ def main():
                class_chick_fraction={c: float((src[y == i] == "ChickVocalizations").mean())
                                      for i, c in enumerate(classes)},
                split="leave-birds-out StratifiedGroupKFold(5), seed 0; StandardScaler + LogisticRegression",
-               layer_rule="each model's own reported best layer (the board's protocol)",
+               layer_rule=("each model's CPU best layer, calltype_cpu_rescore.json (finding 076)" if use_cpu
+                           else "each model's own reported best layer (the board's protocol)"),
+               embeddings="CPU (ct11_<tag>_cpuemb.npy)" if use_cpu else "MPS (ct11_<tag>_emb.npy)",
                models={})
-    for lab, grp, f, (layer, acc_rep) in MODELS:
+    for lab, grp, f, (layer, acc_rep), tag in models:
         t0 = time.time()
         E = np.load(FEAT / f, mmap_mode="r")
         acc, _, P = cv_acc(np.ascontiguousarray(E[:, layer]), y, birds, return_proba=True)
@@ -88,7 +117,7 @@ def main():
         p = P.argmax(1); pred[lab] = p
         C = np.zeros((K, K), dtype=int)
         np.add.at(C, (y, p), 1)
-        out["models"][lab] = dict(group=grp, layer=int(layer), acc11=float(acc),
+        out["models"][lab] = dict(group=grp, tag=tag, layer=int(layer), acc11=float(acc),
                                   recall={c: float(C[i, i] / C[i].sum()) for i, c in enumerate(classes)},
                                   confusion=C.tolist())
         print(f"[{lab}] L{layer} acc {acc:.4f} (reproduces reported) {time.time()-t0:.0f}s", flush=True)
@@ -115,7 +144,7 @@ def main():
             diffs[c] = dict(diff=float(obs), lo=float(lo), hi=float(hi),
                             resolved=bool(lo > 0 or hi < 0))
         out["models"][lab]["vs_ref"] = diffs
-    OUT.write_text(json.dumps(out, indent=2))
+    out_path.write_text(json.dumps(out, indent=2))
 
     print("\nper-class recall")
     print(f"{'model':<22}" + "".join(f"{c:>6}" for c in classes) + f"{'all':>8}")
@@ -123,8 +152,8 @@ def main():
         print(f"{lab:<22}" + "".join(f"{d['recall'][c]:>6.2f}" for c in classes) + f"{d['acc11']:>8.4f}")
     print(f"{'n clips':<22}" + "".join(f"{out['class_counts'][c]:>6}" for c in classes))
     print(f"{'n birds':<22}" + "".join(f"{out['class_birds'][c]:>6}" for c in classes))
-    print(f"-> {OUT}")
+    print(f"-> {out_path}")
 
 
 if __name__ == "__main__":
-    main()
+    main(use_cpu="--cpu" in sys.argv[1:])

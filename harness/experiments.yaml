@@ -871,3 +871,46 @@ experiments:
     2026-10-16: all Mac call-type embeddings were computed on MPS, whose attention is wrong for 2-8 frame
     inputs (most call-type clips); the motivation numbers are being re-scored on CPU (calltype_cpu_rescore.py).
     The pre-test must run on CPU.'
+- id: E34
+  roadmap: user request 2026-10-19
+  title: 'Control for our one recipe change: run16 on stock HuBERT MFCC targets'
+  baseline: run16_compute4x
+  change: 'training targets -> k-means k=200 on fairseq''s stock 39-d Kaldi MFCC (13 ceps + delta + delta-delta,
+    the feature HuBERT base and AVES started from) instead of k=200 on our 4000-d spectrogram. Same 763 files
+    and frame grid, same k-means code/settings (1M-frame subsample, batch 8192, GPU), same 4 GPUs, lr 1e-4,
+    93,750 updates, seed 1337, from scratch. The network is identical either way (94,370,944 params, same
+    tensors as HuBERT base and AVES: analysis/model_param_counts.json), so this is the whole of "our change".'
+  question: 'Does building the pseudo-labels from a spectrogram instead of MFCC make a better encoder, on
+    exactly run16''s data and compute? Finding 040 showed the spectrogram LABELS cluster call identity better
+    (+0.024 AMI at k=200); no encoder has been trained on MFCC labels here.'
+  success: 'Pre-registered 2026-10-19, before any result. PRIMARY = 11-class call type on CPU embeddings (board
+    protocol), run23 minus run16, 95% bird bootstrap, read at each model''s CPU best layer AND at fixed layer 3,
+    plus the 10-split column. Spectrogram targets "earn their place" only if run23 is below run16 with the
+    interval excluding zero at BOTH best layer and L3. If either interval includes zero: not distinguishable at
+    one seed; run16''s own seeds span 0.0155-0.0213 (findings 057/079), so a gap of that size needs a second
+    seed of run23 before anything is claimed. run23 above run16 = the spectrogram change bought nothing.
+    SECONDARY (report, do not decide on): ZF detection AUC, BirdPark AP, chick AUC, label-free k=30 from
+    score_run.sh; the relabel gate''s MFCC->spectrogram purity.'
+  script: pytorchAudio/examples/hubert/slurm/train_run23_mfcc.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_run23_mfcc
+  tag: run23_mfcc
+  num_classes: 200
+  job_name: hubert_run23
+  requires: 'relabel job 40144545 (slurm/relabel_mfcc_combined.sh) ended COMPLETED and its log
+    ~/jobs/relabel_mfcc_combined_40144545.log contains "PASS: labels written"; labels in
+    /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/mfcc'
+  status: submitted
+  job: 40144546
+  priority: 2
+  notes: 'Asked for by the user 2026-10-19 ("compare against the model without our architectural changes (mfcc
+    only, no spectrogram in pretraining), with the exact same training data set"). Submitted by the session
+    lead: relabel 40144545, then train 40144546 with --dependency=afterok. New code: utils/feature_utils.py
+    extract_feature_mfcc (fairseq dump_mfcc_feature.py call, chunked framing, MFCC frame 2i -> HuBERT frame i),
+    preprocess.py --feat-type mfcc; tests/test_mfcc_feature.py passes on the Mac (torch 2.8) and on the Savio
+    DTN (torch 2.2.2, real corpus file 111208-000.wav). Train script = train_run16_compute4x.sh with only
+    DATA/EXP/names changed. --feature-type stays spectrogram: labels are already on the 20 ms grid and the
+    collate''s mfcc branch would halve them again. Submitted with plain sbatch (ledger rows added by hand)
+    because the login node''s python hits EIO on hubert_env files (torch/_C.so among 12 of 144 sampled);
+    the DTN reads the same files fine, so imports were checked there. Note finding 040 used 40 mel bins;
+    this control uses fairseq''s actual default, 23. Score: bash harness/score_run.sh run23_mfcc
+    /global/scratch/users/jonathanswang/temp_train_run23_mfcc 200 40144546'

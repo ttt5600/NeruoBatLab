@@ -45,12 +45,32 @@
       <span class="ct-n dash-skeleton" data-source="aves_ahead" data-field="n_models" data-row="0">—</span> downloaded AVES models beats it on at least
       <span class="ct-n dash-skeleton" data-source="aves_ahead" data-field="min_ahead" data-row="0">—</span> of them.
     </p>
+    <p class="ct-note">Rebuilt Oct 19, 2026 from embeddings computed on the CPU (finding 076). The Oct 9 version used the Mac GPU's embeddings, which mis-encoded most short call clips; that version had the two large BirdAVES models in the wrong order.</p>
   </header>
+
+  <section class="ct-sec" id="head-to-head">
+    <h2 class="ct-h2">Four models side by side</h2>
+    <div class="ct-card" id="h2h-card">
+      <p class="ct-note">HuBERT base, AVES bio and run16 are the same network: the same 7-layer CNN and 12 transformer layers, with identical tensor names and shapes, counted from the weight files. They differ only in what they were trained on and which labels they were trained to predict. "Large" in BirdAVES bioxn-large means the HuBERT-large network: about 3.3 times the parameters, with twice the depth and a wider model. Parameter counts and run16's update count are read from the files. HuBERT and AVES recipes come from their papers and configs. BirdAVES has not published its training recipe.</p>
+      <div class="ct-scroll">
+        <table class="ct-table" id="h2h-table" data-source="head_to_head" data-row-key="attribute">
+          <thead><tr>
+            <th data-field="attribute"></th>
+            <th data-field="hubert">HuBERT base (speech)</th>
+            <th data-field="aves">AVES bio</th>
+            <th data-field="ours">run16 (ours)</th>
+            <th data-field="large">BirdAVES bioxn-large</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
   <section class="ct-sec" id="by-type">
     <h2 class="ct-h2">Accuracy by call type</h2>
     <div class="ct-card" id="heatmap-card">
-      <p class="ct-note">Share of each call type's clips classified correctly when the classifier is tested on birds it never saw. Columns run from easiest to hardest, by the average over all models. The last column is the overall score on the model board.</p>
+      <p class="ct-note">Share of each call type's clips classified correctly when the classifier is tested on birds it never saw. Columns run from easiest to hardest, by the average over all models. The last column is the overall score on the model board. The grey number after each name is its parameter count, in millions.</p>
       <div class="ct-scroll"><div class="ct-chart dash-skeleton" id="heatmap" data-source="recall call_types" style="min-height: 520px"></div></div>
     </div>
   </section>
@@ -110,7 +130,31 @@
     </div>
   </section>
 
-  <p class="ct-note" id="method">Method: leave-birds-out cross-validation, a logistic-regression classifier on each model's reported layer, the same cohort and code as the model board, run with the scoring pipeline's scikit-learn. Every model's overall score here was checked to match the board exactly before the breakdown was taken. Sources: <code>analysis/calltype_per_class.json</code> and <code>analysis/calltype_split_sensitivity.json</code>.</p>
+  <section class="ct-sec" id="specs-sec">
+    <h2 class="ct-h2">Every model on this page</h2>
+    <div class="ct-card" id="specs-card">
+      <p class="ct-note">Parameters are counted from each encoder's weights. For Whisper that is the encoder only, which is the part scored here (Whisper base and small are 72.6M and 241.7M with their decoders). Hours are the size of the pretraining corpus, not how much audio training went through. The BirdAVES sources disagree on whether its bird recordings were added to AVES bio or to AVES core; this table follows the README.</p>
+      <div class="ct-scroll">
+        <table class="ct-table" id="specs-table" data-source="model_specs" data-row-key="model">
+          <thead><tr>
+            <th data-field="model">Model</th>
+            <th data-field="group">Kind</th>
+            <th class="ct-num" data-field="params_m">Params (M)</th>
+            <th class="ct-num" data-field="layers">Layers</th>
+            <th class="ct-num" data-field="width">Width</th>
+            <th data-field="input">Input</th>
+            <th data-field="data">Pretraining audio</th>
+            <th class="ct-num" data-field="hours">Hours</th>
+            <th data-field="targets">Training targets</th>
+            <th class="ct-num" data-field="calltype">Call type</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <p class="ct-note" id="method">Method: leave-birds-out cross-validation, a logistic-regression classifier on each model's best layer on the CPU embeddings, the same cohort and code as the model board, run with the scoring pipeline's scikit-learn (1.7.2). Every model's overall score here was checked to match the board's CPU score exactly before the breakdown was taken. Sources: <code>analysis/calltype_per_class_cpu.json</code>, <code>analysis/calltype_split_sensitivity_cpu.json</code> and <code>analysis/model_param_counts.json</code>.</p>
 </div>
 
 <script>
@@ -177,7 +221,7 @@ dash.calc('resolved_count', {
 });
 
 (() => {
-  const state = { diff: 'BirdAVES biox-large', confA: 'run16', confB: 'BirdAVES biox-large' };
+  const state = { diff: 'BirdAVES bioxn-large', confA: 'run16', confB: 'BirdAVES bioxn-large' };
   const sels = { diff: document.getElementById('diff-model'), confA: document.getElementById('conf-a-model'), confB: document.getElementById('conf-b-model') };
 
   const resolveColor = (c) => {
@@ -238,7 +282,7 @@ dash.calc('resolved_count', {
       const mean = d3.rollup(R.data, (v) => d3.mean(v, (r) => r.recall), (r) => r.call_type);
       order = [...mean].sort((a, b) => b[1] - a[1]).map((d) => d[0]);
       names = Object.fromEntries(C.data.map((r) => [r.call_type, r]));
-      models = [...d3.group(R.data, (r) => r.model)].map(([m, rs]) => ({ model: m, group: rs[0].group, order: rs[0].model_order, overall: rs[0].overall })).sort((a, b) => a.order - b.order);
+      models = [...d3.group(R.data, (r) => r.model)].map(([m, rs]) => ({ model: m, group: rs[0].group, order: rs[0].model_order, overall: rs[0].overall, params_m: rs[0].params_m })).sort((a, b) => a.order - b.order);
     }
     drawHeatmap(order, names, models);
     drawDiff(order, names, models);
@@ -246,6 +290,7 @@ dash.calc('resolved_count', {
     drawConf('conf-b', 'confB', order, models);
     drawStrip();
     drawTable();
+    drawSpecTables();
     document.querySelectorAll('.ct-take .ct-n, .ct-note .ct-n').forEach((el) => {
       const s = dash.data(el.dataset.source).status;
       if (s !== 'loading') el.classList.remove('dash-skeleton');
@@ -260,7 +305,10 @@ dash.calc('resolved_count', {
     const rows = dash.data('recall').data;
     const W = Math.max(el.clientWidth || 0, 680);
     const svg = d3.select(el).append('svg').attr('width', '100%');
-    const labW = measure(svg, models.map((m) => m.model), 12.5, 500) + 14;
+    const nameW = measure(svg, models.map((m) => m.model), 12.5, 500) + 10;
+    const sizeTxt = (m) => `${d3.format('.1f')(m.params_m)}M`;
+    const sizeW = measure(svg, models.map(sizeTxt), 11, 400) + 14;
+    const labW = nameW + sizeW;
     const groups = [...d3.group(models, (m) => m.group)];
     const headH = 44, rowH = 26, grpH = 22, gapAll = 10;
     const cellW = (W - labW - gapAll) / (order.length + 1);
@@ -283,6 +331,7 @@ dash.calc('resolved_count', {
     for (const m of models) {
       const yy = ys.get(m.model);
       svg.append('text').attr('x', 0).attr('y', yy + rowH / 2 + 4).attr('font-size', 12.5).attr('font-weight', m.model === 'run16' ? 600 : 500).attr('fill', 'var(--color-fg)').text(m.model);
+      svg.append('text').attr('x', labW - 10).attr('y', yy + rowH / 2 + 4).attr('text-anchor', 'end').attr('font-size', 11).style('font-variant-numeric', 'tabular-nums').attr('fill', 'var(--color-fg-muted)').text(sizeTxt(m));
       const cells = order.map((c) => byKey.get(m.model + '|' + c)).concat([{ model: m.model, call_type: 'All', recall: m.overall, all: true }]);
       cells.forEach((r, i) => {
         const g = svg.append('g');
@@ -405,6 +454,23 @@ dash.calc('resolved_count', {
       if (b) svg.append('circle').attr('cx', xs(b.acc)).attr('cy', yy).attr('r', 5.5).attr('fill', 'none').attr('stroke', accent).attr('stroke-width', 2.2)
         .on('mousemove', (ev) => tip.show(ev, `${s.model} · the board's split`, fmt4(b.acc))).on('mouseleave', tip.hide);
     });
+  }
+
+  function fillRows(sel, id, cols) {
+    const tb = document.querySelector(`${sel} tbody`);
+    const D = dash.data(id);
+    if (D.status !== 'ok') { tb.replaceChildren(); return; }
+    const rows = [...D.data].sort((a, b) => (a.order ?? a.model_order) - (b.order ?? b.model_order));
+    tb.replaceChildren(...rows.map((r) => {
+      const tr = document.createElement('tr');
+      for (const [f, c, fmt] of cols) { const td = document.createElement('td'); td.textContent = fmt ? fmt(r[f]) : String(r[f]); if (c) td.className = c; tr.appendChild(td); }
+      return tr;
+    }));
+  }
+  function drawSpecTables() {
+    fillRows('#h2h-table', 'head_to_head', [['attribute', 'ct-grp'], ['hubert'], ['aves'], ['ours'], ['large']]);
+    fillRows('#specs-table', 'model_specs', [['model'], ['group', 'ct-grp'], ['params_m', 'ct-num', d3.format('.1f')], ['layers', 'ct-num'],
+      ['width', 'ct-num'], ['input'], ['data'], ['hours', 'ct-num'], ['targets'], ['calltype', 'ct-num', fmt4]]);
   }
 
   function drawTable() {

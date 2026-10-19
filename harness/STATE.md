@@ -1,39 +1,29 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-19 02:48 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user: "yep logged in")
+Updated: 2026-10-19 09:50 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user asked: docs, MFCC control, model sizes)
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts).
 Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never quote ct11_<tag>_emb.npy readers.
 
-## Since 2026-10-18: call type, label-free, 10-split and chick all CPU (076); details in pi_notes.md
-- score_run.sh + build_board.py read only CPU files (calltype_cpu_rescore, seed_pairs_cpu[_L3],
-  calltype_split_sensitivity_cpu[_L3], labelfree_stability_cpu, chick_holdout_variants_cpu).
-- 077, 078, 079 CONFIRMED after critic. 079: seed noise stays 0.015-0.02 (run16 seed pair resolved at fixed L3).
-
-## 2026-10-19: chick holdout on CPU
-- chick_holdout_variants.py --cpu: 34 models -> chick_holdout_variants_cpu.json (+ _cpu.npy caches). All 97 chick clips
-  of 2-8 frames were mis-encoded on MPS. AUC moves <=0.005; AMI(k=4) -0.046..+0.150; 0 of 33 vs run11 resolved, no
-  flips -> 048 stands. 080 CONFIRMED (critic changes applied; pointer in 048). score_run.sh + board use the CPU chick
-  file; board v6 published -- no MPS-derived column left on it.
-
-## 2026-10-19 02:50: lab eval vs board gap explained
-- E23s2 0.8494 (Savio) vs 0.8482 (Mac): embeddings agree to 2.8e-6; the probe flips 5-13 near-tie clips -> scores
-  reproduce to ~+-0.001 (INTERN.md s7 + eval_model.py report; pytorchAudio d96c6aaf, on Savio). Login node python
-  gave EIO at 02:47 (dtn fine) -- lab eval/embed pre-flight runs there; retry or use dtn.
+## 2026-10-19 morning (user request)
+- Model sizes from the weights: analysis/model_param_counts.json (zfeval/experiments/model_param_counts.py).
+  HuBERT base = AVES base = BirdAVES biox-base = ours = 94,370,944, same tensors; BirdAVES *-large = 315,427,968.
+- Call Type Breakdown dashboard (https://claude.ai/artifact/86skJnBrVBgqnQDZe3wsku) rebuilt on CPU (was MPS, Oct 9):
+  calltype_per_class.py --cpu -> calltype_per_class_cpu.json; harness/build_calltype_data.py; 4-model side-by-side.
+- Claude Docs updated: tasks doc 1e00135c rev 46 (T10 run23, T11 run22), Savio guide 9e2d877b rev 6 (eval/embed).
+  Google Doc copies NOT updated (no Google Docs connector) -> waiting on the user.
 
 ## In flight
-- E12 = run22 (40090445): preempted 2x, requeued at step 41,018; Slurm est. restart 2026-10-19 14:39. Score with
-  `bash harness/score_run.sh run22_avesfsd /global/scratch/users/jonathanswang/temp_train_run22_avesfsd 200 40090445`.
-
-## Next (lead)
-- Board v7: 8 off-the-shelf encoders added (CPU vs run16: Whisper base +0.0293 [+0.0076, +0.0508], small +0.0246
-  [+0.0017, +0.0465] at L3, both ahead on 10/10 splits). 081 CONFIRMED (2 critic passes): Whisper-small's lead over
-  run16 is 72-85% Tet (beyond run16's seed spread on Tet); vs AVES Tet+Nest; trails run16 on Begging; Tuck n.d.
-  Digest 10-19 at the first wake after 09:00.
-- E15 corpus research (post choice + size + licence in a digest, then wait a day) if the user wants E15.
+- E34 = run23 MFCC-target control: relabel 40144545 (est. start 14:39) -> train 40144546 (afterok). Pass mark
+  pre-registered in experiments.yaml. Score: `bash harness/score_run.sh run23_mfcc
+  /global/scratch/users/jonathanswang/temp_train_run23_mfcc 200 40144546`. Check relabel log for "PASS: labels written".
+- E12 = run22 (40090445): preempted 2x, requeued at step 41,018; Slurm est. restart 2026-10-19 14:39.
+- Savio LOGIN node: python EIO on hubert_env files (torch/_C.so etc.), DTN fine -> `lab train/eval/embed`
+  pre-flights fail on the login node; submit with plain sbatch from the login node after a DTN import check.
+  If 40144545 dies at its import check, compute nodes have it too (would also hit run22's restart).
 
 ## Waiting on the user
-- E13 teacher (biox-base 0.8476 ~ AVES-bio 0.8438 on CPU; bioxn-large 0.8590 is large), E26 success + donors,
-  E27 24-layer branch, E15 corpus, E33 (rec: no at +-2 st), 10-split headline, BeVo split, AVEX, WiSE-FT.
-- Older: E30-32, label audit. Savio cert renewed 02:45, valid to 14:45 -- E12's est. start 14:39 is 6 min before expiry.
+- Google Docs: turn on the Google Docs connector (edits in place) vs re-export (new links; Savio copy was hand-edited).
+- E13 teacher, E26 success + donors, E27 24-layer branch, E15 corpus, E33 (rec: no at +-2 st), 10-split headline,
+  BeVo split, AVEX, WiSE-FT. Older: E30-32, label audit. Savio cert valid to 14:45 (jobs don't need it).
 
 ## Resume: /loop follow harness/PI.md  (first wake: read PI.md, AGENT.md, this file, knowledge/BRIEF.md, pi_status.sh)
