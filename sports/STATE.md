@@ -61,6 +61,8 @@ $57 is ~10% of depth. ~4 picks/night -> ~$230 out at once; keep ~$1,000 bankroll
 costs the whole stake = 20-90 wins). Profit was lumpy (2026Q1 = 16.7 of 26.8 units; 2 of 6 quarters negative).
 Exec default caps ($25/order, $100/day, $300 open) -> ~$44/mo; $100/mo needs ~$60/order, $250/day, $500 open.
 Capacity lever: Kalshi now lists 48 live US temp series (21 daily highs, 27 daily LOWS); we trade 7 highs.
+SETTLEMENT SOURCE (checked 10-19): every Kalshi temp series switched NWS -> The Weather Company on 2026-08-14;
+TWC = official NWS value on 3,080/3,081 days (scripts/wx_source_check.py --all) -> benign.
 
 QUEUE (research loop works top-down; skip blocked items):
   Q1 consensus-reject on the 41 NEW KX(HIGH|LOW) series (list: Kalshi /series, category Climate and Weather,
