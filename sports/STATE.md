@@ -65,7 +65,7 @@ SETTLEMENT SOURCE (checked 10-19): every Kalshi temp series switched NWS -> The 
 TWC = official NWS value on 3,080/3,081 days (scripts/wx_source_check.py --all) -> benign.
 
 QUEUE (research loop works top-down; skip blocked items):
-  Q1 consensus-reject on the 41 NEW KX(HIGH|LOW) series (list: Kalshi /series, category Climate and Weather,
+  Q1 DONE 10-19 (X1 highs dev +1.22% p.057 -> sealed awaits yes; X2 lows -6.4% dead). Was: consensus-reject on the 41 NEW KX(HIGH|LOW) series (list: Kalshi /series, category Climate and Weather,
      ticker ^KX(HIGH|LOW)T?[A-Z]{2,5}$ with open markets). Rule FROZEN (no refit). Build settled brackets +
      leak-free historical forecasts (same pipeline as kalshi_temp / sports/wx.py), pre-register split
      DEV < 2026-03-01 / SEALED >= 2026-03-01 (sealed needs user yes). Lows = forecast daily MIN; check NWS
@@ -134,6 +134,11 @@ Blocked: tennis-data.co.uk 403s automation (don't bypass); NHL/college odds sour
 Pinnacle O/U in soccer only from 2019 (sealed era).
 
 ## WAITING ON USER
+0000. NEW 2026-10-19 Q1 -- the BEST capacity lever: consensus-reject rule FROZEN, applied to 13 new daily-HIGH series
+   (wx_expand.py X1): dev +1.22%/444 bets p .057 (dev only 2025-12..2026-02; sealed rule passed at +1.45%). ~300 bets/mo
+   -> with the 7 traded cities ~420 bets/mo -> $100/mo at ~$17/bet. Sealed 2026-03-01..2026-10-18 (one shot) needs the
+   user's yes: add `sealed --confirm X1_new_highs` to wx_expand.py (not written yet: same score(), df.date >= SPLIT,
+   lockbox.jsonl, PASS = p < 0.05 and units > 0). LOWS (X2) failed dev -6.4% -> do not trade lows.
 000. NEW 2026-10-19 REAL MONEY SWITCH (only route to revenue with evidence): executor is built + shadowing (dry).
    To go live the USER: (1) creates a Kalshi API key, saves the private key file, and writes to
    ~/.claude/quant-kalshi/.env: KALSHI_KEY_ID=..., KALSHI_PRIVATE_KEY_PATH=..., KALSHI_MAX_ORDER_USD=25,
