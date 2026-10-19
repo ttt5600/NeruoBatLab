@@ -31,3 +31,19 @@ Current: 2026-10-14, sealed {nba:2026, nhl:2026, mlb:2025, nfl:2025}.
 The Odds API: lines from Jun 2020, props from 3 May 2023, 5-min snapshots; historical costs 10 credits/region/market
 (props per event). 5M plan $119/mo fits ~1-2M credits for 2023-25 props. EndZone NFL props+Pinnacle $19/mo.
 No vendor has 10+ seasons of per-game props.
+
+## Added 2026-10-17..18 (all gitignored under data/; rebuild commands)
+- Soccer: football-data.co.uk, 22 divs x 2012-13..2025-26 -> data/soccer_fd.parquet (`scripts/soccer_fd.py build`).
+  Pre-close (Fri/Tue snapshot) PS*/B365*/WH*/BW*/Max*(BbMx*)/Avg*(BbAv*) + Pinnacle close PSC*. WH ends ~2024-25,
+  Pinnacle only 38% filled in 2025-26. Pinnacle O/U only from 2019-20. De-vig with POWER, not proportional.
+- NBA odds 2007-08..2025-26: data/nba_odds/OddsData.sqlite from github.com/kyleskom/NBA-Machine-Learning-Sports-Betting
+  (Data/OddsData.sqlite). Spread column is the favourite's line UNSIGNED -> sign it from the ML favourite.
+  No spread/total prices (assume -110). Days_Rest: 1 = back-to-back.
+- MLB SBRO 2010-2021 opening+closing MLs (sports/sbr.py; 2010-13 files lack run-line columns, handled).
+- Kalshi sports settled markets (17 series, 2025-04..2026-10): data/kalshi_sports_prices.parquet
+  (`kalshi_longshot.py build`, price at expected_expiration - 4h; valid for 2025 only).
+  Leak-free sealed prices at real start - 1h: data/kalshi_sports_prices_sealed.parquet (`kalshi_start_times.py
+  match` then `reprice`; ESPN scoreboards; 2026 MLB start parsed from ticker). Maker candles:
+  data/kalshi_maker_candles{,_sealed}.parquet, data/kalshi_maker_ladder_candles.parquet. Run ONE Kalshi
+  download at a time (two in parallel hit 429 and one died).
+- tennis-data.co.uk: 403 to automated requests -> not used (do not bypass).

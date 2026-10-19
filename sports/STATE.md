@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-17 am (Kalshi paper 2nd timing bug fixed: late launchd runs; stocks 3 more trials 0/3). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-19 (pre-/clear handoff: soccer lead + 3 sealed tests await user yes). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -15,17 +15,22 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 - Push CODE to GitHub, never data (`sports/data/` is gitignored).
 - Automated execution only via Kalshi official API (sportsbooks have no API; automating them breaks ToS).
 
-## Where things stand
-- Only strategy past a sealed test: Kalshi temp "consensus-reject" (+1.45% ROI, 1,844 bets). Paper trader: `scripts/kalshi_paper.py`.
-- NFL/MLB game-line situational edges: priced in or too small (see notes/results.md).
+## Where things stand (2026-10-19)
+- PASSED sealed: only Kalshi temp "consensus-reject" (+1.45% ROI, 1,844 bets) -- paper-trading (9 picks, 1 settled, +0.01u).
+- BEST NEW LEAD (dev only): SOCCER soft books vs Pinnacle, scripts/soccer_fd.py, football-data.co.uk 22 divs.
+  S12 best3_pow3 = best of B365/WH/bwin, power de-vig of Pinnacle pre-close, edge >= 3%, price < 10:
+  dev 2012-19 CLV +2.87% (p<.001, 7/7 seasons), ROI +8.5%/2,604 (p .008); CLV monotonic in threshold.
+  Trap: PROPORTIONAL de-vig overstates longshots -> fake CLV (S6 withdrawn). Sealed 2019-26 awaits yes.
+- ~45 trials 10-16..10-18, all dev, all in lab/ledger.jsonl: every NFL/NBA/MLB closing-line angle loses ~the vig;
+  Kalshi sports longshots <10c lose ~45% (paper replicated) but no Kalshi rule past the bar; maker-side
+  edge = mostly spread capture and a symmetric ladder test showed it does NOT survive adverse selection.
+- Data traps caught this round (check every new dataset!): NFL weather joined by row position (53% wrong);
+  NBA sqlite Spread is UNSIGNED (fake +7.2%); Kalshi 2026 expected_expiration = start+6h for some games
+  (exp-4h decisions land after kickoff; 2026 MLB start time is IN the ticker, e.g. 26AUG171340STLCING1).
+- Live: live_signals.py (NFL pre-kickoff rain -> Kalshi totals paper) evaluated 7 games on 10-18, 0 fired.
 - Frozen snapshot `data/frozen/2026-10-14/` (sha256 MANIFEST). Sealed: nba 2026, nhl 2026, mlb 2025, nfl 2025.
-- Pattern mining: 10 dev survivors -> SEALED CONFIRM RUN 2026-10-15 (done, never re-run): 0/10 pass.
-  `lab/reports/pattern_confirm.jsonl`. mlb hits over/line-down dev +36% -> sealed -5.4%/3,655 (t=-4.4):
-  the line-move artifact reading was right. NHL unders: +2.8%, -2.3%, -9.4% -> noise. NBA DK under: 0 sealed
-  bets (sealed NBA = ESPN BET only) -> still UNTESTED, the only open prop lead.
-  Overs heavily overpriced in dev (NBA -11.9% vs unders -2.4%) -- descriptive, not a strategy.
-- Live paper scanner Pinnacle no-vig vs Kalshi game contracts: `scripts/live_edges.py loop|report`
-  (runs only while a session keeps it alive; 0 flags at EV>=2% so far).
+- Older: pattern-mine sealed confirm 0/10 (10-15); NBA DK high-line under untested (needs Odds API);
+  live_edges.py Pinnacle-vs-Kalshi scanner 0 flags (session-only).
 
 ## USER DIRECTION (2026-10-15) -- go wide, everything that can earn >= $100/month
 User wants: stocks, Polymarket, sportsbooks ("bet until limited; limits come ~$50k won" -- user's number,
@@ -75,14 +80,14 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
   Honest read after 14 trials: simple ETF timing rules don't beat holding. Baseline: index fund ~7%/yr =
   $100/mo on ~$17k.
 
-## AUTONOMOUS LOOP (user 2026-10-17: "keep searching ... loops while I'm out ... only backtest matters")
-Done 10-17 (all dev, all in ledger): NFL online angles 0/5; MLB fav-at-open (SBRO 2010-18) -2.7%;
-NBA (new data: data/nba_odds/OddsData.sqlite, 2007-26, SPREAD COLUMN IS UNSIGNED -> sign from ML fav)
-angles 0/5 + Elo/logit models 0/2. Running: scripts/kalshi_longshot.py build (all Kalshi sports markets,
-1 h pre-start price) -> then `dev --ledger` (5 pre-registered trials). kalshi_longshot sealed is BLOCKED
-until 2026 start times come from schedules (Kalshi changed expiration offsets in 2026).
-Idea queue: Kalshi maker-side (post bids on longshots); NBA totals model; NHL (no odds data yet);
-college (needs collegefootballdata key from user).
+## AUTONOMOUS LOOP (user 2026-10-17/18: "keep looking and backtest as much as you can"; only backtests count)
+Done (scripts): nfl strategies in lab/strategies (5 online angles); mlb_ml_open.py, mlb_ml_move.py (SBRO);
+nba_angles.py, nba_model.py (data/nba_odds/OddsData.sqlite); kalshi_longshot.py, kalshi_maker.py,
+kalshi_maker_ladder.py, kalshi_start_times.py (ESPN starts -> leak-free sealed prices); soccer_fd.py.
+Next ideas (unblocked): soccer variants are the vein -- per-book volume at US-relevant books, Shin de-vig check,
+min-price / draw-only splits (each = a counted trial; bar for soccer_fd is now p < 0.005 after 10 trials).
+Blocked: tennis-data.co.uk 403s automation (don't bypass); NHL/college odds sources not found free;
+Pinnacle O/U in soccer only from 2019 (sealed era).
 
 ## WAITING ON USER
 00. NEW 2026-10-18 BEST LEAD -- soccer soft-book vs Pinnacle (scripts/soccer_fd.py): S7 b365_pow3 dev CLV +2.57%
