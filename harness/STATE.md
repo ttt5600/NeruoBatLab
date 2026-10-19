@@ -1,5 +1,5 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-19 03:05 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user: "summarize please and keep going")
+Updated: 2026-10-19 02:48 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user: "yep logged in")
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts).
 Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never quote ct11_<tag>_emb.npy readers.
@@ -15,6 +15,11 @@ Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never
   flips -> 048 stands. 080 CONFIRMED (critic changes applied; pointer in 048). score_run.sh + board use the CPU chick
   file; board v6 published -- no MPS-derived column left on it.
 
+## 2026-10-19 02:50: lab eval vs board gap explained
+- E23s2 0.8494 (Savio) vs 0.8482 (Mac): embeddings agree to 2.8e-6; the probe flips 5-13 near-tie clips -> scores
+  reproduce to ~+-0.001 (INTERN.md s7 + eval_model.py report; pytorchAudio d96c6aaf, on Savio). Login node python
+  gave EIO at 02:47 (dtn fine) -- lab eval/embed pre-flight runs there; retry or use dtn.
+
 ## In flight
 - E12 = run22 (40090445): preempted 2x, requeued at step 41,018; Slurm est. restart 2026-10-19 14:39. Score with
   `bash harness/score_run.sh run22_avesfsd /global/scratch/users/jonathanswang/temp_train_run22_avesfsd 200 40090445`.
@@ -29,6 +34,6 @@ Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never
 ## Waiting on the user
 - E13 teacher (biox-base 0.8476 ~ AVES-bio 0.8438 on CPU; bioxn-large 0.8590 is large), E26 success + donors,
   E27 24-layer branch, E15 corpus, E33 (rec: no at +-2 st), 10-split headline, BeVo split, AVEX, WiSE-FT.
-- Older: E30-32, label audit. Savio cert EXPIRED 2026-10-19 00:52 (notified): `sv login` before E12 starts ~14:39.
+- Older: E30-32, label audit. Savio cert renewed 02:45, valid to 14:45 -- E12's est. start 14:39 is 6 min before expiry.
 
 ## Resume: /loop follow harness/PI.md  (first wake: read PI.md, AGENT.md, this file, knowledge/BRIEF.md, pi_status.sh)
