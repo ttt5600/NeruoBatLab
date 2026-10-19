@@ -39,6 +39,10 @@ that leakage is visible rather than implicit.
 Usage
     chick_holdout_variants.py --models run11,aves-base-bio,dapt5e5_step2500
     chick_holdout_variants.py --report
+    chick_holdout_variants.py --cpu --models ...      (and --cpu --bootstrap ...)
+        Encode on the CPU: caches chick_<name>_<tag>_cpu.npy, results chick_holdout_variants_cpu.json, nothing
+        else touched. The Mac's MPS attention is wrong for 2-8 frame inputs (finding 076) and 97 of the 415 chick
+        clips are that short, so the MPS caches and chick_holdout_variants.json are off; quote the CPU file.
 """
 from __future__ import annotations
 import argparse, gc, json, sys
@@ -62,6 +66,10 @@ DETJSON = ANA / "detection_variants.json"
 OUTJSON = ANA / "chick_holdout_variants.json"
 EMB = CHICK / "emb"
 SEED = 0
+CPU = "--cpu" in sys.argv                     # see Usage; set before main() parses the rest
+SUFFIX = "_cpu" if CPU else ""
+if CPU:
+    OUTJSON = ANA / "chick_holdout_variants_cpu.json"
 
 
 def manifest():
@@ -85,7 +93,7 @@ def manifest():
 
 def encode(name, s, names, tag, device):
     """(n_clips, n_layers, dim) float32, one clip at a time."""
-    out = EMB / f"chick_{name}_{tag}.npy"
+    out = EMB / f"chick_{name}_{tag}{SUFFIX}.npy"
     if out.exists():
         return np.load(out)
     layers = layer_grid(s["n_layers"])
@@ -206,6 +214,7 @@ def main():
     ap.add_argument("--bootstrap", action="store_true",
                     help="paired chick-level bootstrap of every --models entry against --baseline")
     ap.add_argument("--baseline", default="run11")
+    ap.add_argument("--cpu", action="store_true", help="encode on the CPU (see Usage)")
     args = ap.parse_args()
 
     out = {"in": {}, "precommit": {}, "note": []}
@@ -245,8 +254,11 @@ def main():
     out["in"]["duration_only"] = {"L0": dict(auc=s_.auc, ap=s_.ap)}
     print(f"  duration-only baseline   AUC {s_.auc:.4f}  AP {s_.ap:.4f}", flush=True)
 
-    device = "mps" if torch.backends.mps.is_available() else "cpu"
-    print(f"[device] {device}", flush=True)
+    device = "cpu" if CPU else ("mps" if torch.backends.mps.is_available() else "cpu")
+    print(f"[device] {device} -> {OUTJSON.name}", flush=True)
+    note = "CPU encode (finding 076); caches chick_<name>_<tag>_cpu.npy"
+    if CPU and note not in out.setdefault("note", []):
+        out["note"].append(note)
 
     for name in [n for n in args.models.split(",") if n]:
         s = spec(name)
@@ -291,7 +303,7 @@ def bootstrap_mode(out, args):
         if arm is None:
             return None
         tag, layer = arm
-        f = EMB / f"chick_{name}_{tag}.npy"
+        f = EMB / f"chick_{name}_{tag}{SUFFIX}.npy"
         if not f.exists():
             print(f"[skip] {name}: no cached embeddings at {f.name}; encode it first")
             return None

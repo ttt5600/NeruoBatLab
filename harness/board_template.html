@@ -116,7 +116,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
         </tbody>
       </table>
     </div>
-    <p class="sub" style="margin-top:8px">Detection and holdout columns use each model's pre-committed layer and input normalisation. BirdPark is four independent 30 s blocks, so its AP moves by up to 0.05 between arms. "…/" is <code>/global/scratch/users/jonathanswang/</code>; every folder there is shared with Julie and Bhavna. Label-free k=30 is bird-held-out cluster stability (ARI, layer 3, 50 bird halvings; finding 069): does the model find the same 30 groups again in birds it has not seen? It uses no labels, and the halvings spread is wide. Chick AUC is the one column still computed from the Mac's GPU backend (97 of 415 chick clips are short enough to be affected, finding 076); compare it only within its own column.</p>
+    <p class="sub" style="margin-top:8px">Detection and holdout columns use each model's pre-committed layer and input normalisation. BirdPark is four independent 30 s blocks, so its AP moves by up to 0.05 between arms. "…/" is <code>/global/scratch/users/jonathanswang/</code>; every folder there is shared with Julie and Bhavna. Label-free k=30 is bird-held-out cluster stability (ARI, layer 3, 50 bird halvings; finding 069): does the model find the same 30 groups again in birds it has not seen? It uses no labels, and the halvings spread is wide. Chick AUC is re-encoded on the CPU too (on the Mac's GPU backend all 97 chick clips of 2–8 frames were mis-encoded, finding 076).</p>
   </section>
 
   <section id="experiments">

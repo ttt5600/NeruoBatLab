@@ -1,0 +1,55 @@
+id: '080'
+title: Re-encoded on CPU, the chick holdout's clustering scores move by up to 0.15 but no comparison with run11 changes verdict; 048 stands
+status: confirmed
+claim: 'The chick holdout (048) was encoded on the Mac''s MPS backend, which is wrong for 2-8 frame inputs (076). All
+  97 of the 415 chick clips in that range (3-8 frames; none shorter) were mis-encoded in every model and tag, by up to
+  0.45 (matched) / 0.62 (native) relative to the CPU for run11 (max |MPS - CPU| / max |CPU| per clip); the 318 clips of
+  9+ frames agree to 1e-4. Re-encoded on CPU for all 34 models at the same pre-committed arms, Be/LT AUC moves by at
+  most 0.005 (median -0.0007) while AMI(k=4) moves by -0.046 to +0.150 (median +0.0165, mean |change| 0.035), and AMI
+  ranks only partly survive (Spearman 0.60 MPS vs CPU). No conclusion changes: all 33 paired chick-bootstrap
+  comparisons with run11 remain not distinguishable on both readouts. 048''s directional result holds on CPU: all 18
+  DAPT checkpoints stay above run11 on Be/LT AUC (by at least +0.0037), and 048''s six DAPT checkpoints move from
+  0.9902-0.9943 vs run11 0.9858 to 0.9911-0.9926 vs 0.9874. 048''s remark that run11 beat its models on AMI still
+  holds for those six (0.3857-0.4958 on MPS, 0.4225-0.5193 on CPU, vs run11 0.5361 on both); over all 33 models, 4
+  later DAPT checkpoints were already above run11 on MPS and the CPU adds 2 (daptreplay3_5e5_step15000,
+  daptv4two_2e4s2_step15000), highest daptv4bird_2e4_step15000 0.5957.'
+evidence: 'Per-clip MPS vs CPU: the 97 short clips change in all 68 model x tag cache pairs; no clip of 9+ frames changes
+  by more than 9.4e-5 (critic''s check over all caches); run11 max relative diff on long clips 1.9e-5 matched, 2.3e-5
+  native. Pre-committed arms (chick_holdout_variants.json vs chick_holdout_variants_cpu.json precommit, 34 models, arms
+  identical): AUC CPU minus MPS -0.0049 to +0.0016; AMI(k=4) -0.0461 to +0.1502 (largest daptv3aves_2e4_step15000
+  +0.1502, daptv4aveso_2e4_step15000 +0.1067, dapt1e4_step2500 +0.0961). Every model-arm-layer cell (408): AUC -0.0075
+  to +0.0071, AMI -0.1091 to +0.2205. Examples (AUC / AMI, MPS -> CPU): run11 matched_L0 0.9858 -> 0.9874 / 0.5361 ->
+  0.5361; aves-base-bio matched_L6 0.9932 -> 0.9911 / 0.3873 -> 0.4409; run16_compute4x native_L0 0.9936 -> 0.9942 /
+  0.5095 -> 0.5232; run19_seed2 native_L3 0.9933 -> 0.9923 / 0.4790 -> 0.5122. One AUC sign flip against run11:
+  run16_seed3 +0.0050 on MPS, -0.0014 on CPU (now the only model below run11). Paired chick bootstrap vs run11 on CPU
+  (bootstrap, 2,000 AUC / 400 AMI replicates resampling chicks): 0 of 33 resolved on either readout; AMI interval
+  widths 0.234-0.333, AUC 0.017-0.037; observed AUC minus run11 -0.0014 to +0.0094, AMI -0.1374 to +0.0595. Three AUC
+  intervals sit on zero: run15_combined +0.0077 [+0.0000, +0.0227], run29_avesrecipe_s2 +0.0094 [+0.0000, +0.0247],
+  run20_fsdonly +0.0072 [-0.0000, +0.0209] (the script counts a bound of exactly 0 as not resolved; six MPS intervals
+  were pinned at 0 the same way). Duration-only baseline unchanged (AUC 0.8108; no encoder).'
+method: 'zfeval/experiments/chick_holdout_variants.py --cpu (new mode, 2026-10-18/19): the same clips, resampling,
+  normalisation tags and layer grid, encoded one clip at a time on the CPU into chick_<name>_<tag>_cpu.npy (MPS caches
+  untouched); pre-committed arms read from detection_variants.json as before (detection is unaffected by 076); then
+  --cpu --bootstrap --baseline run11. Results in analysis/chick_holdout_variants_cpu.json beside the MPS JSON. run11''s two
+  CPU caches were written at 00:37-00:38 by the lead''s per-clip diagnostic (same encode() on device cpu), before the
+  logged run, which loaded them.'
+provenance: 'analysis/chick_holdout_variants_cpu.json (in, precommit, bootstrap); analysis/chick_holdout_variants.json
+  (MPS, for the before/after); ~/zf_labelset/external/chick/emb/chick_<name>_<tag>_cpu.npy;
+  harness/logs/chick_cpu_*.log, chick_cpu_boot_*.log.'
+caveats: 'Critic (2026-10-19): ACCEPT-WITH-CHANGES, applied: relative-diff denominator defined (CPU); 4 of the 6
+  models above run11 on AMI were already there on MPS; 048''s Be/LT direction re-checked on CPU; "no verdict flips"
+  scoped (26 comparisons checked against the MPS JSON, 6 round-1 DAPT checkpoints against 048''s text, aves-base-nonbio
+  had no earlier verdict); the three AUC intervals pinned at 0 named; run16_seed3''s AUC sign flip named; run11''s
+  unlogged CPU encode recorded. The critic reproduced every stored AMI of all 34 models on both devices from the
+  caches (sklearn 1.7.2) and verified that run11''s k=4 clusterings are identical on MPS and CPU (0 of 415 clips
+  differ), which is why its AMI coincides. The bootstrap "delta" in these JSONs is the resample mean, so observed
+  differences are quoted from the precommit values. The AMI readout has no power at 15 chicks (intervals 0.23-0.33
+  wide), so its large point-estimate moves matter only to anyone reading single chick AMI numbers; any earlier
+  finding quoting a chick AMI or AUC value (046, 048, 053-061, 064, 066, 077, 078) quotes an MPS number and should be
+  re-read from the CPU JSON. Cohort and arms unchanged; nothing re-selected on chick data.'
+tags:
+- holdout
+- chick
+- correction
+- evaluation
+date: '2026-10-19'

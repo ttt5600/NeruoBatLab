@@ -26,7 +26,7 @@ method: 'zfeval/experiments/chick_holdout_variants.py. Arms are read from detect
   and clip-level resampling would produce intervals several times too narrow.'
 provenance: zfeval/experiments/chick_holdout_variants.py; analysis/chick_holdout_variants.json;
   audio copied to ~/zf_labelset/external/chick/
-caveats: 'DO NOT treat this as a second axis that can settle DAPT questions -- it cannot, and the
+caveats: 'CPU re-encode (080, 2026-10-19): every number here is MPS; on CPU no verdict changes, AMI point estimates move by up to 0.15, AUC by up to 0.005. DO NOT treat this as a second axis that can settle DAPT questions -- it cannot, and the
   intervals say so. The likely reason it shows no damage is that chicks are NOT a domain holdout in
   the sense BirdPark is: they are zebra finches from the same corpus family, differing in individual
   and recording date, whereas BirdPark is a different lab, different room, different microphones.

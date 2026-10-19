@@ -141,7 +141,7 @@ def main():
     now = dt.datetime.now().astimezone()
     acc, vs, sp = calltype(), vs_ref(), splits()
     det = load("detection_variants.json").get("precommit", {})
-    chick = load("chick_holdout_variants.json").get("precommit", {})
+    chick = load("chick_holdout_variants_cpu.json").get("precommit", {})     # CPU encode (076)
     lfree = load("labelfree_stability_cpu.json").get("models", {})
     reg = registry()
 

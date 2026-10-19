@@ -10,8 +10,8 @@
 # call-type clips). run15_calltype.py still runs first because it writes the MPS cache + JSON that
 # calltype_cpu_rescore.py records beside the CPU score; QUOTE ONLY calltype_cpu_rescore.json (models.TAG) and
 # seed_pairs_cpu.json ("TAG | aves-base-bio", "TAG | run16_compute4x"). The label-free score uses the CPU caches too
-# (labelfree_stability_cpu.json). The chick holdout still encodes on MPS, like every reference in that JSON
-# (97 of 415 chick clips are 2-8 frames): compare chick numbers only with each other, never with a CPU number.
+# (labelfree_stability_cpu.json), and so does the chick holdout (--cpu -> chick_holdout_variants_cpu.json; on MPS
+# all 97 chick clips of 2-8 frames were mis-encoded). Detection is unaffected by 076 and still runs as before.
 #
 #   bash harness/score_run.sh TAG EXP_DIR [NUM_CLASSES] [JOBID]
 #   DRY=1 bash harness/score_run.sh run17_accum2 /global/scratch/users/jonathanswang/temp_train_run17_accum2
@@ -71,8 +71,8 @@ run "$PY" zfeval/experiments/run15_calltype.py --tag "$TAG"                 # MP
 run "$PY" zfeval/experiments/calltype_cpu_rescore.py --only "$TAG"         # CPU call type: the number to quote
 run "$PY" zfeval/experiments/seed_pairs_cpu.py "$TAG:aves-base-bio" "$TAG:run16_compute4x"   # CPU bird bootstrap
 run "$PY" zfeval/experiments/detection_variants.py --models "$TAG"
-run "$PY" zfeval/experiments/chick_holdout_variants.py --models "$TAG"
-run "$PY" zfeval/experiments/chick_holdout_variants.py --bootstrap --models "$TAG" --baseline run11
+run "$PY" zfeval/experiments/chick_holdout_variants.py --cpu --models "$TAG"
+run "$PY" zfeval/experiments/chick_holdout_variants.py --cpu --bootstrap --models "$TAG" --baseline run11
 run "$PY" zfeval/experiments/calltype_labelfree.py --cpu --only "$TAG"     # label-free column (E11), CPU caches
 
 if [ -n "${DRY:-}" ]; then echo "DRY RUN OK: every input exists"; exit 0; fi
@@ -92,11 +92,10 @@ for ref in ("aves-base-bio", "run16_compute4x"):
     r = pairs[f"{tag} | {ref}"]
     print(f"   vs {ref}: {r['diff']:+.4f} [{r['lo']:+.4f}, {r['hi']:+.4f}]{' resolved' if r['resolved'] else ' n.d.'}")
 PY
-for f in detection_variants chick_holdout_variants labelfree_stability_cpu; do
+for f in detection_variants chick_holdout_variants_cpu labelfree_stability_cpu; do
     grep -q "\"$TAG" "$A/$f.json" || { echo "FATAL: $TAG missing from $f.json"; exit 4; }
 done
 cp "$A/${TAG}_calltype.json" "$A/calltype_cpu_rescore.json" "$A/seed_pairs_cpu.json" "$A/detection_variants.json" \
-   "$A/chick_holdout_variants.json" "$A/labelfree_stability_cpu.json" "$M/analysis/"
+   "$A/chick_holdout_variants_cpu.json" "$A/labelfree_stability_cpu.json" "$M/analysis/"
 echo "SCORED $TAG -> call type: calltype_cpu_rescore.json + seed_pairs_cpu.json (CPU; ${TAG}_calltype.json is MPS, do"
-echo "   not quote it); detection_variants.json; chick_holdout_variants.json (MPS, like all its references);"
-echo "   labelfree_stability_cpu.json"
+echo "   not quote it); detection_variants.json; chick_holdout_variants_cpu.json; labelfree_stability_cpu.json"
