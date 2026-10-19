@@ -2,6 +2,9 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-19 | KALSHI SOCCER 1X2 calibration, 3 pre-registered trials (scripts/kalshi_soccer.py) | Kalshi 15 leagues, dev 2025-04..2026-02, 2,301 matches (price = close_time-4h, Brier .194 = pre-kickoff) | S1 every draw YES -6.5%/2,286 p.97; S2 fav>=60% YES -1.9%/589 p.77; S3 tail<=12c NO +1.9%/318 p.087 (bar .0167) | NO EDGE: sum of mids 1.005, draws fairly priced; losses ~= the fee. Sealed 2026-03+ untouched |
+| 10-19 | KALSHI SOCCER vs Pinnacle live snapshot (scripts/kalshi_soccer_vs_pin_snapshot.py, descriptive) | 99 upcoming matches, 9 leagues, 296 quotes | median abs(Kalshi mid - Pinnacle power fair) 0.34c; 0 quotes with EV >= 1% after fee | Kalshi soccer is market-made off the sharp line -> the soft-book soccer edge does not exist on Kalshi |
+| 10-19 | SOCCER S12 de-vig robustness (descriptive, not a trial) | dev 2012-19, 2,604 bets | CLV vs Pinnacle close: proportional +3.65%, Shin +3.03%, odds-ratio +3.21%, power +2.87% (all p<.001); positive for H/D/A, every price bin, 22/22 divs, 7/7 seasons, all 3 books. Power still overstates 5-10 odds by ~1.3% (hit/fair .987) -> that bin's +4.0% is ~+2.7% | not a de-vig artifact; power is the conservative choice |
 | 10-18 | SOCCER S12 dose-response (descriptive, not trials) | dev | CLV by edge threshold 0/2/3/5/10%: +0.7/+2.1/+2.9/+4.9/+10.6%; lower divs CLV +2.9% (2,230), top +2.6% (374) | monotonic -> looks like a real mispricing |
 | 10-18 | SOCCER S12 best of B365/WH/bwin, power-devig vs Pinnacle, >=3%, price<10 | dev 2012-19 | CLV +2.87% p<.001 (7/7 seasons); ROI +8.5%/2,604 p.008 (6/7) | strongest lead; ~370 bets/yr ~ $90/mo at $100 stakes before limits; sealed needed |
 | 10-18 | SOCCER S9 bwin (Entain/BetMGM parent) power-devig vs Pinnacle | dev 2012-19 | CLV +2.95% p<.001 (6/7 seasons), ROI -0.8%/301 (noise) | 3 books agree CLV +2.6-3.0% -> structural soft-vs-sharp gap; bwin rarely offers it |

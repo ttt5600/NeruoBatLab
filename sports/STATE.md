@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-19 (pre-/clear handoff: soccer lead + 3 sealed tests await user yes). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-19 (S12 robust to de-vig; Kalshi soccer 0/3 + tracks Pinnacle; 3 sealed tests still await yes). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -21,6 +21,13 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
   S12 best3_pow3 = best of B365/WH/bwin, power de-vig of Pinnacle pre-close, edge >= 3%, price < 10:
   dev 2012-19 CLV +2.87% (p<.001, 7/7 seasons), ROI +8.5%/2,604 (p .008); CLV monotonic in threshold.
   Trap: PROPORTIONAL de-vig overstates longshots -> fake CLV (S6 withdrawn). Sealed 2019-26 awaits yes.
+  10-19 robustness (not a trial): S12 dev CLV +2.9..+3.7% under power/Shin/odds-ratio/proportional close de-vig,
+  positive in 22/22 divs, 7/7 seasons, H/D/A, every price bin, all 3 books -> not a de-vig artifact.
+- KALSHI SOCCER (10-19, scripts/kalshi_soccer.py, 15 leagues, $1-6M/EPL outcome): dev 0/3 (draws -6.5%,
+  fav60 -1.9%, tail-NO +1.9% p.087); mids sum 1.005. Live snapshot: Kalshi mid within 0.34c (median) of
+  Pinnacle power fair, 0/296 quotes >= 1% EV -> the soft-book soccer edge does NOT exist on Kalshi (US-legal
+  route is closed; S12 needs a non-US-style soft book account). Sealed Kalshi soccer (2026-03+) untouched.
+  Data trap: Kalshi soccer occurrence_datetime = kickoff+3h; price at close_time-4h (close = full time).
 - ~45 trials 10-16..10-18, all dev, all in lab/ledger.jsonl: every NFL/NBA/MLB closing-line angle loses ~the vig;
   Kalshi sports longshots <10c lose ~45% (paper replicated) but no Kalshi rule past the bar; maker-side
   edge = mostly spread capture and a symmetric ladder test showed it does NOT survive adverse selection.
@@ -84,7 +91,7 @@ sports, stock rules (trim on rises / buy dips, tech->industries graph model) wit
 Done (scripts): nfl strategies in lab/strategies (5 online angles); mlb_ml_open.py, mlb_ml_move.py (SBRO);
 nba_angles.py, nba_model.py (data/nba_odds/OddsData.sqlite); kalshi_longshot.py, kalshi_maker.py,
 kalshi_maker_ladder.py, kalshi_start_times.py (ESPN starts -> leak-free sealed prices); soccer_fd.py.
-Next ideas (unblocked): soccer variants are the vein -- per-book volume at US-relevant books, Shin de-vig check,
+Done 10-19: kalshi_soccer.py (0/3), S12 de-vig robustness. Next ideas (unblocked): soccer_fd variants are the vein -- per-book volume at US-relevant books, Shin de-vig check,
 min-price / draw-only splits (each = a counted trial; bar for soccer_fd is now p < 0.005 after 10 trials).
 Blocked: tennis-data.co.uk 403s automation (don't bypass); NHL/college odds sources not found free;
 Pinnacle O/U in soccer only from 2019 (sealed era).
