@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-19 (S12 robust to de-vig; Kalshi soccer 0/3 + tracks Pinnacle; 3 sealed tests still await yes). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-19 (orchestration: 4 durable loops + research queue; dry-run executor; $100/mo plan). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -38,6 +38,41 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 - Frozen snapshot `data/frozen/2026-10-14/` (sha256 MANIFEST). Sealed: nba 2026, nhl 2026, mlb 2025, nfl 2025.
 - Older: pattern-mine sealed confirm 0/10 (10-15); NBA DK high-line under untested (needs Odds API);
   live_edges.py Pinnacle-vs-Kalshi scanner 0 flags (session-only).
+
+## ORCHESTRATION (user 2026-10-19: "take control of orchestration... more loops"; goal $100/month revenue)
+Durable loops (launchd, all from ~/.claude/quant-kalshi; reinstall with the scripts/install_*.sh after edits):
+  L1 quant-kalshi-paper  hourly :03  kalshi_paper.py tick (temp consensus-reject picks + settle) THEN
+                         kalshi_exec.py run --live = SHADOW execution: sizes each fresh pick vs the live book,
+                         logs data/kalshi_exec.jsonl. DRY unless ~/.claude/quant-kalshi/.env has EXEC_MODE=live (user).
+  L2 quant-live-signals  15 min      live_signals.py tick (NFL pre-kickoff rain -> Kalshi totals, paper)
+  L3 quant-gap-logger    2 min       gap_logger.py tick: every Kalshi game contract vs Pinnacle (6 US + 9 soccer
+                         leagues, ~400 quotes/tick) -> episodes with EV >= 1% after fee; `gap_logger.py report`.
+                         Answers "Kalshi moves around -> opportunities?". Judge after ~1 week of ticks.
+  L4 research loop       this session (/loop, self-paced) + usage-watch auto-resume: works the QUEUE below,
+                         one item per wake, dev data only, every trial in the ledger, STATE + push after each.
+Each wake, first: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/kalshi_paper.py report;
+  .venv/bin/python scripts/kalshi_exec.py report; .venv/bin/python scripts/gap_logger.py report;
+  .venv/bin/python scripts/live_signals.py report` -> note numbers here.
+
+$100/MONTH MATH (from the sealed record, 2026-10-19): consensus-reject sealed = 1,844 bets over 2025-07..2026-10
+(~15 mo, ~121 bets/mo), ROI +1.45% per $ risked after fees (95% CI on units +10.9..+42.6 -> ROI +0.6..+2.3%).
+$100/mo needs ~$57 per bet (CI at that stake: ~$40-$160/mo). Median resting depth 617 contracts within 1c ->
+$57 is ~10% of depth. ~4 picks/night -> ~$230 out at once; keep ~$1,000 bankroll (one loss at NO 0.95-0.99
+costs the whole stake = 20-90 wins). Profit was lumpy (2026Q1 = 16.7 of 26.8 units; 2 of 6 quarters negative).
+Exec default caps ($25/order, $100/day, $300 open) -> ~$44/mo; $100/mo needs ~$60/order, $250/day, $500 open.
+Capacity lever: Kalshi now lists 48 live US temp series (21 daily highs, 27 daily LOWS); we trade 7 highs.
+
+QUEUE (research loop works top-down; skip blocked items):
+  Q1 consensus-reject on the 41 NEW KX(HIGH|LOW) series (list: Kalshi /series, category Climate and Weather,
+     ticker ^KX(HIGH|LOW)T?[A-Z]{2,5}$ with open markets). Rule FROZEN (no refit). Build settled brackets +
+     leak-free historical forecasts (same pipeline as kalshi_temp / sports/wx.py), pre-register split
+     DEV < 2026-03-01 / SEALED >= 2026-03-01 (sealed needs user yes). Lows = forecast daily MIN; check NWS
+     climate-day definition (midnight-midnight LST) before building.
+  Q2 gap_logger report after >= 3 days: episode count/duration; if >= 1% EV episodes persist >= 4 min, pre-register
+     a taker paper rule on them.
+  Q3 soccer_fd dev variants (each a counted trial, bar now p < 0.005): draw-only, per-league tiers, Shin selection.
+  Q4 Kalshi RAIN markets (KXRAIN*): consensus "all models dry" -> NO on rain, same protocol as Q1.
+  Q5 Kalshi temp maker version: rest the NO bid 1c better than the taker price (fill realism = the risk).
 
 ## USER DIRECTION (2026-10-15) -- go wide, everything that can earn >= $100/month
 User wants: stocks, Polymarket, sportsbooks ("bet until limited; limits come ~$50k won" -- user's number,
@@ -97,6 +132,12 @@ Blocked: tennis-data.co.uk 403s automation (don't bypass); NHL/college odds sour
 Pinnacle O/U in soccer only from 2019 (sealed era).
 
 ## WAITING ON USER
+000. NEW 2026-10-19 REAL MONEY SWITCH (only route to revenue with evidence): executor is built + shadowing (dry).
+   To go live the USER: (1) creates a Kalshi API key, saves the private key file, and writes to
+   ~/.claude/quant-kalshi/.env: KALSHI_KEY_ID=..., KALSHI_PRIVATE_KEY_PATH=..., KALSHI_MAX_ORDER_USD=25,
+   KALSHI_MAX_DAILY_USD=100, KALSHI_MAX_OPEN_USD=300; (2) runs `cd ~/.claude/quant-kalshi && .venv/bin/python
+   scripts/kalshi_exec.py check`; (3) adds EXEC_MODE=live. Claude never touches the key. Kill: `touch
+   ~/.claude/quant-kalshi/KILL`. First live order: verify fill vs log (order-body fields unexercised).
 00. NEW 2026-10-18 BEST LEAD -- soccer soft-book vs Pinnacle (scripts/soccer_fd.py): S7 b365_pow3 dev CLV +2.57%
    (p<.001), ROI +9.8%/1,623, 6/7 seasons; S8 wh_pow3 CLV +2.81%, ROI +10.4%/910. Passed dev bar on CLV, but the
    power de-vig was chosen after seeing dev calibration -> needs the sealed 2019-20..2025-26 score (user's yes).

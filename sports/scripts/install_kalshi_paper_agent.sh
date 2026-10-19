@@ -3,7 +3,9 @@
 # so code + venv + log live in ~/.claude/quant-kalshi. Re-run after editing kalshi_paper.py or sports/.
 #   tick hourly at :03 = pick every city in its decision window (22:00-23:59 CITY-local, once per
 #   city-night) + settle. No wall-clock dispatch: launchd runs late after sleep (10-16 lost every pick).
-# Paper only: kalshi_paper.py places no orders. Log: ~/.claude/quant-kalshi/data/kalshi_paper.jsonl
+# kalshi_paper.py places no orders; kalshi_exec.py runs after each tick in DRY mode (log data/kalshi_exec.jsonl).
+# Real orders need the USER to put KALSHI_KEY_ID, KALSHI_PRIVATE_KEY_PATH and EXEC_MODE=live in $DST/.env.
+# Log: ~/.claude/quant-kalshi/data/kalshi_paper.jsonl
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
 DST="$HOME/.claude/quant-kalshi"
@@ -12,7 +14,8 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data"
 rsync -a --delete --exclude __pycache__ "$SRC/sports/" "$DST/sports/"
-cp "$SRC/scripts/kalshi_paper.py" "$DST/scripts/"
+cp "$SRC/scripts/kalshi_paper.py" "$SRC/scripts/kalshi_exec.py" "$DST/scripts/"
+"$DST/.venv/bin/python" -c "import cryptography" 2>/dev/null || "$DST/.venv/bin/pip" install -q cryptography
 if [ ! -x "$DST/.venv/bin/python" ]; then
   /opt/homebrew/opt/python@3.14/bin/python3.14 -m venv "$DST/.venv"
   "$DST/.venv/bin/pip" install -q numpy pandas requests pyarrow
@@ -25,6 +28,9 @@ cd "$DST"
 echo "=== \$(date '+%F %T') \$1" >> run.log
 "$DST/.venv/bin/python" scripts/kalshi_paper.py "\$1" >> run.log 2>&1
 echo "exit \$?" >> run.log
+# shadow execution: size each fresh pick against the live book. DRY unless $DST/.env has EXEC_MODE=live
+# (user-set) -- and even then only with --live, which this line passes; KILL file in $DST stops it.
+if [ "\$1" = tick ]; then "$DST/.venv/bin/python" scripts/kalshi_exec.py run --live >> exec.log 2>&1; fi
 EOF
 chmod +x "$DST/run.sh"
 

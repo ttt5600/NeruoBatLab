@@ -21,3 +21,8 @@ sports/lab/logs/
 sports/lab/.loop.lock
 quant/results/logs/
 quant/results/backups/
+
+# secrets: Kalshi API key id / private key (user-managed, never commit)
+sports/.env
+*.pem
+*.key
