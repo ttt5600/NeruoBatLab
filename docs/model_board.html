@@ -4,7 +4,7 @@
 <style>
 :root {
   --ground: #F3F5F2; --surface: #FFFFFF; --ink: #18201C; --muted: #5C6761; --rule: #D9DED8;
-  --ours: #2E5F8A; --dapt: #2A8573; --aves: #8C9590;
+  --ours: #2E5F8A; --dapt: #2A8573; --aves: #8C9590; --other: #A0622D;
   --ok: #2E7D4F; --run: #2E5F8A; --plan: #6450A3; --warn: #9A6210; --bad: #B23B3B; --idle: #6F7973;
   --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -13,14 +13,14 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --ground: #111513; --surface: #1A201D; --ink: #E5EAE6; --muted: #9AA59F; --rule: #2D3531;
-    --ours: #7FAEDC; --dapt: #5CC3AE; --aves: #7F8984;
+    --ours: #7FAEDC; --dapt: #5CC3AE; --aves: #7F8984; --other: #DE9A62;
     --ok: #63C38A; --run: #7FAEDC; --plan: #A99BE3; --warn: #E2A84E; --bad: #EC7B7B; --idle: #96A09A;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --ground: #111513; --surface: #1A201D; --ink: #E5EAE6; --muted: #9AA59F; --rule: #2D3531;
-  --ours: #7FAEDC; --dapt: #5CC3AE; --aves: #7F8984;
+  --ours: #7FAEDC; --dapt: #5CC3AE; --aves: #7F8984; --other: #DE9A62;
   --ok: #63C38A; --run: #7FAEDC; --plan: #A99BE3; --warn: #E2A84E; --bad: #EC7B7B; --idle: #96A09A;
 }
 * { box-sizing: border-box; }
@@ -50,14 +50,14 @@ svg .zero { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 3 3; }
 svg .tick { fill: var(--muted); font: 11px var(--mono); }
 svg .lab { fill: var(--ink); font-size: 12.5px; }
 svg .ci { stroke-width: 2.2; stroke-linecap: round; }
-svg .ci.ours { stroke: var(--ours); } svg .ci.dapt { stroke: var(--dapt); } svg .ci.aves { stroke: var(--aves); }
-svg circle.dot-fill.ours { fill: var(--ours); } svg circle.dot-fill.dapt { fill: var(--dapt); } svg circle.dot-fill.aves { fill: var(--aves); }
+svg .ci.ours { stroke: var(--ours); } svg .ci.dapt { stroke: var(--dapt); } svg .ci.aves { stroke: var(--aves); } svg .ci.other { stroke: var(--other); }
+svg circle.dot-fill.ours { fill: var(--ours); } svg circle.dot-fill.dapt { fill: var(--dapt); } svg circle.dot-fill.aves { fill: var(--aves); } svg circle.dot-fill.other { fill: var(--other); }
 svg circle.dot-open { fill: var(--surface); stroke-width: 2; }
-svg circle.dot-open.ours { stroke: var(--ours); } svg circle.dot-open.dapt { stroke: var(--dapt); } svg circle.dot-open.aves { stroke: var(--aves); }
+svg circle.dot-open.ours { stroke: var(--ours); } svg circle.dot-open.dapt { stroke: var(--dapt); } svg circle.dot-open.aves { stroke: var(--aves); } svg circle.dot-open.other { stroke: var(--other); }
 .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted); margin-top: 10px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .sw { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: none; }
-.sw.ours { background: var(--ours); } .sw.dapt { background: var(--dapt); } .sw.aves { background: var(--aves); }
+.sw.ours { background: var(--ours); } .sw.dapt { background: var(--dapt); } .sw.aves { background: var(--aves); } .sw.other { background: var(--other); }
 .sw.open { background: transparent; border: 2px solid var(--muted); }
 table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
 th { text-align: left; font: 500 11px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 8px 8px; border-bottom: 1px solid var(--rule); vertical-align: bottom; white-space: nowrap; }
@@ -89,14 +89,14 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">HuBERT vocalization models · as of Oct 19, 2026 01:20</div>
+    <div class="eyebrow">HuBERT vocalization models · as of Oct 19, 2026 01:27</div>
     <h1>Zebra Finch Model Board</h1>
     <nav><a href="#models">Models</a><a href="#experiments">Experiments</a><a href="#automations">Savio automations</a><a href="#notebooks">Notebooks</a></nav>
   </header>
 
   <div class="strip">
-    <div class="fact"><span class="k">Best of ours, call type</span><span class="v">run19, seed 2 0.8546</span><span class="note">AVES models score 0.842–0.859; vs run16 +0.0193 [-0.0059, +0.0432], not distinguishable</span></div>
-    <div class="fact"><span class="k">Seed-to-seed gap</span><span class="v">0.0155</span><span class="note">run16's second seed: -0.0155 [-0.0340, +0.0026] on the board's split, -0.0029 averaged over 10 splits. Single runs cannot separate smaller gaps.</span></div>
+    <div class="fact"><span class="k">Best of ours, call type</span><span class="v">run19, seed 2 0.8546</span><span class="note">vs run16 +0.0193 [-0.0059, +0.0432], not distinguishable. AVES models score 0.842–0.859. Best overall: Whisper base 0.8646, off the shelf, vs run16 +0.0293 [+0.0076, +0.0508].</span></div>
+    <div class="fact"><span class="k">Seed-to-seed gap</span><span class="v">0.0155</span><span class="note">run16's second seed: -0.0155 [-0.0340, +0.0026] on the board's split, -0.0029 averaged over 10 splits; at fixed layer 3 -0.0185 [-0.0340, -0.0028], below run16 on 10/10 splits (finding 079). Single runs cannot separate smaller gaps.</span></div>
     <div class="fact"><span class="k">Training now</span><span class="v">E12 (40090445)</span><span class="note"></span></div>
     <div class="fact needs"><span class="k">Needs you</span><ul><li>Run <code>sv login</code>: the Savio certificate has expired.</li><li>Approve the fix for duplicate agents.</li></ul></div>
   </div>
@@ -105,120 +105,148 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
     <h2>Models</h2>
     <p class="lede">11-class call type, leave-birds-out (3,412 clips, 48 birds), every call-type column from embeddings computed on the CPU (finding 076: the Mac's GPU backend mis-encoded most call clips, so earlier call-type numbers moved by up to 0.03). Each line is the observed difference from run16 with its 95% bird-bootstrap interval. A filled dot means the interval excludes zero. The 10-split column re-scores the same embeddings with the birds assigned to folds 10 different ways (finding 062). The board's split is run16's second best of 10, so a single-split gap of about 0.01 is within what the split alone moves.</p>
     <div class="panel">
-      <div class="scroll"><svg viewBox="0 0 760 760" role="img" aria-label="Call type difference from run16 with intervals">
-<line x1="190.0" y1="26" x2="190.0" y2="734" class="grid"/>
-<text x="190.0" y="750" class="tick" text-anchor="middle">-0.05</text>
-<line x1="244.6" y1="26" x2="244.6" y2="734" class="grid"/>
-<text x="244.6" y="750" class="tick" text-anchor="middle">-0.04</text>
-<line x1="299.2" y1="26" x2="299.2" y2="734" class="grid"/>
-<text x="299.2" y="750" class="tick" text-anchor="middle">-0.03</text>
-<line x1="353.8" y1="26" x2="353.8" y2="734" class="grid"/>
-<text x="353.8" y="750" class="tick" text-anchor="middle">-0.02</text>
-<line x1="408.4" y1="26" x2="408.4" y2="734" class="grid"/>
-<text x="408.4" y="750" class="tick" text-anchor="middle">-0.01</text>
-<line x1="463.0" y1="26" x2="463.0" y2="734" class="grid"/>
-<text x="463.0" y="750" class="tick" text-anchor="middle">+0.00</text>
-<line x1="517.6" y1="26" x2="517.6" y2="734" class="grid"/>
-<text x="517.6" y="750" class="tick" text-anchor="middle">+0.01</text>
-<line x1="572.2" y1="26" x2="572.2" y2="734" class="grid"/>
-<text x="572.2" y="750" class="tick" text-anchor="middle">+0.02</text>
-<line x1="626.8" y1="26" x2="626.8" y2="734" class="grid"/>
-<text x="626.8" y="750" class="tick" text-anchor="middle">+0.03</text>
-<line x1="681.4" y1="26" x2="681.4" y2="734" class="grid"/>
-<text x="681.4" y="750" class="tick" text-anchor="middle">+0.04</text>
-<line x1="736.0" y1="26" x2="736.0" y2="734" class="grid"/>
-<text x="736.0" y="750" class="tick" text-anchor="middle">+0.05</text>
-<line x1="463.0" y1="20" x2="463.0" y2="734" class="zero"/>
+      <div class="scroll"><svg viewBox="0 0 760 952" role="img" aria-label="Call type difference from run16 with intervals">
+<line x1="190.0" y1="26" x2="190.0" y2="926" class="grid"/>
+<text x="190.0" y="942" class="tick" text-anchor="middle">-0.06</text>
+<line x1="235.5" y1="26" x2="235.5" y2="926" class="grid"/>
+<text x="235.5" y="942" class="tick" text-anchor="middle">-0.05</text>
+<line x1="281.0" y1="26" x2="281.0" y2="926" class="grid"/>
+<text x="281.0" y="942" class="tick" text-anchor="middle">-0.04</text>
+<line x1="326.5" y1="26" x2="326.5" y2="926" class="grid"/>
+<text x="326.5" y="942" class="tick" text-anchor="middle">-0.03</text>
+<line x1="372.0" y1="26" x2="372.0" y2="926" class="grid"/>
+<text x="372.0" y="942" class="tick" text-anchor="middle">-0.02</text>
+<line x1="417.5" y1="26" x2="417.5" y2="926" class="grid"/>
+<text x="417.5" y="942" class="tick" text-anchor="middle">-0.01</text>
+<line x1="463.0" y1="26" x2="463.0" y2="926" class="grid"/>
+<text x="463.0" y="942" class="tick" text-anchor="middle">+0.00</text>
+<line x1="508.5" y1="26" x2="508.5" y2="926" class="grid"/>
+<text x="508.5" y="942" class="tick" text-anchor="middle">+0.01</text>
+<line x1="554.0" y1="26" x2="554.0" y2="926" class="grid"/>
+<text x="554.0" y="942" class="tick" text-anchor="middle">+0.02</text>
+<line x1="599.5" y1="26" x2="599.5" y2="926" class="grid"/>
+<text x="599.5" y="942" class="tick" text-anchor="middle">+0.03</text>
+<line x1="645.0" y1="26" x2="645.0" y2="926" class="grid"/>
+<text x="645.0" y="942" class="tick" text-anchor="middle">+0.04</text>
+<line x1="690.5" y1="26" x2="690.5" y2="926" class="grid"/>
+<text x="690.5" y="942" class="tick" text-anchor="middle">+0.05</text>
+<line x1="736.0" y1="26" x2="736.0" y2="926" class="grid"/>
+<text x="736.0" y="942" class="tick" text-anchor="middle">+0.06</text>
+<line x1="463.0" y1="20" x2="463.0" y2="926" class="zero"/>
 <text x="463.0" y="16" class="tick" text-anchor="middle">run16</text>
-<text x="178" y="50.0" class="lab" text-anchor="end">BirdAVES bioxn-large</text>
-<line x1="481.1" y1="46.0" x2="696.3" y2="46.0" class="ci aves"/>
-<circle cx="592.6" cy="46.0" r="5" class="aves dot-fill"/>
-<text x="178" y="74.0" class="lab" text-anchor="end">run19, seed 2</text>
-<line x1="430.7" y1="70.0" x2="699.0" y2="70.0" class="ci ours"/>
-<circle cx="568.6" cy="70.0" r="5" class="ours dot-open"/>
-<text x="178" y="98.0" class="lab" text-anchor="end">DAPT, AVES masking, seed 2 (E28b)</text>
-<line x1="431.4" y1="94.0" x2="694.5" y2="94.0" class="ci dapt"/>
-<circle cx="563.8" cy="94.0" r="5" class="dapt dot-open"/>
-<text x="178" y="122.0" class="lab" text-anchor="end">DAPT, AVES targets, lr 2e-4</text>
-<line x1="439.6" y1="118.0" x2="666.0" y2="118.0" class="ci dapt"/>
-<circle cx="549.4" cy="118.0" r="5" class="dapt dot-open"/>
-<text x="178" y="146.0" class="lab" text-anchor="end">DAPT, two-teacher targets</text>
-<line x1="431.5" y1="142.0" x2="664.4" y2="142.0" class="ci dapt"/>
-<circle cx="549.4" cy="142.0" r="5" class="dapt dot-open"/>
-<text x="178" y="170.0" class="lab" text-anchor="end">DAPT, two-teacher targets, 45k updates</text>
-<line x1="399.0" y1="166.0" x2="653.2" y2="166.0" class="ci dapt"/>
+<text x="178" y="50.0" class="lab" text-anchor="end">Whisper base</text>
+<line x1="497.4" y1="46.0" x2="694.1" y2="46.0" class="ci other"/>
+<circle cx="596.4" cy="46.0" r="5" class="other dot-fill"/>
+<text x="178" y="74.0" class="lab" text-anchor="end">Whisper small</text>
+<line x1="470.7" y1="70.0" x2="674.7" y2="70.0" class="ci other"/>
+<circle cx="575.0" cy="70.0" r="5" class="other dot-fill"/>
+<text x="178" y="98.0" class="lab" text-anchor="end">BirdAVES bioxn-large</text>
+<line x1="478.1" y1="94.0" x2="657.4" y2="94.0" class="ci aves"/>
+<circle cx="571.0" cy="94.0" r="5" class="aves dot-fill"/>
+<text x="178" y="122.0" class="lab" text-anchor="end">run19, seed 2</text>
+<line x1="436.1" y1="118.0" x2="659.6" y2="118.0" class="ci ours"/>
+<circle cx="551.0" cy="118.0" r="5" class="ours dot-open"/>
+<text x="178" y="146.0" class="lab" text-anchor="end">DAPT, AVES masking, seed 2 (E28b)</text>
+<line x1="436.7" y1="142.0" x2="655.9" y2="142.0" class="ci dapt"/>
+<circle cx="547.0" cy="142.0" r="5" class="dapt dot-open"/>
+<text x="178" y="170.0" class="lab" text-anchor="end">DAPT, AVES targets, lr 2e-4</text>
+<line x1="443.5" y1="166.0" x2="632.1" y2="166.0" class="ci dapt"/>
 <circle cx="535.0" cy="166.0" r="5" class="dapt dot-open"/>
-<text x="178" y="194.0" class="lab" text-anchor="end">DAPT, two-teacher targets, seed 2</text>
-<line x1="404.2" y1="190.0" x2="645.3" y2="190.0" class="ci dapt"/>
-<circle cx="533.4" cy="190.0" r="5" class="dapt dot-open"/>
-<text x="178" y="218.0" class="lab" text-anchor="end">DAPT, AVES-only control</text>
-<line x1="406.2" y1="214.0" x2="657.7" y2="214.0" class="ci dapt"/>
-<circle cx="530.2" cy="214.0" r="5" class="dapt dot-open"/>
-<text x="178" y="242.0" class="lab" text-anchor="end">BirdAVES biox-base</text>
-<line x1="398.4" y1="238.0" x2="634.4" y2="238.0" class="ci aves"/>
-<circle cx="530.2" cy="238.0" r="5" class="aves dot-open"/>
-<text x="178" y="266.0" class="lab" text-anchor="end">AVES all</text>
-<line x1="390.2" y1="262.0" x2="670.1" y2="262.0" class="ci aves"/>
-<circle cx="530.2" cy="262.0" r="5" class="aves dot-open"/>
-<text x="178" y="290.0" class="lab" text-anchor="end">DAPT replay x1</text>
-<line x1="417.7" y1="286.0" x2="629.4" y2="286.0" class="ci dapt"/>
-<circle cx="525.4" cy="286.0" r="5" class="dapt dot-open"/>
-<text x="178" y="314.0" class="lab" text-anchor="end">AVES core</text>
-<line x1="376.1" y1="310.0" x2="663.0" y2="310.0" class="ci aves"/>
-<circle cx="522.2" cy="310.0" r="5" class="aves dot-open"/>
-<text x="178" y="338.0" class="lab" text-anchor="end">run19</text>
-<line x1="393.9" y1="334.0" x2="649.2" y2="334.0" class="ci ours"/>
-<circle cx="520.6" cy="334.0" r="5" class="ours dot-open"/>
-<text x="178" y="362.0" class="lab" text-anchor="end">DAPT replay x3</text>
-<line x1="390.2" y1="358.0" x2="638.0" y2="358.0" class="ci dapt"/>
-<circle cx="514.2" cy="358.0" r="5" class="dapt dot-open"/>
-<text x="178" y="386.0" class="lab" text-anchor="end">DAPT, AVES targets</text>
-<line x1="396.7" y1="382.0" x2="628.6" y2="382.0" class="ci dapt"/>
-<circle cx="512.6" cy="382.0" r="5" class="dapt dot-open"/>
-<text x="178" y="410.0" class="lab" text-anchor="end">AVES bio</text>
-<line x1="382.0" y1="406.0" x2="635.7" y2="406.0" class="ci aves"/>
-<circle cx="509.4" cy="406.0" r="5" class="aves dot-open"/>
-<text x="178" y="434.0" class="lab" text-anchor="end">DAPT, AVES-only control, seed 2</text>
-<line x1="393.8" y1="430.0" x2="631.8" y2="430.0" class="ci dapt"/>
-<circle cx="507.8" cy="430.0" r="5" class="dapt dot-open"/>
-<text x="178" y="458.0" class="lab" text-anchor="end">BirdAVES biox-large</text>
-<line x1="368.5" y1="454.0" x2="612.9" y2="454.0" class="ci aves"/>
-<circle cx="499.8" cy="454.0" r="5" class="aves dot-open"/>
-<text x="178" y="482.0" class="lab" text-anchor="end">run18</text>
-<line x1="391.7" y1="478.0" x2="580.7" y2="478.0" class="ci ours"/>
-<circle cx="498.2" cy="478.0" r="5" class="ours dot-open"/>
-<text x="178" y="506.0" class="lab" text-anchor="end">run16, seed 3</text>
-<line x1="418.6" y1="502.0" x2="571.8" y2="502.0" class="ci ours"/>
-<circle cx="495.0" cy="502.0" r="5" class="ours dot-open"/>
-<text x="178" y="530.0" class="lab" text-anchor="end">DAPT, AVES masking (E28a)</text>
-<line x1="366.6" y1="526.0" x2="610.8" y2="526.0" class="ci dapt"/>
-<circle cx="490.2" cy="526.0" r="5" class="dapt dot-open"/>
-<text x="178" y="554.0" class="lab" text-anchor="end">DAPT from BirdAVES, two-teacher targets</text>
-<line x1="380.1" y1="550.0" x2="567.9" y2="550.0" class="ci dapt"/>
-<circle cx="475.8" cy="550.0" r="5" class="dapt dot-open"/>
-<text x="178" y="578.0" class="lab" text-anchor="end">run20, seed 2</text>
-<line x1="314.5" y1="574.0" x2="560.5" y2="574.0" class="ci ours"/>
-<circle cx="447.0" cy="574.0" r="5" class="ours dot-open"/>
-<text x="178" y="602.0" class="lab" text-anchor="end">run17</text>
-<line x1="336.5" y1="598.0" x2="508.0" y2="598.0" class="ci ours"/>
-<circle cx="429.4" cy="598.0" r="5" class="ours dot-open"/>
-<text x="178" y="626.0" class="lab" text-anchor="end">run20</text>
-<line x1="268.9" y1="622.0" x2="554.4" y2="622.0" class="ci ours"/>
-<circle cx="424.6" cy="622.0" r="5" class="ours dot-open"/>
-<text x="178" y="650.0" class="lab" text-anchor="end">run15</text>
-<line x1="329.6" y1="646.0" x2="516.5" y2="646.0" class="ci ours"/>
-<circle cx="416.6" cy="646.0" r="5" class="ours dot-open"/>
-<text x="178" y="674.0" class="lab" text-anchor="end">run16, seed 2</text>
-<line x1="277.4" y1="670.0" x2="477.4" y2="670.0" class="ci ours"/>
-<circle cx="378.2" cy="670.0" r="5" class="ours dot-open"/>
-<text x="178" y="698.0" class="lab" text-anchor="end">run11</text>
-<line x1="226.5" y1="694.0" x2="488.5" y2="694.0" class="ci ours"/>
-<circle cx="368.6" cy="694.0" r="5" class="ours dot-open"/>
-<text x="178" y="722.0" class="lab" text-anchor="end">run21</text>
-<line x1="206.5" y1="718.0" x2="454.7" y2="718.0" class="ci ours"/>
-<circle cx="339.8" cy="718.0" r="5" class="ours dot-fill"/>
+<text x="178" y="194.0" class="lab" text-anchor="end">DAPT, two-teacher targets</text>
+<line x1="436.7" y1="190.0" x2="630.9" y2="190.0" class="ci dapt"/>
+<circle cx="535.0" cy="190.0" r="5" class="dapt dot-open"/>
+<text x="178" y="218.0" class="lab" text-anchor="end">DAPT, two-teacher targets, 45k updates</text>
+<line x1="409.7" y1="214.0" x2="621.5" y2="214.0" class="ci dapt"/>
+<circle cx="523.0" cy="214.0" r="5" class="dapt dot-open"/>
+<text x="178" y="242.0" class="lab" text-anchor="end">DAPT, two-teacher targets, seed 2</text>
+<line x1="414.0" y1="238.0" x2="614.9" y2="238.0" class="ci dapt"/>
+<circle cx="521.7" cy="238.0" r="5" class="dapt dot-open"/>
+<text x="178" y="266.0" class="lab" text-anchor="end">DAPT, AVES-only control</text>
+<line x1="415.7" y1="262.0" x2="625.3" y2="262.0" class="ci dapt"/>
+<circle cx="519.0" cy="262.0" r="5" class="dapt dot-open"/>
+<text x="178" y="290.0" class="lab" text-anchor="end">BirdAVES biox-base</text>
+<line x1="409.2" y1="286.0" x2="605.8" y2="286.0" class="ci aves"/>
+<circle cx="519.0" cy="286.0" r="5" class="aves dot-open"/>
+<text x="178" y="314.0" class="lab" text-anchor="end">AVES all</text>
+<line x1="402.4" y1="310.0" x2="635.5" y2="310.0" class="ci aves"/>
+<circle cx="519.0" cy="310.0" r="5" class="aves dot-open"/>
+<text x="178" y="338.0" class="lab" text-anchor="end">DAPT replay x1</text>
+<line x1="425.3" y1="334.0" x2="601.7" y2="334.0" class="ci dapt"/>
+<circle cx="515.0" cy="334.0" r="5" class="dapt dot-open"/>
+<text x="178" y="362.0" class="lab" text-anchor="end">AVES core</text>
+<line x1="390.6" y1="358.0" x2="629.7" y2="358.0" class="ci aves"/>
+<circle cx="512.3" cy="358.0" r="5" class="aves dot-open"/>
+<text x="178" y="386.0" class="lab" text-anchor="end">run19</text>
+<line x1="405.4" y1="382.0" x2="618.1" y2="382.0" class="ci ours"/>
+<circle cx="511.0" cy="382.0" r="5" class="ours dot-open"/>
+<text x="178" y="410.0" class="lab" text-anchor="end">DAPT replay x3</text>
+<line x1="402.3" y1="406.0" x2="608.8" y2="406.0" class="ci dapt"/>
+<circle cx="505.7" cy="406.0" r="5" class="dapt dot-open"/>
+<text x="178" y="434.0" class="lab" text-anchor="end">Whisper tiny</text>
+<line x1="383.4" y1="430.0" x2="614.2" y2="430.0" class="ci other"/>
+<circle cx="505.7" cy="430.0" r="5" class="other dot-open"/>
+<text x="178" y="458.0" class="lab" text-anchor="end">DAPT, AVES targets</text>
+<line x1="407.7" y1="454.0" x2="601.0" y2="454.0" class="ci dapt"/>
+<circle cx="504.3" cy="454.0" r="5" class="dapt dot-open"/>
+<text x="178" y="482.0" class="lab" text-anchor="end">AVES bio</text>
+<line x1="395.5" y1="478.0" x2="606.9" y2="478.0" class="ci aves"/>
+<circle cx="501.7" cy="478.0" r="5" class="aves dot-open"/>
+<text x="178" y="506.0" class="lab" text-anchor="end">DAPT, AVES-only control, seed 2</text>
+<line x1="405.4" y1="502.0" x2="603.7" y2="502.0" class="ci dapt"/>
+<circle cx="500.3" cy="502.0" r="5" class="dapt dot-open"/>
+<text x="178" y="530.0" class="lab" text-anchor="end">BirdAVES biox-large</text>
+<line x1="384.2" y1="526.0" x2="587.9" y2="526.0" class="ci aves"/>
+<circle cx="493.7" cy="526.0" r="5" class="aves dot-open"/>
+<text x="178" y="554.0" class="lab" text-anchor="end">run18</text>
+<line x1="403.6" y1="550.0" x2="561.1" y2="550.0" class="ci ours"/>
+<circle cx="492.3" cy="550.0" r="5" class="ours dot-open"/>
+<text x="178" y="578.0" class="lab" text-anchor="end">run16, seed 3</text>
+<line x1="426.0" y1="574.0" x2="553.7" y2="574.0" class="ci ours"/>
+<circle cx="489.7" cy="574.0" r="5" class="ours dot-open"/>
+<text x="178" y="602.0" class="lab" text-anchor="end">DAPT, AVES masking (E28a)</text>
+<line x1="382.7" y1="598.0" x2="586.2" y2="598.0" class="ci dapt"/>
+<circle cx="485.7" cy="598.0" r="5" class="dapt dot-open"/>
+<text x="178" y="626.0" class="lab" text-anchor="end">DAPT from BirdAVES, two-teacher targets</text>
+<line x1="393.9" y1="622.0" x2="550.4" y2="622.0" class="ci dapt"/>
+<circle cx="473.7" cy="622.0" r="5" class="dapt dot-open"/>
+<text x="178" y="650.0" class="lab" text-anchor="end">AST (AudioSet)</text>
+<line x1="356.8" y1="646.0" x2="557.4" y2="646.0" class="ci other"/>
+<circle cx="455.0" cy="646.0" r="5" class="other dot-open"/>
+<text x="178" y="674.0" class="lab" text-anchor="end">run20, seed 2</text>
+<line x1="339.3" y1="670.0" x2="544.2" y2="670.0" class="ci ours"/>
+<circle cx="449.7" cy="670.0" r="5" class="ours dot-open"/>
+<text x="178" y="698.0" class="lab" text-anchor="end">run17</text>
+<line x1="357.6" y1="694.0" x2="500.5" y2="694.0" class="ci ours"/>
+<circle cx="435.0" cy="694.0" r="5" class="ours dot-open"/>
+<text x="178" y="722.0" class="lab" text-anchor="end">run20</text>
+<line x1="301.3" y1="718.0" x2="539.1" y2="718.0" class="ci ours"/>
+<circle cx="431.0" cy="718.0" r="5" class="ours dot-open"/>
+<text x="178" y="746.0" class="lab" text-anchor="end">WavLM base+</text>
+<line x1="321.5" y1="742.0" x2="517.3" y2="742.0" class="ci other"/>
+<circle cx="427.0" cy="742.0" r="5" class="other dot-open"/>
+<text x="178" y="770.0" class="lab" text-anchor="end">HuBERT base (LibriSpeech)</text>
+<line x1="308.2" y1="766.0" x2="534.4" y2="766.0" class="ci other"/>
+<circle cx="425.7" cy="766.0" r="5" class="other dot-open"/>
+<text x="178" y="794.0" class="lab" text-anchor="end">run15</text>
+<line x1="351.8" y1="790.0" x2="507.6" y2="790.0" class="ci ours"/>
+<circle cx="424.3" cy="790.0" r="5" class="ours dot-open"/>
+<text x="178" y="818.0" class="lab" text-anchor="end">run16, seed 2</text>
+<line x1="308.3" y1="814.0" x2="475.0" y2="814.0" class="ci ours"/>
+<circle cx="392.3" cy="814.0" r="5" class="ours dot-open"/>
+<text x="178" y="842.0" class="lab" text-anchor="end">run11</text>
+<line x1="265.9" y1="838.0" x2="484.2" y2="838.0" class="ci ours"/>
+<circle cx="384.3" cy="838.0" r="5" class="ours dot-open"/>
+<text x="178" y="866.0" class="lab" text-anchor="end">wav2vec 2.0 base</text>
+<line x1="237.2" y1="862.0" x2="482.0" y2="862.0" class="ci other"/>
+<circle cx="365.7" cy="862.0" r="5" class="other dot-open"/>
+<text x="178" y="890.0" class="lab" text-anchor="end">run21</text>
+<line x1="249.2" y1="886.0" x2="456.1" y2="886.0" class="ci ours"/>
+<circle cx="360.3" cy="886.0" r="5" class="ours dot-fill"/>
+<text x="178" y="914.0" class="lab" text-anchor="end">data2vec audio base</text>
+<line x1="199.2" y1="910.0" x2="466.0" y2="910.0" class="ci other"/>
+<circle cx="341.6" cy="910.0" r="5" class="other dot-open"/>
 </svg></div>
-      <div class="legend"><span><i class="sw ours"></i>ours, trained from scratch</span><span><i class="sw dapt"></i>AVES weights, continued on zebra finch</span><span><i class="sw aves"></i>AVES, downloaded</span><span><i class="sw open"></i>not distinguishable from run16</span></div>
+      <div class="legend"><span><i class="sw ours"></i>ours, trained from scratch</span><span><i class="sw dapt"></i>AVES weights, continued on zebra finch</span><span><i class="sw aves"></i>AVES, downloaded</span><span><i class="sw other"></i>off the shelf, not trained on animals (speech / AudioSet)</span><span><i class="sw open"></i>not distinguishable from run16</span></div>
     </div>
     <div class="panel scroll" style="margin-top:12px">
       <table>
@@ -254,6 +282,14 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 <tr class="aves"><td class="nm"><span class="sw aves"></span>AVES all</td><td class="what">downloaded</td><td class="n">0.8476</td><td class="n vs">+0.0123 <span class="nd">n.d.</span><br><span class="iv">[-0.0133, +0.0379]</span></td><td class="n">0.8445<br><span class="iv">beats run16 on 10/10</span></td><td class="n">0.9670</td><td class="n">0.8129</td><td class="n">—</td><td class="n">0.4768</td><td class="n"></td><td class="path">Mac only</td></tr>
 <tr class="aves"><td class="nm"><span class="sw aves"></span>AVES bio</td><td class="what">downloaded; the AVES in earlier headlines</td><td class="n">0.8438</td><td class="n vs">+0.0085 <span class="nd">n.d.</span><br><span class="iv">[-0.0148, +0.0316]</span></td><td class="n">0.8430<br><span class="iv">beats run16 on 10/10</span></td><td class="n">0.9674</td><td class="n">0.8057</td><td class="n">0.9911</td><td class="n">0.4625</td><td class="n"></td><td class="path"><code>…/external/aves</code></td></tr>
 <tr class="aves"><td class="nm"><span class="sw aves"></span>BirdAVES bioxn-large</td><td class="what">downloaded; large</td><td class="n">0.8590</td><td class="n vs">+0.0237<br><span class="iv">[+0.0033, +0.0427]</span></td><td class="n">0.8518<br><span class="iv">beats run16 on 10/10</span></td><td class="n">0.9724</td><td class="n">0.8442</td><td class="n">—</td><td class="n">0.4411</td><td class="n"></td><td class="path">Mac only</td></tr>
+<tr class="other"><td class="nm"><span class="sw other"></span>Whisper base</td><td class="what">speech recognition, 680k h web audio, log-mel input; 6 layers</td><td class="n">0.8646</td><td class="n vs">+0.0293<br><span class="iv">[+0.0076, +0.0508]</span></td><td class="n">0.8570<br><span class="iv">beats run16 on 10/10</span></td><td class="n">0.9680</td><td class="n">0.8496</td><td class="n">—</td><td class="n">0.4153</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/072-whisper-encoders-are-point-estimate-leaders.yaml">072</a></td><td class="path">Mac only</td></tr>
+<tr class="other"><td class="nm"><span class="sw other"></span>Whisper small</td><td class="what">as Whisper base, 12 layers (88M)</td><td class="n">0.8599</td><td class="n vs">+0.0246<br><span class="iv">[+0.0017, +0.0465]</span></td><td class="n">0.8587<br><span class="iv">beats run16 on 10/10</span></td><td class="n">0.9733</td><td class="n">0.8677</td><td class="n">—</td><td class="n">0.4388</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/072-whisper-encoders-are-point-estimate-leaders.yaml">072</a></td><td class="path">Mac only</td></tr>
+<tr class="other"><td class="nm"><span class="sw other"></span>Whisper tiny</td><td class="what">as Whisper base, 4 layers (8M)</td><td class="n">0.8447</td><td class="n vs">+0.0094 <span class="nd">n.d.</span><br><span class="iv">[-0.0175, +0.0332]</span></td><td class="n">0.8461<br><span class="iv">beats run16 on 10/10</span></td><td class="n">0.9641</td><td class="n">0.8276</td><td class="n">—</td><td class="n">0.3361</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/072-whisper-encoders-are-point-estimate-leaders.yaml">072</a></td><td class="path">Mac only</td></tr>
+<tr class="other"><td class="nm"><span class="sw other"></span>AST (AudioSet)</td><td class="what">spectrogram transformer, supervised on AudioSet labels</td><td class="n">0.8335</td><td class="n vs">-0.0018 <span class="nd">n.d.</span><br><span class="iv">[-0.0233, +0.0208]</span></td><td class="n">0.8238<br><span class="iv">beats run16 on 3/10</span></td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">0.5898</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/072-whisper-encoders-are-point-estimate-leaders.yaml">072</a></td><td class="path">Mac only</td></tr>
+<tr class="other"><td class="nm"><span class="sw other"></span>WavLM base+</td><td class="what">self-supervised on speech</td><td class="n">0.8274</td><td class="n vs">-0.0079 <span class="nd">n.d.</span><br><span class="iv">[-0.0311, +0.0119]</span></td><td class="n">0.8241<br><span class="iv">beats run16 on 2/10</span></td><td class="n">0.9658</td><td class="n">0.8330</td><td class="n">—</td><td class="n">0.3846</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/072-whisper-encoders-are-point-estimate-leaders.yaml">072</a></td><td class="path">Mac only</td></tr>
+<tr class="other"><td class="nm"><span class="sw other"></span>HuBERT base (LibriSpeech)</td><td class="what">our architecture and objective, trained on 960 h of read speech</td><td class="n">0.8271</td><td class="n vs">-0.0082 <span class="nd">n.d.</span><br><span class="iv">[-0.0340, +0.0157]</span></td><td class="n">0.8283<br><span class="iv">beats run16 on 5/10</span></td><td class="n">0.9646</td><td class="n">0.8395</td><td class="n">—</td><td class="n">0.3729</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/072-whisper-encoders-are-point-estimate-leaders.yaml">072</a></td><td class="path">Mac only</td></tr>
+<tr class="other"><td class="nm"><span class="sw other"></span>wav2vec 2.0 base</td><td class="what">self-supervised on 960 h of read speech</td><td class="n">0.8139</td><td class="n vs">-0.0214 <span class="nd">n.d.</span><br><span class="iv">[-0.0496, +0.0042]</span></td><td class="n">0.8108<br><span class="iv">beats run16 on 0/10</span></td><td class="n">0.9628</td><td class="n">0.8175</td><td class="n">—</td><td class="n">0.3395</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/072-whisper-encoders-are-point-estimate-leaders.yaml">072</a></td><td class="path">Mac only</td></tr>
+<tr class="other"><td class="nm"><span class="sw other"></span>data2vec audio base</td><td class="what">self-supervised on 960 h of read speech</td><td class="n">0.8086</td><td class="n vs">-0.0267 <span class="nd">n.d.</span><br><span class="iv">[-0.0580, +0.0007]</span></td><td class="n">0.8160<br><span class="iv">beats run16 on 1/10</span></td><td class="n">0.9649</td><td class="n">0.7492</td><td class="n">—</td><td class="n">0.5682</td><td class="n"><a href="https://github.com/ttt5600/NeruoBatLab/blob/UMAP/knowledge/findings/072-whisper-encoders-are-point-estimate-leaders.yaml">072</a></td><td class="path">Mac only</td></tr>
         </tbody>
       </table>
     </div>
@@ -313,7 +349,7 @@ footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--rule)
 <div class="card"><div class="ch"><h3>lab / sv commands</h3><span class="chip ok">working</span></div><p><code>sv train</code>, <code>sv status</code>, <code>sv log</code>, <code>sv gpu</code>, <code>sv notebook</code>, <code>sv data</code>, <code>sv share</code>. Training submissions run an import check first and go in a ledger.</p></div>
 <div class="card"><div class="ch"><h3>Shared data</h3><span class="chip ok">working</span></div><p>36 corpora, label sets and models registered in <code>datasets.tsv</code>, browsable under <code>…/lab_data</code>, read + write for Julie (jelie) and Bhavna (malladibhavna). New folders: <code>lab share</code>.</p></div>
 <div class="card"><div class="ch"><h3>Storage</h3><span class="chip ok">working</span></div><p>Home went from 47 GB (at its 50 GB cap) to 0.7 GB on Oct 4; conda envs, pip cache and JupyterLab live on scratch behind shortcuts. Env recipes in <code>~/env_specs</code>.</p></div>
-<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip ok">working</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-19 01:16, connected.</p></div>
+<div class="card"><div class="ch"><h3>Job watcher</h3><span class="chip ok">working</span></div><p>Polls Savio every 5 min (launchd). Last poll 2026-10-19 01:26, connected.</p></div>
 <div class="card"><div class="ch"><h3>Experiment harness</h3><span class="chip ok">working</span></div><p>Each poll, <code>tick.py</code> starts an agent when a run finishes, fails, or an approved experiment has a free slot (2 at a time, 6 agents a day). It stands down while the lead agent is alive.</p></div>
 <div class="card"><div class="ch"><h3>Lead agent</h3><span class="chip run">running</span></div><p>Long-lived <code>/loop</code> session (<code>harness/PI.md</code>). Last heartbeat Oct 19 00:36. </p></div>
 <div class="card"><div class="ch"><h3>Critic</h3><span class="chip ok">working</span></div><p>A fresh agent tries to break every finding before it is recorded (<code>harness/CRITIC.md</code>). Findings 056–061 all came back accept-with-changes, changes applied.</p></div>

@@ -1,5 +1,5 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-19 01:50 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user: "summarize please and keep going")
+Updated: 2026-10-19 02:10 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user: "summarize please and keep going")
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts).
 Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never quote ct11_<tag>_emb.npy readers.
@@ -29,7 +29,8 @@ Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never
   `bash harness/score_run.sh run22_avesfsd /global/scratch/users/jonathanswang/temp_train_run22_avesfsd 200 40090445`.
 
 ## Next (lead)
-- Board omits the HF encoders (Whisper-base 0.8646 leads CPU call type, 072). Digest 10-19 at the first wake after 09:00.
+- Board v7: 8 off-the-shelf encoders added (CPU vs run16: Whisper base +0.0293 [+0.0076, +0.0508], small +0.0246
+  [+0.0017, +0.0465] at L3, both ahead on 10/10 splits). Digest 10-19 at the first wake after 09:00.
 - E15 corpus research (post choice + size + licence in a digest, then wait a day) if the user wants E15.
 
 ## Waiting on the user

@@ -52,6 +52,15 @@ MODELS = [
     ("aves-base-all", "AVES all", "aves", "downloaded", "", None),
     ("aves-base-bio", "AVES bio", "aves", "downloaded; the AVES in earlier headlines", "", None),
     ("birdaves-bioxn-large", "BirdAVES bioxn-large", "aves", "downloaded; large", "", None),
+    # off-the-shelf encoders (E25, finding 072): no animal audio in training; chick not encoded for these
+    ("hf-whisper-base-enc", "Whisper base", "other", "speech recognition, 680k h web audio, log-mel input; 6 layers", "072", None),
+    ("hf-whisper-small-enc", "Whisper small", "other", "as Whisper base, 12 layers (88M)", "072", None),
+    ("hf-whisper-tiny-enc", "Whisper tiny", "other", "as Whisper base, 4 layers (8M)", "072", None),
+    ("hf-ast-audioset", "AST (AudioSet)", "other", "spectrogram transformer, supervised on AudioSet labels", "072", None),
+    ("hf-wavlm-base-plus", "WavLM base+", "other", "self-supervised on speech", "072", None),
+    ("hf-hubert-base-ls960", "HuBERT base (LibriSpeech)", "other", "our architecture and objective, trained on 960 h of read speech", "072", None),
+    ("hf-wav2vec2-base", "wav2vec 2.0 base", "other", "self-supervised on 960 h of read speech", "072", None),
+    ("hf-data2vec-audio-base", "data2vec audio base", "other", "self-supervised on 960 h of read speech", "072", None),
 ]
 
 
@@ -175,8 +184,12 @@ def main():
     best = max(ours, key=ours.get)
     best_name = next(n for k, n, *_ in MODELS if k == best)
     aves = [acc[k] for k, _, fam, *_ in MODELS if fam == "aves" and k in acc]
+    top = max((k for k, *_ in MODELS if k in acc), key=acc.get)
+    top_name, top_fam = next((n, f) for k, n, f, *_ in MODELS if k == top)
     seed = vs.get("run16_seed2")
     r16 = sp.get(REF)
+    l3p = load("seed_pairs_cpu_L3.json").get("pairs", {}).get(f"{REF} | run16_seed2")          # 079
+    l3s = load("calltype_split_sensitivity_cpu_L3.json").get("models", {}).get("run16_seed2")
     n_split = len(r16["acc"]) if r16 else 0
     r16_rank = (sorted(r16["acc"], reverse=True).index(r16["acc"][0]) + 1) if r16 else None
     ordinal = {1: "best", 2: "second best", 3: "third best"}
@@ -273,12 +286,18 @@ def main():
         "ASOF": now.strftime("%b %-d, %Y %H:%M"),
         "COHORT": "{n_clips:,} clips, {n_birds} birds".format(**load(f"{REF}_calltype.json")["cohort11"]),
         "BEST": f"{html.escape(best_name)} {acc[best]:.4f}",
-        "BEST_NOTE": (f"AVES models score {min(aves):.3f}–{max(aves):.3f}; "
-                      + (f"vs run16 {vs[best][0]:+.4f} [{vs[best][1]:+.4f}, {vs[best][2]:+.4f}], "
-                         f"{'resolved' if vs[best][3] else 'not distinguishable'}" if best in vs and best != REF else "")),
+        "BEST_NOTE": ((f"vs run16 {vs[best][0]:+.4f} [{vs[best][1]:+.4f}, {vs[best][2]:+.4f}], "
+                       f"{'resolved' if vs[best][3] else 'not distinguishable'}. " if best in vs and best != REF else "")
+                      + f"AVES models score {min(aves):.3f}–{max(aves):.3f}."
+                      + (f" Best overall: {html.escape(top_name)} {acc[top]:.4f}"
+                         + (", off the shelf" if top_fam == "other" else "")
+                         + (f", vs run16 {vs[top][0]:+.4f} [{vs[top][1]:+.4f}, {vs[top][2]:+.4f}]" if top in vs else "") + "."
+                         if top != best else "")),
         "SEED": f"{abs(seed[0]):.4f}" if seed else "—",
         "SEED_NOTE": (f"run16's second seed: {seed[0]:+.4f} [{seed[1]:+.4f}, {seed[2]:+.4f}] on the board's split"
                       + (f", {sp['run16_seed2']['diff_mean']:+.4f} averaged over {n_split} splits" if 'run16_seed2' in sp else "")
+                      + (f"; at fixed layer 3 {-l3p['diff']:+.4f} [{-l3p['hi']:+.4f}, {-l3p['lo']:+.4f}], below run16 on "
+                         f"{sum(x < 0 for x in l3s['diff_vs_run16'])}/{len(l3s['diff_vs_run16'])} splits (finding 079)" if l3p and l3s else "")
                       + ". Single runs cannot separate smaller gaps." if seed else ""),
         "SPLITNOTE": (f"The 10-split column re-scores the same embeddings with the birds assigned to folds {n_split} different ways "
                       f"(finding 062). The board's split is run16's {ordinal.get(r16_rank, str(r16_rank) + 'th best')} of {n_split}, "
