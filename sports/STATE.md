@@ -73,7 +73,7 @@ QUEUE (research loop works top-down; skip blocked items):
   Q2 gap_logger report after >= 3 days: episode count/duration; if >= 1% EV episodes persist >= 4 min, pre-register
      a taker paper rule on them.
   Q3 soccer_fd dev variants (each a counted trial, bar now p < 0.005): draw-only, per-league tiers, Shin selection.
-  Q4 Kalshi RAIN markets (KXRAIN*): consensus "all models dry" -> NO on rain, same protocol as Q1.
+  Q4 DONE 10-19: R1 dry->NO PASSED dev (+3.42%/361), R2 wet->YES -0.9% -> sealed awaits yes. Was: Kalshi RAIN markets (KXRAIN*): consensus "all models dry" -> NO on rain, same protocol as Q1.
   Q5 Kalshi temp maker version: rest the NO bid 1c better than the taker price (fill realism = the risk).
 
 ## USER DIRECTION (2026-10-15) -- go wide, everything that can earn >= $100/month
@@ -134,6 +134,11 @@ Blocked: tennis-data.co.uk 403s automation (don't bypass); NHL/college odds sour
 Pinnacle O/U in soccer only from 2019 (sealed era).
 
 ## WAITING ON USER
+00000. NEW 2026-10-19 Q4 RAIN: R1 (all 5 models forecast < 0.01 in for the day, lead-2 -> buy NO on Kalshi KXRAIN)
+   PASSED dev: +3.42%/361 bets p<.001, 3 losses, 9/10 weeks and 20/22 cities positive. Dev = 56 summer days only.
+   ~40 cities x ~25% of days dry-consensus -> roughly 200+ bets/mo at ~96c. Sealed 2026-09-15..10-18 (~5 weeks, one
+   shot) needs the user's yes; add `sealed --confirm R1_dry_no` (not written yet). Forward paper of R1 can start
+   without a yes (paper is not sealed scoring) -- propose to user.
 0000. NEW 2026-10-19 Q1 -- the BEST capacity lever: consensus-reject rule FROZEN, applied to 13 new daily-HIGH series
    (wx_expand.py X1): dev +1.22%/444 bets p .057 (dev only 2025-12..2026-02; sealed rule passed at +1.45%). ~300 bets/mo
    -> with the 7 traded cities ~420 bets/mo -> $100/mo at ~$17/bet. Sealed 2026-03-01..2026-10-18 (one shot) needs the
