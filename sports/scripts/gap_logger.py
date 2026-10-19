@@ -136,7 +136,9 @@ def cmd_report() -> int:
     if not LOG.exists():
         print("no gaps >= 1% EV logged")
         return 0
-    g = pd.read_json(LOG, lines=True).sort_values(["ticker", "side", "ts"])
+    g = pd.read_json(LOG, lines=True)
+    g["ts"] = pd.to_datetime(g["ts"], utc=True, format="ISO8601")
+    g = g.sort_values(["ticker", "side", "ts"])
     g["new"] = (g.groupby(["ticker", "side"]).ts.diff() > pd.Timedelta(minutes=5)) | g.groupby(["ticker", "side"]).ts.diff().isna()
     g["ep"] = g.new.cumsum()
     ep = g.groupby("ep").agg(league=("league", "first"), ticker=("ticker", "first"), side=("side", "first"),
