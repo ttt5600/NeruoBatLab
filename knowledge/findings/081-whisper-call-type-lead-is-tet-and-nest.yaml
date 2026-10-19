@@ -1,0 +1,62 @@
+id: '081'
+title: Whisper-small's call-type lead over run16 comes mostly from Tet (72-85% of it), a Tet gain beyond run16's seed spread although the overall lead over the best run16 seed is within it; against aves-base-bio Tet and Nest share the lead; it trails run16 on Begging
+status: confirmed
+claim: 'On CPU embeddings, Whisper-small (an off-the-shelf speech-recognition encoder; best call-type layer = layer 3)
+  beats run16 on 11-class call type (+0.0246 [+0.0017, +0.0465] at best layers; +0.0287 [+0.0112, +0.0452] with both
+  at layer 3) and beats aves-base-bio with both at layer 3 (+0.0237 [+0.0053, +0.0474]; +0.0161 [-0.0007, +0.0358] at
+  best layers, not distinguishable). Against run16 the gain is mostly Tet, which carries 85% of it at best layers and
+  72% at layer 3 (Tet recall 0.941 vs 0.825, +0.116, 95% [+0.049, +0.198] and [+0.055, +0.195], both also excluding
+  zero at 99.5%, the 11-type Bonferroni level). It exceeds run16''s own seed spread on Tet: the three run16 seeds score
+  0.819-0.856 at best layers (0.770-0.845 at layer 3), and Whisper-small minus the best of them, seed 3, is +0.085
+  [+0.043, +0.133] (99.5% excludes zero). The overall lead over that best seed, +0.0188 [+0.0037, +0.0341] at best
+  layers (+0.0232 at layer 3), is inside 079''s 0.015-0.02 seed bar, so it is the Tet gain, not the overall lead,
+  that exceeds seed noise. Against aves-base-bio Tet and Nest share the gain (53% / 51% at best layers,
+  58% / 35% at layer 3; at layer 3 Nest +0.048 is resolved at 99.5% and Tet +0.077 only just, lower bound +0.001). Whisper-small trails run16 on
+  Begging (-0.040 [-0.079, -0.007] best, -0.047 [-0.088, -0.012] L3, both at 99.5%; vs seed 3 -0.033 / -0.036 at 95%
+  only) but not aves-base-bio (-0.015, -0.004, not distinguishable). Tuck, the lowest-recall call type for every model
+  apart from the 18-clip Di (recall 0.33-0.46), is not distinguishable in any comparison (point estimates lower in all four Whisper-small
+  readings). Whisper-base shows the same Tet gain at its best layer (+0.091 [+0.028, +0.168]) but its overall lead
+  does not hold at layer 3 (+0.0073 [-0.0134, +0.0253]), where it trails run16 on Begging and DC.'
+evidence: 'calltype_type_contrasts.json pairs "<A> | <B> | best" and "| L3" (per_type recall_a, recall_b, diff, lo/hi
+  95%, lo995/hi995 99.5%; overall diff/lo/hi, which reproduce seed_pairs_cpu.json). Counts: Te 613, DC 607, Ne 580,
+  Th 290, Be 274, Tu 240, LT 231, Ag 195, So 192, Wh 172, Di 18 of 3,412. Share of the overall difference carried by a
+  type = diff_type x n_type / 3,412 / overall diff (the parts sum exactly to the overall in every pair): vs run16 Te
+  85% / 72% (best / L3), Ne 20% / 36%, Be -13% / -13%; vs run16_seed3 Te 81% / 75%; vs aves-base-bio Te 53% / 58%,
+  Ne 51% / 35%. Seed reference, same file: run16_seed3 - run16 Te +0.031 [-0.005, +0.071] best, +0.020 L3; run16 -
+  run16_seed2 Te +0.007 best, +0.055 [-0.002, +0.120] L3; run16_seed3 - run16 Ne at L3 +0.024 [+0.004, +0.048], so
+  Nest recall itself moves by ~0.02-0.04 between seeds. Whisper-small - run16_seed3 overall +0.0188 [+0.0037, +0.0341]
+  best (inside 079''s 0.015-0.02 seed bar), +0.0232 [+0.0069, +0.0395] L3; Nest vs seed 3 +0.034 / +0.036 (99.5% at
+  L3 only). 072''s controls for Whisper-base: clip duration alone 0.393, Whisper''s log-mel statistics 0.667, with
+  duration 0.723 (e25_whisper_controls.json). Interval count: 8 Whisper pair-readings x 11 types = 88 intervals; 18
+  exclude zero at 95% against ~4.4 expected by chance, 13 at 99.5%. The 99.5% level corrects across the 11 types only,
+  not across the 8 pair-readings.'
+method: 'New zfeval/experiments/calltype_type_contrasts.py: CPU caches features/ct11_<tag>_cpuemb.npy, the board probe
+  (cv_acc, leave-birds-out StratifiedGroupKFold(5) seed 0), per-type recall on out-of-fold predictions, bird bootstrap
+  over the 48 birds (2,000 resamples, seed 0, the same resamples for every pair), observed differences; each pair at
+  both models'' CPU best layers (pooled accuracy asserted against calltype_cpu_rescore.json) and with both at layer
+  3. Whisper caches from e25_hf_cpu_encode.py (E25 protocol: real-token index, no padding in the pooled mean); the
+  Whisper caches were unaffected by the MPS bug (calltype_cpu_rescore.json n_clips_changed = 0; best-layer scores
+  move 0.8643 -> 0.8646 for Whisper-base, 0.8376 -> 0.8385 at its layer 3). Not pre-registered: an exploratory
+  analysis, and the call types were read after the results.'
+provenance: 'analysis/calltype_type_contrasts.json; analysis/seed_pairs_cpu.json; analysis/calltype_cpu_rescore.json;
+  analysis/e25_whisper_controls.json; zfeval/experiments/calltype_type_contrasts.py.'
+caveats: 'Critic (2026-10-19), second pass ACCEPT-WITH-CHANGES, applied: overall-lead-vs-seed-noise in the claim and
+  title, interval count updated to 88, the marginal Tet-vs-AVES 99.5% bound flagged. First pass (keep open until the
+  per-type seed reference was run), applied: the
+  seed reference (run16_seed3 vs run16, run16 vs run16_seed2) and the seed-3 margins added; 99.5% intervals added;
+  title and Tuck/Begging wording restricted to what the intervals support; "4 of 4 readings" dropped (Whisper-small''s
+  best layer IS layer 3, and run16 gets the same 506 of 613 Tet clips right at L8 and L3, so two of the four Tet
+  differences are identical); "no animal audio" removed (Whisper''s training audio cannot be checked); 072
+  contradiction and the frame-count confound named; not pre-registered. Contradiction with 072: 072 (MPS) had
+  Whisper-small minus aves-base-bio +0.0147 [-0.0046, +0.0359], not distinguishable, already layer 3 vs layer 3
+  (aves-base-bio''s MPS best layer was 3). On CPU the same layer pair is resolved (+0.0237 [+0.0053, +0.0474]) because
+  aves-base-bio''s layer 3 drops from 0.8453 to 0.8362 while Whisper-small stays at 0.8599; this finding believes the CPU
+  number (076). Confounds: Whisper''s input (log-mel, 30 s window, real-token index) and pretraining differ from ours
+  in every way, so this says which call types it separates better, not why. Tet clips give our encoders only 2-8
+  frames to attend over, while Whisper always runs on a 30 s padded context; no per-type duration control was run.
+  One run per model; the Begging deficit vs run16 seed 3 holds only at 95%.'
+tags:
+- call-type
+- off-the-shelf
+- per-type
+date: '2026-10-19'

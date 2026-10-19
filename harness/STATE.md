@@ -1,24 +1,15 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-19 02:10 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user: "summarize please and keep going")
+Updated: 2026-10-19 03:05 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user: "summarize please and keep going")
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts).
 Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never quote ct11_<tag>_emb.npy readers.
 
-## This wake (2026-10-18): the pipeline moved to CPU call type everywhere
-- score_run.sh: calltype_cpu_rescore.py --only TAG + seed_pairs_cpu.py TAG:aves-base-bio TAG:run16_compute4x +
-  calltype_labelfree.py --cpu; MPS bootstrap dropped; DRY run vs run22 OK. Chick holdout still MPS (all models).
-- Board (build_board.py) reads only CPU: calltype_cpu_rescore.json, seed_pairs_cpu.json (24 new X|run16 pairs),
-  calltype_split_sensitivity_cpu.json (new --cpu mode), labelfree_stability_cpu.json (new --cpu mode).
-- CPU vs run16: only bioxn-large +0.0237 [+0.0033, +0.0427] (best layer L1) and run21 -0.0226 resolved, of 29.
-- 077 + 078 CONFIRMED after critic (changes applied; E9 result line corrected).
-- 079 CONFIRMED (2 critic passes): 057's pair n.d. at best layers on CPU (+0.0155 [-0.0026, +0.0340]) but resolved at
-  fixed L3 (+0.0185 [+0.0028, +0.0340]) on 10/10 splits; seed noise stays 0.015-0.02 (my ~0.01 draft was refuted).
-  New: seed_pairs_cpu.py --layer, seed_pairs_cpu_L3.json, calltype_split_sensitivity_cpu_L3.json.
-- Label-free on CPU (57 models): k30 vs same-layer call type rho 0.208 (p 0.12) -- same weak agreement as 069.
-- Board republished v5 (https://claude.ai/artifact/3LSJjzp7pLS4JCWviA1wpb). Pushed: project ca69304.
-- run15_calltype.py no longer stamps run15's corpus note on other tags. Digest 2026-10-18 drafted; task doc T3.
+## Since 2026-10-18: call type, label-free, 10-split and chick all CPU (076); details in pi_notes.md
+- score_run.sh + build_board.py read only CPU files (calltype_cpu_rescore, seed_pairs_cpu[_L3],
+  calltype_split_sensitivity_cpu[_L3], labelfree_stability_cpu, chick_holdout_variants_cpu).
+- 077, 078, 079 CONFIRMED after critic. 079: seed noise stays 0.015-0.02 (run16 seed pair resolved at fixed L3).
 
-## 2026-10-19 wake: chick holdout on CPU (last MPS column)
+## 2026-10-19: chick holdout on CPU
 - chick_holdout_variants.py --cpu: 34 models -> chick_holdout_variants_cpu.json (+ _cpu.npy caches). All 97 chick clips
   of 2-8 frames were mis-encoded on MPS. AUC moves <=0.005; AMI(k=4) -0.046..+0.150; 0 of 33 vs run11 resolved, no
   flips -> 048 stands. 080 CONFIRMED (critic changes applied; pointer in 048). score_run.sh + board use the CPU chick
@@ -30,7 +21,9 @@ Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never
 
 ## Next (lead)
 - Board v7: 8 off-the-shelf encoders added (CPU vs run16: Whisper base +0.0293 [+0.0076, +0.0508], small +0.0246
-  [+0.0017, +0.0465] at L3, both ahead on 10/10 splits). Digest 10-19 at the first wake after 09:00.
+  [+0.0017, +0.0465] at L3, both ahead on 10/10 splits). 081 CONFIRMED (2 critic passes): Whisper-small's lead over
+  run16 is 72-85% Tet (beyond run16's seed spread on Tet); vs AVES Tet+Nest; trails run16 on Begging; Tuck n.d.
+  Digest 10-19 at the first wake after 09:00.
 - E15 corpus research (post choice + size + licence in a digest, then wait a day) if the user wants E15.
 
 ## Waiting on the user
