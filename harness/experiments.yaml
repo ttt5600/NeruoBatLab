@@ -913,4 +913,4 @@ experiments:
     because the login node''s python hits EIO on hubert_env files (torch/_C.so among 12 of 144 sampled);
     the DTN reads the same files fine, so imports were checked there. Note finding 040 used 40 mel bins;
     this control uses fairseq''s actual default, 23. Score: bash harness/score_run.sh run23_mfcc
-    /global/scratch/users/jonathanswang/temp_train_run23_mfcc 200 40144546'
+    /global/scratch/users/jonathanswang/temp_train_run23_mfcc 200 40144546 2026-10-19 14:20: relabel 40144545 COMPLETED 0:0, gate PASS: 763/763 files on the audio grid, 40,395,560 frames, 200 populated clusters, largest 2.836%, perplexity 127.6, MFCC->spectrogram purity 0.247 (a very different partition from run16''s labels). Its import check passed on a compute node, so the login-node EIO did not reach compute nodes. run23 PENDING (Priority), Slurm est. start 2026-10-21 21:05.'
