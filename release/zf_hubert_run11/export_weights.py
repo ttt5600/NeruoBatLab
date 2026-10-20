@@ -81,6 +81,9 @@ def main():
     p.add_argument("--run-tag", required=True)
     p.add_argument("--wav", default=None, help="real clip to verify feature equality on")
     p.add_argument("--meta-json", default=None, help="extra metadata to embed (eval results)")
+    p.add_argument("--encoder-config", default=None,
+                   help="architecture JSON (wav2vec2_model kwargs) if the checkpoint does not carry its own "
+                        "'encoder_arch' (train.py --encoder-config runs save it, e.g. BirdAVES-large DAPT)")
     args = p.parse_args()
 
     print(f"[load] {args.ckpt}")
@@ -94,8 +97,19 @@ def main():
     if len(inner) != len(sd):
         print(f"[warn] {len(sd) - len(inner)} tensors did not start with 'model.' and were dropped")
 
+    # Architecture: the checkpoint's own record (lightning_modules.on_save_checkpoint) > --encoder-config >
+    # the 12 x 768 base every run before E27 used. Only encoder keys are overridden.
+    kwargs = dict(PRETRAIN_KWARGS)
+    arch = ck.get("encoder_arch") or (json.loads(Path(args.encoder_config).read_text()) if args.encoder_config else None)
+    if arch:
+        bad = set(arch) - set(ENCODER_KEYS)
+        if bad:
+            raise SystemExit(f"architecture has non-encoder keys: {sorted(bad)}")
+        kwargs.update(arch)
+        print(f"[arch] {kwargs['encoder_num_layers']} layers x {kwargs['encoder_embed_dim']} "
+              f"({'checkpoint' if ck.get('encoder_arch') else '--encoder-config'})")
     full = torchaudio.models.hubert_pretrain_model(
-        num_classes=args.num_classes, feature_grad_mult=0.1, **PRETRAIN_KWARGS
+        num_classes=args.num_classes, feature_grad_mult=0.1, **kwargs
     )
     missing, unexpected = full.load_state_dict(inner, strict=False)
     print(f"[load] into HuBERTPretrainModel: missing={len(missing)} unexpected={len(unexpected)}")
@@ -104,7 +118,7 @@ def main():
                          f"missing={missing[:10]}\nunexpected={unexpected[:10]}")
     full.eval()
 
-    enc_cfg = {k: PRETRAIN_KWARGS[k] for k in ENCODER_KEYS}
+    enc_cfg = {k: kwargs[k] for k in ENCODER_KEYS}
     enc_sd = full.wav2vec2.state_dict()
     n_par = sum(v.numel() for v in enc_sd.values())
     print(f"[encoder] {len(enc_sd)} tensors, {n_par/1e6:.1f}M params "
@@ -117,8 +131,8 @@ def main():
         "global_step": gstep,
         "num_classes_pretrain": args.num_classes,
         "sample_rate": 16000,
-        "n_layers": 12,
-        "embed_dim": 768,
+        "n_layers": int(kwargs["encoder_num_layers"]),
+        "embed_dim": int(kwargs["encoder_embed_dim"]),
         "frame_stride_ms": 20,
         "note": "Wav2Vec2Model encoder only; pretraining head (kmeans label embeddings + "
                 "final projection) intentionally dropped -- it is meaningless outside this "

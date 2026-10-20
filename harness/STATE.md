@@ -1,5 +1,5 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-19 21:10 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user asked: docs, MFCC control, model sizes)
+Updated: 2026-10-20 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user asked: DAPT on BirdAVES, size/data comparison)
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts).
 Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never quote ct11_<tag>_emb.npy readers.
@@ -14,14 +14,16 @@ Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never
 
 ## In flight
 - E34 = run23 MFCC-target control: relabel 40144545 PASSED 14:20 (763/763, purity vs spectrogram 0.247) ->
-  train 40144546 PENDING, est. start 2026-10-21 21:05. Pass mark
+  train 40144546 PENDING, est. start 2026-10-21 15:36. Pass mark
   pre-registered in experiments.yaml. Score: `bash harness/score_run.sh run23_mfcc
   /global/scratch/users/jonathanswang/temp_train_run23_mfcc 200 40144546`. Check relabel log for "PASS: labels written".
-- E12 = run22 (40090445): preempted 2x, requeued at step 41,018; Slurm est. restart now 2026-10-21 09:00.
-- Savio login-node python EIO (seen 02:47 and 09:40) is gone: hubert_env imports torch there again at 21:07.
+- E12 = run22 (40090445): preempted 2x, requeued at step 41,018; Slurm est. restart 2026-10-21 15:09.
+- E27 = DAPT from BirdAVES bioxn-large (315M), E19 recipe: 40207598 (seed 1337) + 40207599 (seed 2), pending.
+  Pass mark pre-registered (both seeds above bioxn-large, interval excl. 0). Score with score_run.sh (tags in yaml).
+- Savio login-node python EIO is intermittent (ok 21:07 Oct 19, back Oct 20 on ln000): check imports on dtn, sbatch direct.
 
 ## Waiting on the user
-- E13 teacher, E26 success + donors, E27 24-layer branch, E15 corpus, E33 (rec: no at +-2 st), 10-split headline,
+- E13 teacher, E26 success + donors, E15 corpus, E33 (rec: no at +-2 st), 10-split headline,
   BeVo split, AVEX, WiSE-FT. Older: E30-32, label audit. Savio cert valid to 14:45 (jobs don't need it).
 
 ## Resume: /loop follow harness/PI.md  (first wake: read PI.md, AGENT.md, this file, knowledge/BRIEF.md, pi_status.sh)

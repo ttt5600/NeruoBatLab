@@ -716,18 +716,42 @@ experiments:
     detection robustness than call type, which looks label- and seed-noise-limited (067, 069). Approved
     by the user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
 - id: E27
-  title: DAPT from the largest BirdAVES (biox-large)
-  baseline: birdaves-biox-large (call type 0.8552, the best AVES version)
-  change: E19's recipe starting from birdaves-biox-large (24 layers) instead of aves-base-bio; needs a
-    large-model config in the training scripts
-  question: Does specialising the strongest download help, given that specialising BirdAVES base hurt
-    (066)?
-  success: to be pre-registered; 2 seeds per arm
-  script: null
-  status: approved
-  priority: 6
-  notes: 'Proposed 2026-10-12. Risk: 066 showed DAPT lowered BirdAVES base on call type. Approved by the
-    user 2026-10-12 ("yes synthetic data, other architectural models, etc").'
+  title: DAPT from the largest BirdAVES (bioxn-large)
+  baseline: birdaves-bioxn-large itself (CPU call type 0.8590, the best AVES-family model; 10-split mean 0.8518)
+  change: 'E14''s recipe (E19: two-teacher targets read-only from E19''s data, lr 2e-4, warmup 750, 15,000 updates,
+    87.5 s of audio per update) with the starting weights moved to birdaves-bioxn-large (24 x 1024, 315,427,968
+    params). Needs --encoder-config (BirdAVES-large is the base recipe scaled up, not torchaudio''s
+    hubert_pretrain_large) and 2 x 43.75 s micro-batches (--accumulate-grad-batches 2) to fit one L40 at the same
+    audio per update. Was written 2026-10-12 for biox-large (the MPS leader); on CPU biox-large is 0.8420, so the
+    init follows the CPU board.'
+  question: 'Does specialising the strongest download on zebra finch raise call type above the download itself?
+    Prior evidence says probably not: DAPT on BirdAVES base (E14) moved call type -0.0100 [-0.0247, +0.0058] on CPU,
+    and no DAPT round has beaten its parent (075).'
+  success: 'Pre-registered 2026-10-20, before training. PRIMARY = 11-class call type on CPU embeddings (board
+    protocol) of each seed''s step-15,000 export minus birdaves-bioxn-large, 95% bird bootstrap, read at each
+    model''s CPU best layer AND at fixed layer 3, plus the 10-split mean. MET only if BOTH seeds are above
+    bioxn-large with the interval excluding zero at the best layer and the same sign at L3. One seed resolving
+    = not met (seed noise flips arm contrasts, 067). SECONDARY (report, do not decide on): vs run19 seed 2 and
+    vs E14; ZF detection AUC, BirdPark AP (12-arm median), chick AUC, label-free k=30.'
+  script: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_bioxnlarge.sh
+  script_seed2: pytorchAudio/examples/hubert/slurm/train_dapt_v4_twoteacher_bioxnlarge_seed2.sh
+  exp_dir: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_bioxnlarge
+  exp_dir_seed2: /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_bioxnlarge_s2
+  tag: daptv4bxl_2e4_step15000
+  tag_seed2: daptv4bxl_2e4s2_step15000
+  num_classes: 200
+  job_name: dapt_bxl
+  status: submitted
+  job: 40207598
+  job_seed2: 40207599
+  priority: 3
+  notes: 'Approved by the user 2026-10-12 ("yes synthetic data, other architectural models, etc"); asked for again
+    2026-10-20 ("if possible can we DAPT on BirdAves?"). Built 2026-10-20 by the session lead: lightning_modules
+    --encoder-config + on_save_checkpoint encoder_arch, export_weights.py reads it; tests/test_encoder_config.py
+    on the Savio DTN (torch 2.2.2): 402-tensor transplant, features == BirdAVES-large''s own (max diff 0), grads
+    reach layer 24, export 24 x 1024 bit-identical; base path unchanged (94,370,944, same kwargs). Submitted with
+    plain sbatch (login-node python EIO again; ledger rows by hand). E19 took 58 min on one L40; expect a few hours.
+    Score each seed: bash harness/score_run.sh daptv4bxl_2e4_step15000 <exp_dir> 200 40207598 (and _s2 / 40207599).'
 - id: E28
   title: AVES's masking in DAPT (E18 recipe, 2 seeds)
   baseline: E18 (seed 1337) and E20 (seed 2), the same recipe with our masking
