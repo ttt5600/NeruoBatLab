@@ -69,7 +69,8 @@ SETTLEMENT SOURCE (checked 10-19): every Kalshi temp series switched NWS -> The 
 TWC = official NWS value on 3,080/3,081 days (scripts/wx_source_check.py --all) -> benign.
 
 QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works top-down, dev only, pre-register first):
-  N0 TOP PRIORITY (user 2026-10-20: wants IN-GAME sports edges -- "game scenarios when odds can't update fast enough",
+  N0 DONE 10-20: NFL in-game 0/3 (H1 -5.6%, H2 -7.2%, H3 6 bets); Kalshi reprices big plays within ~1 min and beats
+     nflfastR WP; only lead = post-hoc maker fade of a 1.8-pt overshoot (needs fresh data). Was: TOP PRIORITY (user 2026-10-20: wants IN-GAME sports edges -- "game scenarios when odds can't update fast enough",
      model on past info backtested on real in-game quotes). scripts/nfl_ingame.py pre-registered (commit ea02bef): Kalshi
      KXNFLGAME 1-min in-game candles (bid/ask, ~$13M/side/game) vs nflfastR vegas_home_wp after each play (time_of_day),
      act at play+60 s. H1 model gap hold, H2 lag after big plays (|dWP|>=.08, exit +6 min), H3 late favourite. DEV = 2025

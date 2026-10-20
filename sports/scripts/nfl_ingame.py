@@ -71,7 +71,10 @@ def pbp(season: int) -> pd.DataFrame:
 def candles(tk: str, s: int, e: int) -> pd.DataFrame:
     rows = []
     for path in (f"{API}/historical/markets/{tk}/candlesticks", f"{API}/series/KXNFLGAME/markets/{tk}/candlesticks"):
-        j = fetch(path, {"start_ts": s, "end_ts": e, "period_interval": 1}, cache=True)
+        try:  # recent markets are not archived yet and the series path can 404 -> try the next path / skip the game
+            j = fetch(path, {"start_ts": s, "end_ts": e, "period_interval": 1}, cache=True)
+        except Exception:
+            continue
         c = j.get("candlesticks", [])
         if c:
             for x in c:
@@ -130,7 +133,9 @@ def snapshots(plays: pd.DataFrame, cd: pd.DataFrame, games: pd.DataFrame) -> pd.
         for side in ("home", "away"):
             cs = c[c.side == side].sort_values("end")
             ends = cs.end.to_numpy()
-            ts = (gp.t.astype("int64") // 10 ** 9).to_numpy()
+            # unit-safe epoch seconds: t is datetime64[us], so astype(int64)//1e9 was 1000x too small and froze every
+            # lookup on the pre-game candle (bug found 2026-10-20 after H3 showed +62% ROI; first dev run invalid)
+            ts = ((gp.t - pd.Timestamp("1970-01-01", tz="UTC")) // pd.Timedelta(seconds=1)).to_numpy()
             i1 = np.searchsorted(ends, ts + 60)
             i6 = np.searchsorted(ends, ts + 360)
             ok = (i1 < len(cs)) & (i6 < len(cs))
