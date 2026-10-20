@@ -90,7 +90,9 @@ def settled(series: str) -> pd.DataFrame:
                 break
     df = pd.DataFrame(rows).drop_duplicates("ticker")
     df = df[df.result.isin(["yes", "no"]) & (df.strike_type == "greater")].copy()
-    df["target"] = df.event_ticker.str.split("-").str[1].map(lambda s: str(pd.Period(pd.to_datetime(s, format="%y%b"), "M")))
+    tm = pd.to_datetime(df.event_ticker.str.split("-").str[1].str[:5], format="%y%b", errors="coerce")
+    df = df[tm.notna()].copy()
+    df["target"] = tm[tm.notna()].dt.to_period("M").astype(str)
     close = pd.to_datetime(df.close_time, utc=True, format="ISO8601")
     df["decision_ts"] = ((close - pd.Timedelta(hours=48) - pd.Timestamp("1970-01-01", tz="UTC")) // pd.Timedelta(seconds=1)).astype(int)
     df["series"] = series

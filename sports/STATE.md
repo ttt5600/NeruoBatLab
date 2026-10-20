@@ -69,14 +69,17 @@ SETTLEMENT SOURCE (checked 10-19): every Kalshi temp series switched NWS -> The 
 TWC = official NWS value on 3,080/3,081 days (scripts/wx_source_check.py --all) -> benign.
 
 QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works top-down, dev only, pre-register first):
-  N1 DAY-OF consensus-reject: same frozen rule but decide 06:00 station-local ON the day, lead-0 forecasts over
+  N1 IN PROGRESS: wx_dayof.py build running in background (Open-Meteo free tier 429s -> ~2 days; resumable, cached).
+     DAY-OF consensus-reject: same frozen rule but decide 06:00 station-local ON the day, lead-0 forecasts over
      hours <= 18 (all issued before 06:00? -> NO: lead-0 hour h is issued ~h; use model runs issued <= 06:00 via
      previous_day1 shifted? -- design the leak-free forecast FIRST, write it in the docstring). Kalshi temp markets
      trade all day; tighter forecasts reject more brackets -> more volume. Dev = orig kalshi_temp dev quarters
      (2024Q1-2025Q2) + X1 series dev (< 2026-03-01). Counted trials on new dataset kalshi_temp_dayof.
-  N2 Kalshi CPI (KXCPI*) monthly brackets vs the Cleveland Fed inflation nowcast (public, archived daily): buy NO on
+  N2 DONE 10-19: 0 bets (all priced rungs inside the 3-sd nowcast band) -> no edge. Was: Kalshi CPI (KXCPI*) monthly brackets vs the Cleveland Fed inflation nowcast (public, archived daily): buy NO on
      brackets the nowcast puts far outside; same consensus-reject logic. Check history depth + liquidity first.
-  N3 Kalshi hourly / directional temperature markets (KXTEMP*H*): same 5-model idea at 1-2 h lead. Liquidity first.
+  N3 DONE 10-19: too thin (median 1-71 contracts/market). Was: Kalshi hourly / directional temperature markets (KXTEMP*H*): same 5-model idea at 1-2 h lead. Liquidity first.
+  N6 Kalshi gas-price markets (AAA national average, daily) vs a random-walk band from AAA history.
+  N7 Kalshi TSA checkpoint-throughput markets vs TSA's published daily counts (seasonal, autocorrelated).
   N4 gap_logger report (>= 3 days of ticks by 10-22): episode counts/durations; if draw gaps dominate, re-check the
      3-way de-vig (Shin) before calling anything an edge.
   N5 soccer_fd variants (dev; bar p < 0.005) -- only matters if user's state allows soft books.
