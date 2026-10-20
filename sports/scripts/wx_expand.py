@@ -181,6 +181,37 @@ def cmd_dev() -> int:
     return 0
 
 
+def cmd_sealed() -> int:
+    """ONE-TIME sealed score, user's explicit yes given 2026-10-19 ("yes" to scoring X1_new_highs on its held-back data).
+    Written before any sealed row was scored. Same rule and scorer as dev; rows with date >= SPLIT only.
+    PASS iff one-sided bootstrap p < 0.05 / (#kalshi_temp_expand promotions incl. this one) and units > 0. Refuses a re-score."""
+    if "--confirm" not in sys.argv or "X1_new_highs" not in sys.argv:
+        print("sealed scoring is the user's decision; pass --confirm X1_new_highs")
+        return 1
+    lock = ROOT / "lab" / "lockbox.jsonl"
+    prior = [json.loads(l) for l in lock.read_text().splitlines() if l.strip()]
+    sha = hashlib.sha256(("wx_expand:X1_new_highs").encode()).hexdigest()[:12]
+    if any(r["sha"] == sha for r in prior):
+        print("X1_new_highs already scored on the lockbox; refusing")
+        return 1
+    df = pd.read_parquet(OUT)
+    df["date"] = pd.to_datetime(df["date"])
+    df = df[df.date >= SPLIT]
+    t = picks(df[df.kind == "high"])
+    r = score(t, np.random.default_rng(0))
+    n_prom = sum(x["dataset"] == DATASET for x in prior) + 1
+    bar = 0.05 / n_prom
+    verdict = "PASS" if (r["p"] < bar and r["units"] > 0) else "FAIL"
+    with lock.open("a") as f:
+        f.write(json.dumps({"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": "wx_expand_X1_new_highs",
+                            "sha": sha, "dataset": DATASET, "promotion_number": n_prom, **r, "verdict": verdict}, default=str) + "\n")
+    print(f"SEALED X1_new_highs: {df.date.min().date()}..{df.date.max().date()}  bets {r['bets']}  losses {r['losses']}  "
+          f"units {r['units']:+.2f}  ROI {r['roi']:+.2%}  95%CI [{r['ci_lo']:+.1f}, {r['ci_hi']:+.1f}]  p {r['p']:.4f}  "
+          f"-> {verdict} (bar {bar:.4f})")
+    print("by series/city:", t.groupby("series").pnl.agg(["size", "sum"]).round(2).to_dict("index"))
+    return 0
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
-    raise SystemExit({"build": cmd_build, "dev": cmd_dev}.get(cmd, lambda: print(__doc__) or 1)())
+    raise SystemExit({"build": cmd_build, "dev": cmd_dev, "sealed": cmd_sealed}.get(cmd, lambda: print(__doc__) or 1)())
