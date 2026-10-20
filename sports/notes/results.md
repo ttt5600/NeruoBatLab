@@ -2,6 +2,7 @@
 
 | date | strategy | data | result | verdict |
 |---|---|---|---|---|
+| 10-19 | N6 Kalshi DAILY US gas (KXAAAGASD) vs AAA random-walk band (scripts/kalshi_gas.py, G1 pre-registered) | 233 days 2023-09..2026-10 (3,741 rungs; DEV < 2025-07 = 25 days x 1 rung: old single-rung format) | 0 bets; median band 3sd = $0.057 vs median |daily change| $0.011 -- band wider than the whole 0.5c-step ladder | NO EDGE in dev (nothing to bet). PATTERN with N2: Kalshi ladders only quote rungs inside ~3 sd of the outcome, so 'far outside the band' rules never fire; the temp rule works because temp brackets span the full outcome range with stale tails |
 | 10-19 | N2 Kalshi CPI ladders vs Cleveland Fed nowcast band (scripts/kalshi_cpi.py, C1 pre-registered) | KXCPI/CORE/YOY/COREYOY targets 2022-12..2024-12 (98 events, 1,207 rungs; only 25-35% priced at close-48h); band K = 3 sd of nowcast error on 2013-07..2021-07 (sd .139-.178 pp -> K .42-.54) | 0 bets: every two-sided rung sits inside the band; rungs outside have yes_bid 0 | NO EDGE: Kalshi CPI ladders are already priced inside the nowcast's own uncertainty; band not narrowed post hoc |
 | 10-19 | N3 Kalshi hourly temperature (KXTEMP*H*) liquidity check | 16 series | median 1-71 contracts/market (MIA 689) | too thin; dropped |
 | 10-19 | SEALED (user yes 10-19) X1 consensus-reject on 17 new daily-HIGH series | Kalshi 2026-03-01..10-18 | +0.78%/2,464 bets, 51 losses, p .0047, units CI [+4.7, +33.0]; 13/17 series + | PASS -- second validated edge; ~325 bets/mo; now paper-traded (kalshi_paper.py cohort x1) |

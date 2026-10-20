@@ -78,8 +78,8 @@ QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works to
   N2 DONE 10-19: 0 bets (all priced rungs inside the 3-sd nowcast band) -> no edge. Was: Kalshi CPI (KXCPI*) monthly brackets vs the Cleveland Fed inflation nowcast (public, archived daily): buy NO on
      brackets the nowcast puts far outside; same consensus-reject logic. Check history depth + liquidity first.
   N3 DONE 10-19: too thin (median 1-71 contracts/market). Was: Kalshi hourly / directional temperature markets (KXTEMP*H*): same 5-model idea at 1-2 h lead. Liquidity first.
-  N6 Kalshi gas-price markets (AAA national average, daily) vs a random-walk band from AAA history.
-  N7 Kalshi TSA checkpoint-throughput markets vs TSA's published daily counts (seasonal, autocorrelated).
+  N6 DONE 10-19: 0 bets (3sd band wider than the ladder; dev only 25 single-rung days). Was: Kalshi gas-price markets (AAA national average, daily) vs a random-walk band from AAA history.
+  N7 DEPRIORITIZED (same ladder structure as N2/N6 -> band rules don't fire). Was: Kalshi TSA checkpoint-throughput markets vs TSA's published daily counts (seasonal, autocorrelated).
   N4 gap_logger report (>= 3 days of ticks by 10-22): episode counts/durations; if draw gaps dominate, re-check the
      3-way de-vig (Shin) before calling anything an edge.
   N5 soccer_fd variants (dev; bar p < 0.005) -- only matters if user's state allows soft books.
