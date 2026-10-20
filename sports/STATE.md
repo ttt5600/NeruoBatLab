@@ -68,17 +68,19 @@ Capacity lever: Kalshi now lists 48 live US temp series (21 daily highs, 27 dail
 SETTLEMENT SOURCE (checked 10-19): every Kalshi temp series switched NWS -> The Weather Company on 2026-08-14;
 TWC = official NWS value on 3,080/3,081 days (scripts/wx_source_check.py --all) -> benign.
 
-QUEUE (research loop works top-down; skip blocked items):
-  Q1 DONE 10-19 (X1 highs dev +1.22% p.057 -> sealed awaits yes; X2 lows -6.4% dead). Was: consensus-reject on the 41 NEW KX(HIGH|LOW) series (list: Kalshi /series, category Climate and Weather,
-     ticker ^KX(HIGH|LOW)T?[A-Z]{2,5}$ with open markets). Rule FROZEN (no refit). Build settled brackets +
-     leak-free historical forecasts (same pipeline as kalshi_temp / sports/wx.py), pre-register split
-     DEV < 2026-03-01 / SEALED >= 2026-03-01 (sealed needs user yes). Lows = forecast daily MIN; check NWS
-     climate-day definition (midnight-midnight LST) before building.
-  Q2 gap_logger report after >= 3 days: episode count/duration; if >= 1% EV episodes persist >= 4 min, pre-register
-     a taker paper rule on them.
-  Q3 soccer_fd dev variants (each a counted trial, bar now p < 0.005): draw-only, per-league tiers, Shin selection.
-  Q4 DONE 10-19: R1 dry->NO PASSED dev (+3.42%/361), R2 wet->YES -0.9% -> sealed awaits yes. Was: Kalshi RAIN markets (KXRAIN*): consensus "all models dry" -> NO on rain, same protocol as Q1.
-  Q5 Kalshi temp maker version: rest the NO bid 1c better than the taker price (fill realism = the risk).
+QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works top-down, dev only, pre-register first):
+  N1 DAY-OF consensus-reject: same frozen rule but decide 06:00 station-local ON the day, lead-0 forecasts over
+     hours <= 18 (all issued before 06:00? -> NO: lead-0 hour h is issued ~h; use model runs issued <= 06:00 via
+     previous_day1 shifted? -- design the leak-free forecast FIRST, write it in the docstring). Kalshi temp markets
+     trade all day; tighter forecasts reject more brackets -> more volume. Dev = orig kalshi_temp dev quarters
+     (2024Q1-2025Q2) + X1 series dev (< 2026-03-01). Counted trials on new dataset kalshi_temp_dayof.
+  N2 Kalshi CPI (KXCPI*) monthly brackets vs the Cleveland Fed inflation nowcast (public, archived daily): buy NO on
+     brackets the nowcast puts far outside; same consensus-reject logic. Check history depth + liquidity first.
+  N3 Kalshi hourly / directional temperature markets (KXTEMP*H*): same 5-model idea at 1-2 h lead. Liquidity first.
+  N4 gap_logger report (>= 3 days of ticks by 10-22): episode counts/durations; if draw gaps dominate, re-check the
+     3-way de-vig (Shin) before calling anything an edge.
+  N5 soccer_fd variants (dev; bar p < 0.005) -- only matters if user's state allows soft books.
+DONE (v1): Q1 X1 PASS sealed; X2 lows dead; Q4 rain R1 sealed FAIL; Q2-Q3/Q5 folded into N4/N5.
 
 ## USER DIRECTION (2026-10-15) -- go wide, everything that can earn >= $100/month
 User wants: stocks, Polymarket, sportsbooks ("bet until limited; limits come ~$50k won" -- user's number,
@@ -148,7 +150,10 @@ Pinnacle O/U in soccer only from 2019 (sealed era).
    -> with the 7 traded cities ~420 bets/mo -> $100/mo at ~$17/bet. Sealed 2026-03-01..2026-10-18 (one shot) needs the
    user's yes: add `sealed --confirm X1_new_highs` to wx_expand.py (not written yet: same score(), df.date >= SPLIT,
    lockbox.jsonl, PASS = p < 0.05 and units > 0). LOWS (X2) failed dev -6.4% -> do not trade lows.
-000. NEW 2026-10-19 REAL MONEY SWITCH (only route to revenue with evidence): executor is built + shadowing (dry).
+000. NEW 2026-10-19 REAL MONEY SWITCH -- user said "let's go" (10-19): opening a Kalshi account + funding.
+   Executor re-checked vs docs.kalshi.com 10-19 (Ed25519 default key, V2 /portfolio/events/orders, sell-YES = buy-NO,
+   KALSHI_MAX_CONTRACTS=1 default for live). After the first live fills: confirm average_fill_price ~ 1 - NO price.
+   Original text: (only route to revenue with evidence): executor is built + shadowing (dry).
    To go live the USER: (1) creates a Kalshi API key, saves the private key file, and writes to
    ~/.claude/quant-kalshi/.env: KALSHI_KEY_ID=..., KALSHI_PRIVATE_KEY_PATH=..., KALSHI_MAX_ORDER_USD=25,
    KALSHI_MAX_DAILY_USD=100, KALSHI_MAX_OPEN_USD=300; (2) runs `cd ~/.claude/quant-kalshi && .venv/bin/python
