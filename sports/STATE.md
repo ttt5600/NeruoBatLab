@@ -77,6 +77,9 @@ QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works to
      act at play+60 s. H1 model gap hold, H2 lag after big plays (|dWP|>=.08, exit +6 min), H3 late favourite. DEV = 2025
      wk 1-12; SEALED = 2025 wk13+/POST + 2026. 280/285 2025 games match Kalshi. Build running. Next: NBA version (nba_api
      pbp has wall clock) if NFL shows anything.
+  F1 FORWARD PAPER (user yes 10-20): scripts/nfl_ingame_fade.py -- maker fade of the post-big-play overshoot, NFL games
+     2026-10-22..11-30 only (pre-registered before they were played). `interim` = descriptive look (weekly, Tuesdays);
+     `score` = ONE shot after 2026-12-02. Smoke-tested on 10-08..10-13 (outside window, 55 fills, no totals looked at).
   N1 IN PROGRESS: wx_dayof.py build running in background (Open-Meteo free tier 429s -> ~2 days; resumable, cached).
      DAY-OF consensus-reject: same frozen rule but decide 06:00 station-local ON the day, lead-0 forecasts over
      hours <= 18 (all issued before 06:00? -> NO: lead-0 hour h is issued ~h; use model runs issued <= 06:00 via
