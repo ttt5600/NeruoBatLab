@@ -11,13 +11,15 @@ Inputs: picks written by kalshi_paper.py (data/kalshi_paper.jsonl). Each unexecu
 Safety (all enforced here, not by the caller):
   * live requires BOTH `--live` and EXEC_MODE=live in sports/.env (the user sets that; Claude never does)
   * kill switch: a file named KILL in sports/ or ~/.claude/quant-kalshi/ stops everything, live or dry
-  * caps (sports/.env, small defaults): KALSHI_MAX_ORDER_USD=25, KALSHI_MAX_DAILY_USD=100, KALSHI_MAX_OPEN_USD=300
+  * caps (sports/.env, small defaults): KALSHI_MAX_ORDER_USD=25, KALSHI_MAX_DAILY_USD=100, KALSHI_MAX_OPEN_USD=300,
+    KALSHI_MAX_CONTRACTS=1 (per live order -- raise only after the first fills are checked)
   * size <= half the resting depth within 1c; immediate-or-cancel limit orders (nothing rests overnight)
 Credentials: KALSHI_KEY_ID and KALSHI_PRIVATE_KEY_PATH in sports/.env, put there by the user. This script only reads
 them to sign requests; it never prints, logs or copies them. sports/.env and *.pem are gitignored.
-VERIFY BEFORE THE FIRST LIVE ORDER (written 2026-10-19 from the v2 docs as remembered, not yet exercised):
-signature = RSA-PSS/SHA256 over timestamp_ms + METHOD + path; order body fields (no_price in cents,
-time_in_force). Run `check`, then one live order of 1 contract, before raising caps.
+Checked against docs.kalshi.com 2026-10-19: signing (Ed25519 default or RSA-PSS), host external-api.kalshi.com,
+V2 POST /portfolio/events/orders {ticker, side bid|ask (YES leg), count "N.00", price "0.0400" YES dollars,
+time_in_force, self_trade_prevention_type}. Still unexercised: run `check`, then let one 1-contract order fill and
+confirm average_fill_price ~= 1 - NO price before raising KALSHI_MAX_CONTRACTS.
 """
 from __future__ import annotations
 
@@ -37,7 +39,8 @@ DATA = ROOT / "data"
 PICKS = DATA / "kalshi_paper.jsonl"
 LOG = DATA / "kalshi_exec.jsonl"
 ENV = ROOT / ".env"
-API = "https://api.elections.kalshi.com"
+API = "https://api.elections.kalshi.com"  # public market data (no auth)
+TRADE_API = "https://external-api.kalshi.com"  # authenticated trading host per current docs
 BASE = "/trade-api/v2"
 FEE = 0.07
 KILLS = [ROOT / "KILL", Path.home() / ".claude" / "quant-kalshi" / "KILL"]
@@ -54,18 +57,26 @@ def env() -> dict:
 
 
 def _sign(e: dict, method: str, path: str) -> dict:
+    """Signature over timestamp_ms + METHOD + path (path includes /trade-api/v2, no query string).
+    Kalshi picks the algorithm from the registered key: Ed25519 (the UI default) signs the bytes directly;
+    RSA uses PSS/SHA-256, MGF1 SHA-256, salt = digest length (docs.kalshi.com/getting_started/api_keys, 2026-10-19)."""
     from cryptography.hazmat.primitives import hashes, serialization
-    from cryptography.hazmat.primitives.asymmetric import padding
+    from cryptography.hazmat.primitives.asymmetric import ed25519, padding, rsa
     key = serialization.load_pem_private_key(Path(e["KALSHI_PRIVATE_KEY_PATH"]).expanduser().read_bytes(), password=None)
     ts = str(int(time.time() * 1000))
-    sig = key.sign((ts + method + path).encode(), padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
-                                                             salt_length=padding.PSS.DIGEST_LENGTH), hashes.SHA256())
+    msg = (ts + method + path.split("?")[0]).encode()
+    if isinstance(key, ed25519.Ed25519PrivateKey):
+        sig = key.sign(msg)
+    elif isinstance(key, rsa.RSAPrivateKey):
+        sig = key.sign(msg, padding.PSS(mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.DIGEST_LENGTH), hashes.SHA256())
+    else:
+        raise ValueError(f"unsupported key type {type(key).__name__}")
     return {"KALSHI-ACCESS-KEY": e["KALSHI_KEY_ID"], "KALSHI-ACCESS-TIMESTAMP": ts,
             "KALSHI-ACCESS-SIGNATURE": base64.b64encode(sig).decode(), "Content-Type": "application/json"}
 
 
 def authed(e, method, path, body=None):
-    r = requests.request(method, API + BASE + path, headers=_sign(e, method, BASE + path),
+    r = requests.request(method, TRADE_API + BASE + path, headers=_sign(e, method, BASE + path),
                          data=json.dumps(body) if body is not None else None, timeout=20)
     return r.status_code, (r.json() if r.content else {})
 
@@ -96,7 +107,7 @@ def cmd_check() -> int:
         print("no key configured: add KALSHI_KEY_ID and KALSHI_PRIVATE_KEY_PATH to sports/.env yourself")
         return 1
     code, body = authed(e, "GET", "/portfolio/balance")
-    print(f"GET /portfolio/balance -> HTTP {code}; " + (f"balance ${body.get('balance', 0) / 100:,.2f}" if code == 200 else str(body)[:200]))
+    print(f"GET /portfolio/balance -> HTTP {code}; " + (f"balance ${float(body.get('balance_dollars', 0)):,.2f}" if code == 200 else str(body)[:200]))
     return 0 if code == 200 else 1
 
 
@@ -111,6 +122,7 @@ def cmd_run() -> int:
     cap_order = float(e.get("KALSHI_MAX_ORDER_USD", 25))
     cap_day = float(e.get("KALSHI_MAX_DAILY_USD", 100))
     cap_open = float(e.get("KALSHI_MAX_OPEN_USD", 300))
+    cap_n = int(e.get("KALSHI_MAX_CONTRACTS", 1))  # per order; 1 until the first live fills are checked by hand
     hist = logged()
     done = {h["ticker"] for h in hist}
     now = datetime.now(timezone.utc)
@@ -130,16 +142,19 @@ def cmd_run() -> int:
         elif budget < ask:
             rec.update(status="skip_cap", count=0, cost=0.0)
         else:
-            n = int(min(budget // (ask + FEE * ask * (1 - ask)), depth // 2))
+            n = int(min(budget // (ask + FEE * ask * (1 - ask)), depth // 2, cap_n if live else 10 ** 9))
             rec.update(count=n, cost=round(n * ask, 2), limit_cents=int(round(ask * 100)))
             if n < 1:
                 rec.update(status="skip_depth", cost=0.0)
             elif live:
-                code, body = authed(e, "POST", "/portfolio/orders", {
-                    "ticker": p["ticker"], "action": "buy", "side": "no", "type": "limit", "count": n,
-                    "no_price": rec["limit_cents"], "time_in_force": "immediate_or_cancel",
+                # V2 create order (docs 2026-10-19): one YES book; side refers to the YES leg. "buy-no and sell-yes
+                # both produce long no", so buying NO at q = ask (sell YES) at YES price 1 - q. Immediate-or-cancel:
+                # a wrong price convention just fails to fill. VERIFY on the first fill: average_fill_price ~ 1 - q.
+                code, body = authed(e, "POST", "/portfolio/events/orders", {
+                    "ticker": p["ticker"], "side": "ask", "count": f"{n}.00", "price": f"{1 - ask:.4f}",
+                    "time_in_force": "immediate_or_cancel", "self_trade_prevention_type": "taker_at_cross",
                     "client_order_id": str(uuid.uuid4())})
-                rec.update(status=f"http_{code}", response=body.get("order", body))
+                rec.update(status=f"http_{code}", response=body, filled=float(body.get("fill_count", 0) or 0))
             else:
                 rec["status"] = "dry"
             spent_today += rec["cost"]
