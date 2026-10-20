@@ -1,6 +1,6 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-19 (orchestration: 4 durable loops + research queue; dry-run executor; $100/mo plan). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-19 (X1 new-highs SEALED PASS -> paper-trading 24 cities; R1 rain sealed FAIL). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
@@ -16,7 +16,8 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 - Automated execution only via Kalshi official API (sportsbooks have no API; automating them breaks ToS).
 
 ## Where things stand (2026-10-19)
-- PASSED sealed: only Kalshi temp "consensus-reject" (+1.45% ROI, 1,844 bets) -- paper-trading (9 picks, 1 settled, +0.01u).
+- PASSED sealed (2): X1 = same rule on 17 new KXHIGHT* series, +0.78%/2,464 p .0047 (2026-03..10, user yes 10-19);
+  and the original Kalshi temp "consensus-reject" (+1.45% ROI, 1,844 bets) -- paper-trading (9 picks, 1 settled, +0.01u).
 - BEST NEW LEAD (dev only): SOCCER soft books vs Pinnacle, scripts/soccer_fd.py, football-data.co.uk 22 divs.
   S12 best3_pow3 = best of B365/WH/bwin, power de-vig of Pinnacle pre-close, edge >= 3%, price < 10:
   dev 2012-19 CLV +2.87% (p<.001, 7/7 seasons), ROI +8.5%/2,604 (p .008); CLV monotonic in threshold.
@@ -41,7 +42,7 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 
 ## ORCHESTRATION (user 2026-10-19: "take control of orchestration... more loops"; goal $100/month revenue)
 Durable loops (launchd, all from ~/.claude/quant-kalshi; reinstall with the scripts/install_*.sh after edits):
-  L1 quant-kalshi-paper  hourly :03  kalshi_paper.py tick (temp consensus-reject picks + settle) THEN
+  L1 quant-kalshi-paper  hourly :03  kalshi_paper.py tick (temp consensus-reject, 24 cities = orig7 + X1 17, + settle) THEN
                          kalshi_exec.py run --live = SHADOW execution: sizes each fresh pick vs the live book,
                          logs data/kalshi_exec.jsonl. DRY unless ~/.claude/quant-kalshi/.env has EXEC_MODE=live (user).
   L2 quant-live-signals  15 min      live_signals.py tick (NFL pre-kickoff rain -> Kalshi totals, paper)
@@ -56,7 +57,10 @@ Each wake, first: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/kalshi_
 
 $100/MONTH MATH (from the sealed record, 2026-10-19): consensus-reject sealed = 1,844 bets over 2025-07..2026-10
 (~15 mo, ~121 bets/mo), ROI +1.45% per $ risked after fees (95% CI on units +10.9..+42.6 -> ROI +0.6..+2.3%).
-$100/mo needs ~$57 per bet (CI at that stake: ~$40-$160/mo). Median resting depth 617 contracts within 1c ->
+$100/mo needs ~$57 per bet (CI at that stake: ~$40-$160/mo).
+UPDATED 10-19 after X1 PASS: orig7 ~121 bets/mo x 1.45% + X1 ~325 bets/mo x 0.78% = ~$4.3/mo per $1 staked per bet
+-> $100/mo at ~$23/bet (rough range ~$30-$165/mo at that stake, from the two sealed CIs). X1 books are thinner
+(validation 10-19: LV 11, SDF 35, OKC 82 contracts within 1c) -> some fills partial at $23. Median resting depth 617 contracts within 1c ->
 $57 is ~10% of depth. ~4 picks/night -> ~$230 out at once; keep ~$1,000 bankroll (one loss at NO 0.95-0.99
 costs the whole stake = 20-90 wins). Profit was lumpy (2026Q1 = 16.7 of 26.8 units; 2 of 6 quarters negative).
 Exec default caps ($25/order, $100/day, $300 open) -> ~$44/mo; $100/mo needs ~$60/order, $250/day, $500 open.
@@ -134,12 +138,12 @@ Blocked: tennis-data.co.uk 403s automation (don't bypass); NHL/college odds sour
 Pinnacle O/U in soccer only from 2019 (sealed era).
 
 ## WAITING ON USER
-00000. NEW 2026-10-19 Q4 RAIN: R1 (all 5 models forecast < 0.01 in for the day, lead-2 -> buy NO on Kalshi KXRAIN)
+(RESOLVED 10-19: user said yes; X1 sealed PASS, R1 sealed FAIL -- see results.md) 00000. Q4 RAIN: R1 (all 5 models forecast < 0.01 in for the day, lead-2 -> buy NO on Kalshi KXRAIN)
    PASSED dev: +3.42%/361 bets p<.001, 3 losses, 9/10 weeks and 20/22 cities positive. Dev = 56 summer days only.
    ~40 cities x ~25% of days dry-consensus -> roughly 200+ bets/mo at ~96c. Sealed 2026-09-15..10-18 (~5 weeks, one
    shot) needs the user's yes; add `sealed --confirm R1_dry_no` (not written yet). Forward paper of R1 can start
    without a yes (paper is not sealed scoring) -- propose to user.
-0000. NEW 2026-10-19 Q1 -- the BEST capacity lever: consensus-reject rule FROZEN, applied to 13 new daily-HIGH series
+(RESOLVED 10-19, X1 PASS) 0000. Q1 -- the BEST capacity lever: consensus-reject rule FROZEN, applied to 13 new daily-HIGH series
    (wx_expand.py X1): dev +1.22%/444 bets p .057 (dev only 2025-12..2026-02; sealed rule passed at +1.45%). ~300 bets/mo
    -> with the 7 traded cities ~420 bets/mo -> $100/mo at ~$17/bet. Sealed 2026-03-01..2026-10-18 (one shot) needs the
    user's yes: add `sealed --confirm X1_new_highs` to wx_expand.py (not written yet: same score(), df.date >= SPLIT,

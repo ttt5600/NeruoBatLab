@@ -36,6 +36,22 @@ MARGIN = 3.0
 DECISION_HOUR = 22  # city-local, the night before (matches lab/strategies + wx.decision_ts)
 H = {"User-Agent": "Mozilla/5.0"}
 
+# X1 (scripts/wx_expand.py) PASSED its sealed test 2026-10-19: same frozen rule on 17 more daily-HIGH series,
+# +0.78%/2,464 bets p .0047 (2026-03..10). Paper-traded alongside the original 7 (cohort "x1"). Kept out of
+# wx.CITIES on purpose: that dict defines the original kalshi_temp dataset and wx_expand's "already traded" set.
+X1_CITIES = {
+    "KXHIGHTATL": ("KATL", "America/New_York"), "KXHIGHTBOS": ("KBOS", "America/New_York"),
+    "KXHIGHTDAL": ("KDFW", "America/Chicago"), "KXHIGHTDC": ("KDCA", "America/New_York"),
+    "KXHIGHTEWR": ("KEWR", "America/New_York"), "KXHIGHTHOU": ("KHOU", "America/Chicago"),
+    "KXHIGHTLV": ("KLAS", "America/Los_Angeles"), "KXHIGHTMIN": ("KMSP", "America/Chicago"),
+    "KXHIGHTNOLA": ("KMSY", "America/Chicago"), "KXHIGHTOKC": ("KOKC", "America/Chicago"),
+    "KXHIGHTPHX": ("KPHX", "America/Phoenix"), "KXHIGHTSAN": ("KSAN", "America/Los_Angeles"),
+    "KXHIGHTSATX": ("KSAT", "America/Chicago"), "KXHIGHTSDF": ("KSDF", "America/Kentucky/Louisville"),
+    "KXHIGHTSEA": ("KSEA", "America/Los_Angeles"), "KXHIGHTSFO": ("KSFO", "America/Los_Angeles"),
+    "KXHIGHTTTN": ("KTTN", "America/New_York"),
+}
+PAPER_CITIES = {**wx.CITIES, **X1_CITIES}
+
 
 def live_forecasts(lat, lon, tz, day):
     r = requests.get("https://api.open-meteo.com/v1/forecast", headers=H, timeout=60, params={
@@ -84,7 +100,7 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
     seen = {json.loads(l)["ticker"] for l in LOG.read_text().splitlines()} if LOG.exists() else set()
     done = set(json.loads(DONE.read_text())) if DONE.exists() else set()
     picks = []
-    for series, (station, tz) in wx.CITIES.items():
+    for series, (station, tz) in PAPER_CITIES.items():
         local = now.astimezone(ZoneInfo(tz))
         if due_only and local.hour not in (DECISION_HOUR, DECISION_HOUR + 1):
             continue
@@ -118,6 +134,7 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
                 continue
             best, d1, d2 = book_depth(m["ticker"])
             picks.append({"logged_at": now.isoformat(timespec="seconds"), "city": series, "event": ev,
+                          "cohort": "x1" if series in X1_CITIES else "orig7",
                           "ticker": m["ticker"], "strike_type": m.get("strike_type"), "floor": fl, "cap": ca,
                           "forecasts": fc, "yes_bid": bid, "yes_ask": ask, "no_price": round(1 - bid, 4),
                           "fee_per_contract": round(wx.FEE_RATE * (1 - bid) * bid, 4),
@@ -150,6 +167,11 @@ def cmd_report():
     done = [r for r in rows if r["result"]]
     units = sum((1 - r["no_price"] - r["fee_per_contract"]) / (r["no_price"] + r["fee_per_contract"])
                 if r["result"] == "no" else -1.0 for r in done)
+    for c in ("orig7", "x1"):
+        cd = [r for r in done if r.get("cohort", "orig7") == c]
+        cu = sum((1 - r["no_price"] - r["fee_per_contract"]) / (r["no_price"] + r["fee_per_contract"])
+                 if r["result"] == "no" else -1.0 for r in cd)
+        print(f"  {c}: {sum(r.get('cohort', 'orig7') == c for r in rows)} picks, {len(cd)} settled, {cu:+.2f} units")
     print(f"{len(rows)} paper picks, {len(done)} settled, {sum(r['result'] == 'no' for r in done)} wins, "
           f"{units:+.2f} units; median depth within 1c: "
           f"{np.median([r['depth_1c'] for r in rows]) if rows else 0:.0f} contracts")
