@@ -62,10 +62,20 @@ TRIALS = ["D1_dayof_all", "D2_dayof_new"]
 def run_max(cities: dict, coords: dict, day: pd.Timestamp, model: str) -> dict:
     """Max over each city's local day D from the 00Z run of D (one call, all cities)."""
     names = list(cities)
-    d = fetch(SINGLE, {"latitude": ",".join(str(coords[c][0]) for c in names),
-                       "longitude": ",".join(str(coords[c][1]) for c in names), "hourly": "temperature_2m",
-                       "models": model, "run": f"{day.date()}T00:00", "forecast_days": 2, "temperature_unit": "fahrenheit",
-                       "timezone": "GMT"}, cache=True)
+    try:  # an unavailable run answers HTTP 400 ("requested model run is not available") -> no data that day
+        d = fetch(SINGLE, {"latitude": ",".join(str(coords[c][0]) for c in names),
+                           "longitude": ",".join(str(coords[c][1]) for c in names), "hourly": "temperature_2m",
+                           "models": model, "run": f"{day.date()}T00:00", "forecast_days": 2, "temperature_unit": "fahrenheit",
+                           "timezone": "GMT"}, cache=True)
+    except Exception as e:
+        if "400" in str(e):
+            return {}
+        if "429" in str(e):  # Open-Meteo free tier counts each location: ~5k/h, 10k/day -> wait and retry
+            import time
+            print(f"  429 at {model} {day.date()}; sleeping 10 min", flush=True)
+            time.sleep(600)
+            return run_max(cities, coords, day, model)
+        raise
     if isinstance(d, dict) and d.get("error"):
         return {}
     d = d if isinstance(d, list) else [d]
