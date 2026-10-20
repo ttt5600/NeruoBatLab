@@ -156,6 +156,10 @@ Pinnacle O/U in soccer only from 2019 (sealed era).
 000. NEW 2026-10-19 REAL MONEY SWITCH -- user said "let's go" (10-19): opening a Kalshi account + funding.
    Executor re-checked vs docs.kalshi.com 10-19 (Ed25519 default key, V2 /portfolio/events/orders, sell-YES = buy-NO,
    KALSHI_MAX_CONTRACTS=1 default for live). After the first live fills: confirm average_fill_price ~ 1 - NO price.
+   10-20 shadow night 1 (24 cities): 24 picks, dry executor sized 5 ($99.74) then skip_cap on the rest -- the default
+   $100/day cap allows ~4 orders/night. For ~$100/mo after the 1-contract check: KALSHI_MAX_ORDER_USD=25,
+   KALSHI_MAX_DAILY_USD=300, KALSHI_MAX_OPEN_USD=600 (user sets them). Loop reports 10-20 04Z: paper 24 picks/3 settled
+   +0.04u; gap logger 342 ticks, 11 episodes (LaLiga draws persist ~5.5 h -> de-vig artifact suspected); live_signals 8 games 0 fired.
    Original text: (only route to revenue with evidence): executor is built + shadowing (dry).
    To go live the USER: (1) creates a Kalshi API key, saves the private key file, and writes to
    ~/.claude/quant-kalshi/.env: KALSHI_KEY_ID=..., KALSHI_PRIVATE_KEY_PATH=..., KALSHI_MAX_ORDER_USD=25,

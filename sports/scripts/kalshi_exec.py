@@ -104,7 +104,7 @@ def logged() -> list[dict]:
 def cmd_check() -> int:
     e = env()
     if not {"KALSHI_KEY_ID", "KALSHI_PRIVATE_KEY_PATH"} <= set(e):
-        print("no key configured: add KALSHI_KEY_ID and KALSHI_PRIVATE_KEY_PATH to sports/.env yourself")
+        print(f"no key configured: add KALSHI_KEY_ID and KALSHI_PRIVATE_KEY_PATH to {ENV} yourself")
         return 1
     code, body = authed(e, "GET", "/portfolio/balance")
     print(f"GET /portfolio/balance -> HTTP {code}; " + (f"balance ${float(body.get('balance_dollars', 0)):,.2f}" if code == 200 else str(body)[:200]))
@@ -118,7 +118,7 @@ def cmd_run() -> int:
     e = env()
     live = "--live" in sys.argv and e.get("EXEC_MODE") == "live"
     if "--live" in sys.argv and not live:
-        print("--live ignored: sports/.env does not have EXEC_MODE=live -> dry run")
+        print(f"--live ignored: {ENV} does not have EXEC_MODE=live -> dry run")
     cap_order = float(e.get("KALSHI_MAX_ORDER_USD", 25))
     cap_day = float(e.get("KALSHI_MAX_DAILY_USD", 100))
     cap_open = float(e.get("KALSHI_MAX_OPEN_USD", 300))
