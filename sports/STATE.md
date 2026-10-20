@@ -69,6 +69,12 @@ SETTLEMENT SOURCE (checked 10-19): every Kalshi temp series switched NWS -> The 
 TWC = official NWS value on 3,080/3,081 days (scripts/wx_source_check.py --all) -> benign.
 
 QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works top-down, dev only, pre-register first):
+  N0 TOP PRIORITY (user 2026-10-20: wants IN-GAME sports edges -- "game scenarios when odds can't update fast enough",
+     model on past info backtested on real in-game quotes). scripts/nfl_ingame.py pre-registered (commit ea02bef): Kalshi
+     KXNFLGAME 1-min in-game candles (bid/ask, ~$13M/side/game) vs nflfastR vegas_home_wp after each play (time_of_day),
+     act at play+60 s. H1 model gap hold, H2 lag after big plays (|dWP|>=.08, exit +6 min), H3 late favourite. DEV = 2025
+     wk 1-12; SEALED = 2025 wk13+/POST + 2026. 280/285 2025 games match Kalshi. Build running. Next: NBA version (nba_api
+     pbp has wall clock) if NFL shows anything.
   N1 IN PROGRESS: wx_dayof.py build running in background (Open-Meteo free tier 429s -> ~2 days; resumable, cached).
      DAY-OF consensus-reject: same frozen rule but decide 06:00 station-local ON the day, lead-0 forecasts over
      hours <= 18 (all issued before 06:00? -> NO: lead-0 hour h is issued ~h; use model runs issued <= 06:00 via
