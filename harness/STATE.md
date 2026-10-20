@@ -18,7 +18,7 @@ Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never
   pre-registered in experiments.yaml. Score: `bash harness/score_run.sh run23_mfcc
   /global/scratch/users/jonathanswang/temp_train_run23_mfcc 200 40144546`. Check relabel log for "PASS: labels written".
 - E12 = run22 (40090445): preempted 2x, requeued at step 41,018; Slurm est. restart now 2026-10-21 09:00.
-- Savio login-node python EIO (02:47-~14:00) is gone: hubert_env imports torch there again at 21:07.
+- Savio login-node python EIO (seen 02:47 and 09:40) is gone: hubert_env imports torch there again at 21:07.
 
 ## Waiting on the user
 - E13 teacher, E26 success + donors, E27 24-layer branch, E15 corpus, E33 (rec: no at +-2 st), 10-split headline,
