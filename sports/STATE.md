@@ -16,7 +16,8 @@ Make money legitimately. User upgrades plan if we prove > $100/month. Path agree
 - Automated execution only via Kalshi official API (sportsbooks have no API; automating them breaks ToS).
 
 ## Where things stand (2026-10-19)
-- PASSED sealed (2): X1 = same rule on 17 new KXHIGHT* series, +0.78%/2,464 p .0047 (2026-03..10, user yes 10-19);
+- PASSED sealed (3): SOCCER S12 best3_pow3 2019-26 CLV +3.63% p<.001, ROI +8.71%/2,004 p .010 (user yes 10-20) -- needs
+  UK-style soft-book accounts (not CA). Plus: X1 = same rule on 17 new KXHIGHT* series, +0.78%/2,464 p .0047 (2026-03..10, user yes 10-19);
   and the original Kalshi temp "consensus-reject" (+1.45% ROI, 1,844 bets) -- paper-trading (9 picks, 1 settled, +0.01u).
 - BEST NEW LEAD (dev only): SOCCER soft books vs Pinnacle, scripts/soccer_fd.py, football-data.co.uk 22 divs.
   S12 best3_pow3 = best of B365/WH/bwin, power de-vig of Pinnacle pre-close, edge >= 3%, price < 10:
