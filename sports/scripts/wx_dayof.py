@@ -100,12 +100,23 @@ def prices_at(series, mk, tz, hour, day_offset):
         ts[ev] = int(datetime(dd.year, dd.month, dd.day, hour, tzinfo=ZoneInfo(tz)).timestamp())
     urls = [f"{wx.API}/series/{series}/events/{ev}/candlesticks?start_ts={ts[ev] - 3 * 3600}&end_ts={ts[ev]}&period_interval=60"
             for ev in events]
-    out = []
+    out, missing = [], []
     for ev, d in zip(events, fetch_many(urls)):
+        if not d.get("market_tickers"):
+            missing.append(ev)
         for tk, c in zip(d.get("market_tickers", []), d.get("market_candlesticks", [])):
             r = wx._row(tk, ev, c, ts[ev])
             if r:
                 out.append(r)
+    # archived events answer nothing on the event endpoint -> per-market /historical fallback (as wx.prices_at_decision;
+    # missing this dropped every event before ~2026-08 in the first build, 10-21)
+    leg = mk[mk.event_ticker.isin(missing)]
+    urls = [f"{wx.API}/historical/markets/{tk}/candlesticks?start_ts={ts[ev] - 3 * 3600}&end_ts={ts[ev]}&period_interval=60"
+            for tk, ev in zip(leg.ticker, leg.event_ticker)]
+    for (tk, ev), d in zip(zip(leg.ticker, leg.event_ticker), fetch_many(urls)):
+        r = wx._row(tk, ev, d.get("candlesticks", []), ts[ev])
+        if r:
+            out.append(r)
     return pd.DataFrame(out)
 
 
