@@ -34,6 +34,13 @@ CLOSED THIS SPRINT (no edge, don't redo): NFL in-game H1-H3, NBA in-game H1-H3 (
 cross-venue elections + sports (Kalshi~Polymarket within 0.5-1c), rain R1 (sealed FAIL), lows X2 (dev -6.4%), NBA props
 rolling-form P1 (-3.3%/130k). Traps: datetime64[us] epoch bug (memory feedback_datetime_unit_epoch); ESPN prop
 last_updated is post-tip -> use *_open only; 3-candidate races are not R/D arbs.
+RESEARCH DONE 10-21 (both reports written): key synthesis -> (a) skew: prop stats are right-skewed, lines ~ median, so a
+MEAN projection leans OVER -- likely part of P1's -3.3%; model the MEDIAN / full distribution (NB/Poisson) instead;
+(b) no public market-tested prop edge exists; our rebound-unders +2.8%/14.5k is stronger than anything published;
+(c) NBA 2026-10-16 told licensed books to RESTRICT unders on <12-min players, same-player multi-under parlays and big alt
+unders (Kalshi/Polymarket not covered) -> execution risk for unders at books; (d) referee crews (posted ~9am ET) = cleanest
+structural test per the situational report, deprioritized by the models report -> test both, cheap; (e) The Odds API has
+5-min prop snapshots from 2023-05 (paid) if we need timestamps.
 NEXT (in order): read the two research reports -> design ONE pre-registered NBA prop feature model (situational
 variables from the reports, walk-forward by season, unders-first per EV), dev 2023-25 only -> if it passes dev, ask user
 for sealed 2026; keep L1-L4 + midterm scan + F1 running.
