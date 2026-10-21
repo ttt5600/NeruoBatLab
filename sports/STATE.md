@@ -165,6 +165,12 @@ Blocked: tennis-data.co.uk 403s automation (don't bypass); NHL/college odds sour
 Pinnacle O/U in soccer only from 2019 (sealed era).
 
 ## WAITING ON USER
+0. NEW 2026-10-20 LA SENATE CROSS-VENUE ARB CANDIDATE (needs user checks, NOT riskless yet): Kalshi SENATELA-26 D ask .033
+   (R .968/.969) vs Polymarket LA Senate R ask .93 (D .07/.08) -> R@Poly + D@Kalshi ~= $0.965 + Poly fee for $1 if R or D
+   wins (~2.5-3.5%, capital locked to Jan 2027 swearing-in). Blockers: (1) Kalshi SENATELA-26 rules text says "Senator of
+   KENTUCKY" (copy error -> resolution risk); (2) is the LA Senate market on Polymarket US (regulated)? never use intl;
+   (3) resolution mismatch: Kalshi = party sworn in, Poly = election winner incl. runoff, independents win -> both lose;
+   (4) Poly US fee unverified; (5) depth ~$50k. User decides; Claude places nothing.
 (RESOLVED 10-19: user said yes; X1 sealed PASS, R1 sealed FAIL -- see results.md) 00000. Q4 RAIN: R1 (all 5 models forecast < 0.01 in for the day, lead-2 -> buy NO on Kalshi KXRAIN)
    PASSED dev: +3.42%/361 bets p<.001, 3 losses, 9/10 weeks and 20/22 cities positive. Dev = 56 summer days only.
    ~40 cities x ~25% of days dry-consensus -> roughly 200+ bets/mo at ~96c. Sealed 2026-09-15..10-18 (~5 weeks, one
