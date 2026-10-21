@@ -79,7 +79,8 @@ QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works to
      TX Gov: Kalshi .715 / Poly .728; Pollsmax avg R+3.5 -> ~75% by a 5-pt error model (unvalidated).
   M2 Kalshi vs Polymarket SPORTS game markets (NFL/NBA/soccer) -> extend gap_logger with a Polymarket leg.
   M3 Robinhood event contracts: verify whether they are Kalshi-routed (same book) before building anything.
-  M4 NBA 2026-27 season: in-game (nba_api pbp wall clock + Kalshi KXNBAGAME 1-min) and props (ESPN 2022+).
+  M4 DONE 10-20 (in-game half): NBA in-game 0/3 (-4.9%, -7.8%, -7.6%); Kalshi Brier .171 < ESPN .180. Props half still open.
+    Was: NBA 2026-27 season: in-game (nba_api pbp wall clock + Kalshi KXNBAGAME 1-min) and props (ESPN 2022+).
   N0 DONE 10-20: NFL in-game 0/3 (H1 -5.6%, H2 -7.2%, H3 6 bets); Kalshi reprices big plays within ~1 min and beats
      nflfastR WP; only lead = post-hoc maker fade of a 1.8-pt overshoot (needs fresh data). Was: TOP PRIORITY (user 2026-10-20: wants IN-GAME sports edges -- "game scenarios when odds can't update fast enough",
      model on past info backtested on real in-game quotes). scripts/nfl_ingame.py pre-registered (commit ea02bef): Kalshi
