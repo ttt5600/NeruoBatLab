@@ -22,7 +22,8 @@ LIVE / SAVED EDGES (check every session):
   (3) SOCCER S12 soft books vs Pinnacle 2019-26 CLV +3.63%, ROI +8.71%/2,004 (needs non-CA soft-book accounts; ask user's state).
 - Paper (launchd L1, 24 cities) 10-21: 31 picks, 9 settled, 9 wins, +0.10u; dry executor 10 orders $198.83 (caps bind; see 000.)
 - F1 NFL in-game maker-fade FORWARD paper: games 2026-10-22..11-30; `scripts/nfl_ingame_fade.py interim` (Tuesdays); score once after 12-02.
-- N1 day-of temp (wx_dayof.py): build bv0ajs1qh was on the LAST model (NBM) at 10-21 ~03Z; if the session died, re-run
+- N1 DONE 10-21: day-of temp D1 +0.19%/1,279 p.34, D2 new-volume -1.31%/364 -> no edge (market prices overnight runs).
+  Was: N1 day-of temp (wx_dayof.py): build bv0ajs1qh was on the LAST model (NBM) at 10-21 ~03Z; if the session died, re-run
   `../.venv_quant/bin/python scripts/wx_dayof.py build` (cached, resumes; Open-Meteo free tier ~10k loc-calls/day) then `dev --ledger`.
 - MIDTERMS (election 11-03): run `scripts/xvenue_elections.py` every session; LA Senate arb candidate (R@Poly .93 + D@Kalshi .033)
   waits on user: is LA Senate on Polymarket US? Kalshi SENATELA-26 rule text says "Kentucky". TX Gov Abbott: market .72 vs
