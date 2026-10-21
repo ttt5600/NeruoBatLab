@@ -79,6 +79,7 @@ QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works to
      TX Gov: Kalshi .715 / Poly .728; Pollsmax avg R+3.5 -> ~75% by a 5-pt error model (unvalidated).
   M2 DONE 10-21: no arb (NFL median 1c, NBA 0.5c, min round trip $1.021). Was: Kalshi vs Polymarket SPORTS game markets (NFL/NBA/soccer) -> extend gap_logger with a Polymarket leg.
   M3 Robinhood event contracts: verify whether they are Kalshi-routed (same book) before building anything.
+  M4 props DONE 10-21: P1 form model -3.3%/130k (0/3); post-hoc rebound unders +2.8%/14.5k -> sealed 2026 needs yes.
   M4 DONE 10-20 (in-game half): NBA in-game 0/3 (-4.9%, -7.8%, -7.6%); Kalshi Brier .171 < ESPN .180. Props half still open.
     Was: NBA 2026-27 season: in-game (nba_api pbp wall clock + Kalshi KXNBAGAME 1-min) and props (ESPN 2022+).
   N0 DONE 10-20: NFL in-game 0/3 (H1 -5.6%, H2 -7.2%, H3 6 bets); Kalshi reprices big plays within ~1 min and beats
