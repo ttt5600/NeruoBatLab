@@ -70,6 +70,16 @@ SETTLEMENT SOURCE (checked 10-19): every Kalshi temp series switched NWS -> The 
 TWC = official NWS value on 3,080/3,081 days (scripts/wx_source_check.py --all) -> benign.
 
 QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works top-down, dev only, pre-register first):
+  USER 2026-10-20 WIDE ASK: connect Kalshi + Polymarket (US product only) + Robinhood; cross-venue arb vs sportsbooks;
+     confirm NBA/NFL edges (weather, players, totals); midterms (TX Gov Abbott); unit sizing -> notes/risk.md (written).
+  M1 midterms: scripts/xvenue_elections.py (Kalshi vs Polymarket, 63 races): median R gap 0.5c; flagged "arbs" are
+     3-candidate races (NE Osborn etc.), NOT arbs; LA Senate +4.3c likely a mismatched market (fix matching: Kalshi -26
+     event only, Polymarket title must contain state). Run each wake until 11-03. Next: fair value from polling averages
+     + historical poll error -> list races where |market - poll model| >= 5 pts (judgment bets, 1/8 Kelly per risk.md).
+     TX Gov: Kalshi .715 / Poly .728; Pollsmax avg R+3.5 -> ~75% by a 5-pt error model (unvalidated).
+  M2 Kalshi vs Polymarket SPORTS game markets (NFL/NBA/soccer) -> extend gap_logger with a Polymarket leg.
+  M3 Robinhood event contracts: verify whether they are Kalshi-routed (same book) before building anything.
+  M4 NBA 2026-27 season: in-game (nba_api pbp wall clock + Kalshi KXNBAGAME 1-min) and props (ESPN 2022+).
   N0 DONE 10-20: NFL in-game 0/3 (H1 -5.6%, H2 -7.2%, H3 6 bets); Kalshi reprices big plays within ~1 min and beats
      nflfastR WP; only lead = post-hoc maker fade of a 1.8-pt overshoot (needs fresh data). Was: TOP PRIORITY (user 2026-10-20: wants IN-GAME sports edges -- "game scenarios when odds can't update fast enough",
      model on past info backtested on real in-game quotes). scripts/nfl_ingame.py pre-registered (commit ea02bef): Kalshi
