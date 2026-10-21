@@ -1,8 +1,45 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-19 (X1 new-highs SEALED PASS -> paper-trading 24 cities; R1 rain sealed FAIL). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-21 (HANDOFF before /clear -- read the HANDOFF block first). . Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
+
+## HANDOFF 2026-10-21 (user is clearing context; fresh session starts HERE)
+USER DIRECTIVES (latest, 10-21):
+- "Keep looking at races and other edges we've saved" + "make sure it's stuff that survives backtests" -> only models that
+  pass dev -> sealed (user yes) -> paper count; a dev number alone is never an edge. Keep the ledger/Bonferroni discipline.
+- Wants many correlated situational variables for player props (location/arena, schedule, back-to-backs, travel, time,
+  weather, teams, nightlife-city effects e.g. "Harden worse in cities with strip clubs") -> a feature-correlation model,
+  backtested over time. EV first: fade what the public chases (books shade OVERS: NBA prop overs -4..-7%, unders ~-2..0%).
+- Two research agents launched 10-21 (background; they write their reports to files -- read them first):
+    sports/notes/research_prop_models.md      (deep research: how to build player-prop / NBA+NFL models, who has had luck)
+    sports/notes/research_situational_vars.md (situational variables: arena, b2b, travel, altitude, nightlife, refs, etc.)
+  If a file is missing the agent did not finish -> re-launch with the same brief (see bottom of this block).
+- User wants the Kalshi account live (funding now) + Polymarket US + Robinhood connected; cross-venue arb scans.
+
+LIVE / SAVED EDGES (check every session):
+- PASSED SEALED: (1) Kalshi temp consensus-reject orig 7 cities +1.45%/1,844; (2) X1 17 new daily-high cities +0.78%/2,464;
+  (3) SOCCER S12 soft books vs Pinnacle 2019-26 CLV +3.63%, ROI +8.71%/2,004 (needs non-CA soft-book accounts; ask user's state).
+- Paper (launchd L1, 24 cities) 10-21: 31 picks, 9 settled, 9 wins, +0.10u; dry executor 10 orders $198.83 (caps bind; see 000.)
+- F1 NFL in-game maker-fade FORWARD paper: games 2026-10-22..11-30; `scripts/nfl_ingame_fade.py interim` (Tuesdays); score once after 12-02.
+- N1 day-of temp (wx_dayof.py): build bv0ajs1qh was on the LAST model (NBM) at 10-21 ~03Z; if the session died, re-run
+  `../.venv_quant/bin/python scripts/wx_dayof.py build` (cached, resumes; Open-Meteo free tier ~10k loc-calls/day) then `dev --ledger`.
+- MIDTERMS (election 11-03): run `scripts/xvenue_elections.py` every session; LA Senate arb candidate (R@Poly .93 + D@Kalshi .033)
+  waits on user: is LA Senate on Polymarket US? Kalshi SENATELA-26 rule text says "Kentucky". TX Gov Abbott: market .72 vs
+  poll-model ~.75 -> judgment bet <= 1% B (notes/risk.md).
+- POST-HOC LEADS (need sealed data = user yes, pre-register as NEW trials): NBA rebound UNDERS at opening price +2.8%/14,535
+  (dev 2023-25; sealed season 2026); NFL in-game overshoot fade (being forward-tested as F1).
+CLOSED THIS SPRINT (no edge, don't redo): NFL in-game H1-H3, NBA in-game H1-H3 (Kalshi beats nflfastR/ESPN WP; lag gone
+<1 min), Kalshi soccer 1X2, Kalshi CPI vs Cleveland nowcast (0 bets), gas band (0 bets), hourly temp (thin), TX/other
+cross-venue elections + sports (Kalshi~Polymarket within 0.5-1c), rain R1 (sealed FAIL), lows X2 (dev -6.4%), NBA props
+rolling-form P1 (-3.3%/130k). Traps: datetime64[us] epoch bug (memory feedback_datetime_unit_epoch); ESPN prop
+last_updated is post-tip -> use *_open only; 3-candidate races are not R/D arbs.
+NEXT (in order): read the two research reports -> design ONE pre-registered NBA prop feature model (situational
+variables from the reports, walk-forward by season, unders-first per EV), dev 2023-25 only -> if it passes dev, ask user
+for sealed 2026; keep L1-L4 + midterm scan + F1 running.
+Research-agent brief (for re-launch): see the two report files' header; each agent writes its own file, cites sources,
+separates evidence (market-tested) from anecdote, and lists concrete testable variables + data sources we can get free.
+
 
 ## Goal
 Make money legitimately. User upgrades plan if we prove > $100/month. Path agreed (2026-10-14):
