@@ -26,4 +26,7 @@ Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never
 - E13 teacher, E26 success + donors, E15 corpus, E33 (rec: no at +-2 st), 10-split headline,
   BeVo split, AVEX, WiSE-FT. Older: E30-32, label audit. Savio cert valid to 14:45 (jobs don't need it).
 
-## Resume: /loop follow harness/PI.md  (first wake: read PI.md, AGENT.md, this file, knowledge/BRIEF.md, pi_status.sh)
+## LOOPS OFF (2026-10-21, user: "turn off all loops unless we're actually getting somewhere")
+- Lead /loop stopped; savio-watch escalate + harness agent disabled (jobs.json); usage-watch auto-resume disabled.
+- Do NOT restart /loop or re-enable them unasked. Score finished runs on request with score_run.sh (commands above).
+- Still running (no Claude): savio-watch shell polling, usage warnings, quant kalshi-paper / gap-logger / live-signals / paper-step.
