@@ -371,7 +371,8 @@ experiments:
   tag: run22_avesfsd
   num_classes: 200
   job_name: hubert_run22
-  status: submitted
+  status: done
+  result: 'not additive: run22 0.8511 (L2) beats run20 +0.0229 [+0.0045, +0.0436] (L3 +0.0173 resolved) but ties run19 (+0.0053 n.d.) and run19 seed 2 (-0.0035 n.d.); vs run16 +0.0158 n.d.; 10-split 0.8455 (beats run16 on 10/10). With AVES labels, 108 h of FSD50K = the 224 h mix. Scored 2026-10-21'
   job: 40090445
   priority: 7
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). Build with
@@ -741,7 +742,8 @@ experiments:
   tag_seed2: daptv4bxl_2e4s2_step15000
   num_classes: 200
   job_name: dapt_bxl
-  status: submitted
+  status: done
+  result: 'not met: seed 1337 0.8403 (L4) vs bioxn-large 0.8590, -0.0188 [-0.0301, -0.0071] best layer (resolved worse), -0.0026 at L3 n.d.; seed 2 0.8473 (L0), -0.0117 [-0.0274, +0.0015] best, +0.0059 L3, both n.d.; seeds agree (+0.0070 n.d.). 10-split 0.8373 / 0.8390 vs 0.8518. DAPT lowers the early layers where the download is strongest. Scored 2026-10-21'
   job: 40207598
   job_seed2: 40207599
   priority: 3
@@ -923,7 +925,8 @@ experiments:
   requires: 'relabel job 40144545 (slurm/relabel_mfcc_combined.sh) ended COMPLETED and its log
     ~/jobs/relabel_mfcc_combined_40144545.log contains "PASS: labels written"; labels in
     /global/scratch/users/jonathanswang/temp_files/combined_zf_fsd/data/mfcc'
-  status: submitted
+  status: done
+  result: 'not met (spectrogram targets did not earn their place): run23 CPU call type 0.8420 (L7) vs run16 0.8353, +0.0067 [-0.0147, +0.0273] best layer, -0.0059 [-0.0266, +0.0140] at L3, 10-split mean 0.8336 vs 0.8277; inside run16''s seed range (L3: +0.0126 vs seed 2, -0.0114 vs seed 3). Scored 2026-10-21 (score_run.sh), seed_pairs_cpu[_L3].json'
   job: 40144546
   priority: 2
   notes: 'Asked for by the user 2026-10-19 ("compare against the model without our architectural changes (mfcc

@@ -12,15 +12,12 @@ Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never
 - Claude Docs updated: tasks doc 1e00135c rev 46 (T10 run23, T11 run22), Savio guide 9e2d877b rev 6 (eval/embed).
   Google Docs updated in place via Playwright (memory reference_google_docs_editing.md); luckyshark668 has writer.
 
-## In flight
-- E34 = run23 MFCC-target control: relabel 40144545 PASSED 14:20 (763/763, purity vs spectrogram 0.247) ->
-  train 40144546 PENDING, est. start 2026-10-21 15:36. Pass mark
-  pre-registered in experiments.yaml. Score: `bash harness/score_run.sh run23_mfcc
-  /global/scratch/users/jonathanswang/temp_train_run23_mfcc 200 40144546`. Check relabel log for "PASS: labels written".
-- E12 = run22 (40090445): preempted 2x, requeued at step 41,018; Slurm est. restart 2026-10-21 15:09.
-- E27 = DAPT from BirdAVES bioxn-large (315M), E19 recipe: 40207598 (seed 1337) + 40207599 (seed 2), pending.
-  Pass mark pre-registered (both seeds above bioxn-large, interval excl. 0). Score with score_run.sh (tags in yaml).
-- Savio login-node python EIO is intermittent (ok 21:07 Oct 19, back Oct 20 on ln000): check imports on dtn, sbatch direct.
+## Results 2026-10-21 (all scored on CPU; experiments.yaml E12/E27/E34 = done; table: zfeval/experiments/our_models_table.py)
+- E34 run23 MFCC labels: 0.8420, +0.0067 n.d. vs run16 (L3 -0.0059 n.d.) -> spectrogram targets buy nothing measurable.
+- E27 BirdAVES bioxn-large DAPT: 0.8403 / 0.8473 vs parent 0.8590 (-0.0188 resolved, -0.0117 n.d.) -> not met, DAPT lowers it.
+- E12 run22 AVES labels on FSD50K only: 0.8511; beats run20 (+0.0229 resolved), ties run19 -> not additive.
+- Training hours verified from Savio TSVs: ZF 120 files 116.03 h, FSD50K 643 files 108.39 h, mix 763 / 224.42 h.
+- Findings for E12/E27/E34 NOT written yet (no critic pass). Nothing in flight on Savio.
 
 ## Waiting on the user
 - E13 teacher, E26 success + donors, E15 corpus, E33 (rec: no at +-2 st), 10-split headline,
