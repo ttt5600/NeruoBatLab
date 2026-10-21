@@ -27,6 +27,10 @@ LIVE / SAVED EDGES (check every session):
 - MIDTERMS (election 11-03): run `scripts/xvenue_elections.py` every session; LA Senate arb candidate (R@Poly .93 + D@Kalshi .033)
   waits on user: is LA Senate on Polymarket US? Kalshi SENATELA-26 rule text says "Kentucky". TX Gov Abbott: market .72 vs
   poll-model ~.75 -> judgment bet <= 1% B (notes/risk.md).
+- SEALED ASK (pre-registered 2026-10-21, NOT scored): R_REB = NBA REBOUND unders, P2 rule (empirical last-20 P(under) minus
+  de-vigged same-book opening P(under) >= 0.08, >= 20-min players, best opening under price), season 2026 only; PASS = one-sided
+  bootstrap p < 0.05 over games AND ROI > 0. Dev evidence: P1 rebound unders +2.8%/14.5k, P2 rebound unders +2.7%/16.2k (same
+  seasons). Needs user's explicit yes; then add `sealed --confirm R_REB` to nba_props_dist.py and run once.
 - POST-HOC LEADS (need sealed data = user yes, pre-register as NEW trials): NBA rebound UNDERS at opening price +2.8%/14,535
   (dev 2023-25; sealed season 2026); NFL in-game overshoot fade (being forward-tested as F1).
 CLOSED THIS SPRINT (no edge, don't redo): NFL in-game H1-H3, NBA in-game H1-H3 (Kalshi beats nflfastR/ESPN WP; lag gone

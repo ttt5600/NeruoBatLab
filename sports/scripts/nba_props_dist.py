@@ -93,7 +93,7 @@ def cmd_dev() -> int:
     print("avg under dec", round(x.under.mean(), 3), " mean p_emp - p_mkt", round((x.p_emp - x.p_mkt).mean(), 3))
     print("\nDESCRIPTIVE (not trials) -- by market:")
     print(x.groupby("market_n").pnl.agg(["size", "mean"]).round(4).to_string())
-    x["skew_bin"] = pd.qcut(x.skew, 4, duplicates="drop")
+    x["skew_bin"] = pd.qcut(x["skew"], 4, duplicates="drop")
     print("\nDESCRIPTIVE -- by skew quartile ((mean-median)/line):")
     print(x.groupby("skew_bin", observed=True).pnl.agg(["size", "mean"]).round(4).to_string())
     base = piv.copy()
