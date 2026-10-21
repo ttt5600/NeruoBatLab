@@ -77,7 +77,7 @@ QUEUE v2 (2026-10-19, user: "I need other edges as well"; research loop works to
      event only, Polymarket title must contain state). Run each wake until 11-03. Next: fair value from polling averages
      + historical poll error -> list races where |market - poll model| >= 5 pts (judgment bets, 1/8 Kelly per risk.md).
      TX Gov: Kalshi .715 / Poly .728; Pollsmax avg R+3.5 -> ~75% by a 5-pt error model (unvalidated).
-  M2 Kalshi vs Polymarket SPORTS game markets (NFL/NBA/soccer) -> extend gap_logger with a Polymarket leg.
+  M2 DONE 10-21: no arb (NFL median 1c, NBA 0.5c, min round trip $1.021). Was: Kalshi vs Polymarket SPORTS game markets (NFL/NBA/soccer) -> extend gap_logger with a Polymarket leg.
   M3 Robinhood event contracts: verify whether they are Kalshi-routed (same book) before building anything.
   M4 DONE 10-20 (in-game half): NBA in-game 0/3 (-4.9%, -7.8%, -7.6%); Kalshi Brier .171 < ESPN .180. Props half still open.
     Was: NBA 2026-27 season: in-game (nba_api pbp wall clock + Kalshi KXNBAGAME 1-min) and props (ESPN 2022+).
