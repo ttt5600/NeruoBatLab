@@ -380,10 +380,25 @@ def test_position_mismatch_alerts(root):
     assert any("mismatch" in t for t, _ in NOTES)
 
 
-def test_fill_price_convention_violation_kills(root):
+def test_create_response_convention_off_but_order_object_ok_no_kill(root):
     ex = setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
     orig = ex._accept
     ex._accept = lambda body, n: {**orig(body, n), "average_fill_price": "0.9600"}  # as if NO priced at 0.04
+    run(root, ex)
+    assert kx.killed() is None
+    up = [r for r in kx.journal() if r.get("event") == "update" and r.get("ticker") == T1][-1]
+    assert up["source"] == "get_order" and abs(up["avg_no"] - 0.96) < 1e-9
+
+
+def test_fill_price_convention_violation_kills(root):
+    ex = setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    orig = ex._accept
+
+    def bad(body, n):
+        out = {**orig(body, n), "average_fill_price": "0.9600"}
+        ex.orders[-1]["taker_fill_cost_dollars"] = "0.0400"     # the Order object disagrees with the ask too
+        return out
+    ex._accept = bad
     run(root, ex)
     assert kx.killed() is not None
 

@@ -544,6 +544,19 @@ def place(client: Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
         fee = round(float(out.get("average_fee_paid") or 0) * filled, 4)
         u.update(status="filled" if filled >= rec["count"] else "partial", avg_no=avg_no, fee=fee,
                  cost=round(filled * avg_no + fee, 4))
+        if abs(avg_no - rec["no_ask_now"]) > 0.02:
+            # Cross-check with the Order object (GET fields verified on prod 2026-10-22) before killing: the create
+            # response's average_fill_price convention is the one field not yet seen on a real fill.
+            try:
+                match = [x for x in client.orders(ticker=t) if x.get("client_order_id") == coid]
+            except Exception:  # noqa: BLE001 -- any failure -> keep the conservative path below
+                match = []
+            g = fills_from_order(match[0]) if match else {}
+            if g.get("filled") and g.get("avg_no") is not None and abs(g["avg_no"] - rec["no_ask_now"]) <= 0.02:
+                u.update(status="filled" if g["filled"] >= rec["count"] else "partial", filled=g["filled"],
+                         avg_no=g["avg_no"], fee=g["fee"], cost=g["cost"], source="get_order",
+                         create_avg_no=avg_no)
+                avg_no = g["avg_no"]
         if abs(avg_no - rec["no_ask_now"]) > 0.02:  # convention / price check: stop before a second order
             u["cost"] = round(filled * 1.0 + fee, 4)  # worst case until a human looks
             append({**upd, **u})
