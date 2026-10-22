@@ -15,6 +15,8 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   First real orders tonight 19:03-00:03 PDT. $50 sim: sealed edge -> +$29/yr median; low-CI -> +$7 (21% lose); if fees
   round UP to 1c/contract the edge is ~0 -> CHECK the first fill's fee (~$0.002 expected). Open cap $20 binds (64% of picks
   placed) -> suggest KALSHI_MAX_OPEN_USD=30. Polymarket US: read OK, needs keys. Robinhood agentic acct $0, approvals OFF.
+- NEW SEALED ASK M3 (kalshi_mentions.py): buy NO on mention markets with YES <= 15c; dev +4.32%/293 p<.0003 (24h). Needs
+  "yes M3". Sealed price pull (no P&L) started 10-22 in background, log in job tmp; rerun `prices --sealed` if it died.
 - REPORTS DONE: prior_research (L19-L23), social_edges (L24-L27, best = run E1 as MAKER: weather charges takers only),
   robinhood_strategies (DELEVERAGE FIRST; tickets in gitignored private file). Backtest agents RUNNING: kalshi_mentions.py,
   kalshi_fav_maker.py, kalshi_temp_maker.py (dev only; notes/kalshi_*.md when done).
@@ -46,7 +48,7 @@ AGENT RESULTS 10-22 (all in notes/): company graph 0/6 (graph = data product); v
   no cross-venue arb; ForecastEx = different stations (new trial, needs IBKR). Player sim: simple model leads OPENER
   (+1.53 pts line move, t 8.8) -> SEALED ASK O1 still waits for "yes O1". Rumors/GDELT closed; optional $13 X test.
   Inference thesis memo + tracker (not installed). Pick'em logger not installed. Bovada declined (offshore; ToS).
-USER ASKS OPEN: revoke Kalshi key; fund Kalshi; Polymarket US keys -> sports/.env; X test yes/no;
+USER ASKS OPEN: "yes M3"; revoke Kalshi key; fund Kalshi; Polymarket US keys -> sports/.env; X test yes/no;
   install thesis tracker / pickem logger (scripts/install_*.sh); free disk (97% full).
 
 ## LIVE 2026-10-22 ~08:30Z (user: "use the $50, $1 trades, grow to 100, then talk about 10k")

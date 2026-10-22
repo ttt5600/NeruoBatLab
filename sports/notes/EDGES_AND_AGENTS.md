@@ -45,6 +45,12 @@ roughly +$3-5/month; at a $5k bankroll (1% = $50 orig7, $25 X1) roughly $75-150/
 | S2 | E2 Polymarket earnings cheap-YES (p <= .60) | 97 bets / 40 days: ROI -6.5% [-30,+19] p .71 FAIL | market calibrated; dev +11.4% was noise |
 | S3 | C1 graph-smoothed momentum minus plain momentum | 46 months 2023-01..2026-09: -0.69%/mo t -1.96 FAIL (graph net -0.25%/mo, plain +0.44%/mo) | graph neighbours add noise; decay seen in dev continued negative |
 
+NEW SEALED ASK (10-22):
+
+| # | Name | Dev evidence | Sealed set | Say |
+|---|---|---|---|---|
+| S4 | **M3 Kalshi MENTION markets: buy NO when YES <= 15c** (24h primary, 6h secondary before the event anchor) | dev 2025 (<10-01): 24h +4.32%/293 bets/79 events p<.0003; 6h +2.99%/394 p .0027 (bar .0083); positive in all groups, 7/8 months; only 6 losses at 24h -> insurance-like (break-even loss rate ~6%) | ~3,600 events 2025-10..2026-10, pass p < .025; prices pulled first (`kalshi_mentions.py prices --sealed`, no P&L) | "yes M3" -> `sealed --confirm M3_d24 M3_d6` |
+
 Older never-scored sealed candidates (none passed their dev bar; not recommended): Kalshi sports G1_fav85 / G4_dog2050 /
 maker_dog2050 (kalshi_longshot.py, kalshi_maker.py); NFL lockbox west_coast_night / div_unders_late / pre_rain_unders.
 
@@ -141,6 +147,7 @@ report's header also restates its brief). Their outputs are durable files (code 
 | Prior academic research sweep (a21559133abdc2479, 10-22) | Kalshi/PM/sports/equity literature 2015-26 | Kalshi longshot bias + maker advantage; weather mkt beats NBM; retail stock anomalies dead; leads L19-L23 | notes/prior_research_2026-10-22.md |
 | Robinhood strategies (ad99111bd1ca1bb20, 10-22) | strategies for the user's real book | deleverage first (margin-call risk), tax-lot selection, wash-sale traps, index core; covered calls/CSPs no | notes/robinhood_strategies.md (public), robinhood_strategies_private.md (gitignored), scripts/rh_strategies_bt.py |
 | Social/forum edge sweep (a9ae4292efc10313e, 10-22) | X/Reddit/HN/GitHub/Substack claims | online claims mostly unverified vendors; trade-level studies agree maker>taker, NO>YES, favs>longshots; L24-L27 | notes/social_edges_2026-10-22.md |
+| Kalshi mention-NO backtest (add08d9ac940e74b9, 10-22) | L23 buy NO on mention markets | M3 (YES<=15c) passes dev at 24h + 6h; M1/M2 fail; sealed ask S4 | scripts/kalshi_mentions.py, notes/kalshi_mentions.md |
 | Earlier research agents (10-21, pre-this-session) | prop-model research; situational variables | see report headers (re-launch brief at the bottom of each) | notes/research_prop_models.md, notes/research_situational_vars.md |
 
 Work done directly by the lead (no agent): R_REB sealed scoring (scripts/nba_props_dist.py `sealed --confirm R_REB`, run
