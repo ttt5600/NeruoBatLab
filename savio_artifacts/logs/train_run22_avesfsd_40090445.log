@@ -1,0 +1,361 @@
+==============================================
+HuBERT run22 -- run20 (FSD50K rows only) with AVES-teacher labels (E12)
+Start: Sat Oct 17 21:07:36 PDT 2026
+==============================================
+[precheck] audio OK: 643 files, 108.39 h under /global/scratch/users/jonathanswang/temp_files (9 rows probed head/middle/tail)
+[precheck] labels: 19,510,501 frames, vocabulary 200, --num-classes 200
+0, NVIDIA L40S, 46068 MiB
+1, NVIDIA L40S, 46068 MiB
+2, NVIDIA L40S, 46068 MiB
+3, NVIDIA L40S, 46068 MiB
+PyTorch: 2.2.2 | CUDA: True 12.1
+GPUs visible: 4
+
+Starting training...
+
+[rank: 2] Seed set to 1337
+[rank: 3] Seed set to 1337
+[rank: 0] Seed set to 1337
+[rank: 1] Seed set to 1337
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `lightning.pytorch` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/configuration_validator.py:70: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+You are using a CUDA device ('NVIDIA L40S') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+
+  | Name  | Type                | Params | Mode  | FLOPs
+--------------------------------------------------------------
+0 | model | HuBERTPretrainModel | 94.6 M | train | 0    
+--------------------------------------------------------------
+94.6 M    Trainable params
+0         Non-trainable params
+94.6 M    Total params
+378.479   Total estimated model params size (MB)
+204       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+[rank2]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank3]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank1]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_feature_penalty', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('Gathered number of frames', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+Epoch 0, global step 1207: 'train_loss' reached 4.54982 (best 4.54982), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=0-step=1207.ckpt' as top 5
+Epoch 1, global step 2411: 'train_loss' reached 3.79008 (best 3.79008), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=1-step=2411.ckpt' as top 5
+[2026-10-17T21:22:04.075] error: *** STEP 40090445.0 ON n0387.savio4 CANCELLED AT 2026-10-17T21:22:04 DUE to SIGNAL Terminated ***
+[rank: 1] Received SIGTERM: 15
+[rank: 3] Received SIGTERM: 15
+[rank: 2] Received SIGTERM: 15
+[rank: 0] Received SIGTERM: 15
+Bypassing SIGTERM: 15
+Bypassing SIGTERM: 15
+Bypassing SIGTERM: 15
+Bypassing SIGTERM: 15
+
+End: Sat Oct 17 21:22:31 PDT 2026   train.py exit=0
+drwxrwxr-x+ 2 jonathanswang ucb       4096 Oct 17 21:18 .
+drwxrwxr-x+ 4 jonathanswang ucb       4096 Oct 17 21:14 ..
+-rw-r--r--+ 1 jonathanswang ucb 1135713982 Oct 17 21:14 epoch=0-step=1207.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135714492 Oct 17 21:18 epoch=1-step=2411.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135714492 Oct 17 21:18 last.ckpt
+==============================================
+HuBERT run22 -- run20 (FSD50K rows only) with AVES-teacher labels (E12)
+Start: Sun Oct 18 07:17:13 PDT 2026
+==============================================
+[precheck] audio OK: 643 files, 108.39 h under /global/scratch/users/jonathanswang/temp_files (9 rows probed head/middle/tail)
+[precheck] labels: 19,510,501 frames, vocabulary 200, --num-classes 200
+0, NVIDIA L40S, 46068 MiB
+1, NVIDIA L40S, 46068 MiB
+2, NVIDIA L40S, 46068 MiB
+3, NVIDIA L40S, 46068 MiB
+PyTorch: 2.2.2 | CUDA: True 12.1
+GPUs visible: 4
+[resume] found /global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt -- continuing rather than restarting
+
+Starting training...
+
+[rank: 2] Seed set to 1337
+[rank: 1] Seed set to 1337
+[rank: 0] Seed set to 1337
+[rank: 3] Seed set to 1337
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `lightning.pytorch` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/configuration_validator.py:70: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+You are using a CUDA device ('NVIDIA L40S') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/callbacks/model_checkpoint.py:881: Checkpoint directory /global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base exists and is not empty.
+Restoring states from the checkpoint path at /global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+
+  | Name  | Type                | Params | Mode  | FLOPs
+--------------------------------------------------------------
+0 | model | HuBERTPretrainModel | 94.6 M | train | 0    
+--------------------------------------------------------------
+94.6 M    Trainable params
+0         Non-trainable params
+94.6 M    Total params
+378.479   Total estimated model params size (MB)
+204       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+Restored all states from the checkpoint at /global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py:224: You're resuming from a checkpoint that ended before the epoch ended and your dataloader is not resumable. This can cause unreliable results if further training is done. Consider using an end-of-epoch checkpoint or make your dataloader resumable by implementing the `state_dict` / `load_state_dict` interface.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_feature_penalty', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('Gathered number of frames', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+Epoch 1, global step 2412: 'train_loss' reached 3.53756 (best 3.53756), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=1-step=2412.ckpt' as top 5
+[rank2]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank3]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank1]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+Epoch 2, global step 3617: 'train_loss' reached 3.26322 (best 3.26322), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=2-step=3617.ckpt' as top 5
+Epoch 3, global step 4822: 'train_loss' reached 2.81148 (best 2.81148), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=3-step=4822.ckpt' as top 5
+Epoch 4, global step 6028: 'train_loss' reached 2.50610 (best 2.50610), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=4-step=6028.ckpt' as top 5
+Epoch 5, global step 7234: 'train_loss' reached 2.29341 (best 2.29341), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=5-step=7234.ckpt' as top 5
+Epoch 6, global step 8440: 'train_loss' reached 2.13698 (best 2.13698), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=6-step=8440.ckpt' as top 5
+Epoch 7, global step 9646: 'train_loss' reached 2.01168 (best 2.01168), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=7-step=9646.ckpt' as top 5
+Epoch 8, global step 10853: 'train_loss' reached 1.90464 (best 1.90464), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=8-step=10853.ckpt' as top 5
+Epoch 9, global step 12060: 'train_loss' reached 1.83514 (best 1.83514), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=9-step=12060.ckpt' as top 5
+Epoch 10, global step 13267: 'train_loss' reached 1.76801 (best 1.76801), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=10-step=13267.ckpt' as top 5
+Epoch 11, global step 14474: 'train_loss' reached 1.71198 (best 1.71198), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=11-step=14474.ckpt' as top 5
+Epoch 12, global step 15681: 'train_loss' reached 1.68137 (best 1.68137), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=12-step=15681.ckpt' as top 5
+Epoch 13, global step 16887: 'train_loss' reached 1.62546 (best 1.62546), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=13-step=16887.ckpt' as top 5
+Epoch 14, global step 18093: 'train_loss' reached 1.61367 (best 1.61367), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=14-step=18093.ckpt' as top 5
+Epoch 15, global step 19300: 'train_loss' reached 1.58408 (best 1.58408), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=15-step=19300.ckpt' as top 5
+Epoch 16, global step 20507: 'train_loss' reached 1.55526 (best 1.55526), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=16-step=20507.ckpt' as top 5
+Epoch 17, global step 21713: 'train_loss' reached 1.52977 (best 1.52977), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=17-step=21713.ckpt' as top 5
+Epoch 18, global step 22920: 'train_loss' reached 1.51641 (best 1.51641), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=18-step=22920.ckpt' as top 5
+Epoch 19, global step 24127: 'train_loss' reached 1.49259 (best 1.49259), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=19-step=24127.ckpt' as top 5
+Epoch 20, global step 25333: 'train_loss' reached 1.47921 (best 1.47921), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=20-step=25333.ckpt' as top 5
+Epoch 21, global step 26540: 'train_loss' reached 1.46140 (best 1.46140), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=21-step=26540.ckpt' as top 5
+Epoch 22, global step 27746: 'train_loss' reached 1.45347 (best 1.45347), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=22-step=27746.ckpt' as top 5
+Epoch 23, global step 28952: 'train_loss' reached 1.44210 (best 1.44210), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=23-step=28952.ckpt' as top 5
+Epoch 24, global step 30159: 'train_loss' reached 1.44144 (best 1.44144), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=24-step=30159.ckpt' as top 5
+Epoch 25, global step 31365: 'train_loss' reached 1.42220 (best 1.42220), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=25-step=31365.ckpt' as top 5
+Epoch 26, global step 32572: 'train_loss' reached 1.42321 (best 1.42220), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=26-step=32572.ckpt' as top 5
+Epoch 27, global step 33779: 'train_loss' reached 1.39771 (best 1.39771), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=27-step=33779.ckpt' as top 5
+Epoch 28, global step 34985: 'train_loss' reached 1.38550 (best 1.38550), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=28-step=34985.ckpt' as top 5
+Epoch 29, global step 36191: 'train_loss' reached 1.39034 (best 1.38550), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=29-step=36191.ckpt' as top 5
+Epoch 30, global step 37398: 'train_loss' reached 1.38087 (best 1.38087), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=30-step=37398.ckpt' as top 5
+Epoch 31, global step 38605: 'train_loss' reached 1.37815 (best 1.37815), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=31-step=38605.ckpt' as top 5
+Epoch 32, global step 39811: 'train_loss' reached 1.35337 (best 1.35337), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=32-step=39811.ckpt' as top 5
+Epoch 33, global step 41018: 'train_loss' reached 1.34275 (best 1.34275), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=33-step=41018.ckpt' as top 5
+[2026-10-18T09:44:51.055] error: *** STEP 40090445.0 ON n0386.savio4 CANCELLED AT 2026-10-18T09:44:51 DUE to SIGNAL Terminated ***
+[rank: 0] Received SIGTERM: 15
+[rank: 1] Received SIGTERM: 15
+[rank: 2] Received SIGTERM: 15
+[rank: 3] Received SIGTERM: 15
+Bypassing SIGTERM: 15
+Bypassing SIGTERM: 15
+Bypassing SIGTERM: 15
+Bypassing SIGTERM: 15
+
+End: Sun Oct 18 09:45:21 PDT 2026   train.py exit=0
+-rw-r--r--+ 1 jonathanswang ucb 1135715512 Oct 18 09:28 epoch=30-step=37398.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715512 Oct 18 09:32 epoch=31-step=38605.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715512 Oct 18 09:37 epoch=32-step=39811.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715512 Oct 18 09:41 epoch=33-step=41018.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135715512 Oct 18 09:41 last.ckpt
+==============================================
+HuBERT run22 -- run20 (FSD50K rows only) with AVES-teacher labels (E12)
+Start: Tue Oct 20 20:19:36 PDT 2026
+==============================================
+[precheck] audio OK: 643 files, 108.39 h under /global/scratch/users/jonathanswang/temp_files (9 rows probed head/middle/tail)
+[precheck] labels: 19,510,501 frames, vocabulary 200, --num-classes 200
+0, NVIDIA L40S, 46068 MiB
+1, NVIDIA L40S, 46068 MiB
+2, NVIDIA L40S, 46068 MiB
+3, NVIDIA L40S, 46068 MiB
+PyTorch: 2.2.2 | CUDA: True 12.1
+GPUs visible: 4
+[resume] found /global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt -- continuing rather than restarting
+
+Starting training...
+
+[rank: 3] Seed set to 1337
+[rank: 2] Seed set to 1337
+[rank: 1] Seed set to 1337
+[rank: 0] Seed set to 1337
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `lightning.pytorch` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.conda/envs/hubert_env/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:28: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn("The verbose parameter is deprecated. Please use get_last_lr() "
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/configuration_validator.py:70: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+You are using a CUDA device ('NVIDIA L40S') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/callbacks/model_checkpoint.py:881: Checkpoint directory /global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base exists and is not empty.
+Restoring states from the checkpoint path at /global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+
+  | Name  | Type                | Params | Mode  | FLOPs
+--------------------------------------------------------------
+0 | model | HuBERTPretrainModel | 94.6 M | train | 0    
+--------------------------------------------------------------
+94.6 M    Trainable params
+0         Non-trainable params
+94.6 M    Total params
+378.479   Total estimated model params size (MB)
+204       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+Restored all states from the checkpoint at /global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/last.ckpt
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+GPUs requested 4, dataset ZF_test_pipeline,  nodes 1
+GPUs requested 4, nodes 1
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/loops/training_epoch_loop.py:224: You're resuming from a checkpoint that ended before the epoch ended and your dataloader is not resumable. This can cause unreliable results if further training is done. Consider using an end-of-epoch checkpoint or make your dataloader resumable by implementing the `state_dict` / `load_state_dict` interface.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('train_feature_penalty', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/global/home/users/jonathanswang/.local/lib/python3.11/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:433: It is recommended to use `self.log('Gathered number of frames', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+Epoch 33, global step 41019: 'train_loss' was not in top 5
+[rank1]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank3]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank2]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W reducer.cpp:1360] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+Epoch 34, global step 42221: 'train_loss' reached 1.35413 (best 1.34275), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=34-step=42221.ckpt' as top 5
+Epoch 35, global step 43427: 'train_loss' reached 1.34505 (best 1.34275), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=35-step=43427.ckpt' as top 5
+Epoch 36, global step 44634: 'train_loss' reached 1.33761 (best 1.33761), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=36-step=44634.ckpt' as top 5
+Epoch 37, global step 45840: 'train_loss' reached 1.32916 (best 1.32916), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=37-step=45840.ckpt' as top 5
+Epoch 38, global step 47047: 'train_loss' reached 1.32027 (best 1.32027), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=38-step=47047.ckpt' as top 5
+Epoch 39, global step 48254: 'train_loss' reached 1.32308 (best 1.32027), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=39-step=48254.ckpt' as top 5
+Epoch 40, global step 49461: 'train_loss' reached 1.31542 (best 1.31542), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=40-step=49461.ckpt' as top 5
+Epoch 41, global step 50668: 'train_loss' reached 1.31084 (best 1.31084), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=41-step=50668.ckpt' as top 5
+Epoch 42, global step 51873: 'train_loss' reached 1.31435 (best 1.31084), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=42-step=51873.ckpt' as top 5
+Epoch 43, global step 53080: 'train_loss' reached 1.30784 (best 1.30784), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=43-step=53080.ckpt' as top 5
+Epoch 44, global step 54286: 'train_loss' reached 1.28807 (best 1.28807), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=44-step=54286.ckpt' as top 5
+Epoch 45, global step 55493: 'train_loss' reached 1.29703 (best 1.28807), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=45-step=55493.ckpt' as top 5
+Epoch 46, global step 56699: 'train_loss' reached 1.29118 (best 1.28807), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=46-step=56699.ckpt' as top 5
+Epoch 47, global step 57905: 'train_loss' reached 1.27782 (best 1.27782), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=47-step=57905.ckpt' as top 5
+Epoch 48, global step 59112: 'train_loss' reached 1.27967 (best 1.27782), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=48-step=59112.ckpt' as top 5
+Epoch 49, global step 60319: 'train_loss' reached 1.27607 (best 1.27607), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=49-step=60319.ckpt' as top 5
+Epoch 50, global step 61526: 'train_loss' reached 1.26799 (best 1.26799), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=50-step=61526.ckpt' as top 5
+Epoch 51, global step 62732: 'train_loss' reached 1.27135 (best 1.26799), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=51-step=62732.ckpt' as top 5
+Epoch 52, global step 63939: 'train_loss' reached 1.26258 (best 1.26258), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=52-step=63939.ckpt' as top 5
+Epoch 53, global step 65146: 'train_loss' reached 1.26138 (best 1.26138), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=53-step=65146.ckpt' as top 5
+Epoch 54, global step 66351: 'train_loss' reached 1.25165 (best 1.25165), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=54-step=66351.ckpt' as top 5
+Epoch 55, global step 67558: 'train_loss' reached 1.26106 (best 1.25165), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=55-step=67558.ckpt' as top 5
+Epoch 56, global step 68764: 'train_loss' reached 1.24978 (best 1.24978), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=56-step=68764.ckpt' as top 5
+Epoch 57, global step 69970: 'train_loss' reached 1.24779 (best 1.24779), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=57-step=69970.ckpt' as top 5
+Epoch 58, global step 71177: 'train_loss' reached 1.24700 (best 1.24700), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=58-step=71177.ckpt' as top 5
+Epoch 59, global step 72384: 'train_loss' reached 1.24761 (best 1.24700), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=59-step=72384.ckpt' as top 5
+Epoch 60, global step 73591: 'train_loss' was not in top 5
+Epoch 61, global step 74797: 'train_loss' reached 1.23402 (best 1.23402), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=61-step=74797.ckpt' as top 5
+Epoch 62, global step 76003: 'train_loss' reached 1.22945 (best 1.22945), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=62-step=76003.ckpt' as top 5
+Epoch 63, global step 77210: 'train_loss' reached 1.23314 (best 1.22945), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=63-step=77210.ckpt' as top 5
+Epoch 64, global step 78416: 'train_loss' reached 1.23443 (best 1.22945), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=64-step=78416.ckpt' as top 5
+Epoch 65, global step 79623: 'train_loss' reached 1.22260 (best 1.22260), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=65-step=79623.ckpt' as top 5
+Epoch 66, global step 80830: 'train_loss' reached 1.22716 (best 1.22260), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=66-step=80830.ckpt' as top 5
+Epoch 67, global step 82036: 'train_loss' was not in top 5
+Epoch 68, global step 83243: 'train_loss' was not in top 5
+Epoch 69, global step 84450: 'train_loss' reached 1.22120 (best 1.22120), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=69-step=84450.ckpt' as top 5
+Epoch 70, global step 85655: 'train_loss' reached 1.22604 (best 1.22120), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=70-step=85655.ckpt' as top 5
+Epoch 71, global step 86862: 'train_loss' reached 1.21873 (best 1.21873), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=71-step=86862.ckpt' as top 5
+Epoch 72, global step 88069: 'train_loss' reached 1.21377 (best 1.21377), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=72-step=88069.ckpt' as top 5
+Epoch 73, global step 89276: 'train_loss' reached 1.21994 (best 1.21377), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=73-step=89276.ckpt' as top 5
+Epoch 74, global step 90482: 'train_loss' reached 1.21889 (best 1.21377), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=74-step=90482.ckpt' as top 5
+Epoch 75, global step 91689: 'train_loss' was not in top 5
+Epoch 76, global step 92895: 'train_loss' was not in top 5
+Epoch 77, global step 93750: 'train_loss' reached 1.21193 (best 1.21193), saving model to '/global/scratch/users/jonathanswang/temp_train_run22_avesfsd/checkpoints_ZF_test_pipeline_hubert_pretrain_base/epoch=77-step=93750.ckpt' as top 5
+`Trainer.fit` stopped: `max_steps=93750` reached.
+
+End: Tue Oct 20 23:39:56 PDT 2026   train.py exit=0
+-rw-r--r--+ 1 jonathanswang ucb 1135716088 Oct 20 23:18 epoch=72-step=88069.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135716088 Oct 20 23:22 epoch=73-step=89276.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135716088 Oct 20 23:27 epoch=74-step=90482.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135716088 Oct 20 23:38 epoch=77-step=93750.ckpt
+-rw-r--r--+ 1 jonathanswang ucb 1135716088 Oct 20 23:39 last.ckpt
