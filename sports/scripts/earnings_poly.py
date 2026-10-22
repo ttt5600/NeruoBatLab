@@ -167,8 +167,24 @@ def main() -> int:
         if not a.confirm:
             print("sealed needs --confirm AND the user's explicit yes")
             return 1
-        print("not implemented until a dev rule passes")
-        return 1
+        # SEALED E2 (user yes 2026-10-22): E2_cheap_yes only, frozen rule/cost/bootstrap above, on the cached pull of
+        # 2026-10-21 (sha256 of both cache files recorded). PASS = ROI > 0 and one-sided p < 0.05. Scored once.
+        import hashlib
+        lb = LEDGER.parent / "lockbox.jsonl"
+        if any(json.loads(l).get("strategy") == "poly_earnings_E2_cheap_yes" for l in lb.read_text().splitlines() if l.strip()):
+            print("E2 already scored -- never re-score")
+            return 1
+        sealed = [r for r in rs if r["end"] >= SEAL]
+        s = score(sealed, "E2_cheap_yes")
+        verdict = "PASS" if s.get("bets") and s["roi"] > 0 and s["p"] < 0.05 else "FAIL"
+        shas = {f: hashlib.sha256((D / f).read_bytes()).hexdigest()[:12] for f in ("poly_events.json", "poly_hist.json")}
+        print(f"SEALED n={len(sealed)} markets (endDate >= {SEAL}); E2 {s} -> {verdict}; cache {shas}")
+        rec = {"ts": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+               "strategy": "poly_earnings_E2_cheap_yes", "sha": shas["poly_hist.json"], "dataset": "poly_earnings_beat",
+               "promotion_number": 1, **s, "staked": float(s.get("bets", 0)), "cache_sha": shas, "verdict": verdict}
+        with open(lb, "a") as f:
+            f.write(json.dumps(rec) + "\n")
+        return 0
     print(f"DEV n={len(dev)}  mean price {np.mean([r['p'] for r in dev]):.3f}  realised YES {np.mean([r['y'] for r in dev]):.3f}")
     for lo, hi in [(0, .4), (.4, .6), (.6, .75), (.75, .85), (.85, 1.01)]:
         b = [r for r in dev if lo <= r["p"] < hi]

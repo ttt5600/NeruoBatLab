@@ -702,6 +702,35 @@ def cmd_dev():
         print("ledger: appended", len(recs))
 
 
+def cmd_sealed():
+    """SEALED C1 (user yes 2026-10-22), scored ONCE. Same trial_C code on a Panel ending SEALED_END; the monthly LS
+    series runs from 2002 (so turnover into Jan 2023 is costed from a real prior book) and ONLY holding months
+    2023-01..2026-09 are scored. PASS = mean monthly (graph LS - baseline LS) net > 0 and NW(6) one-sided p < 0.05."""
+    if "--confirm" not in sys.argv:
+        print("sealed needs --confirm AND the user's explicit yes")
+        return
+    lb = LEDGER.parent / "lockbox.jsonl"
+    if any(json.loads(l).get("strategy") == "cgraph_C1_graph_mom_minus_mom" for l in lb.read_text().splitlines() if l.strip()):
+        print("C1 already scored -- never re-score")
+        return
+    P = Panel(end=SEALED_END)
+    b, gr = trial_C(P)
+    m = gr.index >= "2023-01-01"
+    b, gr = b[m], gr[m]
+    diff = gr.net - b.net
+    mu, t, p, n = nw_t(diff.values, 6)
+    verdict = "PASS" if mu > 0 and p < 0.05 else "FAIL"
+    yr = diff.groupby(diff.index.year).mean().mul(100).round(3).to_dict()
+    print(f"SEALED C1 months {n} ({diff.index[0].date()}..{diff.index[-1].date()}): diff {mu*100:+.3f}%/mo t {t:.2f} "
+          f"p {p:.4f} -> {verdict}; graph net {gr.net.mean()*100:+.3f}%/mo, base net {b.net.mean()*100:+.3f}%/mo; by year {yr}")
+    rec = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": "cgraph_C1_graph_mom_minus_mom",
+           "sha": "", "dataset": "company_graph_edgar_yf", "promotion_number": 1, "months": n, "mean": mu, "t": t, "p": p,
+           "graph_net_mo": float(gr.net.mean()), "base_net_mo": float(b.net.mean()),
+           "per_fold": {str(k): v for k, v in yr.items()}, "verdict": verdict}
+    with lb.open("a") as f:
+        f.write(json.dumps(rec, default=float) + "\n")
+
+
 def cmd_data():
     g = clean_edges(load_edges())
     print(f"edge-filings {len(g)}; pairs {g[['sup_cik','cust_ticker']].drop_duplicates().shape[0]}; "
@@ -823,4 +852,4 @@ def cmd_export():
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "data"
     {"edges": cmd_edges, "prices": cmd_prices, "earn": cmd_earn, "data": cmd_data, "dev": cmd_dev,
-     "sample": cmd_sample, "export": cmd_export, "verify_target": cmd_verify_target}[cmd]()
+     "sample": cmd_sample, "export": cmd_export, "verify_target": cmd_verify_target, "sealed": cmd_sealed}[cmd]()
