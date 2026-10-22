@@ -10,6 +10,14 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 ## UPDATE 2026-10-22 (user: "keep backtesting, do the sealed tests" + spawn research/Robinhood/execution agents)
 - SEALED O1, E2, C1 scored once each -> ALL FAIL (O1 EV -2.55%/554 though CLV +0.68 pts p .005; E2 -6.5%/97; C1 -0.69%/mo).
   No sealed asks remain open. Details: notes/results.md, EDGES_AND_AGENTS.md s3.
+- EXECUTION 10-22 (notes/execution_tests_2026-10-22.md): prod order path PASS (post-only NO @$0.01 placed, dup 409, cancel);
+  executor now cross-checks a fill via GET order before the convention KILL (31 tests, redeployed, preflight 0 FAIL).
+  First real orders tonight 19:03-00:03 PDT. $50 sim: sealed edge -> +$29/yr median; low-CI -> +$7 (21% lose); if fees
+  round UP to 1c/contract the edge is ~0 -> CHECK the first fill's fee (~$0.002 expected). Open cap $20 binds (64% of picks
+  placed) -> suggest KALSHI_MAX_OPEN_USD=30. Polymarket US: read OK, needs keys. Robinhood agentic acct $0, approvals OFF.
+- REPORTS DONE: prior_research (L19-L23), social_edges (L24-L27, best = run E1 as MAKER: weather charges takers only),
+  robinhood_strategies (DELEVERAGE FIRST; tickets in gitignored private file). Backtest agents RUNNING: kalshi_mentions.py,
+  kalshi_fav_maker.py, kalshi_temp_maker.py (dev only; notes/kalshi_*.md when done).
 - 4 background agents launched 10-22: social/forum edges -> notes/social_edges_2026-10-22.md; prior academic research ->
   notes/prior_research_2026-10-22.md; Robinhood strategies -> notes/robinhood_strategies_private.md (gitignored) +
   robinhood_strategies.md; $50 execution + payment routes -> notes/execution_tests_2026-10-22.md. If a file is missing the
