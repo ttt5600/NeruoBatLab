@@ -81,3 +81,12 @@ kickoff captures only part of it. Lesson: join on keys; assert alignment after a
 - Rotobot tracker built; awaiting X access choice. notes/rotobot_tracker.md
 - R_REB SEALED (NBA rebound unders, P2 rule, 2026): 1,214 bets, ROI -1.56%, p .72 -> FAIL. Dev +2.7% did not replicate.
 - Public NBA models (538 Elo/CARM/RAPTOR, ESPN) vs close: all worse; 7 rules 0 pass; stacking ties market. CLOSED. notes/nba_public_models.md
+
+## 2026-10-22 SEALED O1 / E2 / C1 (user: "do the sealed tests") -- all FAIL
+- O1 (scripts/nba_o1_sealed.py, NBA 2025-26, frozen ridge H60 lam5 sigma12.5, gap >= .06 vs opener; opener amended before
+  scoring: ESPN BET else DraftKings): 554 bets, close-implied EV at open -2.55% CI [-4.07,-0.95] p .999; realised ROI -10.2%
+  (win .381 @ 3.44); CLV +0.68 pts p .005 (ESPN BET 114 bets +1.37, DK 440 +0.50). games/lines sha match frozen MANIFEST.
+- E2 (earnings_poly.py sealed): 97 bets, ROI -6.5% CI [-30.1,+19.2] p .705.
+- C1 (company_graph.py sealed): 46 months, graph-minus-plain momentum -0.685%/mo t -1.96 p .975; by year 2023 -0.04, 2024 -1.60,
+  2025 -0.39, 2026 -0.72 (%/mo).
+Lesson: positive CLV against a soft opener is necessary, not sufficient -- it has to clear the opener's overround.

@@ -7,6 +7,14 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 **FULL REGISTRY of every edge, hypothesis, agent (IDs, briefs, findings, files, how to reach) and peer session:
 `sports/notes/EDGES_AND_AGENTS.md` -- read it right after this block. Keep it updated after every agent/trial.**
 
+## UPDATE 2026-10-22 (user: "keep backtesting, do the sealed tests" + spawn research/Robinhood/execution agents)
+- SEALED O1, E2, C1 scored once each -> ALL FAIL (O1 EV -2.55%/554 though CLV +0.68 pts p .005; E2 -6.5%/97; C1 -0.69%/mo).
+  No sealed asks remain open. Details: notes/results.md, EDGES_AND_AGENTS.md s3.
+- 4 background agents launched 10-22: social/forum edges -> notes/social_edges_2026-10-22.md; prior academic research ->
+  notes/prior_research_2026-10-22.md; Robinhood strategies -> notes/robinhood_strategies_private.md (gitignored) +
+  robinhood_strategies.md; $50 execution + payment routes -> notes/execution_tests_2026-10-22.md. If a file is missing the
+  agent did not finish: re-launch with the brief in EDGES_AND_AGENTS.md s6.
+
 ## HANDOFF #3 2026-10-22 ~09:15Z (user clearing context; START HERE, then the LIVE block below)
 KALSHI LIVE: weather executor trading the user's real $50 ($1 units, 1 contract/order, $15/day, $20 open; see LIVE block).
   First real orders = tonight's tick (~22-23 local). Morning check: `~/.claude/quant-kalshi/.venv/bin/python
@@ -30,7 +38,7 @@ AGENT RESULTS 10-22 (all in notes/): company graph 0/6 (graph = data product); v
   no cross-venue arb; ForecastEx = different stations (new trial, needs IBKR). Player sim: simple model leads OPENER
   (+1.53 pts line move, t 8.8) -> SEALED ASK O1 still waits for "yes O1". Rumors/GDELT closed; optional $13 X test.
   Inference thesis memo + tracker (not installed). Pick'em logger not installed. Bovada declined (offshore; ToS).
-USER ASKS OPEN: "yes O1"; revoke Kalshi key; fund Kalshi; Polymarket US keys -> sports/.env; X test yes/no;
+USER ASKS OPEN: revoke Kalshi key; fund Kalshi; Polymarket US keys -> sports/.env; X test yes/no;
   install thesis tracker / pickem logger (scripts/install_*.sh); free disk (97% full).
 
 ## LIVE 2026-10-22 ~08:30Z (user: "use the $50, $1 trades, grow to 100, then talk about 10k")

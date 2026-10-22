@@ -37,13 +37,16 @@ roughly +$3-5/month; at a $5k bankroll (1% = $50 orig7, $25 X1) roughly $75-150/
 | F5 | Pick'em PK1: Sleeper legs where Pinnacle's conservative fair P beats 1/multiplier by >= 2 pts (pass: >= 200 legs, ROI > 0, p < .05) | logger built, NOT installed (0 qualifying legs in the first snapshot) | `bash scripts/install_pickem_logger_agent.sh` |
 | F6 | Inference-vs-training thesis baskets (rules hash b745e0d3aa0e) | daily tracker built, NOT installed | `bash scripts/install_thesis_tracker_agent.sh` |
 
-## 3. SEALED ASKS (need the user's explicit yes; each scored ONCE)
+## 3. SEALED ASKS -- ALL THREE SCORED 2026-10-22 (user "do the sealed tests"), ALL FAIL; none open now
 
-| # | Name | Dev evidence | Sealed set | Say |
-|---|---|---|---|---|
-| S1 | **O1: simple NBA team-rating model vs the OPENING line** (frozen ridge rating + recency/rest/b2b/travel/home; bet when model vs opener gap >= 6; primary metric = close-implied ROI at the opening price) | gap >= 4: line moved toward the model +1.53 prob pts over 1,512 bets, t 8.8 (passes the ledger-wide bar); realised ROI at open +3.8% p .17 (not past); close-implied +1.1% | NBA 2025-26 (lines_2026 has *_open/*_close, schema checked) | "yes O1" |
-| S2 | Earnings E2: Polymarket "beat" contracts, buy YES when price <= .60 | dev +11.4%/206, p .12 (not past) | 385 post-July markets | "yes E2". Weak: Polymarket beat markets are intl-only (not legal for US users), so the test is academic |
-| S3 | C1: graph-smoothed momentum (customer-supplier graph) vs plain momentum | +0.28%/mo better, p .061, decaying (+.57 -> +.21 -> +.07) | 2023+ | "yes C1". Not recommended |
+| # | Name | Sealed result | Lesson |
+|---|---|---|---|
+| S1 | O1 NBA simple model vs opener (gap >= .06; opener amended PRE-SCORE in commit 1c04d34: ESPN BET where present, else DraftKings, since ESPN BET ended 2025-12) | 554 bets: close-implied EV at open -2.55% [-4.1,-1.0] p .999 FAIL; realised ROI -10.2%; CLV +0.68 pts p .005 (ESPN BET subset +1.37, DK +0.50) | model still leads the opener but by half the dev size, far below ~4% overround; DK openers are sharper; gap>=.06 mostly picks longshots (avg dec 3.44). DEAD for betting |
+| S2 | E2 Polymarket earnings cheap-YES (p <= .60) | 97 bets / 40 days: ROI -6.5% [-30,+19] p .71 FAIL | market calibrated; dev +11.4% was noise |
+| S3 | C1 graph-smoothed momentum minus plain momentum | 46 months 2023-01..2026-09: -0.69%/mo t -1.96 FAIL (graph net -0.25%/mo, plain +0.44%/mo) | graph neighbours add noise; decay seen in dev continued negative |
+
+Older never-scored sealed candidates (none passed their dev bar; not recommended): Kalshi sports G1_fav85 / G4_dog2050 /
+maker_dog2050 (kalshi_longshot.py, kalshi_maker.py); NFL lockbox west_coast_night / div_unders_late / pre_rain_unders.
 
 ## 4. LEADS + UNTESTED HYPOTHESES (each needs a NEW pre-registered trial)
 
@@ -140,6 +143,6 @@ gitignored files sports/notes/private_account.md and sports/notes/robinhood_snap
 their numbers into tracked files.
 
 ## 8. Open asks to the user
-"yes O1" / "yes E2" / "yes C1"; revoke + replace the pasted Kalshi key (it is a PROD key named kalshi-demo.pem); fund
+(O1/E2/C1 scored 10-22, all FAIL); revoke + replace the pasted Kalshi key (it is a PROD key named kalshi-demo.pem); fund
 Kalshi (~$5k later); Polymarket US keys -> sports/.env; X test yes/no; install F4/F5/F6 loggers; free disk (97% full);
 confirm home state (CA vs CO) for venue legality.
