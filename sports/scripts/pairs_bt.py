@@ -71,14 +71,6 @@ def run_pair(a: pd.Series, b: pd.Series) -> pd.Series:
     return pnl
 
 
-def hac_t(x: np.ndarray, lags: int = 10) -> float:
-    x = x - x.mean()
-    n = len(x)
-    g0 = np.dot(x, x) / n
-    s = g0 + 2 * sum((1 - k / (lags + 1)) * np.dot(x[k:], x[:-k]) / n for k in range(1, lags + 1))
-    return float((x.mean() + 0) if s <= 0 else 0)  # placeholder (overwritten below)
-
-
 def cmd_dev() -> int:
     px = prices()
     px = px[px.index <= DEV_END]

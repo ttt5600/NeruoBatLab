@@ -1,10 +1,30 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-21 (HANDOFF before /clear -- read the HANDOFF block first). . Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-21 late (HANDOFF #2 before /clear -- read the HANDOFF block first). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
 ## HANDOFF 2026-10-21 (user is clearing context; fresh session starts HERE)
+UPDATE 10-21 late (this session, after HANDOFF #1): LOOPS ARE OFF by user choice (memory feedback_loops_off) -- work only
+when asked; the non-Claude launchd loggers (kalshi-paper hourly + dry executor, gap-logger, live-signals) still run.
+Done since HANDOFF #1 (all in notes/results.md + ledger):
+- NBA props P2 (nba_props_dist.py, empirical-distribution unders vs de-vigged open): +0.27%/60.8k p.26 vs -4.05% all-unders
+  baseline (selection +4.3 pts, not past vig); skew mechanism REFUTED; rebounds +2.7% again -> R_REB sealed test
+  PRE-REGISTERED below, waits for user yes.
+- N1 day-of temp (wx_dayof.py, fixed a missing /historical price fallback): D1 +0.19% p.34, D2 -1.31% -> dead.
+- Stat arb pairs (pairs_bt.py, KO/PEP + 6 pairs): +1.89%/yr, Sharpe .41, p .052; ~0 after 2009 -> not worth automating.
+- Rotobot: a research assistant, NO public/audited pick record. To test "follow Rotobot": log its picks at post time with
+  line + price + timestamp (user exports/pastes them) -> grade CLV vs close + ROI; a tracker is NOT built yet.
+- NEW TOOL scripts/ev_check.py: verify any bet before placing -- EV after fees + fractional-Kelly stake per notes/risk.md tiers
+  (temp, temp_x1, soccer, judgment, paper); refuses EV<=0 or below-tier edges. E.g. Abbott YES .72 vs fair .75 -> $7.47 on $1k.
+- Midterm scan 10-21: LA Senate gap persists (2-venue cost .9752); NV Gov 3c diff no arb; TX Gov .705/.698.
+USER ASKS STILL OPEN: (1) yes/no on R_REB sealed; (2) LA Senate: on Polymarket US? + Kalshi rule says "Kentucky";
+(3) Kalshi key in ~/.claude/quant-kalshi/.env to go live; (4) user's state (soccer S12 needs soft-book accounts);
+(5) Robinhood: Agentic Trading = stocks only, event contracts likely Kalshi-routed (unverified) -- nothing stock-side has
+passed a backtest yet (14 ETF rules + pairs all failed), so nothing to automate there yet.
+NEXT if asked to work: (a) Rotobot pick tracker (CSV in -> CLV/ROI grading); (b) NFL prop unders by category x game script
+on ESPN 2022+ props (research_prop_models #7, pre-register, sealed season 2025); (c) F1 in-game fade interim Tue 10-27;
+(d) shrink P2 toward the market (it claimed +17 pts, delivered 0) as a new pre-registered trial.
 USER DIRECTIVES (latest, 10-21):
 - "Keep looking at races and other edges we've saved" + "make sure it's stuff that survives backtests" -> only models that
   pass dev -> sealed (user yes) -> paper count; a dev number alone is never an edge. Keep the ledger/Bonferroni discipline.
