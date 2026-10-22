@@ -62,6 +62,17 @@ NBA / NFL / sports
 - L9 Soccer S12 at US books in Colorado (see E3). UNTESTED.
 - L10 Kalshi earnings-call MENTION markets (the only legal US earnings contracts; Tesla's had 117k contracts). UNTESTED.
 
+
+From prior-research sweep 2026-10-22 (notes/prior_research_2026-10-22.md; Burgi-Deng-Whelan Kalshi paper read in full):
+- L19 K-FAV: Kalshi favourite side 88-97c as MAKER in non-sports daily categories (paper: >70c earn small + after fees;
+  makers -9.6% vs takers -31.5%). Dev 2023-01..2025-06, sealed 2025-07+ (maker fees). UNTESTED.
+- L20 Maker execution for E1/E2 picks (resting NO vs taking the ask) -- price improvement vs adverse selection. UNTESTED.
+- L21 PredictIt midterm NO-bundle sums > 110 (NBER abstract); verify current fees/caps first. UNTESTED.
+- L22 Kalshi politics underconfidence (arXiv; contradicted by Burgi et al.) -- weak prior. UNTESTED.
+- L23 Mention markets buy NO (SSRN via Quantpedia, UNVERIFIED) = L10 with a direction. UNTESTED.
+- Also: Kalshi crypto vs Deribit implied probs; Kalshi parlays above leg product. Stock anomalies (overnight, pre-FOMC,
+  index adds, PEAD large-cap, 0DTE) reported dead for retail.
+
 Markets / stocks
 - L11 **Earnings straddles**: one paper (Gao, Xing & Zhang 2018) found straddles 3 days before earnings +3.34%; our implied-vs-realised check (implied ~1.33x past mean move) is biased. Robinhood now gives daily option OHLC history + IV -> a real backtest is possible. UNTESTED. BE 10-22: implied +-10% vs historical 10.4-10.8% -> fair.
 - L12 Earnings consensus logging: log daily consensus so a model can price each contract's actual threshold. Not started.
@@ -118,6 +129,8 @@ report's header also restates its brief). Their outputs are durable files (code 
 | Company relationship graph (a1d8d0577727268bd) | EDGAR graph; customer momentum; spillovers; graph momentum | 6 trials 0 pass; C1 near-miss decaying; graph = data product | notes/company_graph.md, company_graph_lit.md; scripts/company_graph.py; data/company_graph/ |
 | Inference-vs-training thesis (a431ad01a84c61944) | user thesis: inference > training | demand strong, share flat; tickers classified; baskets fixed; tilt 1-3% | notes/inference_thesis.md; scripts/thesis_tracker.py, install_thesis_tracker_agent.sh |
 | Claude Code docs lookup (af0e08030d14425c0) | auto-accept cross-session messages | `crossSessionInbound: accept` (now set in ~/.claude/settings.json) | (memory reference_robinhood_mcp_and_cross_session) |
+| Prior academic research sweep (a21559133abdc2479, 10-22) | Kalshi/PM/sports/equity literature 2015-26 | Kalshi longshot bias + maker advantage; weather mkt beats NBM; retail stock anomalies dead; leads L19-L23 | notes/prior_research_2026-10-22.md |
+| Robinhood strategies (ad99111bd1ca1bb20, 10-22) | strategies for the user's real book | deleverage first (margin-call risk), tax-lot selection, wash-sale traps, index core; covered calls/CSPs no | notes/robinhood_strategies.md (public), robinhood_strategies_private.md (gitignored), scripts/rh_strategies_bt.py |
 | Earlier research agents (10-21, pre-this-session) | prop-model research; situational variables | see report headers (re-launch brief at the bottom of each) | notes/research_prop_models.md, notes/research_situational_vars.md |
 
 Work done directly by the lead (no agent): R_REB sealed scoring (scripts/nba_props_dist.py `sealed --confirm R_REB`, run
