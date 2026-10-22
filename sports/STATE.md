@@ -4,6 +4,9 @@ Last updated: 2026-10-22 ~09:15Z (HANDOFF #3 -- read it first). Branch `worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
+**FULL REGISTRY of every edge, hypothesis, agent (IDs, briefs, findings, files, how to reach) and peer session:
+`sports/notes/EDGES_AND_AGENTS.md` -- read it right after this block. Keep it updated after every agent/trial.**
+
 ## HANDOFF #3 2026-10-22 ~09:15Z (user clearing context; START HERE, then the LIVE block below)
 KALSHI LIVE: weather executor trading the user's real $50 ($1 units, 1 contract/order, $15/day, $20 open; see LIVE block).
   First real orders = tonight's tick (~22-23 local). Morning check: `~/.claude/quant-kalshi/.venv/bin/python
@@ -11,15 +14,12 @@ KALSHI LIVE: weather executor trading the user's real $50 ($1 units, 1 contract/
   -> user should revoke/replace (mv/sed commands are in the prior session; go_live.md has the .env reference).
   User plans ~$5k later (1% units = $50); then set KALSHI_BANKROLL_USD=5000 and drop the MAX_* overrides.
 ROBINHOOD: session "connect-robinhood-mcp" has the robinhood-trading MCP (this session does not; cross-session messages
-  now auto-accept: ~/.claude/settings.json crossSessionInbound=accept). Agent can TRADE ONLY the empty agentic acct
-  ••••1177; main ••••6780 and Roth are read-only ("FORBIDDEN" even for review_*). Snapshot (personal, gitignored):
-  sports/notes/robinhood_snapshot.md sections 1-7. As of 09:06Z: main value $94.2k, stock $276.8k, debit -$203.4k,
-  buying power +$14.7k, ~3.2x leverage; user trimmed ~$30k today. Plan B given (sell losers ~$119k + swap 100 NVDA/59 AMD
-  into Jan-2028 180C/420C + sell QQQ/AAPL -> debit ~$47k, 1.8x); LEAPS on hold until debit < ~$100k (options are 100% paid,
-  they eat margin cushion). Wash-sale: no rebuys of sold losers in ANY account for 31 days.
-  BE earnings TODAY 10-22 AMC: user wants straddle + bullish call. Offered A) 10/23 225 straddle + 240C (~$2.7k) or
-  B) 10/23 215P + 240C + 250C (~$1.4k, recommended); EV ~0 (implied +-10% vs hist 10.4-10.8%). Option quotes were stale
-  (options open 09:30 ET); user enters orders in the app.
+  now auto-accept: ~/.claude/settings.json crossSessionInbound=accept). Agent can TRADE ONLY the empty agentic account;
+  main + Roth are read-only ("FORBIDDEN" even for review_*), so main-account changes are tickets the user enters.
+  REPO IS PUBLIC: all balances/leverage/positions/plans are ONLY in gitignored sports/notes/private_account.md and
+  sports/notes/robinhood_snapshot.md -- read them locally, never copy numbers into tracked files.
+  BE earnings TODAY 10-22 AMC: user wants straddle + bullish call; two ticket sets offered (see private_account.md); EV ~0
+  (implied +-10% vs historical 10.4-10.8%).
 NBA DEN@OKC 10-22: Kalshi .26/.27; models: four-factor (scripts/nba_fourfactors.py) OKC -8.3, P(DEN) .280 -> NO BET by the
   rule committed before running (bet DEN only if >= .314); healthy-core ratings (scripts/nba_matchup.py) OKC -6.4..-9.6;
   2026-27 preseason starters +/-48 DEN +7.6 vs OKC +2.0 (collected data/espn/nba/*_2027) -> blend 10-25% weight gives
