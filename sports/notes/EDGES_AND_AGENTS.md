@@ -73,6 +73,15 @@ From prior-research sweep 2026-10-22 (notes/prior_research_2026-10-22.md; Burgi-
 - Also: Kalshi crypto vs Deribit implied probs; Kalshi parlays above leg product. Stock anomalies (overnight, pre-FOMC,
   index adds, PEAD large-cap, 0DTE) reported dead for retail.
 
+From social/forum sweep 2026-10-22 (notes/social_edges_2026-10-22.md; Reddit unreadable by the tool, X barely indexed):
+- L24 E1/E2 AS MAKER (strongest): weather series charge TAKERS only (checked via API 10-22); Becker 72M trades: weather
+  takers -1.29% / makers +1.29% pre-fee; taker fee ~0.7% of stake at NO .90 vs +1.45% edge. Executor is a pure taker
+  (IOC at ask). Test = replay picks vs trade history (fill + adverse selection), then live A/B. Same as L20.
+- L25 Fade YES in single-name/Mentions/Entertainment/World (Bartlett-O'Hara: takers buy YES 60%, 31% settle YES) ~ L23.
+- L26 Weather late-day lock-in from OBSERVED station highs after the daily peak (not the dead 06:00 forecast test).
+- L27 Kalshi liquidity-reward programs (6,926 active) -- negligible at 1 contract; revisit at ~$5k.
+- Warning: free forecast-ensemble weather bots are public -> E1 edge may compress; watch paper/live ROI.
+
 Markets / stocks
 - L11 **Earnings straddles**: one paper (Gao, Xing & Zhang 2018) found straddles 3 days before earnings +3.34%; our implied-vs-realised check (implied ~1.33x past mean move) is biased. Robinhood now gives daily option OHLC history + IV -> a real backtest is possible. UNTESTED. BE 10-22: implied +-10% vs historical 10.4-10.8% -> fair.
 - L12 Earnings consensus logging: log daily consensus so a model can price each contract's actual threshold. Not started.
@@ -131,6 +140,7 @@ report's header also restates its brief). Their outputs are durable files (code 
 | Claude Code docs lookup (af0e08030d14425c0) | auto-accept cross-session messages | `crossSessionInbound: accept` (now set in ~/.claude/settings.json) | (memory reference_robinhood_mcp_and_cross_session) |
 | Prior academic research sweep (a21559133abdc2479, 10-22) | Kalshi/PM/sports/equity literature 2015-26 | Kalshi longshot bias + maker advantage; weather mkt beats NBM; retail stock anomalies dead; leads L19-L23 | notes/prior_research_2026-10-22.md |
 | Robinhood strategies (ad99111bd1ca1bb20, 10-22) | strategies for the user's real book | deleverage first (margin-call risk), tax-lot selection, wash-sale traps, index core; covered calls/CSPs no | notes/robinhood_strategies.md (public), robinhood_strategies_private.md (gitignored), scripts/rh_strategies_bt.py |
+| Social/forum edge sweep (a9ae4292efc10313e, 10-22) | X/Reddit/HN/GitHub/Substack claims | online claims mostly unverified vendors; trade-level studies agree maker>taker, NO>YES, favs>longshots; L24-L27 | notes/social_edges_2026-10-22.md |
 | Earlier research agents (10-21, pre-this-session) | prop-model research; situational variables | see report headers (re-launch brief at the bottom of each) | notes/research_prop_models.md, notes/research_situational_vars.md |
 
 Work done directly by the lead (no agent): R_REB sealed scoring (scripts/nba_props_dist.py `sealed --confirm R_REB`, run
