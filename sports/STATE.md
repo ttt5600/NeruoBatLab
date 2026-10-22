@@ -4,6 +4,16 @@ Last updated: 2026-10-21 night (see UPDATE block; then HANDOFF #2 before /clear 
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
+## LIVE 2026-10-22 ~08:30Z (user: "use the $50, $1 trades, grow to 100, then talk about 10k")
+- Kalshi PROD key (user pasted it believing it was demo; it authenticated on prod, $50.00; advised to revoke + replace) in
+  ~/.claude/quant-kalshi/keys/kalshi-demo.pem (misnamed: it is a PROD key). .env: EXEC_ENV=prod, EXEC_MODE=live,
+  KALSHI_BANKROLL_USD=200 (only so tiers allow 1 contract), MAX_ORDER 1.05, DAILY 15, OPEN 20, 1 contract/order;
+  loss stops 24h -$10 / 7d -$20 (KILL). Executor deployed via install_kalshi_paper_agent.sh; preflight 0 FAIL in LIVE.
+- First live run: no fresh picks, 0 orders, exchange balance $50, 0 positions. First real orders = tonight's tick (~22-23 local).
+- Check each morning: `~/.claude/quant-kalshi/.venv/bin/python ~/.claude/quant-kalshi/scripts/kalshi_exec.py status`.
+- Expectation told to user: ~1% ROI on ~$1 risked, <= 15 bets/day -> roughly +$3-5/month; $50 -> $100 is ~a year, so the
+  $50 phase validates execution, not growth. Robinhood MCP connected (new session needed). Bovada automation declined.
+
 ## UPDATE 2026-10-22 (agents round 2; reports in notes/)
 - PAPER weather 10-22 07Z: 54 picks, 26 settled, 26 wins, +0.84u. Kalshi unfiltered /markets 503s; series-filtered calls fine.
 - PLAYER SIM (notes/player_sim.md): simple ridge team rating beats player-sim everywhere; both lose to CLOSE. vs OPENER: simple
