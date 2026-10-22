@@ -26,3 +26,4 @@ quant/results/backups/
 sports/.env
 *.pem
 *.key
+sports/notes/robinhood_snapshot.md
