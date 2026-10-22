@@ -70,3 +70,10 @@ really +21.4%; causal rain +12.4% -> +8.0%; rain+wind +16% -> -10.2%). Fixed by 
 (validate="1:1"); rebuilt data/nfl_game_wx.parquet, 100% stadium match. Corrected oracle: rain is -1.9 pts beyond
 the close (se 0.86), wind -0.24 pts/mph (se 0.07) -- the market under-reacts to weather, but rain visible 3 h before
 kickoff captures only part of it. Lesson: join on keys; assert alignment after any transform.
+
+## 2026-10-21 night (parallel agents)
+- Earnings: Polymarket beat markets calibrated (971 dev, px .732 vs 74.3%); cheap-yes +11.4% p.12 dev; Kalshi has no beat markets. notes/earnings.md
+- NBA late-game calibration: Kalshi calibrated; T1 -1.5% p.55, T2 -5.4%. CLOSED. notes/late_game_calibration.md
+- Twin pairs: 47 trials, 0 pass; net negative after costs. CLOSED. notes/pairs_twins.md
+- kalshi_exec.py production hardening (demo env, idempotency, loss stops). notes/go_live.md
+- Rotobot tracker built; awaiting X access choice. notes/rotobot_tracker.md

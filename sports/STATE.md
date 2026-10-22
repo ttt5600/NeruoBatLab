@@ -1,8 +1,25 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-21 late (HANDOFF #2 before /clear -- read the HANDOFF block first). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-21 night (see UPDATE block; then HANDOFF #2 before /clear -- read the HANDOFF block first). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
+
+## UPDATE 2026-10-21 night (5 parallel agents; reports in notes/, all dev only)
+- EARNINGS (notes/earnings.md, scripts/earnings_*.py): BE reports 10-22 AMC; judgment P(beat EPS) ~78%, rev ~65%; straddle
+  +-9.8% vs 12-q mean move 10.4-10.8% -> fair, not +EV. NO BE contract on Kalshi/Polymarket. Kalshi has no beat markets
+  (only earnings-call MENTION markets); Polymarket beat markets are intl-only (restricted). 971 resolved Poly beat mkts:
+  market calibrated (px .732 vs 74.3% beat); cheap-yes <=.60 +11.4% p.12 (dev); 385 post-July mkts SEALED, needs yes.
+  Next: log daily consensus; backtest Kalshi mention markets; log Yahoo straddles daily.
+- NBA LATE-GAME (notes/late_game_calibration.md, scripts/nba_late_wp.py): Kalshi CALIBRATED in Q4<=6min |m|<=8 (7/7 bins);
+  T1 -1.5%/311 p.55, T2 -5.4%/331 -> CLOSED. Pacers 10-21 23c was at down 8 (fair); Pistons -22 at 5-6c fair.
+- TWINS (notes/pairs_twins.md, scripts/pairs_twins.py): 47 trials 0 pass; dual-class +3.8% gross -> -3.5% net -> CLOSED.
+- EXECUTION (notes/go_live.md, kalshi_exec.py rewrite, 30 new tests): idempotent orders, reconcile, demo env, caps + loss
+  stops + KILL file, preflight/status/kill/smoke. NOT deployed: user runs scripts/install_kalshi_paper_agent.sh, adds demo
+  key + EXEC_ENV=demo + KALSHI_BANKROLL_USD to ~/.claude/quant-kalshi/.env, then go_live.md checklist.
+- ROTOBOT (notes/rotobot_tracker.md, scripts/rotobot_tracker.py): @rotobot_ai, paid app, no record; X free tier has no
+  reads. User to choose: X API pay-per-use (X_BEARER_TOKEN in sports/.env) or paste posts to data/rotobot/posts.txt.
+- USER ASKS OPEN: "yes R_REB" (user said "rebound unders sounds great" -- not taken as the sealed yes); demo key; X access;
+  disk is 97% full (28 GiB free) -- blocked pulling pre-2021 NBA pbp.
 
 ## HANDOFF 2026-10-21 (user is clearing context; fresh session starts HERE)
 UPDATE 10-21 late (this session, after HANDOFF #1): LOOPS ARE OFF by user choice (memory feedback_loops_off) -- work only

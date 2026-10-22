@@ -4,7 +4,9 @@
 #   tick hourly at :03 = pick every city in its decision window (22:00-23:59 CITY-local, once per
 #   city-night) + settle. No wall-clock dispatch: launchd runs late after sleep (10-16 lost every pick).
 # kalshi_paper.py places no orders; kalshi_exec.py runs after each tick in DRY mode (log data/kalshi_exec.jsonl).
-# Real orders need the USER to put KALSHI_KEY_ID, KALSHI_PRIVATE_KEY_PATH and EXEC_MODE=live in $DST/.env.
+# Real orders need the USER to put KALSHI_KEY_ID, KALSHI_PRIVATE_KEY_PATH, KALSHI_BANKROLL_USD and EXEC_MODE=live
+# in $DST/.env (EXEC_ENV=demo sends them to Kalshi's demo exchange instead). See sports/notes/go_live.md.
+# This script never creates or reads $DST/.env; it only tightens its permissions if it exists.
 # Log: ~/.claude/quant-kalshi/data/kalshi_paper.jsonl
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
@@ -15,6 +17,7 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 mkdir -p "$DST/scripts" "$DST/data"
 rsync -a --delete --exclude __pycache__ "$SRC/sports/" "$DST/sports/"
 cp "$SRC/scripts/kalshi_paper.py" "$SRC/scripts/kalshi_exec.py" "$DST/scripts/"
+if [ -f "$DST/.env" ]; then chmod 600 "$DST/.env"; fi
 "$DST/.venv/bin/python" -c "import cryptography" 2>/dev/null || "$DST/.venv/bin/pip" install -q cryptography
 if [ ! -x "$DST/.venv/bin/python" ]; then
   /opt/homebrew/opt/python@3.14/bin/python3.14 -m venv "$DST/.venv"
