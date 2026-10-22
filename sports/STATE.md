@@ -1,8 +1,37 @@
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
-Last updated: 2026-10-21 night (see UPDATE block; then HANDOFF #2 before /clear -- read the HANDOFF block first). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
+Last updated: 2026-10-22 ~09:15Z (HANDOFF #3 -- read it first). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
+
+## HANDOFF #3 2026-10-22 ~09:15Z (user clearing context; START HERE, then the LIVE block below)
+KALSHI LIVE: weather executor trading the user's real $50 ($1 units, 1 contract/order, $15/day, $20 open; see LIVE block).
+  First real orders = tonight's tick (~22-23 local). Morning check: `~/.claude/quant-kalshi/.venv/bin/python
+  ~/.claude/quant-kalshi/scripts/kalshi_exec.py status`. The key file kalshi-demo.pem is really a PROD key pasted in chat
+  -> user should revoke/replace (mv/sed commands are in the prior session; go_live.md has the .env reference).
+  User plans ~$5k later (1% units = $50); then set KALSHI_BANKROLL_USD=5000 and drop the MAX_* overrides.
+ROBINHOOD: session "connect-robinhood-mcp" has the robinhood-trading MCP (this session does not; cross-session messages
+  now auto-accept: ~/.claude/settings.json crossSessionInbound=accept). Agent can TRADE ONLY the empty agentic acct
+  ••••1177; main ••••6780 and Roth are read-only ("FORBIDDEN" even for review_*). Snapshot (personal, gitignored):
+  sports/notes/robinhood_snapshot.md sections 1-7. As of 09:06Z: main value $94.2k, stock $276.8k, debit -$203.4k,
+  buying power +$14.7k, ~3.2x leverage; user trimmed ~$30k today. Plan B given (sell losers ~$119k + swap 100 NVDA/59 AMD
+  into Jan-2028 180C/420C + sell QQQ/AAPL -> debit ~$47k, 1.8x); LEAPS on hold until debit < ~$100k (options are 100% paid,
+  they eat margin cushion). Wash-sale: no rebuys of sold losers in ANY account for 31 days.
+  BE earnings TODAY 10-22 AMC: user wants straddle + bullish call. Offered A) 10/23 225 straddle + 240C (~$2.7k) or
+  B) 10/23 215P + 240C + 250C (~$1.4k, recommended); EV ~0 (implied +-10% vs hist 10.4-10.8%). Option quotes were stale
+  (options open 09:30 ET); user enters orders in the app.
+NBA DEN@OKC 10-22: Kalshi .26/.27; models: four-factor (scripts/nba_fourfactors.py) OKC -8.3, P(DEN) .280 -> NO BET by the
+  rule committed before running (bet DEN only if >= .314); healthy-core ratings (scripts/nba_matchup.py) OKC -6.4..-9.6;
+  2026-27 preseason starters +/-48 DEN +7.6 vs OKC +2.0 (collected data/espn/nba/*_2027) -> blend 10-25% weight gives
+  P(DEN) .30-.35 = a lean, not an edge. User may say "place DEN $1" (3 YES @ .27 on Kalshi; executor only trades weather,
+  so place via kalshi_exec.Kalshi client by hand).
+AGENT RESULTS 10-22 (all in notes/): company graph 0/6 (graph = data product); venues: Polymarket US = own book +
+  automated trading allowed, connector scripts/polymarket_us.py (read-only), weather rule on PMUS dev -0.14%/283 fail,
+  no cross-venue arb; ForecastEx = different stations (new trial, needs IBKR). Player sim: simple model leads OPENER
+  (+1.53 pts line move, t 8.8) -> SEALED ASK O1 still waits for "yes O1". Rumors/GDELT closed; optional $13 X test.
+  Inference thesis memo + tracker (not installed). Pick'em logger not installed. Bovada declined (offshore; ToS).
+USER ASKS OPEN: "yes O1"; revoke Kalshi key; fund Kalshi; Polymarket US keys -> sports/.env; X test yes/no;
+  install thesis tracker / pickem logger (scripts/install_*.sh); free disk (97% full).
 
 ## LIVE 2026-10-22 ~08:30Z (user: "use the $50, $1 trades, grow to 100, then talk about 10k")
 - Kalshi PROD key (user pasted it believing it was demo; it authenticated on prod, $50.00; advised to revoke + replace) in
