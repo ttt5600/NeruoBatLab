@@ -78,3 +78,4 @@ kickoff captures only part of it. Lesson: join on keys; assert alignment after a
 - kalshi_exec.py production hardening (demo env, idempotency, loss stops). notes/go_live.md
 - Rotobot tracker built; awaiting X access choice. notes/rotobot_tracker.md
 - R_REB SEALED (NBA rebound unders, P2 rule, 2026): 1,214 bets, ROI -1.56%, p .72 -> FAIL. Dev +2.7% did not replicate.
+- Public NBA models (538 Elo/CARM/RAPTOR, ESPN) vs close: all worse; 7 rules 0 pass; stacking ties market. CLOSED. notes/nba_public_models.md

@@ -20,7 +20,11 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   reads. User to choose: X API pay-per-use (X_BEARER_TOKEN in sports/.env) or paste posts to data/rotobot/posts.txt.
 - R_REB SEALED SCORED 2026-10-21 (user "yes R_REB"): 1,214 bets/291 games, -18.9u, ROI -1.56%, CI [-81,+44], p .72,
   win .540 @ avg dec 1.866 -> FAIL. Rebound unders CLOSED. (graded/games_2026 sha matched frozen MANIFEST.)
-- RUNNING: public NBA models vs market agent -> notes/nba_public_models.md (DARKO/EPM/inpredictable/538 archive/RotoBot).
+- PUBLIC NBA MODELS (notes/nba_public_models.md, scripts/nba_public_models.py): only 538 (Elo/CARM/RAPTOR) + ESPN have free
+  archives; ALL worse than de-vigged close (log loss +0.008..+0.019, CIs exclude 0); 7 rules 0 pass (bar p<.0071); model+market
+  stacking ties the market -> CLOSED vs close. Next cheap test: same models vs the OPENING line (ESPN openers 2024-25).
+- Nuggets@OKC 10-22: Kalshi .26/.27, Pinnacle fair .258-.270 (OKC -8); preseason projections (ESPN/Opta) ~.29-.32 -> told user
+  judgment-tier at most; public-models result says that gap is more likely model error than edge.
 - USER ASKS OPEN: demo key; X access;
   disk is 97% full (28 GiB free) -- blocked pulling pre-2021 NBA pbp.
 
