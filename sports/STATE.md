@@ -4,6 +4,23 @@ Last updated: 2026-10-21 night (see UPDATE block; then HANDOFF #2 before /clear 
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
+## UPDATE 2026-10-22 (agents round 2; reports in notes/)
+- PAPER weather 10-22 07Z: 54 picks, 26 settled, 26 wins, +0.84u. Kalshi unfiltered /markets 503s; series-filtered calls fine.
+- PLAYER SIM (notes/player_sim.md): simple ridge team rating beats player-sim everywhere; both lose to CLOSE. vs OPENER: simple
+  model gap>=4 -> line moves toward model +1.53 pts/1,512 (t 8.8, passes ledger-wide bar); realised ROI at open +3.8% p.17 (no).
+  SEALED ASK O1 (needs user "yes O1"): 2025-26, frozen simple model, gap>=6, primary = close-implied ROI at opening price.
+  lines_2026 schema has *_open/*_close (checked names only).
+- SOFT VENUES (notes/soft_venues.md): Sleeper 0/1,047 legs +EV; Polymarket US 0/116 (within .72c of Pinnacle); Novig/ProphetX need
+  accounts. Pick'em in CA = grey (AG opinion). Logger built, not installed: scripts/install_pickem_logger_agent.sh.
+- RUMORS (notes/rumor_signals.md): GDELT event study 134 Kalshi rumor mkts 2025: price moves BEFORE news (median 4h); 4 rules all
+  lose -> CLOSED for GDELT. Optional X test ~$13 (needs X_BEARER_TOKEN + explicit spend yes).
+- INFERENCE THESIS (notes/inference_thesis.md): demand evidence strong; compute share flat 29-39% (SemiAnalysis, secondhand);
+  basket outperformance mostly SNDK+INTC. Tilt 1-3% of portfolio. Tracker not installed: scripts/install_thesis_tracker_agent.sh.
+- ROBINHOOD: official Agentic Trading MCP (OAuth, dedicated funded account; stocks, maybe options/crypto; NO prediction markets
+  yet). User to create the account + `claude mcp add --transport http robinhood <url>` + /mcp login; approvals ON. Bovada =
+  offshore/illegal in CA -> refused. DraftKings Predictions legal in CA (class action pending), manual.
+- RUNNING: venues + Polymarket US connection (notes/venues.md), company graph (notes/company_graph.md).
+
 ## UPDATE 2026-10-21 night (5 parallel agents; reports in notes/, all dev only)
 - EARNINGS (notes/earnings.md, scripts/earnings_*.py): BE reports 10-22 AMC; judgment P(beat EPS) ~78%, rev ~65%; straddle
   +-9.8% vs 12-q mean move 10.4-10.8% -> fair, not +EV. NO BE contract on Kalshi/Polymarket. Kalshi has no beat markets
