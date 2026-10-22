@@ -18,7 +18,10 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   key + EXEC_ENV=demo + KALSHI_BANKROLL_USD to ~/.claude/quant-kalshi/.env, then go_live.md checklist.
 - ROTOBOT (notes/rotobot_tracker.md, scripts/rotobot_tracker.py): @rotobot_ai, paid app, no record; X free tier has no
   reads. User to choose: X API pay-per-use (X_BEARER_TOKEN in sports/.env) or paste posts to data/rotobot/posts.txt.
-- USER ASKS OPEN: "yes R_REB" (user said "rebound unders sounds great" -- not taken as the sealed yes); demo key; X access;
+- R_REB SEALED SCORED 2026-10-21 (user "yes R_REB"): 1,214 bets/291 games, -18.9u, ROI -1.56%, CI [-81,+44], p .72,
+  win .540 @ avg dec 1.866 -> FAIL. Rebound unders CLOSED. (graded/games_2026 sha matched frozen MANIFEST.)
+- RUNNING: public NBA models vs market agent -> notes/nba_public_models.md (DARKO/EPM/inpredictable/538 archive/RotoBot).
+- USER ASKS OPEN: demo key; X access;
   disk is 97% full (28 GiB free) -- blocked pulling pre-2021 NBA pbp.
 
 ## HANDOFF 2026-10-21 (user is clearing context; fresh session starts HERE)
@@ -65,7 +68,7 @@ LIVE / SAVED EDGES (check every session):
 - MIDTERMS (election 11-03): run `scripts/xvenue_elections.py` every session; LA Senate arb candidate (R@Poly .93 + D@Kalshi .033)
   waits on user: is LA Senate on Polymarket US? Kalshi SENATELA-26 rule text says "Kentucky". TX Gov Abbott: market .72 vs
   poll-model ~.75 -> judgment bet <= 1% B (notes/risk.md).
-- SEALED ASK (pre-registered 2026-10-21, NOT scored): R_REB = NBA REBOUND unders, P2 rule (empirical last-20 P(under) minus
+- SEALED ASK -- SCORED 10-21, FAIL (see UPDATE block): R_REB = NBA REBOUND unders, P2 rule (empirical last-20 P(under) minus
   de-vigged same-book opening P(under) >= 0.08, >= 20-min players, best opening under price), season 2026 only; PASS = one-sided
   bootstrap p < 0.05 over games AND ROI > 0. Dev evidence: P1 rebound unders +2.8%/14.5k, P2 rebound unders +2.7%/16.2k (same
   seasons). Needs user's explicit yes; then add `sealed --confirm R_REB` to nba_props_dist.py and run once.

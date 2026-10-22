@@ -113,6 +113,39 @@ def cmd_dev() -> int:
     return 0
 
 
+def cmd_sealed() -> int:
+    """R_REB sealed test (pre-registered 2026-10-21 in STATE.md; user yes 2026-10-21). Scored ONCE.
+
+    P2 rule unchanged, total rebounds only, season 2026 only. History is loaded from 2025+2026 so the last-20 window
+    crosses the season boundary exactly as it did inside dev (2024 rolled from 2023). PASS = ROI > 0 AND one-sided
+    bootstrap p < 0.05 over games (3000 resamples, seed 0, as dev).
+    """
+    if "--confirm" not in sys.argv or "R_REB" not in sys.argv:
+        print("refusing: needs `sealed --confirm R_REB` (user's explicit yes)")
+        return 1
+    if any('"strategy": "nba_props_R_REB_sealed"' in l for l in LEDGER.read_text().splitlines()):
+        print("refusing: R_REB already scored (see ledger); sealed data is scored once")
+        return 1
+    x, _ = bets([2025, 2026])
+    x = x[(x.season == 2026) & (x.market_n == "total rebounds")]
+    ev = x.groupby("event_id").pnl.sum().to_numpy()
+    rng = np.random.default_rng(0)
+    boots = np.array([rng.choice(ev, len(ev)).sum() for _ in range(3000)])
+    r = {"bets": int(len(x)), "games": int(len(ev)), "staked": float(len(x)), "units": float(x.pnl.sum()), "roi": float(x.pnl.mean()),
+         "ci_lo": float(np.quantile(boots, .025)), "ci_hi": float(np.quantile(boots, .975)), "p": float(np.mean(boots <= 0)),
+         "win_rate": float((x.actual < x.line_open).mean()), "avg_under_dec": float(x.under.mean())}
+    r["passed"] = bool(r["roi"] > 0 and r["p"] < 0.05)
+    with LEDGER.open("a") as fh:
+        fh.write(json.dumps({"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": "nba_props_R_REB_sealed",
+                             "sha": hashlib.sha256(b"nba_props_dist:R_REB").hexdigest()[:12], "dataset": "nba_props_dist_sealed2026",
+                             "hypothesis": "pre-registered 2026-10-21 STATE.md SEALED ASK R_REB", "source": "user yes 2026-10-21",
+                             "status": "ok", "sealed": True, **r}, default=str) + "\n")
+    print(f"R_REB SEALED 2026: bets {r['bets']} games {r['games']} units {r['units']:+.1f} ROI {r['roi']:+.2%} "
+          f"95%CI units [{r['ci_lo']:+.0f}, {r['ci_hi']:+.0f}] p {r['p']:.4f} win {r['win_rate']:.3f} "
+          f"avg dec {r['avg_under_dec']:.3f} -> {'PASS' if r['passed'] else 'FAIL'}")
+    return 0
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
-    raise SystemExit({"dev": cmd_dev}.get(cmd, lambda: print(__doc__) or 1)())
+    raise SystemExit({"dev": cmd_dev, "sealed": cmd_sealed}.get(cmd, lambda: print(__doc__) or 1)())

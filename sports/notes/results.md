@@ -77,3 +77,4 @@ kickoff captures only part of it. Lesson: join on keys; assert alignment after a
 - Twin pairs: 47 trials, 0 pass; net negative after costs. CLOSED. notes/pairs_twins.md
 - kalshi_exec.py production hardening (demo env, idempotency, loss stops). notes/go_live.md
 - Rotobot tracker built; awaiting X access choice. notes/rotobot_tracker.md
+- R_REB SEALED (NBA rebound unders, P2 rule, 2026): 1,214 bets, ROI -1.56%, p .72 -> FAIL. Dev +2.7% did not replicate.
