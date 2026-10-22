@@ -83,6 +83,9 @@ From social/forum sweep 2026-10-22 (notes/social_edges_2026-10-22.md; Reddit unr
 - L24 E1/E2 AS MAKER (strongest): weather series charge TAKERS only (checked via API 10-22); Becker 72M trades: weather
   takers -1.29% / makers +1.29% pre-fee; taker fee ~0.7% of stake at NO .90 vs +1.45% edge. Executor is a pure taker
   (IOC at ask). Test = replay picks vs trade history (fill + adverse selection), then live A/B. Same as L20.
+  -> TESTED 10-22 DEV (scripts/kalshi_temp_maker.py, notes/kalshi_temp_maker.md, 9 trials bar .0056): resting NO bid at ask-2c or
+     mid (to close) beats taker on 1,713 dev picks: M3_N10 +9.5u [+4.2,+14.4] p .0003, M2_N10 +8.1u p .001; ask-1c and
+     rest-10h-then-take fail. All losers fill (adverse sel. 4.1%->5.7% loss rate). Sealed replay needs user yes; exec change spec in note.
 - L25 Fade YES in single-name/Mentions/Entertainment/World (Bartlett-O'Hara: takers buy YES 60%, 31% settle YES) ~ L23.
 - L26 Weather late-day lock-in from OBSERVED station highs after the daily peak (not the dead 06:00 forecast test).
 - L27 Kalshi liquidity-reward programs (6,926 active) -- negligible at 1 contract; revisit at ~$5k.
