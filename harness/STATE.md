@@ -1,29 +1,34 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-20 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; user asked: DAPT on BirdAVES, size/data comparison)
+Updated: 2026-10-22 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; pre-/clear handoff at the user's request)
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts).
-Memory: feedback_specialization_not_beans.md. Call type is CPU ONLY (076): never quote ct11_<tag>_emb.npy readers.
+Call type is CPU ONLY (076). Model table: `python zfeval/experiments/our_models_table.py` (reads score JSONs only).
 
-## 2026-10-19 morning (user request)
-- Model sizes from the weights: analysis/model_param_counts.json (zfeval/experiments/model_param_counts.py).
-  HuBERT base = AVES base = BirdAVES biox-base = ours = 94,370,944, same tensors; BirdAVES *-large = 315,427,968.
-- Call Type Breakdown dashboard (https://claude.ai/artifact/86skJnBrVBgqnQDZe3wsku) rebuilt on CPU (was MPS, Oct 9):
-  calltype_per_class.py --cpu -> calltype_per_class_cpu.json; harness/build_calltype_data.py; 4-model side-by-side.
-- Claude Docs updated: tasks doc 1e00135c rev 46 (T10 run23, T11 run22), Savio guide 9e2d877b rev 6 (eval/embed).
-  Google Docs updated in place via Playwright (memory reference_google_docs_editing.md); luckyshark668 has writer.
+## LOOPS OFF (2026-10-21): no /loop, harness agent, escalation or auto-resume unless the user asks (feedback_loops_off.md)
+Still running, no Claude: savio-watch shell poll, usage warnings, quant kalshi-paper / gap-logger / live-signals / paper-step.
 
-## Results 2026-10-21 (all scored on CPU; experiments.yaml E12/E27/E34 = done; table: zfeval/experiments/our_models_table.py)
-- E34 run23 MFCC labels: 0.8420, +0.0067 n.d. vs run16 (L3 -0.0059 n.d.) -> spectrogram targets buy nothing measurable.
-- E27 BirdAVES bioxn-large DAPT: 0.8403 / 0.8473 vs parent 0.8590 (-0.0188 resolved, -0.0117 n.d.) -> not met, DAPT lowers it.
-- E12 run22 AVES labels on FSD50K only: 0.8511; beats run20 (+0.0229 resolved), ties run19 -> not additive.
-- Training hours verified from Savio TSVs: ZF 120 files 116.03 h, FSD50K 643 files 108.39 h, mix 763 / 224.42 h.
-- Findings for E12/E27/E34 NOT written yet (no critic pass). Nothing in flight on Savio.
+## Latest results (2026-10-21, all CPU; experiments.yaml E12/E27/E34 status done with result lines)
+- E34 run23 MFCC labels 0.8420 vs run16 0.8353: +0.0067 n.d. (L3 -0.0059 n.d.) -> our spectrogram targets buy nothing.
+- E27 DAPT from BirdAVES bioxn-large: 0.8403 / 0.8473 vs parent 0.8590 (-0.0188 resolved, -0.0117 n.d.) -> not met.
+- E12 run22 AVES labels on FSD50K only: 0.8511; beats run20 +0.0229 resolved, ties run19 -> not additive.
+- Pattern: all 3 AVES-label runs (run19, run19s2, run22) top every other from-scratch run on the 10-split mean.
+- Size/hours do nothing (biox-large - biox-base -0.0056 n.d.; AVES all - core +0.0015 n.d.); at fixed L3 nothing beats run16.
+- Hours verified from Savio TSVs: ZF 120 files 116.03 h, FSD50K 643 files 108.39 h, mix 763 / 224.42 h.
+- Nothing in flight on Savio.
+
+## Open tasks (not started)
+1. Task docs: T10 (run23) / T11 (run22) still say "In progress"; add E27. Claude Doc 1e00135c + Google Doc 123rAGhW
+   (Google = Playwright route, memory reference_google_docs_editing.md; needs Chrome-profile copy, delete after).
+2. Findings for E12, E27, E34 in knowledge/findings + critic pass (CRITIC.md). Not written.
+3. Call Type Breakdown dashboard (86skJnBr): add run22, run23, E27 s1/s2 (calltype_per_class.py --cpu CPU_MODELS,
+   build_calltype_data.py RECIPE, re-upload datasets). Offered, not asked.
+4. luckyshark668@gmail.com has writer on both Google Docs (granted for the Playwright edit); user may revoke.
+5. Open question, no experiment yet: why Whisper (speech, supervised, log-mel, 680k h) beats speech HuBERT by ~0.035.
 
 ## Waiting on the user
-- E13 teacher, E26 success + donors, E15 corpus, E33 (rec: no at +-2 st), 10-split headline,
-  BeVo split, AVEX, WiSE-FT. Older: E30-32, label audit. Savio cert valid to 14:45 (jobs don't need it).
+- E13 teacher, E26 (approved; design open: donors, dose), E15 corpus, E33 (rec: no at +-2 st), 10-split headline,
+  BeVo split, AVEX, WiSE-FT. Older: E30-32, label audit.
 
-## LOOPS OFF (2026-10-21, user: "turn off all loops unless we're actually getting somewhere")
-- Lead /loop stopped; savio-watch escalate + harness agent disabled (jobs.json); usage-watch auto-resume disabled.
-- Do NOT restart /loop or re-enable them unasked. Score finished runs on request with score_run.sh (commands above).
-- Still running (no Claude): savio-watch shell polling, usage warnings, quant kalshi-paper / gap-logger / live-signals / paper-step.
+## Savio notes
+- Login-node python EIO is intermittent: import-check on savio-dtn, then plain sbatch + manual ~/jobs/ledger.tsv row.
+- Certificate lasts 12 h (`sv login`); BatchMode SSH only.
