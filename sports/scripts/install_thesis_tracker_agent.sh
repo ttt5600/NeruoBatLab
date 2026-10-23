@@ -1,8 +1,10 @@
 #!/bin/bash
-# Install (or refresh) the inference-vs-training thesis tracker as a launchd agent: `thesis_tracker.py tick`
-# weekdays 17:30 local (after the US close). Measurement only: no orders.
+# Install (or refresh) the thesis tracker as a launchd agent: `thesis_tracker.py tick` weekdays 17:30 local (after the
+# US close). One tick logs BOTH v1 (inference vs training, sha b745e0d3aa0e -> data/thesis/tracker.jsonl) and v2
+# ("HPC for AI agents" sleeves, sha 7e822f587214 -> data/thesis/tracker_v2.jsonl). Measurement only: no orders.
+# Re-run after any thesis_tracker.py change so the launchd copy is not stale. NOT installed by default (user decides).
 # Shares ~/.claude/quant-kalshi (code copy + venv) with the other agents (launchd cannot read ~/Desktop, TCC).
-# Log: ~/.claude/quant-kalshi/data/thesis/tracker.jsonl ; report: cd ~/.claude/quant-kalshi && .venv/bin/python scripts/thesis_tracker.py report
+# Logs: ~/.claude/quant-kalshi/data/thesis/tracker.jsonl + tracker_v2.jsonl ; report: cd ~/.claude/quant-kalshi && .venv/bin/python scripts/thesis_tracker.py report
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
 DST="$HOME/.claude/quant-kalshi"

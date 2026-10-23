@@ -36,6 +36,7 @@ roughly +$3-5/month; at a $5k bankroll (1% = $50 orig7, $25 X1) roughly $75-150/
 | F4 | Polymarket US weather consensus-reject (exact port of E1; dev -0.14%/283, p .53 -> too few bets, history is display prices) | paper logger built, NOT installed | scripts/venues_weather.py `paper tick` |
 | F5 | Pick'em PK1: Sleeper legs where Pinnacle's conservative fair P beats 1/multiplier by >= 2 pts (pass: >= 200 legs, ROI > 0, p < .05) | logger built, NOT installed (0 qualifying legs in the first snapshot) | `bash scripts/install_pickem_logger_agent.sh` |
 | F6 | Inference-vs-training thesis baskets (rules hash b745e0d3aa0e) | daily tracker built, NOT installed | `bash scripts/install_thesis_tracker_agent.sh` |
+| F7 | Thesis v2 "HPC for AI agents": MEMORY / COMPUTE-INF / ENERGY-GEN / ENERGY-EQUIP sleeves (rules hash 7e822f587214, frozen 10-22, monthly EW) | same tracker logs v1+v2 (tracker_v2.jsonl), NOT installed; history hindsight-only | notes/thesis_v2.md; install script as F6 |
 
 ## 3. SEALED ASKS -- ALL THREE SCORED 2026-10-22 (user "do the sealed tests"), ALL FAIL; none open now
 
@@ -147,6 +148,7 @@ report's header also restates its brief). Their outputs are durable files (code 
 | Rumor/social signals (a2edacd4c35612780) | do X/Reddit/news lead prices? | GDELT: price leads news; 4 rules lose; X test ~$13 optional | notes/rumor_signals.md; scripts/rumor_signals.py; data/rumor/ |
 | Company relationship graph (a1d8d0577727268bd) | EDGAR graph; customer momentum; spillovers; graph momentum | 6 trials 0 pass; C1 near-miss decaying; graph = data product | notes/company_graph.md, company_graph_lit.md; scripts/company_graph.py; data/company_graph/ |
 | Inference-vs-training thesis (a431ad01a84c61944) | user thesis: inference > training | demand strong, share flat; tickers classified; baskets fixed; tilt 1-3% | notes/inference_thesis.md; scripts/thesis_tracker.py, install_thesis_tracker_agent.sh |
+| Thesis v2 HPC-for-agents (10-22; 3 web sub-agents: memory, energy, compute) | user thesis update: memory + inference compute + energy, de-emphasize networking/training | evidence + bear cases cited; 4 sleeves frozen; compute corr 0.95 / memory 0.84 to SMH, energy-gen 0.49 = only diversifier; top-2 = 35-48% of each sleeve's gain | notes/thesis_v2.md (public), notes/thesis_v2_private.md (gitignored); scripts/thesis_tracker.py rules-v2/history-v2 |
 | Claude Code docs lookup (af0e08030d14425c0) | auto-accept cross-session messages | `crossSessionInbound: accept` (now set in ~/.claude/settings.json) | (memory reference_robinhood_mcp_and_cross_session) |
 | Prior academic research sweep (a21559133abdc2479, 10-22) | Kalshi/PM/sports/equity literature 2015-26 | Kalshi longshot bias + maker advantage; weather mkt beats NBM; retail stock anomalies dead; leads L19-L23 | notes/prior_research_2026-10-22.md |
 | Robinhood strategies (ad99111bd1ca1bb20, 10-22) | strategies for the user's real book | deleverage first (margin-call risk), tax-lot selection, wash-sale traps, index core; covered calls/CSPs no | notes/robinhood_strategies.md (public), robinhood_strategies_private.md (gitignored), scripts/rh_strategies_bt.py |

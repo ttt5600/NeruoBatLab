@@ -173,8 +173,200 @@ def cmd_report():
 BASKETS["inference_v1"] = ["CBRS", "SNDK", "INTC", "QCOM", "NET", "AVGO", "MRVL", "ALAB", "ARM"]
 BASKETS["training_v1"] = ["NVDA", "MSFT", "GOOGL", "AMZN", "META", "ANET", "COHR", "LITE"]
 
+
+# ================================================================ v2: "HPC for AI agents" (user thesis update 2026-10-22)
+# Report: notes/thesis_v2.md. Four sleeves: MEMORY, COMPUTE-INFERENCE, ENERGY-GEN, ENERGY-EQUIP. Networking/connectivity
+# and training-specific names deliberately left out (user: de-emphasize). v1 above is untouched (its sha must stay b745e0d3aa0e).
+# Rules v2 (frozen with the lists, before any v2 return was computed):
+#   * equal weight, rebalanced MONTHLY on the first trading day of each month (weights drift in between);
+#   * a name enters at the first monthly rebalance on/after max(first priced day, ENTRY_V2 date) -- ENTRY_V2 skips the
+#     pre-merger SPAC shell prices yfinance carries for OKLO / SMR / VRT;
+#   * a name with a missing price mid-month is carried at its last price (no look-ahead);
+#   * benchmarks SPY, QQQ, SMH; history windows 2019-01-02 and 2023-01-03; forward record from FREEZE_V2.
+#   * "v2_all" = the four sleeves at 25% each, rebalanced monthly (sleeve-level, so it is NOT equal weight by name).
+FREEZE_V2 = "2026-10-22"
+BASE_DATES_V2 = ["2019-01-02", "2023-01-03"]
+BENCH_V2 = ["SPY", "QQQ", "SMH"]
+LOG_V2 = OUT / "tracker_v2.jsonl"
+BASKETS_V2 = {
+    # MEMORY: HBM/DRAM/NAND makers, HDD bulk tier, enterprise storage systems, memory-interface/SSD-controller chips
+    "memory_v2": ["MU", "SNDK", "WDC", "STX", "P", "NTAP", "SIMO", "RMBS"],
+    # COMPUTE-INFERENCE: server CPUs, custom inference ASIC designers, inference chips, foundry + advanced packaging
+    "compute_inf_v2": ["AMD", "INTC", "ARM", "AVGO", "MRVL", "QCOM", "CBRS", "TSM", "AMKR", "ASX"],
+    # ENERGY-GEN: IPPs / nuclear fleet owners, utilities with large datacenter load pipelines, SMR developers, uranium
+    "energy_gen_v2": ["CEG", "VST", "TLN", "NRG", "D", "AEP", "SO", "ETR", "OKLO", "SMR", "CCJ"],
+    # ENERGY-EQUIP: gas turbines + grid, power/cooling infrastructure, fuel cells, switchgear, grid construction, nuclear components
+    "energy_equip_v2": ["GEV", "VRT", "ETN", "BE", "PWR", "HUBB", "MOD", "NVT", "BWXT", "POWL"],
+}
+ENTRY_V2 = {"OKLO": "2024-05-10", "SMR": "2022-05-03", "VRT": "2020-02-10"}  # de-SPAC dates (operating company starts)
+
+
+def rules_blob_v2() -> str:
+    return json.dumps({"freeze": FREEZE_V2, "baskets": BASKETS_V2, "entry": ENTRY_V2, "base_dates": BASE_DATES_V2,
+                       "bench": BENCH_V2, "weighting": "equal by name within sleeve, monthly rebalance on first trading "
+                       "day of month, enter at first rebalance after first price/entry date; v2_all = 25% per sleeve "
+                       "monthly"}, sort_keys=True)
+
+
+def rules_sha_v2() -> str:
+    return hashlib.sha256(rules_blob_v2().encode()).hexdigest()
+
+
+def _rebalance_days(idx: pd.DatetimeIndex, start) -> list:
+    idx = idx[idx >= pd.Timestamp(start)]
+    if len(idx) == 0:
+        return []
+    m = idx.to_period("M")
+    firsts = [idx[0]] + [d for d, prev, cur in zip(idx[1:], m[:-1], m[1:]) if cur != prev]
+    return firsts
+
+
+def monthly_rebalanced(close: pd.DataFrame, weights_fn, start) -> tuple[pd.Series, pd.DataFrame]:
+    """Daily returns of a portfolio reset to weights_fn(rebalance_date) on the first trading day of each month.
+    Returns (daily return series, per-name daily dollar P&L on a $1 start) -- P&L sums to the equity gain, so
+    contribution shares are exact."""
+    px = close.ffill()
+    days = _rebalance_days(px.index, start)
+    out_r, out_c = [], []
+    v = 1.0
+    for i, d0 in enumerate(days):
+        d1 = days[i + 1] if i + 1 < len(days) else None
+        w = weights_fn(d0)  # Series name -> weight, sums to 1, only names priced on d0
+        seg = px.loc[d0:d1, w.index]  # d1 (next rebalance day) included as this segment's last close
+        rel = seg / seg.iloc[0]
+        val = (rel * w).sum(axis=1)                       # value of $1 placed at d0
+        pos = rel.mul(w, axis=1)                          # per-name value
+        dpos = pos.diff().iloc[1:] * v                    # per-name dollar P&L, scaled by equity at d0
+        r = (val / val.shift(1) - 1).iloc[1:]
+        out_r.append(r); out_c.append(dpos)
+        v *= float(val.iloc[-1])
+    r = pd.concat(out_r)
+    c = pd.concat(out_c).fillna(0.0)
+    return r[~r.index.duplicated()], c.groupby(level=0).sum()
+
+
+def sleeve_weights(close: pd.DataFrame, names):
+    first = {t: max(close[t].first_valid_index(), pd.Timestamp(ENTRY_V2.get(t, "1900-01-01"))) for t in names}
+
+    def fn(d0):
+        live = [t for t in names if first[t] < d0 and pd.notna(close[t].ffill().loc[d0])]
+        return pd.Series(1.0 / len(live), index=live)
+    return fn
+
+
+def v2_series(close: pd.DataFrame, start) -> tuple[pd.DataFrame, dict]:
+    rets, contrib = {}, {}
+    for k, names in BASKETS_V2.items():
+        r, c = monthly_rebalanced(close, sleeve_weights(close, names), start)
+        rets[k], contrib[k] = r, c
+    df = pd.DataFrame(rets)
+    # v2_all: 25% per sleeve, monthly -- built from sleeve "prices"
+    lv = (1 + df.fillna(0)).cumprod()
+    lv.loc[lv.index[0] - pd.Timedelta(days=1)] = 1.0
+    lv = lv.sort_index()
+    r_all, _ = monthly_rebalanced(lv, lambda d0: pd.Series(0.25, index=list(BASKETS_V2)), lv.index[0])
+    df["v2_all"] = r_all
+    for b in BENCH_V2:
+        df[b] = close[b].pct_change(fill_method=None)
+    return df.dropna(subset=list(BASKETS_V2)), contrib
+
+
+def cmd_rules_v2():
+    print(rules_blob_v2())
+    print("sha256", rules_sha_v2())
+
+
+def cmd_history_v2():
+    names = sorted({t for v in BASKETS_V2.values() for t in v} | set(BENCH_V2))
+    close = fetch(names, "2018-12-01")
+    close = close[close.index <= pd.Timestamp(FREEZE_V2) - pd.Timedelta(days=1)]  # through the day before freeze
+    print(f"prices through {close.index.max().date()}  v2 rules sha {rules_sha_v2()[:12]}  (HINDSIGHT-BIASED description)")
+    res = {}
+    for b in BASE_DATES_V2:
+        df, contrib = v2_series(close, b)
+        df = df[df.index > pd.Timestamp(b)]
+        rows = []
+        for col in df.columns:
+            s = summarize(df[col])
+            rows.append({"series": col, "total": s["total"], "cagr": s["cagr"], "vol": s["vol"], "maxdd": s["maxdd"],
+                         "corr_SMH": df[col].corr(df["SMH"]), "corr_SPY": df[col].corr(df["SPY"])})
+        print(f"\n=== since {b}")
+        print(pd.DataFrame(rows).set_index("series").round(3).to_string())
+        print("\ndaily-return correlation:")
+        print(df[list(BASKETS_V2) + ["SMH", "QQQ", "SPY"]].corr().round(2).to_string())
+        print("\nconcentration (exact $-P&L attribution on $1, monthly rebalance):")
+        crow = []
+        for k, c in contrib.items():
+            c = c[c.index > pd.Timestamp(b)]
+            tot = c.sum().sort_values(ascending=False)
+            gain = tot.sum()
+            top2 = tot.head(2)
+            # ex-top-2 counterfactual: same rules without those two names
+            rest = [t for t in BASKETS_V2[k] if t not in top2.index]
+            r_ex, _ = monthly_rebalanced(close, sleeve_weights(close, rest), b)
+            r_ex = r_ex[r_ex.index > pd.Timestamp(b)]
+            crow.append({"sleeve": k, "gain_on_$1": round(gain, 3), "top2": ",".join(top2.index),
+                         "top2_share_of_gain": round(top2.sum() / gain, 3) if gain else np.nan,
+                         "sleeve_total": round(summarize(df[k])["total"], 3),
+                         "ex_top2_total": round(summarize(r_ex)["total"], 3),
+                         "per_name": " ".join(f"{t}:{v:+.2f}" for t, v in tot.items())})
+        cdf = pd.DataFrame(crow)
+        print(cdf.drop(columns="per_name").to_string(index=False))
+        for _, x in cdf.iterrows():
+            print(f"  {x['sleeve']}: {x['per_name']}")
+        res[b] = {"table": rows, "concentration": crow}
+        df.to_parquet(OUT / f"history_v2_since_{b}.parquet")
+    (OUT / "history_v2.json").write_text(json.dumps(res, default=float, indent=1))
+
+
+def tick_v2():
+    names = sorted({t for v in BASKETS_V2.values() for t in v} | set(BENCH_V2))
+    close = fetch(names, "2018-12-01")  # long history so entry dates resolve; only post-freeze returns are logged
+    from zoneinfo import ZoneInfo
+    now_ny = datetime.now(ZoneInfo("America/New_York"))
+    if now_ny.hour * 60 + now_ny.minute < 16 * 60 + 15:
+        close = close[close.index.date < now_ny.date()]
+    if (close.index >= pd.Timestamp(FREEZE_V2)).sum() < 2:
+        print("v2: no full trading day since freeze yet"); return
+    df, _ = v2_series(close, FREEZE_V2)
+    df = df[df.index > pd.Timestamp(FREEZE_V2)]
+    lv = (1 + df.fillna(0)).cumprod()
+    last = lv.index.max()
+    row = {"logged_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "date": str(last.date()),
+           "rules_sha_v2": rules_sha_v2()[:12], **{k: round(float(lv.loc[last, k]), 6) for k in lv.columns}}
+    seen = {json.loads(x)["date"] for x in LOG_V2.read_text().splitlines() if x.strip()} if LOG_V2.exists() else set()
+    if row["date"] in seen:
+        print(f"v2: {row['date']} already logged"); return
+    with LOG_V2.open("a") as f:
+        f.write(json.dumps(row) + "\n")
+    print(json.dumps(row))
+
+
+def report_v2():
+    if not LOG_V2.exists():
+        print("v2: no forward log yet; run tick"); return
+    d = pd.DataFrame([json.loads(x) for x in LOG_V2.read_text().splitlines() if x.strip()])
+    print(d.tail(15).to_string(index=False))
+    last = d.iloc[-1]
+    cols = list(BASKETS_V2) + ["v2_all"] + BENCH_V2
+    print(f"\nv2 forward since {FREEZE_V2}: " + "  ".join(f"{c} {last[c]-1:+.2%}" for c in cols) +
+          f"  ({len(d)} logged days; judge on the leading indicators in notes/thesis_v2.md, not weeks of prices)")
+
+
+def cmd_tick_all():
+    cmd_tick()   # v1, unchanged log + schema
+    tick_v2()
+
+
+def cmd_report_all():
+    cmd_report()
+    print()
+    report_v2()
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "report"
     if not BASKETS["inference_v1"] or not BASKETS["training_v1"]:
         sys.exit("baskets not frozen yet")
-    {"rules": cmd_rules, "history": cmd_history, "tick": cmd_tick, "report": cmd_report}[cmd]()
+    {"rules": cmd_rules, "history": cmd_history, "tick": cmd_tick_all, "report": cmd_report_all,
+     "rules-v2": cmd_rules_v2, "history-v2": cmd_history_v2}[cmd]()
