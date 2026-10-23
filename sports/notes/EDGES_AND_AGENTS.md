@@ -71,7 +71,7 @@ NBA / NFL / sports
 
 From prior-research sweep 2026-10-22 (notes/prior_research_2026-10-22.md; Burgi-Deng-Whelan Kalshi paper read in full):
 - L19 K-FAV: Kalshi favourite side 88-97c as MAKER in non-sports daily categories (paper: >70c earn small + after fees;
-  makers -9.6% vs takers -31.5%). Dev 2023-01..2025-06, sealed 2025-07+ (maker fees). UNTESTED.
+  makers -9.6% vs takers -31.5%). TESTED 10-22 -> DEAD (see s5; notes/kalshi_fav_maker.md).
 - L20 Maker execution for E1/E2 picks (resting NO vs taking the ask) -- price improvement vs adverse selection. UNTESTED.
 - L21 PredictIt midterm NO-bundle sums > 110 (NBER abstract); verify current fees/caps first. UNTESTED.
 - L22 Kalshi politics underconfidence (arXiv; contradicted by Burgi et al.) -- weak prior. UNTESTED.
@@ -107,6 +107,7 @@ Information / social
 
 | Idea | Result | Report |
 |---|---|---|
+| **L19 K-FAV** Kalshi fav side 88-97c, non-sports daily (scripts/kalshi_fav_maker.py, dataset kalshi_fav_maker) | DEV 2021-08..2025-06: F1 taker -0.32%/4,419 p .72; F2 maker (bid 1c under ask) -2.19%/2,829 p .999. Adverse selection: filled win 90.5% vs unfilled 99.3% (breakeven 92.5%). No sealed ask | notes/kalshi_fav_maker.md |
 | NBA in-game lag (H1-H3) and NFL in-game (H1-H3) | Kalshi reprices within ~1 min, beats ESPN/nflfastR WP | STATE CLOSED list |
 | **NBA late-game comeback calibration** (user: "Pacers down 3 at 23%") | Kalshi calibrated in 7/7 bins (369 games); T1 -1.5%/311 p .55, T2 -5.4%/331. Pacers 23c was at down 8 = fair | notes/late_game_calibration.md |
 | Public NBA models vs close (538 Elo/CARM/RAPTOR, ESPN) | all worse than the close (log loss +.008..+.019); 0/7 rules; stacking ties the market | notes/nba_public_models.md |

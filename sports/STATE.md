@@ -20,9 +20,11 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 - E1/E2 AS MAKER (kalshi_temp_maker.py, dev picks only): bid at mid +9.5u vs taker p .0003 (fill 72%, ROI +3.2% vs +1.78%);
   ask-2c also passes; ask-1c and rest-then-take fail; first 3 quarters negative. Next: sealed-period replay (needs "yes MAKER")
   or 4-wk live A/B; change spec (KALSHI_EXEC_STYLE, sweep must skip maker orders) in notes/kalshi_temp_maker.md. NOT deployed.
+- K-FAV (kalshi_fav_maker.py) DEAD on dev: taker -0.32%/4,419 p .72 (fair before fees); maker 1c under ask -2.19%/2,829
+  (filled bids win 90.5% vs 99.3% unfilled = adverse selection). Caution for MAKER weather: only the deeper bids passed there.
 - REPORTS DONE: prior_research (L19-L23), social_edges (L24-L27, best = run E1 as MAKER: weather charges takers only),
   robinhood_strategies (DELEVERAGE FIRST; tickets in gitignored private file). Backtest agents RUNNING: kalshi_mentions.py,
-  kalshi_fav_maker.py, kalshi_temp_maker.py (dev only; notes/kalshi_*.md when done).
+  (all three finished 10-22).
 - 4 background agents launched 10-22: social/forum edges -> notes/social_edges_2026-10-22.md; prior academic research ->
   notes/prior_research_2026-10-22.md; Robinhood strategies -> notes/robinhood_strategies_private.md (gitignored) +
   robinhood_strategies.md; $50 execution + payment routes -> notes/execution_tests_2026-10-22.md. If a file is missing the
