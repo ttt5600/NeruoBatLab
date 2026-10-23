@@ -89,3 +89,7 @@ as the paper claims.
   Step 1 can run before the yes, because it writes no P&L.
 - If it passes, the live form is: at D24/D6 before a scheduled mention event, rest or take NO on words <= 15c,
   1-contract units, with a per-event cap because losses cluster within an event.
+
+## Sealed prices frozen 2026-10-22 (no P&L computed)
+`data/kalshi_mentions_prices_sealed.parquet` sha256 a25b80f2341b: 60,894 markets; candle at decision d24 35,188, d6 51,745
+(6,766 recent markets via the live endpoint, 6,693 filled). Score only on "yes M3": `sealed --confirm M3_d24 M3_d6`.
