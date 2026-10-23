@@ -52,6 +52,8 @@ def cmd_run(t: str):
     coid = f"pathtest-{uuid.uuid4()}"
     body = {"ticker": t, "side": "ask", "count": "1", "price": "0.9900", "time_in_force": "good_till_canceled",
             "post_only": True, "self_trade_prevention_type": "taker_at_cross", "client_order_id": coid}
+    if "--expiration" in sys.argv:  # maker-mode body: rest until the market's close (field never sent on prod before 10-23)
+        body["expiration_time"] = int(datetime.fromisoformat(m["close_time"].replace("Z", "+00:00")).timestamp())
     steps = []
     bal0 = c.balance()
     c1, o1 = c.create_order(body)
@@ -123,7 +125,7 @@ if __name__ == "__main__":
         cmd_check(a[1])
     elif a[:1] == ["list"]:
         cmd_list(*a[1:2])
-    elif a[:1] == ["run"] and len(a) == 2:
+    elif a[:1] == ["run"] and len(a) >= 2:
         raise SystemExit(cmd_run(a[1]))
     else:
         print(__doc__)

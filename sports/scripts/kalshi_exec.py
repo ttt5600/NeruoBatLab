@@ -34,6 +34,12 @@ Safety, all enforced here (not by the caller):
   * size <= KALSHI_DEPTH_FRAC (0.5) x resting depth within 1c; limit price = the ask; immediate_or_cancel, so
     nothing rests; any of OUR orders found resting > KALSHI_STALE_ORDER_MIN (10) is cancelled
   * fill-price convention check: a fill whose NO cost differs from the ask by > 2c writes KILL (wrong convention)
+  * KALSHI_EXEC_STYLE=maker (default taker; KALSHI_AB=1 -> maker iff sha1(ticker) even): sealed-passed M3_N10
+    (lab/lockbox.jsonl kalshi_temp_maker_M3_N10, notes/kalshi_temp_maker.md). Resting post-only GTC NO bid at
+    q = min(NO mid floored to the cent, NO ask - 1c), expiration_time = market close, no taker fallback; skip if
+    NO ask - q > 5c. Fee 0 only when GET /series fee_type == quadratic (else taker fee in sizing). While resting it
+    commits n*q to the caps; the stale sweep leaves it alone until its market is no longer active; post_only
+    reject -> rejected_post_only (no retry); the convention check compares fills with q, not the ask.
   * every fill / partial fill / error / kill / loss stop -> macOS notification (KALSHI_NOTIFY=0 turns it off)
 Credentials: KALSHI_KEY_ID + KALSHI_PRIVATE_KEY_PATH in .env, put there by the user. The key file is read only to
 sign requests; the key, its path contents and request headers are never printed or logged.
@@ -50,6 +56,7 @@ GET /portfolio/positions (position_fp < 0 = NO); DELETE /portfolio/events/orders
 from __future__ import annotations
 
 import base64
+import hashlib
 import json
 import math
 import os
@@ -73,7 +80,9 @@ AGENT_LABEL = "com.jonathanwang.quant-kalshi-paper"
 TIER_FRAC = {"orig7": 0.01, "x1": 0.005}            # notes/risk.md: share of bankroll per pick
 NIGHT_FRAC, DAY_LOSS_FRAC, WEEK_LOSS_FRAC = 0.10, 0.05, 0.10
 RETRY_CODES = {429, 500, 502, 503, 504}
-ZERO_COST = ("no_fill", "rejected", "not_placed")
+ZERO_COST = ("no_fill", "rejected", "rejected_post_only", "not_placed")
+MAKER_MAX_IMPROVE = 0.05                        # notes/kalshi_temp_maker.md: skip if NO ask - q > 5c
+MAKER_FREE_FEE_TYPES = ("quadratic",)           # General Trading Fees Table: no maker fee
 
 
 def set_root(root: Path, deploy: Path = DEPLOY) -> None:
@@ -116,7 +125,37 @@ def config(e: dict) -> dict:
             "max_up": f("KALSHI_MAX_SLIPPAGE", 0.01), "max_down": f("KALSHI_MAX_PRICE_DROP", 0.03),
             "max_age_min": f("KALSHI_MAX_PICK_AGE_MIN", 120), "depth_frac": f("KALSHI_DEPTH_FRAC", 0.5),
             "min_close_min": f("KALSHI_MIN_MINUTES_TO_CLOSE", 60), "stale_order_min": f("KALSHI_STALE_ORDER_MIN", 10),
-            "notify": e.get("KALSHI_NOTIFY", "1") != "0"}
+            "notify": e.get("KALSHI_NOTIFY", "1") != "0",
+            "exec_style": _style(e.get("KALSHI_EXEC_STYLE", "taker")), "ab": e.get("KALSHI_AB", "0") == "1"}
+
+
+def _style(v: str) -> str:
+    v = (v or "taker").strip().lower()
+    if v not in ("taker", "maker"):
+        raise ValueError(f"KALSHI_EXEC_STYLE must be taker or maker, got {v!r}")
+    return v
+
+
+def exec_style(cfg: dict, ticker: str) -> str:
+    """taker | maker for one ticker. KALSHI_AB=1 overrides KALSHI_EXEC_STYLE: maker iff sha1(ticker) is even."""
+    if cfg.get("ab"):
+        return "maker" if int(hashlib.sha1(ticker.encode()).hexdigest()[:8], 16) % 2 == 0 else "taker"
+    return cfg.get("exec_style", "taker")
+
+
+def tag_style(cfg: dict) -> bool:
+    """Write exec_style onto order rows only when maker is in play, so the default taker journal is unchanged."""
+    return cfg.get("ab", False) or cfg.get("exec_style", "taker") != "taker"
+
+
+def cent_floor(x: float) -> float:
+    return math.floor(round(x * 100, 6)) / 100
+
+
+def maker_fee_unit(q: float, fee_type: str | None) -> float:
+    """Per-contract fee assumed for a resting NO bid at q: 0 on a 'quadratic' series (no maker fee), else the taker
+    formula (conservative: unknown or maker-fee schedules are sized as if they charged the full taker fee)."""
+    return 0.0 if fee_type in MAKER_FREE_FEE_TYPES else FEE * q * (1 - q)
 
 
 def resolve_mode(e: dict, live_flag: bool) -> str:
@@ -308,18 +347,32 @@ class Kalshi:
         code, out = self.request("GET", f"/markets/{ticker}", auth=False)
         return out.get("market") if code == 200 else None
 
-    def book_no(self, ticker: str) -> tuple[float, float]:
-        """(best NO ask, contracts within 1c of it). NO ask = 1 - best YES bid."""
+    def book(self, ticker: str) -> tuple[float, float, float]:
+        """(best NO ask, contracts within 1c of it, best NO bid). NO ask = 1 - best YES bid; the NO bid is the best
+        price on the book's NO side (= 1 - best YES ask), 0.0 when that side is empty."""
         code, d = self.request("GET", f"/markets/{ticker}/orderbook", auth=False)
         if code != 200:
-            return math.nan, 0.0
+            return math.nan, 0.0, 0.0
         ob = d.get("orderbook_fp") or d.get("orderbook") or {}
-        bids = ob.get("yes_dollars") or ob.get("yes") or []
-        lv = sorted(((float(p) if float(p) <= 1 else float(p) / 100, float(q)) for p, q in bids), reverse=True)
+        lvl = lambda rows: sorted(((float(p) if float(p) <= 1 else float(p) / 100, float(q)) for p, q in rows),  # noqa: E731
+                                  reverse=True)
+        lv = lvl(ob.get("yes_dollars") or ob.get("yes") or [])
+        nb = lvl(ob.get("no_dollars") or ob.get("no") or [])
+        no_bid = round(nb[0][0], 4) if nb else 0.0
         if not lv:
-            return math.nan, 0.0
+            return math.nan, 0.0, no_bid
         best = lv[0][0]
-        return round(1 - best, 2), sum(q for p, q in lv if p >= best - 0.0101)
+        return round(1 - best, 2), sum(q for p, q in lv if p >= best - 0.0101), no_bid
+
+    def book_no(self, ticker: str) -> tuple[float, float]:
+        """(best NO ask, contracts within 1c of it). NO ask = 1 - best YES bid."""
+        ask, depth, _ = self.book(ticker)
+        return ask, depth
+
+    def series_fee_type(self, series: str) -> str | None:
+        """GET /series/{s} -> series.fee_type ('quadratic' = no maker fee); None if unreadable."""
+        code, out = self.request("GET", f"/series/{series}", auth=False)
+        return (out.get("series") or {}).get("fee_type") if code == 200 else None
 
     # authenticated
     def balance(self) -> float:
@@ -390,8 +443,8 @@ def settle(hist: list[dict], picks: list[dict], now: datetime, client: Kalshi | 
     n = 0
     for mode in sorted({r.get("mode") for r in hist if r.get("mode")}):
         for t, o in fold(hist, mode).items():
-            if o.get("settled") or held(o) <= 0 or committed(o) <= 0:
-                continue
+            if o.get("settled") or held(o) <= 0 or committed(o) <= 0 or o.get("status") == "resting":
+                continue  # a resting (maker) row settles after reconcile has read its final fills
             r = res.get(t)
             if r not in ("yes", "no") and client is not None and now - datetime.fromisoformat(o["ts"]) > timedelta(hours=36):
                 r = (client.market(t) or {}).get("result")
@@ -436,15 +489,39 @@ def reconcile(client: Kalshi, mode: str, cfg: dict, now: datetime) -> None:
         match = [x for x in client.orders(ticker=t) if x.get("client_order_id") == o.get("client_order_id")]
         if match:
             upd = fills_from_order(match[0])
+            maker = o.get("exec_style") == "maker" and o.get("maker_q") is not None
+            if maker:
+                upd = maker_reserve(o, upd)
+            if maker and upd["filled"] and upd["avg_no"] is not None and abs(upd["avg_no"] - float(o["maker_q"])) > 0.02:
+                upd = {**upd, "cost": round(upd["filled"] * 1.0 + upd["fee"], 4)}  # worst case until a human looks
+                append({"event": "update", "ts": now.isoformat(timespec="seconds"), "mode": mode, "ticker": t,
+                        "source": "reconcile", **upd})
+                write_kill(f"fill price convention check failed on {t}: NO cost {upd['avg_no']} vs maker bid "
+                           f"{o['maker_q']}", cfg)
+                return
+            prev = float(o.get("filled") or 0)
             append({"event": "update", "ts": now.isoformat(timespec="seconds"), "mode": mode, "ticker": t,
                     "source": "reconcile", **upd})
-            if upd["filled"]:
+            if upd["filled"] and (not maker or upd["filled"] > prev):
                 notify(f"Kalshi {mode} fill (reconciled)", f"{t}: {upd['filled']:g} NO @ {upd['avg_no']}", cfg)
         elif now - datetime.fromisoformat(o["ts"]) > timedelta(minutes=30):
             append({"event": "update", "ts": now.isoformat(timespec="seconds"), "mode": mode, "ticker": t,
                     "status": "not_placed", "filled": 0, "cost": 0.0, "source": "reconcile"})
     for x in client.orders(status="resting"):
         if x.get("client_order_id") not in ours:
+            continue
+        if state.get(ours[x["client_order_id"]], {}).get("exec_style") == "maker":
+            # a maker bid is MEANT to rest until close: cancel only once its market is no longer active / past close
+            m = client.market(x.get("ticker") or ours[x["client_order_id"]]) or {}
+            close = m.get("close_time")
+            open_now = m.get("status") in ("active", "open") and (
+                close is None or datetime.fromisoformat(close.replace("Z", "+00:00")) > now)
+            if open_now:
+                continue
+            code, out = client.cancel(x["order_id"], x.get("ticker"))
+            append({"event": "cancel", "ts": now.isoformat(timespec="seconds"), "mode": mode,
+                    "ticker_cancelled": x.get("ticker"), "order_id": x["order_id"], "http": code,
+                    "reduced_by": out.get("reduced_by"), "why": "maker_market_closed"})
             continue
         created = x.get("created_time")
         age = (now - datetime.fromisoformat(created.replace("Z", "+00:00"))).total_seconds() / 60 if created else 1e9
@@ -474,10 +551,16 @@ def reconcile(client: Kalshi, mode: str, cfg: dict, now: datetime) -> None:
 def decide(p: dict, client: Kalshi, mode: str, cfg: dict, now: datetime, spent: float, opn: float,
            bal: float | None) -> dict:
     t = p["ticker"]
-    ask, depth = client.book_no(t)
+    style = exec_style(cfg, t)
+    if style == "maker":
+        ask, depth, no_bid = client.book(t)
+    else:
+        ask, depth = client.book_no(t)
     rec = {"event": "order", "ts": now.isoformat(timespec="seconds"), "mode": mode, "env": cfg["env"], "ticker": t,
            "cohort": p.get("cohort", "orig7"), "pick_logged_at": p["logged_at"], "pick_no_price": p["no_price"],
            "no_ask_now": ask, "depth_1c": depth, "count": 0, "filled": 0, "cost": 0.0}
+    if tag_style(cfg):
+        rec["exec_style"] = style
     m = client.market(t)
     cap = caps(cfg, rec["cohort"])
     close = (m or {}).get("close_time")
@@ -495,6 +578,8 @@ def decide(p: dict, client: Kalshi, mode: str, cfg: dict, now: datetime, spent: 
         return {**rec, "status": "skip_price_moved"}
     if ask < p["no_price"] - cfg["max_down"] - 1e-9:
         return {**rec, "status": "skip_price_dropped"}
+    if style == "maker":
+        return _decide_maker(rec, client, mode, cfg, ask, no_bid, budget, bal, close)
     n = int(max(budget, 0) // (ask + FEE * ask * (1 - ask)) if budget > 0 else 0)
     n = min(n, int(depth * cfg["depth_frac"]), cfg["max_contracts"] if mode != "dry" else 10 ** 9)
     while n > 0 and order_cost(n, ask) > budget + 1e-9:
@@ -507,6 +592,43 @@ def decide(p: dict, client: Kalshi, mode: str, cfg: dict, now: datetime, spent: 
             "fee": fee_total(n, ask), "avg_no": ask, "status": "go"}
 
 
+def _decide_maker(rec: dict, client: Kalshi, mode: str, cfg: dict, ask: float, no_bid: float, budget: float,
+                  bal: float | None, close: str) -> dict:
+    """M3 (sealed-passed kalshi_temp_maker_M3_N10): resting post-only NO bid at the NO mid floored to the cent, capped
+    at NO ask - 1c. No depth cap (a resting bid takes no liquidity). Fee 0 only on a 'quadratic' series."""
+    q = round(min(cent_floor((ask + no_bid) / 2), ask - 0.01), 4)
+    fee_type = client.series_fee_type(rec["ticker"].split("-")[0])
+    unit_fee = maker_fee_unit(q, fee_type)
+    rec = {**rec, "maker_q": q, "no_bid_now": no_bid, "fee_type": fee_type}
+    if q <= 0 or ask - q > MAKER_MAX_IMPROVE + 1e-9:
+        return {**rec, "status": "skip_maker_spread"}
+    cost = lambda n: round(n * q + (fee_total(n, q) if unit_fee else 0.0), 4)  # noqa: E731
+    n = int(max(budget, 0) // (q + unit_fee) if budget > 0 else 0)
+    n = min(n, cfg["max_contracts"] if mode != "dry" else 10 ** 9)
+    while n > 0 and cost(n) > budget + 1e-9:
+        n -= 1
+    if n < 1:
+        return {**rec, "status": "skip_balance" if bal is not None and bal < q else "skip_cap"}
+    exp = int(datetime.fromisoformat(close.replace("Z", "+00:00")).timestamp())
+    return {**rec, "count": n, "limit_yes_price": f"{1 - q:.4f}", "cost": cost(n),
+            "fee": round(cost(n) - n * q, 4), "avg_no": q, "expiration_time": exp, "status": "go"}
+
+
+def _is_post_only_reject(out) -> bool:
+    """Kalshi does not document the post_only-would-cross error; match on its wording."""
+    txt = json.dumps(out).lower() if out else ""
+    return any(w in txt for w in ("post_only", "post only", "postonly", "post-only", "cross"))
+
+
+def maker_reserve(rec: dict, u: dict) -> dict:
+    """While a maker order rests, commit filled cost + the unfilled remainder at q (+ assumed fee) to the caps."""
+    if u.get("status") != "resting":
+        return u
+    q, n = float(rec["maker_q"]), float(rec.get("count") or 0)
+    rest = max(n - float(u.get("filled") or 0), 0.0)
+    return {**u, "cost": round(float(u.get("cost") or 0) + rest * (q + maker_fee_unit(q, rec.get("fee_type"))), 4)}
+
+
 def place(client: Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
     """Write-ahead, then POST once (the client retries with the SAME client_order_id), then record the outcome."""
     mode, t = rec["mode"], rec["ticker"]
@@ -517,9 +639,16 @@ def place(client: Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
         return append({**rec, "status": "skip_exchange_has_order", "count": 0, "cost": 0.0, "filled": 0,
                        "client_order_id": coid if any(x.get("client_order_id") == coid for x in existing) else None})
     append({**rec, "status": "submitting", "client_order_id": coid, "filled": 0})
-    body = {"ticker": t, "side": "ask", "count": str(rec["count"]), "price": rec["limit_yes_price"],
-            "time_in_force": "immediate_or_cancel", "self_trade_prevention_type": "taker_at_cross",
-            "client_order_id": coid}
+    maker = rec.get("exec_style") == "maker"
+    if maker:  # sell YES at 1-q == buy NO at q; rests until the market's close (GTC + expiration_time = GTT)
+        body = {"ticker": t, "side": "ask", "count": str(rec["count"]), "price": rec["limit_yes_price"],
+                "time_in_force": "good_till_canceled", "post_only": True, "expiration_time": rec["expiration_time"],
+                "self_trade_prevention_type": "taker_at_cross", "client_order_id": coid}
+    else:
+        body = {"ticker": t, "side": "ask", "count": str(rec["count"]), "price": rec["limit_yes_price"],
+                "time_in_force": "immediate_or_cancel", "self_trade_prevention_type": "taker_at_cross",
+                "client_order_id": coid}
+    ref = rec["maker_q"] if maker else rec["no_ask_now"]  # the price a correct fill must be near
     upd = {"event": "update", "ts": now.isoformat(timespec="seconds"), "mode": mode, "ticker": t}
     try:
         code, out = client.create_order(body)
@@ -530,8 +659,16 @@ def place(client: Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
     if code == 409:  # same client_order_id already accepted: read the truth back
         match = [x for x in client.orders(ticker=t) if x.get("client_order_id") == coid]
         u = fills_from_order(match[0]) if match else {"status": "unknown"}
+        if maker and match:
+            u = maker_reserve(rec, u)
+        elif maker and _is_post_only_reject(out):
+            u = {"status": "rejected_post_only", "cost": 0.0, "filled": 0}
         append({**upd, "http": 409, "source": "409", **u})
         return {**rec, **u}
+    if maker and code not in (200, 201) and _is_post_only_reject(out):
+        append({**upd, "status": "rejected_post_only", "http": code, "response": out, "cost": 0.0})
+        notify(f"Kalshi {mode} maker bid not placed", f"{t}: post_only would cross (HTTP {code}); no retry", cfg)
+        return {**rec, "status": "rejected_post_only", "cost": 0.0}
     if code not in (200, 201):
         append({**upd, "status": "rejected", "http": code, "response": out, "cost": 0.0})
         notify(f"Kalshi {mode} order REJECTED", f"{t}: HTTP {code} {str(out)[:120]}", cfg)
@@ -544,7 +681,7 @@ def place(client: Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
         fee = round(float(out.get("average_fee_paid") or 0) * filled, 4)
         u.update(status="filled" if filled >= rec["count"] else "partial", avg_no=avg_no, fee=fee,
                  cost=round(filled * avg_no + fee, 4))
-        if abs(avg_no - rec["no_ask_now"]) > 0.02:
+        if abs(avg_no - ref) > 0.02:
             # Cross-check with the Order object (GET fields verified on prod 2026-10-22) before killing: the create
             # response's average_fill_price convention is the one field not yet seen on a real fill.
             try:
@@ -552,18 +689,26 @@ def place(client: Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
             except Exception:  # noqa: BLE001 -- any failure -> keep the conservative path below
                 match = []
             g = fills_from_order(match[0]) if match else {}
-            if g.get("filled") and g.get("avg_no") is not None and abs(g["avg_no"] - rec["no_ask_now"]) <= 0.02:
+            if g.get("filled") and g.get("avg_no") is not None and abs(g["avg_no"] - ref) <= 0.02:
                 u.update(status="filled" if g["filled"] >= rec["count"] else "partial", filled=g["filled"],
                          avg_no=g["avg_no"], fee=g["fee"], cost=g["cost"], source="get_order",
                          create_avg_no=avg_no)
                 avg_no = g["avg_no"]
-        if abs(avg_no - rec["no_ask_now"]) > 0.02:  # convention / price check: stop before a second order
+        if abs(avg_no - ref) > 0.02:  # convention / price check: stop before a second order
             u["cost"] = round(filled * 1.0 + fee, 4)  # worst case until a human looks
             append({**upd, **u})
-            write_kill(f"fill price convention check failed on {t}: NO cost {avg_no} vs ask {rec['no_ask_now']}", cfg)
+            what = f"maker bid {ref}" if maker else f"ask {rec['no_ask_now']}"
+            write_kill(f"fill price convention check failed on {t}: NO cost {avg_no} vs {what}", cfg)
             return {**rec, **u}
+        if maker and filled < rec["count"] and float(out.get("remaining_count") or 0) > 0:
+            u = maker_reserve(rec, {**u, "status": "resting"})
         notify(f"Kalshi {mode} {'FILL' if u['status'] == 'filled' else 'PARTIAL fill'}",
                f"{t}: {filled:g}/{rec['count']} NO @ {avg_no} (${u['cost']:.2f})", cfg)
+    elif maker and float(out.get("remaining_count") or 0) > 0:
+        u.update(status="resting", cost=rec["cost"])  # committed n*q (+fee) for the caps while it rests
+        notify(f"Kalshi {mode} maker bid resting", f"{t}: {rec['count']} NO @ {rec['maker_q']} until close", cfg)
+    elif maker:  # accepted, nothing filled, nothing left resting: the post_only bid was cancelled at entry
+        u.update(status="rejected_post_only", cost=0.0)
     else:
         u.update(status="no_fill", cost=0.0)
     append({**upd, **u})
@@ -764,6 +909,30 @@ def cmd_preflight(client: Kalshi | None = None) -> int:
     return 1 if fails else 0
 
 
+def style_lines(st: dict, picks: dict) -> list[str]:
+    """Per exec style: orders placed, filled, fill rate, filled loss rate vs the paper loss rate on the same picks.
+    Empty when no row carries exec_style (pure default-taker journal), so the old report is unchanged."""
+    if not any("exec_style" in o for o in st.values()):
+        return []
+    out = []
+    for style in ("taker", "maker"):
+        placed = [o for o in st.values() if o.get("exec_style", "taker") == style and float(o.get("count") or 0) > 0
+                  and not o.get("status", "").startswith("skip")]
+        if not placed:
+            continue
+        filled = [o for o in placed if held(o) > 0]
+        done = [o for o in filled if o.get("settled")]
+        paper = [picks.get(o["ticker"], {}).get("result") for o in placed]
+        paper = [r for r in paper if r in ("yes", "no")]
+        resting = sum(o.get("status") == "resting" for o in placed)
+        loss = f"{sum(o['result'] == 'yes' for o in done) / len(done):.1%} of {len(done)}" if done else "n/a"
+        ploss = f"{sum(r == 'yes' for r in paper) / len(paper):.1%} of {len(paper)}" if paper else "n/a"
+        out.append(f"{style}: {len(placed)} placed, {len(filled)} filled ({len(filled) / len(placed):.0%}), "
+                   f"{resting} resting; filled loss rate {loss} vs paper loss rate {ploss}; "
+                   f"P&L ${sum(o['pnl'] for o in done):+,.2f}")
+    return out
+
+
 def cmd_status(client: Kalshi | None = None, now: datetime | None = None) -> int:
     now = now or datetime.now(timezone.utc)
     e = env()
@@ -773,7 +942,8 @@ def cmd_status(client: Kalshi | None = None, now: datetime | None = None) -> int
     picks = {p["ticker"]: p for p in load_picks()}
     k = killed()
     print(f"launchd mode: {mode_now.upper()} (EXEC_ENV={cfg['env']}); KILL: {k or 'none'}; bankroll: "
-          f"{'$%s' % format(cfg['bankroll'], ',.0f') if cfg['bankroll'] else 'unset'}")
+          f"{'$%s' % format(cfg['bankroll'], ',.0f') if cfg['bankroll'] else 'unset'}; exec style: "
+          f"{'A/B (sha1 parity: even maker, odd taker)' if cfg['ab'] else cfg['exec_style']}")
     for mode in ("dry", "demo", "live"):
         st = fold(hist, mode)
         if not st:
@@ -798,6 +968,8 @@ def cmd_status(client: Kalshi | None = None, now: datetime | None = None) -> int
               f"24h net ${net_pnl(st, now, 24):+,.2f}  7d net ${net_pnl(st, now, 168):+,.2f}")
         if skips:
             print("  skips: " + ", ".join(f"{s} {n}" for s, n in sorted(skips.items())))
+        for line in style_lines(st, picks):
+            print("  " + line)
         for o in sorted((o for o in rows if not o.get("settled")), key=lambda o: o["ts"]):
             print(f"  open {o['ticker']:28s} {held(o):g} NO @ {o.get('avg_no')} ${committed(o):.2f} "
                   f"({o.get('status')}; paper result {picks.get(o['ticker'], {}).get('result')})")

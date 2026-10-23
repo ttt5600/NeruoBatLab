@@ -38,6 +38,8 @@ class FakeExchange:
         self.post_script = []  # queued responses / exceptions for POST create order
         self.balance = 1000.0
         self.trading = True
+        self.no_books = {}     # ticker -> [[no_bid_price, qty], ...]
+        self.fee_type = "quadratic"
 
     def send(self, method, url, headers, params, data, timeout):
         path = urlparse(url).path.replace(kx.BASE, "", 1)
@@ -46,7 +48,10 @@ class FakeExchange:
             return 200, {"exchange_active": True, "trading_active": self.trading}
         if path.startswith("/markets/") and path.endswith("/orderbook"):
             t = path.split("/")[2]
-            return (200, {"orderbook_fp": {"yes_dollars": self.books[t], "no_dollars": []}}) if t in self.books else (404, {})
+            return ((200, {"orderbook_fp": {"yes_dollars": self.books[t], "no_dollars": self.no_books.get(t, [])}})
+                    if t in self.books else (404, {}))
+        if path.startswith("/series/"):
+            return 200, {"series": {"ticker": path.split("/")[2], "fee_type": self.fee_type, "fee_multiplier": 1}}
         if path.startswith("/markets/"):
             t = path.split("/")[2]
             return (200, {"market": self.markets[t]}) if t in self.markets else (404, {})
@@ -64,8 +69,10 @@ class FakeExchange:
             body = json.loads(data)
             if any(o["client_order_id"] == body["client_order_id"] for o in self.orders):
                 return 409, {"code": "conflict", "message": "duplicate client_order_id"}
-            nxt = self.post_script.pop(0) if self.post_script else ("fill", None)
+            nxt = self.post_script.pop(0) if self.post_script else ("rest" if body.get("post_only") else "fill", None)
             kind, arg = nxt
+            if kind == "rest":
+                return 201, self._rest(body)
             if kind == "raise":
                 raise requests.ConnectionError("boom")
             if kind == "raise_after_accept":  # exchange accepted it, the response got lost
@@ -104,6 +111,29 @@ class FakeExchange:
         if n:
             out.update(average_fill_price=f"{yes:.4f}", average_fee_paid=f"{fee:.6f}")
         return out
+
+    def _rest(self, body):
+        """A post-only bid that rests untouched."""
+        oid = f"oid-{len(self.orders) + 1}"
+        self.orders.append({"order_id": oid, "client_order_id": body["client_order_id"], "ticker": body["ticker"],
+                            "status": "resting", "outcome_side": "no", "book_side": "ask",
+                            "fill_count_fp": "0.00", "remaining_count_fp": f"{float(body['count']):.2f}",
+                            "initial_count_fp": f"{float(body['count']):.2f}",
+                            "taker_fill_cost_dollars": "0", "maker_fill_cost_dollars": "0",
+                            "taker_fees_dollars": "0", "maker_fees_dollars": "0",
+                            "created_time": NOW.isoformat()})
+        return {"order_id": oid, "client_order_id": body["client_order_id"], "fill_count": "0.00",
+                "remaining_count": f"{float(body['count']):.2f}", "ts_ms": 1}
+
+    def maker_fill(self, ticker, n, no_price):
+        """Someone sells into our resting NO bid: n contracts at no_price, maker fee 0."""
+        o = next(x for x in self.orders if x["ticker"] == ticker and x["status"] == "resting")
+        f = float(o["fill_count_fp"]) + n
+        o.update(fill_count_fp=f"{f:.2f}", remaining_count_fp=f"{float(o['initial_count_fp']) - f:.2f}",
+                 maker_fill_cost_dollars=f"{float(o['maker_fill_cost_dollars']) + n * no_price:.4f}")
+        if f >= float(o["initial_count_fp"]):
+            o["status"] = "executed"
+        self.positions[ticker] = self.positions.get(ticker, 0) - n
 
     def posts(self):
         return [c for c in self.calls if c[0] == "POST"]
@@ -479,3 +509,211 @@ def test_legacy_dry_rows_fold(root):
                "no_ask_now": 0.96, "depth_1c": 500, "status": "dry", "count": 25, "cost": 24.0, "limit_cents": 96})
     o = kx.fold(kx.journal(), "dry")[T1]
     assert o["filled"] == 25 and kx.committed(o) == 24.0
+
+
+# ------------------------------------------------------------------------------------------- maker (M3_N10)
+MAKER = ["KALSHI_EXEC_STYLE=maker"]
+
+
+def maker_setup(root, picks, env_lines=(), **kw):
+    ex = setup(root, picks, env_lines=list(MAKER) + list(env_lines), **kw)
+    for p in picks:  # NO ask 0.96 (YES bid 0.04), NO bid 0.93 -> mid 0.945 -> floor 0.94 (<= ask - 1c)
+        ex.no_books[p["ticker"]] = [["0.9300", "100.00"]]
+    return ex
+
+
+def _settle_paper(root, result):
+    picks = [json.loads(l) for l in (root / "data" / "kalshi_paper.jsonl").read_text().splitlines()]
+    for p in picks:
+        p["result"] = result
+    (root / "data" / "kalshi_paper.jsonl").write_text("".join(json.dumps(p) + "\n" for p in picks))
+
+
+def test_taker_path_unchanged_when_style_unset(root):
+    ex = setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    run(root, ex)
+    body = ex.posts()[0][3]
+    assert set(body) == {"ticker", "side", "count", "price", "time_in_force", "self_trade_prevention_type",
+                         "client_order_id"} and body["time_in_force"] == "immediate_or_cancel"
+    assert not any(c[1].startswith("/series/") for c in ex.calls)            # no extra request on the taker path
+    assert not any("exec_style" in r or "maker_q" in r for r in kx.journal())  # journal rows unchanged
+    assert kx.config({})["exec_style"] == "taker" and not kx.config({})["ab"]
+
+
+def test_bad_style_value_refuses():
+    with pytest.raises(ValueError):
+        kx.config({"KALSHI_EXEC_STYLE": "mkr"})
+
+
+def test_maker_body_shape_and_resting_row(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    run(root, ex)
+    assert len(ex.posts()) == 1
+    body = ex.posts()[0][3]
+    close = int(datetime.fromisoformat(ex.markets[T1]["close_time"]).timestamp())
+    assert body == {"ticker": T1, "side": "ask", "count": "1", "price": "0.0600", "time_in_force": "good_till_canceled",
+                    "post_only": True, "expiration_time": close, "self_trade_prevention_type": "taker_at_cross",
+                    "client_order_id": kx.client_order_id("demo", T1)}
+    o = orders_of(root)[T1]
+    assert o["exec_style"] == "maker" and o["maker_q"] == 0.94 and o["fee_type"] == "quadratic"
+    assert o["status"] == "resting" and o["filled"] == 0 and kx.committed(o) == pytest.approx(0.94)  # fee 0
+    assert kx.held(o) == 0
+
+
+def test_maker_fee_type_not_quadratic_sizes_with_taker_fee(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    ex.fee_type = "quadratic_with_maker_fees"
+    run(root, ex)
+    o = orders_of(root)[T1]
+    assert o["fee_type"] == "quadratic_with_maker_fees"
+    assert kx.committed(o) == pytest.approx(0.94 + kx.fee_total(1, 0.94))
+
+
+def test_maker_wide_spread_or_empty_no_side_skips(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    ex.no_books[T1] = []   # no NO bids -> mid 0.48 -> 48c below the ask -> skip
+    run(root, ex)
+    assert orders_of(root)[T1]["status"] == "skip_maker_spread" and not ex.posts()
+
+
+def test_maker_price_is_mid_floored_and_capped_at_ask_minus_1c(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    ex.no_books[T1] = [["0.9500", "10.00"]]   # 1c spread: mid 0.955 -> 0.95 -> capped at ask-1c = 0.95
+    run(root, ex)
+    assert orders_of(root)[T1]["maker_q"] == 0.95 and ex.posts()[0][3]["price"] == "0.0500"
+
+
+def test_resting_maker_not_cancelled_by_stale_sweep(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    run(root, ex)
+    run(root, ex, now=NOW + timedelta(hours=3))                # far past KALSHI_STALE_ORDER_MIN, market active
+    assert ex.orders[0]["status"] == "resting"
+    assert not any(r.get("event") == "cancel" for r in kx.journal())
+    o = orders_of(root)[T1]
+    assert o["status"] == "resting" and kx.committed(o) == pytest.approx(0.94)  # reserve kept through reconcile
+    assert len(ex.posts()) == 1                                # per-ticker 'already ordered' skip still holds
+    ex.markets[T1]["status"] = "closed"                        # market no longer active -> now it may be cancelled
+    run(root, ex, now=NOW + timedelta(hours=21))
+    assert ex.orders[0]["status"] == "canceled"
+    assert any(r.get("event") == "cancel" and r.get("why") == "maker_market_closed" for r in kx.journal())
+    run(root, ex, now=NOW + timedelta(hours=22))               # next reconcile reads the 0-fill cancel
+    o = orders_of(root)[T1]
+    assert o["status"] == "no_fill" and kx.committed(o) == 0
+
+
+def test_taker_resting_order_still_cancelled_when_maker_enabled(root):
+    ex = setup(root, [], env_lines=MAKER)
+    coid = kx.client_order_id("demo", T1)
+    kx.append({"event": "order", "ts": (NOW - timedelta(minutes=30)).isoformat(), "mode": "demo", "ticker": T1,
+               "status": "resting", "client_order_id": coid, "count": 2, "filled": 0, "cost": 1.92})
+    ex.orders.append({"order_id": "r1", "client_order_id": coid, "ticker": T1, "status": "resting",
+                      "remaining_count_fp": "2.00", "fill_count_fp": "0.00", "initial_count_fp": "2.00",
+                      "created_time": (NOW - timedelta(minutes=30)).isoformat()})
+    ex.markets[T1] = {"status": "active"}
+    run(root, ex)
+    assert ex.orders[0]["status"] == "canceled"
+
+
+def test_resting_cost_counted_in_caps(root):
+    t2 = "KXHIGHNY-26OCT22-T81"
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7"), _pick(t2, "KXHIGHNY", "orig7", floor=81.0)],
+                     env_lines=["KALSHI_MAX_DAILY_USD=1.5"])
+    run(root, ex)
+    st = orders_of(root)
+    assert st[T1]["status"] == "resting" and st[t2]["status"] == "skip_cap"   # 1.5 - 0.94 < 0.94
+    assert kx.spend_and_open(st, NOW) == (pytest.approx(0.94), pytest.approx(0.94))
+    run(root, ex, now=NOW + timedelta(hours=1))
+    assert kx.spend_and_open(orders_of(root), NOW + timedelta(hours=1))[1] == pytest.approx(0.94)
+
+
+def test_post_only_reject_no_retry_no_fallback(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    ex.post_script = [("http", (400, {"error": {"code": "invalid_order", "message": "post only order would cross"}}))]
+    run(root, ex)
+    o = orders_of(root)[T1]
+    assert o["status"] == "rejected_post_only" and kx.committed(o) == 0
+    assert len(ex.posts()) == 1 and ex.posts()[0][3]["post_only"] is True
+    run(root, ex, now=NOW + timedelta(minutes=60))
+    assert len(ex.posts()) == 1                                 # never re-sent, never re-sent as a taker
+
+
+def test_post_only_cancelled_at_entry_is_rejected(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    ex.post_script = [("http", (201, {"order_id": "x", "fill_count": "0.00", "remaining_count": "0.00", "ts_ms": 1}))]
+    run(root, ex)
+    o = orders_of(root)[T1]
+    assert o["status"] == "rejected_post_only" and kx.committed(o) == 0
+
+
+def test_partial_maker_fill_then_cancel_then_settle(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")], env_lines=["KALSHI_MAX_CONTRACTS=5"])
+    run(root, ex)
+    assert orders_of(root)[T1]["count"] == 5 and kx.committed(orders_of(root)[T1]) == pytest.approx(4.70)
+    ex.maker_fill(T1, 2, 0.94)
+    run(root, ex, now=NOW + timedelta(hours=1))
+    o = orders_of(root)[T1]
+    assert o["status"] == "resting" and o["filled"] == 2 and o["avg_no"] == pytest.approx(0.94)
+    assert kx.committed(o) == pytest.approx(2 * 0.94 + 3 * 0.94)   # filled cost + remaining reserve
+    assert kx.killed() is None and any("fill" in t.lower() for t, _ in NOTES)
+    assert not any(r.get("event") == "reconcile_mismatch" for r in kx.journal())
+    ex.markets[T1]["status"] = "closed"
+    run(root, ex, now=NOW + timedelta(hours=21))                 # cancels the rest
+    run(root, ex, now=NOW + timedelta(hours=22))                 # reads the final state
+    o = orders_of(root)[T1]
+    assert o["status"] == "partial" and o["filled"] == 2 and kx.committed(o) == pytest.approx(1.88)
+    _settle_paper(root, "no")
+    run(root, ex, now=NOW + timedelta(hours=30))
+    o = orders_of(root)[T1]
+    assert o["settled"] and o["pnl"] == pytest.approx(2 - 1.88)
+
+
+def test_resting_row_does_not_settle_before_reconcile(root):
+    kx.append({"event": "order", "ts": NOW.isoformat(), "mode": "demo", "ticker": T1, "status": "resting",
+               "exec_style": "maker", "maker_q": 0.94, "count": 5, "filled": 2, "cost": 4.70})
+    assert kx.settle(kx.journal(), [{"ticker": T1, "result": "no"}], NOW + timedelta(hours=30)) == 0
+
+
+def test_maker_fill_convention_vs_q_kills(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    run(root, ex)
+    ex.maker_fill(T1, 1, 0.06)                                   # NO cost 0.06 vs our bid 0.94 -> wrong convention
+    run(root, ex, now=NOW + timedelta(hours=1))
+    assert kx.killed() is not None
+    assert kx.committed(orders_of(root)[T1]) == pytest.approx(1.0)   # worst case booked
+
+
+def test_maker_fill_at_q_does_not_kill_even_far_from_ask(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    ex.no_books[T1] = [["0.9100", "10.00"]]   # 5c spread: q = floor(0.935) = 0.93, ask 0.96
+    run(root, ex)
+    ex.maker_fill(T1, 1, 0.93)
+    run(root, ex, now=NOW + timedelta(hours=1))
+    o = orders_of(root)[T1]
+    assert kx.killed() is None and o["status"] == "filled" and o["cost"] == pytest.approx(0.93)
+
+
+def test_ab_parity_split(root):
+    import hashlib
+    tickers = [f"KXHIGHNY-26OCT22-T{80 + i}" for i in range(12)]
+    picks = [_pick(t, "KXHIGHNY", "orig7", floor=80.0 + i) for i, t in enumerate(tickers)]
+    ex = setup(root, picks, env_lines=["KALSHI_AB=1", "KALSHI_MAX_DAILY_USD=100"])
+    for t in tickers:
+        ex.no_books[t] = [["0.9300", "100.00"]]
+    run(root, ex)
+    st = orders_of(root)
+    want = {t: "maker" if int(hashlib.sha1(t.encode()).hexdigest()[:8], 16) % 2 == 0 else "taker" for t in tickers}
+    assert {"maker", "taker"} <= set(want.values())
+    for t in tickers:
+        assert st[t]["exec_style"] == want[t] == kx.exec_style(kx.config(kx.env()), t)
+    for b in (c[3] for c in ex.posts()):
+        assert b["time_in_force"] == ("good_till_canceled" if want[b["ticker"]] == "maker" else "immediate_or_cancel")
+        assert ("post_only" in b) == (want[b["ticker"]] == "maker")
+
+
+def test_status_shows_style(root, capsys):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    run(root, ex)
+    capsys.readouterr()
+    kx.cmd_status(client=kx.Kalshi(kx.env(), "demo", transport=ex.send, sleep=lambda s: None), now=NOW)
+    out = capsys.readouterr().out
+    assert "exec style: maker" in out and "maker: 1 placed, 0 filled (0%), 1 resting" in out
