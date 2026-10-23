@@ -90,3 +90,9 @@ kickoff captures only part of it. Lesson: join on keys; assert alignment after a
 - C1 (company_graph.py sealed): 46 months, graph-minus-plain momentum -0.685%/mo t -1.96 p .975; by year 2023 -0.04, 2024 -1.60,
   2025 -0.39, 2026 -0.72 (%/mo).
 Lesson: positive CLV against a soft opener is necessary, not sufficient -- it has to clear the opener's overround.
+
+## 2026-10-22 NBA referees: bias / fixing screen (scripts/nba_referees.py, notes/nba_referees.md; DEV 2021-22..2024-25; 7 trials, bar .00714)
+- R1 crew -> total vs close: excess R^2 .0054, crew SD ~1.3 pts, p .017 (fail). R2 crew -> home vs ML: p .27. C0 control: crews move FTA/fouls p .002.
+- R3 playoff series trailing team G4-6: 42.4% vs market 43.5%, n 125, p .85. R4a L2M errors favour home 50.6% p .33; R4b favourite 49.4% p .37.
+- R4c L2M errors favour team trailing at the moment 58.2% of 1,979, p<.0001 PASS (bias, not fixing; see post-hoc mechanism check in note).
+- B1 bet over/under by walk-forward crew rating: -42.0u/2,222, ROI -1.9%, p .83. R5 Donaghy screen: max referee z 2.70 vs null p95 3.70 -> nothing.

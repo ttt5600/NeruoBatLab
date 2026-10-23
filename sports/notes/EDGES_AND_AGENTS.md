@@ -63,7 +63,13 @@ NBA / NFL / sports
 - L3 **NBA rebound unders** were the best prop lead (dev +2.7-2.8%) but **R_REB FAILED sealed** (-1.56%/1,214, p .72). Dead as specified.
 - L4 NFL prop unders by category x game script on ESPN 2022+ props (research_prop_models #7), sealed 2025. UNTESTED.
 - L5 Shrink P2 toward the market (it claimed +17 pts, delivered 0). UNTESTED.
-- L6 Referee crews (posted ~9am ET) as a totals/props feature (research_situational_vars). UNTESTED, cheap.
+- L6 Referee crews: TESTED 10-22 for TOTALS (notes/nba_referees.md, scripts/nba_referees.py, 7 trials, bar .00714).
+  Crews move fouls/FTA (positive control p .002), but on points vs the close only excess R^2 .005 (p .017, fails), split-half
+  r .22; walk-forward bet-by-crew -1.9%/2,222 (p .83) -> DEAD for game totals. Untested: crew FTA vs FT/points PROPS at the open.
+  Same study (user ask "prove bias / fixing"): no home/favourite L2M error bias, no playoff series-extension effect (n 125),
+  Donaghy-style line-move screen within chance; L2M errors favour the team trailing at the time 58% (p<.0001, PASS) --
+  bias not fixing. Post-hoc: partly opportunity (trailing teams commit 57.5% of infractions), but within call type their
+  infractions are missed +5.7 pp more often (CI 3.7-7.7) -> leniency toward whoever is behind. No betting use.
 - L7 Situational variables for props (arena, b2b, travel, altitude, nightlife/"city effects", time zone): user wants a feature-correlation model, unders first (books shade overs: NBA prop overs -4..-7%). UNTESTED as a combined model.
 - L8 Player-level simulation (RotoBot-style) LOST to the simple model everywhere (too much variance: implied SD 23.7 vs real ~12.5) and books already price this way (DraftKings deck). Only reopen with a historical injury feed (none free).
 - L9 Soccer S12 at US books in Colorado (see E3). UNTESTED.
