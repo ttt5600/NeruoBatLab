@@ -36,6 +36,15 @@ PRIMARY statistic per variant: delta units = sum over ALL picks of (maker pnl - 
 Reported (not trials): maker ROI per $ incl. fees (+ its own bootstrap p), fill rate, adverse selection = loss rate
     of filled picks vs all picks vs unfilled picks, units/month, per-cohort split, maker-fee sensitivity.
 Dataset tag kalshi_temp_maker.
+
+SEALED REPLAY (user "yes MAKER" 2026-10-23), written BEFORE any sealed tape was pulled or any sealed P&L computed:
+    python scripts/kalshi_temp_maker.py build-sealed      # sealed picks + tapes only (no P&L)
+    python scripts/kalshi_temp_maker.py sealed --confirm  # ONE shot -> lab/lockbox.jsonl
+  Picks: E1 = kalshi_temp LOCKBOX quarters (2025Q3..) through the same frozen rule; X1 = wx_expand high rows with
+  date >= 2026-03-01 through wx_expand.picks(). Same taker baseline, same fill rule, same bootstrap (4000, dates).
+  PRIMARY (single promotion, bar p < 0.05): M3_N10 = post-only NO bid at the mid (floored, <= ask - 1c), filled iff
+  >= 10 contracts print at <= q in (T, close]; delta units vs taker over ALL sealed picks > 0 and one-sided p < 0.05.
+  Reported, not promotions: M2_N10, M3_N1, M2_N1, maker ROI, fill rate, adverse selection, by cohort, maker-fee row.
 """
 from __future__ import annotations
 
@@ -63,6 +72,9 @@ DATA = ROOT / "data"
 PICKS = DATA / "kalshi_temp_maker_picks.parquet"
 TRADES = DATA / "kalshi_temp_maker_trades.parquet"
 QUOTES = DATA / "kalshi_temp_maker_quotes_t10.parquet"
+PICKS_S = DATA / "kalshi_temp_maker_picks_sealed.parquet"
+TRADES_S = DATA / "kalshi_temp_maker_trades_sealed.parquet"
+LOCKBOX = ROOT / "lab" / "lockbox.jsonl"
 LEDGER = ROOT / "lab" / "ledger.jsonl"
 DATASET = "kalshi_temp_maker"
 TAKER_FEE, MAKER_FEE_SENS = 0.07, 0.0175
@@ -71,12 +83,12 @@ TRIALS = ["M1_N1", "M1_N10", "M2_N1", "M2_N10", "M3_N1", "M3_N10", "F1_N10", "F2
 
 
 # ------------------------------------------------------------------------------------------------ picks
-def e1_dev_picks() -> pd.DataFrame:
+def e1_dev_picks(split: str = "dev") -> pd.DataFrame:
     from lab import datasets as D
     spec = importlib.util.spec_from_file_location("rule", ROOT / "lab" / "strategies" / "kalshi_reject_safe_check.py")
     rule = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(rule)
-    df = D.load("kalshi_temp", "dev")
+    df = D.load("kalshi_temp", split)
     t = df[rule.bet(None, df.drop(columns=["won", "push", "actual"], errors="ignore")) > 0]
     raw = pd.concat([pd.read_parquet(f, columns=["ticker", "price_ts", "close_time"])
                      for f in sorted(DATA.glob("wx_*.parquet")) if f.stem.replace("wx_", "") in
@@ -88,10 +100,10 @@ def e1_dev_picks() -> pd.DataFrame:
                          "T": t.price_ts.astype("int64"), "close_time": t.close_time})
 
 
-def x1_dev_picks() -> pd.DataFrame:
+def x1_dev_picks(sealed: bool = False) -> pd.DataFrame:
     df = pd.read_parquet(X.OUT)
     df["date"] = pd.to_datetime(df["date"])
-    df = df[(df.date < X.SPLIT) & (df.kind == "high")]  # sealed rows never loaded
+    df = df[((df.date >= X.SPLIT) if sealed else (df.date < X.SPLIT)) & (df.kind == "high")]  # sealed only via build-sealed
     s = X.picks(df)
     return pd.DataFrame({"cohort": "X1", "ticker": s.ticker, "event_ticker": s.event_ticker, "series": s.series,
                          "date": s.date, "yes_bid": s.yes_bid, "yes_ask": s.yes_ask,
@@ -170,11 +182,11 @@ def _quotes_at(picks: pd.DataFrame) -> pd.DataFrame:
     return q[["ticker", "price_ts_k", "yes_bid_k", "yes_ask_k"]] if len(q) else q
 
 
-def cmd_build() -> int:
-    p = pd.concat([e1_dev_picks(), x1_dev_picks()], ignore_index=True)
+def cmd_build(sealed: bool = False) -> int:
+    p = pd.concat([e1_dev_picks("lockbox" if sealed else "dev"), x1_dev_picks(sealed)], ignore_index=True)
     p["close_ts"] = pd.to_datetime(p.close_time, utc=True).map(lambda x: int(x.timestamp()))
     assert p["T"].notna().all() and (p.close_ts > p["T"]).all()
-    p.to_parquet(PICKS, index=False)
+    p.to_parquet(PICKS_S if sealed else PICKS, index=False)
     print(f"picks: {p.cohort.value_counts().to_dict()}  dates {p.date.min().date()}..{p.date.max().date()}", flush=True)
     rows = []
     with ThreadPoolExecutor(max_workers=4) as ex:
@@ -183,9 +195,9 @@ def cmd_build() -> int:
             if i % 250 == 0:
                 print(f"  tapes {i}/{len(p)}", flush=True)
     tr = pd.DataFrame(rows, columns=["ticker", "ts", "no_price", "count", "taker_side"])
-    tr.to_parquet(TRADES, index=False)
+    tr.to_parquet(TRADES_S if sealed else TRADES, index=False)
     print(f"trades: {len(tr)} rows on {tr.ticker.nunique()} of {len(p)} pick tickers", flush=True)
-    return cmd_quotes()
+    return 0 if sealed else cmd_quotes()
 
 
 def cmd_quotes() -> int:
@@ -342,6 +354,55 @@ def cmd_dev() -> int:
     return 0
 
 
+def cmd_sealed() -> int:
+    if "--confirm" not in sys.argv:
+        print("sealed needs --confirm AND the user's explicit yes")
+        return 1
+    if any(json.loads(l).get("strategy") == "kalshi_temp_maker_M3_N10" for l in LOCKBOX.read_text().splitlines() if l.strip()):
+        print("MAKER already scored on the lockbox -- never re-score")
+        return 1
+    p = pd.read_parquet(PICKS_S)
+    p["date"] = pd.to_datetime(p["date"])
+    assert ((p.cohort == "E1") & (p.date < "2025-07-01")).sum() == 0 and ((p.cohort == "X1") & (p.date < X.SPLIT)).sum() == 0
+    tr = pd.read_parquet(TRADES_S)
+    base = taker(p)
+    sha = hashlib.sha256(PICKS_S.read_bytes() + TRADES_S.read_bytes()).hexdigest()[:12]
+    print(f"SEALED picks {len(p)} ({p.cohort.value_counts().to_dict()}), {p.date.min().date()}..{p.date.max().date()}; "
+          f"tapes on {p.ticker.isin(tr.ticker).mean():.1%} of tickers; data sha {sha}")
+    print(f"TAKER baseline: units {base.sum():+.2f} ROI {base.mean():+.2%} loss rate {1 - p.won.mean():.2%}")
+    out = {}
+    for name in ("M3_N10", "M2_N10", "M3_N1", "M2_N1"):
+        mk, bet, filled = variant(p, tr, None, name)
+        r = summarize(p, mk, bet, filled, base, np.random.default_rng(0))
+        coh = {}
+        for c in ("E1", "X1"):
+            m = (p.cohort == c).to_numpy()
+            if m.any():
+                cr = summarize(p[m], mk[m], bet[m], filled[m], base[m], np.random.default_rng(1))
+                coh[c] = {k: round(cr[k], 4) for k in ("picks", "fill_rate", "roi", "taker_roi", "delta_units", "p")}
+        mf, _, _ = variant(p, tr, None, name, maker_fee=MAKER_FEE_SENS)
+        r["delta_units_if_maker_fee"] = float((mf - base).sum())
+        r["by_cohort"] = coh
+        out[name] = r
+        tag = ("PASS" if r["delta_units"] > 0 and r["p"] < 0.05 else "FAIL") if name == "M3_N10" else "(reported)"
+        print(f"{name:7s} fill {r['fill_rate']:.1%} bets {r['bets']} ROI {r['roi']:+.2%} (taker {r['taker_roi']:+.2%}) "
+              f"d_units {r['delta_units']:+.2f} [{r['delta_ci_lo']:+.1f},{r['delta_ci_hi']:+.1f}] p {r['p']:.4f} "
+              f"loss all/filled {r['loss_rate_all']:.2%}/{r['loss_rate_filled']:.2%} "
+              f"maker-fee d {r['delta_units_if_maker_fee']:+.2f} {tag}")
+        print(f"        {coh}")
+    prim = out["M3_N10"]
+    verdict = "PASS" if prim["delta_units"] > 0 and prim["p"] < 0.05 else "FAIL"
+    rec = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": "kalshi_temp_maker_M3_N10",
+           "sha": sha, "dataset": DATASET, "promotion_number": 1, **prim,
+           "secondary": {k: {kk: v[kk] for kk in ("delta_units", "p", "fill_rate", "roi")} for k, v in out.items()
+                         if k != "M3_N10"}, "verdict": verdict}
+    with LOCKBOX.open("a") as f:
+        f.write(json.dumps(rec, default=str) + "\n")
+    print("lockbox: appended", verdict)
+    return 0
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
-    raise SystemExit({"build": cmd_build, "quotes": cmd_quotes, "dev": cmd_dev}.get(cmd, lambda: print(__doc__) or 1)())
+    raise SystemExit({"build": cmd_build, "quotes": cmd_quotes, "dev": cmd_dev, "build-sealed": lambda: cmd_build(True),
+                      "sealed": cmd_sealed}.get(cmd, lambda: print(__doc__) or 1)())
