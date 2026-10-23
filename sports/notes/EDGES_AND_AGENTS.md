@@ -116,6 +116,7 @@ Information / social
 |---|---|---|
 | **L19 K-FAV** Kalshi fav side 88-97c, non-sports daily (scripts/kalshi_fav_maker.py, dataset kalshi_fav_maker) | DEV 2021-08..2025-06: F1 taker -0.32%/4,419 p .72; F2 maker (bid 1c under ask) -2.19%/2,829 p .999. Adverse selection: filled win 90.5% vs unfilled 99.3% (breakeven 92.5%). No sealed ask | notes/kalshi_fav_maker.md |
 | NBA in-game lag (H1-H3) and NFL in-game (H1-H3) | Kalshi reprices within ~1 min, beats ESPN/nflfastR WP | STATE CLOSED list |
+| **NBA big leads** (user 10-22: "teams up 20 win more than priced") | true they win a lot (first 20-pt lead Q2-Q3 .941, 20+ at half .968, 11 seasons) but Kalshi charges ~that; DEV (86 playoff games) B1 -8.9%/37 p .93, B2 15/15 but exact p .71 and 14/29 ask=$1, B3 -4.3%/23; favourites 90-99c realised .893 vs mid .939; ESPN WP overconfident 2-3.5 pts | notes/nba_big_lead.md; scripts/nba_big_lead.py |
 | **NBA late-game comeback calibration** (user: "Pacers down 3 at 23%") | Kalshi calibrated in 7/7 bins (369 games); T1 -1.5%/311 p .55, T2 -5.4%/331. Pacers 23c was at down 8 = fair | notes/late_game_calibration.md |
 | Public NBA models vs close (538 Elo/CARM/RAPTOR, ESPN) | all worse than the close (log loss +.008..+.019); 0/7 rules; stacking ties the market | notes/nba_public_models.md |
 | NBA rebound unders sealed (R_REB) | -1.56%/1,214, p .72 | ledger, STATE |
