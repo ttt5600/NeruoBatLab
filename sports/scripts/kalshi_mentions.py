@@ -56,7 +56,7 @@ sys.path.insert(0, str(ROOT))
 import numpy as np
 import pandas as pd
 
-from sports.http import fetch, fetch_many
+from sports.http import fetch
 
 API = "https://api.elections.kalshi.com/trade-api/v2"
 SERIES_JSON = ROOT / "data" / "earnings" / "series.json"   # full /series list pulled 2026-10-21
@@ -179,8 +179,14 @@ def cmd_prices() -> int:
     urls = [f"{API}/historical/markets/{tk}/candlesticks?start_ts={a - 96 * 3600}&end_ts={a}&period_interval=60"
             for tk, a in zip(df.ticker, df.A_ts)]
     print(f"fetching {len(urls)} market candle series", flush=True)
-    res = fetch_many(urls)
-    live = [i for i, d in enumerate(res) if not d.get("candlesticks")]
+    def safe_hist(u):  # recent markets 404 on /historical (2026-10-22 crash) -> empty, retried on the live endpoint
+        try:
+            return fetch(u)
+        except Exception:  # noqa: BLE001
+            return {}
+    with ThreadPoolExecutor(4) as ex:
+        res = list(ex.map(safe_hist, urls))
+    live =[i for i, d in enumerate(res) if not d.get("candlesticks")]
     if live:  # settled after the historical cutoff -> live endpoint
         lu = [f"{API}/series/{df.series.iloc[i]}/markets/{df.ticker.iloc[i]}/candlesticks?start_ts={df.A_ts.iloc[i] - 96 * 3600}"
               f"&end_ts={df.A_ts.iloc[i]}&period_interval=60" for i in live]
