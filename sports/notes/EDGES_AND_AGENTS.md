@@ -21,6 +21,7 @@ Bet sizing: notes/risk.md (fractional Kelly on the conservative edge; scripts/ev
 |---|---|---|---|---|
 | E1 | **Kalshi temp consensus-reject, orig 7 cities**: buy NO on daily-high brackets that all 5 forecast models miss by > 3F, decided ~22:00 local the night before | lockbox 2025Q3-2026Q4: +1.45% ROI, 1,844 bets, CI +10.9..+42.6u, p<.0001, 4/6 quarters + | Kalshi KXHIGH* | **LIVE on real $50 since 2026-10-22** ($1 units, 1 contract/order, $15/day). Paper: launchd L1 hourly. `~/.claude/quant-kalshi/.venv/bin/python ~/.claude/quant-kalshi/scripts/kalshi_exec.py status` |
 | E2 | **X1 = same rule on 17 more daily-high cities** (KXHIGHT*) | sealed 2026-03..10: +0.78%, 2,464 bets, p .0047 | Kalshi | LIVE with E1 (cohort x1, 0.5% tier) |
+| E4 | **E1/E2 executed as MAKER** (resting post-only NO bid at the mid, floored, <= ask-1c, until close; no taker fallback) | sealed 2025-07..2026-10, 4,308 picks: ROI +1.07% -> +2.22%, +30.6u [+26.2,+34.9] vs taker, p<.001; fill 80%; filled loss rate 3.07% vs 2.46%; both cohorts pass; +27.4u even with a maker fee | Kalshi | executor maker mode being implemented (KALSHI_EXEC_STYLE=maker); scripts/kalshi_temp_maker.py |
 | E3 | **Soccer S12 soft books vs Pinnacle**: best of B365/WH/bwin vs power-de-vigged Pinnacle pre-close, edge >= 3%, price < 10 | sealed 2019-26: CLV +3.63%, ROI +8.71%, 2,004 bets, p .010 | UK-style soft books; NOT Kalshi (0/296 quotes >= 1% there) | Not tradeable from CA. **User is often in Colorado**: DK/FanDuel/BetMGM are legal there in person -> NEXT: re-test S12 logic with US-book prices before trusting it (US books differ from B365/WH). scripts/soccer_fd.py |
 
 Paper record 2026-10-22 07Z (E1+E2): 54 picks, 26 settled, 26 wins, +0.84u. Expected money: ~1% on $ risked; at $1 units
@@ -50,7 +51,7 @@ NEW SEALED ASK (10-22):
 
 | # | Name | Dev evidence | Sealed set | Say |
 |---|---|---|---|---|
-| S4 | **M3 Kalshi MENTION markets: buy NO when YES <= 15c** (24h primary, 6h secondary before the event anchor) | dev 2025 (<10-01): 24h +4.32%/293 bets/79 events p<.0003; 6h +2.99%/394 p .0027 (bar .0083); positive in all groups, 7/8 months; only 6 losses at 24h -> insurance-like (break-even loss rate ~6%) | ~3,600 events 2025-10..2026-10, pass p < .025; prices pulled first (`kalshi_mentions.py prices --sealed`, no P&L) | "yes M3" -> `sealed --confirm M3_d24 M3_d6` |
+| S4 | **[SCORED 10-23: FAIL -- d24 +0.45%/2,674 p .22; d6 +0.72%/4,524 p .061; edge shrank as volume grew ~10x]** M3 Kalshi MENTION markets: buy NO when YES <= 15c** (24h primary, 6h secondary before the event anchor) | dev 2025 (<10-01): 24h +4.32%/293 bets/79 events p<.0003; 6h +2.99%/394 p .0027 (bar .0083); positive in all groups, 7/8 months; only 6 losses at 24h -> insurance-like (break-even loss rate ~6%) | ~3,600 events 2025-10..2026-10, pass p < .025; prices pulled first (`kalshi_mentions.py prices --sealed`, no P&L) | "yes M3" -> `sealed --confirm M3_d24 M3_d6` |
 
 Older never-scored sealed candidates (none passed their dev bar; not recommended): Kalshi sports G1_fav85 / G4_dog2050 /
 maker_dog2050 (kalshi_longshot.py, kalshi_maker.py); NFL lockbox west_coast_night / div_unders_late / pre_rain_unders.

@@ -7,6 +7,11 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 **FULL REGISTRY of every edge, hypothesis, agent (IDs, briefs, findings, files, how to reach) and peer session:
 `sports/notes/EDGES_AND_AGENTS.md` -- read it right after this block. Keep it updated after every agent/trial.**
 
+## UPDATE 2026-10-23 (user "yes M3 and yes MAKER")
+- SEALED M3 FAIL (+0.45%/2,674 p .22). SEALED MAKER PASS (ROI +1.07% -> +2.22%, +30.6u, p<.001) = E4 in the registry.
+- LIVE night 1: 14 fills, fees ~$0.02 total (exact, good), no KILL, balance $36.23 + 14 open NO positions.
+- Maker mode for kalshi_exec.py being implemented by an agent (not deployed); enable via KALSHI_EXEC_STYLE=maker after review.
+
 ## UPDATE 2026-10-22 (user: "keep backtesting, do the sealed tests" + spawn research/Robinhood/execution agents)
 - SEALED O1, E2, C1 scored once each -> ALL FAIL (O1 EV -2.55%/554 though CLV +0.68 pts p .005; E2 -6.5%/97; C1 -0.69%/mo).
   No sealed asks remain open. Details: notes/results.md, EDGES_AND_AGENTS.md s3.
@@ -53,7 +58,7 @@ AGENT RESULTS 10-22 (all in notes/): company graph 0/6 (graph = data product); v
   no cross-venue arb; ForecastEx = different stations (new trial, needs IBKR). Player sim: simple model leads OPENER
   (+1.53 pts line move, t 8.8) -> SEALED ASK O1 still waits for "yes O1". Rumors/GDELT closed; optional $13 X test.
   Inference thesis memo + tracker (not installed). Pick'em logger not installed. Bovada declined (offshore; ToS).
-USER ASKS OPEN: "yes M3"; "yes MAKER"; revoke Kalshi key; fund Kalshi; Polymarket US keys -> sports/.env; X test yes/no;
+USER ASKS OPEN: revoke Kalshi key; fund Kalshi; Polymarket US keys -> sports/.env; X test yes/no;
   install thesis tracker / pickem logger (scripts/install_*.sh); free disk (97% full).
 
 ## LIVE 2026-10-22 ~08:30Z (user: "use the $50, $1 trades, grow to 100, then talk about 10k")

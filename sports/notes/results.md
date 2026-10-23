@@ -96,3 +96,12 @@ Lesson: positive CLV against a soft opener is necessary, not sufficient -- it ha
 - R3 playoff series trailing team G4-6: 42.4% vs market 43.5%, n 125, p .85. R4a L2M errors favour home 50.6% p .33; R4b favourite 49.4% p .37.
 - R4c L2M errors favour team trailing at the moment 58.2% of 1,979, p<.0001 PASS (bias, not fixing; see post-hoc mechanism check in note).
 - B1 bet over/under by walk-forward crew rating: -42.0u/2,222, ROI -1.9%, p .83. R5 Donaghy screen: max referee z 2.70 vs null p95 3.70 -> nothing.
+
+## 2026-10-23 SEALED M3 + MAKER (user "yes M3 and yes MAKER")
+- M3 mention-NO (kalshi_mentions.py): d24 2,674 bets/1,098 events ROI +0.45% CI units [-18.8,+39.2] p .224 FAIL; d6 4,524/1,730
+  +0.72% p .061 FAIL (bar .025). Dev +3-4% did not hold at 10x volume.
+- MAKER (kalshi_temp_maker.py sealed, primary M3_N10): 4,308 sealed picks (taker baseline reproduces the E1 +1.45% / X1 +0.78%
+  lockboxes exactly); maker ROI +2.22% vs taker +1.07%, delta +30.61u [+26.2,+34.9] p<.001 PASS; fill 80.2%; loss filled 3.07%
+  vs all 2.46%; E1 +18.6u, X1 +12.0u; with maker fee 0.0175 still +27.4u. Data sha e980f9c66792.
+- First LIVE night 10-22/23: 14 one-contract NO fills (12 @ .99), balance $50 -> $36.23 = $13.75 contracts + ~$0.02 total fees
+  (exact fee, not 1c/contract). No KILL.
