@@ -10,7 +10,10 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 ## UPDATE 2026-10-23 (user "yes M3 and yes MAKER")
 - SEALED M3 FAIL (+0.45%/2,674 p .22). SEALED MAKER PASS (ROI +1.07% -> +2.22%, +30.6u, p<.001) = E4 in the registry.
 - LIVE night 1: 14 fills, fees ~$0.02 total (exact, good), no KILL, balance $36.23 + 14 open NO positions.
-- Maker mode for kalshi_exec.py being implemented by an agent (not deployed); enable via KALSHI_EXEC_STYLE=maker after review.
+- Maker mode DEPLOYED (commit d0c7d3a, 48 executor tests, preflight 0 FAIL) but OFF: default stays taker. Prod checks 10-23:
+  expiration_time accepted (201), resting order visible after ~1.8 s, cancel OK, $0 cost. ENABLE: append
+  KALSHI_EXEC_STYLE=maker to ~/.claude/quant-kalshi/.env (or KALSHI_AB=1 for a forward A/B). First maker night: confirm
+  maker_fill_cost_dollars ~ q in `kalshi_exec.py status`; a mismatch writes KILL (fails safe).
 
 ## UPDATE 2026-10-22 (user: "keep backtesting, do the sealed tests" + spawn research/Robinhood/execution agents)
 - SEALED O1, E2, C1 scored once each -> ALL FAIL (O1 EV -2.55%/554 though CLV +0.68 pts p .005; E2 -6.5%/97; C1 -0.69%/mo).
