@@ -99,6 +99,13 @@ From social/forum sweep 2026-10-22 (notes/social_edges_2026-10-22.md; Reddit unr
 - L27 Kalshi liquidity-reward programs (6,926 active) -- negligible at 1 contract; revisit at ~$5k.
 - Warning: free forecast-ensemble weather bots are public -> E1 edge may compress; watch paper/live ROI.
 
+NEW 2026-10-23/25 (from the user's live NBA checks):
+- L28 NBA big-lead LIVE rule: leader up >= 25 in Q3 (or >= 20 in Q4 > 6 min) with Kalshi ask <= 0.96; history 99.3%
+  (25-40 pt leads mid-Q3, 702 games) vs break-even ~96.3%. DAL up 31 @ 96c 10-23 (won). Dev Kalshi sample tiny ->
+  forward paper via scripts/nba_live_scan.py --log; sealed 2025-26 in-game candles untouched (needs pre-reg + yes).
+- L29 Miami thin-depth thesis: MIA under its closing spread over next 20 games (0-2, two home blowouts). Track forward.
+- Scanner: scripts/nba_live_scan.py (Kalshi ask vs historical win rate in the same period/clock/margin; paper only).
+
 Markets / stocks
 - L11 **Earnings straddles**: one paper (Gao, Xing & Zhang 2018) found straddles 3 days before earnings +3.34%; our implied-vs-realised check (implied ~1.33x past mean move) is biased. Robinhood now gives daily option OHLC history + IV -> a real backtest is possible. UNTESTED. BE 10-22: implied +-10% vs historical 10.4-10.8% -> fair.
 - L12 Earnings consensus logging: log daily consensus so a model can price each contract's actual threshold. Not started.

@@ -4,6 +4,13 @@ Last updated: 2026-10-22 ~09:15Z (HANDOFF #3 -- read it first). Branch `worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
+## HANDOFF #4 2026-10-25 -- START HERE: read `sports/notes/HANDOFF_2026-10-25.md` (scoreboard, every edge, systems,
+## Robinhood, NBA action plan). Then EDGES_AND_AGENTS.md. User wants performance numbers + NBA action + keep researching.
+Snapshot 10-25: LIVE Kalshi 29 fills / 14 settled 14 wins +$0.23 (bal $35.49 + 15 open); paper 68/69 wins +0.53u;
+4 PASSED edges (E1, E2 live; E3 not tradeable from CA; E4 MAKER deployed but OFF until user adds KALSHI_EXEC_STYLE=maker).
+Sealed this sprint: O1/E2/C1/M3 FAIL, MAKER PASS. Next: L28 NBA big-lead live paper logger (scripts/nba_live_scan.py),
+NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-27.
+
 **FULL REGISTRY of every edge, hypothesis, agent (IDs, briefs, findings, files, how to reach) and peer session:
 `sports/notes/EDGES_AND_AGENTS.md` -- read it right after this block. Keep it updated after every agent/trial.**
 
