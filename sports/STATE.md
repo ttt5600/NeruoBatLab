@@ -56,8 +56,9 @@ ROBINHOOD: session "connect-robinhood-mcp" has the robinhood-trading MCP (this s
   main + Roth are read-only ("FORBIDDEN" even for review_*), so main-account changes are tickets the user enters.
   REPO IS PUBLIC: all balances/leverage/positions/plans are ONLY in gitignored sports/notes/private_account.md and
   sports/notes/robinhood_snapshot.md -- read them locally, never copy numbers into tracked files.
-  BE earnings TODAY 10-22 AMC: user wants straddle + bullish call; two ticket sets offered (see private_account.md); EV ~0
-  (implied +-10% vs historical 10.4-10.8%).
+  BE 10-22 earnings DONE: EPS beat but stock fell ~11% on 10-23; user's short-dated BE/LRCX calls were closed at a loss and
+  one BE Feb-2027 call opened. Latest full account recheck (weekend 10-25, Fri prices) = robinhood_snapshot.md section 8
+  (gitignored; numbers live there only). Main account still leveraged with thin buying power -- recheck Monday at the open.
 NBA DEN@OKC 10-22: Kalshi .26/.27; models: four-factor (scripts/nba_fourfactors.py) OKC -8.3, P(DEN) .280 -> NO BET by the
   rule committed before running (bet DEN only if >= .314); healthy-core ratings (scripts/nba_matchup.py) OKC -6.4..-9.6;
   2026-27 preseason starters +/-48 DEN +7.6 vs OKC +2.0 (collected data/espn/nba/*_2027) -> blend 10-25% weight gives
