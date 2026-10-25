@@ -14,6 +14,12 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 **FULL REGISTRY of every edge, hypothesis, agent (IDs, briefs, findings, files, how to reach) and peer session:
 `sports/notes/EDGES_AND_AGENTS.md` -- read it right after this block. Keep it updated after every agent/trial.**
 
+## UPDATE 2026-10-25 ~10:30Z (user: "lots of betting tomorrow, find edges; comebacks, matchups, coaching, refs -- NFL and NBA; reports on all edges")
+- Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
+  of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
+  notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- Next: build L28 + L31 forward-paper loggers; fold paint-D into L2 model; ask user re sealed 2025-26 for L30/L31.
+
 ## UPDATE 2026-10-23 (user "yes M3 and yes MAKER")
 - SEALED M3 FAIL (+0.45%/2,674 p .22). SEALED MAKER PASS (ROI +1.07% -> +2.22%, +30.6u, p<.001) = E4 in the registry.
 - LIVE night 1: 14 fills, fees ~$0.02 total (exact, good), no KILL, balance $36.23 + 14 open NO positions.

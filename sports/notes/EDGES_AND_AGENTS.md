@@ -118,6 +118,20 @@ Information / social
 - L17 RotoBot pick record: tracker built (scripts/rotobot_tracker.py); needs posts (X API ~$5/1k posts, or the user pastes posts into data/rotobot/posts.txt). Grade on CLV (140-370 picks resolve a 2% edge), not win rate.
 - L18 Midterms (election 11-03): run scripts/xvenue_elections.py; LA Senate 2-venue cost .9752 (Kalshi rule text says "Kentucky" -> verify); TX Gov Abbott .70-.72 vs poll-model ~.75 = judgment bet <= 1% of B.
 
+### NEW 2026-10-25: comebacks / matchups / coaching / refs (user after DEN 23-pt comeback; NFL + NBA)
+Agents: NFL study (notes/nfl_comebacks_matchups.md, scripts/nfl_comebacks.py; dev 2006-2019 + nfl_ingame dev 2025 wk1-12),
+NBA study (notes/nba_comebacks_matchups.md, scripts/nba_comebacks.py, results/nba_comebacks.json; dev 2015-16..2024-25),
+slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch with the brief at the top of each note.
+- NFL: 70 tests, 0 survive. vegas_wp calibrated within ~1pp; "better team comes back" +2.6pp/SD is mostly the spread and
+  Kalshi already prices it (+3.9pp over vegas_wp for trailing favs). PROE/pace/4th-down/coach/head-ref flags: nothing.
+  Leads: CB1 fade trailing dogs in-game (Kalshi +1.8pp over vegas_wp, ~1% after fees -> too small to test);
+  bad-D x bad-D unders -0.79 pts/SD p .0049; offence EPA ATS +0.56 p .04.
+- NBA: sides efficient (net rating +5.7 margin, -0.03 ATS). Comebacks depend only on deficit x time x spread (0/69 trait
+  cells). ESPN WP under-rates trailers 30-50% (Kalshi is calibrated, so not an edge). Survivors over all 152 tests:
+  **L30 P-PAINT** high paint-pts-allowed teams -0.54 ATS/SD (p 2.5e-5, 10/10 seasons) -> feed into L2 game model;
+  **L31 P-TOT3** season 3P% (own/allowed) -> unders, bigger spreads -> overs; walk-forward 1,417 bets 53.6% ROI +2.3%
+  (chosen post hoc, not sig) -> forward paper; sealed 2025-26 only on user's yes. Timeout-after-run = 0 (naive -0.92 was selection).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
