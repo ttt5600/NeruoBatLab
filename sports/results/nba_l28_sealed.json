@@ -1,0 +1,99 @@
+{
+ "ts": "2026-10-26T07:45:23+00:00",
+ "strategy": "nba_L28_biglead",
+ "sha": "29765919b845",
+ "dataset": "nba_big_lead",
+ "status": "done",
+ "window": ">= 2026-01-15",
+ "data_hashes": {
+  "nba_ingame.parquet": "a687ae52454539016a65d20642a4ae95b4d394518ac650d6e8c86ee1ebc76710",
+  "nba_big_lead_plays.parquet": "b4294b69dffdc314d03c2ede278c9fbbfbca8d4006193138e0b7fde869843975",
+  "nba_games.parquet": "d9f1493607d1107247d65a1475486c11d2503d026bbadb776cacf6538ad1f0c7",
+  "nba_l28_sealed.py": "2c1d536f54ccc0a7a0dc51e4336ebe0d83aa60d5d945074006b7169f30ab58ad"
+ },
+ "games_with_candles_and_state": 713,
+ "trigger_games": 268,
+ "bets": 15,
+ "wins": 13,
+ "losses": 2,
+ "win_rate": 0.8666666666666667,
+ "mean_ask": 0.9446666666666664,
+ "mean_fee": 0.003633000000000002,
+ "mean_breakeven": 0.9482996666666667,
+ "units": -1.2244949999999997,
+ "pnl_per_contract": -0.08163299999999998,
+ "staked": 14.224495,
+ "roi": -0.0860835481329917,
+ "boot_p": 0.8794,
+ "units_ci_lo": -4.177638,
+ "units_ci_hi": 0.8036640000000002,
+ "exact_p_vs_breakeven": 0.9611830196560975,
+ "rounded_fee": {
+  "units": -1.3199999999999996,
+  "roi": -0.09217877094972064,
+  "boot_p": 0.8802,
+  "exact_p": 0.9725291583182611
+ },
+ "passed": false,
+ "by_arm": {
+  "Q3_lead25": {
+   "n": 11,
+   "wins": 9,
+   "units": -1.3737429999999997,
+   "mean_ask": 0.939090909090909
+  },
+  "Q4_lead20_gt6min": {
+   "n": 4,
+   "wins": 4,
+   "units": 0.14924800000000013,
+   "mean_ask": 0.96
+  }
+ },
+ "by_stype": {
+  "2": {
+   "n": 14,
+   "wins": 13,
+   "units": -0.28054699999999977
+  },
+  "3": {
+   "n": 1,
+   "wins": 0,
+   "units": -0.9439479999999999
+  }
+ },
+ "lag_s_median": 79.0,
+ "settle_kalshi_vs_espn_mismatch": 0,
+ "settle_kalshi_missing": 0,
+ "loss_list": [
+  {
+   "eid": "401810768",
+   "date": "2026-03-06",
+   "side": "away",
+   "period": "3",
+   "clock_s": "563.0",
+   "lead": "25",
+   "ask": "0.92"
+  },
+  {
+   "eid": "401859966",
+   "date": "2026-06-10",
+   "side": "away",
+   "period": "3",
+   "clock_s": "720.0",
+   "lead": "27",
+   "ask": "0.94"
+  }
+ ],
+ "no_trade_games": 253,
+ "no_trade_ask_gt_096": 253,
+ "no_trade_no_tight_quote_only": 0,
+ "no_trade_first_trigger_ask_counts": {
+  "0.97": 5,
+  "0.98": 24,
+  "0.99": 44,
+  "1.00": 180
+ },
+ "no_trade_leader_win_rate": 0.9960474308300395,
+ "games_in_window": 713,
+ "games_excluded_no_pbp": 0
+}

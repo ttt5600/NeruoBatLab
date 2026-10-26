@@ -172,6 +172,9 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **Kalshi early NFL totals (loop 8): not stale** (notes/kalshi_early_nfl_totals.md; 3 trials fail; first tight ladder ~6 days pre-kick already near close). Low-vig route for the totals-opener edge must be elsewhere (sportsbook openers / exchanges).
 
+- **L28 NBA big-lead buy: SEALED FAIL 2026-10-26** (results/nba_l28_sealed.json): 15 bets 13-2, -8.6%; 253 trigger games never <= .96 (99.6% wins); cheap leaders = adverse selection. DEAD.
+- **L37 NBA mid-game comeback rule** (scripts/nba_midgame_scan.py, frozen 2c29645): forward paper live; sealed prep in progress (user yes).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |

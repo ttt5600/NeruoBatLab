@@ -18,6 +18,10 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-26 L28 SEALED FAIL (user "yes one shot tests"): 15 bets 13-2, ROI -8.6%, boot p .88, exact p .96 (window 2026-01-15+). 253/268
+  trigger games never offered ask <= .96 (leaders won 99.6%); the cheap ones won 87% -> ADVERSE SELECTION: a cheap leader means the
+  market knows something. L28 forward logger UNLOADED (dead). L37 mid-game scanner deployed (launchd com.jonathanwang.quant-nba-midgame,
+  `scripts/nba_midgame_scan.py show|report`); L37 sealed prep running.
 - 10-26 00:10 LOOP STOPPED (user). DEPLOYED L28 launchd com.jonathanwang.quant-nba-bigleads (2 min): scripts/nba_bigleads_logger.py
   (report: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/nba_bigleads_logger.py report`). Week of 10-26: earnings
   CLS/CDNS 10-26, V/HOOD/STX/NXPI/BA/UPS/KO/PYPL 10-27, MSFT/GOOGL/NOW/KLAC/GEV/VRT 10-28, AMZN/INTC/LLY/SNDK/COIN/MA/CAT 10-29,
