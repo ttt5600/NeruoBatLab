@@ -18,6 +18,11 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-26 00:10 LOOP STOPPED (user). DEPLOYED L28 launchd com.jonathanwang.quant-nba-bigleads (2 min): scripts/nba_bigleads_logger.py
+  (report: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/nba_bigleads_logger.py report`). Week of 10-26: earnings
+  CLS/CDNS 10-26, V/HOOD/STX/NXPI/BA/UPS/KO/PYPL 10-27, MSFT/GOOGL/NOW/KLAC/GEV/VRT 10-28, AMZN/INTC/LLY/SNDK/COIN/MA/CAT 10-29,
+  XOM/CVX/ABBV 10-30, AAPL 11-02. Midterm Kalshi vs Poly within ~0.5c; flagged "arbs" (NE/MT/SD/ID/LA Sen...) = third-candidate
+  races, NOT arbs.
 - 10-25m loop 8: Kalshi early NFL TOTALS not stale (47 bets: CLV +0.33 p .11, taker +1.7%/-1.1%); first tight ladder ~15 h after
   listing already within 1.1 pts of close, zero early volume. => soft opening totals are a SPORTSBOOK-opener effect; Kalshi NFL
   totals are no low-vig route. notes/kalshi_early_nfl_totals.md
