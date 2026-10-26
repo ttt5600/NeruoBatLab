@@ -18,6 +18,8 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-25i DEPLOYED launchd com.jonathanwang.quant-open-lines (15 min): scripts/open_lines_logger.py NHL (ML >= .03, totals P(over) >= .04)
+  + NFL (spread B >= 2 pts, total C >= 2.5) vs first-seen Pinnacle, Kalshi quotes logged; report `open_lines_logger.py report --league nhl|nfl`.
 - 10-25h loop 4: L34 NHL simple model vs opener: CLV passes (ML +1.04 pts, totals +0.073 goals, p<1/4000) but no ROI trial passes at
   ESPN BET's ~4% vig (totals no-vig +7.1% p .0125). PATTERN across NBA/NFL/NHL: simple models lead openers, vig eats it ->
   the money question is EXECUTION at low vig (Kalshi maker on early markets). Next: extend open-totals logger to NHL/NFL.

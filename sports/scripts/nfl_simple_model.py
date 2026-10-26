@@ -926,6 +926,7 @@ def run_week(refresh: bool, week: int | None, fit: str = "modern", as_json: bool
                            model_spread_home=float(o[f"spread_{ps_m}"]), model_total=float(o[f"total_{pt_m}"]),
                            qb_home=o["h_qb"], qb_away=o["a_qb"], warnings=list(w["h_warn"]) + list(w["a_warn"]) + gwarn,
                            fit=fit, spread_model=ps_m, total_model=pt_m,
+                           all_models={k: float(o[k]) for k in pr},   # spread_A..C, total_A..C (added for the logger)
                            market_spread_line=None if pd.isna(o["spread_line"]) else float(o["spread_line"]),
                            market_total_line=None if pd.isna(o["total_line"]) else float(o["total_line"])))
         print(json.dumps(js, indent=1))
