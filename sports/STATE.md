@@ -18,6 +18,7 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-25e loop 1: NFL bad-D unders DEAD vs opener; offence-EPA slope real but no bet (-1.6%). L28 logger building.
 - 10-25d DEPLOYED launchd com.jonathanwang.quant-nba-open-totals (10 min): scripts/nba_open_totals.py (L32 forward paper:
   first-seen Pinnacle total + Kalshi KXNBATOTAL ladder vs model, pick at >= 3 pts, CLV/ROI). Report:
   `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/nba_open_totals.py report` (also `show`). Redeploy:

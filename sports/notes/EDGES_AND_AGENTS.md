@@ -149,6 +149,11 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
   +6.6% p .014). QB-change weeks spread CLV +1.15. Matchup interactions all null. Live `week` output disagrees with
   current lines on 11/14 (fit on 2007-19; totals 3.1 under) -> do NOT bet live output until refit; sealed 2020-25 on yes.
 
+- **NFL leads vs OPENER (loop 1, notes/nfl_leads_open.md, scripts/nfl_leads_open.py, dev 2010-19, 10 trials bar .005):**
+  bad-D x bad-D unders DEAD (214 bets, CLV -0.16, -7.7% at open, both halves negative; market raises these totals).
+  Offence-EPA: margin slope vs open +0.98 pts/SD p .0003 (real) but rule |z|>=1 994 bets 51.5%, -1.6% at -110 -> NO BET;
+  mostly already inside model B (+0.71/SD incremental p .0077, fails).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
