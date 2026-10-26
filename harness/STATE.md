@@ -1,5 +1,5 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-22 (lead: session_01EGDWEvYFd6zSmWQfUugJnH; pre-/clear handoff at the user's request)
+Updated: 2026-10-25 (after /clear: open tasks 1 (Claude Doc half) and 2 done)
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually (notebooks/artifacts).
 Call type is CPU ONLY (076). Model table: `python zfeval/experiments/our_models_table.py` (reads score JSONs only).
@@ -16,14 +16,18 @@ Still running, no Claude: savio-watch shell poll, usage warnings, quant kalshi-p
 - Hours verified from Savio TSVs: ZF 120 files 116.03 h, FSD50K 643 files 108.39 h, mix 763 / 224.42 h.
 - Nothing in flight on Savio.
 
-## Open tasks (not started)
-1. Task docs: T10 (run23) / T11 (run22) still say "In progress"; add E27. Claude Doc 1e00135c + Google Doc 123rAGhW
-   (Google = Playwright route, memory reference_google_docs_editing.md; needs Chrome-profile copy, delete after).
-2. Findings for E12, E27, E34 in knowledge/findings + critic pass (CRITIC.md). Not written.
-3. Call Type Breakdown dashboard (86skJnBr): add run22, run23, E27 s1/s2 (calltype_per_class.py --cpu CPU_MODELS,
-   build_calltype_data.py RECIPE, re-upload datasets). Offered, not asked.
-4. luckyshark668@gmail.com has writer on both Google Docs (granted for the Playwright edit); user may revoke.
-5. Open question, no experiment yet: why Whisper (speech, supervised, log-mel, 680k h) beats speech HuBERT by ~0.035.
+## Done 2026-10-25
+- Findings 082 (E34), 083 (E12), 084 (E27) written; critic ACCEPT-WITH-CHANGES on all three, changes applied.
+- Claude Doc 1e00135c (Encoder Tasks): T10/T11 -> Done with results, T12 row for E27, as-of 2026-10-25.
+
+## Open tasks
+1. Google Doc 123rAGhW still says T10/T11 "In progress", no E27 row. Only route is Playwright paste-over-body on a
+   Chrome-profile copy (reference_google_docs_editing.md); user hand-edits it -> ASK before doing it.
+2. Call Type Breakdown dashboard (86skJnBr): add run22, run23, E27 s1/s2. Offered, not asked.
+3. luckyshark668@gmail.com has writer on both Google Docs (granted for the Playwright edit); user may revoke.
+4. Open question, no experiment yet: why Whisper beats speech HuBERT by ~0.035.
+5. Critic-flagged follow-ups (optional): second seed of run23 (E34 says needed before any claim); E14 vs E27 bootstrap pair.
+6. Savio cert expired 2026-10-22: `sv login` before any Savio work.
 
 ## Waiting on the user
 - E13 teacher, E26 (approved; design open: donors, dose), E15 corpus, E33 (rec: no at +-2 st), 10-split headline,

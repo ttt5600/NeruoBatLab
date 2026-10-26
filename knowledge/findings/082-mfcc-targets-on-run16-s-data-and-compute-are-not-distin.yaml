@@ -1,0 +1,56 @@
+id: '082'
+title: MFCC targets on run16's data and compute are not distinguishable from run16's spectrogram targets on call type at one seed
+status: confirmed
+claim: 'run23, which is run16 retrained from scratch on k=200 k-means labels built from fairseq''s stock 39-d MFCC instead
+  of our 4000-d spectrogram (same 763 files, frame grid, 4 GPUs, 93,750 updates, seed 1337), scores 0.8420 on CPU 11-class
+  call type (majority-class 0.1797) against run16''s 0.8353: +0.0067 [-0.0147, +0.0273] at each model''s best layer and
+  -0.0059 [-0.0266, +0.0140] at fixed layer 3, both not distinguishable, so E34''s pre-registered bar for the spectrogram
+  targets to "earn their place" (run23 below run16 with the interval excluding zero at BOTH readings) is not met, and per E34 a second seed of run23 is needed before any difference is claimed; the
+  10-split means are 0.8336 vs 0.8277 (run23 ahead on 8 of 10 splits, -0.0050 to +0.0123), and run23 sits inside run16''s
+  own three-seed range at layer 3 (+0.0126 vs seed 2, -0.0114 vs seed 3, both n.d.).'
+evidence: 'Board split, CPU (calltype_cpu_rescore.json models.<tag>; best layer / layer 3): run23_mfcc 0.8420 L7 / 0.8253;
+  run16_compute4x 0.8353 L8 / 0.8312; run16_seed2 0.8198 L1 / 0.8127; run16_seed3 0.8411 L4 / 0.8368. Bird bootstrap
+  (observed difference, 95%): seed_pairs_cpu.json "run23_mfcc | run16_compute4x" +0.0067 [-0.0147, +0.0273];
+  seed_pairs_cpu_L3.json "run23_mfcc | run16_compute4x" -0.0059 [-0.0266, +0.0140], "run23_mfcc | run16_seed2" +0.0126
+  [-0.0086, +0.0331], "run23_mfcc | run16_seed3" -0.0114 [-0.0308, +0.0054], "run23_mfcc | aves-base-bio" -0.0108 [-0.0291,
+  +0.0078]; best layer vs aves-base-bio -0.0018 [-0.0172, +0.0136]. 10 fold splits, each model''s CPU best layer
+  (calltype_split_sensitivity_cpu.json): means run23 0.8336 (sd 0.0082), run16 0.8277 (sd 0.0075); run23 minus run16 per
+  split mean +0.0059, positive on 8 of 10, range -0.0050 to +0.0123; minus run16 seed 3 mean -0.0004 (positive on 6 of 10).
+
+  Secondary (reported, not decided on; E34 says so): ZF in-distribution detection AUC, best of 12 arms (a selected number):
+  run23 0.9688 vs run16 0.9718 (detection_variants.json in_distribution; split = contiguous 60 s blocks within one recording,
+  NOT a recording holdout). ZF->BirdPark AP, median of 12 arms [range]: run23 0.8243 [0.786-0.850] vs run16 0.7864
+  [0.695-0.820] (zf_to_bp). Chick Be-vs-LT AUC, pre-committed arm: run23 0.9895 (native_L6) vs run16 0.9942 (native_L0)
+  (chick_holdout_variants_cpu.json precommit). Label-free k=30 at L3: run23 0.4755 vs run16 0.4793
+  (labelfree_stability_cpu.json). Relabel gate (job 40144545 log): MFCC->spectrogram label purity 0.247, so the two
+  runs were trained on very different partitions of the same frames.'
+method: 'E34 (harness/experiments.yaml), pre-registered 2026-10-19. run23 = train_run16_compute4x.sh with only DATA/EXP/names
+  changed; labels from preprocess.py --feat-type mfcc (fairseq dump_mfcc_feature.py: 13 ceps + delta + delta-delta, 23 mel
+  bins; MFCC frame 2i -> HuBERT frame i), k-means k=200 with run16''s k-means code and settings. Step-93,750 export embedded
+  on CPU (finding 076) by score_run.sh; board probe (StandardScaler + LogisticRegression, leave-birds-out
+  StratifiedGroupKFold(5), seed 0; 3,412 clips, 48 birds, 11 classes). Pairs from seed_pairs_cpu.py (2,000 bird resamples,
+  seed 0) at best layers and --layer 3; 10-split column from calltype_split_sensitivity.py --cpu.'
+provenance: 'Majority-class rate from aves_variants_calltype.json cohort11.majority (0.17966). Slurm 40144545 (relabel_mfcc_combined.sh, COMPLETED, gate PASS) -> 40144546 (train_run23_mfcc.sh);
+  /global/scratch/users/jonathanswang/temp_train_run23_mfcc; labels temp_files/combined_zf_fsd/data/mfcc.
+  ~/zf_labelset/zf_detection_dataset_v1/analysis/: calltype_cpu_rescore.json (models.run23_mfcc), run23_mfcc_calltype.json,
+  seed_pairs_cpu.json, seed_pairs_cpu_L3.json, calltype_split_sensitivity_cpu.json, detection_variants.json,
+  chick_holdout_variants_cpu.json, labelfree_stability_cpu.json. Code: pytorchAudio utils/feature_utils.py
+  extract_feature_mfcc, tests/test_mfcc_feature.py.'
+caveats: 'Critic (2026-10-25): ACCEPT-WITH-CHANGES, applied: title qualified to one seed, "buys nothing" removed (E34 keeps that wording for run23 above run16), preemption history and majority-rate source added. One seed of run23. Training history differs: run16 was preempted and resumed twice (log 39203444, two [resume]
+  lines), run23 ran uninterrupted (40144546); the label frame counts differ by 32 frames (40,395,560 vs 40,395,592), the
+  trailing-frame effect of 055. The test cannot show that MFCC targets are BETTER: the best-layer point estimate favours MFCC
+  but the layer-3 one favours the spectrogram and both intervals cross zero. Best layers were selected on the board split
+  (run23 L7, run16 L8), hence the layer-3 reading. The 10 splits reuse the same 48 birds, so 8 of 10 is a resampling
+  agreement, not an interval. Contradictions: finding 040 showed spectrogram LABELS score higher AMI against call identity
+  than MFCC labels (+0.024 at k=200); this finding does not contradict 040''s label measurement, it shows the label-level
+  advantage does not carry into the trained encoder''s call-type probe. 040''s wording "the spectrogram target choice was
+  right" should be read as being about labels only; both stand. 040 used 40 mel bins; run23 used fairseq''s actual default,
+  23. The secondary BirdPark AP point estimate favours run23 (+0.038 in 12-arm medians) but BirdPark arm swings are 0.05-0.15
+  (feedback: arm selection is under-powered), so no claim is made on it.'
+tags:
+- targets
+- mfcc
+- call-type
+- control
+- e34
+date: '2026-10-25'

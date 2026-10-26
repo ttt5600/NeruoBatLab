@@ -1,0 +1,53 @@
+id: '084'
+title: DAPT from BirdAVES bioxn-large does not raise call type above its parent; below it on one seed resolved, the other not distinguishable
+status: confirmed
+claim: 'Continued pretraining of birdaves-bioxn-large (24 x 1024, the best AVES-family download on CPU call type, 0.8590) on
+  zebra finch with E19''s two-teacher targets for 15,000 updates gives 0.8403 (seed 1337) and 0.8473 (seed 2) on CPU 11-class
+  call type (majority-class 0.1797), so against the parent the observed differences are -0.0188 [-0.0301, -0.0071] (resolved
+  worse) and -0.0117 [-0.0274, +0.0015] (n.d.) at each model''s best layer, -0.0026 and +0.0059 at layer 3 (both n.d.), and both
+  seeds are below the parent on all 10 fold splits (means 0.8373 and 0.8390 vs 0.8518; resampling agreement, not an interval);
+  E27''s pre-registered bar (BOTH seeds above the parent, interval excluding zero at the best layer, same sign at L3) is not
+  met: DAPT does not raise call type above bioxn-large, and the drop is resolved on seed 1337 only.'
+evidence: 'Board split, CPU (calltype_cpu_rescore.json; best layer / layer 3): birdaves-bioxn-large 0.8590 L1 / 0.8397;
+  daptv4bxl_2e4_step15000 0.8403 L4 / 0.8370; daptv4bxl_2e4s2_step15000 0.8473 L0 / 0.8455; run19_seed2 0.8546 L1 / 0.8514;
+  run16_compute4x 0.8353 L8 / 0.8312; E14 (daptv4bird_2e4_step15000, the same recipe from BirdAVES base) 0.8376 L2 / 0.8341 (no
+  bootstrap pair between E14 and the E27 seeds was run; the board point estimates put both E27 seeds above E14). Bird bootstrap, observed difference, 95% (seed_pairs_cpu.json / seed_pairs_cpu_L3.json):
+  seed 1337 - parent -0.0188 [-0.0301, -0.0071] resolved / -0.0026 [-0.0173, +0.0137]; seed 2 - parent -0.0117 [-0.0274,
+  +0.0015] / +0.0059 [-0.0104, +0.0234]; seed 2 - seed 1337 +0.0070 [-0.0135, +0.0233] / +0.0085 [-0.0039, +0.0225]; vs
+  run19_seed2 -0.0144 [-0.0289, +0.0013] and -0.0073 [-0.0232, +0.0072] (best); vs run16 +0.0050 [-0.0127, +0.0219] and
+  +0.0120 [-0.0169, +0.0373] (best). 10 fold splits at each model''s CPU best layer (calltype_split_sensitivity_cpu.json):
+  parent 0.8518 (sd 0.0077); seed 1337 0.8373 (sd 0.0060), minus parent mean -0.0146, 0 of 10 positive (-0.0232 to -0.0050);
+  seed 2 0.8390 (sd 0.0077), minus parent mean -0.0129, 0 of 10 positive (-0.0255 to -0.0035).
+
+  Secondary (E27 says report, do not decide on): ZF in-distribution detection AUC, best of 12 arms (selected): parent 0.9724,
+  seeds 0.9713 / 0.9708 (split = 60 s blocks within one recording, not a recording holdout). ZF->BirdPark AP, 12-arm median
+  [range]: parent 0.8246 [0.737-0.844], seeds 0.8318 [0.795-0.866] / 0.8441 [0.769-0.890]. Chick Be-vs-LT AUC, pre-committed
+  arm native_L6: seeds 0.9961 / 0.9973 (the parent has no entry in chick_holdout_variants_cpu.json precommit). Label-free
+  k=30 at L6: parent 0.4411, seeds 0.5155 / 0.4999 (labelfree_stability_cpu.json; each k30_minus_ref interval crosses zero).'
+method: 'E27 (harness/experiments.yaml), pre-registered 2026-10-20 before training. E14/E19 recipe (two-teacher targets read
+  from E19''s data, lr 2e-4, warmup 750, 15,000 updates, 87.5 s of audio per update as 2 x 43.75 s micro-batches with
+  --accumulate-grad-batches 2) with --init-weights from birdaves-bioxn-large via the new --encoder-config (402-tensor
+  transplant verified bit-identical, tests/test_encoder_config.py). Step-15,000 exports embedded on CPU (finding 076) by
+  score_run.sh; board probe (StandardScaler + LogisticRegression, leave-birds-out StratifiedGroupKFold(5), seed 0; 3,412
+  clips, 48 birds). Pairs: seed_pairs_cpu.py, 2,000 bird resamples, seed 0, best layers and --layer 3; 10-split column
+  calltype_split_sensitivity.py --cpu. Majority-class rate from aves_variants_calltype.json cohort11.majority (0.17966).'
+provenance: 'Slurm 40207598 (train_dapt_v4_twoteacher_bioxnlarge.sh) and 40207599 (..._seed2.sh);
+  /global/scratch/users/jonathanswang/temp_train_daptv4_twoteacher_2e4_bioxnlarge[_s2]. ~/zf_labelset/zf_detection_dataset_v1/analysis/:
+  calltype_cpu_rescore.json, daptv4bxl_2e4_step15000_calltype.json, daptv4bxl_2e4s2_step15000_calltype.json, seed_pairs_cpu.json,
+  seed_pairs_cpu_L3.json, calltype_split_sensitivity_cpu.json, detection_variants.json, chick_holdout_variants_cpu.json,
+  labelfree_stability_cpu.json.'
+caveats: 'Critic (2026-10-25): ACCEPT-WITH-CHANGES, applied: claim reworded to E27 not met with the drop resolved on seed 1337 only, E14 secondary added (no pair run), L1-peak reading moved to caveats, majority-rate source added. Point-estimate observation, not tested: the parent''s lead sits at its L1 peak (0.8590), where the seeds score
+  0.8376 and 0.8432 (per_layer_acc11_cpu[1]); no per-layer bootstrap was run. The parent''s 0.8590 is its board-split best layer (L1) out of 24; at layer 3 the parent is 0.8397 and neither seed
+  differs from it, so "DAPT lowers call type" holds at the parent''s selected peak and in the 10-split means, not at a fixed
+  early layer. The parent''s L1 pick inherits a winner''s-curse advantage (its 10-split mean 0.8518 is 0.0072 below its board
+  score), but the 10-split comparison re-selects nothing and both seeds still trail on every split. Layer 3 of a 24-layer
+  model is not depth-matched to layer 3 of a 12-layer one. One update budget (15,000) and one lr. The secondary BirdPark AP
+  and chick AUC point estimates favour the DAPT seeds; BirdPark arms swing 0.05-0.15 and the parent has no chick
+  pre-committed entry, so nothing is claimed on them. Contradictions: none; extends 075 (no DAPT round has beaten its
+  parent) to the 315M-parameter parent, and 067 (seed noise flips arm contrasts) is why one resolved seed is not a verdict.'
+tags:
+- dapt
+- birdaves
+- call-type
+- e27
+date: '2026-10-25'

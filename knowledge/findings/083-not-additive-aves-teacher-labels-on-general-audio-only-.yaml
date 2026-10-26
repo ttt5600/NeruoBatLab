@@ -1,0 +1,59 @@
+id: '083'
+title: Not additive -- AVES-teacher labels on general audio only tie AVES labels on the full mix; the gain over our labels on general audio resolves against one of its two seeds
+status: confirmed
+claim: 'run22 (run16''s recipe on the 643 FSD50K files, 108.39 h, with the AVES-teacher k=200 labels) scores 0.8511 on CPU
+  11-class call type (majority-class 0.1797), resolved above run20 seed 1 (same files, our spectrogram labels) at +0.0229 [+0.0045,
+  +0.0436] best layer and +0.0173 [+0.0008, +0.0366] at layer 3 (against run20 seed 2 the best-layer lower bound is exactly
+  0.0000 and layer 3 is +0.0170 [-0.0019, +0.0396], not distinguishable), but not distinguishable from run19 (AVES labels on the full
+  224 h ZF+FSD50K mix) at +0.0053 [-0.0115, +0.0205] best layer and -0.0067 [-0.0201, +0.0058] at layer 3, nor from run19
+  seed 2 (-0.0035 / -0.0141, both n.d.), so E12''s pre-registered success (above BOTH run19 and run20 with intervals
+  excluding zero) is not met and the result is "not additive": with AVES labels, the FSD50K-only run is not distinguishable from the 224 h mix
+  on call type, a comparison confounded with run22 seeing each FSD50K file about 2.07x as often at fixed updates.'
+evidence: 'Board split, CPU (calltype_cpu_rescore.json; best layer / layer 3): run22_avesfsd 0.8511 L2 / 0.8373; run19_avesteacher
+  0.8458 L1 / 0.8441; run19_seed2 0.8546 L1 / 0.8514; run20_fsdonly 0.8283 L6 / 0.8200; run20_seed2 0.8324 L5 / 0.8203;
+  run16_compute4x 0.8353 L8 / 0.8312. Bird bootstrap, observed difference, 95% (seed_pairs_cpu.json / seed_pairs_cpu_L3.json):
+  run22 - run20 +0.0229 [+0.0045, +0.0436] resolved / +0.0173 [+0.0008, +0.0366] resolved; run22 - run20_seed2 +0.0188
+  [+0.0000, +0.0413] (lower bound exactly 0, recorded unresolved) / +0.0170 [-0.0019, +0.0396]; run22 - run19 +0.0053
+  [-0.0115, +0.0205] / -0.0067 [-0.0201, +0.0058]; run22 - run19_seed2 -0.0035 [-0.0159, +0.0106] / -0.0141 [-0.0288,
+  +0.0006]; run22 - run16 +0.0158 [-0.0064, +0.0395] / +0.0062 [-0.0162, +0.0289]; run22 - aves-base-bio +0.0073 [-0.0039,
+  +0.0191]. 10 fold splits at each model''s CPU best layer (calltype_split_sensitivity_cpu.json): run22 mean 0.8455 (sd
+  0.0039); minus run16 +0.0178 (10 of 10 positive, +0.0100 to +0.0363); minus run20 +0.0206 (10 of 10); minus run20_seed2
+  +0.0145 (10 of 10); minus run19 +0.0086 (10 of 10, +0.0009 to +0.0147); minus run19_seed2 +0.0017 (5 of 10).
+
+  Secondary (not decided on): ZF in-distribution detection AUC, best of 12 arms (selected): run22 0.9665, run19_seed2 0.9708,
+  run20 0.9674, run16 0.9718 (split = 60 s blocks within one recording, not a recording holdout). ZF->BirdPark AP, 12-arm
+  median [range]: run22 0.8164 [0.765-0.847], run19 0.8480 [0.642-0.867], run19_seed2 0.8413 [0.794-0.879], run20 0.7777
+  [0.637-0.858]. Chick Be-vs-LT AUC, pre-committed arm: run22 0.9939 (native_L3), run20 0.9946, run19_seed2 0.9923. Label-free
+  k=30 at L3: run22 0.4767, run19_seed2 0.4966, run20 0.4253.'
+method: 'E12 (harness/experiments.yaml). Corpus = scripts/subset_corpus.py via build_fsd_only_corpus.sh on combined_aves_teacher/data/hubert_6:
+  643/763 files, 108.39 h, 200 cluster ids, the same file set as run20; train script = train_run20_fsdonly.sh with only DATA/EXP
+  changed (job 40090445). Step-final export embedded on CPU (finding 076) by score_run.sh; board probe (StandardScaler +
+  LogisticRegression, leave-birds-out StratifiedGroupKFold(5), seed 0; 3,412 clips, 48 birds). Pairs: seed_pairs_cpu.py,
+  2,000 bird resamples, seed 0, at best layers and --layer 3. 10-split column: calltype_split_sensitivity.py --cpu.
+  Majority-class rate from aves_variants_calltype.json cohort11.majority (0.17966).'
+provenance: 'Slurm 40090445 (pytorchAudio/examples/hubert/slurm/train_run22_avesfsd.sh); /global/scratch/users/jonathanswang/temp_train_run22_avesfsd;
+  corpus temp_files/fsd_only_avesteacher/data/hubert_6. ~/zf_labelset/zf_detection_dataset_v1/analysis/: calltype_cpu_rescore.json
+  (models.run22_avesfsd), run22_avesfsd_calltype.json, seed_pairs_cpu.json, seed_pairs_cpu_L3.json, calltype_split_sensitivity_cpu.json,
+  detection_variants.json, chick_holdout_variants_cpu.json, labelfree_stability_cpu.json.'
+caveats: 'Critic (2026-10-25): ACCEPT-WITH-CHANGES, applied: title leads with not additive, run22 > run20 limited to run20 seed 1, 2.07x-passes confound, preemption and feature-type notes, majority-rate source added. One seed of run22; run19 and run20 each have two. Confound against run19: at a fixed 93,750 updates the 108.39 h
+  FSD50K-only corpus is passed about 2.07x as often per file as in the 224.42 h mix (224.42 / 108.39), so "no zebra finch
+  audio" is not the only change; train_run20_fsdonly.sh''s header asks for this to be stated. Training history: run22 was
+  preempted and resumed twice (log 40090445); run19 and run20 ran uninterrupted. run19 trained with --feature-type hubert and
+  run22 with spectrogram, a no-op at train time (only the mfcc branch changes the collate, dataset/hubert_dataset.py:527).
+  Against run20 the only change is the labels (script diff); label frame counts differ by 28 (trailing frame, 055). Best layers were selected on the board split (run22 L2), hence
+  the layer-3 reading; at layer 3 run22 is BELOW both run19 seeds in point estimate (-0.0067, -0.0141), so the best-layer
+  edge over run19 (+0.0053) and the 10-of-10 split agreement against run19 seed 1 are layer-selection-sensitive and are not
+  claimed. Against run20 seed 2 the best-layer lower bound is exactly 0.0000 and is recorded unresolved, so run22 > run20 is
+  resolved against one of run20''s two seeds at the best layer and at layer 3 against seed 1 only. The 10 splits reuse the
+  same 48 birds; agreement across them is not an interval. "Does not add up" is about call type only. The labels on the
+  FSD50K rows are AVES''s k-means of AVES features on that audio, which saw zebra finch audio only through AVES''s own
+  pretraining, so "no zebra finch audio" means none in OUR pretraining. Contradictions: none; consistent with 059 (AVES labels
+  at run16''s compute not distinguishable from run16), 061/078 (general audio alone ties colony audio) and 077 (run19''s
+  seeds above run16''s in point estimate).'
+tags:
+- targets
+- aves-teacher
+- corpus
+- call-type
+- e12
+date: '2026-10-25'
