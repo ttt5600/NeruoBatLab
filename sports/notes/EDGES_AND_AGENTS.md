@@ -166,6 +166,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **L6b ref crew FT -> props (loop 3): DEAD.** notes/nba_ref_ft_props.md; 4 trials; crew effect real (+0.8 FTA/z) but lines move toward crew (+0.135/z open->close); overs -8.1%/2,174; no FT-made props in dev.
 
+- **L35 Kalshi early NFL prices (loop 5, notes/kalshi_early_nfl.md):** first-listed KXNFLGAME prices move +3.3c toward the out-of-sample legacy model by kickoff (109 games, p<.0002). Maker at first bid adversely selected; taker at first ask -4.5% (59c placeholder spread). NEXT: forward-log the first tight quote (spread<=10c) vs model.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
