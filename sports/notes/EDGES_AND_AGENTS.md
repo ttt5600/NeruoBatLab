@@ -140,6 +140,10 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
   once on 2025-26 (results/nba_simple_model_frozen.json) -- needs user yes; ~25% power. FORWARD: log first-posted totals.
   Spreads: CLV +0.79 pts vs open (p<1/4000) but 52.1% ATS -> same as O1, no money. Absences: CLV +1.75 vs +1.03.
   Style: paint-D -1.1 pts/SD sides; 3P% for/against -1.9/-2.3 totals; pace/ORB/TOV/3PA volume = 0.
+  **SEALED 2026-10-25 (user "yes L32"): FAIL** -- 575 bets 2025-26, no-vig ROI +6.4% [-1.6,+14.4] p .054 (bar .05); 53.2% vs
+  open, -110 ROI +1.6%, CLV +1.20 pts, 48.2% vs close; DK +6.0%/500, ESPN BET +9.1%/75; 480/575 overs; months -10.8..+26.8u.
+  Same sign/size as dev but not significant (pre-registered ~25% power). Never re-score. Continues as FORWARD paper via
+  scripts/nba_open_totals.py (CLV is the leading indicator). Flag: box_2026 hash not in frozen MANIFEST (re-pulled).
 - **L33 NFL simple model** (scripts/nfl_simple_model.py, notes/nfl_simple_model.md; SBR openers 2007-19, 14 trials):
   pass/run EPA + QB + style OLS. CLV vs open spread +0.76 / total +0.81 pts (6/6 pass); ROI at -110 none pass (totals C
   +6.6% p .014). QB-change weeks spread CLV +1.15. Matchup interactions all null. Live `week` output disagrees with

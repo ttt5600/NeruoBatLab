@@ -1,0 +1,80 @@
+{
+ "ts": "2026-10-26T01:09:41+00:00",
+ "strategy": "nba_L32_tot_open",
+ "sha": "0205473ce82e",
+ "dataset": "nba_simple_model",
+ "status": "done",
+ "data_hashes": {
+  "games": {
+   "sha256": "a26fe7e3ab7ebb6c41d276018af0376641066b9d659b7b1bb7b771c7057cf066",
+   "in_frozen_manifest": true
+  },
+  "lines": {
+   "sha256": "9ebb16279fd0d22e6b6cf35f1895bd4732b7b2b5ad987e3b24236c2a317cd451",
+   "in_frozen_manifest": true
+  },
+  "box": {
+   "sha256": "5e3148b33b659087ac03538d839d12d8d79965569173425bd841c2f3bdf7f9e3",
+   "in_frozen_manifest": false
+  }
+ },
+ "info": {
+  "stack_n": 3445,
+  "stack_params": {
+   "const": 54.126116280454,
+   "tot0": 0.7656257319419008,
+   "Ofull": 1.894036446428871,
+   "oAbs": 0.8355740174619659,
+   "U1_pace": 2.0045263255016477,
+   "U2_fg3pct": -1.1724125305939737,
+   "U3_oppfg3pct": -1.4137154972517916,
+   "U4_fg3arate": 0.33211056176337506,
+   "U5_b2b": -0.2280344304059132
+  },
+  "sigma": 18.352983732650955,
+  "frozen_match": true,
+  "scored_games": 1146
+ },
+ "bets": 575,
+ "units": 36.629482408016514,
+ "roi_novig": 0.06370344766611567,
+ "ci_lo": -0.015532144652164688,
+ "ci_hi": 0.1438485323308675,
+ "p": 0.054,
+ "verdict": "FAIL (inconclusive at ~25% power)",
+ "win_rate_ex_push": 0.5321739130434783,
+ "roi_110": 0.01596837944664032,
+ "clv_pts": 1.2017543859649122,
+ "clv_n": 570,
+ "win_vs_same_close_ex_push": 0.4817391304347826,
+ "by_book": {
+  "DraftKings": {
+   "n": 500,
+   "roi_novig": 0.05967562707885671,
+   "clv": 1.1232323232323231
+  },
+  "ESPN BET": {
+   "n": 75,
+   "roi_novig": 0.09055558491450871,
+   "clv": 1.72
+  }
+ },
+ "over_under": {
+  "over": {
+   "n": 480,
+   "roi_novig": 0.061817277142772
+  },
+  "under": {
+   "n": 95,
+   "roi_novig": 0.07323357241564152
+  }
+ },
+ "units_by_month": {
+  "2025-11": 4.802,
+  "2025-12": 8.003,
+  "2026-01": -8.021,
+  "2026-02": 26.792,
+  "2026-03": 15.877,
+  "2026-04": -10.823
+ }
+}
