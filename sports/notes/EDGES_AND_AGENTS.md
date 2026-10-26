@@ -158,6 +158,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
   Offence-EPA: margin slope vs open +0.98 pts/SD p .0003 (real) but rule |z|>=1 994 bets 51.5%, -1.6% at -110 -> NO BET;
   mostly already inside model B (+0.71/SD incremental p .0077, fails).
 
+- **L6b ref crew FT -> props (loop 3): DEAD.** notes/nba_ref_ft_props.md; 4 trials; crew effect real (+0.8 FTA/z) but lines move toward crew (+0.135/z open->close); overs -8.1%/2,174; no FT-made props in dev.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
