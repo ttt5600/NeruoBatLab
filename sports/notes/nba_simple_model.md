@@ -213,3 +213,41 @@ The effect is flat to rising with the gap, not a cliff. Spread CLV rises with th
 - Then run `today` each morning and paper-bet |gap| ≥ 3 at the logged first price, at maker/no-vig.
 - Grade after ~300 bets. Spreads stay paper-only (no money signal).
 - The "absence news" angle needs a real-time injury feed beating the book. That is not something we have.
+
+## 7. L32 sealed pre-registration (2026-10-25, user "yes L32"; written before any 2025-26 outcome was read)
+- Script: `scripts/nba_l32_sealed.py`. Its docstring is the full pre-registration. Run it once:
+  `../.venv_quant/bin/python scripts/nba_l32_sealed.py sealed --confirm-lockbox`.
+- **Model:** T2_STRICT, frozen (`results/nba_simple_model_frozen.json`).
+  - BPM-lite weights come from dev player-seasons 2021-22..2024-25. The totals stack was fit on dev scored games
+    2022-23..2024-25 (n 3,445).
+  - The script refits both from dev data and aborts unless they equal the frozen file to 1e-6. A dev-only pre-check
+    already gives 0 mismatches.
+  - 2025-26 features walk forward by ET date using past games only. STRICT means the players who played the team's
+    previous game.
+- **Games:** 2025-26 regular season, not neutral site, both teams with at least 5 earlier games, final games only.
+- **Opener:** DraftKings open where present, else ESPN BET open. This is the dev code's rule. It overrides the "ESPN BET
+  first" idea floated in section 6.
+  - ESPN spells the book "Draft Kings" in 2025-26 and "DraftKings" in dev, so the script maps the two names together.
+    Without that alias the dev code would silently use ESPN BET only.
+  - Opener-row selection is copied from dev unchanged.
+- **Rule:** over if T2 − opening total ≥ +3.0, under if ≤ −3.0. Flat 1 unit, one bet per game. Paid at the
+  proportionally de-vigged opening over/under price of the opener book.
+- **Primary metric:** no-vig ROI. One-sided game bootstrap, 4,000 resamples. **PASS = p < .05 and ROI > 0.**
+- **Secondary (descriptive only):**
+  - ROI at −110.
+  - CLV in points against the same book's close.
+  - Win rate graded against the same book's closing total.
+  - Splits by book, over/under and month.
+- **Power:** expect about 600 bets, SE about 4%. At a true +4%, power is about 25%. **A miss is inconclusive, not a
+  refutation.**
+- **One shot:**
+  - The run requires `--confirm-lockbox`.
+  - It writes `results/nba_l32_sealed.json` (status "started") before reading any 2025-26 data.
+  - It aborts if that file already exists or `lab/lockbox.jsonl` already has `nba_L32_tot_open`.
+- **Schema-only check (no scores, closes or bets read):**
+  - `lines_2026` has 1,440 rows: Draft Kings 1,075 and ESPN BET 365. Total opener plus both open prices are present on
+    1,074 DK rows and 365 ESPN BET rows.
+  - Of 1,233 regular-season non-neutral games, 1,229 have an opener under DK-first: about 978 DK and 251 ESPN BET.
+  - ESPN BET openers cover 2025-10..2025-12. DK covers 2025-11..2026-06.
+- **Dev reproduction:** `devcheck --season 2025` gives 536 bets, +0.0895, matching T5's 2025 fold exactly.
+  `--season 2024` gives 654 bets, +0.0851, also an exact match. Predictions match `wf.pkl` to about 1e-13.
