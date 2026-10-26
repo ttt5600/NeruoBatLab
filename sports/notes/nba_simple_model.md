@@ -181,7 +181,13 @@ The effect is flat to rising with the gap, not a cliff. Spread CLV rises with th
 - **The ACTUAL-availability results (T6-T8, the "act" rows) use who really played.** That is lookahead relative to
   the open. Only the STRICT rows (T1-T5) are no-lookahead.
 - **The amendment (section 5) was made after looking at out-of-sample model accuracy**, though before any market join.
-- **Live caveats for `today`:**
+- **2026-10-25 live fixes** (`scripts/nba_simple_live.py`; `today` delegates to it; frozen model untouched): paint now
+  from ESPN boxscore `pointsInPaint` (= stats.nba.com on 98.5% of 600 team-games, max diff 2), current ESPN rosters,
+  ESPN injury feed (Out/Doubtful out, Questionable -> `*_q_out`), `--json` / `predict(date)`, per-day state cache
+  (~5-9 s warm, ~20 s cold). `model_*_prereg` reproduces the old path exactly (checked on 10-25: T2 identical to
+  2 dp). First check (12 games 10-25/26 with a DK total): model - market mean +1.3, SD 3.2. The bullets below
+  describe the old path.
+- **Live caveats for `today` (old path):**
   - stats.nba.com timed out from this Mac, so the paint term (S1) is 0 live. It is the largest style coefficient on
     sides.
   - Early in the season, "full roster" (the last 10 team games) reaches back into last April. Tanking-era G-leaguers

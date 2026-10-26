@@ -2,7 +2,8 @@
 
     ../.venv_quant/bin/python scripts/nba_simple_model.py build              # features + model accuracy only (no market)
     ../.venv_quant/bin/python scripts/nba_simple_model.py backtest [--ledger]  # pre-registered market trials (dev)
-    ../.venv_quant/bin/python scripts/nba_simple_model.py today [--date YYYY-MM-DD] [--refresh] [--out "Name,Name"]
+    ../.venv_quant/bin/python scripts/nba_simple_model.py today [--date YYYY-MM-DD] [--json] [--out "Name,Name"]
+                                                       [--no-refresh] [--no-cache]   (-> scripts/nba_simple_live.py)
 
 User 2026-10-25: "Kalshi follows Pinnacle. Get the edge via a SIMPLE model that takes into account the betting rates and
 stats on each team, runs simple analysis to determine playing style; simpler might be better; look at the players and
@@ -681,43 +682,16 @@ def cmd_backtest(ledger=False):
     return 0
 
 
-def cmd_today(date, refresh, out_names):
-    """LIVE PREDICTION ONLY. Reads 2025-26 (prior) + 2026-27 (current); never scores."""
-    if refresh:
-        import collect
-        collect.collect("games", "nba", 2027, True)
-        collect.collect("box", "nba", 2027, False)
-    fz = json.loads(FROZEN.read_text())
-    g, _ = build([2026, 2027], live_date=date, out_names=out_names, frozen=fz)
-    t = g[g.date == date]
-    if t.empty:
-        print(f"no games on {date}")
-        return 0
-    fits = fz["fits"]
-    print(f"NBA {date}: simple model (frozen dev coefficients; STRICT = players from each team's previous game"
-          f"{'; manually OUT: ' + ', '.join(sorted(out_names)) if out_names else ''})")
-    print(f"{"away @ home":13s} {"M0 line":>7s} {'spread':>7s} {'P(home)':>7s} {'total':>6s}  components (home pts)")
-    for i, r in t.iterrows():
-        row = t.loc[[i]]
-        mu = float(predict(fits["M2_strict"], row).iloc[0])
-        tot = float(predict(fits["T2_strict"], row).iloc[0])
-        p = norm.cdf(mu / fits["M2_strict"]["sigma"])
-        X, _ = design(row, "M2", "strict", fits["M2_strict"]["zc"], fits["M2_strict"]["sc"])
-        comp = {c: fits["M2_strict"]["params"][c] * float(X[c].iloc[0]) for c in X.columns}
-        print(f"{r.away + ' @ ' + r.home:13s} {-r.mu0:+6.1f} {-mu:+7.1f} {p:7.3f} {tot:6.1f}  " +
-              " ".join(f"{k} {v:+.1f}" for k, v in comp.items()))
-        for side in ("home", "away"):
-            if r[f"miss_strict_{side}"]:
-                print(f"     {r[side]} top-5-minutes players NOT in last game (treated as OUT): {', '.join(map(str, r[f'miss_strict_{side}']))}")
-    print("\nspread = home line equivalent (negative = home favoured). P(home) = Phi(margin / "
-          f"{fits['M2_strict']['sigma']:.1f}). Compare vs Kalshi/Pinnacle no-vig; no bet rule is validated (see notes).")
-    st = ["pace", "fg3a_rate", "opp_fg3a_rate", "orb_pct", "tov_pct", "opp_tov_pct", "ft_rate", "opp_paint_share"]
-    print("\nstyle profile (decayed season-to-date):")
-    print(f"{'team':5s} " + " ".join(f"{s[:13]:>13s}" for s in st))
-    for r in t.itertuples():
-        for side in ("home", "away"):
-            print(f"{getattr(r, side):5s} " + " ".join(f"{getattr(r, f'{side}_{s}'):13.3f}" for s in st))
-    return 0
+def cmd_today(date, refresh, out_names, as_json=False, no_cache=False):
+    """LIVE PREDICTION ONLY (reads 2025-26 + current season; never scores). Delegates to scripts/nba_simple_live.py,
+    which adds ESPN paint points, current rosters, the ESPN injury feed, --json and a per-day state cache. Frozen
+    coefficients and feature formulas are this file's. The old today body (stats.nba.com paint, last-10-games roster,
+    no injuries) is what `model_*_prereg` in the live output reproduces."""
+    import nba_simple_live
+    argv = (["--date", str(date)] if date else []) + (["--json"] if as_json else []) + \
+        (["--out", ",".join(sorted(out_names))] if out_names else []) + ([] if refresh else ["--no-refresh"]) + \
+        (["--no-cache"] if no_cache else [])
+    return nba_simple_live.main(argv)
 
 
 def main() -> int:
@@ -725,7 +699,10 @@ def main() -> int:
     ap.add_argument("cmd", choices=["build", "backtest", "today"])
     ap.add_argument("--ledger", action="store_true")
     ap.add_argument("--date", default=None)
-    ap.add_argument("--refresh", action="store_true")
+    ap.add_argument("--refresh", action="store_true", help="(today) no-op kept for compatibility: refresh is default")
+    ap.add_argument("--no-refresh", action="store_true", help="(today) skip the incremental ESPN games/box update")
+    ap.add_argument("--no-cache", action="store_true", help="(today) rebuild the per-day state cache")
+    ap.add_argument("--json", action="store_true", help="(today) JSON list on stdout, one object per game")
     ap.add_argument("--out", default="", help="comma-separated player names to treat as OUT tonight")
     a = ap.parse_args()
     if a.cmd == "build":
@@ -734,7 +711,8 @@ def main() -> int:
         return cmd_backtest(a.ledger)
     else:
         date = pd.Timestamp(a.date).date() if a.date else pd.Timestamp.now(tz="US/Eastern").date()
-        return cmd_today(date, a.refresh, {s.strip() for s in a.out.split(",") if s.strip()})
+        return cmd_today(date, not a.no_refresh, {s.strip() for s in a.out.split(",") if s.strip()}, a.json,
+                         a.no_cache)
     return 0
 
 

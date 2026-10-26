@@ -18,6 +18,11 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-25d DEPLOYED launchd com.jonathanwang.quant-nba-open-totals (10 min): scripts/nba_open_totals.py (L32 forward paper:
+  first-seen Pinnacle total + Kalshi KXNBATOTAL ladder vs model, pick at >= 3 pts, CLV/ROI). Report:
+  `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/nba_open_totals.py report` (also `show`). Redeploy:
+  `bash sports/scripts/install_nba_open_totals_agent.sh`. NBA live model ready (nba_simple_live.py: ESPN paint/rosters/
+  injuries; mean model-mkt +1.3). NFL model refit 2020-25 (`nfl_simple_model.py week --json`), L33 forward only.
 - 10-25c L32 SEALED FAIL (narrow): +6.4% no-vig p .054, CLV +1.2, 48% vs close -> forward logger nba_open_totals.py.
 - 10-25b simple models: L32 NBA totals vs opener +8.7% no-vig dev (p .001, fails ledger bar; sealed ask), L33 NFL leads opener CLV, no money.
 - Next: build L28 + L31 forward-paper loggers; first-posted-totals logger for L32; fold paint-D into L2 model; ask user re sealed 2025-26 for L30/L31.
