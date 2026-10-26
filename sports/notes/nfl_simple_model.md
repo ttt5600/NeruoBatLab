@@ -7,6 +7,58 @@ Only DEV seasons were scored: features from 2006-2019 pbp, walk-forward test sea
 Openers come from the sportsbookreviewsonline (SBR) NFL archive, 2007-2019 pages only, saved to `data/sbr_nfl/`.
 The 2020-2025 lockbox and 2026 were not scored. 2025 pbp is used only as the live shrinkage prior in `week`.
 
+## LIVE REFIT on 2020-2025 (2026-10-25, evening) -- `refit`, `week [--fit modern|legacy] [--json]`
+
+**DECISION (lead, on the user's "do the refit and get it ready"): the live coefficients are fit on 2020-2025.
+Those are the seasons proposed below as L33's sealed set, so the NFL sealed test is FORFEITED. L33 is now
+FORWARD-PAPER ONLY. 2020-25 numbers below are accuracy diagnostics, never a betting result; 2026 was used only for
+a level check (mean model - close), not scored.** The `dev` backtest and its 14 trials are unchanged (re-ran, tables
+byte-identical); the 2007-19 fit is still `week --fit legacy` (coefficients reproduce to the 3rd decimal).
+
+What changed: same A/B/C linear structure (pass/run EPA shrunk, QB term, style LEVEL terms); the **six matchup
+interactions are dropped** (all p > .27 in dev). WLS on 2020-2025 with recency weight 0.5^((2025-season)/2)
+(half-life 2 seasons). Features now use full nflverse pbp 2006-2026 (2020-24 downloaded), so QB ratings have
+their whole history. Live features use only games **before** the target week (pbp already holds this week's games).
+Live starters: nflverse depth chart (ESPN-sourced, last snapshot before kickoff), QB1 unless the ESPN injury report
+(entries dated before kickoff) lists him Out/IR/Doubtful/Suspended -> next QB; warns when it disagrees with the
+nflverse schedule QB. Closing lines: data/nfl_games.parquet, falling back to the nflverse schedule after 2026 wk 4.
+Tables: `notes/nfl_simple_model_refit_tables.md`; JSON `data/lab/nfl_simple_model_refit.json`.
+Live picks: spread **B**, total **C** (modern); B/B (legacy).
+
+Validation (mean |model - close|, pts; LOSO = fit on the other five 2020-25 seasons):
+
+| | spread B | spread C | total B | total C |
+|---|---|---|---|---|
+| modern LOSO 2020-25 (n 1693) | 2.37 (bias +0.56) | 2.36 | 2.61 (+0.13) | 2.36 (+0.47) |
+| legacy 07-19 fit on 2020-25 | 2.35 (+0.72) | 2.34 | 2.21 (-0.16) | 2.74 (-1.68) |
+| 2026 wk1-7 level, modern full fit (n 105) | 2.29 (+0.65) | 2.20 | 2.68 (+1.04) | 2.33 (**+0.17**) |
+| 2026 wk1-7 level, legacy | 2.34 (+0.63) | 2.35 | 2.52 (+0.44) | 3.53 (**-3.21**) |
+
+Read: the refit **fixes the model-C totals level** (-3.2 -> +0.2) and otherwise does NOT make the model more
+accurate vs the close; legacy B is as good on spreads and better on totals in 2020-25. Spread bias is ~+0.6
+(model leans home) in both fits: home teams beat the close by ~+0.6/game in 2021-25 and both fits learn a ~2-pt HFA
+from outcomes. Per-season total bias swings -1.9 to +1.9 (league scoring moves year to year; the `lg_pts` term is
+-0.5/pt, i.e. mean-reverting, and is identified from only six season values -- fragile).
+
+**Why the first live run disagreed with 11/14 lines -- mostly NOT regime drift.** Diagnostic (legacy coefficients,
+week 7): QB history from 2025-26 only + schedule QBs -> 9/14 spreads >= 2 pts; full QB history -> 6/14; plus depth
+chart/injuries -> 5/14. The spread level was never off (legacy mean gap +0.1). The short QB history (veteran
+ratings shrunk hard to replacement) drove the spread disagreements; only the C-totals level was regime drift.
+I could not reproduce 11 exactly (older pbp/lines snapshot). Also: even in-era, ~47-50% of games differ from the
+close by >= 2 pts (MAE ~2.3), so ~6-7 of 14 per week is the normal rate, not a level failure.
+
+Coefficients, live fit (pts per 1 SD; full table in the refit tables):
+- Spread B: off_pass +3.4, def_pass +1.6, off_run +1.6, def_run +1.6, QB adj +1.8 (p 1e-8), HFA const +2.1.
+  vs 2007-19: passing O matters a bit less (+4.0 -> +3.4), run game and run D more (+1.7/+1.2 -> +1.6/+1.6), QB more.
+- Totals C: off_pass +2.3, def_pass allowed +0.9, off_run +0.8, QB sum +1.3; style terms all weak now
+  (pace +0.6 p .11, PROE +0.5 p .19, explosive +0.6 p .15) vs dev PROE +1.65 p 1e-9. Style's totals signal faded.
+- Spread style (C): PROE +0.6, pressure +0.6, explosive +0.35, none p < .12.
+
+Week 7 (2026-10-22..27), modern B spread / C total vs the nflverse current line (finished games = pre-game
+features + pre-kickoff depth chart/injuries): |spread gap| >= 2: **6/14** (6/13 Sun+MNF); |total gap| >= 2.5:
+**4/14** (4/13); mean gap spread +0.43, total -0.44. Lamar Jackson (Out, ESPN 12:53Z) -> Huntley rated; PHI depth
+chart = Tanner McKee (Hurts on IR) while the nflverse schedule still says Hurts -- trust depth chart + injuries.
+
 ## Verdict (plain language)
 
 1. **The simple model knows things the opening line does not.** For every version, when the model disagreed with the
@@ -84,15 +136,16 @@ drift does not explain the CLV (if anything it works against the overs).
 ## Proposed forward rule (paper; nothing is staked without the user's yes)
 - Model **B** for spreads, model **C** for totals (C was best on totals, but its 2026 totals look biased low by
   regime drift, so check `week` output; fall back to B totals if the mean gap vs line is < -1.5 pts across a week;
-  week 7 2026 was -3.1, so **B totals for now**).
+  week 7 2026 was -3.1, so **B totals for now**). UPDATE 10-25 evening: with the 2020-25 refit, C totals level is
+  +0.17 on 2026 wk1-7, so live = modern B spread + modern C total (`week` default).
 - Trigger: |model - OPENER| >= 2.0 pts (spread) or >= 2.5 pts (total). Take the model's side at the first available
   price, ideally a Kalshi maker order at or near the opener. Log the opener, our fill price and the close.
 - Primary forward metric: CLV in points (expect about +0.75). Money metric: ROI at the fill price. Kill it if CLV is
   <= 0 after 100 bets.
 - QB-change weeks are the highest-value slice (+1.15 pts CLV). Check the starter against the injury report before
   trusting `week`. Its QB comes from the nflverse schedule's projected starter, which can be stale.
-- Sealed option (needs the user's explicit yes): score T02 (spread CLV B) and T12 (total ROI C at open) once on
-  2020-2025, using SBR 2020-21 and 2021-22 plus ESPN BET `*_open` 2022-25. That would be about 6 seasons.
+- ~~Sealed option: score T02/T12 once on 2020-2025~~ **FORFEITED 2026-10-25** (live refit fit on 2020-25; see
+  top). L33 is forward-paper only.
 
 ## Caveats
 - **SBR opener provenance is unknown** (book and timestamp undocumented). It agrees with nflverse at the close

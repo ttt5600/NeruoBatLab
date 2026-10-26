@@ -1,7 +1,14 @@
 """Simple, explainable NFL game model (team EPA -> + QB -> + style), scored against the OPENER.
 
     python scripts/nfl_simple_model.py dev [--ledger]   # walk-forward dev backtest; writes json + tables
-    python scripts/nfl_simple_model.py week [--refresh] [--week N]   # live: model spread/total for this week
+    python scripts/nfl_simple_model.py refit            # live refit on 2020-2025: LOSO + legacy compare + 2026 level
+    python scripts/nfl_simple_model.py week [--refresh] [--week N] [--fit modern|legacy] [--json]
+
+LIVE REFIT (added 2026-10-25, see the "live refit" section below and notes/nfl_simple_model.md):
+  `week` now defaults to coefficients fit on 2020-2025 (recency weight half-life 2 seasons) with the same A/B/C
+  structure minus the six matchup interactions (all p > .27 in dev). `--fit legacy` reproduces the 2007-2019 fit.
+  DECISION: fitting on 2020-2025 uses the seasons proposed as L33's SEALED set -> the NFL sealed test is FORFEITED
+  and L33 is FORWARD-PAPER ONLY. 2026 is used for a level check only. The `dev` command below is unchanged.
 
 No xgboost, no tuning: every number below was fixed BEFORE the market was joined (2026-10-25).
 
@@ -10,8 +17,9 @@ DATA / SPLITS (respecting lab/datasets.py SPLITS: NFL dev 2006-2019, lockbox 202
   * OPENERS: sportsbookreviewsonline NFL archive, seasons 2007-2019 (dev only; 2020+ pages never fetched).
     Saved raw to data/sbr_nfl/nfl_odds_<season>.html. "Open"/"Close" are SBR's columns; which book the open
     comes from, and when it was posted, is undocumented. Spreads assumed -110 both sides.
-  * `week` uses 2025 pbp only as the prior-season shrinkage target for live 2026 features; nothing from
-    2020-2026 is ever scored or used to fit coefficients.
+  * (original 10-25 text, now superseded for `week`/`refit`): `week` used 2025 pbp only as the prior-season
+    shrinkage target for live 2026 features. `dev` still never scores or fits on 2020-2026; `refit` and
+    `week --fit modern` DO fit on 2020-2025 (sealed test forfeited, see top).
 
 FEATURES (pre-game, from earlier games only; REG+POST plays with EPA, no kneels/spikes)
   Team rates are season-to-date, shrunk toward a prior = league + 0.5*(team last season - league):
@@ -297,30 +305,40 @@ def ols(X: pd.DataFrame, y: pd.Series):
     return sm.OLS(y.to_numpy(float), sm.add_constant(X.to_numpy(float), has_constant="add")).fit()
 
 
-def fit_predict(train: pd.DataFrame, test: pd.DataFrame, cols, target, neutral_term: bool):
+def fit_predict(train: pd.DataFrame, test: pd.DataFrame, cols, target, neutral_term: bool, weights=None):
     train = add_interactions(train, train)
     test = add_interactions(test, train)
     xs = list(cols) + (["hfa_off"] if neutral_term else [])
     tr = train.assign(hfa_off=-train["neutral"])
     te = test.assign(hfa_off=-test["neutral"])
-    m = ols(tr[xs], tr[target])
     import statsmodels.api as sm
+    if weights is None:
+        m = ols(tr[xs], tr[target])
+    else:
+        m = sm.WLS(tr[target].to_numpy(float), sm.add_constant(tr[xs].to_numpy(float), has_constant="add"),
+                   weights=np.asarray(weights, float)).fit()
     pred = m.predict(sm.add_constant(te[xs].to_numpy(float), has_constant="add"))
     return pred, m, xs
 
 
 # ------------------------------------------------------------------------------------------- build
 def build_dev():
-    p = load_pbp(FEAT_SEASONS)
+    return build_all(FEAT_SEASONS, FIRST_FIT)
+
+
+def build_all(feat_seasons, first_fit):
+    """Walk-forward pre-game features for every COMPLETED game in feat_seasons (season >= first_fit)."""
+    p = load_pbp(feat_seasons)
     sched = load_schedule()
-    sched = sched[sched["season"].isin(FEAT_SEASONS) & sched["home_score"].notna()]
+    sched = sched[sched["season"].isin(feat_seasons) & sched["home_score"].notna()
+                  & sched["game_id"].isin(set(p["game_id"]))]
     tg = team_games(p)
     tf = team_features(tg)
     qf = qb_features(qb_games(p), sched)
     pts = sched.groupby("season").apply(lambda d: (d["home_score"] + d["away_score"]).mean())
-    lg_pts = {s: pts.get(s - 1, np.nan) for s in FEAT_SEASONS}
+    lg_pts = {s: pts.get(s - 1, np.nan) for s in feat_seasons}
     g = assemble(sched, tf, qf, pd.Series(lg_pts))
-    g = g[g["season"] >= FIRST_FIT].dropna(subset=BASE_S + BASE_T + ["h_pace", "a_pace", "h_o_press", "a_o_press"])
+    g = g[g["season"] >= first_fit].dropna(subset=BASE_S + BASE_T + ["h_pace", "a_pace", "h_o_press", "a_o_press"])
     return g, p
 
 
@@ -595,31 +613,284 @@ def write_tables(res):
     OUT_TAB.write_text("\n".join(L))
 
 
+# ------------------------------------------------------------------------------------------- live refit (2020-2025)
+# DECISION (lead, 2026-10-25, on the user's "do the refit and get it ready"): the live coefficients are refit on
+# 2020-2025. Those seasons were the proposed SEALED set for L33 (scoring T02/T12 once on 2020-25 openers). Fitting
+# on them forfeits that sealed test: L33 is now FORWARD-PAPER ONLY. 2020-2025 must never be quoted as an
+# out-of-sample betting result for this model. 2026 is used only for a LEVEL check (mean model - close), never for
+# betting-performance claims.
+LIVE = 2026
+MODERN_FIT = list(range(2020, 2026))
+HALF_LIFE = 2.0            # recency weight w = 0.5 ** ((2025 - season) / 2): 2025 = 1, 2023 = .5, 2021 = .25, 2020 = .18
+ALL_FEAT = list(range(2006, LIVE + 1))   # features need history (QB state, last-season priors); fit seasons are separate
+STYLE_S_M = ["proe_diff", "expl_net", "press_net"]   # the 6 matchup interactions are DROPPED (all p > .27 in dev)
+STYLE_T_M = ["pace_sum", "proe_sum", "expl_sum"]
+MODELS_MODERN = {"A": (BASE_S, BASE_T), "B": (BASE_S + QB_S, BASE_T + QB_T),
+                 "C": (BASE_S + QB_S + STYLE_S_M, BASE_T + QB_T + STYLE_T_M)}
+LIVE_PICK = {"modern": ("B", "C"), "legacy": ("B", "B")}   # (spread model, total model) used for the JSON output
+REFIT_JSON = DATA / "lab" / "nfl_simple_model_refit.json"
+REFIT_TAB = ROOT / "notes" / "nfl_simple_model_refit_tables.md"
+DEPTH = DATA / "nfl_depth_charts_2026.parquet"
+QB_OUT = {"Out", "Injured Reserve", "Doubtful", "Suspension", "Physically Unable to Perform", "Reserve"}
+NV = "https://github.com/nflverse/nflverse-data/releases/download"
+
+
+def recency_w(season):
+    return 0.5 ** ((MODERN_FIT[-1] - np.asarray(season, float)) / HALF_LIFE)
+
+
+def fit_spec(fit: str):
+    """(models, train selector, weight fn) for --fit modern|legacy."""
+    if fit == "legacy":
+        return MODELS, (lambda g: g[(g["season"] >= FIRST_FIT) & (g["season"] <= 2019)]), None
+    return MODELS_MODERN, (lambda g: g[g["season"].isin(MODERN_FIT)]), recency_w
+
+
+def predict_all(models, train, test, wfn):
+    out, fits = {}, {}
+    w = None if wfn is None else wfn(train["season"])
+    for m, (cs, ct) in models.items():
+        ps, ms, xs = fit_predict(train, test, cs, "margin", True, w)
+        pt, mt, xt = fit_predict(train, test, ct, "points", False, w)
+        out[f"spread_{m}"], out[f"total_{m}"] = np.asarray(ps), np.asarray(pt)
+        fits[m] = ((ms, xs), (mt, xt))
+    return out, fits
+
+
+def load_closes():
+    """Closing lines from data/nfl_games.parquet; where it has none (it stops at 2026 week 4), fall back to the
+    nflverse schedule's spread_line/total_line (same source: they agree on all 1,757 overlapping 2020-26 games
+    to 0.0006 pts mean abs). For games not yet played the schedule value is the CURRENT line, not a close."""
+    c = pd.read_parquet(DATA / "nfl_games.parquet", columns=["game_id", "spread_line", "total_line", "start_utc"])
+    s = pd.read_csv(DATA / "nfl_schedule.csv", usecols=["game_id", "spread_line", "total_line"])
+    c = c.merge(s, on="game_id", how="outer", suffixes=("", "_nv"))
+    c["close_spread"] = c["spread_line"].fillna(c["spread_line_nv"])
+    c["close_total"] = c["total_line"].fillna(c["total_line_nv"])
+    return c[["game_id", "close_spread", "close_total", "start_utc"]]
+
+
+def _metrics(d: pd.DataFrame, models) -> dict:
+    d = d.dropna(subset=["close_spread", "close_total"])
+    r = dict(n=int(len(d)), close_rmse_margin=float(np.sqrt(((d["margin"] - d["close_spread"]) ** 2).mean())),
+             close_rmse_points=float(np.sqrt(((d["points"] - d["close_total"]) ** 2).mean())))
+    for m in models:
+        gs, gt = d[f"spread_{m}"] - d["close_spread"], d[f"total_{m}"] - d["close_total"]
+        r[m] = dict(spread_mae_vs_close=float(gs.abs().mean()), spread_bias=float(gs.mean()),
+                    total_mae_vs_close=float(gt.abs().mean()), total_bias=float(gt.mean()),
+                    spread_rmse_outcome=float(np.sqrt(((d["margin"] - d[f"spread_{m}"]) ** 2).mean())),
+                    total_rmse_outcome=float(np.sqrt(((d["points"] - d[f"total_{m}"]) ** 2).mean())),
+                    share_spread_gap_ge2=float((gs.abs() >= SPREAD_T).mean()),
+                    share_total_gap_ge25=float((gt.abs() >= TOTAL_T).mean()))
+    return r
+
+
+def coef_table(m, xs, fitdf) -> dict:
+    sds = add_interactions(fitdf, fitdf).assign(hfa_off=-fitdf["neutral"])[xs].std()
+    return dict(n=int(m.nobs), r2=float(m.rsquared), rmse=float(np.sqrt(np.mean(np.asarray(m.resid) ** 2))),
+                terms={k: dict(b=float(b), se=float(se), p=float(pv), per_sd=float(b * sds[k]))
+                       for k, b, se, pv in zip(["const"] + xs, m.params, m.bse, m.pvalues) if k != "const"}
+                | {"const": dict(b=float(m.params[0]))})
+
+
+def run_refit():
+    g, _ = build_all(ALL_FEAT, FIRST_FIT)
+    g = g.merge(load_closes(), on="game_id", how="left")
+    res = dict(ts=datetime.now(timezone.utc).isoformat(), half_life=HALF_LIFE, fit_seasons=MODERN_FIT,
+               decision="2020-2025 used to fit live coefficients -> L33 sealed test FORFEITED; L33 forward-paper only",
+               n_close_joined={int(s): int(d["close_spread"].notna().sum()) for s, d in g[g.season >= 2020].groupby("season")})
+    # 1) leave-one-season-out on 2020-2025 (modern structure, recency-weighted)
+    loso = []
+    for s in MODERN_FIT:
+        tr = g[g["season"].isin(MODERN_FIT) & (g["season"] != s)]
+        te = g[g["season"] == s].copy()
+        pr, _ = predict_all(MODELS_MODERN, tr, te, recency_w)
+        loso.append(te.assign(**pr))
+    L = pd.concat(loso, ignore_index=True)
+    res["loso_modern"] = {"pooled": _metrics(L, MODELS_MODERN)} | {int(s): _metrics(d, MODELS_MODERN) for s, d in L.groupby("season")}
+    # 2) legacy 2007-2019 fit (unchanged structure incl. interactions) applied to 2020-2026
+    models_l, sel_l, _ = fit_spec("legacy")
+    te = g[g["season"] >= 2020].copy()
+    pr, fits_l = predict_all(models_l, sel_l(g), te, None)
+    Lg = te.assign(**pr)
+    res["legacy_on_2020_25"] = {"pooled": _metrics(Lg[Lg.season <= 2025], models_l)} | {
+        int(s): _metrics(d, models_l) for s, d in Lg[Lg.season <= 2025].groupby("season")}
+    res["legacy_coef_check"] = {m: {k: v["b"] for k, v in coef_table(*fits_l[m][0], sel_l(g))["terms"].items()} for m in models_l}
+    # 3) final modern fit on all of 2020-2025 -> coefficients + 2026 level check (completed 2026 games only)
+    fitdf = g[g["season"].isin(MODERN_FIT)]
+    te = g[g["season"] == LIVE].copy()
+    pr, fits = predict_all(MODELS_MODERN, fitdf, te, recency_w)
+    T = te.assign(**pr)
+    res["coefs"] = {}
+    for m in MODELS_MODERN:
+        (ms, xs), (mt, xt) = fits[m]
+        res["coefs"][f"{m}_margin"] = coef_table(ms, xs, fitdf)
+        res["coefs"][f"{m}_points"] = coef_table(mt, xt, fitdf)
+    lv = {}
+    for name, D, mods in (("modern", T, MODELS_MODERN), ("legacy", Lg[Lg.season == LIVE], models_l)):
+        lv[name] = {"all": _metrics(D, mods)} | {f"wk{int(w)}": _metrics(d, mods) for w, d in D.groupby("week")}
+    res["level_2026"] = lv
+    REFIT_JSON.write_text(json.dumps(res, indent=1, default=float))
+    write_refit_tables(res)
+    print(REFIT_TAB.read_text())
+
+
+def write_refit_tables(res):
+    f2 = lambda x: f"{x:+.2f}"
+    L = ["# nfl_simple_model REFIT tables (generated by `scripts/nfl_simple_model.py refit`)", "",
+         f"Live coefficients fit on {res['fit_seasons'][0]}-{res['fit_seasons'][-1]} with recency weight half-life "
+         f"{res['half_life']} seasons. {res['decision']}.", "",
+         "MAE/bias are model minus nflverse CLOSING line (data/nfl_games.parquet). RMSE is vs the actual outcome. "
+         "Accuracy only: no betting result is scored here.", "",
+         f"Closing lines joined per season: {res['n_close_joined']}", "",
+         "## Leave-one-season-out (modern fit) vs the legacy 2007-19 fit, on 2020-2025", "",
+         "| fit | season | n | model | spread MAE vs close | spread bias | total MAE vs close | total bias | "
+         "RMSE margin (close) | RMSE points (close) | share |gap|>=2 spr | share |gap|>=2.5 tot |",
+         "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for fit, key in (("modern LOSO", "loso_modern"), ("legacy 07-19", "legacy_on_2020_25")):
+        for s, r in res[key].items():
+            for m in ("A", "B", "C"):
+                x = r[m]
+                L.append(f"| {fit} | {s} | {r['n']} | {m} | {x['spread_mae_vs_close']:.2f} | {f2(x['spread_bias'])} | "
+                         f"{x['total_mae_vs_close']:.2f} | {f2(x['total_bias'])} | {x['spread_rmse_outcome']:.2f} "
+                         f"({r['close_rmse_margin']:.2f}) | {x['total_rmse_outcome']:.2f} ({r['close_rmse_points']:.2f}) | "
+                         f"{x['share_spread_gap_ge2']:.2f} | {x['share_total_gap_ge25']:.2f} |")
+    L += ["", "## 2026 LEVEL check (completed 2026 games, walk-forward features, actual starters; NOT a betting score)", "",
+          "| fit | slice | n | model | spread bias | spread MAE | total bias | total MAE | share |gap|>=2 spr | share |gap|>=2.5 tot |",
+          "|---|---|---|---|---|---|---|---|---|---|---|"]
+    for fit, d in res["level_2026"].items():
+        for sl, r in d.items():
+            for m in ("A", "B", "C"):
+                x = r[m]
+                L.append(f"| {fit} | {sl} | {r['n']} | {m} | {f2(x['spread_bias'])} | {x['spread_mae_vs_close']:.2f} | "
+                         f"{f2(x['total_bias'])} | {x['total_mae_vs_close']:.2f} | {x['share_spread_gap_ge2']:.2f} | "
+                         f"{x['share_total_gap_ge25']:.2f} |")
+    L += ["", f"## Coefficients, live fit {res['fit_seasons'][0]}-{res['fit_seasons'][-1]} (WLS, recency-weighted; "
+          "per_sd = coef x unweighted feature SD, in points)", ""]
+    for k, c in res["coefs"].items():
+        L += [f"### {k}  (n {c['n']}, weighted R2 {c['r2']:.3f}, unweighted RMSE {c['rmse']:.2f})", "", "| term | coef | se | p | pts per SD |",
+              "|---|---|---|---|---|"]
+        for t, v in c["terms"].items():
+            L.append(f"| const | {v['b']:+.3f} | | | |" if t == "const" else
+                     f"| {t} | {v['b']:+.3f} | {v['se']:.3f} | {v['p']:.3g} | {v['per_sd']:+.2f} |")
+        L.append("")
+    REFIT_TAB.write_text("\n".join(L))
+
+
 # ------------------------------------------------------------------------------------------- live week
-def run_week(refresh: bool, week: int | None):
+def _download(url: str, dst: Path):
     import requests
+    r = requests.get(url, timeout=300)
+    r.raise_for_status()
+    dst.write_bytes(r.content)
+
+
+def _espn_injuries(warn: list) -> dict:
+    """ESPN league injury report -> {espn_athlete_id: status}. Empty dict (and a warning) on failure."""
+    import re
+    import requests
+    try:
+        j = requests.get("https://site.api.espn.com/apis/site/v2/sports/football/nfl/injuries", timeout=60).json()
+    except Exception as e:      # noqa: BLE001
+        warn.append(f"ESPN injuries unavailable ({type(e).__name__}); QB statuses NOT checked")
+        return {}
+    out = {}
+    for t in j.get("injuries", []):
+        for i in t.get("injuries", []):
+            for ln in i.get("athlete", {}).get("links", []):
+                m = re.search(r"/id/(\d+)", ln.get("href", ""))
+                if m:
+                    out[m.group(1)] = (i.get("status"), pd.to_datetime(i.get("date"), utc=True))
+                    break
+    return out
+
+
+def live_starters(wk: pd.DataFrame, qb_known: set) -> dict:
+    """Projected starting QB per (game_id, side): nflverse depth chart (ESPN-sourced, latest snapshot before
+    kickoff), QB1 unless ESPN lists him Out/IR/Doubtful/Suspended -> next QB on the chart. Only ESPN entries
+    dated BEFORE kickoff are applied (so a finished game is rated as it looked pre-game). Cross-checked against the
+    nflverse schedule's QB (projected pre-game, actual starter once played; it can be stale, e.g. PHI 2026 wk7)."""
+    gw: list = []
+    inj = _espn_injuries(gw)
+    dc = pd.read_parquet(DEPTH) if DEPTH.exists() else pd.DataFrame()
+    if len(dc):
+        dc = dc[dc["pos_abb"] == "QB"].copy()
+        dc["team"] = dc["team"].replace(TEAM_MAP)
+        dc["dt"] = pd.to_datetime(dc["dt"], utc=True)
+    else:
+        gw.append("no depth chart file; using nflverse schedule starters")
+    now = pd.Timestamp.now(tz="UTC")
+    out = {}
+    for _, r in wk.iterrows():
+        ko = r["kickoff_utc"]
+        for side in ("home", "away"):
+            t, w = r[f"{side}_team"], []
+            sq, sn = r[f"{side}_qb_id"], r[f"{side}_qb_name"]
+            chosen = (sq if isinstance(sq, str) else None, sn)
+            if len(dc):
+                d = dc[(dc["team"] == t) & (dc["dt"] <= ko)]
+                if len(d):
+                    d = d[d["dt"] == d["dt"].max()].sort_values("pos_rank").drop_duplicates("gsis_id")
+                    cands = list(zip(d["gsis_id"], d["player_name"], d["espn_id"].astype(str)))
+                    pick = cands[0]
+                    for c in cands:
+                        st, sdt = inj.get(c[2], (None, None))
+                        if sdt is not None and sdt > ko:
+                            # ESPN keeps only the latest entry; one written after kickoff (post-game notes,
+                            # in-game injuries) says nothing about pre-game availability -> ignore it.
+                            if c == cands[0] and ko <= now:
+                                w.append(f"{t}: ESPN entry for {c[1]} updated after kickoff; pre-game status unknown")
+                            st = None
+                        if st in QB_OUT:
+                            w.append(f"{t} QB {c[1]} listed {st} (ESPN, {sdt:%m-%d %H:%MZ})")
+                            continue
+                        if st == "Questionable":
+                            w.append(f"{t} QB {c[1]} Questionable (ESPN)")
+                        pick = c
+                        break
+                    if pick != cands[0]:
+                        w.append(f"{t}: backup {pick[1]} rated instead of depth-chart QB1 {cands[0][1]}")
+                    chosen = (pick[0], pick[1])
+                    if isinstance(sq, str) and sq != pick[0]:
+                        w.append(f"{t}: depth chart QB {pick[1]} != nflverse schedule QB {sn}")
+                else:
+                    w.append(f"{t}: no depth-chart snapshot before kickoff; nflverse schedule QB used")
+            if chosen[0] is None:
+                w.append(f"{t}: no starter identified -> QB term 0")
+            elif chosen[0] not in qb_known:
+                w.append(f"{t}: {chosen[1]} has no dropbacks in pbp -> replacement-level prior")
+            out[(r["game_id"], side)] = (chosen[0], chosen[1], w)
+    return out, gw
+
+
+def run_week(refresh: bool, week: int | None, fit: str = "modern", as_json: bool = False):
     if refresh:
-        r = requests.get("https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.parquet", timeout=300)
-        r.raise_for_status()
-        (DATA / "pbp" / "play_by_play_2026.parquet").write_bytes(r.content)
-        r = requests.get("https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv", timeout=120)
-        r.raise_for_status()
-        (DATA / "nfl_schedule.csv").write_bytes(r.content)
-    LIVE = 2026
-    # coefficients: dev only (2007-2019)
-    g, _ = build_dev()
-    p = load_pbp([2025, LIVE])
+        _download(f"{NV}/pbp/play_by_play_{LIVE}.parquet", DATA / "pbp" / f"play_by_play_{LIVE}.parquet")
+        _download("https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv", DATA / "nfl_schedule.csv")
+        _download(f"{NV}/depth_charts/depth_charts_{LIVE}.parquet", DEPTH)
+    models, sel, wfn = fit_spec(fit)
+    p_all = load_pbp(ALL_FEAT)
     sched = load_schedule()
+    s26 = sched[sched["season"] == LIVE]
+    if week is None:
+        week = int(s26[s26["home_score"].isna()]["week"].min())
+    # coefficients: legacy = 2007-2019 (original dev fit); modern = 2020-2025 recency-weighted
+    g, _ = build_all(ALL_FEAT, FIRST_FIT)
+    train = sel(g)
+    # live features: only plays from games BEFORE the target week (pbp may already contain this week's games)
+    p = p_all[(p_all["season"] < LIVE) | (p_all["week"] < week)]
     tg = team_games(p)
     played = tg[tg["season"] == LIVE]["game_id"].unique()
     tf = team_features_live(tg, LIVE)
-    s26 = sched[sched["season"] == LIVE]
-    if week is None:
-        pend = s26[s26["home_score"].isna()]
-        week = int(pend["week"].min())
     wk = s26[s26["week"] == week].copy()
-    done = sched[sched["season"].isin([2025, LIVE]) & sched["home_score"].notna() & sched["game_id"].isin(set(tg["game_id"]))]
-    _, rate_fn = qb_features(qb_games(p), done, live_season=LIVE)
+    ko = load_closes()[["game_id", "start_utc"]]
+    wk = wk.merge(ko, on="game_id", how="left")
+    et = pd.to_datetime(wk["gameday"].dt.strftime("%Y-%m-%d") + " " + wk["gametime"].astype(str)).dt.tz_localize(
+        "America/New_York").dt.tz_convert("UTC")
+    wk["kickoff_utc"] = pd.to_datetime(wk["start_utc"], utc=True).fillna(et)
+    done = sched[sched["home_score"].notna() & sched["game_id"].isin(set(tg["game_id"]))]
+    qg = qb_games(p)
+    _, rate_fn = qb_features(qg, done, live_season=LIVE)
+    starters, gwarn = live_starters(wk, set(qg["id"]))
     rows = []
     for _, r in wk.iterrows():
         rec = r.to_dict()
@@ -629,32 +900,51 @@ def run_week(refresh: bool, week: int | None):
             for c in f.columns:
                 if c not in ("game_id", "team", "season", "week"):
                     rec[f"{side[0]}_{c}"] = float(f[c].iloc[0]) if len(f) else np.nan
-            q = r[f"{side}_qb_id"]
-            rq, b, last = rate_fn(q if isinstance(q, str) else None, t)
-            rec[f"{side[0]}_qb_adj"] = (rq - b) if isinstance(q, str) else 0.0
-            rec[f"{side[0]}_qbchg"] = int(isinstance(q, str) and last is not None and q != last)
-            rec[f"{side[0]}_qb"] = r[f"{side}_qb_name"]
+            q, qn, w = starters[(r["game_id"], side)]
+            rq, b, last = rate_fn(q, t)
+            rec[f"{side[0]}_qb_adj"] = (rq - b) if q is not None else 0.0
+            rec[f"{side[0]}_qbchg"] = int(q is not None and last is not None and q != last)
+            rec[f"{side[0]}_qb"] = qn
+            rec[f"{side[0]}_qb_rating"] = rq
+            rec[f"{side[0]}_warn"] = w
         rows.append(rec)
     W = pd.DataFrame(rows)
-    pts = sched[sched["season"] == 2025]
-    lg = float((pts["home_score"] + pts["away_score"]).mean())
-    # reuse assemble's arithmetic on the already-merged frame
-    W = _derive(W, lg)
-    out = W[["gameday", "away_team", "home_team", "a_qb", "h_qb", "qbchg", "spread_line", "total_line"]].copy()
-    for mname, (cs, ct) in MODELS.items():
-        ps, _, _ = fit_predict(g, W, cs, "margin", True)
-        pt, _, _ = fit_predict(g, W, ct, "points", False)
-        out[f"spr_{mname}"], out[f"tot_{mname}"] = np.round(ps, 1), np.round(pt, 1)
-    out["spr_gap_B"] = (out["spr_B"] - out["spread_line"]).round(1)
-    out["tot_gap_B"] = (out["tot_B"] - out["total_line"]).round(1)
+    pts = sched[sched["season"] == LIVE - 1]
+    W = _derive(W, float((pts["home_score"] + pts["away_score"]).mean()))
+    pr, _ = predict_all(models, train, W, wfn)
+    ps_m, pt_m = LIVE_PICK[fit]
+    out = W[["game_id", "kickoff_utc", "away_team", "home_team", "a_qb", "h_qb", "qbchg", "spread_line", "total_line"]].copy()
+    for k, v in pr.items():
+        out[k] = np.round(v, 1)
+    out["spr_gap"] = (out[f"spread_{ps_m}"] - out["spread_line"]).round(1)
+    out["tot_gap"] = (out[f"total_{pt_m}"] - out["total_line"]).round(1)
+    if as_json:
+        js = []
+        for (_, o), (_, w) in zip(out.iterrows(), W.iterrows()):
+            js.append(dict(game_id=o["game_id"], kickoff_utc=o["kickoff_utc"].strftime("%Y-%m-%dT%H:%MZ"),
+                           home=o["home_team"], away=o["away_team"],
+                           model_spread_home=float(o[f"spread_{ps_m}"]), model_total=float(o[f"total_{pt_m}"]),
+                           qb_home=o["h_qb"], qb_away=o["a_qb"], warnings=list(w["h_warn"]) + list(w["a_warn"]) + gwarn,
+                           fit=fit, spread_model=ps_m, total_model=pt_m,
+                           market_spread_line=None if pd.isna(o["spread_line"]) else float(o["spread_line"]),
+                           market_total_line=None if pd.isna(o["total_line"]) else float(o["total_line"])))
+        print(json.dumps(js, indent=1))
+        return
     pd.set_option("display.width", 250)
-    print(f"NFL {LIVE} week {week}: model home margin (spr_*) and total (tot_*); spread_line = nflverse current "
-          f"line (home favoured +). Features from {len(played)} games played so far; coefficients fit on dev 2007-2019.")
-    print("Model B is the proposed forward model. LIVE PREDICTION ONLY -- not a scored result.")
-    print(out.to_string(index=False))
-    flag = out[(out["spr_gap_B"].abs() >= SPREAD_T) | (out["tot_gap_B"].abs() >= TOTAL_T)]
-    print(f"\nGames where model B differs from the current line by >= {SPREAD_T} (spread) or >= {TOTAL_T} (total): "
-          f"{len(flag)} (paper only; the rule is defined vs the OPENER, which this table does not have)")
+    fit_txt = "2007-2019 (legacy dev fit)" if fit == "legacy" else f"2020-2025, recency half-life {HALF_LIFE} seasons"
+    print(f"NFL {LIVE} week {week}: model home margin (spread_*, + = home favoured, nflverse sign) and total (total_*). "
+          f"Features from {len(played)} {LIVE} games before week {week}; coefficients fit on {fit_txt}.")
+    print(f"Live picks: spread model {ps_m}, total model {pt_m}. LIVE PREDICTION ONLY -- not a scored result.")
+    print(out.drop(columns=["game_id"]).assign(kickoff_utc=out["kickoff_utc"].dt.strftime("%m-%d %H:%M")).to_string(index=False))
+    print(f"\nmean gap vs current line: spread {out['spr_gap'].mean():+.2f}, total {out['tot_gap'].mean():+.2f}")
+    print(f"|spread gap| >= {SPREAD_T}: {int((out['spr_gap'].abs() >= SPREAD_T).sum())}/{len(out)};  "
+          f"|total gap| >= {TOTAL_T}: {int((out['tot_gap'].abs() >= TOTAL_T).sum())}/{len(out)}  "
+          f"(paper only; the forward rule is defined vs the OPENER)")
+    for _, w in W.iterrows():
+        for x in list(w["h_warn"]) + list(w["a_warn"]):
+            print("  warn:", x)
+    for x in gwarn:
+        print("  warn:", x)
 
 
 def _derive(g: pd.DataFrame, lg_pts: float) -> pd.DataFrame:
@@ -688,8 +978,12 @@ if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "dev"
     if cmd == "dev":
         run_dev("--ledger" in sys.argv)
+    elif cmd == "refit":
+        run_refit()
     elif cmd == "week":
         wk = int(sys.argv[sys.argv.index("--week") + 1]) if "--week" in sys.argv else None
-        run_week("--refresh" in sys.argv, wk)
+        fit = sys.argv[sys.argv.index("--fit") + 1] if "--fit" in sys.argv else "modern"
+        assert fit in ("modern", "legacy"), fit
+        run_week("--refresh" in sys.argv, wk, fit, "--json" in sys.argv)
     else:
         print(__doc__)
