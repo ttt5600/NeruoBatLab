@@ -153,6 +153,12 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
   +6.6% p .014). QB-change weeks spread CLV +1.15. Matchup interactions all null. Live `week` output disagrees with
   current lines on 11/14 (fit on 2007-19; totals 3.1 under) -> do NOT bet live output until refit; sealed 2020-25 on yes.
 
+- **L34 NHL simple model vs OPENER** (scripts/nhl_simple_model.py, notes/nhl_simple_model.md; ESPN BET opener, dev
+  2023-24/2024-25, 8 trials bar .00625): ridge + starting-goalie GSAA + b2b + shots/PP/sh% -> Poisson. CLV passes (ML
+  +1.04 prob pts, totals +0.073 implied goals, p<1/4000, both seasons, not blind drift) but NO money: ML -1.1% offered,
+  totals +7.1% no-vig p .0125 (fails; ~half is a blind 6.5-under lean) / +2.6% offered; close-implied EV at open -1.8%.
+  Goalie-change games CLV +1.23 vs +0.98, ROI ns. DEAD as a bet at ESPN BET (4% overround). No sealed ask.
+
 - **NFL leads vs OPENER (loop 1, notes/nfl_leads_open.md, scripts/nfl_leads_open.py, dev 2010-19, 10 trials bar .005):**
   bad-D x bad-D unders DEAD (214 bets, CLV -0.16, -7.7% at open, both halves negative; market raises these totals).
   Offence-EPA: margin slope vs open +0.98 pts/SD p .0003 (real) but rule |z|>=1 994 bets 51.5%, -1.6% at -110 -> NO BET;

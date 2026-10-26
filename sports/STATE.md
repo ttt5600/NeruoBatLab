@@ -18,6 +18,9 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-25h loop 4: L34 NHL simple model vs opener: CLV passes (ML +1.04 pts, totals +0.073 goals, p<1/4000) but no ROI trial passes at
+  ESPN BET's ~4% vig (totals no-vig +7.1% p .0125). PATTERN across NBA/NFL/NHL: simple models lead openers, vig eats it ->
+  the money question is EXECUTION at low vig (Kalshi maker on early markets). Next: extend open-totals logger to NHL/NFL.
 - 10-25g loop 3: L6b ref-crew FT -> player points props DEAD (overs -8.1%/2,174; market moves lines toward crew; prop vig 6.9%). notes/nba_ref_ft_props.md
 - 10-25f loop 2: L26 weather lock-in DEAD (below-max NO already $1.00 99.8%; above-max 460 bets -8.3%; traders see 1-5 min obs). notes/wx_lockin.md
 - 10-25e loop 1: NFL bad-D unders DEAD vs opener; offence-EPA slope real but no bet (-1.6%). L28 logger building.
