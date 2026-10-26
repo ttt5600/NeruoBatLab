@@ -110,3 +110,28 @@ than ESPN.
   ledger run). Two truncated pbp feeds: outcomes come from the official final score.
 - Entry lag median ~150 s after the event (rule: candle starts >= 60 s after). A faster bettor would see a slightly
   different price, but the earlier test showed Kalshi reprices within about a minute.
+
+## L28 sealed pre-registration (2026-10-26; user: "yes one shot tests")
+Script: `scripts/nba_l28_sealed.py` (full pre-registration in its docstring; sha256 at writing 2c1d536f54ccc0a7...). Not yet run.
+- **Rule (= forward logger L28):** state = last ESPN play with wallclock <= candle end - 60 s. Trigger = the market's team
+  leads by >= 25 in Q3, or by >= 20 in Q4 with > 6:00 left (no OT). Buy leader YES at the candle close ask if bid > 0,
+  ask < 1, spread <= 5c and ask <= 0.96. First such candle per game, 1 contract, hold. Fee 0.07 p(1-p) exact; the
+  rounded-up 1c fee is a sensitivity check. Settled on the Kalshi result, cross-checked against the ESPN final.
+- **Sealed window:** data/nba_ingame.parquet games dated **>= 2026-01-15** only (713 games: 626 regular, 6 play-in,
+  81 playoffs). The 590 games dated 2025-10-21 .. 2026-01-14 are left out because nba_ingame.py and nba_late_wp.py
+  already used them as DEV.
+- **Pass rule:** ROI > 0, game bootstrap p < .05 (10k, seed 0, one-sided), AND exact Poisson-binomial p < .05 against
+  each bet's break-even. Without the exact check, the bootstrap passes any sample with zero losses.
+- **Secondary:** win rate vs mean break-even. Trigger games with no trade, split into ask > 0.96 and no tight quote.
+  Splits by arm (Q3 / Q4) and by season type. Every loss is listed.
+- **Power:** expect about 50 bets (713 x 0.329 trigger share x 0.214 buyable share, all from dev). Treat this number as
+  rough. At that n, only a season with **zero losses** can pass, and only if mean break-even <= ~0.94. Power is
+  5-22% for a true edge of 0-3 pts. A FAIL is weak evidence.
+- **Known leak:** the 2025-26 comeback rates computed from scores alone (20+ blown 3.6%, 25+ 0.8%) were already shown
+  above, so we already know this was a low-comeback season. That favours a pass. Prices were never joined.
+- **Dev check (2025 play-in + playoffs, 86 games):** 28 trigger games, 6 bets, 5-1. The loss was MEM, up 26 at the
+  start of Q3 at 89c, against OKC (the real 29-point comeback). Units -0.645, ROI -11.4%, boot p .67, exact p .96 ->
+  FAIL. The other 22 trigger games had no trade, all because the ask was > 0.96 (first-trigger ask 0.97-1.00). Those
+  leaders won 22/22. Kalshi result agreed with ESPN in 6/6. Median entry lag 73 s.
+- Run: `../.venv_quant/bin/python scripts/nba_l28_sealed.py sealed --confirm-lockbox` (from sports/). It aborts if
+  results/nba_l28_sealed.json or a lockbox row nba_L28_biglead exists.

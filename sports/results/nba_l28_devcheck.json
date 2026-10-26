@@ -1,0 +1,100 @@
+{
+ "ts": "2026-10-26T07:44:36+00:00",
+ "dev": {
+  "games_with_candles_and_state": 86,
+  "trigger_games": 28,
+  "bets": 6,
+  "wins": 5,
+  "losses": 1,
+  "win_rate": 0.8333333333333334,
+  "mean_ask": 0.9366666666666666,
+  "mean_fee": 0.0041090000000000015,
+  "mean_breakeven": 0.9407756666666667,
+  "units": -0.644654,
+  "pnl_per_contract": -0.10744233333333332,
+  "staked": 5.644654,
+  "roi": -0.11420611431630706,
+  "boot_p": 0.6692,
+  "units_ci_lo": -2.559883,
+  "units_ci_hi": 0.355206,
+  "exact_p_vs_breakeven": 0.9561595701079633,
+  "rounded_fee": {
+   "units": -0.6799999999999999,
+   "roi": -0.11971830985915492,
+   "boot_p": 0.6692,
+   "exact_p": 0.9642485789999999
+  },
+  "passed": false,
+  "by_arm": {
+   "Q3_lead25": {
+    "n": 5,
+    "wins": 4,
+    "units": -0.7195019999999999,
+    "mean_ask": 0.9399999999999998
+   },
+   "Q4_lead20_gt6min": {
+    "n": 1,
+    "wins": 1,
+    "units": 0.07484799999999996,
+    "mean_ask": 0.92
+   }
+  },
+  "by_stype": {
+   "-1": {
+    "n": 6,
+    "wins": 5,
+    "units": -0.644654
+   }
+  },
+  "lag_s_median": 73.0,
+  "settle_kalshi_vs_espn_mismatch": 0,
+  "settle_kalshi_missing": 0,
+  "loss_list": [
+   {
+    "eid": "401767904",
+    "date": "2025-04-24",
+    "side": "home",
+    "period": "3",
+    "clock_s": "720.0",
+    "lead": "26",
+    "ask": "0.89"
+   }
+  ],
+  "no_trade_games": 22,
+  "no_trade_ask_gt_096": 22,
+  "no_trade_no_tight_quote_only": 0,
+  "no_trade_first_trigger_ask_counts": {
+   "0.97": 4,
+   "0.98": 7,
+   "0.99": 5,
+   "1.00": 6
+  },
+  "no_trade_leader_win_rate": 1.0,
+  "games_in_window": 86,
+  "games_excluded_no_pbp": 0
+ },
+ "power": {
+  "dev_2024_25_share_games_reaching_trigger": 0.3285389856169568,
+  "dev_share_trigger_games_buyable": 0.21428571428571427,
+  "expected_sealed_bets": 50.19606358819075,
+  "assumed_breakeven": 0.9407756666666667,
+  "max_losses_for_exact_pass": 0,
+  "power_true_winrate_breakeven_plus_0pt": 0.046,
+  "power_true_winrate_breakeven_plus_1pt": 0.0855,
+  "power_true_winrate_breakeven_plus_2pt": 0.134,
+  "power_true_winrate_breakeven_plus_3pt": 0.221,
+  "min_bets_for_zero_loss_exact_pass": {
+   "0.94": 49,
+   "0.95": 59,
+   "0.96": 74,
+   "0.97": 99
+  },
+  "bootstrap_only_false_pass_prob_H0": {
+   "0.94": 0.045,
+   "0.95": 0.077,
+   "0.96": 0.13,
+   "0.97": 0.218
+  }
+ },
+ "sealed_games_in_window_count_only": 713
+}
