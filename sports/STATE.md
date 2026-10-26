@@ -18,6 +18,10 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-26 MANUAL BETS (user-authorized $25 Kalshi bonus; scripts/manual_bets.py, post-only maker, expire at start, cap $25): resting
+  DET@EDM U6.5 NO@.45x4, TOR@CGY U6.5 NO@.46x4, DAL@PHI PHI+4.5 NO@.50x4 ($5.64). NBA orders REJECTED: "insufficient_shard_balance"
+  (NBA markets on a separate Kalshi shard; account not set up there) -> user places NBA on phone. Sheets: notes/tonight_nba_2026-10-26.md,
+  notes/tonight_mnf_nhl_2026-10-26.md; scripts/nba_tonight_sheet.py re-runnable.
 - 10-26 L37 SEALED FAIL: 477 bets -3.9c/contract (ROI -7.3%, p .97); leader -3.2c, trailer -5.3c; Kalshi Brier .1284 beats model
   .1319 -> in-game Kalshi is SHARPER than our mid-game model; model edges >= 5c are adverse selection. Descriptive (sealed, can't be
   a trial): Kalshi trailer mids run ~1.5c above realised in 0-15c bins (longshot bias) -> forward-only idea. L37 logger kept as a
