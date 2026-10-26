@@ -1,0 +1,315 @@
+{
+ "trial": "L37",
+ "built": "2026-10-26T07:41:07+00:00",
+ "data": "data/nba_comebacks/states.parquet seasons 2015-16..2024-25 (regular + playoffs)",
+ "features": "[1, d/sqrt(tau), s*sqrt(tau), d, s, tau, (d/sqrt(tau))^2]; d deficit, s trailer pregame expected margin, tau = (2880-el)/2880; probit; fit el 600..2640, d 1..35",
+ "coef": [
+  -0.04233891647125616,
+  -0.051495622177727,
+  0.0692607448401779,
+  0.006927273331319496,
+  0.013340971446581633,
+  0.06377182272496619,
+  -6.273710708813229e-05
+ ],
+ "n_states": 426961,
+ "n_games": 12737,
+ "coef_le2023": [
+  -0.038494867003047106,
+  -0.0524920612713745,
+  0.06942880140017645,
+  0.008032845075164182,
+  0.013243602102968353,
+  0.05558132290573326,
+  -6.248762356275482e-05
+ ],
+ "pregame_sigma": 12.18676334018122,
+ "oos": {
+  "fit": "<= 2023-24",
+  "test": "2024-25, window el 720..2520, deficit 6..25",
+  "states": 24539,
+  "games": 1303,
+  "logloss_model": 0.3753498611864129,
+  "logloss_no_spread": 0.4164150939431197,
+  "brier_model": 0.11811729911240486,
+  "brier_no_spread": 0.1315636477199538,
+  "mean_model": 0.16337217285669978,
+  "mean_realised": 0.17225640816659196,
+  "calibration": [
+   {
+    "bin": "(-0.001, 0.02]",
+    "states": 3549,
+    "games": 594,
+    "model": 0.008,
+    "realised": 0.0138,
+    "realised_1pg": 0.0236,
+    "ci_1pg": [
+     0.0141,
+     0.0392
+    ]
+   },
+   {
+    "bin": "(0.02, 0.05]",
+    "states": 3150,
+    "games": 754,
+    "model": 0.0346,
+    "realised": 0.0302,
+    "realised_1pg": 0.0371,
+    "ci_1pg": [
+     0.0258,
+     0.0531
+    ]
+   },
+   {
+    "bin": "(0.05, 0.1]",
+    "states": 4342,
+    "games": 919,
+    "model": 0.0743,
+    "realised": 0.0818,
+    "realised_1pg": 0.0805,
+    "ci_1pg": [
+     0.0646,
+     0.0999
+    ]
+   },
+   {
+    "bin": "(0.1, 0.15]",
+    "states": 3311,
+    "games": 893,
+    "model": 0.1239,
+    "realised": 0.1329,
+    "realised_1pg": 0.1321,
+    "ci_1pg": [
+     0.1115,
+     0.1559
+    ]
+   },
+   {
+    "bin": "(0.15, 0.2]",
+    "states": 2579,
+    "games": 776,
+    "model": 0.174,
+    "realised": 0.185,
+    "realised_1pg": 0.1959,
+    "ci_1pg": [
+     0.1695,
+     0.2253
+    ]
+   },
+   {
+    "bin": "(0.2, 0.3]",
+    "states": 3142,
+    "games": 732,
+    "model": 0.2443,
+    "realised": 0.2607,
+    "realised_1pg": 0.2664,
+    "ci_1pg": [
+     0.2356,
+     0.2996
+    ]
+   },
+   {
+    "bin": "(0.3, 0.4]",
+    "states": 2040,
+    "games": 517,
+    "model": 0.3486,
+    "realised": 0.3814,
+    "realised_1pg": 0.3733,
+    "ci_1pg": [
+     0.3327,
+     0.4158
+    ]
+   },
+   {
+    "bin": "(0.4, 0.5]",
+    "states": 1452,
+    "games": 407,
+    "model": 0.4448,
+    "realised": 0.4421,
+    "realised_1pg": 0.4521,
+    "ci_1pg": [
+     0.4044,
+     0.5007
+    ]
+   },
+   {
+    "bin": "(0.5, 0.6]",
+    "states": 670,
+    "games": 211,
+    "model": 0.5409,
+    "realised": 0.506,
+    "realised_1pg": 0.5355,
+    "ci_1pg": [
+     0.4682,
+     0.6016
+    ]
+   },
+   {
+    "bin": "(0.6, 1.0]",
+    "states": 304,
+    "games": 92,
+    "model": 0.6658,
+    "realised": 0.7664,
+    "realised_1pg": 0.6848,
+    "ci_1pg": [
+     0.5841,
+     0.7707
+    ]
+   }
+  ],
+  "by_period_deficit": [
+   {
+    "period": 2,
+    "deficit": "(5, 10]",
+    "states": 4584,
+    "games": 1088,
+    "model": 0.3019,
+    "realised": 0.3196,
+    "ci_1pg": [
+     0.3063,
+     0.3622
+    ]
+   },
+   {
+    "period": 2,
+    "deficit": "(10, 15]",
+    "states": 2853,
+    "games": 750,
+    "model": 0.1913,
+    "realised": 0.2054,
+    "ci_1pg": [
+     0.1931,
+     0.2524
+    ]
+   },
+   {
+    "period": 2,
+    "deficit": "(15, 20]",
+    "states": 1288,
+    "games": 370,
+    "model": 0.1071,
+    "realised": 0.1033,
+    "ci_1pg": [
+     0.1064,
+     0.1767
+    ]
+   },
+   {
+    "period": 2,
+    "deficit": "(20, 25]",
+    "states": 439,
+    "games": 160,
+    "model": 0.06,
+    "realised": 0.0478,
+    "ci_1pg": [
+     0.0256,
+     0.0956
+    ]
+   },
+   {
+    "period": 3,
+    "deficit": "(5, 10]",
+    "states": 3960,
+    "games": 959,
+    "model": 0.243,
+    "realised": 0.2543,
+    "ci_1pg": [
+     0.2399,
+     0.2958
+    ]
+   },
+   {
+    "period": 3,
+    "deficit": "(10, 15]",
+    "states": 2893,
+    "games": 768,
+    "model": 0.1286,
+    "realised": 0.1324,
+    "ci_1pg": [
+     0.1238,
+     0.1739
+    ]
+   },
+   {
+    "period": 3,
+    "deficit": "(15, 20]",
+    "states": 1876,
+    "games": 505,
+    "model": 0.0591,
+    "realised": 0.0645,
+    "ci_1pg": [
+     0.0536,
+     0.0994
+    ]
+   },
+   {
+    "period": 3,
+    "deficit": "(20, 25]",
+    "states": 997,
+    "games": 300,
+    "model": 0.0238,
+    "realised": 0.0351,
+    "ci_1pg": [
+     0.0159,
+     0.056
+    ]
+   },
+   {
+    "period": 4,
+    "deficit": "(5, 10]",
+    "states": 2068,
+    "games": 712,
+    "model": 0.1636,
+    "realised": 0.1717,
+    "ci_1pg": [
+     0.1691,
+     0.2274
+    ]
+   },
+   {
+    "period": 4,
+    "deficit": "(10, 15]",
+    "states": 1632,
+    "games": 576,
+    "model": 0.0546,
+    "realised": 0.0533,
+    "ci_1pg": [
+     0.0484,
+     0.0893
+    ]
+   },
+   {
+    "period": 4,
+    "deficit": "(15, 20]",
+    "states": 1164,
+    "games": 394,
+    "model": 0.0142,
+    "realised": 0.0241,
+    "ci_1pg": [
+     0.0157,
+     0.0493
+    ]
+   },
+   {
+    "period": 4,
+    "deficit": "(20, 25]",
+    "states": 785,
+    "games": 272,
+    "model": 0.0024,
+    "realised": 0.0076,
+    "ci_1pg": [
+     0.0057,
+     0.0372
+    ]
+   }
+  ],
+  "empirical_vs_model_1pgpp": {
+   "n": 3530,
+   "mean_emp": 0.2192339536710871,
+   "mean_model": 0.2104921516926561,
+   "realised": 0.2206798866855524,
+   "logloss_emp": 0.43885350204216694,
+   "logloss_model": 0.43942249659804417
+  }
+ }
+}
