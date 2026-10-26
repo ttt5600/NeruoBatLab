@@ -1,0 +1,193 @@
+{
+ "ts": "2026-10-26T07:48:04+00:00",
+ "strategy": "nba_L37_midgame",
+ "sha": "c16d1e2b1d84",
+ "dataset": "nba_midgame",
+ "status": "done",
+ "window": ">= 2026-01-15",
+ "data_hashes": {
+  "nba_ingame.parquet": "a687ae52454539016a65d20642a4ae95b4d394518ac650d6e8c86ee1ebc76710",
+  "nba_big_lead_plays.parquet": "b4294b69dffdc314d03c2ede278c9fbbfbca8d4006193138e0b7fde869843975",
+  "nba_big_lead_meta.parquet": "a812daaa2e35f16599e804eb380f7264ad8386b5238511ed54c2696dad9a2dc4",
+  "nba_games.parquet": "d9f1493607d1107247d65a1475486c11d2503d026bbadb776cacf6538ad1f0c7",
+  "nba_midgame_scan.py": "ef242e3d5782546ff3037c339851acf5538719c3b940097acdbea883b6e1de50",
+  "nba_midgame_fit.json": "9b5fec9325be36a76072d130b3cd1fa017be4ec3843df1ff2dadb3ebe06ed7dd",
+  "nba_midgame_states.parquet": "64defe54510a8e22a27623fa440707044ad08dbb0f8f45dd9edaf566e9a80105",
+  "nba_l37_sealed.py": "e7b1a8368ef73048741fa54e1aca74cb34b91f1b79f066716989482e8a9c294e"
+ },
+ "games_with_state": 713,
+ "games_in_window": 711,
+ "games_in_window_no_spread": 0,
+ "window_candles": 40617,
+ "calibration": {
+  "table": [
+   {
+    "trailer_mid": "(-0.001, 0.05]",
+    "games": 461,
+    "mean_mid": 0.0405,
+    "mean_model": 0.056,
+    "realised": 0.0239,
+    "ci95": [
+     0.0134,
+     0.0422
+    ]
+   },
+   {
+    "trailer_mid": "(0.05, 0.1]",
+    "games": 529,
+    "mean_mid": 0.0818,
+    "mean_model": 0.1037,
+    "realised": 0.0681,
+    "ci95": [
+     0.0496,
+     0.0928
+    ]
+   },
+   {
+    "trailer_mid": "(0.1, 0.15]",
+    "games": 507,
+    "mean_mid": 0.1285,
+    "mean_model": 0.1444,
+    "realised": 0.1144,
+    "ci95": [
+     0.0895,
+     0.1451
+    ]
+   },
+   {
+    "trailer_mid": "(0.15, 0.2]",
+    "games": 472,
+    "mean_mid": 0.1775,
+    "mean_model": 0.1877,
+    "realised": 0.1653,
+    "ci95": [
+     0.1345,
+     0.2014
+    ]
+   },
+   {
+    "trailer_mid": "(0.2, 0.3]",
+    "games": 434,
+    "mean_mid": 0.2525,
+    "mean_model": 0.2516,
+    "realised": 0.2304,
+    "ci95": [
+     0.1933,
+     0.2723
+    ]
+   },
+   {
+    "trailer_mid": "(0.3, 0.4]",
+    "games": 298,
+    "mean_mid": 0.3496,
+    "mean_model": 0.3378,
+    "realised": 0.3221,
+    "ci95": [
+     0.2716,
+     0.3772
+    ]
+   },
+   {
+    "trailer_mid": "(0.4, 0.5]",
+    "games": 230,
+    "mean_mid": 0.4472,
+    "mean_model": 0.424,
+    "realised": 0.4304,
+    "ci95": [
+     0.3681,
+     0.4951
+    ]
+   },
+   {
+    "trailer_mid": "(0.5, 1.0]",
+    "games": 170,
+    "mean_mid": 0.5952,
+    "mean_model": 0.5518,
+    "realised": 0.6412,
+    "ci95": [
+     0.5667,
+     0.7094
+    ]
+   }
+  ],
+  "rows": 3101,
+  "games": 708,
+  "brier_kalshi_mid": 0.12844089003547243,
+  "brier_model": 0.131885645671015,
+  "median_abs_mid_minus_model": 0.01636658626967813
+ },
+ "entries": 477,
+ "wins": 234,
+ "pnl_per_contract": -0.038614974842767304,
+ "boot_p": 0.974,
+ "ci_lo": -0.07704386247379455,
+ "ci_hi": 0.00033740560796642117,
+ "units": -18.419343000000005,
+ "staked": 252.41934299999997,
+ "roi_per_dollar": -0.07297120252785068,
+ "win_rate": 0.49056603773584906,
+ "mean_model": 0.6005603806914174,
+ "mean_ask": 0.5155765199161426,
+ "mean_edge": 0.07137945492662474,
+ "passed": false,
+ "rounded_fee": {
+  "pnl_per_contract": -0.04339622641509436,
+  "boot_p": 0.9854
+ },
+ "by_side": {
+  "leader": {
+   "n": 336,
+   "wins": 205,
+   "pnl_per_contract": -0.03246787797619048,
+   "boot_p": 0.9125,
+   "mean_model": 0.7138152327792027,
+   "mean_ask": 0.6283035714285715,
+   "win_rate": 0.6101190476190477
+  },
+  "trailer": {
+   "n": 141,
+   "wins": 29,
+   "pnl_per_contract": -0.05326337588652483,
+   "boot_p": 0.9456,
+   "mean_model": 0.3306764778439289,
+   "mean_ask": 0.24695035460992903,
+   "win_rate": 0.20567375886524822
+  }
+ },
+ "by_period": {
+  "2": {
+   "n": 282,
+   "wins": 139,
+   "pnl_per_contract": -0.039173124113475184
+  },
+  "3": {
+   "n": 158,
+   "wins": 73,
+   "pnl_per_contract": -0.04798794936708862
+  },
+  "4": {
+   "n": 37,
+   "wins": 22,
+   "pnl_per_contract": 0.005664162162162163
+  }
+ },
+ "by_stype": {
+  "2": {
+   "n": 408,
+   "pnl_per_contract": -0.040707264705882366
+  },
+  "3": {
+   "n": 64,
+   "pnl_per_contract": -0.031485906250000015
+  },
+  "5": {
+   "n": 5,
+   "pnl_per_contract": 0.04086379999999999
+  }
+ },
+ "lag_s_median": 70.0,
+ "settle_kalshi_vs_espn_mismatch": 0,
+ "settle_kalshi_missing": 0,
+ "games_candles": 713,
+ "games_excluded_no_pbp": 0
+}

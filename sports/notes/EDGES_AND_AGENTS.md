@@ -175,6 +175,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 - **L28 NBA big-lead buy: SEALED FAIL 2026-10-26** (results/nba_l28_sealed.json): 15 bets 13-2, -8.6%; 253 trigger games never <= .96 (99.6% wins); cheap leaders = adverse selection. DEAD.
 - **L37 NBA mid-game comeback rule** (scripts/nba_midgame_scan.py, frozen 2c29645): forward paper live; sealed prep in progress (user yes).
 
+- **L37 NBA mid-game comeback rule: SEALED FAIL 2026-10-26** (results/nba_l37_sealed.json): 477 bets -3.9c/contract p .97; Kalshi in-game sharper than model (Brier .1284 vs .1319). Descriptive: trailer longshot bias ~1.5c in 0-15c bins -> forward-only L38 candidate (fade trailing longshots), fee-limited.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |

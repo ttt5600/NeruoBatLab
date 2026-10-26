@@ -18,6 +18,10 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-26 L37 SEALED FAIL: 477 bets -3.9c/contract (ROI -7.3%, p .97); leader -3.2c, trailer -5.3c; Kalshi Brier .1284 beats model
+  .1319 -> in-game Kalshi is SHARPER than our mid-game model; model edges >= 5c are adverse selection. Descriptive (sealed, can't be
+  a trial): Kalshi trailer mids run ~1.5c above realised in 0-15c bins (longshot bias) -> forward-only idea. L37 logger kept as a
+  calibration recorder. NBA open-totals logger: BC (bias-corrected) variant pre-registered + redeployed. notes/MODELS_GUIDE.md written.
 - 10-26 L28 SEALED FAIL (user "yes one shot tests"): 15 bets 13-2, ROI -8.6%, boot p .88, exact p .96 (window 2026-01-15+). 253/268
   trigger games never offered ask <= .96 (leaders won 99.6%); the cheap ones won 87% -> ADVERSE SELECTION: a cheap leader means the
   market knows something. L28 forward logger UNLOADED (dead). L37 mid-game scanner deployed (launchd com.jonathanwang.quant-nba-midgame,
