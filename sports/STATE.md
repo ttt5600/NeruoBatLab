@@ -18,7 +18,8 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
-- Next: build L28 + L31 forward-paper loggers; fold paint-D into L2 model; ask user re sealed 2025-26 for L30/L31.
+- 10-25b simple models: L32 NBA totals vs opener +8.7% no-vig dev (p .001, fails ledger bar; sealed ask), L33 NFL leads opener CLV, no money.
+- Next: build L28 + L31 forward-paper loggers; first-posted-totals logger for L32; fold paint-D into L2 model; ask user re sealed 2025-26 for L30/L31.
 
 ## UPDATE 2026-10-23 (user "yes M3 and yes MAKER")
 - SEALED M3 FAIL (+0.45%/2,674 p .22). SEALED MAKER PASS (ROI +1.07% -> +2.22%, +30.6u, p<.001) = E4 in the registry.

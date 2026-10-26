@@ -132,6 +132,19 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
   **L31 P-TOT3** season 3P% (own/allowed) -> unders, bigger spreads -> overs; walk-forward 1,417 bets 53.6% ROI +2.3%
   (chosen post hoc, not sig) -> forward paper; sealed 2025-26 only on user's yes. Timeout-after-run = 0 (naive -0.92 was selection).
 
+### NEW 2026-10-25b: SIMPLE player+style models (user: "simple model, players, playing style; not xgboost")
+- **L32 NBA totals vs OPENER** (scripts/nba_simple_model.py, notes/nba_simple_model.md; dev 2023-24/2024-25, 8 trials):
+  team ridge + player value (box-regressed +/-) x projected minutes + 5 style terms. Model >= 3 pts off opening total:
+  1,190 bets 55.5%, no-vig ROI +8.7% [+3.1,+14.3] p .001, both seasons + both opener books (DK/ESPN BET). Fails
+  whole-ledger bar (.00024); vs CLOSE only 52.4% -> stale-opener edge. Expect ~+3-4% true. SEALED ASK: frozen rule
+  once on 2025-26 (results/nba_simple_model_frozen.json) -- needs user yes; ~25% power. FORWARD: log first-posted totals.
+  Spreads: CLV +0.79 pts vs open (p<1/4000) but 52.1% ATS -> same as O1, no money. Absences: CLV +1.75 vs +1.03.
+  Style: paint-D -1.1 pts/SD sides; 3P% for/against -1.9/-2.3 totals; pace/ORB/TOV/3PA volume = 0.
+- **L33 NFL simple model** (scripts/nfl_simple_model.py, notes/nfl_simple_model.md; SBR openers 2007-19, 14 trials):
+  pass/run EPA + QB + style OLS. CLV vs open spread +0.76 / total +0.81 pts (6/6 pass); ROI at -110 none pass (totals C
+  +6.6% p .014). QB-change weeks spread CLV +1.15. Matchup interactions all null. Live `week` output disagrees with
+  current lines on 11/14 (fit on 2007-19; totals 3.1 under) -> do NOT bet live output until refit; sealed 2020-25 on yes.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
