@@ -23,6 +23,10 @@ PRE-REGISTERED 2026-10-25 (before the first tick):
   GRADING    = vs the OPEN line (push on exact integer); ROI at no-vig open, at -110, at Kalshi taker (when quoted).
   FIRST RUN  = games already listed at the logger's first tick are marked pre-existing and never picked.
   CLV        = last Pinnacle main total seen before tip minus OPEN line, signed in the bet's direction (points).
+  BC VARIANT = (added 2026-10-26, before any real pick; MODELS_GUIDE.md: the totals model runs ~+2.3 pts above the close
+               on dev, post-hoc bias-corrected +7.2% no-vig) bias = mean(model - last pre-tip Pinnacle total) over the
+               most recent 50 started games this logger decided (needs >= 30); BC pick when |model - bias - OPEN| >= 3.0;
+               graded/priced exactly like the main rule; logged as type pick_bc / settle_bc; judged separately.
   JUDGE      = after 200 settled picks: CLV > 0 (one-sided p < .05) is the leading indicator; kill if mean CLV <= 0
                after 100 picks. ROI needs ~1,000+ picks to say anything (55% vs 52.4% break-even).
 Files: data/open_totals_state.json (per-game state), data/open_totals_picks.jsonl (picks + settlements).
@@ -47,6 +51,16 @@ from sports.live import KALSHI, _get, am_to_dec, devig, kalshi_fee
 STATE = ROOT / "data" / "open_totals_state.json"
 PICKS = ROOT / "data" / "open_totals_picks.jsonl"
 GAP = 3.0
+BC_MIN_N = 30   # BC variant needs >= 30 earlier decided games with a pre-tip close to estimate the level bias
+BC_WINDOW = 50  # most recent games used for the bias
+
+
+def level_bias(st: dict, t: pd.Timestamp) -> tuple[float | None, int]:
+    """Mean (model - last pre-tip Pinnacle total) over the most recent BC_WINDOW games that have started."""
+    xs = sorted((pd.Timestamp(g["start"]), g["decision"]["model"] - g["pin_last"]["line"]) for g in st.values()
+                if (g.get("decision") or {}).get("model") is not None and g.get("pin_last")
+                and pd.Timestamp(g["start"]) < t)[-BC_WINDOW:]
+    return (float(np.mean([x for _, x in xs])), len(xs)) if xs else (None, 0)
 MIN_LEAD = pd.Timedelta(minutes=30)
 ET = "America/New_York"
 
@@ -227,6 +241,18 @@ def cmd_tick() -> int:
         dec = {"t": t.isoformat(), "model": round(m["total"], 2), "open_line": o["line"], "gap": round(gap, 2),
                "model_warnings": m.get("warnings"), "model_avail": m.get("avail"), "model_prereg": m.get("prereg"),
                "model_q_out": m.get("q_out"), "pick": None}
+        # BC variant (pre-registered 2026-10-26): subtract the model's own recent level bias vs the Pinnacle close
+        bias, nb = level_bias(st, t)
+        dec.update(bias=None if bias is None else round(bias, 2), n_bias=nb, pick_bc=None)
+        if bias is not None and nb >= BC_MIN_N:
+            gap_bc = m["total"] - bias - o["line"]
+            dec["gap_bc"] = round(gap_bc, 2)
+            if abs(gap_bc) >= GAP:
+                side_bc = "over" if gap_bc > 0 else "under"
+                fo, _ = devig(1 / am_to_dec(o["over"]), 1 / am_to_dec(o["under"]))
+                dec.update(pick_bc=side_bc, nv_prob_open_bc=round(fo if side_bc == "over" else 1 - fo, 4))
+                with PICKS.open("a") as f:
+                    f.write(json.dumps({"type": "pick_bc", "key": k, "start": g["start"], **dec}) + "\n")
         if abs(gap) >= GAP:
             side = "over" if gap > 0 else "under"
             f_over, _ = devig(1 / am_to_dec(o["over"]), 1 / am_to_dec(o["under"]))
@@ -246,8 +272,8 @@ def cmd_tick() -> int:
         g.pop("_ladder", None)
 
     # settle
-    open_keys = [k for k, g in st.items() if (g.get("decision") or {}).get("pick") and "final_total" not in g
-                 and t - pd.Timestamp(g["start"]) > pd.Timedelta(hours=3)]
+    open_keys = [k for k, g in st.items() if ((g.get("decision") or {}).get("pick") or (g.get("decision") or {}).get("pick_bc"))
+                 and "final_total" not in g and t - pd.Timestamp(g["start"]) > pd.Timedelta(hours=3)]
     for d in sorted({k.split("|")[0] for k in open_keys}):
         try:
             fin = finals(d)
@@ -260,12 +286,17 @@ def cmd_tick() -> int:
                 dec = g["decision"]
                 g["final_total"] = fin[k]
                 diff = fin[k] - dec["open_line"]
-                res = "push" if diff == 0 else ("win" if (diff > 0) == (dec["pick"] == "over") else "loss")
                 close = g["pin_last"]["line"]
-                clv = (close - dec["open_line"]) * (1 if dec["pick"] == "over" else -1)
+                grade = lambda side: ("push" if diff == 0 else ("win" if (diff > 0) == (side == "over") else "loss"))
+                cl = lambda side: (close - dec["open_line"]) * (1 if side == "over" else -1)
                 with PICKS.open("a") as f:
-                    f.write(json.dumps({"type": "settle", "key": k, "final_total": fin[k], "result": res,
-                                        "close_line": close, "clv_pts": clv}) + "\n")
+                    if dec.get("pick"):
+                        f.write(json.dumps({"type": "settle", "key": k, "final_total": fin[k], "result": grade(dec["pick"]),
+                                            "close_line": close, "clv_pts": cl(dec["pick"])}) + "\n")
+                    if dec.get("pick_bc"):
+                        f.write(json.dumps({"type": "settle_bc", "key": k, "final_total": fin[k],
+                                            "result": grade(dec["pick_bc"]), "close_line": close,
+                                            "clv_pts": cl(dec["pick_bc"])}) + "\n")
     STATE.write_text(json.dumps(st, indent=1))
     msg = f"tick {t:%F %H:%M}Z games {len(st)} pins {len(pins)} kalshi_events {len(kal)} new_picks {new}"
     if errs:

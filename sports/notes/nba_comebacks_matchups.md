@@ -266,3 +266,37 @@ game model (nba_matchup.py / nba_fourfactors.py) and log CLV, not as a standalon
 
 Reproduce: `../.venv_quant/bin/python scripts/nba_comebacks.py pull && ... timeouts && ... build && ... all`
 (stats.nba.com reachable from this Mac; pull takes ~10 min).
+
+## L37 sealed pre-registration (written 2026-10-26, before any 2025-26 price was joined to a state)
+
+User: "yes one shot tests" (2026-10-26). Script: `scripts/nba_l37_sealed.py` (its docstring is the full, binding
+pre-registration; this is a summary). NOT yet run on sealed data.
+
+- **Rule = the frozen L37 forward rule** (`scripts/nba_midgame_scan.py`, commit 2c29645; frozen fit
+  `results/nba_midgame_fit.json`, dev neighbour table `data/nba_midgame_states.parquet`, seasons <= 2024-25). The
+  script imports those functions and aborts unless all three files still have their 2c29645 sha256.
+- **Sealed window:** `data/nba_ingame.parquet` games dated >= 2026-01-15 (713 games: 626 regular, 6 play-in,
+  81 playoffs; 223,826 candle rows). The 590 games dated 2025-10-21..2026-01-14 are **excluded**: they were dev for
+  `nba_ingame.py` (H1/H2 scanned every play, mid-game included) and `nba_late_wp.py` (Q4 <= 6:00, |m| <= 8). L37's
+  region (Q2..Q4 6:00, deficits 6-25) is mostly disjoint from nba_late_wp's, but not from nba_ingame's, and those
+  games' prices and outcomes were already analysed, so the conservative cut is taken.
+- **State:** last ESPN pbp play (`data/nba_big_lead_plays.parquet`) with wallclock <= candle end - 60 s; home and away
+  candles joined on end time. **Spread:** -(ESPN pickcenter spread) from `nba_big_lead_meta.parquet`, the closing line
+  (713/713 present; same source and sign as the dev fit for 2015-23).
+- **Window (frozen code):** period 2-4 and 720 <= elapsed <= 2520 (Q4 clock >= 6:00; the frozen docstring says "> 6:00",
+  the code includes 6:00 exactly, and the code is used) and deficit 6-25.
+- **Entry:** first candle per game where a side's frozen-model prob - close ask - 0.07a(1-a) >= 0.05, ask in
+  [0.01, 0.99], two-sided quote with spread <= 5c, and the frozen empirical-neighbour check agrees (n >= 30,
+  empirical edge > 0). Larger edge if both sides qualify. 1 contract, hold to settlement (Kalshi result; ESPN final
+  cross-check).
+- **Primary:** mean P&L per contract, one-sided game bootstrap (10,000, seed 0). **PASS = mean > 0 and p < .05.**
+  One shot, never re-scored. Secondary (descriptive): trailer vs leader split, by period, rounded fee, Kalshi trailer-mid
+  calibration in the window vs model and realised.
+- **Dev code-path check** (2025 playoffs; in-sample for the fit, so not evidence): 54 entries in 85 window games,
+  32 W, P&L/contract -0.014 [-0.153, +0.124], p .58; leader buys 42 (-0.053), trailer 12 (+0.122); Kalshi mid and
+  model tie on Brier (0.1811 vs 0.1810). Expected sealed n ~450; power ~65% at +0.05/contract, ~20% at +0.02.
+- **Known leak:** 2025-26 is already known to be a low-comeback season from pbp scores (notes/nba_big_lead.md).
+  Most entries are leader buys, so this tilts toward a pass. Read a leader-driven pass with that in mind.
+
+Run (once, after the user's yes, which was given 2026-10-26):
+`../.venv_quant/bin/python scripts/nba_l37_sealed.py sealed --confirm-lockbox`
