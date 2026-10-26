@@ -168,6 +168,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **L35 Kalshi early NFL prices (loop 5, notes/kalshi_early_nfl.md):** first-listed KXNFLGAME prices move +3.3c toward the out-of-sample legacy model by kickoff (109 games, p<.0002). Maker at first bid adversely selected; taker at first ask -4.5% (59c placeholder spread). NEXT: forward-log the first tight quote (spread<=10c) vs model.
 
+- **L36 CFB totals vs opener (loop 7, notes/cfb_simple_model.md):** CLV +1.02 pts, no-vig +7.4% p .0004 (passes), -110 +2.6% (fails). Spreads model miscalibrated (v2 needs fresh prereg). Cross-sport: opening TOTALS are the soft spot (NBA L32, NFL L33, NHL L34, CFB L36).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |

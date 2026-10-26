@@ -18,6 +18,9 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-25l loop 7: L36 CFB simple model (SBR 2008-22, 14 trials): TOTALS vs opener CLV +1.02 pts (3,014, p<.0002), no-vig +7.4% p .0004
+  PASS, -110 +2.6% fail; spreads fail (model miscalibrated: cap/shrink, v2 needs new prereg). CROSS-SPORT: totals openers soft in
+  NBA/NFL/NHL/CFB; money needs low-vig execution -> candidate: Kalshi totals ladders + forward CFB totals logger.
 - 10-25k loop 6: L4 NFL props x game script DEAD (0/8 cells; only 2024 ESPN BET yardage props in dev; rush-yd unders low-total +7.7 pts p .039 = weak lead). notes/nfl_props_script.md
 - 10-25j loop 5: Kalshi EARLY NFL prices stale: CLV +3.3c toward legacy model (109 games, p<.0002, both halves) but maker at first
   bid adversely selected (+16% p .09, fills when market moves against), taker at first ask -4.5% (placeholder 59c spread).
