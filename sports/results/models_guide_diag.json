@@ -1,0 +1,987 @@
+{
+ "source": "wf.pkl walk-forward (fold 2024 fit on 2022-23 stack data, fold 2025 fit on 2022-23..2023-24); dev only",
+ "n_games": 2295,
+ "ablation_spread": [
+  {
+   "model": "mu0",
+   "n": 2286,
+   "mae_result": 11.04754313259835,
+   "mae_vs_close_line": 3.0013845137656494,
+   "mean_model_minus_close": 0.11908510390704985,
+   "logloss": 0.6048655092084041,
+   "brier": 0.209085571350676
+  },
+  {
+   "model": "M1_strict",
+   "n": 2286,
+   "mae_result": 10.95657536364517,
+   "mae_vs_close_line": 2.6174167966788517,
+   "mean_model_minus_close": -0.016556977519634673,
+   "logloss": 0.5994213239610185,
+   "brier": 0.2066105972704547
+  },
+  {
+   "model": "M2_strict",
+   "n": 2286,
+   "mae_result": 10.961123973233043,
+   "mae_vs_close_line": 2.8625199025785117,
+   "mean_model_minus_close": 0.04479040009602447,
+   "logloss": 0.5994666860933063,
+   "brier": 0.20667854512249112
+  },
+  {
+   "model": "M1_act",
+   "n": 2286,
+   "mae_result": 10.906661847625891,
+   "mae_vs_close_line": 2.2840732835816593,
+   "mean_model_minus_close": -0.0786254181853606,
+   "logloss": 0.5919300299108933,
+   "brier": 0.20347280827540767
+  },
+  {
+   "model": "M2_act",
+   "n": 2286,
+   "mae_result": 10.92318698688837,
+   "mae_vs_close_line": 2.556499910119596,
+   "mean_model_minus_close": -0.01779227614252832,
+   "logloss": 0.5917971748091303,
+   "brier": 0.20348809419005187
+  },
+  {
+   "model": "open_spread",
+   "n": 2286,
+   "mae_result": 10.819991251093613,
+   "logloss": 0.5958952359244097,
+   "brier": 0.20441122283782454
+  },
+  {
+   "model": "close_spread",
+   "n": 2286,
+   "mae_result": 10.556977252843394,
+   "logloss": 0.5787430364292906,
+   "brier": 0.19757121928045665
+  },
+  {
+   "model": "close_moneyline_devig",
+   "n": 2286,
+   "logloss": 0.5779993143789981,
+   "brier": 0.19737357001601305
+  }
+ ],
+ "ablation_total": [
+  {
+   "model": "tot0",
+   "n": 2286,
+   "mae_result": 14.747601368826679,
+   "mae_vs_close_line": 3.7833249387194168,
+   "mean_model_minus_close": 0.40929765059639417,
+   "mean_model_minus_open": 0.5713711414100424
+  },
+  {
+   "model": "T1_strict",
+   "n": 2286,
+   "mae_result": 14.851323639638133,
+   "mae_vs_close_line": 4.151788001031028,
+   "mean_model_minus_close": 1.9641455516189232,
+   "mean_model_minus_open": 2.1262190424325715
+  },
+  {
+   "model": "T2_strict",
+   "n": 2286,
+   "mae_result": 14.72653389720564,
+   "mae_vs_close_line": 4.119485738667713,
+   "mean_model_minus_close": 2.2797244075383447,
+   "mean_model_minus_open": 2.441797898351993
+  },
+  {
+   "model": "T1_act",
+   "n": 2286,
+   "mae_result": 14.795527373010085,
+   "mae_vs_close_line": 3.9618769746715325,
+   "mean_model_minus_close": 2.086186450074097,
+   "mean_model_minus_open": 2.248259940887745
+  },
+  {
+   "model": "T2_act",
+   "n": 2286,
+   "mae_result": 14.670807309428826,
+   "mae_vs_close_line": 3.9302209794024314,
+   "mean_model_minus_close": 2.4491479795399558,
+   "mean_model_minus_open": 2.611221470353604
+  },
+  {
+   "model": "open_total",
+   "n": 2286,
+   "mae_result": 14.733595800524935,
+   "mean_line_minus_result": -0.6618547681539807
+  },
+  {
+   "model": "close_total",
+   "n": 2286,
+   "mae_result": 14.188976377952756,
+   "mean_line_minus_result": -0.49978127734033245
+  }
+ ],
+ "calibration_M2_strict": [
+  {
+   "dec": 0,
+   "n": 230,
+   "p_mean": 0.22468930270593956,
+   "win_rate": 0.16956521739130434,
+   "p_ml_close": 0.21738292210909257
+  },
+  {
+   "dec": 1,
+   "n": 229,
+   "p_mean": 0.33787589171143184,
+   "win_rate": 0.30131004366812225,
+   "p_ml_close": 0.32844169898002695
+  },
+  {
+   "dec": 2,
+   "n": 230,
+   "p_mean": 0.41575423859894417,
+   "win_rate": 0.43043478260869567,
+   "p_ml_close": 0.4155015237128209
+  },
+  {
+   "dec": 3,
+   "n": 229,
+   "p_mean": 0.48281531583838655,
+   "win_rate": 0.4585152838427948,
+   "p_ml_close": 0.48085491472738323
+  },
+  {
+   "dec": 4,
+   "n": 230,
+   "p_mean": 0.5383288743385505,
+   "win_rate": 0.5434782608695652,
+   "p_ml_close": 0.5456192759917083
+  },
+  {
+   "dec": 5,
+   "n": 229,
+   "p_mean": 0.5910471404721364,
+   "win_rate": 0.5633187772925764,
+   "p_ml_close": 0.5915110243096798
+  },
+  {
+   "dec": 6,
+   "n": 229,
+   "p_mean": 0.6411272368071801,
+   "win_rate": 0.6550218340611353,
+   "p_ml_close": 0.6511092231051946
+  },
+  {
+   "dec": 7,
+   "n": 230,
+   "p_mean": 0.6972773043251747,
+   "win_rate": 0.6869565217391305,
+   "p_ml_close": 0.6936674759302037
+  },
+  {
+   "dec": 8,
+   "n": 229,
+   "p_mean": 0.7631274475039789,
+   "win_rate": 0.777292576419214,
+   "p_ml_close": 0.7733090298836494
+  },
+  {
+   "dec": 9,
+   "n": 230,
+   "p_mean": 0.8548235353823472,
+   "win_rate": 0.8695652173913043,
+   "p_ml_close": 0.846843328540553
+  }
+ ],
+ "calibration_slope": null,
+ "calibration_logit": {
+  "intercept": -0.06564522295883655,
+  "slope": 1.1141256800951445,
+  "slope_se": 0.062296588083758646,
+  "note": "slope < 1 = overconfident, > 1 = underconfident"
+ },
+ "by_month": [
+  {
+   "month": 11,
+   "n": 405,
+   "spr_mae_model": 10.362399601451267,
+   "spr_mae_close": 9.998148148148148,
+   "spr_mae_open": 10.498753117206983,
+   "spr_model_vs_close_absgap": 2.7546547854003127,
+   "tot_mae_model": 14.974153396076549,
+   "tot_mae_close": 14.466666666666667,
+   "tot_mae_open": 15.072319201995013,
+   "tot_model_minus_close_mean": 1.9561771762224525,
+   "tot_model_vs_close_absgap": 3.715968336022577
+  },
+  {
+   "month": 12,
+   "n": 396,
+   "spr_mae_model": 10.402239947625622,
+   "spr_mae_close": 10.208964646464647,
+   "spr_mae_open": 10.428571428571429,
+   "spr_model_vs_close_absgap": 2.7377622994305733,
+   "tot_mae_model": 14.08905867953473,
+   "tot_mae_close": 13.91540404040404,
+   "tot_mae_open": 15.012755102040817,
+   "tot_model_minus_close_mean": 0.8981836404527043,
+   "tot_model_vs_close_absgap": 3.2520130141014123
+  },
+  {
+   "month": 1,
+   "n": 455,
+   "spr_mae_model": 11.814551641123225,
+   "spr_mae_close": 11.313736263736264,
+   "spr_mae_open": 11.581318681318681,
+   "spr_model_vs_close_absgap": 2.664214489855308,
+   "tot_mae_model": 15.208892363660565,
+   "tot_mae_close": 14.62087912087912,
+   "tot_mae_open": 15.262637362637363,
+   "tot_model_minus_close_mean": 1.1045588553547374,
+   "tot_model_vs_close_absgap": 3.216015771535298
+  },
+  {
+   "month": 2,
+   "n": 350,
+   "spr_mae_model": 10.963651658227972,
+   "spr_mae_close": 10.730714285714285,
+   "spr_mae_open": 10.804285714285715,
+   "spr_model_vs_close_absgap": 2.7532673985662766,
+   "tot_mae_model": 14.515151341650364,
+   "tot_mae_close": 13.78,
+   "tot_mae_open": 14.204285714285714,
+   "tot_model_minus_close_mean": 0.8152491828730571,
+   "tot_model_vs_close_absgap": 3.5981023156536
+  },
+  {
+   "month": 3,
+   "n": 468,
+   "spr_mae_model": 10.90328185231983,
+   "spr_mae_close": 10.604700854700855,
+   "spr_mae_open": 10.686965811965813,
+   "spr_model_vs_close_absgap": 2.8348862286765106,
+   "tot_mae_model": 14.692017568663458,
+   "tot_mae_close": 13.880876068376068,
+   "tot_mae_open": 14.03525641025641,
+   "tot_model_minus_close_mean": 4.800546620076154,
+   "tot_model_vs_close_absgap": 5.83499101298065
+  },
+  {
+   "month": 4,
+   "n": 220,
+   "spr_mae_model": 11.405204129222135,
+   "spr_mae_close": 10.221590909090908,
+   "spr_mae_open": 10.836363636363636,
+   "spr_model_vs_close_absgap": 3.9412665383441765,
+   "tot_mae_model": 14.547315531395174,
+   "tot_mae_close": 14.269318181818182,
+   "tot_mae_open": 14.852272727272727,
+   "tot_model_minus_close_mean": 4.727858666045348,
+   "tot_model_vs_close_absgap": 5.475995925821807
+  }
+ ],
+ "top10_spread_misses_vs_close": [
+  {
+   "date": "2025-04-09",
+   "away": "BOS",
+   "home": "ORL",
+   "season": 2025,
+   "model_home_margin": -10.1,
+   "close_home_margin": 7.5,
+   "open_home_margin": -3.5,
+   "actual_margin": 20,
+   "gap": -17.6,
+   "gap_if_actual_availability": -12.3,
+   "n_games_home": 79,
+   "n_games_away": 79,
+   "top5_absent_tonight_home": [],
+   "top5_absent_tonight_away": [
+    "Jayson Tatum",
+    "Derrick White",
+    "Jrue Holiday",
+    "Kristaps Porzingis"
+   ],
+   "top5_missed_last_game_home": [],
+   "top5_missed_last_game_away": [
+    "Al Horford"
+   ],
+   "dAbs_strict": -0.58,
+   "dAbs_act": 1.01
+  },
+  {
+   "date": "2025-04-13",
+   "away": "IND",
+   "home": "CLE",
+   "season": 2025,
+   "model_home_margin": 10.1,
+   "close_home_margin": -6.5,
+   "open_home_margin": -5.5,
+   "actual_margin": -8,
+   "gap": 16.6,
+   "gap_if_actual_availability": 7.7,
+   "n_games_home": 81,
+   "n_games_away": 81,
+   "top5_absent_tonight_home": [
+    "Evan Mobley",
+    "Darius Garland",
+    "Max Strus"
+   ],
+   "top5_absent_tonight_away": [
+    "Bennedict Mathurin"
+   ],
+   "top5_missed_last_game_home": [
+    "Donovan Mitchell",
+    "De'Andre Hunter"
+   ],
+   "top5_missed_last_game_away": [
+    "Tyrese Haliburton",
+    "Pascal Siakam",
+    "Myles Turner",
+    "Andrew Nembhard"
+   ],
+   "dAbs_strict": 1.41,
+   "dAbs_act": -1.24
+  },
+  {
+   "date": "2025-03-07",
+   "away": "POR",
+   "home": "OKC",
+   "season": 2025,
+   "model_home_margin": 16.6,
+   "close_home_margin": 1.5,
+   "open_home_margin": 2.5,
+   "actual_margin": 18,
+   "gap": 15.1,
+   "gap_if_actual_availability": 11.2,
+   "n_games_home": 63,
+   "n_games_away": 63,
+   "top5_absent_tonight_home": [
+    "Shai Gilgeous-Alexander",
+    "Jalen Williams",
+    "Luguentz Dort",
+    "Cason Wallace"
+   ],
+   "top5_absent_tonight_away": [
+    "Deni Avdija"
+   ],
+   "top5_missed_last_game_home": [],
+   "top5_missed_last_game_away": [
+    "Jerami Grant"
+   ],
+   "dAbs_strict": 0.2,
+   "dAbs_act": -0.87
+  },
+  {
+   "date": "2025-04-13",
+   "away": "DET",
+   "home": "MIL",
+   "season": 2025,
+   "model_home_margin": 4.0,
+   "close_home_margin": -9.5,
+   "open_home_margin": -7.5,
+   "actual_margin": 7,
+   "gap": 13.5,
+   "gap_if_actual_availability": 2.9,
+   "n_games_home": 82,
+   "n_games_away": 81,
+   "top5_absent_tonight_home": [
+    "Giannis Antetokounmpo",
+    "Bobby Portis",
+    "Brook Lopez",
+    "Kevin Porter Jr."
+   ],
+   "top5_absent_tonight_away": [
+    "Cade Cunningham",
+    "Dennis Schroder"
+   ],
+   "top5_missed_last_game_home": [],
+   "top5_missed_last_game_away": [],
+   "dAbs_strict": 0.25,
+   "dAbs_act": -2.5
+  },
+  {
+   "date": "2025-04-13",
+   "away": "CHA",
+   "home": "BOS",
+   "season": 2025,
+   "model_home_margin": 22.7,
+   "close_home_margin": 10.5,
+   "open_home_margin": 12.5,
+   "actual_margin": 7,
+   "gap": 12.2,
+   "gap_if_actual_availability": 10.3,
+   "n_games_home": 81,
+   "n_games_away": 81,
+   "top5_absent_tonight_home": [
+    "Jayson Tatum",
+    "Derrick White",
+    "Jrue Holiday",
+    "Al Horford"
+   ],
+   "top5_absent_tonight_away": [
+    "Mark Williams"
+   ],
+   "top5_missed_last_game_home": [],
+   "top5_missed_last_game_away": [
+    "LaMelo Ball"
+   ],
+   "dAbs_strict": 0.85,
+   "dAbs_act": 0.16
+  },
+  {
+   "date": "2025-04-13",
+   "away": "LAL",
+   "home": "POR",
+   "season": 2025,
+   "model_home_margin": -6.6,
+   "close_home_margin": 5.5,
+   "open_home_margin": 2.5,
+   "actual_margin": 28,
+   "gap": -12.1,
+   "gap_if_actual_availability": 0.2,
+   "n_games_home": 81,
+   "n_games_away": 81,
+   "top5_absent_tonight_home": [],
+   "top5_absent_tonight_away": [
+    "Austin Reaves",
+    "Luka Doncic",
+    "Rui Hachimura",
+    "LeBron James",
+    "Dorian Finney-Smith"
+   ],
+   "top5_missed_last_game_home": [
+    "Deni Avdija",
+    "Shaedon Sharpe",
+    "Anfernee Simons"
+   ],
+   "top5_missed_last_game_away": [],
+   "dAbs_strict": -0.3,
+   "dAbs_act": 3.0
+  },
+  {
+   "date": "2025-03-17",
+   "away": "DEN",
+   "home": "GS",
+   "season": 2025,
+   "model_home_margin": 0.8,
+   "close_home_margin": 12.5,
+   "open_home_margin": 5.5,
+   "actual_margin": -9,
+   "gap": -11.7,
+   "gap_if_actual_availability": -1.2,
+   "n_games_home": 67,
+   "n_games_away": 68,
+   "top5_absent_tonight_home": [],
+   "top5_absent_tonight_away": [
+    "Nikola Jokic",
+    "Jamal Murray",
+    "Christian Braun"
+   ],
+   "top5_missed_last_game_home": [],
+   "top5_missed_last_game_away": [],
+   "dAbs_strict": -0.45,
+   "dAbs_act": 2.35
+  },
+  {
+   "date": "2023-11-30",
+   "away": "MIL",
+   "home": "CHI",
+   "season": 2024,
+   "model_home_margin": 1.1,
+   "close_home_margin": -10.5,
+   "open_home_margin": -8.0,
+   "actual_margin": 7,
+   "gap": 11.6,
+   "gap_if_actual_availability": 8.7,
+   "n_games_home": 19,
+   "n_games_away": 18,
+   "top5_absent_tonight_home": [
+    "DeMar DeRozan",
+    "Zach LaVine"
+   ],
+   "top5_absent_tonight_away": [],
+   "top5_missed_last_game_home": [],
+   "top5_missed_last_game_away": [
+    "Jae Crowder"
+   ],
+   "dAbs_strict": -0.53,
+   "dAbs_act": -1.0
+  },
+  {
+   "date": "2025-03-17",
+   "away": "IND",
+   "home": "MIN",
+   "season": 2025,
+   "model_home_margin": -1.0,
+   "close_home_margin": 10.5,
+   "open_home_margin": 7.5,
+   "actual_margin": -2,
+   "gap": -11.5,
+   "gap_if_actual_availability": -1.8,
+   "n_games_home": 69,
+   "n_games_away": 66,
+   "top5_absent_tonight_home": [],
+   "top5_absent_tonight_away": [
+    "Tyrese Haliburton",
+    "Pascal Siakam",
+    "Aaron Nesmith",
+    "Myles Turner"
+   ],
+   "top5_missed_last_game_home": [],
+   "top5_missed_last_game_away": [],
+   "dAbs_strict": -0.71,
+   "dAbs_act": 2.01
+  },
+  {
+   "date": "2024-12-07",
+   "away": "OKC",
+   "home": "NO",
+   "season": 2025,
+   "model_home_margin": -18.8,
+   "close_home_margin": -7.5,
+   "open_home_margin": -7.5,
+   "actual_margin": -10,
+   "gap": -11.3,
+   "gap_if_actual_availability": -11.0,
+   "n_games_home": 23,
+   "n_games_away": 22,
+   "top5_absent_tonight_home": [],
+   "top5_absent_tonight_away": [],
+   "top5_missed_last_game_home": [],
+   "top5_missed_last_game_away": [],
+   "dAbs_strict": 0.37,
+   "dAbs_act": 0.21
+  }
+ ],
+ "gap_summary": {
+  "mean_abs_gap_strict": 2.863755725588632,
+  "mean_abs_gap_act": 2.559064386688332,
+  "share_abs_gap_ge_6_strict": 0.09328683522231909,
+  "share_abs_gap_ge_6_act": 0.06015693112467306,
+  "top50_mean_abs_gap_strict": 10.356606644608307,
+  "top50_mean_abs_gap_act_same_games": 6.566000434797641
+ },
+ "top10_total_misses_vs_close": [
+  {
+   "date": "2024-03-15",
+   "away": "ATL",
+   "home": "UTAH",
+   "model_total": 248.5,
+   "close_total": 222.5,
+   "open_total": 224.5,
+   "actual_total": 246,
+   "gap": 26.0,
+   "T2_act": 246.9,
+   "n_games_home": 65,
+   "n_games_away": 65,
+   "top5_absent_home": [
+    "Jordan Clarkson"
+   ],
+   "top5_absent_away": [
+    "Bogdan Bogdanovic"
+   ],
+   "top5_missed_last_home": [
+    "Lauri Markkanen"
+   ],
+   "top5_missed_last_away": [
+    "Trae Young",
+    "Saddiq Bey",
+    "Jalen Johnson"
+   ]
+  },
+  {
+   "date": "2024-03-30",
+   "away": "MIL",
+   "home": "ATL",
+   "model_total": 243.8,
+   "close_total": 222.5,
+   "open_total": 225.5,
+   "actual_total": 235,
+   "gap": 21.3,
+   "T2_act": 243.4,
+   "n_games_home": 73,
+   "n_games_away": 73,
+   "top5_absent_home": [],
+   "top5_absent_away": [
+    "Damian Lillard"
+   ],
+   "top5_missed_last_home": [
+    "Saddiq Bey",
+    "Jalen Johnson"
+   ],
+   "top5_missed_last_away": []
+  },
+  {
+   "date": "2024-03-06",
+   "away": "CLE",
+   "home": "ATL",
+   "model_total": 238.2,
+   "close_total": 217.0,
+   "open_total": 222.5,
+   "actual_total": 213,
+   "gap": 21.2,
+   "T2_act": 237.2,
+   "n_games_home": 61,
+   "n_games_away": 61,
+   "top5_absent_home": [],
+   "top5_absent_away": [],
+   "top5_missed_last_home": [
+    "Trae Young",
+    "Onyeka Okongwu"
+   ],
+   "top5_missed_last_away": [
+    "Donovan Mitchell",
+    "Max Strus"
+   ]
+  },
+  {
+   "date": "2024-03-31",
+   "away": "UTAH",
+   "home": "SAC",
+   "model_total": 241.4,
+   "close_total": 220.5,
+   "open_total": 224.5,
+   "actual_total": 233,
+   "gap": 20.9,
+   "T2_act": 239.8,
+   "n_games_home": 73,
+   "n_games_away": 74,
+   "top5_absent_home": [],
+   "top5_absent_away": [],
+   "top5_missed_last_home": [],
+   "top5_missed_last_away": [
+    "Lauri Markkanen",
+    "Jordan Clarkson"
+   ]
+  },
+  {
+   "date": "2024-03-05",
+   "away": "ATL",
+   "home": "NY",
+   "model_total": 233.7,
+   "close_total": 213.5,
+   "open_total": 218.0,
+   "actual_total": 216,
+   "gap": 20.2,
+   "T2_act": 232.8,
+   "n_games_home": 61,
+   "n_games_away": 60,
+   "top5_absent_home": [
+    "Jalen Brunson"
+   ],
+   "top5_absent_away": [],
+   "top5_missed_last_home": [],
+   "top5_missed_last_away": [
+    "Trae Young"
+   ]
+  },
+  {
+   "date": "2024-03-02",
+   "away": "ATL",
+   "home": "BKN",
+   "model_total": 238.2,
+   "close_total": 218.5,
+   "open_total": 221.5,
+   "actual_total": 216,
+   "gap": 19.7,
+   "T2_act": 237.8,
+   "n_games_home": 59,
+   "n_games_away": 59,
+   "top5_absent_home": [],
+   "top5_absent_away": [],
+   "top5_missed_last_home": [
+    "Cam Thomas"
+   ],
+   "top5_missed_last_away": [
+    "Trae Young",
+    "Onyeka Okongwu"
+   ]
+  },
+  {
+   "date": "2024-02-29",
+   "away": "ATL",
+   "home": "BKN",
+   "model_total": 239.2,
+   "close_total": 220.25,
+   "open_total": 227.0,
+   "actual_total": 221,
+   "gap": 19.0,
+   "T2_act": 238.5,
+   "n_games_home": 58,
+   "n_games_away": 58,
+   "top5_absent_home": [],
+   "top5_absent_away": [],
+   "top5_missed_last_home": [
+    "Cam Thomas"
+   ],
+   "top5_missed_last_away": [
+    "Trae Young",
+    "Onyeka Okongwu"
+   ]
+  },
+  {
+   "date": "2024-03-13",
+   "away": "ATL",
+   "home": "POR",
+   "model_total": 235.1,
+   "close_total": 216.25,
+   "open_total": 219.5,
+   "actual_total": 208,
+   "gap": 18.8,
+   "T2_act": 234.2,
+   "n_games_home": 64,
+   "n_games_away": 64,
+   "top5_absent_home": [
+    "Jerami Grant"
+   ],
+   "top5_absent_away": [
+    "Saddiq Bey"
+   ],
+   "top5_missed_last_home": [],
+   "top5_missed_last_away": [
+    "Trae Young",
+    "Jalen Johnson"
+   ]
+  },
+  {
+   "date": "2024-04-02",
+   "away": "MIL",
+   "home": "WSH",
+   "model_total": 243.6,
+   "close_total": 225.5,
+   "open_total": 229.5,
+   "actual_total": 230,
+   "gap": 18.1,
+   "T2_act": 243.7,
+   "n_games_home": 75,
+   "n_games_away": 74,
+   "top5_absent_home": [],
+   "top5_absent_away": [],
+   "top5_missed_last_home": [
+    "Kyle Kuzma",
+    "Tyus Jones"
+   ],
+   "top5_missed_last_away": [
+    "Damian Lillard"
+   ]
+  },
+  {
+   "date": "2024-03-08",
+   "away": "ATL",
+   "home": "MEM",
+   "model_total": 232.2,
+   "close_total": 214.5,
+   "open_total": 215.0,
+   "actual_total": 191,
+   "gap": 17.7,
+   "T2_act": 231.6,
+   "n_games_home": 63,
+   "n_games_away": 62,
+   "top5_absent_home": [
+    "Luke Kennard"
+   ],
+   "top5_absent_away": [],
+   "top5_missed_last_home": [
+    "Ziaire Williams"
+   ],
+   "top5_missed_last_away": [
+    "Trae Young",
+    "Onyeka Okongwu"
+   ]
+  }
+ ],
+ "total_level_by_season_month": [
+  {
+   "season": 2024,
+   "month": 1,
+   "n": 230,
+   "actual": 231.5,
+   "open": 232.8,
+   "close": 232.8,
+   "T2": 233.6,
+   "tot0": 231.5
+  },
+  {
+   "season": 2024,
+   "month": 2,
+   "n": 174,
+   "actual": 227.9,
+   "open": 231.7,
+   "close": 231.1,
+   "T2": 233.3,
+   "tot0": 231.4
+  },
+  {
+   "season": 2024,
+   "month": 3,
+   "n": 230,
+   "actual": 222.6,
+   "open": 223.2,
+   "close": 222.3,
+   "T2": 230.5,
+   "tot0": 228.8
+  },
+  {
+   "season": 2024,
+   "month": 4,
+   "n": 115,
+   "actual": 224.3,
+   "open": 220.9,
+   "close": 221.3,
+   "T2": 228.7,
+   "tot0": 226.7
+  },
+  {
+   "season": 2024,
+   "month": 11,
+   "n": 187,
+   "actual": 230.0,
+   "open": 227.4,
+   "close": 227.7,
+   "T2": 230.2,
+   "tot0": 227.9
+  },
+  {
+   "season": 2024,
+   "month": 12,
+   "n": 203,
+   "actual": 234.4,
+   "open": 230.3,
+   "close": 232.4,
+   "T2": 232.2,
+   "tot0": 230.1
+  },
+  {
+   "season": 2025,
+   "month": 1,
+   "n": 225,
+   "actual": 226.6,
+   "open": 226.3,
+   "close": 226.5,
+   "T2": 227.9,
+   "tot0": 225.6
+  },
+  {
+   "season": 2025,
+   "month": 2,
+   "n": 176,
+   "actual": 230.0,
+   "open": 228.8,
+   "close": 229.3,
+   "T2": 228.8,
+   "tot0": 226.7
+  },
+  {
+   "season": 2025,
+   "month": 3,
+   "n": 238,
+   "actual": 229.8,
+   "open": 228.4,
+   "close": 228.1,
+   "T2": 229.6,
+   "tot0": 227.9
+  },
+  {
+   "season": 2025,
+   "month": 4,
+   "n": 105,
+   "actual": 228.9,
+   "open": 227.1,
+   "close": 226.9,
+   "T2": 228.7,
+   "tot0": 228.7
+  },
+  {
+   "season": 2025,
+   "month": 11,
+   "n": 214,
+   "actual": 225.2,
+   "open": 225.3,
+   "close": 225.7,
+   "T2": 227.1,
+   "tot0": 225.7
+  },
+  {
+   "season": 2025,
+   "month": 12,
+   "n": 189,
+   "actual": 226.2,
+   "open": 225.8,
+   "close": 225.6,
+   "T2": 227.8,
+   "tot0": 225.7
+  }
+ ],
+ "naive_all_overs": {
+  "n": 2286,
+  "roi_novig": 0.009315006001122264
+ },
+ "naive_all_unders": {
+  "n": 2286,
+  "roi_novig": -0.00975097988376034
+ },
+ "T5_by_month": [
+  {
+   "month": 1,
+   "n": 192,
+   "roi_novig": 0.205,
+   "share_over": 0.734,
+   "clv": 1.651
+  },
+  {
+   "month": 2,
+   "n": 160,
+   "roi_novig": -0.062,
+   "share_over": 0.625,
+   "clv": 1.466
+  },
+  {
+   "month": 3,
+   "n": 286,
+   "roi_novig": 0.026,
+   "share_over": 0.892,
+   "clv": 0.355
+  },
+  {
+   "month": 4,
+   "n": 142,
+   "roi_novig": 0.243,
+   "share_over": 0.937,
+   "clv": 1.063
+  },
+  {
+   "month": 11,
+   "n": 233,
+   "roi_novig": -0.004,
+   "share_over": 0.755,
+   "clv": 4.058
+  },
+  {
+   "month": 12,
+   "n": 177,
+   "roi_novig": 0.187,
+   "share_over": 0.718,
+   "clv": 3.588
+  }
+ ],
+ "T5_check": {
+  "n": 1190,
+  "roi_novig": 0.08706546889959552
+ },
+ "T5_debiased_posthoc": {
+  "n": 988,
+  "roi_novig": 0.07168990511368893,
+  "clv": 2.2135627530364372,
+  "share_over": 0.5030364372469636,
+  "win_ex_push": 0.5446247464503042,
+  "note": "POST-HOC descriptive, not a trial: T2 minus its trailing-30-day mean (T2 - open) gap"
+ },
+ "absence_sizing": {
+  "n_games_abs_dAbs_change_ge_1": 134,
+  "mean_abs_model_move_strict_to_actual": 4.790924523035743,
+  "mean_abs_close_minus_strict": 5.165323947712276,
+  "slope_close_move_on_model_move": 1.0087524959446847,
+  "note": "slope > 1 = market moves more than our model for the same absence (model under-sizes absences)"
+ }
+}
