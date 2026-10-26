@@ -96,6 +96,10 @@ From social/forum sweep 2026-10-22 (notes/social_edges_2026-10-22.md; Reddit unr
      rest-10h-then-take fail. All losers fill (adverse sel. 4.1%->5.7% loss rate). Sealed replay needs user yes; exec change spec in note.
 - L25 Fade YES in single-name/Mentions/Entertainment/World (Bartlett-O'Hara: takers buy YES 60%, 31% settle YES) ~ L23.
 - L26 Weather late-day lock-in from OBSERVED station highs after the daily peak (not the dead 06:00 forecast test).
+  -> TESTED 10-25 DEV (scripts/wx_lockin.py, notes/wx_lockin.md, 6 trials bar .0083): DEAD as taker. At 17:00, 99.8% of
+     brackets below the METAR max already have NO at $1.00 (6 bets in 4 yrs); ABOVE_2 460 bets -8.3% p 1.0 (market sees
+     1-min peaks the hourly METAR misses). Maker trials NOT SCORED (tapes 2,076/11,176). Official max < METAR max on
+     4/5,365 days (sensor spike, `$` flag, garbled METAR, 1 unexplained); LST climate day matters (+19 traps if local midnight).
 - L27 Kalshi liquidity-reward programs (6,926 active) -- negligible at 1 contract; revisit at ~$5k.
 - Warning: free forecast-ensemble weather bots are public -> E1 edge may compress; watch paper/live ROI.
 
