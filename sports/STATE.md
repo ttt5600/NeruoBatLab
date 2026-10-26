@@ -18,6 +18,9 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-25m loop 8: Kalshi early NFL TOTALS not stale (47 bets: CLV +0.33 p .11, taker +1.7%/-1.1%); first tight ladder ~15 h after
+  listing already within 1.1 pts of close, zero early volume. => soft opening totals are a SPORTSBOOK-opener effect; Kalshi NFL
+  totals are no low-vig route. notes/kalshi_early_nfl_totals.md
 - 10-25l loop 7: L36 CFB simple model (SBR 2008-22, 14 trials): TOTALS vs opener CLV +1.02 pts (3,014, p<.0002), no-vig +7.4% p .0004
   PASS, -110 +2.6% fail; spreads fail (model miscalibrated: cap/shrink, v2 needs new prereg). CROSS-SPORT: totals openers soft in
   NBA/NFL/NHL/CFB; money needs low-vig execution -> candidate: Kalshi totals ladders + forward CFB totals logger.

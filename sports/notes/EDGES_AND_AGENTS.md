@@ -170,6 +170,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **L36 CFB totals vs opener (loop 7, notes/cfb_simple_model.md):** CLV +1.02 pts, no-vig +7.4% p .0004 (passes), -110 +2.6% (fails). Spreads model miscalibrated (v2 needs fresh prereg). Cross-sport: opening TOTALS are the soft spot (NBA L32, NFL L33, NHL L34, CFB L36).
 
+- **Kalshi early NFL totals (loop 8): not stale** (notes/kalshi_early_nfl_totals.md; 3 trials fail; first tight ladder ~6 days pre-kick already near close). Low-vig route for the totals-opener edge must be elsewhere (sportsbook openers / exchanges).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
