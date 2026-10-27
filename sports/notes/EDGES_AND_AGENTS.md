@@ -179,6 +179,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **NFL recency/overreaction (10-27, notes/nfl_recency.md, 12 trials): DEAD.** Fades 48.7-51.7% ATS; line drifts toward last-week coverer open->close (+0.275/SD p 3e-13, EPA-driven = sharp) but outcomes don't reward it.
 
+- **NBA shooting luck (10-27, notes/nba_luck.md, 14 trials): no bet.** Hot 3P -> slight unders (-0.31/luck pt p .002, 9/10 seasons) but quintile bet -1.1%/4,719; early-season +3.7% p .18; cold-cold-over seed only 5/10 seasons; already inside the model (L31 terms). Sheet luck column = context only.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
