@@ -181,6 +181,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **NBA shooting luck (10-27, notes/nba_luck.md, 14 trials): no bet.** Hot 3P -> slight unders (-0.31/luck pt p .002, 9/10 seasons) but quintile bet -1.1%/4,719; early-season +3.7% p .18; cold-cold-over seed only 5/10 seasons; already inside the model (L31 terms). Sheet luck column = context only.
 
+- **Kalshi winter weather: monthly rain/snow ladders, unreachable-NO (10-27, notes/kalshi_wx_winter.md, scripts/kalshi_wx_winter.py, dataset kalshi_wx_winter, 6 trials, bar .0083): NO PASS.** ACIS reproduces 1,259/1,259 settlements. DEV best W1m rain NO maker +3.6%/146 bets, 1 loss, market-null p .016 (1/city-month .12); taker W1 +1.6%/167 p .10; snow S1/S1m 36/30 bets 0 losses, p .35/.24; locked-YES never trades (ask $1.00). Lead L39 = forward-log W1m this winter, then one sealed shot (rain Jul26-Jan27 + snow) ~Feb 2027. Sealed now = underpowered, not asked.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
