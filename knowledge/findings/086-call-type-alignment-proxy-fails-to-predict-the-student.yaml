@@ -1,0 +1,52 @@
+id: '086'
+title: A label-quality proxy (call-type alignment of k=200 teacher labels) fails its own validation -- it gets the one supported student contrast, AVES labels over spectrogram labels, backwards -- so it cannot choose E13's teacher layer
+status: confirmed
+claim: 'Scored against the 11 call types, k=200 k-means labels rebuilt locally for the four label sources that already
+  have trained students do not predict which made the better student. Frame-level AMI with call type puts spectrogram
+  labels highest (0.2355) and AVES-bio layer-6 labels lowest (0.1149), the reverse of the one student contrast with support
+  (AVES-label students above spectrogram-label students: 6 of 6 point estimates, 2 of 6 resolved, finding 077). A
+  leave-birds-out probe on per-clip label histograms ("bag") does not order them by student either. What is confirmed is
+  that THIS proxy failed its stated validation and is not used to pick E13''s layer; whether alignment of the real label
+  sets predicts the student is open, because the real Savio label files were never scored.'
+evidence: 'e13_teacher_proxy.json (two k-means seeds each, mean; codebook fit on every 4th 20 ms frame of 111021-000,
+  60,250 frames; clip frames from the 3,412 11-class clips encoded alone on CPU), student scores from calltype_cpu_rescore.json
+  (best layer, mean over seeds) and calltype_split_sensitivity_cpu.json (10-split mean):
+  spectrogram AMI 0.2355, bag 0.6518 -> run16 x3 0.8321 / 0.8288;
+  run16 layer 6, train mode as the relabel ran it, AMI 0.1743, bag 0.6788 -> run18 0.8417 / 0.8342;
+  MFCC AMI 0.1672, bag 0.5724 -> run23 0.8420 / 0.8336;
+  AVES-bio layer 6, train mode, AMI 0.1149, bag 0.6099 -> run19 x2 0.8502 / 0.8403.
+  The middle students tie (run18 vs run23 0.0003 at the best layer; on 10-split means the order is AVES > run18 > MFCC >
+  spectrogram), and run16 seed 3 (0.8411 / 0.8340) ties both, so only the end-point contrast is informative. k-means seed
+  spread for these four: AMI <= 0.0064, bag <= 0.0199; among the candidates up to 0.0131 AMI (bioxn-large L8) and 0.0322 bag
+  (L24). Candidates, eval mode: AVES-bio L3/L6/L9 AMI 0.1330/0.1169/0.1052; BirdAVES biox-base L3/L6/L9 0.1253/0.1232/0.1087;
+  bioxn-large falls almost monotonically with depth, L1 0.1486, L12 0.0984, L24 0.0851 (bag 0.6578, 0.5904, 0.5598).'
+method: 'zfeval/experiments/e13_teacher_proxy.py: features rebuilt the way each label set was built (spectrogram =
+  extract_feature_spectrogram''s soundsig settings, 25 ms x 50 Hz, log10 power; MFCC = extract_feature_mfcc''s Kaldi call +
+  deltas, every other 10 ms frame; model teachers at the relabel''s --layer-index, 1 = first transformer layer, train-mode
+  variants through build_teacher); MiniBatchKMeans k=200 per feature; AMI between frame cluster and the clip''s call type;
+  bag = board cv_acc (StandardScaler + LogisticRegression, leave-birds-out StratifiedGroupKFold(5) seed 0) on each clip''s
+  normalised 200-bin histogram. Not pre-registered: a sub-study of E13 whose only pre-commitment is the script docstring
+  (validate on the four trained label sources before trusting it), and the file was untracked when it ran.'
+provenance: '~/zf_labelset/zf_detection_dataset_v1/analysis/e13_teacher_proxy.json; features in
+  ~/zf_labelset/zf_detection_dataset_v1/features/e13proxy/ (8 npz, ~6 GB).'
+caveats: 'Critic (2026-10-27): ACCEPT-WITH-CHANGES, applied: status narrowed to "this proxy failed its validation" (the
+  general hypothesis stays open), "exactly reverse" dropped for the end-point contrast, seed-spread sentence corrected,
+  the E13 consequence left to the user. Fidelity gaps, not equal across label sets: every model teacher has group-norm in
+  its first conv layer and saw 20 s windows when its codebook was fit but single clips when assigned, so only the model
+  teachers'' clip frames sit off their codebook''s distribution -- a bias in the same direction as the result; the codebook
+  comes from one zebra finch recording, not the 763-file mixed corpus. These could swap the tied middle pair but are
+  unlikely to undo the 2x AMI gap between the end points. Cleanest test (not run): read the real Savio label_train.pt files
+  over the clip spans (99.5% of call-type clips come from pretraining recordings), if clip offsets exist -- no codebook,
+  context or dropout-draw gap. Agrees with findings 039/040 (call-boundary AMI also ranked AVES labels below log-mel) and
+  082 (MFCC labels, lower alignment, student level with spectrogram labels). Four points cannot show that LOWER alignment
+  makes better students.'
+lesson: 'Pseudo-labels are a training signal, not a classifier: a label set that already separates call types is not
+  thereby a better thing to predict, and what makes a good target may be acoustic structure that call-type alignment does
+  not measure. Validate a proxy against outcomes you already have before letting it choose a run -- here the check took
+  an hour and would otherwise have sent E13 to layer 1.'
+tags:
+- labels
+- teacher
+- proxy
+- e13
+date: '2026-10-27'

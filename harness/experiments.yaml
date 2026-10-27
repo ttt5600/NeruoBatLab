@@ -401,6 +401,25 @@ experiments:
     aves-base-bio 0.8438 (+0.0038, untested interval) and biox-large 0.8420, so the "stronger teacher" is not
     clearly stronger; bioxn-large (0.8590) is the CPU leader but is a large model. Also needs a relabel job +
     a dependent training job and an unverified build_teacher load. Human: confirm the teacher choice.'
+  prereg_2026_10_27: 'Pre-registered 2026-10-27 before any relabel (critic ACCEPT-WITH-CHANGES applied). TEACHER IS THE
+    USER''S CHOICE, not decided here: (A) birdaves-bioxn-large layer 12 of 24 (relabel --layer-index 12 = board L11),
+    relative depth matching AVES-bio layer 6 of 12 -- the best download, but its teacher-level lead at that layer is only
+    +0.0071 (0.8356 vs AVES-bio board L5 0.8285, no interval; its resolved +0.0152 is at board L1); or (B) birdaves-biox-base
+    layer 6, same architecture and layer index as run19 so only the weights change, but not distinguishable from AVES-bio
+    as a teacher (+0.0038). The finding-086 proxy is NOT used to choose (it failed validation). Both teachers are read in
+    EVAL mode (finding 085 fix) while run19''s labels were read in train mode: a pass is reported as "<teacher> eval-mode
+    labels beat run19''s train-mode AVES labels"; crediting the teacher alone would need E35 (eval-mode AVES control).
+    PRIMARY: 11-class CPU call type, ARM contrast E13 (2 seeds) minus run19 (run19_avesteacher, run19_seed2) with
+    zfeval/experiments/seed_mean_pairs_cpu.py (per-clip correctness averaged over seeds; interval = birds + seeds), each
+    model at its CPU best layer AND (--layer 3) at layer 3. MET only if BOTH intervals exclude zero above zero and the
+    10-split arm-mean difference (calltype_split_sensitivity_cpu.json, each model at its best layer, arm mean = mean of
+    its seeds) is positive. KILL: arm difference negative at both readouts -> close the stronger-teacher line. Two seeds are
+    final; no seed or layer is added after a result is read. POWER: the largest arm gap on the board, run19 minus run16
+    (+0.0182 best, +0.0209 L3), does NOT resolve under this test (birds + seeds [-0.0076, +0.0439] / [-0.0051, +0.0469],
+    seed_mean_pairs_cpu[_L3].json), so E13 passes only for a gain of roughly +0.03 over run19 (~0.88): unlikely; a null is
+    weak evidence. COST: relabel 1 x L40 (2-4 h) + 2 x ~6 h on 4 x L40 lowprio. Scripts: slurm/relabel_teacher_combined.sh
+    then slurm/train_teacher_labels.sh x2 (afterok; cancel them if the gate fails); delete feat/ (~165 GB for 1024-d) after
+    PASS. Tags run24_<teacher>, run24_<teacher>_s2.'
 - id: E14
   roadmap: idea 6
   title: Start from BirdAVES and specialise it on zebra finch
@@ -827,6 +846,28 @@ experiments:
   priority: 2
   notes: Proposed 2026-10-13 from finding 072. New model code (front end + frame alignment for labels);
     needs the user's go-ahead.
+  prereg_2026_10_27: 'Pre-registered 2026-10-27 (critic ACCEPT-WITH-CHANGES applied); NEEDS THE USER''S GO before
+    submission (~12 GPU-hours on 4 x L40 lowprio). BASELINE is now run16''s three seeds (run16_compute4x, run16_seed2,
+    run16_seed3), not run17/E29: the same recipe, corpus, spectrogram k=200 labels and compute. CHANGE: one module,
+    model.wav2vec2.feature_extractor = utils/logmel_frontend.LogMelFrontEnd (80-bin Slaney log-mel, 25/10 ms, Whisper
+    scaling, Conv1d k3 + Conv1d k3 stride 2, 512 out), on the CNN''s exact 20 ms grid so run16''s labels are reused; 0.91M
+    vs 4.20M front-end parameters. Seeds 1337 and 2. Detection is secondary, not co-primary. PRE-FLIGHT: grid, wiring,
+    export -> eval_model / zfeval load_model bit-identical (tests/test_logmel_*.py); learnable under the relaxed overfit
+    harness (masked acc 0.978 at 100 updates vs the CNN''s 0.996 at 50). PRIMARY: 11-class CPU call type, ARM contrast E30
+    (2 seeds) minus run16 (3 seeds) with seed_mean_pairs_cpu.py (birds + seeds interval) at each model''s CPU best layer
+    AND at layer 3. MET only if BOTH intervals exclude zero above zero and the 10-split arm-mean difference
+    (calltype_split_sensitivity_cpu.json, best layer, arm mean = mean of seeds) is positive. KILL: arm difference negative
+    at both readouts -> close the front-end line (no tuned variants, seeds or longer runs without a new question).
+    A resolved negative best-layer interval is reported as "log-mel input hurts in our recipe". Two seeds are final.
+    POWER: run19 minus run16 (+0.018 / +0.021) does not resolve under this test, so E30 passes only if the front end is
+    worth about +0.03 -- about all of Whisper-small''s lead over the run16 three-seed mean (+0.028 best layer, +0.033 L3;
+    Whisper-base''s +0.0293 is its layer-0 pick, finding 072). A null says "not a large lever", not "no lever". CONFOUNDS:
+    each output frame sees 65 ms (1,040 samples) vs the CNN''s 25 ms; the padded convs distort the edges of 2-8-frame call
+    clips (Whisper pads clips into a 30 s window, we do not); seed 1337 is not paired with run16''s (the new module is built
+    after the CNN, so masks and crops differ); run16''s preemption/resume history differs. SECONDARY: ZF detection AUC
+    (pre-committed arm), BirdPark AP with 12-arm spread, chick Be-vs-LT, label-free k=30, final masked accuracy (same labels
+    as run16), per-type recall vs run16 and Whisper-small (does log-mel bring the tet advantage, finding 081). Script
+    slurm/train_run30_logmel.sh (seed 2: --export=ALL,SEED=2,EXP=..._s2). Tags run30_logmel, run30_logmel_s2.'
 - id: E31
   title: Whisper-small encoder continued on zebra finch (DAPT on Whisper)
   baseline: hf-whisper-small-enc frozen (finding 072)

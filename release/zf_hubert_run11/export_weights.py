@@ -71,6 +71,22 @@ ENCODER_KEYS = [
 ]
 
 
+def _with_frontend(encoder, frontend):
+    """E30: put the log-mel front end on an encoder before loading weights trained with it. The module lives in the
+    training code (pytorchAudio/examples/hubert/utils/logmel_frontend.py); found via $HUBERT_DIR, then the Savio and Mac
+    checkouts. Conv-front-end checkpoints (every run but E30) never import it."""
+    if frontend in (None, "conv"):
+        return encoder
+    import os, sys
+    for d in (os.environ.get("HUBERT_DIR"), "/global/home/users/jonathanswang/pytorchAudio/examples/hubert",
+              str(Path(__file__).resolve().parents[2] / "pytorchAudio/examples/hubert")):
+        if d and (Path(d) / "utils/logmel_frontend.py").exists():
+            sys.path.insert(0, d)
+            break
+    from utils.logmel_frontend import with_frontend
+    return with_frontend(encoder, frontend)
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--ckpt", required=True)
@@ -111,6 +127,10 @@ def main():
     full = torchaudio.models.hubert_pretrain_model(
         num_classes=args.num_classes, feature_grad_mult=0.1, **kwargs
     )
+    frontend = ck.get("frontend")                     # "logmel" for E30 (lightning_modules.on_save_checkpoint)
+    if frontend:
+        _with_frontend(full.wav2vec2, frontend)
+        print(f"[arch] front end: {frontend}")
     missing, unexpected = full.load_state_dict(inner, strict=False)
     print(f"[load] into HuBERTPretrainModel: missing={len(missing)} unexpected={len(unexpected)}")
     if missing or unexpected:
@@ -142,6 +162,8 @@ def main():
         meta.update(json.loads(Path(args.meta_json).read_text()))
 
     obj = {"encoder_config": enc_cfg, "state_dict": enc_sd, "meta": meta}
+    if frontend:
+        obj["frontend"] = frontend                    # loaders: eval_model.build, zfeval detection_variants.load_model
     torch.save(obj, args.out)
     print(f"[saved] {args.out}  ({Path(args.out).stat().st_size/1e6:.0f} MB)")
 
@@ -151,7 +173,8 @@ def main():
     # produced every number in the README.
     print("[verify] rebuilding encoder from exported file")
     re_obj = torch.load(args.out, map_location="cpu", weights_only=False)
-    enc = torchaudio.models.wav2vec2_model(aux_num_out=None, **re_obj["encoder_config"])
+    enc = _with_frontend(torchaudio.models.wav2vec2_model(aux_num_out=None, **re_obj["encoder_config"]),
+                         re_obj.get("frontend"))
     m2, u2 = enc.load_state_dict(re_obj["state_dict"], strict=True), None
     enc.eval()
 

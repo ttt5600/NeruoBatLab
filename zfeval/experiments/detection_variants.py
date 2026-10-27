@@ -119,9 +119,11 @@ def spec(name: str) -> dict:
         w = DAPT_DIR / f"{name}.pt"
         if not w.exists():
             raise FileNotFoundError(f"{w} -- export it first with export_weights.py")
-        cfg = dict(torch.load(w, map_location="cpu", weights_only=False)["encoder_config"])
+        obj = torch.load(w, map_location="cpu", weights_only=False)
+        cfg = dict(obj["encoder_config"])
+        # E30 exports carry frontend="logmel": the 7-layer waveform CNN replaced by a log-mel front end
         return dict(kind="dapt", cfg=cfg, n_layers=int(cfg["encoder_num_layers"]),
-                    dim=int(cfg["encoder_embed_dim"]), weights=w)
+                    dim=int(cfg["encoder_embed_dim"]), weights=w, frontend=obj.get("frontend"))
     cfg = json.load(open(AVES_DIR / f"{name}.torchaudio.model_config.json"))
     return dict(kind="aves", cfg=cfg, n_layers=int(cfg["encoder_num_layers"]),
                 dim=int(cfg["encoder_embed_dim"]),
@@ -143,6 +145,10 @@ def load_model(name: str, s: dict, device: str):
         cfg = dict(s["cfg"])
         cfg["encoder_layer_drop"] = 0.0          # eval-time determinism; layerdrop is training-only
         m = wav2vec2_model(**cfg, aux_num_out=None)
+        if s.get("frontend") not in (None, "conv"):
+            sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "pytorchAudio/examples/hubert"))
+            from utils.logmel_frontend import with_frontend
+            m = with_frontend(m, s["frontend"])
         if s["kind"] == "dapt":
             sd = torch.load(s["weights"], map_location="cpu", weights_only=False)["state_dict"]
         else:

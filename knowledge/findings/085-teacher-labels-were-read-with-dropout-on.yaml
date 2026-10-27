@@ -1,0 +1,62 @@
+id: '085'
+title: Every model-teacher label set was read with dropout on; it moves 17% of frame labels under a fixed codebook, but as a change of partition it is no larger than refitting k-means with a new seed
+status: confirmed
+claim: 'build_teacher (pytorchAudio/examples/hubert/utils/feature_utils.py) never put the teacher in eval mode, so every
+  label set built from a model teacher read its layer with torchaudio hubert_pretrain_base''s dropout on (0.1 projection,
+  0.1 attention, 0.1 encoder; layer drop is not applied on the extract_features path). As a partition, an eval-mode relabel
+  differs from the train-mode one about as much as rerunning k-means with a new seed on the same features: AMI 0.578 vs
+  0.585 (AVES-bio layer 6) and 0.633 vs 0.638 (run16 layer 6), one seed pair each, so dropout adds only about 0.007 and
+  0.004 AMI on top of codebook noise that every relabel carries. Under a FIXED codebook the dropout draw moves 17.1% (AVES)
+  and 17.3% (run16) of frame labels against eval mode, and two train-mode draws disagree on 23.0% and 22.9%. Whether any of
+  this moves a student is not measured.'
+evidence: 'teacher_dropout_diagnostic.json (80,000 frames = 80 consecutive 20 s windows from the start of 111021-000, teacher
+  loaded through the relabel''s own build_teacher, layer 6, k=200 MiniBatchKMeans fit on train-mode pass A, the k-means type
+  utils/kmeans.py uses): aves-base-bio changed_A_vs_B 0.2304, changed_A_vs_E 0.1713, ami_A_B 0.7535, ami_A_E 0.8099,
+  cos_A_B 0.9152, cos_A_E 0.9537, ami_A_vs_E_own_codebooks 0.5777, ami_A_codebook_seed0_vs_seed1 0.5849; run16_compute4x
+  0.2292, 0.1727, 0.7649, 0.8170, 0.8105, 0.8951, 0.6334, 0.6378.
+  Independent replication (teacher_dropout_replication.json; replicator agent, own code in
+  zfeval/experiments/replications/teacher_dropout_*.py, minutes 40-60 of the same recording, 60,000 frames, AVES-bio, own
+  dropout seeds): MiniBatchKMeans as the relabel ran it 0.2295 (A vs B) / 0.1731 (A vs eval); fully converged sklearn
+  KMeans 0.2095 / 0.1512 and 0.2129 / 0.1584 on two seeds, a systematic ~2-point drop because a tighter codebook flips fewer
+  labels; cosine A-B 0.914, A-eval 0.953; two full-KMeans seeds on the same features AMI 0.660; label flips with B shuffled
+  in time 0.994 (chance from the label frequencies 0.9946).'
+method: 'zfeval/experiments/teacher_dropout_diagnostic.py: each teacher read three times on the same windows (train mode
+  twice with torch seeds 0 and 1, eval once), k=200 fit on pass A, labels compared under that codebook; AMI of A against an
+  eval-mode codebook fit on E, and of two codebook seeds on A. The local run16 file is an export whose meta names
+  epoch=37-step=93750.ckpt, the checkpoint relabel_iter2_run16.sh read; its encoder was loaded into the same
+  hubert_pretrain_base the relabel built. The converted AVES config carries the same dropout values as hubert_pretrain_base.
+  Origin: no committed version of feature_utils.py calls .eval() (the windowed code that produced run12/run13''s labels was
+  first committed in ae0b1b3b, 2026-09-20; build_teacher arrived in 667abf3b). The omission is inherited from torchaudio''s
+  HuBERT example (git 27433050: hubert_pretrain_base(), .to(device), _load_state); fairseq''s dump_hubert_feature.py does
+  self.model = model[0].eval().cuda(). torch.inference_mode() does not switch dropout off.'
+provenance: 'Affected (model-teacher labels): run12, run13, run18, run19 and run19 seed 2, run22 (a subset of run19''s
+  labels), DAPT E17, E18, E20, E28 (run19''s labels via swap_labels.py), and E19, E21-E24, E14, E27 (two_teacher_labels.py
+  clusters the relabel jobs'' dumped train-mode features). Not affected: run11, run15-run17, run20, run21, run23, E29
+  (spectrogram or MFCC labels); DAPT rounds 1-2 and E5 (run11''s spectrogram labels); every evaluation feature (zfeval
+  load_model / load_aves / load_run11, eval_model.load_encoder and the release bundle all call .eval()). Read-side
+  mismatch: eval_iter2_labels.py (run12''s label gate) and target_quality.py (finding 039) read teachers in eval mode, so they
+  scored a slightly different label set than the students trained on. Fix 2026-10-27: build_teacher returns .eval() (also
+  takes --teacher-config for non-base teachers); tests/test_build_teacher.py::test_teacher_is_deterministic fails on the old
+  code and passes on the fix. Not yet committed or on Savio at the time of writing. ~/zf_labelset/zf_detection_dataset_v1/analysis/
+  teacher_dropout_diagnostic.json, teacher_dropout_replication.json.'
+caveats: 'Critic (2026-10-27): ACCEPT-WITH-CHANGES, applied: the claim leads with the partition-level comparison (a real relabel
+  refits the codebook) and states that the own-codebook AMI already contains the seed-refit noise; the "AVES advantage
+  survived" caveat was removed (077: the AVES-label lead is point estimates only); scope adds the read-side mismatch;
+  the fix is marked uncommitted. Replicator (2026-10-27): MATCH within ~2 points, the exact figure depends on k-means
+  convergence. Limits: one recording (zebra finch only, no FSD50K frames), local codebooks on 60-80k frames rather than
+  Savio''s GPU k-means on 1M frames from 763 files, ONE codebook-seed pair per teacher so the spread of the seed-refit AMI
+  is unmeasured, and the two-teacher (standardised, concatenated) labels were not measured directly. A label change is not
+  a student change: no student has been trained on eval-mode labels. Isolating dropout at fixed codebook would mean
+  applying run19''s own k-means model to eval-mode features; any new relabel (E13) changes the codebook as well, which by
+  this measurement matters about as much as the mode.'
+lesson: 'A torch module is in train mode until told otherwise, and inference_mode()/no_grad() only stop gradient tracking;
+  any network used as a fixed feature extractor needs an explicit .eval(). The one-line test: run the same input twice and
+  require identical outputs. Separately, k-means labels are far from unique (AMI 0.58-0.66 between two seeds on identical
+  features), so "the labels" of any teacher are one draw from a wide distribution, and differences between teachers are
+  only interpretable against that spread.'
+tags:
+- labels
+- teacher
+- bug
+- e13
+date: '2026-10-27'
