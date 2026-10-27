@@ -18,6 +18,8 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-27 DEPLOYED L39 monthly rain/snow paper logger (launchd com.jonathanwang.quant-kalshi-wx-monthly, hourly :05, decides 22:00
+  local in a month's last 7 days): `scripts/kalshi_wx_monthly_logger.py report`. Preview 10-27: 22 qualifying NO brackets (15 cities).
 - 10-27 research: NFL recency DEAD; NBA shooting luck no bet (in model already; cold-over seed 5/10 seasons); NHL luck + blind
   6.5 unders DEAD (16 seasons: 6.5 under -4.3%/1,160) -> CANCELLED tonight's 3 NHL under orders (unfilled); kept SJ/NJ ML.
   User NBA leans revised: drop POR@LAL over (luck-only); BKN@BOS under stays (logger pick).
