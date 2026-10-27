@@ -18,6 +18,10 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-27 RESULTS: NBA open-totals logger first picks 3-0 (CLV +1.5); manual DET@EDM U6.5 filled & LOST (7 goals, -$1.80); TOR@CGY U
+  + PHI+4.5 unfilled (both would have lost); weather live 40/40 +$0.76. 10-27 MANUAL (resting, expire at puck drop, $9.36): BUF@SJ
+  U6.5 NO@.45, OTT@VGK U6.5 NO@.50, CBJ@PHI U5.5 NO@.49, SJ ML YES@.43, NJ ML YES@.47 (x4 each). NBA leans for user (shard):
+  BKN@BOS under ~223, POR@LAL over ~234, SAC@SA over (value gone), NY by >6.5 @.41. notes/tonight_nba_2026-10-27.md
 - 10-26 MANUAL BETS (user-authorized $25 Kalshi bonus; scripts/manual_bets.py, post-only maker, expire at start, cap $25): resting
   DET@EDM U6.5 NO@.45x4, TOR@CGY U6.5 NO@.46x4, DAL@PHI PHI+4.5 NO@.50x4 ($5.64). NBA orders REJECTED: "insufficient_shard_balance"
   (NBA markets on a separate Kalshi shard; account not set up there) -> user places NBA on phone. Sheets: notes/tonight_nba_2026-10-26.md,
