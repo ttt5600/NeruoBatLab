@@ -177,6 +177,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **L37 NBA mid-game comeback rule: SEALED FAIL 2026-10-26** (results/nba_l37_sealed.json): 477 bets -3.9c/contract p .97; Kalshi in-game sharper than model (Brier .1284 vs .1319). Descriptive: trailer longshot bias ~1.5c in 0-15c bins -> forward-only L38 candidate (fade trailing longshots), fee-limited.
 
+- **NFL recency/overreaction (10-27, notes/nfl_recency.md, 12 trials): DEAD.** Fades 48.7-51.7% ATS; line drifts toward last-week coverer open->close (+0.275/SD p 3e-13, EPA-driven = sharp) but outcomes don't reward it.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
