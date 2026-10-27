@@ -203,6 +203,7 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 | Customer-supplier momentum + earnings spillover (A1, A2, B1-B3) | all fail net of costs | company_graph.md |
 | Kalshi soccer 1X2, CPI, gas, hourly temp, lows (X2), daily rain (R1 sealed fail), day-of temp (N1) | see STATE CLOSED list | results.md |
 | 14 ETF rules (stocks_bt.py) | all failed | results.md |
+| NHL PDO/shooting luck + blind unders by opening total (scripts/nhl_luck.py, dataset nhl_luck, SBR 2007-08..2022-23 + NHL API shots) | 0/17 pass. Under at open 6.5 -4.3%/1,160 (L34 +5.8% no-vig lead does not replicate); luck bets lose ~vig; close prices ~90% of luck; totals drift TOWARD luck open->close | notes/nhl_luck.md |
 
 ---------------------------------------------------------------------------------------------------------------------
 ## 6. AGENTS: who did what, where the output is, how to reach them
