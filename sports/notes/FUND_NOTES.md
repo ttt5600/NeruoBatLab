@@ -12,3 +12,5 @@
 - 2026-10-28T15:32Z loop: Q004 deployed (first-tight-quote + depth fields, pick_tight paper picks in nba_open_totals + open_lines_logger; censors pre-existing listings).
 - 2026-10-28T18:28Z loop: launched build: 'rating' team command (Bayesian prior+season blend) + brief adds E5/ForecastEx + Q003/Q004 sections.
 - 2026-10-28T18:31Z loop: 'rating' command + brief sections (E5, Q003, Q004, picks) deployed.
+- 2026-10-28T21:29Z loop: launched Q007 ForecastEx breadth scan.
+- 2026-10-28T21:38Z loop: Q007 done -- ForecastEx favourites underpriced across families (+1.5-3.5% at last trade, no bid/ask); econ vs Kalshi: FX favourites 1.4-2.2c cheaper; Q008 [proposed] Kalshi-favoured side on FX when >=2c cheaper (64 bets 0 losses, tiny capacity) -> fold into FX paper logger.

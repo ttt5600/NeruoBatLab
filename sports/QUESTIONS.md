@@ -123,3 +123,23 @@ success:    set by /prereg (proposal: one sealed shot ~Feb 2027 on rain Jul26-Ja
 kill:       any 2 losses in the first 100 forward picks.
 power:      mu 1%, sigma 0.15 -> 1,392 picks; at ~20-25/month that is years -> capacity (~$7.5/month) caps the value.
 budget:     0 new trials; logger already running. Low priority: cannot move the doubling target.
+
+## Q007 [done] ForecastEx breadth: calibration of all ForecastEx contract families (public daily files) vs Kalshi same events
+Mechanism: E5 shows ForecastEx weather priced ~9c cheaper than Kalshi for the same rejected brackets; other ForecastEx families (economic data, climate, politics) may carry the same thin-venue mispricing. Baseline: Kalshi price for the same event / realised outcome. Budget: 1 agent, dev split only.
+Result (2026-10-28, EXPLORATORY, notes/q007_forecastex_breadth.md): FLB on every family (slope 1.05-1.12, fav +1.5-3.5% at
+last trade ~= Kalshi's at-mid FLB). Econ same-event vs Kalshi (751 pairs / 92 releases): no level gap, but FX is a compressed copy
+(favourites -1.4..-2.2c, longshots +2.4c) and less accurate (Brier 0.073 vs 0.066). One strong cell -> Q008. Do-not-pursue:
+crypto/fin dailies (stale last-trade), sports (delisted Mar 2026), elections, climate, symmetric cross-venue arb.
+
+## Q008 [proposed] ForecastEx econ: buy the Kalshi-favoured side when ForecastEx prices it >= 2c cheaper (forward paper)
+question:   Is the FX discount on Kalshi-favoured econ outcomes (CPI/core CPI/MoM CPI/payrolls/U3/claims/Fed) executable at the FX ask?
+mechanism:  E5 generalised: thin IBKR-retail venue = compressed copy of Kalshi; plus the Kalshi FLB at >= 0.85.
+baseline:   dev (exploratory, last trade): Kalshi mid >= .85, FX side <= Kalshi mid - .02 -> 64 bets / 57 events, 0 losses,
+            FX cost .868, ROI +16% [13.5, 18.9]; same bets at Kalshi ask +4.7%. ~40-50 signals/yr, median FX size 46 pairs.
+change:     forward paper on live quotes: 15:00 CT snapshot of Kalshi book + FX ask (forecastex_client public quotes),
+            frozen strike map (FF = Kalshi strike + 0.125), 1-30 d to release; signal Kalshi mid >= .85 and FX ask <= mid - .02,
+            >= 10 at ask; 1 unit at FX ask + $0.01, first signal per contract. Also log FX bid/ask on all >= .80 contracts (H2).
+success:    >= 100 bets / 40 events, one-sided p < .05, ROI > 0, Wilson-95 upper loss rate < 1 - mean cost.
+kill:       >= 3 losses in first 30 bets, OR < 25% of Kalshi-favoured days have a qualifying FX ask (dev gap = last-trade artifact).
+power:      ~2 years at 40-50 signals/yr; capacity ~$25-50/signal -> value is small; only worth it bolted onto FX1-fwd logger.
+budget:     0 new trials until scored; logger extension only.
