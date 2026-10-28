@@ -195,6 +195,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **L40 Kalshi Liquidity Incentive Program on weather brackets (10-27, notes/kalshi_lip.md):** $20/bracket/period (~1.6 d) on all 48 daily temp series; 75% of temp brackets pay nobody (YES side < 1,000); 1,000 YES @1c (~$10) could claim up to ~$10/period vs fill cost ~$0.5-1.3/bracket-night. 10-day PAPER test 10-29..11-08 pre-registered; program ends 2027-01-01.
 
+- **L38 in-game trailing-longshot fade (10-27, notes/ingame_longshot.md, 8 trials): DEAD.** 3,051 dev snapshots NBA/NFL/NHL; L37-sealed 1.5c bias does not replicate (15-25c trailers +1.6c UNDER-priced); taker -0.2..-3.6c/contract; maker n.s. Weak: NHL 1-5c trailers 0/38. In-game Kalshi = efficient; live board kept as decision support/recorder only.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
