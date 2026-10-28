@@ -116,6 +116,10 @@ Markets / stocks
 - L13 Inference-vs-training tilt (F6): demand evidence strong, compute share flat 29-39% (SemiAnalysis, secondhand); basket outperformance mostly SNDK + INTC. A forward record, not a backtest.
 - L14 Company graph as a DATA product (12,917 dated customer filings, ~96% precision; data/company_graph/edges.parquet), e.g. "customer guided down -> suppliers reporting in 30 days" screens. Not an alpha.
 - L15 ForecastEx (IBKR) weather: different stations (LGA etc.) and Weather Underground source -> a NEW trial of the E1 idea; needs an IBKR account for live quotes.
+  -> TESTED 10-28 DEV (scripts/forecastex_wx.py, notes/forecastex_wx.md, 2 trials bar .025): T1 D-1 last trade 159 bets
+     +20.9u ROI +13.2% p .0004; T2 day-high price +14.4u p .001 -- but n < pre-reg floor 500 (= not resolvable), 128/159 bets
+     in Jul-Aug (D-1 trading ~absent May-Jun), trade prices not quotes (mean cost .88). WU max 1-2F below NWS on 64% of days.
+     SEALED ASK FX1 (08-15..10-26) awaits user yes; IBKR account only after.
 
 Information / social
 - L16 X post counts vs Kalshi rumor markets: GDELT timestamps are late, so it can't rule out X leading. One-off test ~$13 (`rumor_signals.py xcounts --confirm-spend`) needs X_BEARER_TOKEN in sports/.env + user "yes, spend". Live X monitoring would cost ~$7k/month for 100 names.
