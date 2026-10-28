@@ -201,6 +201,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **L38 in-game trailing-longshot fade (10-27, notes/ingame_longshot.md, 8 trials): DEAD.** 3,051 dev snapshots NBA/NFL/NHL; L37-sealed 1.5c bias does not replicate (15-25c trailers +1.6c UNDER-priced); taker -0.2..-3.6c/contract; maker n.s. Weak: NHL 1-5c trailers 0/38. In-game Kalshi = efficient; live board kept as decision support/recorder only.
 
+- **NBA live totals model vs Kalshi KXNBATOTAL (10-27, notes/nba_live_totals.md, 3 trials): DEAD.** Kalshi Brier .1196 < model .1240; rule -2.1%/336; close-Q4 -41.5%/46. Game pace carries ~no signal beyond pregame total/time/margin. Lead only: overs realised 2-6 pts below Kalshi mid in 5-55c bins (not prereg).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
