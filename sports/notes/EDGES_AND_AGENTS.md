@@ -205,6 +205,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **E5 ForecastEx weather consensus-reject: SEALED PASS-UNDERPOWERED 2026-10-28** (user "yes ForecastEx"; results/forecastex_wx_sealed.json): 219 bets 10 losses (4.6% vs b/e 10.2%), +15.05u, ROI +6.9% p .0004; T2 high-trade +5.5% p .0036; halves +4.3/+10.8. Caveats: last-trade (not quote) prices, thin (median 29/contract), <500 floor. WU settlement (independent of Kalshi NWS). NEXT: forward paper on live IBKR bid/ask (needs IBKR account).
 
+- **L41/Q003 Kalshi Mentions maker NO (10-28, notes/q003_retail_maker.md, 4 trials):** IN1_d6 859 fills +7.08% p<.0002 (LEAD), MID_d6 +5.8%; d24 DEAD (2nd half negative). Adverse selection small (0.3-1.0c). DECAYING: halves +11.5%/+2.9% (cf. M3 death). Sealed ask: IN1_d6 on events >= 2026-06-25 (needs user yes).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |

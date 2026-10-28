@@ -54,7 +54,7 @@ kill:       set by /prereg (proposal: reward < 0.2%/day of resting $ or concentr
 power:      descriptive measurement first (2 weeks of paper quotes); the money test comes after, as its own question.
 budget:     3 trials. 2 weeks paper (no orders). Tiny live only on PM yes.
 
-## Q003 [running] Maker NO/favourite quoting in thin retail categories (mentions, entertainment, single-name)
+## Q003 [dev-lead, sealed ask] Maker NO/favourite quoting in thin retail categories (mentions, entertainment, single-name)
 question:   Does a resting NO (favourite side) quote in thin retail Kalshi categories earn a positive net return per
             filled $, where the taker version (M3) failed sealed?
 mechanism:  Retail takers overpay for YES/longshots; makers on the other side earn ~2c/contract in the literature
@@ -67,6 +67,11 @@ success:    set by /prereg.
 kill:       set by /prereg (proposal: filled loss rate above break-even, as in K-FAV).
 power:      at mu 2%, sigma ~0.3 per $ -> 1,392 fills; check the tape has that many before running.
 budget:     <= 6 trials (dataset bar .0083). Dev replay only; sealed on PM yes.
+finding:    2026-10-28 (notes/q003_retail_maker.md, scripts/q003_retail_maker.py, 4 trials, bar .0125). Mentions only;
+            YES mid 5-35c, back-of-queue tape fill, cancel anchor-2h. LEAD: IN1_d6 +7.08%/859 fills p<.0002,
+            MID_d6 +5.78%/897 p .0002; DEAD: both D24 trials (2nd half negative). Adverse selection small (0.3-1c);
+            edge decays (D6 half2 +1.9/+2.9% vs half1 +10-12%). 258/1500 sample tickers not scored (budget cap).
+            Entertainment/culture outside Mentions not tested. Sealed ask: IN1_d6 on anchors >= 2026-06-25.
 
 ## Q004 [proposed] Model-timing edges taken at the first tight Kalshi quote (NBA/NHL/NFL/CFB totals vs openers)
 question:   Do our simple totals models, which lead sportsbook OPENERS (CLV p < 1/4000 in every sport), make money when
