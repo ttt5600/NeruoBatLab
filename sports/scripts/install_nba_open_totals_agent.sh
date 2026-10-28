@@ -10,7 +10,7 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data/espn" "$DST/data/nba_comebacks" "$DST/data/nba_simple_model" "$DST/results"
 rsync -a --delete --exclude __pycache__ "$SRC/sports/" "$DST/sports/"
-for f in nba_open_totals.py nba_simple_live.py nba_simple_model.py nba_player_sim.py collect.py; do cp "$SRC/scripts/$f" "$DST/scripts/"; done
+for f in nba_open_totals.py kalshi_tight.py nba_simple_live.py nba_simple_model.py nba_player_sim.py collect.py; do cp "$SRC/scripts/$f" "$DST/scripts/"; done
 cp "$SRC/results/nba_simple_model_frozen.json" "$DST/results/"
 # model inputs: ESPN NBA seasons (the live path refreshes the current season in place) + paint team logs
 rsync -a --update "$SRC/data/espn/nba" "$DST/data/espn/"

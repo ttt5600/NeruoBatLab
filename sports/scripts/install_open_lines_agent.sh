@@ -12,7 +12,7 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data/pbp" "$DST/data/nhl_simple_model/live" "$DST/results"
 rsync -a --exclude __pycache__ "$SRC/sports/" "$DST/sports/"          # shared package (no --delete)
-for f in open_lines_logger.py nhl_simple_live.py nfl_simple_model.py; do cp "$SRC/scripts/$f" "$DST/scripts/"; done
+for f in open_lines_logger.py kalshi_tight.py nhl_simple_live.py nfl_simple_model.py; do cp "$SRC/scripts/$f" "$DST/scripts/"; done
 cp "$SRC/results/nhl_simple_live_fit.json" "$DST/results/"
 # NHL: parsed NHL-API history (2024-25 + current season; the live path appends new games in place)
 rsync -a --update "$SRC/data/nhl_simple_model/live/" "$DST/data/nhl_simple_model/live/"

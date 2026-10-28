@@ -29,7 +29,29 @@ PRE-REGISTERED 2026-10-25 (before the first tick):
                graded/priced exactly like the main rule; logged as type pick_bc / settle_bc; judged separately.
   JUDGE      = after 200 settled picks: CLV > 0 (one-sided p < .05) is the leading indicator; kill if mean CLV <= 0
                after 100 picks. ROI needs ~1,000+ picks to say anything (55% vs 52.4% break-even).
-Files: data/open_totals_state.json (per-game state), data/open_totals_picks.jsonl (picks + settlements).
+  ADDENDUM Q004 (2026-10-28 15:30Z, written and deployed BEFORE any of these fields were collected; the rules above
+  are unchanged -- this only ADDS fields and a separate paper pick type; helpers in scripts/kalshi_tight.py):
+    (a) LISTING  = per KXNBATOTAL event: Kalshi open_time (min over the ladder), our first sighting, and the FIRST
+                   TWO-SIDED anchor quote (anchor = two-sided strike whose YES mid is nearest 50c).
+    (b) TIGHT    = first tick at which the anchor's YES spread <= 4c: time, strike, bid/ask, and displayed depth at
+                   the best price from the orderbook endpoint (contracts and $ for YES ask, NO ask, YES bid).
+                   Censored (no pick_tight, excluded from timing stats) when seen tight/two-sided at our FIRST sighting
+                   of an event whose open_time is > 25 min older (we missed the moment). 10-min polling -> times are
+                   upper bounds to within ~10 min.
+    (c) DEPTH    = at the main rule's decision tick, for a pick with a matching Kalshi strike: contracts and $ on our
+                   side at the best ask and within 1c of it (kal_depth_* fields on the pick row).
+    (d) pick_tight = separate paper pick (type pick_tight / settle_tight in the picks file; state in
+                   data/open_totals_tight.json). Decided at the first tick >= the event's uncensored first tight quote
+                   at which (i) the game is in our Pinnacle state, (ii) a model total exists, (iii) tip is >= 30 min
+                   away, (iv) the anchor is CURRENTLY tight. Line = the anchor strike S at that tick; SAME threshold:
+                   |model - S| >= 3.0 -> over (YES) if model > S else under (NO). Price = that contract's ask at that
+                   tick + exact taker fee (100-contract order, rounded up to the cent). One per game. Settled on the
+                   final total vs S (no pushes; half-point strikes). CLV = last pre-tip Pinnacle main total - S, signed
+                   in the bet's direction (points). Main-rule picks are unaffected.
+    JUDGE (Q004) = after >= 100 settled pick_tight (pooled with the NHL/NFL logger's pick_tight in QUESTIONS.md Q004,
+                   also read per sport): mean CLV > 0 AND ROI at ask+fee > 0 -> write a sealed ask; otherwise no ask.
+Files: data/open_totals_state.json (per-game state), data/open_totals_picks.jsonl (picks + settlements),
+       data/open_totals_tight.json (Q004 listing/tight records + pick_tight decisions).
 """
 from __future__ import annotations
 
@@ -47,9 +69,12 @@ import pandas as pd
 
 from sports import live
 from sports.live import KALSHI, _get, am_to_dec, devig, kalshi_fee
+import kalshi_tight as KT
 
 STATE = ROOT / "data" / "open_totals_state.json"
 PICKS = ROOT / "data" / "open_totals_picks.jsonl"
+TIGHT = ROOT / "data" / "open_totals_tight.json"
+TIGHT_SLACK = pd.Timedelta(minutes=25)
 GAP = 3.0
 BC_MIN_N = 30   # BC variant needs >= 30 earlier decided games with a pre-tip close to estimate the level bias
 BC_WINDOW = 50  # most recent games used for the bias
@@ -133,7 +158,11 @@ def kalshi_ladders() -> dict[str, dict]:
             if not a or not h:
                 continue
             f = lambda k: float(m[k]) if m.get(k) not in (None, "") else np.nan
-            e = out.setdefault(ev, {"key": key(date, h, a), "strikes": {}})
+            e = out.setdefault(ev, {"key": key(date, h, a), "strikes": {}, "rows": []})
+            e["rows"].append({"ticker": m["ticker"], "strike": None if m.get("floor_strike") is None
+                              else float(m["floor_strike"]), "yes_bid": f("yes_bid_dollars"),
+                              "yes_ask": f("yes_ask_dollars"), "no_ask": f("no_ask_dollars"),
+                              "open_time": m.get("open_time")})
             if m.get("floor_strike") is not None:
                 e["strikes"][float(m["floor_strike"])] = (f("yes_bid_dollars"), f("yes_ask_dollars"),
                                                           f("no_bid_dollars"), f("no_ask_dollars"))
@@ -219,10 +248,17 @@ def cmd_tick() -> int:
             g.setdefault("kal_open", snap)
             g["kal_last"] = snap
         g["_ladder"] = e["strikes"]  # transient, for pricing the pick below
+        g["_rows"] = e["rows"]
+    T = json.loads(TIGHT.read_text()) if TIGHT.exists() else {"markets": {}, "picks": {}}
+    for ev, e in kal.items():  # Q004 (a)/(b): listing + first tight, independent of Pinnacle
+        T["markets"][ev] = {**KT.track(T["markets"].get(ev), e["rows"], t, TIGHT_SLACK, _get, KALSHI), "key": e["key"]}
+    tight_due = {r["key"]: ev for ev, r in T["markets"].items() if r.get("first_tight")
+                 and not r["first_tight"]["censored"] and r["key"] not in T["picks"] and r["key"] in st}
 
     # decisions
     need = sorted({k.split("|")[0] for k, g in st.items() if "pin_open" in g and "decision" not in g
-                   and pd.Timestamp(g["start"]) - t >= MIN_LEAD})
+                   and pd.Timestamp(g["start"]) - t >= MIN_LEAD}
+                  | {k.split("|")[0] for k in tight_due if pd.Timestamp(st[k]["start"]) - t >= MIN_LEAD})
     models = {}
     for d in need:
         models.update(model_totals(d))
@@ -264,12 +300,42 @@ def cmd_tick() -> int:
                 ask = lad[1] if side == "over" else lad[3]
                 if np.isfinite(ask):
                     dec.update(kal_ask=ask, kal_fee=round(kalshi_fee(ask), 4))
+                tk = [r["ticker"] for r in g.get("_rows", []) if r["strike"] == o["line"]]
+                if tk:  # Q004 (c): our side's depth at the decision tick
+                    dd = KT.buy_depth(KT.book(_get, KALSHI, tk[0]), side == "over")
+                    dec.update(kal_ticker=tk[0], **{f"kal_depth_{x}": v for x, v in dd.items()})
             with PICKS.open("a") as f:
                 f.write(json.dumps({"type": "pick", "key": k, "start": g["start"], **dec}) + "\n")
             new += 1
         g["decision"] = dec
+    # Q004 (d): pick_tight
+    for k, ev in tight_due.items():
+        g = st[k]
+        if pd.Timestamp(g["start"]) - t < MIN_LEAD:
+            T["picks"][k] = {"t": t.isoformat(), "event": ev, "pick": None, "why": "not decidable >= 30 min before tip"}
+            continue
+        e = kal.get(ev)
+        a = KT.anchor(e["rows"]) if e else None
+        m = models.get(k)
+        if a is None or a["strike"] is None or a["yes_ask"] - a["yes_bid"] > KT.TIGHT_MAX + 1e-9 or m is None:
+            continue
+        gap = m["total"] - a["strike"]
+        dec = {"t": t.isoformat(), "event": ev, "ticker": a["ticker"], "strike": a["strike"],
+               "model": round(m["total"], 2), "gap": round(gap, 2), "yes_bid": a["yes_bid"], "yes_ask": a["yes_ask"],
+               "no_ask": a["no_ask"], "first_tight_t": T["markets"][ev]["first_tight"]["t"], "pick": None}
+        if abs(gap) >= GAP:
+            side = "over" if gap > 0 else "under"
+            ask = a["yes_ask"] if side == "over" else a["no_ask"]
+            if np.isfinite(ask):
+                dd = KT.buy_depth(KT.book(_get, KALSHI, a["ticker"]), side == "over")
+                dec.update(pick=side, ask=ask, fee=KT.fee_exact(ask), **{f"depth_{x}": v for x, v in dd.items()})
+                with PICKS.open("a") as f:
+                    f.write(json.dumps({"type": "pick_tight", "key": k, "start": g["start"], **dec}) + "\n")
+                new += 1
+        T["picks"][k] = dec
     for g in st.values():
         g.pop("_ladder", None)
+        g.pop("_rows", None)
 
     # settle
     open_keys = [k for k, g in st.items() if ((g.get("decision") or {}).get("pick") or (g.get("decision") or {}).get("pick_bc"))
@@ -297,6 +363,26 @@ def cmd_tick() -> int:
                         f.write(json.dumps({"type": "settle_bc", "key": k, "final_total": fin[k],
                                             "result": grade(dec["pick_bc"]), "close_line": close,
                                             "clv_pts": cl(dec["pick_bc"])}) + "\n")
+    # settle pick_tight
+    tp = [k for k, p in T["picks"].items() if p.get("pick") and "result" not in p
+          and t - pd.Timestamp(st[k]["start"]) > pd.Timedelta(hours=3)]
+    for d in sorted({k.split("|")[0] for k in tp}):
+        try:
+            fin = finals(d)
+        except Exception as e:  # noqa: BLE001
+            errs.append(f"espn {type(e).__name__}")
+            continue
+        for k in tp:
+            if k in fin:
+                p, g = T["picks"][k], st[k]
+                res = "win" if (fin[k] > p["strike"]) == (p["pick"] == "over") else "loss"
+                close = (g.get("pin_last") or {}).get("line")
+                clv = None if close is None else (close - p["strike"]) * (1 if p["pick"] == "over" else -1)
+                p.update(result=res, final_total=fin[k], roi=KT.roi(res, p["ask"], p["fee"]), close_line=close, clv=clv)
+                with PICKS.open("a") as f:
+                    f.write(json.dumps({"type": "settle_tight", "key": k, "final_total": fin[k], "result": res,
+                                        "roi": p["roi"], "close_line": close, "clv_pts": clv}) + "\n")
+    TIGHT.write_text(json.dumps(T, indent=1, default=str))
     STATE.write_text(json.dumps(st, indent=1))
     msg = f"tick {t:%F %H:%M}Z games {len(st)} pins {len(pins)} kalshi_events {len(kal)} new_picks {new}"
     if errs:
@@ -329,6 +415,11 @@ def cmd_report() -> int:
         print(f"model - open: mean {np.mean(gaps):+.2f} sd {np.std(gaps):.2f} n {len(gaps)}  "
               f"(a mean far from 0 = level problem, not edge)")
     r = _rows()
+    T = json.loads(TIGHT.read_text()) if TIGHT.exists() else {"markets": {}, "picks": {}}
+    dd = [p.get("depth_usd_1c") for p in T["picks"].values() if p.get("pick")]
+    if not r.empty and "kal_depth_usd_1c" in r:
+        dd += r.kal_depth_usd_1c.dropna().tolist()
+    KT.report(T, [p for p in T["picks"].values() if "result" in p], dd, "NBA totals")
     if r.empty:
         print("no picks yet")
         return 0

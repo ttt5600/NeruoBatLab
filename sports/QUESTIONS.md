@@ -73,7 +73,7 @@ finding:    2026-10-28 (notes/q003_retail_maker.md, scripts/q003_retail_maker.py
             edge decays (D6 half2 +1.9/+2.9% vs half1 +10-12%). 258/1500 sample tickers not scored (budget cap).
             Entertainment/culture outside Mentions not tested. Sealed ask: IN1_d6 on anchors >= 2026-06-25.
 
-## Q004 [proposed] Model-timing edges taken at the first tight Kalshi quote (NBA/NHL/NFL/CFB totals vs openers)
+## Q004 [running] Model-timing edges taken at the first tight Kalshi quote (NBA/NHL/NFL/CFB totals vs openers)
 question:   Do our simple totals models, which lead sportsbook OPENERS (CLV p < 1/4000 in every sport), make money when
             taken on Kalshi at the first quote with spread <= 10c (L35)?
 mechanism:  Opening prices are stale before sharp money arrives; the edge is timing, so it needs early, low-fee entry.
@@ -86,6 +86,20 @@ kill:       loggers' own rule at 100 settled picks per sport (CLV <= 0 or ROI CI
 power:      at mu 2%, sigma ~1.0 per $ the ROI test needs ~15,000 bets (impossible); CLV (sigma ~1.7 pts, mu ~1.2) needs
             ~12 picks. So CLV decides go/no-go and ROI only bounds the loss -> keep stakes minimal.
 budget:     0 dev trials; forward paper ~100 picks per sport (~1 season-month each).
+measuring:  (2026-10-28 15:30Z, ADDENDUM in both loggers' docstrings, deployed before any data; helpers
+            scripts/kalshi_tight.py; state data/open_totals_tight.json, data/open_lines_{nhl,nfl}_tight.json)
+            (a) per Kalshi event: open_time, our first sighting, first two-sided anchor quote (anchor = strike/team
+            market with YES mid nearest 50c); (b) FIRST TIGHT quote (anchor spread <= 4c): time, bid/ask, orderbook
+            depth at best (contracts + $); (c) at the main rule's decision tick, our side's depth within 1c of best
+            (kal_depth_* on pick rows); (d) paper `pick_tight`: first tick >= uncensored first tight with a model
+            number, >= 30 min to start and anchor still tight; SAME gap thresholds with the Kalshi contract replacing
+            the Pinnacle open (NBA |model-S|>=3; NHL ML/total .03/.04 vs Kalshi mid; NFL spread/total 2.0/2.5 pts);
+            taker at ask + exact fee (100-ct order, rounded up); settled as the binary contract; CLV vs last
+            pre-start Pinnacle (points NBA/NFL, prob NHL). Censored = already two-sided/tight at our first sighting
+            of an event listed > 25/35 min earlier -> no pick_tight. All events live at deploy are censored.
+            Reports: `nba_open_totals.py report`, `open_lines_logger.py report --league nhl|nfl` (Q004 section).
+decision:   after >= 100 settled pick_tight (pooled across NBA/NHL/NFL, also shown per sport): mean CLV > 0 AND
+            ROI at ask+fee > 0 -> write a sealed ask; otherwise no ask. Depth median/P10 $ at best sizes any ask.
 
 ## Q005 [done] Small / long-tail market calibration by volume quintile (Polymarket US + Kalshi)
 question:   Is the favourite-longshot mispricing larger in low-volume markets, by enough to clear fees and spread?
