@@ -185,6 +185,14 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **Weather confidence-based Kelly sizing (10-27, notes/kalshi_sizing.md): NOT ADOPTED.** Per-pick confidence beyond price is unmeasurable (features add nothing); YES hits ~0.69x the NO-ask-implied rate (sealed 0.665) -> Kelly ~ flat 4.4% of bankroll/pick (k .25, 80% LCB); Kelly sizing did not beat flat in dev backtest. Lever = flat unit size + maker.
 
+- **Small/long-tail market calibration scan (10-27, notes/smallmarket_calibration.md, scripts/smallmarket_*.py; EXPLORATORY, no trials):**
+  Q1 "small = less efficient" is a LOOK-AHEAD artifact of lifetime volume (upsets attract volume); ex-ante Kalshi 24h volume shows no
+  gradient, only wider spreads (3c -> 12c). Longshot bias +1.5-4pp venue-wide but = crossing cost (FAV mid +2-4.5%, net ~0).
+  Polymarket negRisk sums median 1.01-1.02; "overround legs" +10-14% is a DISPLAY-PRICE artifact (live median spread 63c).
+  Worst calibrated: mentions (both venues, YES +4-7pp) and PM culture/awards. Leads: H1 PM mention+culture NO at real ask (~4.5k
+  legs/~90 days forward; tens of $/day), H2 PM longshot-NO as MAKER via data-api tape on the untouched 2026-05..10 holdout.
+  Holdout 2026-05-01..10-20 never priced -> reserve for pre-registered tests.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
