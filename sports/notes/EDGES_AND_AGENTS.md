@@ -207,6 +207,7 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 | Customer-supplier momentum + earnings spillover (A1, A2, B1-B3) | all fail net of costs | company_graph.md |
 | Kalshi soccer 1X2, CPI, gas, hourly temp, lows (X2), daily rain (R1 sealed fail), day-of temp (N1) | see STATE CLOSED list | results.md |
 | 14 ETF rules (stocks_bt.py) | all failed | results.md |
+| E1/E2 decided EARLIER on D-1 (11/14/18:00 local, lead-2 mixed forecasts, margin 3/5; scripts/wx_timing.py, dataset wx_timing, 12 trials, 10-27) | 0/6 taker pass, all deltas vs 22:00 negative (-2.1..-15.2u); NO 4-5c cheaper earlier but loss rate 7.6% vs 4.1%; 6 maker trials NOT SCORED (tapes stopped) | notes/wx_timing.md |
 | NHL PDO/shooting luck + blind unders by opening total (scripts/nhl_luck.py, dataset nhl_luck, SBR 2007-08..2022-23 + NHL API shots) | 0/17 pass. Under at open 6.5 -4.3%/1,160 (L34 +5.8% no-vig lead does not replicate); luck bets lose ~vig; close prices ~90% of luck; totals drift TOWARD luck open->close | notes/nhl_luck.md |
 
 ---------------------------------------------------------------------------------------------------------------------
