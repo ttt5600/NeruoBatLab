@@ -8,6 +8,9 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 ## verified qualified daily volume grows (~$140-280/day of 2%-edge bets needed). Blueprint: notes/FUND_ARCHITECTURE.md;
 ## economics: notes/fund_economics.md. Never fund betting from the leveraged brokerage account.
 
+BASE SETUP (user 2026-10-27): bankroll $2,000 unlevered on Kalshi (user to deposit); 1 unit = $50 (2.5%); TIERED sizing:
+A proven (sealed pass: weather E1/E2/E4) <= 1u/night total; B paper-lead w/ forward evidence <= 0.5u/bet; C judgment <= 0.25u/bet,
+monthly C loss cap; loss stops daily -3u, weekly -6u. All bets through one router (scripts/bet.py) incl. phone bets logged.
 Next: L40 LIP paper test starts 10-29 (lip_paper.py); review L38 in-game longshot + live_board results; daily brief
 07:30 (notes/briefs/); user asks pending: KALSHI_EXEC_STYLE=maker, fund shard 3, agent authority.
 
