@@ -11,6 +11,10 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 BASE SETUP (user 2026-10-27): bankroll $2,000 unlevered on Kalshi (user to deposit); 1 unit = $50 (2.5%); TIERED sizing:
 A proven (sealed pass: weather E1/E2/E4) <= 1u/night total; B paper-lead w/ forward evidence <= 0.5u/bet; C judgment <= 0.25u/bet,
 monthly C loss cap; loss stops daily -3u, weekly -6u. All bets through one router (scripts/bet.py) incl. phone bets logged.
+CAPITAL GATES (user offers up to $10k "if confident", 2026-10-27): start $2k Kalshi; -> $5k when tier-A live ROI stays inside
+the sealed CI for ~60 days AND verified qualified volume > ~$250/day; -> $10k when a 2nd edge (LIP / Polymarket-US maker /
+ForecastEx weather) passes sealed + forward. Venues: Kalshi (API, live); Polymarket US (connector being built, needs user API
+key); ForecastEx/IBKR (feasibility); Robinhood = no event-contract API (manual only); CA sportsbooks not legal.
 Next: L40 LIP paper test starts 10-29 (lip_paper.py); review L38 in-game longshot + live_board results; daily brief
 07:30 (notes/briefs/); user asks pending: KALSHI_EXEC_STYLE=maker, fund shard 3, agent authority.
 
