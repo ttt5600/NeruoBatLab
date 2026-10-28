@@ -18,6 +18,9 @@ NBA/NHL game-level fair-price logger, PredictIt before 11-03, F1 interim Tue 10-
 - Reports: notes/edge_report_2026-10-25.md (scoreboard), notes/slate_2026-10-25.md (10-25/26 card: 0 pregame flags, all within ~1c
   of Pinnacle; SNF KC@SEA rain rule borderline; in-game cheat sheets), notes/nfl_comebacks_matchups.md (0/70 survive),
   notes/nba_comebacks_matchups.md (sides efficient; leads L30 P-PAINT, L31 P-TOT3). Registry updated (section 4 NEW block).
+- 10-27 SIZE UP (user "we can up that price"): .env BANKROLL 400, MAX_CONTRACTS 3, MAX_ORDER 3.10, DAILY 30, OPEN 40 -> orig7 $3.10
+  / x1 $2 per pick; loss stop 24h -$20, 7d -$40; preflight 0 FAIL. Backup ~/.claude/quant-kalshi/.env.bak-2026-10-27. Still TAKER
+  (maker E4 passed sealed; enable with KALSHI_EXEC_STYLE=maker).
 - 10-27 DEPLOYED L39 monthly rain/snow paper logger (launchd com.jonathanwang.quant-kalshi-wx-monthly, hourly :05, decides 22:00
   local in a month's last 7 days): `scripts/kalshi_wx_monthly_logger.py report`. Preview 10-27: 22 qualifying NO brackets (15 cities).
 - 10-27 research: NFL recency DEAD; NBA shooting luck no bet (in model already; cold-over seed 5/10 seasons); NHL luck + blind
