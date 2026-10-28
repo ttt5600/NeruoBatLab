@@ -82,3 +82,33 @@ Files:
 - `data/forecastex/uh_*.csv` (DEV only, 17 MB, gitignored)
 - `data/forecastex_wx.parquet`
 - Ledger: 2 rows in `lab/ledger.jsonl`, dataset `forecastex_wx`. They are marked "pass" on p and do not record the under-power flag.
+
+## ForecastEx sealed pre-registration (FX1, written 2026-10-28, before any sealed file was downloaded)
+The user said "yes ForecastEx" on 2026-10-28. The full text is the docstring of `scripts/forecastex_wx_sealed.py` (sha256 at writing `6c0e0ac9…`). Summary:
+- **Code:** the exact frozen DEV path. The new script imports `scripts/forecastex_wx.py` unchanged (and aborts if its sha256 is not `8a6edbb5…`). It re-points only DATA, OUT, FIRST_EVENT and SPLIT to the sealed window. Rule, margin, models and fee are untouched.
+- **Window:** contracts for events 2026-08-15 to 2026-10-26. Price files dated 08-14 to 10-27 are downloaded, and only in-window UH rows are kept. Settled only: a contract counts only with a final YES settlement of exactly 0 or 1. Unsettled contracts and non-monotone station-days are dropped and counted.
+- **New settlement wording (WU Daily Observations), decided before seeing data:**
+  - The exchange's own settlement_price is the truth. No outcome is re-derived from WU or NWS.
+  - The rule applies unchanged: "exceed" means strictly greater, with no WU-vs-NWS offset.
+  - Everything is pooled into one test, with no split or exclusion by wording era. The effective date is unverified, so the by-month split is descriptive only.
+  - A schema gate checks tickers and columns only: at least 20 cities and 60 event dates. If it fails, the run stops with "schema_abort" and no P&L is computed.
+  - A "settlement_anomaly" flag is raised if more than 5% of station-days are non-monotone or more than 5% of contracts are unsettled. It is descriptive and does not change the verdict.
+- **Primary (T1):** the last D-1 trade plus $0.01. One-sided station-day bootstrap (5,000 resamples, seed 0), with p < .05 and units > 0. It also needs the **loss-rate check**: the Wilson 95% upper bound on the loss rate must be below the break-even loss rate (1 − mean cost). DEV only reported this check; it is now a gate. On DEV it reads 8.0% against 12.5%.
+- **Secondary (T2):** the day-high trade plus $0.01, scored the same way. If T1 passes and T2 fails, the verdict gets the suffix "-FRAGILE".
+- **Verdict ladder:**
+  - FAIL: T1 has no bets, p ≥ .05, units ≤ 0, or the loss check fails.
+  - PASS-UNDERPOWERED: T1 passes everything but has fewer than 500 bets.
+  - PASS: T1 passes everything with at least 500 bets.
+  - A plain PASS below 500 bets is impossible. No verdict authorises real money; even a PASS only buys the forward paper test on live IBKR bid/ask.
+- **Expected n:** about 200-400, so PASS-UNDERPOWERED is the best realistic label.
+- **One-shot guard:**
+  - The run needs `--confirm-lockbox`.
+  - It aborts if any of these exist: `results/forecastex_wx_sealed.json`, a lockbox entry `forecastex_wx_FX1`, or a non-empty `data/forecastex_sealed/`.
+  - It writes `{"status":"started"}` before any download.
+  - It records sha256 hashes of every sealed CSV, the built parquet and both scripts.
+- **DEV reproduction (`devcheck`, 2026-10-28):** the full rebuild from `data/forecastex/` goes through the same picks/score/verdict code.
+  - T1: 159 bets, +20.92u, p .0004.
+  - T2: 159 bets, +14.41u, p .0010.
+  - The pick set and P&L are identical to the committed parquet: MATCH (`results/forecastex_wx_devcheck.json`).
+  - Under the sealed ladder, DEV itself would read PASS-UNDERPOWERED.
+- **Run (one shot):** `../.venv_quant/bin/python scripts/forecastex_wx_sealed.py sealed --confirm-lockbox`
