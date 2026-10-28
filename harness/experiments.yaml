@@ -392,6 +392,8 @@ experiments:
   success: call type above run19 with the interval excluding zero
   script: null
   status: approved
+  decision_2026_10_27: 'User chose teacher (A) birdaves-bioxn-large layer 12 (AskUserQuestion, 2026-10-27). Criteria in
+    prereg_2026_10_27 are frozen from here. Tags run24_bioxnl12, run24_bioxnl12_s2; relabel TAG=bioxnl12_eval.'
   priority: 8
   notes: 'Approved by the user 2026-10-08 (roadmap: measure first, then combine, then bats). biox-base
     (0.8520) has our architecture and should load through build_teacher as-is. biox-large (0.8552) needs
@@ -420,6 +422,10 @@ experiments:
     weak evidence. COST: relabel 1 x L40 (2-4 h) + 2 x ~6 h on 4 x L40 lowprio. Scripts: slurm/relabel_teacher_combined.sh
     then slurm/train_teacher_labels.sh x2 (afterok; cancel them if the gate fails); delete feat/ (~165 GB for 1024-d) after
     PASS. Tags run24_<teacher>, run24_<teacher>_s2.'
+  jobs_2026_10_28: 'relabel 40578099 (relabel_teacher_combined.sh, TAG=bioxnl12_eval, LAYER=12, --time 12:00:00) -> run24
+    40578100 (seed 1337, EXP temp_train_run24_bioxnl12) and run24s2 40578101 (SEED=2, EXP temp_train_run24_bioxnl12_s2),
+    both --dependency=afterok; if the relabel gate fails, scancel them. Logs ~/jobs/. Delete combined_teacher_bioxnl12_eval/
+    data/hubert_12/feat after PASS.'
 - id: E14
   roadmap: idea 6
   title: Start from BirdAVES and specialise it on zebra finch
@@ -842,7 +848,9 @@ experiments:
   success: to be pre-registered before submission; 2 seeds per arm; call type and detection against run17
     and AVES
   script: null
-  status: proposed
+  status: approved
+  decision_2026_10_27: 'Approved by the user 2026-10-27 (AskUserQuestion: "Run E30"), 2 seeds, ~12 GPU-hours lowprio. Criteria in
+    prereg_2026_10_27 are frozen from here.'
   priority: 2
   notes: Proposed 2026-10-13 from finding 072. New model code (front end + frame alignment for labels);
     needs the user's go-ahead.
@@ -868,6 +876,9 @@ experiments:
     (pre-committed arm), BirdPark AP with 12-arm spread, chick Be-vs-LT, label-free k=30, final masked accuracy (same labels
     as run16), per-type recall vs run16 and Whisper-small (does log-mel bring the tet advantage, finding 081). Script
     slurm/train_run30_logmel.sh (seed 2: --export=ALL,SEED=2,EXP=..._s2). Tags run30_logmel, run30_logmel_s2.'
+  jobs_2026_10_28: 'run30 40578102 (seed 1337, EXP temp_train_run30_logmel) and run30s2 40578103 (SEED=2, EXP
+    temp_train_run30_logmel_s2), train_run30_logmel.sh, logs ~/jobs/. Export each with ~/export_weights.py (carries
+    frontend=logmel), then score_run.sh.'
 - id: E31
   title: Whisper-small encoder continued on zebra finch (DAPT on Whisper)
   baseline: hf-whisper-small-enc frozen (finding 072)
