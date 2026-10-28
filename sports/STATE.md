@@ -18,6 +18,8 @@ key); ForecastEx/IBKR (feasibility); Robinhood = no event-contract API (manual o
 E5 ForecastEx weather: SEALED PASS-UNDERPOWERED 10-28 (219 bets, +6.9% ROI, p .0004; last-trade prices, thin). Next for E5:
 IBKR account (user) -> forward paper on live bid/ask -> small live.
 USER ASK queued: sealed test of Q003 Mentions maker NO (IN1_d6, events >= 2026-06-25) -- decaying edge, say "yes Q003".
+TODO (10-28): sports/espn.py::parse_prop returns 0 rows -- ESPN dropped the over/under marker; first record of each pair = over
+(586/586 matched DK "N+"). Fix + re-run collect.py props. Props scan 10-28: Kalshi vs DK fair median gap 0c -> no edge.
 Next: L40 LIP paper test starts 10-29 (lip_paper.py); review L38 in-game longshot + live_board results; daily brief
 07:30 (notes/briefs/); user asks pending: KALSHI_EXEC_STYLE=maker, fund shard 3, agent authority.
 
