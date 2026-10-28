@@ -41,7 +41,7 @@ power:      sigma ~0.195 per filled $ (notes/fund_economics.md): absolute edge 2
             maker-taker delta ~1.15% needs ~1,780. At ~8 filled picks/night that is ~2 and ~7 months.
 budget:     1 trial (no search). Money: needs PM yes (env change + cap ladder). Capacity ceiling ~$144/month.
 
-## Q002 [proposed] Kalshi Liquidity Incentive Program (LIP) reward per $ resting on weather brackets
+## Q002 [running] Kalshi Liquidity Incentive Program (LIP) reward per $ resting on weather brackets
 question:   On the markets where we already hold an edge (KXHIGH weather brackets), what LIP reward $/day does a resting
             quote of size s earn, net of the adverse selection that resting creates?
 mechanism:  The program (amended 2026-10-28, up to $10k/business day across markets) pays makers for time-weighted
@@ -54,7 +54,7 @@ kill:       set by /prereg (proposal: reward < 0.2%/day of resting $ or concentr
 power:      descriptive measurement first (2 weeks of paper quotes); the money test comes after, as its own question.
 budget:     3 trials. 2 weeks paper (no orders). Tiny live only on PM yes.
 
-## Q003 [proposed] Maker NO/favourite quoting in thin retail categories (mentions, entertainment, single-name)
+## Q003 [running] Maker NO/favourite quoting in thin retail categories (mentions, entertainment, single-name)
 question:   Does a resting NO (favourite side) quote in thin retail Kalshi categories earn a positive net return per
             filled $, where the taker version (M3) failed sealed?
 mechanism:  Retail takers overpay for YES/longshots; makers on the other side earn ~2c/contract in the literature
@@ -82,7 +82,7 @@ power:      at mu 2%, sigma ~1.0 per $ the ROI test needs ~15,000 bets (impossib
             ~12 picks. So CLV decides go/no-go and ROI only bounds the loss -> keep stakes minimal.
 budget:     0 dev trials; forward paper ~100 picks per sport (~1 season-month each).
 
-## Q005 [proposed] Small / long-tail market calibration by volume quintile (Polymarket US + Kalshi)
+## Q005 [done] Small / long-tail market calibration by volume quintile (Polymarket US + Kalshi)
 question:   Is the favourite-longshot mispricing larger in low-volume markets, by enough to clear fees and spread?
 mechanism:  Thin retail markets have fewer informed makers; the literature finds the bias largest there.
 baseline:   the market price (event-clustered realised minus price-implied probability), all volumes pooled.
@@ -94,7 +94,7 @@ power:      quintile x price grid = one family; BH over all cells; both-halves c
 budget:     1 scan, cells counted as trials. NOTE: an exploratory scan appeared 10-27 (scripts/smallmarket_calibration.py,
             smallmarket_analyze.py, untracked) -- treat as EXPLORATORY; a confirmatory version must be pre-registered here.
 
-## Q006 [proposed] Seasonal / physical data markets: monthly rain/snow unreachable-NO (L39)
+## Q006 [running] Seasonal / physical data markets: monthly rain/snow unreachable-NO (L39)
 question:   Does the frozen W1m rule (resting NO on monthly rain brackets the season total cannot reach) earn forward?
 mechanism:  Thresholds already unreachable given observed month-to-date totals and forecasts still trade a few cents of YES.
 baseline:   dev W1m +3.6%/146 bets, 1 loss; market-null p .016, one-per-city-month p .12 (gate: DEAD on dev alone).
