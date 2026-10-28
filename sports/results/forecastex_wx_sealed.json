@@ -1,0 +1,425 @@
+{
+ "ts": "2026-10-28T08:56:55+00:00",
+ "strategy": "forecastex_wx_FX1",
+ "sha": "a572319a003f",
+ "dataset": "forecastex_wx",
+ "window": "2026-08-15..2026-10-26",
+ "fx_sha256": "8a6edbb5c86d1492778c41f4c9ed95d4da18aa9304fbb8ca6024a97182a88f92",
+ "this_sha256": "6c0e0ac9699767e6ae06502198e8ed389db2f92bcf8f9bb46a4cd72c069cb94b",
+ "status": "done",
+ "gate": {
+  "files": 75,
+  "uh_unparsed_tickers": 0,
+  "uh_unparsed_examples": [],
+  "cities": 24,
+  "event_dates": 73
+ },
+ "file_hashes": {
+  "uh_20260814.csv": "2c70d41f9ecff76f10f42c6ba49fdb0fe2f8c7585f1a09455b880b79d91e5137",
+  "uh_20260815.csv": "2fa02d14bd1f3c1de8bf31ff3aee2fef116afbdc2a31e7ad911859c600277cc9",
+  "uh_20260816.csv": "1673329084bc8c9f81023c0186cafd97e8a80746122fbcd091552cf98f2b47cf",
+  "uh_20260817.csv": "3be2fd3cedb6f903eba7a3fcffeff166fc7e8f89e658748c835dd8b4778677cc",
+  "uh_20260818.csv": "906ac2a219b5c6f798acfb7980a58f32706070823fcdd83ed70024e2bac43871",
+  "uh_20260819.csv": "569ddc47256f05a0f17f1607bd3fc95cc20e6359a5f91d053056de6ed518b0ae",
+  "uh_20260820.csv": "9108719db825fcc8163d03aeda24267d36215de562faf5d18dcb7d74080e4922",
+  "uh_20260821.csv": "1402c539e329f154da9d829b94a832270c2fda5612275ef8663a9d567e651b90",
+  "uh_20260822.csv": "897a1d87f884d5ad2ec9efa66aff903bd23a71b71a0ff5615c1666157cd72218",
+  "uh_20260823.csv": "88c4af685eb9841b25d78fd151be7d05d0de39dcb6c7d8698ba7f4b4138eb534",
+  "uh_20260824.csv": "a20789ae11a8c45676572b801246163b4a343eb48b8164d1dc863628a8f178bb",
+  "uh_20260825.csv": "306b87d8ac91e7dcb7908c37412a84785df91472987ac5435dfae14df9f36d6e",
+  "uh_20260826.csv": "f8b5dba4821e276a5d8ab1820492d8c4b711d6bec50bf02fd9aaadc9b1b7470e",
+  "uh_20260827.csv": "1c1b25955940ad6177fc9c6ec6842ab68e58bef833da3ecf3d9260bf7b463b6f",
+  "uh_20260828.csv": "8d56810d34a98f585b1f49b8a4fb8c87cdf29a5a3074f55db5175f9de7aeac9e",
+  "uh_20260829.csv": "ac6181e881b1ca4d50e0cc6a042bb92f8b1c1303e1af09895e23891479815efc",
+  "uh_20260830.csv": "df9c1f5d0275a2f838002c182f513cfb1d60b5860226e96a03f9dc57aa35acc2",
+  "uh_20260831.csv": "067d69f196974641897d1cf1f5b51ed65eeca5d4cf098af611e31dfb1af53456",
+  "uh_20260901.csv": "2c59c36a0c9e689a8136cbcbf6a3132609ec9a87acae9872a2cfb6c9c837e0dd",
+  "uh_20260902.csv": "15cb5dec67320f23baf70a903826378dfdfda8f267a9e7e7c08fecf30c7bd322",
+  "uh_20260903.csv": "6a059de6c07e7f21fa6303a526f049dbc228b5efcdb23fe36f415eb0323b56f2",
+  "uh_20260904.csv": "304da495400bbd4b7d783c2e19e2da42dae6a809cc79f1051661531e0cd0bcd5",
+  "uh_20260905.csv": "57f97e8fc13bf167138e0930823498e7d736c72ce51a27a0a6d3f724c9f8c48d",
+  "uh_20260906.csv": "3d505a60d4e8be5467c3cdfbf633be3160688f02bcbb5fc7712cf955de0b9244",
+  "uh_20260907.csv": "e95d52c23a98a2f9bc31096b1c5c6d39235fd67721067917828b38b67fbf092c",
+  "uh_20260908.csv": "b7301247e903797b49570af113307bc84fb98de2b8c1c32897c1dc6e1d384d4f",
+  "uh_20260909.csv": "9831562178f31cf222ac04a4eed6601f974789983515ebf016ee3d0008da5789",
+  "uh_20260910.csv": "93e3502fac03c8d40f54e0e4c7303add6d03d9e600920dc0671dfcf439411cab",
+  "uh_20260911.csv": "3b6e30c6a02094e02a4157859694f73bb8145812e4e2c3c3cf75cdca0128a148",
+  "uh_20260912.csv": "f1faf7997029a75506ca9cb67b532dff1d14d187581e816e00034abb0c4b4f74",
+  "uh_20260913.csv": "86dbcb552ed059e19f58ae025d4805cdc34997664c7c34cf7617dba7ec9408ea",
+  "uh_20260914.csv": "a7f068bf2137cabd35d4d61b35a5c68d3e816f55bb9e80584f51796861e773ce",
+  "uh_20260915.csv": "54d495584ebf187e32fdeb7e448b0dc9cfae9581d36e85c55606b88391506f4d",
+  "uh_20260916.csv": "c6637cfd9f3011eef793587c63a5f8733c545da852b428bf91e6e673f68de80e",
+  "uh_20260917.csv": "eee53fd1e09b3a056d430c019f1bd912da3b24dad20168f0d2db94d8d6a50072",
+  "uh_20260918.csv": "5172dc2cc9b9e0d1b6fafcf87b60ad72adedf0ae701da31afdec4a691dc5054a",
+  "uh_20260919.csv": "930bb9e8ec4a0220634aa363094d520fd12cd53932a164b4cb577a3e64cae872",
+  "uh_20260920.csv": "f807f4dcb5ab71da4f1cc47862dd5595afde8bd5e98cfa5959c5564578d062ca",
+  "uh_20260921.csv": "58ba35332ddcefbc9555d0567971e64dd306638a79bc552cd3c6c0096a76126e",
+  "uh_20260922.csv": "040b6d58e0e50cda743389076fc1a74584f56b16ea34585957f00ebc9f1455ab",
+  "uh_20260923.csv": "b579606307125fbb4aa7c9e2d93f7b6c0bbdb3a344e9624b4578131cc3777ad7",
+  "uh_20260924.csv": "7cf19b73e3546ded32fb1576468da9188ce6ff4b470f330712fbcdbf122fc55e",
+  "uh_20260925.csv": "8f0f92466b8af1c1afa69ba40ec59709a665ecc8036957177cb3eda1427dc0af",
+  "uh_20260926.csv": "caa64384d75b633f39263647f6b0db086da3bcdc4992124d7d20c8a05d9b138c",
+  "uh_20260927.csv": "d8f52494c04ebc625c2d3030cfac186cea755849e89944c088674918047f9c4b",
+  "uh_20260928.csv": "145e644e61150b728ae6cc6347a96f555d2911b1e44a445364f1b719df7e7792",
+  "uh_20260929.csv": "0104709f787858fd05269ca7f8e5f72fbe1fb209ca828520321798ac04256110",
+  "uh_20260930.csv": "e6ef09bf4c7d18996cf01e26a09db30e0b6be47443f8b35d0807b34498c5fab4",
+  "uh_20261001.csv": "4e3300eea11d2565f862ca9036aed40cb52bcd85634ed9449c0873bc96298c14",
+  "uh_20261002.csv": "3324548c37ecfaa2e90a5b1f37f3137a7539495f9f28e5f3ae25f0fce8eb7a51",
+  "uh_20261003.csv": "8bb90699ccc5fd7d61414958734af8fffd2234a389e40cb02656c13f97372dc0",
+  "uh_20261004.csv": "81c31598103dfd84b6aa1f49e66c9c249dfa266908c1dd4c30af34bc30b1c3cd",
+  "uh_20261005.csv": "0479c30baffada762e80f6c3fe6b8398caf2083cd607f1a78303bff1f486ab69",
+  "uh_20261006.csv": "fe5bde08c19d63569eab01ae40f51c9365b432428915f1e9eb47c25451446506",
+  "uh_20261007.csv": "de57e60e420b5509d5b9cb83c19f87523f03aa9ac37935d2a87c4827342f8623",
+  "uh_20261008.csv": "8c2649e799cf8691a70ddf6d3710a3b20aa779b1e3cf0e87eabbedd65cb8ef7b",
+  "uh_20261009.csv": "cf151ea2fc93c58483f12ef2ce576ef9d34cec7326e9109a24112a18235f8523",
+  "uh_20261010.csv": "d1c033c66515adfe32c269936db126305cf3363d903cd8f4ea14af2b44653717",
+  "uh_20261011.csv": "6aa032f67e46e143943f5f1c8a86d97bb724f8c8173c53f0535a82866154aff0",
+  "uh_20261012.csv": "e81e5b2037249675f627591dfb74395cbed591c7e7381e6b7d7bc40bafa13548",
+  "uh_20261013.csv": "678d222c48fde2e999b505ba9f6f25844a067021fbc369dceb797a39077a02be",
+  "uh_20261014.csv": "a56988d03cb06bcbb18703d492726183deb5a30299b7462f6b861aedadd5cabd",
+  "uh_20261015.csv": "3fba8bd30a56d458b06464e047f549c176157e5474272c8fbf7e0f94730ca7aa",
+  "uh_20261016.csv": "81d89c96bbba0ab791362635bf298a5f95792f915a873b8420aba4984165c645",
+  "uh_20261017.csv": "11e8f666c3509d2079751a6c4cde67b5761eb0602561d405f144c4ddf3a7ae9b",
+  "uh_20261018.csv": "2217ff208fbd73d481f63e3713d2f0f223d065bb45fe62d54e89857c0d6a4870",
+  "uh_20261019.csv": "05d97474c94f8215be0b40d625a9be6d9533f47fbc8370ba0b4d72ed48781cce",
+  "uh_20261020.csv": "bb90157ab193659ba46ad8e29e86f93b5cdbb308469124bb11361b6c101bbb3f",
+  "uh_20261021.csv": "eefd448dc256f15ed0e25045a2fdbd04d0c0dc6b7ed5ddc967d172be8239f70c",
+  "uh_20261022.csv": "2780da041f15612e871e9366f63970f00e0a6ce1a1bd4643b5ed3e133219cb5c",
+  "uh_20261023.csv": "3dc1c1d251edf81b3d367cd81e1464349175d8217db83e2e3d4a765c57a7c9c4",
+  "uh_20261024.csv": "8ccdb14ee601f303086addd112b6cf171f7309626b6a51d528c12c123fa5bfe4",
+  "uh_20261025.csv": "b2f554ad38aa7d66b05856bc7a47c3cb589dd465bdbcb34662862c763fa930bc",
+  "uh_20261026.csv": "eb03341c4d748f84cfc8275dd9eca4f5d833c5fbeff2c2c48aabea7bb4965fc1",
+  "uh_20261027.csv": "2b56f84baacfb0782026ff20df01a8f520c21c47cffbd84506a5c23d71eecba5",
+  "forecastex_wx_sealed.parquet": "ca21e8eea3a3b65030ed7b5a5e17b565603e3e60bbfab6b9ae97da157a7b8a66"
+ },
+ "contracts": 19847,
+ "cities": 24,
+ "station_days": 1752,
+ "event_dates": 73,
+ "contracts_no_01_settlement": 0,
+ "station_days_non_monotone": 0,
+ "settlement_anomaly": false,
+ "candidates": {
+  "all": 4598,
+  "NO": 3214,
+  "YES": 1384
+ },
+ "trials": {
+  "T1_end": {
+   "bets": 219,
+   "station_days": 150,
+   "units": 15.050620319856776,
+   "roi": 0.06872429369797614,
+   "ci_lo": 6.806088116143235,
+   "ci_hi": 22.902587893012377,
+   "p": 0.0004,
+   "losses": 10,
+   "loss_rate": 0.045662100456621,
+   "loss_ci": [
+    0.024988742315311424,
+    0.08200025794316813
+   ],
+   "breakeven_loss_rate": 0.10232876712328776,
+   "mean_cost": 0.8976712328767122,
+   "units_H1": 4.273648285986516,
+   "roi_H1": 0.04189851260771094,
+   "bets_H1": 102,
+   "units_H2": 10.776972033870258,
+   "roi_H2": 0.09211087208436118,
+   "bets_H2": 117,
+   "loss_check_pass": true,
+   "by_month": {
+    "2026-08": {
+     "n": 54,
+     "units": 4.1137
+    },
+    "2026-09": {
+     "n": 149,
+     "units": 10.2122
+    },
+    "2026-10": {
+     "n": 16,
+     "units": 0.7247
+    }
+   },
+   "by_side": {
+    "NO": {
+     "n": 162,
+     "units": 13.8452
+    },
+    "YES": {
+     "n": 57,
+     "units": 1.2054
+    }
+   },
+   "by_city": {
+    "ATL": {
+     "n": 16,
+     "units": 0.3431
+    },
+    "AUS": {
+     "n": 15,
+     "units": -1.4474
+    },
+    "BKF": {
+     "n": 21,
+     "units": 3.0058
+    },
+    "BNA": {
+     "n": 21,
+     "units": 1.9365
+    },
+    "BOS": {
+     "n": 1,
+     "units": 0.0753
+    },
+    "CLT": {
+     "n": 2,
+     "units": 0.1637
+    },
+    "DCA": {
+     "n": 5,
+     "units": -0.5931
+    },
+    "DFW": {
+     "n": 6,
+     "units": 0.5938
+    },
+    "DTW": {
+     "n": 1,
+     "units": 0.1236
+    },
+    "HOU": {
+     "n": 2,
+     "units": 0.1193
+    },
+    "JAX": {
+     "n": 9,
+     "units": 1.8934
+    },
+    "LAS": {
+     "n": 2,
+     "units": 0.1864
+    },
+    "LAX": {
+     "n": 11,
+     "units": 0.5322
+    },
+    "LGA": {
+     "n": 13,
+     "units": 2.0735
+    },
+    "MDW": {
+     "n": 8,
+     "units": 1.1573
+    },
+    "MIA": {
+     "n": 19,
+     "units": 0.8291
+    },
+    "MSP": {
+     "n": 7,
+     "units": 0.6672
+    },
+    "OKC": {
+     "n": 18,
+     "units": 1.5775
+    },
+    "PHL": {
+     "n": 10,
+     "units": 1.4384
+    },
+    "PHX": {
+     "n": 4,
+     "units": 0.3822
+    },
+    "SAT": {
+     "n": 2,
+     "units": -0.7654
+    },
+    "SEA": {
+     "n": 9,
+     "units": -0.3962
+    },
+    "SFO": {
+     "n": 17,
+     "units": 1.1544
+    }
+   },
+   "by_price": {
+    "<=0.8": {
+     "n": 26,
+     "units": 3.6971557829463704,
+     "losses": 4
+    },
+    ">0.8": {
+     "n": 193,
+     "units": 11.353464536910407,
+     "losses": 6
+    }
+   },
+   "median_d1_pair_quantity": 29.0
+  },
+  "T2_high": {
+   "bets": 219,
+   "station_days": 150,
+   "units": 12.092798240854663,
+   "roi": 0.05521825680755554,
+   "ci_lo": 4.020475897350813,
+   "ci_hi": 19.69554758634088,
+   "p": 0.0036,
+   "losses": 10,
+   "loss_rate": 0.045662100456621,
+   "loss_ci": [
+    0.024988742315311424,
+    0.08200025794316813
+   ],
+   "breakeven_loss_rate": 0.09146118721461183,
+   "mean_cost": 0.9085388127853882,
+   "units_H1": 3.208741081435951,
+   "roi_H1": 0.03145824589643089,
+   "bets_H1": 102,
+   "units_H2": 8.88405715941871,
+   "roi_H2": 0.07593211247366419,
+   "bets_H2": 117,
+   "loss_check_pass": true,
+   "by_month": {
+    "2026-08": {
+     "n": 54,
+     "units": 3.3528
+    },
+    "2026-09": {
+     "n": 149,
+     "units": 8.2557
+    },
+    "2026-10": {
+     "n": 16,
+     "units": 0.4843
+    }
+   },
+   "by_side": {
+    "NO": {
+     "n": 162,
+     "units": 11.8944
+    },
+    "YES": {
+     "n": 57,
+     "units": 0.1984
+    }
+   },
+   "by_city": {
+    "ATL": {
+     "n": 16,
+     "units": 0.3431
+    },
+    "AUS": {
+     "n": 15,
+     "units": -1.5411
+    },
+    "BKF": {
+     "n": 21,
+     "units": 2.8089
+    },
+    "BNA": {
+     "n": 21,
+     "units": 1.5612
+    },
+    "BOS": {
+     "n": 1,
+     "units": 0.0753
+    },
+    "CLT": {
+     "n": 2,
+     "units": 0.1637
+    },
+    "DCA": {
+     "n": 5,
+     "units": -0.6611
+    },
+    "DFW": {
+     "n": 6,
+     "units": 0.4073
+    },
+    "DTW": {
+     "n": 1,
+     "units": 0.1236
+    },
+    "HOU": {
+     "n": 2,
+     "units": 0.1193
+    },
+    "JAX": {
+     "n": 9,
+     "units": 1.751
+    },
+    "LAS": {
+     "n": 2,
+     "units": 0.1864
+    },
+    "LAX": {
+     "n": 11,
+     "units": 0.5322
+    },
+    "LGA": {
+     "n": 13,
+     "units": 2.0735
+    },
+    "MDW": {
+     "n": 8,
+     "units": 1.0247
+    },
+    "MIA": {
+     "n": 19,
+     "units": 0.5654
+    },
+    "MSP": {
+     "n": 7,
+     "units": 0.4886
+    },
+    "OKC": {
+     "n": 18,
+     "units": 1.1753
+    },
+    "PHL": {
+     "n": 10,
+     "units": 1.1598
+    },
+    "PHX": {
+     "n": 4,
+     "units": 0.3822
+    },
+    "SAT": {
+     "n": 2,
+     "units": -0.8506
+    },
+    "SEA": {
+     "n": 9,
+     "units": -0.3962
+    },
+    "SFO": {
+     "n": 17,
+     "units": 0.6002
+    }
+   },
+   "by_price": {
+    "<=0.8": {
+     "n": 16,
+     "units": 3.1192521906064035,
+     "losses": 2
+    },
+    ">0.8": {
+     "n": 203,
+     "units": 8.973546050248261,
+     "losses": 8
+    }
+   },
+   "median_d1_pair_quantity": 29.0
+  }
+ },
+ "n_vs_floor": "219 vs 500",
+ "verdict": "PASS-UNDERPOWERED",
+ "T1_units_excl_price_le_0.80": {
+  "n": 193,
+  "units": 11.353464536910407
+ }
+}

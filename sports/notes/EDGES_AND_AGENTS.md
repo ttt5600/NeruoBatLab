@@ -203,6 +203,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **NBA live totals model vs Kalshi KXNBATOTAL (10-27, notes/nba_live_totals.md, 3 trials): DEAD.** Kalshi Brier .1196 < model .1240; rule -2.1%/336; close-Q4 -41.5%/46. Game pace carries ~no signal beyond pregame total/time/margin. Lead only: overs realised 2-6 pts below Kalshi mid in 5-55c bins (not prereg).
 
+- **E5 ForecastEx weather consensus-reject: SEALED PASS-UNDERPOWERED 2026-10-28** (user "yes ForecastEx"; results/forecastex_wx_sealed.json): 219 bets 10 losses (4.6% vs b/e 10.2%), +15.05u, ROI +6.9% p .0004; T2 high-trade +5.5% p .0036; halves +4.3/+10.8. Caveats: last-trade (not quote) prices, thin (median 29/contract), <500 floor. WU settlement (independent of Kalshi NWS). NEXT: forward paper on live IBKR bid/ask (needs IBKR account).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |

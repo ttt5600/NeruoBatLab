@@ -15,6 +15,8 @@ CAPITAL GATES (user offers up to $10k "if confident", 2026-10-27): start $2k Kal
 the sealed CI for ~60 days AND verified qualified volume > ~$250/day; -> $10k when a 2nd edge (LIP / Polymarket-US maker /
 ForecastEx weather) passes sealed + forward. Venues: Kalshi (API, live); Polymarket US (connector being built, needs user API
 key); ForecastEx/IBKR (feasibility); Robinhood = no event-contract API (manual only); CA sportsbooks not legal.
+E5 ForecastEx weather: SEALED PASS-UNDERPOWERED 10-28 (219 bets, +6.9% ROI, p .0004; last-trade prices, thin). Next for E5:
+IBKR account (user) -> forward paper on live bid/ask -> small live.
 Next: L40 LIP paper test starts 10-29 (lip_paper.py); review L38 in-game longshot + live_board results; daily brief
 07:30 (notes/briefs/); user asks pending: KALSHI_EXEC_STYLE=maker, fund shard 3, agent authority.
 
