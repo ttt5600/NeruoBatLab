@@ -1,0 +1,266 @@
+{
+ "model": "NFL in-game WP (nflfastR vegas_wp-style logistic, posteam perspective)",
+ "built": "2026-10-28T03:50:35+00:00",
+ "data": "nflverse pbp 2006-2019 (DEV); lockbox 2020-2025 never read",
+ "features": [
+  "score_differential",
+  "diff_time_ratio",
+  "spread_time",
+  "posteam_spread",
+  "yardline_100",
+  "down2",
+  "down3",
+  "down4",
+  "log_ydstogo",
+  "half_frac",
+  "elapsed",
+  "pos_to",
+  "def_to",
+  "receive_2h_ko",
+  "home",
+  "sd_rt",
+  "lead1_rt",
+  "trail1_rt",
+  "tie_rt",
+  "trail1_yl_rt",
+  "tie_yl_rt",
+  "to_diff_rt"
+ ],
+ "coef": [
+  0.6508640755050771,
+  0.07273885064059957,
+  0.002160426241623932,
+  0.06179385428492898,
+  0.1002463452400234,
+  -0.006944227760226448,
+  -0.077681747482969,
+  -0.1832121948002744,
+  -0.3609427046082066,
+  -0.05692426488404491,
+  0.06597789072704847,
+  0.2992795692417591,
+  0.0041497559632320885,
+  -0.010880246310777648,
+  0.12895358417313307,
+  -0.17473667742000873,
+  0.03512054677701071,
+  0.04940722941902695,
+  0.18047379733126537,
+  0.09170146096845495,
+  -0.2563727996960514,
+  -0.1250549761788661,
+  0.008048509985171357
+ ],
+ "platt": [
+  0.9887884715109619,
+  0.02280721321589283
+ ],
+ "platt_note": "P = sigmoid(a * (coef . [1, x]) + c), [a, c] fit on 2014-16 from a 2006-13 base fit",
+ "n_plays_fit": 434562,
+ "n_games_fit": 2931,
+ "calibration_holdout": {
+  "fit": "2006-2016 (+ Platt 2014-16)",
+  "test": "2017-2019 (out of sample, scored once)",
+  "ours": {
+   "n": 118099,
+   "brier": 0.13767,
+   "logloss": 0.41927,
+   "mean_model": 0.5089,
+   "mean_realised": 0.5066
+  },
+  "ours_without_platt": {
+   "n": 118099,
+   "brier": 0.13759,
+   "logloss": 0.41891,
+   "mean_model": 0.5056,
+   "mean_realised": 0.5066
+  },
+  "nflfastR_vegas_wp_same_plays": {
+   "n": 118099,
+   "brier": 0.13643,
+   "logloss": 0.41433,
+   "mean_model": 0.5049,
+   "mean_realised": 0.5066
+  },
+  "ours_same_plays": {
+   "n": 118099,
+   "brier": 0.13767,
+   "logloss": 0.41927,
+   "mean_model": 0.5089,
+   "mean_realised": 0.5066
+  },
+  "by_quarter": [
+   {
+    "qtr": 1,
+    "n": 26643,
+    "brier": 0.19327,
+    "logloss": 0.56886,
+    "mean_model": 0.5149,
+    "mean_realised": 0.5165,
+    "vegas_wp_brier": 0.19168
+   },
+   {
+    "qtr": 2,
+    "n": 32524,
+    "brier": 0.15857,
+    "logloss": 0.48037,
+    "mean_model": 0.5211,
+    "mean_realised": 0.5135,
+    "vegas_wp_brier": 0.15676
+   },
+   {
+    "qtr": 3,
+    "n": 26898,
+    "brier": 0.12368,
+    "logloss": 0.3864,
+    "mean_model": 0.5142,
+    "mean_realised": 0.5099,
+    "vegas_wp_brier": 0.12314
+   },
+   {
+    "qtr": 4,
+    "n": 32034,
+    "brier": 0.08197,
+    "logloss": 0.26042,
+    "mean_model": 0.4871,
+    "mean_realised": 0.4887,
+    "vegas_wp_brier": 0.08102
+   }
+  ],
+  "table_home_view": [
+   {
+    "bin": "(-0.001, 0.05]",
+    "states": 8651,
+    "games": 290,
+    "model": 0.0173,
+    "realised": 0.0031,
+    "ci95_1pg": [
+     0.0095,
+     0.0444
+    ]
+   },
+   {
+    "bin": "(0.05, 0.1]",
+    "states": 4478,
+    "games": 300,
+    "model": 0.0751,
+    "realised": 0.0451,
+    "ci95_1pg": [
+     0.0305,
+     0.0808
+    ]
+   },
+   {
+    "bin": "(0.1, 0.2]",
+    "states": 8390,
+    "games": 374,
+    "model": 0.1494,
+    "realised": 0.1075,
+    "ci95_1pg": [
+     0.1148,
+     0.1865
+    ]
+   },
+   {
+    "bin": "(0.2, 0.3]",
+    "states": 9013,
+    "games": 440,
+    "model": 0.251,
+    "realised": 0.2217,
+    "ci95_1pg": [
+     0.2204,
+     0.302
+    ]
+   },
+   {
+    "bin": "(0.3, 0.4]",
+    "states": 9729,
+    "games": 489,
+    "model": 0.35,
+    "realised": 0.3508,
+    "ci95_1pg": [
+     0.3364,
+     0.4221
+    ]
+   },
+   {
+    "bin": "(0.4, 0.5]",
+    "states": 9338,
+    "games": 534,
+    "model": 0.4498,
+    "realised": 0.4566,
+    "ci95_1pg": [
+     0.4429,
+     0.5274
+    ]
+   },
+   {
+    "bin": "(0.5, 0.6]",
+    "states": 10331,
+    "games": 568,
+    "model": 0.5518,
+    "realised": 0.5741,
+    "ci95_1pg": [
+     0.5276,
+     0.6088
+    ]
+   },
+   {
+    "bin": "(0.6, 0.7]",
+    "states": 11867,
+    "games": 573,
+    "model": 0.6502,
+    "realised": 0.6897,
+    "ci95_1pg": [
+     0.6182,
+     0.6956
+    ]
+   },
+   {
+    "bin": "(0.7, 0.8]",
+    "states": 12369,
+    "games": 548,
+    "model": 0.7506,
+    "realised": 0.7731,
+    "ci95_1pg": [
+     0.7045,
+     0.7775
+    ]
+   },
+   {
+    "bin": "(0.8, 0.9]",
+    "states": 12739,
+    "games": 507,
+    "model": 0.8514,
+    "realised": 0.8659,
+    "ci95_1pg": [
+     0.8079,
+     0.8714
+    ]
+   },
+   {
+    "bin": "(0.9, 0.95]",
+    "states": 7604,
+    "games": 416,
+    "model": 0.9257,
+    "realised": 0.9491,
+    "ci95_1pg": [
+     0.9241,
+     0.9667
+    ]
+   },
+   {
+    "bin": "(0.95, 1.0]",
+    "states": 13590,
+    "games": 392,
+    "model": 0.9824,
+    "realised": 0.9925,
+    "ci95_1pg": [
+     0.9603,
+     0.9896
+    ]
+   }
+  ]
+ },
+ "pregame_sigma": 11.615743732103283
+}

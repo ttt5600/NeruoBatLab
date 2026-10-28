@@ -1,0 +1,233 @@
+{
+ "model": "NHL in-game WP (logistic, home perspective)",
+ "built": "2026-10-28T03:52:27+00:00",
+ "data": "NHL api-web pbp, regular season 2016-17..2018-19 + 2021-22 (DEV); pregame = de-vigged SBR close ML; 2025-26 sealed never read",
+ "features": [
+  "lp",
+  "gd",
+  "gd_rt",
+  "lp_tau",
+  "tau",
+  "en_home",
+  "en_away"
+ ],
+ "coef": [
+  -0.033110832619126,
+  0.8347601809052462,
+  0.1326621207645848,
+  0.5744726198213901,
+  0.33975104204208206,
+  0.0060747160972706325,
+  0.3734349467251384,
+  -0.5479176078274325
+ ],
+ "coef_fit_2017_2019": [
+  -0.005203071916709644,
+  0.8016113110236753,
+  0.1298104250429789,
+  0.5813805044163777,
+  0.3289284092930157,
+  -0.01630050297693359,
+  0.39723807386493915,
+  -0.6831017126997114
+ ],
+ "n_states": 609600,
+ "n_games": 5080,
+ "calibration_holdout": {
+  "fit": "2016-17..2018-19",
+  "test": "2021-22 (out of sample)",
+  "ours": {
+   "n": 157200,
+   "brier": 0.15833,
+   "logloss": 0.47221,
+   "mean_model": 0.5411,
+   "mean_realised": 0.5366
+  },
+  "pregame_only": {
+   "n": 157200,
+   "brier": 0.2251,
+   "logloss": 0.642,
+   "mean_model": 0.5402,
+   "mean_realised": 0.5366
+  },
+  "power_play_states": {
+   "n": 28811,
+   "brier": 0.14671,
+   "logloss": 0.44192,
+   "mean_model": 0.5497,
+   "mean_realised": 0.5476
+  },
+  "by_time": [
+   {
+    "window_el": "0-1200",
+    "n": 52400,
+    "brier": 0.20704,
+    "logloss": 0.60139,
+    "mean_model": 0.5373,
+    "mean_realised": 0.5366,
+    "pregame_only_brier": 0.2251
+   },
+   {
+    "window_el": "1200-2400",
+    "n": 52400,
+    "brier": 0.16414,
+    "logloss": 0.493,
+    "mean_model": 0.5425,
+    "mean_realised": 0.5366,
+    "pregame_only_brier": 0.2251
+   },
+   {
+    "window_el": "2400-3300",
+    "n": 39300,
+    "brier": 0.11533,
+    "logloss": 0.35622,
+    "mean_model": 0.5438,
+    "mean_realised": 0.5366,
+    "pregame_only_brier": 0.2251
+   },
+   {
+    "window_el": "3300-3600",
+    "n": 13100,
+    "brier": 0.06922,
+    "logloss": 0.22032,
+    "mean_model": 0.5429,
+    "mean_realised": 0.5366,
+    "pregame_only_brier": 0.2251
+   }
+  ],
+  "table": [
+   {
+    "bin": "(-0.001, 0.05]",
+    "states": 11436,
+    "games": 507,
+    "model": 0.0158,
+    "realised": 0.0122,
+    "ci95_1pg": [
+     0.0226,
+     0.0554
+    ]
+   },
+   {
+    "bin": "(0.05, 0.1]",
+    "states": 5369,
+    "games": 477,
+    "model": 0.0748,
+    "realised": 0.0611,
+    "ci95_1pg": [
+     0.0568,
+     0.1051
+    ]
+   },
+   {
+    "bin": "(0.1, 0.2]",
+    "states": 10668,
+    "games": 579,
+    "model": 0.15,
+    "realised": 0.1571,
+    "ci95_1pg": [
+     0.1505,
+     0.213
+    ]
+   },
+   {
+    "bin": "(0.2, 0.3]",
+    "states": 11344,
+    "games": 606,
+    "model": 0.2513,
+    "realised": 0.262,
+    "ci95_1pg": [
+     0.2478,
+     0.3193
+    ]
+   },
+   {
+    "bin": "(0.3, 0.4]",
+    "states": 13334,
+    "games": 603,
+    "model": 0.3528,
+    "realised": 0.3377,
+    "ci95_1pg": [
+     0.3177,
+     0.3939
+    ]
+   },
+   {
+    "bin": "(0.4, 0.5]",
+    "states": 15725,
+    "games": 635,
+    "model": 0.4517,
+    "realised": 0.4387,
+    "ci95_1pg": [
+     0.4043,
+     0.4814
+    ]
+   },
+   {
+    "bin": "(0.5, 0.6]",
+    "states": 18963,
+    "games": 710,
+    "model": 0.551,
+    "realised": 0.5342,
+    "ci95_1pg": [
+     0.5111,
+     0.5841
+    ]
+   },
+   {
+    "bin": "(0.6, 0.7]",
+    "states": 16443,
+    "games": 685,
+    "model": 0.6486,
+    "realised": 0.6544,
+    "ci95_1pg": [
+     0.6072,
+     0.6788
+    ]
+   },
+   {
+    "bin": "(0.7, 0.8]",
+    "states": 15271,
+    "games": 712,
+    "model": 0.7482,
+    "realised": 0.7516,
+    "ci95_1pg": [
+     0.6966,
+     0.7616
+    ]
+   },
+   {
+    "bin": "(0.8, 0.9]",
+    "states": 14287,
+    "games": 694,
+    "model": 0.8517,
+    "realised": 0.845,
+    "ci95_1pg": [
+     0.8017,
+     0.8574
+    ]
+   },
+   {
+    "bin": "(0.9, 0.95]",
+    "states": 7977,
+    "games": 575,
+    "model": 0.9254,
+    "realised": 0.9188,
+    "ci95_1pg": [
+     0.8776,
+     0.9258
+    ]
+   },
+   {
+    "bin": "(0.95, 1.0]",
+    "states": 16383,
+    "games": 601,
+    "model": 0.9849,
+    "realised": 0.9811,
+    "ci95_1pg": [
+     0.9374,
+     0.9703
+    ]
+   }
+  ]
+ }
+}
