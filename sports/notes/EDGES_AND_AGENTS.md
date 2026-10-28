@@ -193,6 +193,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
   legs/~90 days forward; tens of $/day), H2 PM longshot-NO as MAKER via data-api tape on the untouched 2026-05..10 holdout.
   Holdout 2026-05-01..10-20 never priced -> reserve for pre-registered tests.
 
+- **L40 Kalshi Liquidity Incentive Program on weather brackets (10-27, notes/kalshi_lip.md):** $20/bracket/period (~1.6 d) on all 48 daily temp series; 75% of temp brackets pay nobody (YES side < 1,000); 1,000 YES @1c (~$10) could claim up to ~$10/period vs fill cost ~$0.5-1.3/bracket-night. 10-day PAPER test 10-29..11-08 pre-registered; program ends 2027-01-01.
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
