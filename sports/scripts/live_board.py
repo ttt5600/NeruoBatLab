@@ -30,12 +30,24 @@ Files: data/live_board.jsonl (ticks), data/live_board_results.jsonl (finals), da
 """
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+if __name__ == "__main__" and sys.argv[1:2] == ["game"] and "--fresh" not in sys.argv:
+    # fast path for `lb`: render data/live_board_latest.json with the stdlib-only view (no pandas/scipy import)
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import live_board_view as _v
+    _rc = _v.main(sys.argv[2:])
+    if _rc is not None:
+        raise SystemExit(_rc)
+    sys.argv.append("--fresh")  # no cache / stale / no match -> live pull below
+
 import json
 import math
 import os
-import sys
+import re
+import time
 from datetime import datetime, timedelta, timezone
-from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import numpy as np
@@ -47,6 +59,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 import live_board_models as lbm  # noqa: E402
+import live_board_view as view  # noqa: E402
 import nba_midgame_scan as nba  # noqa: E402
 
 DATA = Path(os.environ.get("LIVE_BOARD_DATA", ROOT / "data"))
@@ -147,12 +160,19 @@ def espn_clock(st: dict) -> float:
 
 def espn_pre_odds(c: dict) -> dict:
     o = (c.get("odds") or [{}])[0]
-    out = {"home_spread": o.get("spread"), "details": o.get("details")}
+    out = {"home_spread": o.get("spread"), "details": o.get("details"), "total": o.get("overUnder")}
     ml = o.get("moneyline") or {}
     hm = ((ml.get("home") or {}).get("close") or {}).get("odds") or (o.get("homeTeamOdds") or {}).get("moneyLine")
     am = ((ml.get("away") or {}).get("close") or {}).get("odds") or (o.get("awayTeamOdds") or {}).get("moneyLine")
     out.update(home_ml=hm, away_ml=am)
     return out
+
+
+def espn_names(c: dict) -> dict:
+    t = {x["homeAway"]: x["team"] for x in c["competitors"]}
+    return {f"names_{s}": sorted({str(t[s][k]).lower() for k in ("abbreviation", "displayName", "shortDisplayName",
+                                                                    "location", "name") if t[s].get(k)})
+            for s in ("home", "away")}
 
 
 def games_nba() -> list[dict]:
@@ -164,7 +184,7 @@ def games_nba() -> list[dict]:
                     "state": g["state"], "start": g["start"], "home": g["home"], "away": g["away"],
                     "hs": g["hs"], "as": g["as"], "period": g["period"], "clock_s": g["clock_s"], "el": g["el"],
                     "winner_home": None if g["winner"] is None else g["winner"] == g["home"],
-                    "completed": g["completed"], **espn_pre_odds(c)})
+                    "completed": g["completed"], **espn_pre_odds(c), **espn_names(c)})
     return out
 
 
@@ -207,7 +227,7 @@ def games_nfl() -> list[dict]:
                     "as": int(t["away"].get("score") or 0), "period": per, "clock_s": clk,
                     "el": (per - 1) * 900 + (900 - clk) if 1 <= per <= 4 else None,
                     "winner_home": None if win is None else win == "home", "completed": bool(st["type"].get("completed")),
-                    **espn_pre_odds(c), **_nfl_situation(c, home, away, t["home"]["team"]["id"])})
+                    **espn_pre_odds(c), **_nfl_situation(c, home, away, t["home"]["team"]["id"]), **espn_names(c)})
     return out
 
 
@@ -219,7 +239,7 @@ def games_nhl() -> list[dict]:
             c = e["competitions"][0]
             t = {x["homeAway"]: x for x in c["competitors"]}
             k = (kcode("nhl", t["away"]["team"]["abbreviation"]), kcode("nhl", t["home"]["team"]["abbreviation"]))
-            esp[k] = {"eid": e["id"], **espn_pre_odds(c)}
+            esp[k] = {"eid": e["id"], **espn_pre_odds(c), **espn_names(c)}
     except Exception:  # noqa: BLE001
         esp = {}
     out = []
@@ -243,8 +263,20 @@ def games_nhl() -> list[dict]:
                     "pp": hsk - ask, "en_home": int(hg_ == 0), "en_away": int(ag_ == 0),
                     "winner_home": (hs > as_) if fin and hs != as_ else None, "completed": fin,
                     "home_spread": None, "home_ml": e.get("home_ml"), "away_ml": e.get("away_ml"),
-                    "details": e.get("details")})
+                    "details": e.get("details"), "total": e.get("total"),
+                    "names_home": sorted(set(e.get("names_home", [])) | _nhl_names(g["homeTeam"])),
+                    "names_away": sorted(set(e.get("names_away", [])) | _nhl_names(g["awayTeam"]))})
     return out
+
+
+def _nhl_names(t: dict) -> set:
+    out = {str(t.get("abbrev", "")).lower()}
+    for k in ("name", "commonName", "placeName"):
+        v = t.get(k)
+        v = v.get("default") if isinstance(v, dict) else v
+        if v:
+            out.add(str(v).lower())
+    return out - {""}
 
 
 FEEDS = {"nba": games_nba, "nfl": games_nfl, "nhl": games_nhl}
@@ -307,6 +339,8 @@ def update_pregame(g: dict, cache: dict, ev: dict | None, fits: dict) -> dict:
     if g["state"] == "pre":  # pregame odds only ever read while the game is `pre`
         if sp in ("nba", "nfl") and g.get("home_spread") is not None:
             c.update(hm=-float(g["home_spread"]), src="espn_scoreboard", details=g.get("details"), at=now())
+        if g.get("total") not in (None, ""):
+            c.update(total=float(g["total"]), total_src="ESPN scoreboard (pre-tip)")
         if sp == "nhl":
             ph, pa = am_prob(g.get("home_ml")), am_prob(g.get("away_ml"))
             if ph and pa:
@@ -491,6 +525,247 @@ def state_str(r: dict, g: dict) -> str:
     return st
 
 
+# ------------------------------------------------------------------------------------------------ per-game records
+DEPLOY = Path.home() / ".claude" / "quant-kalshi"
+LATEST = DATA / "live_board_latest.json"       # tick -> every game's record; `game` / `lb` read it
+ALERT_STATE = DATA / "live_board_alerts.json"  # dedupe keys + positions cache
+ALERT_LOG = DATA / "live_board_alerts.jsonl"
+WATCH = DEPLOY / "data" / "watchlist.txt"      # team codes, one per line
+OPEN_TOTALS = DEPLOY / "data" / "open_totals_state.json"  # L32 logger: Pinnacle / Kalshi pregame NBA totals
+MANUAL = DEPLOY / "data" / "manual_bets.jsonl"
+CORE = {"nba": "basketball/leagues/nba", "nfl": "football/leagues/nfl", "nhl": "hockey/leagues/nhl"}
+SPORT_OF = {"KXNBA": "nba", "KXNFL": "nfl", "KXNHL": "nhl"}
+MOVE_ALERT = 0.25
+POS_MAX_AGE = 300
+
+
+def game_key(g: dict) -> str:
+    """Kalshi event middle segment, e.g. 26OCT27PORLAL (ET date + away + home)."""
+    return f"{g['start'].astimezone(ET):%y%b%d}".upper() + g["away"] + g["home"]
+
+
+def totals_info(g: dict, c: dict) -> dict:
+    """Pregame total into the cache (ESPN core odds, first non-live book, once per game) + NBA Pinnacle/Kalshi
+    last pre-tip totals from the L32 open-totals logger."""
+    if c.get("total") is None and g.get("eid") and g["state"] != "pre" and not c.get("core_tried"):
+        c["core_tried"] = True
+        try:
+            eid = g["eid"]
+            items = get(f"https://sports.core.api.espn.com/v2/sports/{CORE[g['sport']]}/events/{eid}/competitions/"
+                        f"{eid}/odds", limit=100).get("items", [])
+            for it in items:
+                name = (it.get("provider") or {}).get("name", "")
+                if "Live" in name:
+                    continue  # in-play feed, not a pregame price
+                tot = ((it.get("close") or {}).get("total") or {}).get("american") or it.get("overUnder")
+                if tot not in (None, ""):
+                    c.update(total=float(tot), total_src=f"ESPN {name} close")
+                    break
+        except Exception as ex:  # noqa: BLE001
+            c["core_err"] = str(ex)[:120]
+    out = {}
+    if g["sport"] == "nba":
+        try:
+            st = json.loads(OPEN_TOTALS.read_text())
+            gk = game_key(g)
+            for v in st.values():
+                if ((v.get("kal_last") or v.get("kal_open") or {}).get("event") or "").endswith(gk):
+                    out = {"pin_last": (v.get("pin_last") or v.get("pin_open") or {}).get("line"),
+                           "kal_pre": (v.get("kal_last") or {}).get("implied")}
+                    break
+        except Exception:  # noqa: BLE001
+            pass
+    return out
+
+
+def our_positions(max_age: float = 0) -> tuple[list[dict], str | None]:
+    """Our manual_bets orders on NBA/NFL/NHL tickers (weather is a separate executor, ignored): filled + resting
+    contracts per order. Read-only GET /portfolio/orders via the deployed signed client; cached max_age s."""
+    st = jload(ALERT_STATE)
+    pc = st.get("positions") or {}
+    if max_age and pc.get("at") and (datetime.now(timezone.utc) - datetime.fromisoformat(pc["at"])).total_seconds() < max_age:
+        return pc.get("rows", []), pc.get("err")
+    jr = [r for r in jl(MANUAL) if r.get("status") == "placed" and r.get("ticker", "")[:5] in SPORT_OF]
+    rows, err = [], None
+    if jr:
+        try:
+            import kalshi_exec as K
+            K.set_root(DEPLOY)
+            e = K.env()
+            cl = K.Kalshi(e, K.config(e)["env"])
+            mine = {r["client_order_id"]: r for r in jr}
+            for o in cl.orders():
+                r = mine.get(o.get("client_order_id"))
+                if not r:
+                    continue
+                f = lambda k: float(o.get(f"{k}_fp") or o.get(k) or 0)  # noqa: E731
+                filled = f("fill_count")
+                resting = f("remaining_count") if o.get("status") == "resting" else 0.0
+                if filled or resting:
+                    rows.append({"ticker": r["ticker"], "side": r["side"], "filled": filled, "resting": resting,
+                                 "entry": round(r["max_cost"] / r["count"], 4) if r.get("taker") else r["price"]})
+        except Exception as ex:  # noqa: BLE001
+            err = str(ex)[:150]
+            rows = pc.get("rows", [])
+    st = jload(ALERT_STATE)
+    st["positions"] = {"at": now(), "rows": rows, "err": err}
+    jsave(ALERT_STATE, st)
+    return rows, err
+
+
+def value_positions(g: dict, rows: list[dict]) -> list[dict]:
+    gk = game_key(g)
+    out = []
+    for p in rows:
+        t = p["ticker"]
+        if SPORT_OF.get(t[:5]) != g["sport"] or t.split("-")[1] != gk:
+            continue
+        q = dict(p)
+        try:
+            m = get(f"{KALSHI}/markets/{t}").get("market") or {}
+        except Exception:  # noqa: BLE001
+            m = {}
+        team = t.split("-")[-1]
+        q["label"] = f"{team} win" if "GAME-" in t else (m.get("yes_sub_title") or t.split("-", 2)[-1])
+        res = m.get("result") or ""
+        if res in ("yes", "no"):
+            q.update(settled=True, now=1.0 if res == p["side"] else 0.0)
+        else:
+            f = lambda k: float(m[k]) if m.get(k) not in (None, "") else None  # noqa: E731
+            yb, ya = f("yes_bid_dollars"), f("yes_ask_dollars")
+            mid = (yb + ya) / 2 if yb is not None and ya and ya > 0 else None
+            if mid is not None:
+                q["now"] = round(mid if p["side"] == "yes" else 1 - mid, 4)
+            if "GAME-" in t and g.get("completed") and g.get("winner_home") is not None:  # final, market not settled yet
+                yes_won = team == (g["home"] if g["winner_home"] else g["away"])
+                q.update(settled=True, now=1.0 if yes_won == (p["side"] == "yes") else 0.0, by_score=True)
+        if ok(q.get("now")):
+            q["pnl"] = round(q["filled"] * (q["now"] - q["entry"]), 2)
+        out.append(q)
+    return out
+
+
+def ser_g(g: dict) -> dict:
+    return {k: (v.isoformat() if isinstance(v, datetime) else v) for k, v in g.items()
+            if k not in ("home_ml", "away_ml", "home_spread", "details", "total")}
+
+
+def make_rec(g: dict, ev: dict | None, pre: dict, fits: dict, pos_rows: list, pos_err: str | None) -> dict:
+    r = evaluate(g, pre, ev, fits)
+    tot = totals_info(g, pre)
+    return {"key": f"{g['sport']}:{g['gid']}", "ts": now(), "g": ser_g(g), "r": r,
+            "pre": {k: pre.get(k) for k in ("hm", "p_pre", "src", "details", "total", "total_src")},
+            "tot": tot, "pos": value_positions(g, pos_rows), "pos_err": pos_err}
+
+
+def watchlist() -> set[str]:
+    try:
+        return {x.strip().upper() for x in WATCH.read_text().splitlines() if x.strip() and not x.startswith("#")}
+    except Exception:  # noqa: BLE001
+        return set()
+
+
+def alerts(recs: dict, msgs: list) -> None:
+    """macOS notifications (kalshi_exec.notify), deduped per game per event in data/live_board_alerts.json."""
+    from kalshi_exec import notify
+    st = jload(ALERT_STATE)
+    sent = st.setdefault("sent", {})
+    watch = watchlist()
+
+    def fire(key: str, title: str, msg: str, block: list | None = None) -> None:
+        if key in sent:
+            return
+        sent[key] = now()
+        notify(title, msg)
+        append(ALERT_LOG, {"ts": now(), "key": key, "title": title, "msg": msg})
+        msgs.append(f"ALERT [{key}] {title}: {msg}" + ("\n  " + "\n  ".join(block) if block else ""))
+
+    for k, rec in recs.items():
+        g, r = rec["g"], rec["r"]
+        if g["state"] == "pre":
+            continue
+        lines, summ = view.render(rec)
+        # (a) our positions
+        for q in rec.get("pos") or []:
+            if not q.get("filled"):
+                continue
+            if q.get("settled") and g["state"] == "post":
+                won = q["now"] >= 0.5
+                fire(f"final:{q['ticker']}", f"{'WON' if won else 'LOST'} {q['label']} ({g['game']})",
+                     f"{q['side'].upper()} x{q['filled']:g} @ {q['entry']:.2f}: P&L {q['pnl']:+.2f}"
+                     f"{' (by final score; Kalshi not settled yet)' if q.get('by_score') else ''} | {lines[0]}")
+            elif g["state"] == "in" and ok(q.get("now")) and abs(q["now"] - q["entry"]) >= MOVE_ALERT:
+                d = "up" if q["now"] > q["entry"] else "down"
+                fire(f"move:{q['ticker']}:{d}", f"Our {q['label']} {d} {abs(q['now'] - q['entry']) * 100:.0f}c",
+                     f"entry {q['entry']:.2f} -> mid {q['now']:.2f} (P&L {q['pnl']:+.2f}) | {summ}")
+        # (b) model vs market gap
+        if g["state"] == "in" and ok(r.get("p_home")) and ok(r.get("mid_home")) and \
+                abs(r["p_home"] - r["mid_home"]) >= BIG_GAP:
+            fire(f"gap:{k}", f"Likely news: {g['game']}",
+                 f"model {r['p_home']:.0%} vs Kalshi {r['mid_home']:.0%} home -- check {WHY[g['sport']]}; not value", lines)
+        # (c) watchlist
+        if watch & {g["home"], g["away"]}:
+            if g["state"] == "in":
+                fire(f"w:{k}:start", f"Underway: {g['game']}", summ, lines)
+                if g["sport"] in ("nba", "nfl") and g["period"] == 2 and float(g["clock_s"]) == 0:
+                    fire(f"w:{k}:half", f"Halftime: {g['game']}", summ, lines)
+                if g["sport"] == "nhl" and g.get("intermission"):
+                    fire(f"w:{k}:int{g['period']}", f"Intermission {g['period']}: {g['game']}", summ, lines)
+            elif g["state"] == "post":
+                fire(f"w:{k}:final", f"Final: {g['game']}", summ, lines)
+    cut = datetime.now(timezone.utc) - timedelta(days=4)
+    st = {**jload(ALERT_STATE), "sent": {k: v for k, v in sent.items() if datetime.fromisoformat(v) > cut}}
+    jsave(ALERT_STATE, st)
+
+
+def game_fresh(args: list[str]) -> int:
+    """Live pull of just the queried game: one scoreboard + one Kalshi event + our orders (~1-2 s)."""
+    q = " ".join(x for x in args if not x.startswith("--"))
+    if not q:
+        return view.main([]) or 0
+    d = view.load_latest()
+    hits = view.match(d.get("games") or {}, q)
+    sports = [d["games"][hits[0][0]]["g"]["sport"]] if hits else list(FEEDS)
+    msgs: list[str] = []
+    games = []
+    for sp in sports:
+        try:
+            games += FEEDS[sp]()
+        except Exception as ex:  # noqa: BLE001
+            msgs.append(f"{sp} feed error: {str(ex)[:150]}")
+    recs0 = {f"{g['sport']}:{g['gid']}": {"g": ser_g(g)} for g in games}
+    hits = view.match(recs0, q)
+    if not hits:
+        print(f"no NBA/NFL/NHL game today matching {q!r}" + ("; " + "; ".join(msgs) if msgs else ""))
+        return 1
+    live = [h for h in hits if recs0[h[0]]["g"]["state"] == "in"]
+    fits = load_fits()
+    cache = jload(PRE)
+    pos_rows, pos_err = our_positions(0)
+    by = {f"{g['sport']}:{g['gid']}": g for g in games}
+    for k, focus in (live or hits[:1]):
+        g = by[k]
+        try:
+            et_ = f"{SERIES[g['sport']]}-{game_key(g)}"
+            m = get(f"{KALSHI}/markets", event_ticker=et_).get("markets", [])
+            fx = lambda x, k_: float(x[k_]) if x.get(k_) not in (None, "") else None  # noqa: E731
+            ev = {"event": et_, "q": {x["ticker"].split("-")[-1]: {"bid": fx(x, "yes_bid_dollars"),
+                                                                   "ask": fx(x, "yes_ask_dollars")} for x in m}} \
+                if m else match_kalshi(g, kalshi_books([g["sport"]]))
+        except Exception as ex:  # noqa: BLE001
+            ev = None
+            msgs.append(f"Kalshi error: {str(ex)[:120]}")
+        pre = update_pregame(g, cache, ev, fits)
+        rec = make_rec(g, ev, pre, fits, pos_rows, pos_err)
+        lines, _ = view.render(rec, focus)
+        print(f"[{g['sport'].upper()} {g['game']}] fresh pull")
+        print("\n".join(lines))
+    jsave(PRE, cache)
+    for m_ in msgs:
+        print(m_)
+    return 0
+
+
 # ------------------------------------------------------------------------------------------------ commands
 def show() -> int:
     msgs: list[str] = []
@@ -534,6 +809,7 @@ def show() -> int:
 
 
 def tick() -> int:
+    t0 = time.time()
     msgs: list[str] = []
     games = all_games(msgs)
     live_ = [g for g in games if g["state"] == "in"]
@@ -545,6 +821,7 @@ def tick() -> int:
     for g in games:  # cache ESPN pregame lines (no Kalshi call)
         if g["state"] == "pre":
             update_pregame(g, cache, None, fits)
+    books: dict = {}
     if live_ or soon:
         books = kalshi_books(sorted({g["sport"] for g in live_ + soon}))
         for g in soon:
@@ -560,9 +837,27 @@ def tick() -> int:
             append(TICKS, r)
             opn[f"{g['sport']}:{g['gid']}"] = {"sport": g["sport"], "gid": g["gid"], "eid": g.get("eid"),
                                                "game": g["game"], "home": g["home"], "last": r["ts"]}
+    # per-game records for `game` / `lb` (all of today's games; Kalshi only where a book was pulled)
+    pos_rows, pos_err = our_positions(POS_MAX_AGE)
+    recs = {}
+    for g in games:
+        key = f"{g['sport']}:{g['gid']}"
+        try:
+            ev = match_kalshi(g, books) if g["state"] != "post" else None
+            pre = cache.get(key) or update_pregame(g, cache, ev, fits)
+            recs[key] = make_rec(g, ev, pre, fits, pos_rows, pos_err)
+        except Exception as ex:  # noqa: BLE001
+            msgs.append(f"record failed {key} {g.get('game')}: {str(ex)[:150]}")
+    jsave(LATEST, {"ts": now(), "games": recs, "tick_s": round(time.time() - t0, 2)})
     jsave(PRE, cache)
+    try:
+        alerts(recs, msgs)
+    except Exception as ex:  # noqa: BLE001
+        msgs.append(f"alerts failed: {str(ex)[:150]}")
     settle(games, opn, msgs)
     jsave(OPEN, opn)
+    if time.time() - t0 > 15:
+        msgs.append(f"slow tick {time.time() - t0:.1f}s")
     if msgs:
         print("\n".join(msgs))
     return 0
@@ -658,4 +953,6 @@ def report() -> int:
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "show"
+    if cmd == "game":  # reached only with --fresh (or when the cache could not answer)
+        raise SystemExit(game_fresh(sys.argv[2:]))
     raise SystemExit({"show": show, "tick": tick, "report": report}[cmd]())
