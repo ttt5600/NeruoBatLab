@@ -4,6 +4,10 @@ Last updated: 2026-10-22 ~09:15Z (HANDOFF #3 -- read it first). Branch `worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
+## FUND GOAL (user, 2026-10-27): double a $1-2k UNLEVERED bankroll in 12 months, proven live; scale capital only as
+## verified qualified daily volume grows (~$140-280/day of 2%-edge bets needed). Blueprint: notes/FUND_ARCHITECTURE.md;
+## economics: notes/fund_economics.md. Never fund betting from the leveraged brokerage account.
+
 ## HANDOFF #4 2026-10-25 -- START HERE: read `sports/notes/HANDOFF_2026-10-25.md` (scoreboard, every edge, systems,
 ## Robinhood, NBA action plan). Then EDGES_AND_AGENTS.md. User wants performance numbers + NBA action + keep researching.
 Snapshot 10-25: LIVE Kalshi 29 fills / 14 settled 14 wins +$0.23 (bal $35.49 + 15 open); paper 68/69 wins +0.53u;
