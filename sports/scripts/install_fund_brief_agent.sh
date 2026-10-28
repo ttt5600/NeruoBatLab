@@ -14,7 +14,8 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 mkdir -p "$DST/scripts" "$DST/lab" "$DST/notes/briefs"
 for f in fund_brief.py fund_stats.py; do cp "$SRC/scripts/$f" "$DST/scripts/"; done
 cp "$SRC/lab/ledger.jsonl" "$SRC/lab/lockbox.jsonl" "$DST/lab/"
-for f in kalshi_exec.py nba_open_totals.py open_lines_logger.py kalshi_wx_monthly_logger.py nba_midgame_scan.py manual_bets.py; do
+cp "$SRC/QUESTIONS.md" "$DST/QUESTIONS.md"   # Q003/Q004 status sections of the brief
+for f in kalshi_exec.py nba_open_totals.py open_lines_logger.py kalshi_wx_monthly_logger.py nba_midgame_scan.py manual_bets.py forecastex_paper.py; do
   [ -f "$DST/scripts/$f" ] || echo "WARNING: $DST/scripts/$f missing (deploy its own agent first); the brief will show it as missing"
 done
 

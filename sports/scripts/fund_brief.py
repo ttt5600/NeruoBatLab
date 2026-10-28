@@ -197,6 +197,100 @@ def code(text: str, max_lines: int = 30) -> list[str]:
     return ["```"] + lines + ["```"]
 
 
+# --------------------------------------------------------------------------------- added sections (2026-10-28)
+def _jload(p: Path, default):
+    try:
+        return json.loads(p.read_text())
+    except Exception:  # noqa: BLE001
+        return default
+
+
+def _f(v, fm: str = "+.1f") -> str:
+    return "-" if v is None else format(v, fm)
+
+
+def q004_lines() -> list[str]:
+    """Q004 pick_tight paper stats per open-line logger (deployed tight files)."""
+    L = ["| logger | events tracked | first tight (uncensored) | pick_tight decided | picks | settled | W-L | "
+         "ROI @ask+fee | mean CLV |", "|---|---:|---:|---:|---:|---:|---|---:|---:|"]
+    pool = 0
+    for name, f in (("NBA totals", "open_totals_tight.json"), ("NHL", "open_lines_nhl_tight.json"),
+                    ("NFL", "open_lines_nfl_tight.json")):
+        T = _jload(DEPLOY / "data" / f, None)
+        if T is None:
+            L.append(f"| {name} | (missing {f}) | | | | | | | |")
+            continue
+        mk = list(T.get("markets", {}).values())
+        ft = sum(1 for m in mk if m.get("first_tight") and not m["first_tight"].get("censored"))
+        picks = list(T.get("picks", {}).values())
+        made = [p for p in picks if p.get("pick")]
+        st = [p for p in picks if "result" in p]
+        pool += len(st)
+        w = sum(p["result"] == "win" for p in st)
+        roi = [p["roi"] for p in st if p.get("roi") is not None]
+        clv = [p["clv"] for p in st if p.get("clv") is not None]
+        L.append(f"| {name} | {len(mk)} | {ft} | {len(picks)} | {len(made)} | {len(st)} | {w}-{len(st) - w} | "
+                 f"{_f(sum(roi) / len(roi) if roi else None, '+.1%')} | {_f(sum(clv) / len(clv) if clv else None, '+.3f')} |")
+    L += ["", f"Pooled settled pick_tight: {pool} of the 100 the Q004 judge needs (mean CLV > 0 AND ROI @ask+fee > 0 "
+          "-> write a sealed ask)."]
+    return L
+
+
+def q003_lines() -> list[str]:
+    q = DEPLOY / "QUESTIONS.md"
+    q = q if q.exists() else ROOT / "QUESTIONS.md"
+    txt = q.read_text() if q.exists() else ""
+    m = re.search(r"^## Q003 .*?(?=^## Q\d|\Z)", txt, re.S | re.M)
+    if not m:
+        return ["- Q003: QUESTIONS.md not found (re-run the installer)."]
+    blk = m.group(0)
+    fm = re.search(r"^finding:\s*(.*?)(?=^\w+:|\Z)", blk, re.S | re.M)
+    finding = " ".join(fm.group(1).split()) if fm else "-"
+    lock = ROOT / "lab" / "lockbox.jsonl"
+    sealed = [r for r in read_jsonl(lock) if "q003" in json.dumps(r).lower()] if lock.exists() else []
+    status = (f"SEALED RESULT in lockbox ({len(sealed)} rows)" if sealed
+              else "SEALED ASK PENDING -- awaiting PM yes; nothing scored on the sealed window yet")
+    return [f"- **{blk.splitlines()[0].replace('## ', '')}**", f"- status: {status}",
+            f"- dev finding: {finding[:700]}"]
+
+
+def picks_today_lines(day: str) -> list[str]:
+    """Today's NBA totals (main + bias-corrected) and NHL logger decisions from the deployed state files."""
+    L = ["**NBA totals (nba_open_totals.py; gap BC = model - recent level bias vs Pinnacle close - open)**", "",
+         "| game | open | model | gap | bias (n) | gap BC | pick | pick BC |", "|---|---:|---:|---:|---:|---:|---|---|"]
+    S = _jload(DEPLOY / "data" / "open_totals_state.json", {})
+    n = 0
+    for k, g in sorted(S.items()):
+        if not k.startswith(day):
+            continue
+        n += 1
+        d = g.get("decision") or {}
+        if not d:
+            L.append(f"| {k.split('|')[1]} | {(g.get('pin_open') or {}).get('line', '-')} | (undecided) | | | | | |")
+            continue
+        b, nb, mo, op = d.get("bias"), d.get("n_bias"), d.get("model"), d.get("open_line")
+        gbc = None if None in (b, mo, op) else mo - b - op
+        L.append(f"| {k.split('|')[1]} | {_f(op, '.1f')} | {_f(mo, '.1f')} | {_f(d.get('gap'))} | {_f(b, '+.2f')} ({nb}) "
+                 f"| {_f(gbc)} | {d.get('pick') or '-'} | {d.get('pick_bc') or '-'} |")
+    if not n:
+        L.append("| (no NBA games today in the logger) | | | | | | | |")
+    L += ["", "BC picks need >= 30 earlier decided games for the bias estimate; below that pick_bc stays empty and "
+          "gap BC is informational.", "",
+          "**NHL (open_lines_logger.py nhl)**", "", "| game | market | open | model | gap | pick |", "|---|---|---|---:|---:|---|"]
+    H = (_jload(DEPLOY / "data" / "open_lines_nhl_state.json", {}) or {}).get("games", {})
+    m = 0
+    for k, g in sorted(H.items()):
+        if not k.startswith(day):
+            continue
+        for mkt, d in (g.get("decision") or {}).items():
+            m += 1
+            op = d.get("open_line") if d.get("open_line") is not None else d.get("open_novig")
+            L.append(f"| {k.split('|')[1]} | {mkt} | {op} | {d.get('model')} | {d.get('gap')} | {d.get('pick') or '-'} |")
+    if not m:
+        L.append("| (no NHL decisions today) | | | | | |")
+    return L
+
+
 # -------------------------------------------------------------------------------------------------- brief
 def build(timeout: int = 120) -> tuple[str, str]:
     now = datetime.now().astimezone()
@@ -208,6 +302,7 @@ def build(timeout: int = 120) -> tuple[str, str]:
         "NFL open lines (L33 forward)": run(["open_lines_logger.py", "report", "--league", "nfl"], timeout),
         "Monthly rain/snow (L39 forward)": run(["kalshi_wx_monthly_logger.py", "report"], timeout),
         "NBA mid-game (L37 recorder)": run(["nba_midgame_scan.py", "report"], timeout),
+        "E5 ForecastEx FX1-fwd paper (forecastex_paper.py)": run(["forecastex_paper.py", "report"], timeout),
     }
     mrc, manual = run(["manual_bets.py", "orders"], timeout)
     manual = "\n".join(re.sub(r"\s[0-9a-f]{8}-[0-9a-f-]{27,}$", "", ln) for ln in manual.splitlines())
@@ -271,6 +366,10 @@ def build(timeout: int = 120) -> tuple[str, str]:
     L += ["## 4. Forward paper loggers", ""]
     for title, (rc_, txt) in reports.items():
         L += [f"### {title}" + ("" if rc_ == 0 else f" (exit {rc_})"), ""] + code(txt, 18) + [""]
+
+    L += ["## 4b. Q004 pick_tight (first tight Kalshi quote, paper)", ""] + q004_lines() + [""]
+    L += ["## 4c. Q003 Kalshi Mentions maker NO", ""] + q003_lines() + [""]
+    L += [f"## 4d. Today's NBA / NHL logger picks ({now:%Y-%m-%d})", ""] + picks_today_lines(f"{now:%Y-%m-%d}") + [""]
 
     L += ["## 5. Manual bets (user-authorized, scripts/manual_bets.py orders)", ""] + code(manual, 25) + [""]
 
