@@ -140,11 +140,10 @@ class ForecastExTWS(ForecastEx):
     # ------------------------------------------------------------------ contracts
     @staticmethod
     def expiration_for(c: dict) -> str:
-        """lastTradeDateOrContractMonth for a public contract row: its IB expiration, else event day + 1."""
-        exp = c.get("expiration")
-        if exp:
-            return str(exp)
-        return (c["day"] + timedelta(days=1)).strftime("%Y%m%d")
+        """lastTradeDateOrContractMonth for a public contract row = the EVENT day.
+        Verified live 2026-10-29 via reqContractDetails on UHLGA strike 71: lastTradeDateOrContractMonth 20261029 for
+        UHLGA_102926_71_NO (realExpirationDate 20261030); the earlier event+1 / public 'expiration' mapping matched nothing."""
+        return c["day"].strftime("%Y%m%d")
 
     def tws_contract(self, market: str, side: str):
         """The un-qualified ib_async Contract for one side of our market id (no network)."""
@@ -173,6 +172,9 @@ class ForecastExTWS(ForecastEx):
         con = det[0].contract
         if con.right != want.right or abs(float(con.strike) - float(want.strike)) > 1e-9:
             raise VenueError(f"{market} {side}: resolved {con.right} {con.strike} != {want.right} {want.strike}")
+        want_local = f"{market}_{'YES' if side == 'yes' else 'NO'}"
+        if con.localSymbol and con.localSymbol != want_local:
+            raise VenueError(f"{market} {side}: TWS localSymbol {con.localSymbol} != {want_local}")
         if pub_id and int(con.conId) != int(pub_id):
             raise VenueError(f"{market} {side}: TWS conId {con.conId} != public conid {pub_id}")
         con.exchange = EXCHANGE

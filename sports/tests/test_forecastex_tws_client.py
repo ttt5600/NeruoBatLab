@@ -75,8 +75,8 @@ class FakeIB:
         self.assign_perm = True
         self.reject = False
         # (symbol, lastTradeDate, strike, right) -> conId, the Gateway's view of the listing
-        self.listing = {("UHLGA", "20261030", 63.0, "C"): 1063, ("UHLGA", "20261030", 63.0, "P"): 2063,
-                        ("UHLGA", "20261030", 70.0, "C"): 1070, ("UHLGA", "20261030", 70.0, "P"): 2070}
+        self.listing = {("UHLGA", "20261029", 63.0, "C"): 1063, ("UHLGA", "20261029", 63.0, "P"): 2063,
+                        ("UHLGA", "20261029", 70.0, "C"): 1070, ("UHLGA", "20261029", 70.0, "P"): 2070}
         self.quotes = {1063: (0.05, 0.08, 7, 9), 2063: (0.92, 0.95, 9, 7), 1070: (0.88, 0.92, 5, 5),
                        2070: (0.08, 0.12, 5, 5)}
         self.detail_requests = []
@@ -110,7 +110,7 @@ class FakeIB:
         return [SimpleNamespace(contract=Contract(conId=cid, symbol=c.symbol, secType="OPT", exchange="FORECASTX",
                                                   currency="USD", strike=c.strike, right=c.right,
                                                   lastTradeDateOrContractMonth=c.lastTradeDateOrContractMonth,
-                                                  localSymbol=f"UHLGA Oct29'26 {c.strike:g} {'YES' if c.right == 'C' else 'NO'}"))]
+                                                  localSymbol=f"UHLGA_102926_{c.strike:g}_{'YES' if c.right == 'C' else 'NO'}"))]
 
     def reqMktData(self, c, gen, snapshot, reg):
         assert snapshot is True
@@ -172,7 +172,7 @@ def test_event_date_maps_to_expiration_and_rights(tmp_path):
     y, n = c.tws_contract(MKT, "yes"), c.tws_contract(MKT, "no")
     for k in (y, n):
         assert (k.symbol, k.secType, k.exchange, k.currency) == ("UHLGA", "OPT", "FORECASTX", "USD")
-        assert k.lastTradeDateOrContractMonth == "20261030" and k.strike == 63.0   # event 10-29 -> IB expiry 10-30
+        assert k.lastTradeDateOrContractMonth == "20261029" and k.strike == 63.0   # IB lastTradeDate = event day (verified live 10-29)
     assert (y.right, n.right) == ("C", "P")                                       # YES = Call, NO = Put
     with pytest.raises(VenueError):
         c.tws_contract(MKT, "sell")
@@ -180,14 +180,14 @@ def test_event_date_maps_to_expiration_and_rights(tmp_path):
 
 def test_expiration_fallback_is_event_day_plus_one(tmp_path):
     c, _ = make(tmp_path, public=Public([cc(63, expiration=None)]))
-    assert c.tws_contract(MKT, "no").lastTradeDateOrContractMonth == "20261030"
+    assert c.tws_contract(MKT, "no").lastTradeDateOrContractMonth == "20261029"
 
 
 def test_resolve_crosschecks_public_conid(tmp_path):
     c, ib = make(tmp_path)
     assert c.resolve(MKT, "yes").conId == 1063 and c.resolve(MKT, "no").conId == 2063
     c2, ib2 = make(tmp_path / "b")
-    ib2.listing[("UHLGA", "20261030", 63.0, "P")] = 9999          # Gateway disagrees with the public feed
+    ib2.listing[("UHLGA", "20261029", 63.0, "P")] = 9999          # Gateway disagrees with the public feed
     with pytest.raises(VenueError, match="!= public conid"):
         c2.resolve(MKT, "no")
     c3, ib3 = make(tmp_path / "c")
