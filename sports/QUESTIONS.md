@@ -131,7 +131,7 @@ last trade ~= Kalshi's at-mid FLB). Econ same-event vs Kalshi (751 pairs / 92 re
 (favourites -1.4..-2.2c, longshots +2.4c) and less accurate (Brier 0.073 vs 0.066). One strong cell -> Q008. Do-not-pursue:
 crypto/fin dailies (stale last-trade), sports (delisted Mar 2026), elections, climate, symmetric cross-venue arb.
 
-## Q008 [proposed] ForecastEx econ: buy the Kalshi-favoured side when ForecastEx prices it >= 2c cheaper (forward paper)
+## Q008 [running] ForecastEx econ: buy the Kalshi-favoured side when ForecastEx prices it >= 2c cheaper (forward paper)
 question:   Is the FX discount on Kalshi-favoured econ outcomes (CPI/core CPI/MoM CPI/payrolls/U3/claims/Fed) executable at the FX ask?
 mechanism:  E5 generalised: thin IBKR-retail venue = compressed copy of Kalshi; plus the Kalshi FLB at >= 0.85.
 baseline:   dev (exploratory, last trade): Kalshi mid >= .85, FX side <= Kalshi mid - .02 -> 64 bets / 57 events, 0 losses,
@@ -143,3 +143,10 @@ success:    >= 100 bets / 40 events, one-sided p < .05, ROI > 0, Wilson-95 upper
 kill:       >= 3 losses in first 30 bets, OR < 25% of Kalshi-favoured days have a qualifying FX ask (dev gap = last-trade artifact).
 power:      ~2 years at 40-50 signals/yr; capacity ~$25-50/signal -> value is small; only worth it bolted onto FX1-fwd logger.
 budget:     0 new trials until scored; logger extension only.
+status:     FORWARD PAPER RUNNING (2026-10-28). Pick type `q008` in scripts/forecastex_paper.py (dated ADDENDUM in its
+            docstring, pre-registered before the first tick), deployed in launchd com.jonathanwang.quant-forecastex-paper;
+            first snapshot 2026-10-29 15:00 CT, then daily. Logs ~/.claude/quant-kalshi/data/forecastex_q008{,_obs}.jsonl;
+            `forecastex_paper.py report` (section Q008) / `q008-validate`. Deviation: the public FX feed has no size, so
+            the ">= 10 at ask" filter is dropped (size logged null). Judge at 60 settled picks: KILL if ROI at FX ask
+            <= 0 or qualifying-ask rate < 25%; early KILL on >= 3 losses in the first 30; pass bar unchanged. Live
+            check 10-28: 0 signals; CPI/core CPI/Fed contracts are > 30 d out; MMCPI 3/10, U3 7/9 FX strikes match Kalshi.
