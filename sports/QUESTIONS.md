@@ -158,7 +158,7 @@ bid/ask history), event-vol around macro releases. Baseline: option mid/ask vs r
 Constraints: agentic Robinhood account only (main/Roth read-only); defined-risk structures; dev/sealed split by date; prereg
 + EDGE_MATH.md table incl. risk of ruin. Data: Robinhood MCP option chains/historicals (1m bars ~3-7 wks), public sources.
 
-## Q010 [proposed] Full contract census across venues (user: "look at all the offered contracts")
+## Q010 [done 10-29: notes/contract_census_2026-10-29.md] Full contract census across venues (user: "look at all the offered contracts")
 Enumerate EVERY open contract family on Kalshi (all 8 shards' series), Polymarket US, ForecastEx, Robinhood-routed venues;
 tag each with an external forecast/reference source (if any), liquidity, fee, settlement source; rank families where a
 public, better-calibrated reference exists (the weather pattern) -> each top family becomes a prereg question.
@@ -167,3 +167,10 @@ public, better-calibrated reference exists (the weather pattern) -> each top fam
 When a regular is rested/injured and a backup starts, are player/team props or game lines slow to adjust (opener vs
 lineup release time)? Test vs opener and vs close, by sport (MLB lineups ~3-4 h pre-game; NBA rest news), using
 SITUATIONAL_FACTORS.md rows on availability.
+
+## Q012-Q016 [proposed, from Q010 census 10-29] -- stubs (question/mechanism/baseline/power) in notes/contract_census_2026-10-29.md
+Q012 Kalshi hourly crypto above/below (KXBTCD/KXETHD) vs Deribit-implied probability (largest non-sports capacity; HFT-heavy; L19 fav-maker dead there).
+Q013 Rotten Tomatoes / Metacritic threshold markets vs the running score (forward logger first: too few settled events).
+Q014 Truth Social post-count markets vs the running count (forward logger first).
+Q015 RCP / VoteHub approval-average markets vs the recomputed average from listed polls.
+Q016 AAA weekly/monthly gas vs RBOB pass-through (first check far-level quotes exist; daily N6 placed 0 bets).

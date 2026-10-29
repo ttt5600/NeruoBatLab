@@ -25,7 +25,13 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   **Q003 SEALED FAIL 10-29 (lockbox q003_IN1_d6_sealed): IN1_d6 920/1,500 fills, ROI +1.56% [-1.86,+4.84] p .18 (bar .05); halves +3.30%/-0.01%; adverse selection 2.70c (YES filled .192 vs unfilled .131); MID_d6 +1.29% p .21. DEAD -- dev +7.08% decayed out; do not redo.**
 - Tonight 10-29 scan: no manual bet clears the bar (NBA 3 games within ~2-3c of Pinnacle; only flag ATL -3.5 YES .43 +2.3c
   normal-approx = tier C; NHL CLV~0 paper; NFL rain 0 signals; gap logger EFL WBA "+252%" = stale-quote bug).
-- Running research agents: L40b build (notes/kalshi_lip_b.md), Q010 contract census (notes/contract_census_2026-10-29.md).
+- L40b DEPLOYED (com.jonathanwang.quant-lip-paper-b, 300 tickers seed 4040, window 10-30..11-09, 9 tests pass). Check first tick
+  after 00:00Z 10-30 shows placed > 0.
+- Q010 census DONE (6,466 families): top new candidates Q012 crypto hourly vs Deribit, Q013 RT/MC scores, Q014 Truth Social
+  counts, Q015 approval averages, Q016 AAA gas vs RBOB (QUESTIONS.md). Next: prereg + forward loggers for the best 1-2.
+- L2 team-rating sides validation (held-out 2025-26 vs ESPN close) + l2_rating_logger.py: agent running.
+  Tonight model leans (tier C, unvalidated): ATL ML 61% vs 52% (driven by luck adj, which the market already prices -> pass),
+  CLE@ATL over ~238 (totals model 242.5, ~+2.4 after bias).
 
 ## 2026-10-28 ~21:30 PT: E5 ForecastEx LIVE on IBKR (user: "connect and trade ... same way you make kalshi trades")
 - IBKR connected: Client Portal Gateway ~/.claude/quant-kalshi/ibkr (port 5050). LIVE-switch login; the paper login fails
