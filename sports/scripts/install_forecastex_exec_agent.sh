@@ -4,6 +4,8 @@
 # (maker BUY at the side's best bid, sized under FX_MAX_ORDER_USD / FX_MAX_CONTRACTS / FX_MAX_DAILY_USD and tier B),
 # reconciles fills, cancels orders at cutoff (last trade - 15 min), settles, honours KILL and the -$10/24 h loss stop.
 # LIVE MONEY when ~/.claude/quant-kalshi/.env has IBKR_MODE=live + FX_ALLOW_LIVE_ACCOUNT=1. Run only on the user's yes.
+# Backend: FX_BACKEND in .env -- webapi (default, Client Portal Gateway, daily login) or tws (IB Gateway + IBC,
+#   weekly IBKR Mobile push; needs ib_async in .venv; notes/ibkr_ibc_setup.md).
 # Needs: the paper agent (install_forecastex_paper_agent.sh) and an authenticated Client Portal Gateway session
 #   (daily: ~/.claude/quant-kalshi/ibkr/start_gateway.sh, then .venv/bin/python ibkr/login.py --live-session).
 # Logs: ~/.claude/quant-kalshi/forecastex_exec.{log,err}; journals data/forecastex_exec.jsonl, data/bets.jsonl.
@@ -24,7 +26,8 @@ for f in bet.py kalshi_exec.py; do
 done
 mkdir -p "$DST/scripts/venues" "$DST/data"
 cp "$SRC/scripts/forecastex_exec.py" "$DST/scripts/"
-cp "$SRC/scripts/venues/__init__.py" "$SRC/scripts/venues/base.py" "$SRC/scripts/venues/forecastex_client.py" "$DST/scripts/venues/"
+cp "$SRC/scripts/venues/__init__.py" "$SRC/scripts/venues/base.py" "$SRC/scripts/venues/forecastex_client.py" \
+   "$SRC/scripts/venues/forecastex_tws_client.py" "$DST/scripts/venues/"
 
 cat > "$DST/forecastex_exec.sh" <<EOS
 #!/bin/bash

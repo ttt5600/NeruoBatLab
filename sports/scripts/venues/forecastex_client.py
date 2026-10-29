@@ -234,7 +234,10 @@ class ForecastEx:
                       "bid_yes": cc.get("bid_yes"), "ask_yes": cc.get("ask_yes"),
                       "bid_no": cc.get("bid_no"), "ask_no": cc.get("ask_no"),
                       "open_interest": cc.get("open_interest"), "restricted": cc.get("restricted"),
-                      "last_trade_time": k.get("last_trade_time")}
+                      "last_trade_time": k.get("last_trade_time"),
+                      # IB expiration YYYYMMDD = TWS lastTradeDateOrContractMonth; the day AFTER the event date for
+                      # every UH* station (checked 2026-10-29: LGA/DFW/LAX/PHX Oct-29 events -> 20261030)
+                      "expiration": cc.get("expiration")}
         self._list_cache[sym] = (time.monotonic(), out)
         return out
 

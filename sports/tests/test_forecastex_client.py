@@ -91,6 +91,17 @@ def test_ticker_roundtrip():
         fxc.parse_ticker("KXHIGHNY-26OCT29-B63")
 
 
+def test_event_day_central_station_uses_question_not_measured_period():
+    # 2026-10-28 live feed: a Central station's Oct-28 contract carries measured_period "Oct29'26 12:59 AM ET"
+    c = {"measured_period": "Oct29'26 12:59 AM ET", "expiration": "20261029",
+         "contracts": [{"question": "Will the highest temperature in San Antonio (SAT)(KSAT) exceed 80 F on "
+                                    "October 28, 2026? (maximum) (max) (hottest)?"}]}
+    assert fxc.event_day(c) == date(2026, 10, 28)
+    pac = {"measured_period": "Oct28'26 2:59 AM ET",
+           "contracts": [{"question": "Will ... (KLAX) exceed 68 F on October 28, 2026? (maximum)?"}]}
+    assert fxc.event_day(pac) == date(2026, 10, 28)
+
+
 def test_protocol_and_registry(tmp_path):
     assert isinstance(client(tmp_path), Venue)
     assert get_venue("forecastex", env={}, transport=Fake(), deploy=tmp_path).name == "forecastex"
