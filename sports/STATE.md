@@ -4,6 +4,17 @@ Last updated: 2026-10-22 ~09:15Z (HANDOFF #3 -- read it first). Branch `worktree
 `.claude/worktrees/quant-trader`. Run Python as `../.venv_quant/bin/python` from `sports/`.
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
+
+## 2026-10-28 ~21:30 PT: E5 ForecastEx LIVE on IBKR (user: "connect and trade ... same way you make kalshi trades")
+- IBKR connected: Client Portal Gateway ~/.claude/quant-kalshi/ibkr (port 5050). LIVE-switch login; the paper login fails
+  ssodh because there is NO paper account. login.py reads Keychain `fund-ibkr` + the SMS code from Messages.
+- scripts/forecastex_live.py (launchd com.jonathanwang.quant-forecastex-live, 5 min): every FX1-fwd pick -> 1 contract,
+  at the ask if one exists else a post-only bid at best bid (DAY). Caps: $5/order, 10 contracts, $25/day; shared KILL.
+  .env: IBKR_MODE=live, FX_ALLOW_LIVE_ACCOUNT=1, FX_AUTO_CONFIRM=1 (backup .env.bak-2026-10-28-fxlive).
+- First night (event day 10-29): 26 orders on IBKR (25 resting MK, 1 filled A); cap stopped the rest. `forecastex_live.py report`.
+- RISK NOTE: the user overrode the ">=100 settled paper picks" gate. MK bids rest into event day (adverse-selection risk).
+- Session re-login under launchd needs Messages access (TCC Full Disk Access for the venv python): unverified.
+
 ## FUND GOAL (user, 2026-10-27): double a $1-2k UNLEVERED bankroll in 12 months, proven live; scale capital only as
 ## verified qualified daily volume grows (~$140-280/day of 2%-edge bets needed). Blueprint: notes/FUND_ARCHITECTURE.md;
 ## economics: notes/fund_economics.md. Never fund betting from the leveraged brokerage account.
