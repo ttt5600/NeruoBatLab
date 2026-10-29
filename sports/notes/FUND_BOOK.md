@@ -28,6 +28,7 @@ Update this file (and EDGES_AND_AGENTS.md, which keeps the long-form detail) whe
 | Fund blueprint / economics / cycle | `notes/FUND_ARCHITECTURE.md`, `notes/fund_economics.md`, `notes/FUND_CYCLE.md` |
 | Model internals | `notes/MODELS_GUIDE.md` |
 | Sizing | `notes/risk.md`, `notes/kalshi_sizing.md` |
+| **Edge math standard (binding, protocol rule 8)** | `notes/EDGE_MATH.md` (12-step table + worked math per edge) via `scripts/edge_math.py`; playbook `notes/TRADING_PRINCIPLES.md`; situational factors tested/untested `notes/SITUATIONAL_FACTORS.md` |
 | Venues | `notes/venues.md`, `notes/venue_expansion.md`, `notes/soft_venues.md` |
 | Deployed code (launchd can't read ~/Desktop) | `~/.claude/quant-kalshi/` (own venv; redeploy with `scripts/install_*.sh`) |
 | Daily brief output | `notes/briefs/brief_YYYY-MM-DD.md` |
@@ -66,7 +67,7 @@ print account values [FUND_CYCLE.md rules 1-3].
   NO-ask-implied rate (sealed 0.665); quarter Kelly at the 80% LCB = ~4.4% of B per pick, flat; the lever is unit size +
   maker [notes/kalshi_sizing.md].
 - Weather maker capacity: above ~$75/pick adverse selection eats the gain; maker ceiling ~$144/month at plan ROI [FE].
-- E5 ForecastEx: half-Kelly on the LCB ~5% per pick; liquidity (~29 contracts/pick) binds before Kelly does [H5]. Derivation (session 10-29): mean cost 0.898 + $0.01 fee -> b = 0.092/0.908 = 0.101; sealed win rate 0.954 (10/219 losses) -> full Kelly ~0.50; at the Wilson 95% LCB p = 0.918 -> f* = (0.101*0.918 - 0.082)/0.101 = ~0.11 -> half ~5%. Per-night total cap still needed (same-night weather picks are correlated).
+- E5 ForecastEx: half-Kelly on the LCB ~5% per pick; liquidity (~29 contracts/pick) binds before Kelly does [H5]. Derivation (session 10-29): mean cost 0.898 + $0.01 fee -> b = 0.092/0.908 = 0.101; sealed win rate 0.954 (10/219 losses) -> full Kelly ~0.50; at the Wilson 95% LCB p = 0.918 -> f* = (0.101*0.918 - 0.082)/0.101 = ~0.11 -> half ~5%. Per-night total cap still needed (same-night weather picks are correlated). **Correction 10-29 (notes/EDGE_MATH.md):** the lockbox mean_cost .8977 already includes the $0.01 fee, so c = .8977, f*(LCB) = .198, half 9.9%, quarter 5.0%; the 5% pick cap and ~$26 liquidity bind either way.
 
 ---------------------------------------------------------------------------------------------------------------------
 ## 2. Live operations
