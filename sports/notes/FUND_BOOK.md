@@ -37,6 +37,8 @@ Update this file (and EDGES_AND_AGENTS.md, which keeps the long-form detail) whe
 ---------------------------------------------------------------------------------------------------------------------
 ## 1. Fund mandate & management
 
+**AGENT AUTHORITY 10-29 (user):** run pre-registered tests (sealed + paper) without asking; deposits, real-money caps and putting a NEW edge live stay the user's.
+
 **LONG-RUN GOAL 10-29 (user):** ~$400k over time. Reality check given (session 10-29): today's edges are capacity-capped (~$150-300/month even at $5k; profit = edge x absorbable volume, not % of capital); compounding only works with edges that absorb capital. Path: prove live -> add income-funded capital as edges prove capacity -> find capacity-rich edges (LIP market making, more venues, options/volatility). Never via over-Kelly risk or the leveraged brokerage account.
 
 **CAPITAL DECISION 10-29 (user):** no new deposits yet; current ~$50 Kalshi + ~$60 IBKR = small-stakes live test of E1/E2 + E5; scale only after forward results pass the gates below.
@@ -145,7 +147,7 @@ redo without a new mechanism. "dev" = development-period backtest; "sealed" = lo
 |---|---|---|---|---|---|
 | E1 | Kalshi daily-high temp consensus-reject, orig 7 cities: buy NO on brackets all 5 forecast models miss by >3F, ~22:00 local night before | stale far tails in a retail weather book; forecasts beat the price on brackets nobody models | sealed 2025Q3-2026Q4 +1.45% ROI, 1,844 bets, p<.0001 [LB], [EA]; fwd n 38 [FS] | **LIVE taker** since 10-22. E1+E2 live 59 settled 58-1, P&L -$0.67 (first loss 10-29, expected) [H5] | scripts/kalshi_paper.py, kalshi_exec.py, notes/go_live.md |
 | E2 | X1 = same frozen rule on 17 more daily-high cities | same | sealed 2026-03..10 +0.78%, 2,464 bets, p .0047 [LB]; fwd n 91, -0.6%, p .66 [FS] | **LIVE** with E1 | scripts/wx_expand.py |
-| E4 | E1/E2 executed as MAKER (post-only NO bid at mid, <= ask-1c, rest to close, no taker fallback) | weather charges takers only; saves spread + fee | sealed 4,308 picks: ROI +1.07% -> +2.22%, +30.6u [+26.2,+34.9] p<.001, fill 80% [LB], [R] | **code deployed, OFF** until user says "yes maker" (`KALSHI_EXEC_STYLE=maker`) [H5] | scripts/kalshi_temp_maker.py, notes/kalshi_temp_maker.md |
+| E4 | E1/E2 executed as MAKER (post-only NO bid at mid, <= ask-1c, rest to close, no taker fallback) | weather charges takers only; saves spread + fee | sealed 4,308 picks: ROI +1.07% -> +2.22%, +30.6u [+26.2,+34.9] p<.001, fill 80% [LB], [R] | **LIVE since 10-29 ~11:00 PT** (user "yes maker"; `KALSHI_EXEC_STYLE=maker`, backup .env.bak-2026-10-29-maker) [S] | scripts/kalshi_temp_maker.py, notes/kalshi_temp_maker.md |
 | E3 | Soccer S12: best of B365/WH/bwin vs power-de-vigged Pinnacle pre-close, edge >=3%, price <10 | soft books lag the sharp book | sealed 2019-26 CLV +3.63%, ROI +8.71%, 2,004 bets, p .010 [LB] | **not tradeable from CA**; US-book version (L9) untested | scripts/soccer_fd.py |
 | E5 | ForecastEx (IBKR) weather consensus-reject (WU settlement, different stations) | same tail mispricing on a thinner, independent venue | sealed PASS-UNDERPOWERED 10-28: 219 bets, 10 losses, +15.05u, ROI +6.9%, p .0004; last-trade prices, median 29/contract, below 500 floor [EA], [LB] | **LIVE Tier B** (user overrode the >=100 paper-pick gate) [S] | scripts/forecastex_exec.py, forecastex_wx.py, notes/forecastex_wx.md, forecastex_setup.md |
 
@@ -154,7 +156,7 @@ redo without a new mechanism. "dev" = development-period backtest; "sealed" = lo
 |---|---|---|---|---|---|
 | FX1-fwd | E5 rule on live ForecastEx bid/ask | E5 at real quotes | 93 picks by 10-29 [H5] | originally >= 100 settled before live (overridden) [S] | scripts/forecastex_paper.py |
 | Q008 | ForecastEx econ: buy the Kalshi-favoured side when FX is >= 2c cheaper | FX = compressed copy of Kalshi + FLB at >= .85 | dev exploratory 64 bets/57 events, 0 losses, ROI +16% at last trade [Q] | judge at 60 settled: KILL if ROI <= 0 or qualifying-ask rate < 25%; early kill >= 3 losses in first 30 [Q] | forecastex_paper.py (q008), notes/q007_forecastex_breadth.md |
-| L40/Q002 | Kalshi Liquidity Incentive Program on weather brackets (paper quotes) | LIP pays resting size; 75% of temp brackets paid nobody (YES side < 1,000) | $20/bracket/period; 1,000 YES @1c could claim up to ~$10/period [EA], notes/kalshi_lip.md | pre-registered 10-day test 10-29..11-08; **STALLED 10-29: weather LIP programs ended 08:00Z, 0 active/upcoming; awaiting user (idle vs L40b non-weather)** | scripts/lip_paper.py |
+| L40/Q002 | Kalshi Liquidity Incentive Program on weather brackets (paper quotes) | LIP pays resting size; 75% of temp brackets paid nobody (YES side < 1,000) | $20/bracket/period; 1,000 YES @1c could claim up to ~$10/period [EA], notes/kalshi_lip.md | pre-registered 10-day test 10-29..11-08; **KILLED 10-29 by pre-registered rule: weather LIP programs ended 08:00Z (0 active/upcoming). Successor L40b (non-weather LIP, paper) notes/kalshi_lip_b.md** | scripts/lip_paper.py |
 | L32 | NBA totals vs OPENER (model >= 3 pts off first-posted total) | stale opener | dev +8.7% no-vig p .001; **sealed FAIL** +6.4% p .054 (~25% power) [LB]; forward 12 picks CLV +1.42 p .005 [FS]; 8-4, CLV +1.4 [H5] | logger rule at 100 settled: CLV <= 0 or ROI CI < 0 kills [Q004]; never re-score sealed | scripts/nba_open_totals.py, nba_simple_model.py |
 | Q004 | Totals models taken at the first TIGHT Kalshi quote (NBA/NHL/NFL) | timing edge needs early low-fee entry | deployed 10-28 (L35 basis: Kalshi early NFL CLV +3.3c p<.0002) [Q] | >= 100 settled pick_tight: CLV > 0 AND ROI at ask+fee > 0 -> sealed ask [Q] | nba_open_totals.py, open_lines_logger.py, kalshi_tight.py |
 | L34 | NHL ML/totals vs opener (open-lines logger) | stale opener | dev CLV passes (p<1/4000), money fails (totals no-vig +7.1% p .0125) [EA]; fwd n 20 [FS] | gate PAPER; >= 100 settled [FS] | open_lines_logger.py, nhl_simple_model.py |
@@ -172,7 +174,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 ### 3c. LEADS -- awaiting a sealed test, a logger, or a PM decision (34)
 | ID | Edge | Mechanism | Evidence | Status / next | Files |
 |---|---|---|---|---|---|
-| Q001 | E4 maker live + per-pick cap ladder toward ~$75 | maker > taker per $ | sealed E4 (above); ceiling ~$144/mo at plan [FE] | **PM: "yes maker"**; success = live maker ROI inside sealed CI [+1.57,+2.84]% after >= 486 filled [Q] | QUESTIONS.md Q001 |
+| Q001 | E4 maker live + per-pick cap ladder toward ~$75 | maker > taker per $ | sealed E4 (above); ceiling ~$144/mo at plan [FE] | **RUNNING 10-29** (maker on); success = live maker ROI inside sealed CI [+1.57,+2.84]% after >= 486 filled [Q] | QUESTIONS.md Q001 |
 | Q003/L41 | Kalshi Mentions maker NO (IN1_d6) | retail YES over-buying; maker side | dev IN1_d6 +7.08%/859 fills p<.0002, MID_d6 +5.8%; d24 dead; decaying (halves +11.5/+2.9%) [EA], [L:q003_retail_maker] | **SEALED ASK "yes Q003"** (events >= 2026-06-25) | scripts/q003_retail_maker.py, notes/q003_retail_maker.md |
 | L36 | CFB totals vs opener | stale opener | dev CLV +1.02 pts, no-vig +7.4% p .0004, -110 +2.6% p .10 [L:cfb_simple_model] | gate LEAD, no logger [FS]; build CFB logger | scripts/cfb_simple_model.py |
 | L35 | Kalshi early NFL game prices stale at listing | first listing before sharp money | CLV +3.3c p<.0002 (109 games); maker at first bid adverse +16% p .09; taker first ask -4.5% [L:kalshi_early_nfl] | folded into Q004 forward (don't re-mine the 109) | scripts/kalshi_early_nfl.py |
@@ -435,7 +437,7 @@ Deployed tools: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/<x>.py`. 
 | # | Ask / event | Exact wording or action | Source |
 |---|---|---|---|
 | 1 | Deposit $2k on Kalshi, then fund the NBA shard | `bet.py allocate 0=70 3=30 --confirm` + raise weather caps | [H5] |
-| 2 | Turn on maker (E4 / Q001) | say "yes maker" (`KALSHI_EXEC_STYLE=maker`) | [H5] |
+| 2 | ~~Turn on maker (E4 / Q001)~~ DONE 10-29 | -- | [S] |
 | 3 | Sealed test Q003 Mentions maker NO (decaying edge) | "yes Q003" or no | [H5] |
 | 4 | Optional ~$500 to ForecastEx (unlevered); optional Polymarket US API key | user | [H5], [S] |
 | 5 | Weekly IBKR Mobile approval (Sunday) for IBC | user | [S] |
@@ -444,7 +446,7 @@ Deployed tools: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/<x>.py`. 
 | 8 | X post-count test (~$13) yes/no; install F5 pick'em logger; free disk; confirm home state (CA vs CO) | user | [EA s8] |
 | 9 | LA Senate / TX Gov judgment (election 11-03) | PM's call | [S] |
 | 10 | Fix `espn.py::parse_prop` (ESPN dropped the over/under marker; first of each pair = over), re-run `collect.py props` | agent | [S] |
-| 11 | L40 LIP paper: weather programs ended 10-29 08:00Z -> nothing to score unless they return; user: keep idle or pre-register L40b (non-weather LIP)? | user | lip_paper.py |
+| 11 | L40 KILLED (weather LIP removed 10-29). L40b non-weather LIP paper: score at its T1 per notes/kalshi_lip_b.md | agent | lip_paper_b.py |
 | 12 | F1 NFL in-game fade: score once after 2026-12-02 | agent | [EA] |
 | 13 | L32/Q004/L34 at 100 settled picks -> decision rule | agent | [Q] |
 | 14 | L39 sealed shot ~Feb 2027 | PM yes later | [Q] |
