@@ -29,8 +29,8 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   after 00:00Z 10-30 shows placed > 0.
 - Q010 census DONE (6,466 families): top new candidates Q012 crypto hourly vs Deribit, Q013 RT/MC scores, Q014 Truth Social
   counts, Q015 approval averages, Q016 AAA gas vs RBOB (QUESTIONS.md). Next: prereg + forward loggers for the best 1-2.
-- L2 team-rating sides validation (held-out 2025-26 vs ESPN close) + l2_rating_logger.py: agent running.
-  Tonight model leans (tier C, unvalidated): ATL ML 61% vs 52% (driven by luck adj, which the market already prices -> pass),
+- L2 SIDES DEAD 10-29 (held-out 2025-26 vs ESPN close, notes/l2_team_rating_sides.md): T1 gap>=5c ML 789 bets ROI -13.87% [-23.80,-3.51]; model adds no info over close (logit coef .115 [-.213,+.442]); close Brier .1941 vs model .2048. Even oracle availability -11.8%. Losses = underdogs priced off rest/injury news. Do not bet team_rating side leans; l2_rating_logger.py = calibration only. (Not yet critic-reviewed.)
+  Tonight: ATL ML lean = PASS (exactly the gap type that lost);
   CLE@ATL over ~238 (totals model 242.5, ~+2.4 after bias).
 
 ## 2026-10-28 ~21:30 PT: E5 ForecastEx LIVE on IBKR (user: "connect and trade ... same way you make kalshi trades")

@@ -295,3 +295,5 @@ their numbers into tracked files.
 (O1/E2/C1 scored 10-22, all FAIL); revoke + replace the pasted Kalshi key (it is a PROD key named kalshi-demo.pem); fund
 Kalshi (~$5k later); Polymarket US keys -> sports/.env; X test yes/no; install F4/F5/F6 loggers; free disk (97% full);
 confirm home state (CA vs CO) for venue legality.
+
+- **L2 SIDES DEAD 10-29 (held-out 2025-26 vs ESPN close, notes/l2_team_rating_sides.md): T1 gap>=5c ML 789 bets ROI -13.87% [-23.80,-3.51]; model adds no info over close (logit coef .115 [-.213,+.442]); close Brier .1941 vs model .2048. Even oracle availability -11.8%. Losses = underdogs priced off rest/injury news. Do not bet team_rating side leans; l2_rating_logger.py = calibration only. (Not yet critic-reviewed.)**
