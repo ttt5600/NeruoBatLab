@@ -17,3 +17,4 @@
 - 2026-10-29T00:33Z loop: launched Q008 fold-in (FX favourite cheaper than Kalshi) into forecastex_paper.py.
 - 2026-10-29T00:37Z loop: Q008 forward paper deployed in forecastex_paper.py (first snapshot 10-29 15:00 CT; econ events >30d out not yet checked).
 - 2026-10-29T02:54Z user-directed: launched 3 edge searches (ForecastEx other weather; more Kalshi weather cities/series; econ-data nowcast consensus-reject).
+- 2026-10-29T02:56Z Kalshi weather census: no new cities/series (all 24 KXHIGH covered; intl/others never listed; no daily snow). Volume limit = our caps, not the market.
