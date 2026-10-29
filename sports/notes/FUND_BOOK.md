@@ -94,7 +94,8 @@ print account values [FUND_CYCLE.md rules 1-3].
 | quant-forecastex-live | old per-pick live script (other session) | 5 min | **plist present, NOT loaded** (stopped 10-29) [H5] |
 | ibc-gateway | `~/ibkr/gatewaystartmacos.sh -inline` (IB Gateway via IBC) | hourly :07 | port 4001 up / ForecastEx status |
 | quant-fund-brief | `fund_brief.py` daily PM brief -> notes/briefs/ | 07:30 daily | read the brief |
-| quant-lip-paper | L40 LIP paper quotes (no orders) | 60 s | `lip_paper.py report` |
+| quant-lip-paper | L40 LIP paper quotes (no orders) -- KILLED 10-29 (weather LIP removed); still loaded, idle | 60 s | `lip_paper.py report` |
+| quant-lip-paper-b | L40b non-weather LIP paper (300 tickers, seed 4040; window 10-30..11-09; notes/kalshi_lip_b.md) | 60 s | `lip_paper_b.py report` |
 | quant-nba-open-totals | L32 forward + Q004 pick_tight | 10 min | `nba_open_totals.py report` |
 | quant-open-lines | NHL/NFL open-line loggers + Q004 | 15 min | `open_lines_logger.py report --league nhl\|nfl` |
 | quant-kalshi-wx-monthly | L39 monthly rain/snow paper (decides 22:00 local, last 7 days of month) | hourly :05 | `kalshi_wx_monthly_logger.py report` |
