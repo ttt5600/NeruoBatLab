@@ -99,3 +99,34 @@ VERDICT: FAIL on all 5 (none near the .01 bar; T5 coef CI includes 0). KILL rule
 The close is not detectably slow to price current-season form at <= 15 games. The only hint is the very first ~8 games
 (T1/T5 sensitivity, p ~ .02, carried by 2024-25 alone), which would need its own pre-registered forward test (e.g. 2026-27
 weeks 1-3 on paper) before anyone believes it. Caveat: no critic subagent has reviewed this yet.
+
+## FORWARD PAPER TEST F1 -- pre-registered 2026-10-29 (~23:40Z), before any 2026-27 signal was computed
+Origin: the <= 8-game sensitivity above (T1 137 bets +22.1% [+0.6, +44.5], T5 coef .322). That was one of ~5 extra looks
+in a FAILED study, so the prior is that it is noise (carried by 2024-25). Paper test only, no orders.
+Logger: `scripts/nba_early_form_logger.py` (tick / report), log `data/nba_early_form_log.jsonl`, one row per game.
+
+Rule (frozen; nothing re-fit on 2026-27):
+- Form exactly as DEV: adjMOV = MOV + mean of opponents' MOV, all from 2026-27 regular-season finals with ET date < game date.
+- Eligibility: both teams have played 3..8 regular-season games before the game date (gp >= 3 as in the DEV form window).
+- R = (adjMOV_h - adjMOV_a) - (M - H). M = -(home spread of ESPN's first listed book at the tick, normally DraftKings).
+  H = 2.06, frozen as the mean of the four DEV season H_s values (2.53 / 2.17 / 1.55 / 2.00). DEV used each season's own
+  mean of closing prices; forward cannot, so this is the one adaptation.
+- Fire when |R| >= X = 5.3659 pts (frozen DEV value). Side = home if R >= X, away if R <= -X. Flat $1.
+Entry: Kalshi KXNBAGAME YES ask for that side at the tick, plus the Kalshi taker fee (edge_math.fee_per_contract).
+Target tick 60-90 min pre-tip. Ticks are run by hand, so each row stores mins_to_tip and `in_window`. Any row logged >= 15 min
+before tip counts for the primary score. The time is reported, and an in-window-only cut is a sensitivity.
+CLV (secondary): ESPN closing ML (same book) power de-vig prob on the bet side minus the Kalshi ask paid (also vs Kalshi mid).
+Window: forward only, from 2026-10-29 until no eligible games remain (~ early-mid November). Earlier 2026-27 games are
+EXCLUDED: no decision-time Kalshi price was recorded for them before their outcomes. The only pre-tip record,
+data/l2_rating_log.jsonl, starts with tonight's 3 games. Every eligible game is logged whether or not the rule fires, so F
+(form diff) can later be pooled across seasons for a T5-style coefficient.
+
+Power, stated honestly: DEV had 74-76 eligible games per season after day 8, and the rule fired on 23-38 of them. Per-bet
+profit SD was 1.33. So 2026-27 gives roughly 25-40 bets, and the SE of ROI is ~0.21-0.27. Even the DEV point estimate (+22%)
+would be only ~1 SE, so this season CANNOT confirm the edge. 80% power for one-sided .05 at +22% needs
+~(2.49*1.33/.22)^2 ~ 230 bets, about 7 seasons of this window.
+Decision rules (judged once, at the end of the window):
+- KILL if ROI at Kalshi ask + fee <= 0 OR mean CLV (vs ask) <= 0 -> file F1 DEAD, no further seasons.
+- CONTINUE (log again in 2027-28 and pool) if ROI > 0 AND mean CLV > 0 but the bootstrap one-sided p >= .05.
+- PASS (eligible to ask the user about live $1 units) only if one-sided p < .05 on ROI AND mean CLV > 0 with its 95% CI
+  above 0. Not expected this season.
