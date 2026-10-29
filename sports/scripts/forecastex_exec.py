@@ -31,6 +31,8 @@ SETTLEMENT: the bought side's outcome from the FX1-fwd paper log's `yes_won` (se
   the forecastex.com daily price files); pnl = filled x (1 if won) - filled x price - commission (gateway commission if
   reported, else $0.01/contract).
 Data home: FX_EXEC_HOME (default ~/.claude/quant-kalshi).
+BACKEND: FX_BACKEND=webapi (default; Client Portal Gateway, venues/forecastex_client.py) or tws (IB Gateway + IBC +
+  ib_async, venues/forecastex_tws_client.py; order ids are IB permIds). Process env wins over .env.
 """
 from __future__ import annotations
 
@@ -43,9 +45,28 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from venues.base import TradingDisabled, VenueError  # noqa: E402
-from venues.forecastex_client import DEPLOY, FEE, ForecastEx  # noqa: E402
+from venues.forecastex_client import DEPLOY, FEE, ForecastEx, read_env  # noqa: E402
 
 HOME = Path(os.environ.get("FX_EXEC_HOME") or DEPLOY)
+BACKENDS = ("webapi", "tws")
+
+
+def backend_name(env: dict | None = None) -> str:
+    """FX_BACKEND from the process env, else the .env file; default webapi (Client Portal Gateway).
+    tws = IB Gateway + IBC + ib_async (venues/forecastex_tws_client.py; notes/ibkr_ibc_setup.md)."""
+    if env is None:
+        env = read_env(Path(os.environ.get("FX_ENV_FILE") or (Path(DEPLOY) / ".env")))
+    b = (os.environ.get("FX_BACKEND") or env.get("FX_BACKEND") or "webapi").strip().lower()
+    if b not in BACKENDS:
+        raise SystemExit(f"FX_BACKEND={b!r} not in {BACKENDS}")
+    return b
+
+
+def make_client(live: bool, env: dict | None = None) -> ForecastEx:
+    if backend_name(env) == "tws":
+        from venues.forecastex_tws_client import ForecastExTWS
+        return ForecastExTWS(live=live, env=env)
+    return ForecastEx(live=live, env=env)
 TRIAL = "FX1-fwd"
 TIER, STRATEGY, VENUE = "B", "E5", "forecastex"
 UNIT = 50.0
@@ -78,7 +99,7 @@ class Exec:
                  bet_mod=None, out=print):
         self.live = live
         self.p = paths(home)
-        self.c = client or ForecastEx(live=live)
+        self.c = client or make_client(live)
         self.out = out
         self.bet = bet_mod
         if self.bet is None and live:
@@ -260,6 +281,8 @@ class Exec:
     # ------------------------------------------------------------------ gateway reads
     def order_status(self, oid: str) -> dict:
         """Normalised {status, side, conid, price, size, filled, avg_price} from the gateway."""
+        if hasattr(self.c, "order_status"):  # TWS backend normalises itself (order id = IB permId)
+            return self.c.order_status(oid)
         code, out = self.c._call("GET", f"/iserver/account/order/status/{oid}")
         if code != 200 or not isinstance(out, dict):
             raise VenueError(f"order status {oid} -> HTTP {code}: {str(out)[:200]}")
@@ -351,11 +374,15 @@ class Exec:
         # cancelling only removes risk, so it needs a session + account but NOT --live / no-KILL (panic writes KILL)
         try:
             self.c._require_session()
-            code, out = self.c._call("DELETE", f"/iserver/account/{self.c.account}/order/{oid}")
+            if hasattr(self.c, "cancel_order"):  # TWS backend
+                ok, detail = self.c.cancel_order(oid)
+                code, out = None, detail
+            else:
+                code, out = self.c._call("DELETE", f"/iserver/account/{self.c.account}/order/{oid}")
+                ok = code == 200 and isinstance(out, dict) and "error" not in out
         except Exception as e:  # noqa: BLE001 -- a failed cancel must be reported, never raised past cancel-all
             self.out(f"  cancel {oid} FAILED: {e}")
             return False
-        ok = code == 200 and isinstance(out, dict) and "error" not in out
         self.log({"kind": "cancel", "ts": _iso(now), "order_id": oid, "why": why, "ok": ok, "http": code,
                   "out": str(out)[:200]})
         self.out(f"  CANCEL {oid} {o['ticker']} ({why}): {'ok' if ok else 'not confirmed'}")
@@ -421,7 +448,8 @@ class Exec:
         os_ = self.orders()
         k = self.killed()
         sess = self.c.session_ok()
-        self.out(f"gateway session {'AUTHENTICATED' if sess else 'DOWN'}; mode {self.c.mode}; account "
+        self.out(f"backend {getattr(self.c, 'backend', 'webapi')}; "
+                 f"gateway session {'AUTHENTICATED' if sess else 'DOWN'}; mode {self.c.mode}; account "
                  f"{(self.c.account or 'unset')[:2]}***; KILL {k or 'none'}")
         spent = self.c.spent_today(now)
         self.out(f"caps: today ${spent:.2f} / ${self.c.cap('FX_MAX_DAILY_USD'):g} (UTC day); per order "
