@@ -54,7 +54,7 @@ kill:       set by /prereg (proposal: reward < 0.2%/day of resting $ or concentr
 power:      descriptive measurement first (2 weeks of paper quotes); the money test comes after, as its own question.
 budget:     3 trials. 2 weeks paper (no orders). Tiny live only on PM yes.
 
-## Q003 [dev-lead, sealed ask] Maker NO/favourite quoting in thin retail categories (mentions, entertainment, single-name)
+## Q003 [DEAD: sealed FAIL 10-29] Maker NO/favourite quoting in thin retail categories (mentions, entertainment, single-name)
 question:   Does a resting NO (favourite side) quote in thin retail Kalshi categories earn a positive net return per
             filled $, where the taker version (M3) failed sealed?
 mechanism:  Retail takers overpay for YES/longshots; makers on the other side earn ~2c/contract in the literature

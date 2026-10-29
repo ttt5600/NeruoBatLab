@@ -175,7 +175,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | ID | Edge | Mechanism | Evidence | Status / next | Files |
 |---|---|---|---|---|---|
 | Q001 | E4 maker live + per-pick cap ladder toward ~$75 | maker > taker per $ | sealed E4 (above); ceiling ~$144/mo at plan [FE] | **RUNNING 10-29** (maker on); success = live maker ROI inside sealed CI [+1.57,+2.84]% after >= 486 filled [Q] | QUESTIONS.md Q001 |
-| Q003/L41 | Kalshi Mentions maker NO (IN1_d6) | retail YES over-buying; maker side | dev IN1_d6 +7.08%/859 fills p<.0002, MID_d6 +5.8%; d24 dead; decaying (halves +11.5/+2.9%) [EA], [L:q003_retail_maker] | **SEALED ASK "yes Q003"** (events >= 2026-06-25) | scripts/q003_retail_maker.py, notes/q003_retail_maker.md |
+| Q003/L41 (**DEAD: SEALED FAIL 10-29 (lockbox q003_IN1_d6_sealed): IN1_d6 920/1,500 fills, ROI +1.56% [-1.86,+4.84] p .18 (bar .05); halves +3.30%/-0.01%; adverse selection 2.70c (YES filled .192 vs unfilled .131); MID_d6 +1.29% p .21. DEAD -- dev +7.08% decayed out; do not redo.**) | Kalshi Mentions maker NO (IN1_d6) | retail YES over-buying; maker side | dev IN1_d6 +7.08%/859 fills p<.0002, MID_d6 +5.8%; d24 dead; decaying (halves +11.5/+2.9%) [EA], [L:q003_retail_maker] | **SEALED ASK "yes Q003"** (events >= 2026-06-25) | scripts/q003_retail_maker.py, notes/q003_retail_maker.md |
 | L36 | CFB totals vs opener | stale opener | dev CLV +1.02 pts, no-vig +7.4% p .0004, -110 +2.6% p .10 [L:cfb_simple_model] | gate LEAD, no logger [FS]; build CFB logger | scripts/cfb_simple_model.py |
 | L35 | Kalshi early NFL game prices stale at listing | first listing before sharp money | CLV +3.3c p<.0002 (109 games); maker at first bid adverse +16% p .09; taker first ask -4.5% [L:kalshi_early_nfl] | folded into Q004 forward (don't re-mine the 109) | scripts/kalshi_early_nfl.py |
 | L30 | P-PAINT: high paint-pts-allowed teams | style the line misses | -0.54 ATS/SD p 2.5e-5, 10/10 seasons [EA] | feed into L2 game model | scripts/nba_comebacks.py |
@@ -358,7 +358,7 @@ dataset; LEAD needs BH q < .10 + both halves agree; forward needs >= 100 settled
 halves check (`fund_stats.py flags`). Power: n = ((1.645 + 0.842) sigma / mu)^2 (`fund_stats.py power MU SIGMA`) [FE].
 
 **Hub project `fund`** [notes/FUND_NOTES.md]: STATE + NOTES (`hub note fund "..."`) + QUESTIONS.md (Q001 proposed,
-Q002 running, Q003 sealed ask, Q004 running, Q005 done, Q006 running, Q007 done, Q008 running) + findings/. One-agent
+Q002 running, Q003 sealed FAIL, Q004 running, Q005 done, Q006 running, Q007 done, Q008 running) + findings/. One-agent
 lease. Headless cycle: `hub launch fund "Run ONE research cycle exactly as written in notes/FUND_CYCLE.md (section 'The
 cycle'). Obey its hard rules."` (not scheduled) [notes/FUND_CYCLE.md].
 
@@ -438,7 +438,7 @@ Deployed tools: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/<x>.py`. 
 |---|---|---|---|
 | 1 | Deposit $2k on Kalshi, then fund the NBA shard | `bet.py allocate 0=70 3=30 --confirm` + raise weather caps | [H5] |
 | 2 | ~~Turn on maker (E4 / Q001)~~ DONE 10-29 | -- | [S] |
-| 3 | Sealed test Q003 Mentions maker NO (decaying edge) | "yes Q003" or no | [H5] |
+| 3 | ~~Sealed test Q003~~ DONE 10-29: FAIL | -- | [S] |
 | 4 | Optional ~$500 to ForecastEx (unlevered); optional Polymarket US API key | user | [H5], [S] |
 | 5 | Weekly IBKR Mobile approval (Sunday) for IBC | user | [S] |
 | 6 | Revoke + replace the Kalshi PROD key that was pasted in chat (file named kalshi-demo.pem) | user | [S], [EA s8] |

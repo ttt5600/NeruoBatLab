@@ -52,3 +52,7 @@ settlement. Maker fee is 0, since every Mentions series is 'quadratic'. Ledger: 
 IN1_d6 as the single promotion (MID_d6 reported alongside). The test set is the Q003-SEALED anchors >= 2026-06-25, the
 same rules, a fresh random sample of up to 1,500 tickers, and one shot. It passes if ROI > 0 and the one-sided event
 bootstrap gives p < .05.
+
+## SEALED RESULT 2026-10-29 (user "yes Q003"; scorer 08e539b committed before tapes/outcomes)
+SEALED FAIL 10-29 (lockbox q003_IN1_d6_sealed): IN1_d6 920/1,500 fills, ROI +1.56% [-1.86,+4.84] p .18 (bar .05); halves +3.30%/-0.01%; adverse selection 2.70c (YES filled .192 vs unfilled .131); MID_d6 +1.29% p .21. DEAD -- dev +7.08% decayed out; do not redo.
+Lesson: a dev edge whose halves decay (+10-12% -> +2-3%) arrives at sealed at ~0; adverse selection grew from 0.3-1c (dev) to 2.7c.
