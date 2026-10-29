@@ -177,10 +177,10 @@ def _tape(tk: str, t0: int, t1: int) -> list[dict] | None:
     return rows
 
 
-def cmd_tapes() -> int:
+def cmd_tapes(sample: Path = SAMPLE, tapes: Path = TAPES, done_path: Path = DATA / "q003_tapes_done.parquet") -> int:
     import time
     from concurrent.futures import ThreadPoolExecutor
-    s = pd.read_parquet(SAMPLE)
+    s = pd.read_parquet(sample)
     s["close_ts"] = ((pd.to_datetime(s.close_time, utc=True, format="ISO8601") - pd.Timestamp("1970-01-01", tz="UTC")) // pd.Timedelta(seconds=1)).astype(int)
     w = s.groupby("ticker").agg(t0=("T", "min"), t1=("close_ts", "max")).reset_index()
     t_start, rows, done, done_tk, skipped = time.time(), [], 0, [], []
@@ -205,10 +205,10 @@ def cmd_tapes() -> int:
             if done % 100 == 0:
                 print(f"{done}/{len(w)} tickers, {len(rows)} trades, {time.time() - t_start:.0f}s", flush=True)
     tr = pd.DataFrame(rows, columns=["ticker", "ts", "no_price", "count", "taker_side"])
-    tr.to_parquet(TAPES, index=False)
-    pd.DataFrame({"ticker": done_tk}).to_parquet(DATA / "q003_tapes_done.parquet", index=False)
+    tr.to_parquet(tapes, index=False)
+    pd.DataFrame({"ticker": done_tk}).to_parquet(done_path, index=False)
     print(f"skipped (not downloaded before the budget cap): {len(skipped)} tickers")
-    print(f"-> {TAPES}: {len(tr)} trades on {tr.ticker.nunique()} of {done} pulled tickers")
+    print(f"-> {tapes}: {len(tr)} trades on {tr.ticker.nunique()} of {done} pulled tickers")
     return 0
 
 
@@ -354,7 +354,101 @@ def cmd_dev(ledger: bool) -> int:
     return 0
 
 
+# ------------------------------------------------------------------------------------------------ sealed
+# Q003-SEALED, authorised by the user 2026-10-29 ("yes Q003"). Fixed here BEFORE any sealed outcome or tape is read:
+#   promotion  : IN1_d6 only (single shot). MID_d6 reported alongside, not a trial.
+#   test set   : anchors >= split_ts (the 70th-percentile cut, ~2026-06-25), tickers in-band at D6;
+#                fresh uniform sample of <= 1,500 tickers, seed 3004 (dev used 3003); outcome-free draw.
+#   rules      : quote / back-of-queue fill / cancel anchor-2h / fee 0 / P&L exactly as DEV above.
+#   PASS       : ROI > 0 AND one-sided event-clustered bootstrap p < 0.05 (notes/q003_retail_maker.md "Sealed ask").
+#   KILL flag  : filled YES rate above the break-even YES rate (adverse selection wins).
+#   Halves, S=1 touch, rest-to-close, maker fee 0.0175, by group: reported, not gating.
+SEAL_SEED, SEAL_SAMPLE = 3004, DATA / "q003_sealed_sample.parquet"
+SEAL_TAPES, SEAL_DONE = DATA / "q003_sealed_tapes.parquet", DATA / "q003_sealed_tapes_done.parquet"
+LOCKBOX = ROOT / "lab" / "lockbox.jsonl"
+SEAL_BAR = 0.05
+
+
+def cmd_sealed_sample() -> int:
+    q = load_inband(drop_result=True)
+    cut = split_ts(q)
+    sl = q[(q.anchor_ts >= cut) & (q.tag == "d6")]
+    tk = np.sort(sl.ticker.unique())
+    pick = np.random.default_rng(SEAL_SEED).choice(tk, size=min(N_SAMPLE, len(tk)), replace=False)
+    s = sl[sl.ticker.isin(pick)]
+    s.to_parquet(SEAL_SAMPLE, index=False)
+    print(f"split {pd.Timestamp(cut, unit='s', tz='UTC')}; sealed d6 in-band {len(sl)} decisions / {len(tk)} tickers; "
+          f"sample {len(pick)} tickers, {len(s)} decisions, {s.event_ticker.nunique()} events -> {SEAL_SAMPLE}")
+    return 0
+
+
+def cmd_sealed() -> int:
+    if any(json.loads(l).get("strategy") == "q003_IN1_d6_sealed" for l in LOCKBOX.read_text().splitlines() if l.strip()):
+        print("Q003 sealed already scored (one shot) -- refusing")
+        return 1
+    rng = np.random.default_rng(SEAL_SEED)
+    cut = split_ts(load_inband(drop_result=True))
+    s = pd.read_parquet(SEAL_SAMPLE)
+    assert (s.anchor_ts >= cut).all() and (s.tag == "d6").all()
+    done = set(pd.read_parquet(SEAL_DONE).ticker)
+    n_sample = s.ticker.nunique()
+    s = s[s.ticker.isin(done)].copy()
+    res = pd.read_parquet(PX_SEAL, columns=["ticker", "result", "anchor_ts"])
+    res = res[res.anchor_ts >= cut].drop_duplicates("ticker")[["ticker", "result"]]
+    s = s.merge(res, on="ticker", how="left")
+    n_unsettled = int((~s.result.isin(["yes", "no"])).sum())
+    s = s[s.result.isin(["yes", "no"])].reset_index(drop=True)
+    s["close_ts"] = ((pd.to_datetime(s.close_time, utc=True, format="ISO8601") - pd.Timestamp("1970-01-01", tz="UTC")) // pd.Timedelta(seconds=1)).astype(int)
+    trd = pd.read_parquet(SEAL_TAPES)
+    tr = {k: (g.ts.to_numpy(), g.no_price.to_numpy(), g["count"].to_numpy()) for k, g in trd.groupby("ticker")}
+    t_cancel = np.minimum(s.anchor_ts.to_numpy() - 2 * 3600, s.close_ts.to_numpy())
+    mid_date = s.anchor_ts.median()
+    h1 = s.anchor_ts.to_numpy() < mid_date
+    out = {}
+    for rule in ("IN1", "MID"):
+        q = maker_q(s, rule)
+        f = fills(s, tr, q, t_cancel, S)
+        r = score(s, f, q, 0.0, rng)
+        r["half1"] = score(s[h1].reset_index(drop=True), f[h1], q[h1], 0.0, rng, boot=False).get("roi", 0.0)
+        r["half2"] = score(s[~h1].reset_index(drop=True), f[~h1], q[~h1], 0.0, rng, boot=False).get("roi", 0.0)
+        r["half1_fills"], r["half2_fills"] = int(f[h1].sum()), int(f[~h1].sum())
+        a = 1 - s.bid.to_numpy(float)
+        r["taker_roi_same_markets"] = score(s, np.ones(len(s), bool), a, TAKER_FEE * a * (1 - a), rng, boot=False)["roi"]
+        sens = {"S1_touch": score(s, fills(s, tr, q, t_cancel, 1), q, 0.0, rng, boot=False),
+                "rest_to_close": score(s, fills(s, tr, q, s.close_ts.to_numpy(), S), q, 0.0, rng, boot=False),
+                "maker_fee_0175": score(s, f, q, MAKER_FEE_SENS * q * (1 - q), rng, boot=False)}
+        r["sens"] = {k: {x: v[x] for x in ("fills", "fill_rate", "roi", "yes_rate_filled") if x in v} for k, v in sens.items()}
+        r["by_group"] = {}
+        for g in sorted(s.group.unique()):
+            m = (s.group == g).to_numpy()
+            x = score(s[m].reset_index(drop=True), f[m], q[m], 0.0, rng, boot=False)
+            r["by_group"][g] = {k: x.get(k) for k in ("fills", "roi", "yes_rate_filled", "yes_rate_unfilled")}
+        r["kill_adverse"] = bool(r["fills"] and r["yes_rate_filled"] > r["breakeven_yes_rate"])
+        r["passed"] = bool(r["roi"] > 0 and r["p"] < SEAL_BAR)
+        out[rule] = r
+        print(f"\n== {rule}_d6 SEALED{' (PROMOTED TRIAL)' if rule == 'IN1' else ' (reported only)'}: quoted {r['quoted']} "
+              f"fills {r['fills']} ({r['fill_rate']:.1%}) ROI {r['roi']:+.2%} [{r.get('roi_ci_lo', 0):+.2%},"
+              f"{r.get('roi_ci_hi', 0):+.2%}] p {r['p']:.4f} halves {r['half1']:+.2%}/{r['half2']:+.2%} pass={r['passed']}"
+              f" kill_adverse={r['kill_adverse']}")
+        print(f"   pnl/fill {r.get('pnl_per_fill_c', 0):+.2f}c  YES filled {r.get('yes_rate_filled')} unfilled "
+              f"{r.get('yes_rate_unfilled')} breakeven {r.get('breakeven_yes_rate')}; adverse sel "
+              f"{r.get('adverse_selection_c', 0):.2f}c; taker same mkts {r['taker_roi_same_markets']:+.2%}")
+        print(f"   sens {r['sens']}\n   by group {r['by_group']}")
+    sha = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:12]
+    row = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "strategy": "q003_IN1_d6_sealed", "sha": sha,
+           "dataset": "q003_retail_maker_sealed", "status": "done", "split_ts": cut, "seed": SEAL_SEED,
+           "sample_tickers": int(n_sample), "tickers_with_tape_pull": int(len(done)), "unsettled_dropped": n_unsettled,
+           "bar": SEAL_BAR, "verdict": "PASS" if out["IN1"]["passed"] else "FAIL", "IN1_d6": out["IN1"],
+           "MID_d6_reported": out["MID"]}
+    with LOCKBOX.open("a") as fh:
+        fh.write(json.dumps(row, default=float) + "\n")
+    print(f"\nverdict {row['verdict']} -> {LOCKBOX}")
+    return 0
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     cmd = a[0] if a else "census"
-    sys.exit({"census": cmd_census, "tapes": cmd_tapes}.get(cmd, lambda: cmd_dev("--ledger" in a))())
+    sys.exit({"census": cmd_census, "tapes": cmd_tapes, "sealed-sample": cmd_sealed_sample,
+              "sealed-tapes": lambda: cmd_tapes(SEAL_SAMPLE, SEAL_TAPES, SEAL_DONE),
+              "sealed": cmd_sealed}.get(cmd, lambda: cmd_dev("--ledger" in a))())
