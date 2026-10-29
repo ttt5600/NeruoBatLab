@@ -34,6 +34,12 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   Tonight: ATL ML lean = PASS (exactly the gap type that lost);
   CLE@ATL over ~238 (totals model 242.5, ~+2.4 after bias).
 
+## 2026-10-29 16:47 PT IBKR OUTAGE + FIX: IBKR server reset 11:20 PT -> "Re-login is required" 11:26 -> 2FA push unanswered ->
+## gateway shut down 16:45 -> FX could not trade ~11:20-16:47. Restarted (launchctl kickstart), re-auth without 2FA, AUTHENTICATED,
+## minimized. BUG FIXED: forecastex_exec.sh only logged on keywords; TWS failure text "API connection failed" was not one ->
+## outage was silent. Added API connection failed|session DOWN|Traceback|Error (deployed + install_forecastex_exec_agent.sh).
+## TODO: alert the user (phone) when port 4001 is down; mid-day IBKR resets can demand 2FA again.
+
 ## 2026-10-28 ~21:30 PT: E5 ForecastEx LIVE on IBKR (user: "connect and trade ... same way you make kalshi trades")
 - IBKR connected: Client Portal Gateway ~/.claude/quant-kalshi/ibkr (port 5050). LIVE-switch login; the paper login fails
   ssodh because there is NO paper account. login.py reads Keychain `fund-ibkr` + the SMS code from Messages.

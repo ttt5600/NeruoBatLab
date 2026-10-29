@@ -33,7 +33,7 @@ cat > "$DST/forecastex_exec.sh" <<EOS
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" -W ignore scripts/forecastex_exec.py run --live 2>&1)
-if echo "\$out" | grep -qE "PLACED|FILL|CANCEL|SETTLE|PANIC|HALT|REJECTED|REFUSED|NOT TRADING|AMBIGUOUS"; then
+if echo "\$out" | grep -qE "PLACED|FILL|CANCEL|SETTLE|PANIC|HALT|REJECTED|REFUSED|NOT TRADING|AMBIGUOUS|API connection failed|session DOWN|Traceback|Error"; then
   printf '=== %s\n%s\n' "\$(date '+%F %T')" "\$out" >> forecastex_exec.log
 fi
 EOS
