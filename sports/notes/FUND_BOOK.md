@@ -36,6 +36,9 @@ Update this file (and EDGES_AND_AGENTS.md, which keeps the long-form detail) whe
 ---------------------------------------------------------------------------------------------------------------------
 ## 1. Fund mandate & management
 
+**CAPITAL DECISION 10-29 (user):** no new deposits yet; current ~$50 Kalshi + ~$60 IBKR = small-stakes live test of E1/E2 + E5; scale only after forward results pass the gates below.
+
+
 | Item | Rule (source) |
 |---|---|
 | Goal | Double a $1-2k UNLEVERED bankroll in 12 months, proven live; scale capital only as verified qualified daily volume grows (~$140-280/day of 2%-edge bets) [S], [Q] |

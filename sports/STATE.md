@@ -18,6 +18,10 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 - RISK NOTE: the user overrode the ">=100 settled paper picks" gate. MK bids rest into event day (adverse-selection risk).
 - Session re-login under launchd needs Messages access (TCC Full Disk Access for the venv python): unverified.
 
+## CAPITAL DECISION (user 2026-10-29): NO new deposits for now ($500 IBKR / $2k Kalshi deferred). Treat the current ~$50 Kalshi +
+## ~$60 IBKR as a SMALL-STAKES LIVE TEST ("paper test with real money"): keep E1/E2 + E5 running at current caps (bounded by cash);
+## judge on forward results before any scale-up (capital gates unchanged).
+
 ## HANDOFF #5 2026-10-29 -- START HERE: read sports/notes/HANDOFF_2026-10-29.md (money, live systems, IBKR/IBC status,
 ## edges, tools, pending user asks). Then the FUND GOAL block below and EDGES_AND_AGENTS.md.
 
