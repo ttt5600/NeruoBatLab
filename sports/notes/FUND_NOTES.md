@@ -20,3 +20,8 @@
 - 2026-10-29T02:56Z Kalshi weather census: no new cities/series (all 24 KXHIGH covered; intl/others never listed; no daily snow). Volume limit = our caps, not the market.
 - 2026-10-29T02:59Z forecastex_wx2: UL/SH/DH FAIL (D-1 trades rare; UL contested prints lose 18%); no daily rain on FX. Unverified: FX file trade date may be UTC (E5 prices staler, no lookahead).
 - 2026-10-29T03:05Z econ_reject DEAD: Kalshi econ ladders only list ~+-2.3sd; quoted tails fairly priced (~6/yr); T1 ROI driven by revised-FRED leakage.
+- 2026-10-28 20:51 IBKR gateway: SSO login works (Keychain + iMessage 2FA automated) but ssodh/init 'invalid challenge' on every try; Java ruled out; waiting on account funding/paper status
+- 2026-10-28 21:04 IBKR: same ssodh error after funding; live-switch diagnostic inconclusive (gateway reused paper SSO); stopped burning SMS; options: IBKR support or IB Gateway/TWS API
+- 2026-10-28 21:22 IBKR CONNECTED (live-mode session, read-only): cause = no paper account; ForecastEx books with sizes readable; trading still gated (paper mode, no account id)
+- 2026-10-28 21:30 E5 ForecastEx LIVE: 26 orders night 1 (cap 5/day), launchd forecastex-live every 5 min
+- 2026-10-29T05:38Z IBKR gateway session DOWN -> user must re-login at https://localhost:5050 before next 22:00-local decisions.

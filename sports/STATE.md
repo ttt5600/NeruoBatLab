@@ -34,6 +34,7 @@ TODO (10-28): sports/espn.py::parse_prop returns 0 rows -- ESPN dropped the over
 E5 LIVE AUTHORIZED (user 2026-10-28 ~21:45 PT: "no need to dry run mode only", "if it works it works"): ForecastEx executor
 scripts/forecastex_exec.py live on IBKR LIVE account (gateway localhost:5050, auto-confirm on), frozen E5 rule, maker at best bid,
 caps $5/order, 10 contracts, $25/day, daily loss stop -$10, KILL file. Tier B. Gateway needs daily re-login.
+USER ASK: re-login IBKR gateway (https://localhost:5050, 2FA) -- session down 10-28 late.
 Next: L40 LIP paper test starts 10-29 (lip_paper.py); review L38 in-game longshot + live_board results; daily brief
 07:30 (notes/briefs/); user asks pending: KALSHI_EXEC_STYLE=maker, fund shard 3, agent authority.
 
