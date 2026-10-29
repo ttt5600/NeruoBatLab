@@ -19,3 +19,4 @@
 - 2026-10-29T02:54Z user-directed: launched 3 edge searches (ForecastEx other weather; more Kalshi weather cities/series; econ-data nowcast consensus-reject).
 - 2026-10-29T02:56Z Kalshi weather census: no new cities/series (all 24 KXHIGH covered; intl/others never listed; no daily snow). Volume limit = our caps, not the market.
 - 2026-10-29T02:59Z forecastex_wx2: UL/SH/DH FAIL (D-1 trades rare; UL contested prints lose 18%); no daily rain on FX. Unverified: FX file trade date may be UTC (E5 prices staler, no lookahead).
+- 2026-10-29T03:05Z econ_reject DEAD: Kalshi econ ladders only list ~+-2.3sd; quoted tails fairly priced (~6/yr); T1 ROI driven by revised-FRED leakage.
