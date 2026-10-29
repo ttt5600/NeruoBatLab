@@ -1,3 +1,6 @@
+**MASTER INDEX = `notes/FUND_BOOK.md` (2026-10-29): mandate, live ops, every edge by status, research system, tools,
+lessons, pending asks. This file keeps the long-form detail (numbers, agent IDs, briefs); update both.**
+
 # EDGES + AGENTS REGISTRY (read with STATE.md; last full rewrite 2026-10-22 ~09:30Z)
 
 Every edge, lead, hypothesis and research agent from the quant-trader work, with numbers, status, files and how to reach
