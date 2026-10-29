@@ -154,7 +154,7 @@ redo without a new mechanism. "dev" = development-period backtest; "sealed" = lo
 |---|---|---|---|---|---|
 | FX1-fwd | E5 rule on live ForecastEx bid/ask | E5 at real quotes | 93 picks by 10-29 [H5] | originally >= 100 settled before live (overridden) [S] | scripts/forecastex_paper.py |
 | Q008 | ForecastEx econ: buy the Kalshi-favoured side when FX is >= 2c cheaper | FX = compressed copy of Kalshi + FLB at >= .85 | dev exploratory 64 bets/57 events, 0 losses, ROI +16% at last trade [Q] | judge at 60 settled: KILL if ROI <= 0 or qualifying-ask rate < 25%; early kill >= 3 losses in first 30 [Q] | forecastex_paper.py (q008), notes/q007_forecastex_breadth.md |
-| L40/Q002 | Kalshi Liquidity Incentive Program on weather brackets (paper quotes) | LIP pays resting size; 75% of temp brackets paid nobody (YES side < 1,000) | $20/bracket/period; 1,000 YES @1c could claim up to ~$10/period [EA], notes/kalshi_lip.md | pre-registered 10-day test 10-29..11-08; program ends 2027-01-01 | scripts/lip_paper.py |
+| L40/Q002 | Kalshi Liquidity Incentive Program on weather brackets (paper quotes) | LIP pays resting size; 75% of temp brackets paid nobody (YES side < 1,000) | $20/bracket/period; 1,000 YES @1c could claim up to ~$10/period [EA], notes/kalshi_lip.md | pre-registered 10-day test 10-29..11-08; **STALLED 10-29: weather LIP programs ended 08:00Z, 0 active/upcoming; awaiting user (idle vs L40b non-weather)** | scripts/lip_paper.py |
 | L32 | NBA totals vs OPENER (model >= 3 pts off first-posted total) | stale opener | dev +8.7% no-vig p .001; **sealed FAIL** +6.4% p .054 (~25% power) [LB]; forward 12 picks CLV +1.42 p .005 [FS]; 8-4, CLV +1.4 [H5] | logger rule at 100 settled: CLV <= 0 or ROI CI < 0 kills [Q004]; never re-score sealed | scripts/nba_open_totals.py, nba_simple_model.py |
 | Q004 | Totals models taken at the first TIGHT Kalshi quote (NBA/NHL/NFL) | timing edge needs early low-fee entry | deployed 10-28 (L35 basis: Kalshi early NFL CLV +3.3c p<.0002) [Q] | >= 100 settled pick_tight: CLV > 0 AND ROI at ask+fee > 0 -> sealed ask [Q] | nba_open_totals.py, open_lines_logger.py, kalshi_tight.py |
 | L34 | NHL ML/totals vs opener (open-lines logger) | stale opener | dev CLV passes (p<1/4000), money fails (totals no-vig +7.1% p .0125) [EA]; fwd n 20 [FS] | gate PAPER; >= 100 settled [FS] | open_lines_logger.py, nhl_simple_model.py |
@@ -444,7 +444,7 @@ Deployed tools: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/<x>.py`. 
 | 8 | X post-count test (~$13) yes/no; install F5 pick'em logger; free disk; confirm home state (CA vs CO) | user | [EA s8] |
 | 9 | LA Senate / TX Gov judgment (election 11-03) | PM's call | [S] |
 | 10 | Fix `espn.py::parse_prop` (ESPN dropped the over/under marker; first of each pair = over), re-run `collect.py props` | agent | [S] |
-| 11 | L40 LIP paper ends 11-08 -> score per pre-registration | agent | lip_paper.py |
+| 11 | L40 LIP paper: weather programs ended 10-29 08:00Z -> nothing to score unless they return; user: keep idle or pre-register L40b (non-weather LIP)? | user | lip_paper.py |
 | 12 | F1 NFL in-game fade: score once after 2026-12-02 | agent | [EA] |
 | 13 | L32/Q004/L34 at 100 settled picks -> decision rule | agent | [Q] |
 | 14 | L39 sealed shot ~Feb 2027 | PM yes later | [Q] |

@@ -8,6 +8,16 @@ Last updated: 2026-10-22 ~09:15Z (HANDOFF #3 -- read it first). Branch `worktree
 Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`
 
 
+## 2026-10-29 ~10:45 PT RESUME CHECK (session after /clear; user: "keep IB Gateway running, minimized")
+- IB Gateway UP: java pid 36081 on :4001 via IBC (~/ibkr/ibc/config.ini: MinimizeMainWindow=yes, AutoRestartTime 11:45 PM);
+  window AXMinimized=true; launchd ibc-gateway hourly launcher refuses a 2nd copy. forecastex_exec status: TWS session
+  AUTHENTICATED, live, KILL none, 2 FX NO positions (UHDTW/UHLGA 10-29). Kalshi: 8 open weather NOs (10-29), 24h net -$1.68.
+- Kalshi 401 header_timestamp_expired: 2 in 3 days (10-27, 10-29), clock within 2 ms of time.apple.com -> transient (sleep?), no action.
+- **L40 STALLED (user decision):** Kalshi weather LIP programs (KXHIGH/KXLOWT) ENDED 10-29 08:00Z, the hour the cohort began;
+  0 active + 0 upcoming weather programs (contradicts "program ends 2027-01-01" in notes/kalshi_lip.md). 0 paper orders in
+  P1-P3. Kalshi still lists 5,874 active LIP programs in other series (top: KXYTVIEWSHIGH, KXRT, KXYTVIEWSW, KXGGWINNER).
+  Options: keep logger idle in case weather programs return / pre-register L40b on non-weather series. Not changed.
+
 ## 2026-10-28 ~21:30 PT: E5 ForecastEx LIVE on IBKR (user: "connect and trade ... same way you make kalshi trades")
 - IBKR connected: Client Portal Gateway ~/.claude/quant-kalshi/ibkr (port 5050). LIVE-switch login; the paper login fails
   ssodh because there is NO paper account. login.py reads Keychain `fund-ibkr` + the SMS code from Messages.
