@@ -207,6 +207,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 
 - **L41/Q003 Kalshi Mentions maker NO (10-28, notes/q003_retail_maker.md, 4 trials):** IN1_d6 859 fills +7.08% p<.0002 (LEAD), MID_d6 +5.8%; d24 DEAD (2nd half negative). Adverse selection small (0.3-1.0c). DECAYING: halves +11.5%/+2.9% (cf. M3 death). Sealed ask: IN1_d6 on events >= 2026-06-25 (needs user yes).
 
+- **NFL kicker over 3.5 "90%" system (social, 10-29, notes/nfl_kicker_system.md): DEAD.** 84.7% hit (n 354) vs 83.0% base; matched -0.7pp; needs ~-555 odds; ESPN BET lines open 4.5-9.5 and price 4+ at 89% (main-line over +0.6%/52).
+
 ## 5. DEAD (do not redo without a new mechanism)
 
 | Idea | Result | Report |
