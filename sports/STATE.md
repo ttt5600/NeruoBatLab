@@ -20,6 +20,9 @@ IBKR account (user) -> forward paper on live bid/ask -> small live.
 USER ASK queued: sealed test of Q003 Mentions maker NO (IN1_d6, events >= 2026-06-25) -- decaying edge, say "yes Q003".
 TODO (10-28): sports/espn.py::parse_prop returns 0 rows -- ESPN dropped the over/under marker; first record of each pair = over
 (586/586 matched DK "N+"). Fix + re-run collect.py props. Props scan 10-28: Kalshi vs DK fair median gap 0c -> no edge.
+E5 LIVE AUTHORIZED (user 2026-10-28 ~21:45 PT: "no need to dry run mode only", "if it works it works"): ForecastEx executor
+scripts/forecastex_exec.py live on IBKR LIVE account (gateway localhost:5050, auto-confirm on), frozen E5 rule, maker at best bid,
+caps $5/order, 10 contracts, $25/day, daily loss stop -$10, KILL file. Tier B. Gateway needs daily re-login.
 Next: L40 LIP paper test starts 10-29 (lip_paper.py); review L38 in-game longshot + live_board results; daily brief
 07:30 (notes/briefs/); user asks pending: KALSHI_EXEC_STYLE=maker, fund shard 3, agent authority.
 
