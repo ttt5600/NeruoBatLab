@@ -16,3 +16,4 @@
 - 2026-10-28T21:38Z loop: Q007 done -- ForecastEx favourites underpriced across families (+1.5-3.5% at last trade, no bid/ask); econ vs Kalshi: FX favourites 1.4-2.2c cheaper; Q008 [proposed] Kalshi-favoured side on FX when >=2c cheaper (64 bets 0 losses, tiny capacity) -> fold into FX paper logger.
 - 2026-10-29T00:33Z loop: launched Q008 fold-in (FX favourite cheaper than Kalshi) into forecastex_paper.py.
 - 2026-10-29T00:37Z loop: Q008 forward paper deployed in forecastex_paper.py (first snapshot 10-29 15:00 CT; econ events >30d out not yet checked).
+- 2026-10-29T02:54Z user-directed: launched 3 edge searches (ForecastEx other weather; more Kalshi weather cities/series; econ-data nowcast consensus-reject).
