@@ -109,12 +109,23 @@ def make_ticker(code: str, day: date, strike: float) -> str:
     return f"UH{code}_{day:%m%d%y}_{s}"
 
 
+QUESTION_DAY = re.compile(r" on ([A-Z][a-z]+ \d{1,2}, \d{4})\?")
+
+
 def event_day(c: dict) -> date | None:
-    """Event (measured) date of a contract row: time_specifier '2026.10.28' or measured_period "Oct28'26 11:59 PM ET"."""
+    """Event (measured) date of a contract row: time_specifier '2026.10.28', else the date in the contract question
+    ("... exceed 80 F on October 28, 2026?"), else measured_period "Oct28'26 11:59 PM ET".
+    measured_period is NOT reliable on its own (checked 2026-10-28): Central-time stations' Oct-28 contracts read
+    "Oct29'26 12:59 AM ET" (end of the local day, in ET), while Mountain/Pacific ones read "Oct28'26 2:59 AM ET".
+    Parsing it naively mapped every Central station (SAT AUS BNA DFW HOU MDW MSP MSY OKC) to the NEXT day."""
     ts = c.get("time_specifier")
     if ts:
         y, m, d = (int(x) for x in ts.split("."))
         return date(y, m, d)
+    for q in [c.get("question")] + [k.get("question") for k in c.get("contracts") or []]:
+        m = QUESTION_DAY.search(q or "")
+        if m:
+            return datetime.strptime(m.group(1), "%B %d, %Y").date()
     mp = c.get("measured_period") or ""
     m = re.match(r"([A-Z][a-z]{2})(\d{1,2})'(\d{2})", mp)
     if m:
