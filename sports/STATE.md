@@ -35,6 +35,7 @@ E5 LIVE AUTHORIZED (user 2026-10-28 ~21:45 PT: "no need to dry run mode only", "
 scripts/forecastex_exec.py live on IBKR LIVE account (gateway localhost:5050, auto-confirm on), frozen E5 rule, maker at best bid,
 caps $5/order, 10 contracts, $25/day, daily loss stop -$10, KILL file. Tier B. Gateway needs daily re-login.
 USER ASK: re-login IBKR gateway (https://localhost:5050, 2FA) -- session down 10-28 late.
+E5 CAPS RAISED (user 10-29 "up the bets... increase the amounts"): FX_MAX_ORDER_USD 15, FX_MAX_CONTRACTS 20, FX_MAX_DAILY_USD 100, loss stop -$30 (.env.bak-2026-10-29).
 Next: L40 LIP paper test starts 10-29 (lip_paper.py); review L38 in-game longshot + live_board results; daily brief
 07:30 (notes/briefs/); user asks pending: KALSHI_EXEC_STYLE=maker, fund shard 3, agent authority.
 
