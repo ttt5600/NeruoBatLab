@@ -150,3 +150,20 @@ status:     FORWARD PAPER RUNNING (2026-10-28). Pick type `q008` in scripts/fore
             the ">= 10 at ask" filter is dropped (size logged null). Judge at 60 settled picks: KILL if ROI at FX ask
             <= 0 or qualifying-ask rate < 25%; early KILL on >= 3 losses in the first 30; pass bar unchanged. Live
             check 10-28: 0 signals; CPI/core CPI/Fed contracts are > 30 d out; MMCPI 3/10, U3 7/9 FX strikes match Kalshi.
+
+## Q009 [proposed] Options / volatility edges (user 10-29: "options... volatility increases"; capacity-rich venue)
+Mechanism candidates: implied vs realised volatility (variance risk premium is documented to favour SELLING vol on average;
+buying vol needs a timing/selection edge), earnings straddles entered ~5d before and exited pre-print (L11; needs option
+bid/ask history), event-vol around macro releases. Baseline: option mid/ask vs realised move, after spread and fees.
+Constraints: agentic Robinhood account only (main/Roth read-only); defined-risk structures; dev/sealed split by date; prereg
++ EDGE_MATH.md table incl. risk of ruin. Data: Robinhood MCP option chains/historicals (1m bars ~3-7 wks), public sources.
+
+## Q010 [proposed] Full contract census across venues (user: "look at all the offered contracts")
+Enumerate EVERY open contract family on Kalshi (all 8 shards' series), Polymarket US, ForecastEx, Robinhood-routed venues;
+tag each with an external forecast/reference source (if any), liquidity, fee, settlement source; rank families where a
+public, better-calibrated reference exists (the weather pattern) -> each top family becomes a prereg question.
+
+## Q011 [proposed] MLB/sports lineup-substitution props (user: "backup hitter")
+When a regular is rested/injured and a backup starts, are player/team props or game lines slow to adjust (opener vs
+lineup release time)? Test vs opener and vs close, by sport (MLB lineups ~3-4 h pre-game; NBA rest news), using
+SITUATIONAL_FACTORS.md rows on availability.

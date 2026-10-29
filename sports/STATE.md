@@ -18,6 +18,10 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
 - RISK NOTE: the user overrode the ">=100 settled paper picks" gate. MK bids rest into event day (adverse-selection risk).
 - Session re-login under launchd needs Messages access (TCC Full Disk Access for the venv python): unverified.
 
+## LONG-RUN GOAL (user 2026-10-29): grow to ~$400k over time, patiently -- prove edges live first (current ~$110 test),
+## add capital only when an edge proves it can absorb it (milestone: verified profit capacity > ~$1k/month), scale via
+## capacity-rich edges (LIP market making, more venues) and OPTIONS (volatility). New research: Q009-Q011 in QUESTIONS.md.
+
 ## CAPITAL DECISION (user 2026-10-29): NO new deposits for now ($500 IBKR / $2k Kalshi deferred). Treat the current ~$50 Kalshi +
 ## ~$60 IBKR as a SMALL-STAKES LIVE TEST ("paper test with real money"): keep E1/E2 + E5 running at current caps (bounded by cash);
 ## judge on forward results before any scale-up (capital gates unchanged).

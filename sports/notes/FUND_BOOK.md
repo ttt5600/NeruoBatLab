@@ -37,6 +37,8 @@ Update this file (and EDGES_AND_AGENTS.md, which keeps the long-form detail) whe
 ---------------------------------------------------------------------------------------------------------------------
 ## 1. Fund mandate & management
 
+**LONG-RUN GOAL 10-29 (user):** ~$400k over time. Reality check given (session 10-29): today's edges are capacity-capped (~$150-300/month even at $5k; profit = edge x absorbable volume, not % of capital); compounding only works with edges that absorb capital. Path: prove live -> add income-funded capital as edges prove capacity -> find capacity-rich edges (LIP market making, more venues, options/volatility). Never via over-Kelly risk or the leveraged brokerage account.
+
 **CAPITAL DECISION 10-29 (user):** no new deposits yet; current ~$50 Kalshi + ~$60 IBKR = small-stakes live test of E1/E2 + E5; scale only after forward results pass the gates below.
 
 
