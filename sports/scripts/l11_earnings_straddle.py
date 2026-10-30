@@ -206,8 +206,12 @@ def fetch_dates(need):
         time.sleep(0.5)
         return d, ts, _q(d, ts)
 
+    items = []
+    for d, ts in sorted(todo.items()):                       # big IN-lists time out on peak earnings dates
+        ts = sorted(ts)
+        items += [(d, set(ts[j:j + 4])) for j in range(0, len(ts), 4)]
     with ThreadPoolExecutor(max_workers=6) as ex:
-        for k, (d, ts, rows) in enumerate(ex.map(one, sorted(todo.items()))):
+        for k, (d, ts, rows) in enumerate(ex.map(one, items)):
             if rows is None:
                 print("FAIL", d, flush=True)
                 continue

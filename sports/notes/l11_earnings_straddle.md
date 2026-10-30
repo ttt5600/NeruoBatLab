@@ -90,3 +90,37 @@ date reached and n are reported. Sealed would be fetched under the same rules, o
 seasons). Prior per-event sd of a 5-day pre-earnings straddle ROI ~ 10-15% (natural spread adds a near-constant
 negative shift); with clustering the SE is ~0.8-1.2%, so 80% power at one-sided .025 needs a true mean of ~+2.3-3.4%:
 the GXZ-sized +3% gross is detectable only if the spread costs little; a net edge of ~+1% is not.
+
+## 3. Results (Step 3) -- dev only; sealed NOT fetched (both trials failed dev)
+
+Prereg commit 3e081d1; amendment A1 + scorer 68b46dd (both before any P&L). The fetch finished before the A1 cap
+(primary + fallback stages done). 13 peak-season dates first timed out with the full ticker IN-list; they were
+re-queried in 4-ticker chunks (no change to any rule), so no dev date is missing for API reasons.
+`scripts/l11_earnings_straddle.py score dev`; rows `results/l11_earnings_straddle/trades_dev.csv`, numbers
+`results_dev.json`; ledger rows l11_earnings_straddle_P1 / _P2 (split dev).
+
+Dev events 534 -> 311 trades. Drops: no expiry after E listed in both snapshots 134, ATM strike > 3% from the
+forward 48 (sparse ladder), no snapshot 35, entry strike not quoted at exit 6. Chosen strike differs from the
+unconstrained entry-ATM strike in 56 trades. |K-F|/F median 0.72%, 90th pct 1.96%. Holding median 5 calendar days.
+**Median DTE at entry = 53 days** (DoltHub lists only ~monthly expiries ~3-8 weeks out). 0 stale exit quotes.
+Median relative spread of the straddle (ask-bid over mid): entry 5.0% (2020) falling to 2.5% (2023-24).
+
+| Trial | n (weeks) | ROI natural bid/ask (observed) | 2.5 / 97.5 (week-cluster boot) | p (bar .025) | dev halves | win | ROI mid-to-mid [2.5, 97.5] | Verdict |
+|---|---|---|---|---|---|---|---|---|
+| P1 all | 311 (133) | **-3.95%** | [-5.34%, -2.53%] | 1.000 | -4.11% / -3.79% | 27.3% | +1.19% [-0.22%, +2.65%] | **FAIL: reliably negative** |
+| P2 IV < own trailing median | 112 (56) | **-2.82%** | [-4.88%, -0.74%] | 0.997 | -4.77% / -0.87% | 30.4% | +1.70% [-0.35%, +3.73%] | **FAIL: reliably negative** |
+
+P1 by year, natural (mid): 2020 -4.2% (+2.3%), 2021 -6.6% (-0.8%), 2022 -2.6% (+2.7%), 2023 -4.0% (-0.6%), 2024
+-2.5% (+2.4%). AMC -3.7% (mid +1.4%), BMO -5.0% (mid +0.5%). sd per event 10.6%, cluster SE 0.71%. Worst event
+-37.0%; worst week (sum of $1 per event) -0.90 (2022-W30, 9 events). Too-good guard not triggered.
+
+**Mechanism.** At mid the pre-earnings run-up is small and not distinguishable from zero (+1.2%/event), the same sign
+as GXZ but a third of their +3.3%, which is expected here because these are ~53-DTE options: the earnings-day
+variance is spread over ~37 trading days, so the IV run-up in a far expiry is diluted (GXZ use the nearest expiry).
+Crossing the spread twice costs ~5.1 points per round trip (entry ~3.4% of mid), which turns +1.2% into -4.0%.
+
+**Size feasibility.** Median straddle cost $1,360 (1 contract each leg) -> one position is ~70-130% of a $1-2k
+account; up to 9 events land in one week. Even with an edge it could not be diversified at this account size.
+
+**Verdict: DEAD for the fund (dev fail, sealed untouched).** Not shown: whether a short-dated (weekly, nearest
+expiry) version with limit orders near mid earns the GXZ premium; this data cannot test it (no weeklies, no intraday).
