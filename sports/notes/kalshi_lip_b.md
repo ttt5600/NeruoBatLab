@@ -104,3 +104,10 @@ tickers (all KXRT markets move together), so a pass is a reason for a small live
 ## Caveats the paper test cannot fix
 60-s polls vs 1-s snapshots; our order would change others' quotes; queue position unknown; Kalshi picks which
 markets are incentivised and can end programs at any time (it just did for weather).
+
+## AMENDMENT 2026-10-30 ~04:30Z (operational, after T0; no outcome looked at)
+Ticks stalled 00:08Z-04:30Z: sustained HTTP 429 on our IP made the trade-tape catch-up fail every tick. Rule added: if the tape
+since the last tick cannot be read, every open order is ended with NO fill and NO further LIP (logged `cancel why=tape_gap` +
+a `tape_gap` event), and its ticker starts a fresh episode so the frozen policies re-place at the next poll. Rationale: carrying
+orders with unknown fills would credit LIP without fill risk (optimistic); unobserved time already earns zero (W_CAP).
+Report must list tape_gap events and their total duration; bars are unchanged.

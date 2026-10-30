@@ -385,7 +385,23 @@ def cmd_tick():
     if st["trades_since"] is None or not order_tickers:
         trades, tape_mode = [], "skip"
     else:
-        trades, tape_mode = L.fetch_trades(since, order_tickers, order_tickers)
+        try:
+            trades, tape_mode = L.fetch_trades(since, order_tickers, order_tickers)
+        except Exception as ex:  # noqa: BLE001
+            # 10-30 fix: a tape we cannot read means fills since `since` are UNKNOWN. Carrying those orders forward as
+            # still resting would credit LIP with no fill risk, so they are ended here with no fill and no further
+            # credit (the gap itself already earns nothing: per-poll credit is capped at W_CAP), and the ticker starts
+            # a fresh episode so the frozen policies re-place at the next poll.
+            for o in open_orders:
+                o["end"] = t
+                o["close"] = t
+                for m in MODELS:
+                    o["v"][m]["resting"] = 0.0
+                log_event("cancel", pol=o["pol"], ticker=o["ticker"], ep=o["ep"], why="tape_gap")
+                st["was_live"][o["ticker"]] = False
+            log_event("tape_gap", since=iso(since), until=iso(t), orders=len(open_orders), error=str(ex)[:200])
+            open_orders = []
+            trades, tape_mode = [], "GAP"
     seen = set(st["seen_trade_ids"])
     fresh = sorted((tr for tr in trades if tr["id"] not in seen), key=lambda x: x["ts"])
     by_tk = {}
