@@ -305,3 +305,5 @@ confirm home state (CA vs CO) for venue legality.
 - **Player x opponent/venue/revenge props DEAD 10-29 (notes/nba_player_opp_venue.md, dev 22-23..24-25 at OPEN): 0/5 pass; T1 pts opp decile 9,279 bets -5.3% [-7.2,-3.3]; T3 pooled -5.2%; T5 revenge overs 1,491 -6.7% [-11.2,-2.1]; T4 logit coef .020 [.001,.039] p .018 (bar .01). Reliability player-vs-opp r .017 [-.005,.039], venue r .024 -> ~0.36 pt persistent. Jokic vs NOP +3.25 pts over 22 games = within multiple-comparison noise.**
 
 - **WCN NFL body-clock SEALED FAIL 10-29 (+12.2%/99, CI ~[-7,+31], p .105); NBA clock/calendar/arena 0/6 (notes/nba_clock_calendar_arena.md).**
+
+- **Q013 RT/Metacritic + Q014 Truth Social FORWARD paper loggers LIVE 10-30 03:21Z (launchd com.jonathanwang.quant-q013/q014, 15 min; notes/q013_rt_scores.md, q014_truth_social.md). Q013 first picks ~10-30 08:00Z; Q014 calibrates until 11-06 then frozen. Report: scripts/q013_logger.py report | q014_logger.py report. Note: Truth Social count history backtestable via Roll Call (separate trial).**
