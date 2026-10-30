@@ -96,4 +96,37 @@ offsets, previous_day1/day2 issue times) before reporting.
 
 ## Step 3 -- results
 
-(filled in after running scripts/x2b_lows_window.py)
+`python scripts/x2b_lows_window.py dev --ledger` (2026-10-30; ledger row wx_expand_X2b_lows_window, sha
+2ac558c9a920; bets in results/x2b_lows_window/bets_dev.csv).
+
+| trial | n | units | ROI (obs) | ROI 2.5/97.5 | p (1-sided) | half 1 (<01-21) | half 2 | loss rate | break-even loss rate | avg NO | picks/mo | verdict |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| X2 (old window, reference) | 224 | -14.28 | -6.38% | -- | -- | -- | -- | 15.6% | 9.7% | 0.898 | -- | dead |
+| **X2b DEV** | 116 | -9.94 | **-8.57%** | [-15.2%, -2.0%] | 0.995 | -2.71 / 38 | -7.23 / 78 | 14.7% | 7.4% | 0.921 | 50 | **FAIL** |
+| X2b SEALED | not run -- gated on a dev pass; sealed lows remain unloaded | | | | | | | | | | | |
+
+By station: AUS -6.40/39, DEN -1.05/23, NYC -2.40/10, PHL -0.82/17, MDW +0.50/14, LAX +0.12/5, MIA +0.11/8.
+By side: below -7.50/86, above -2.44/30. Versus X2 on the same rows: 94 picks kept, 130 dropped (their units
+-6.02), 22 new.
+
+**What happened.** The fix did what it was built to do: late-evening (>= 19:00 LST) losses fell from 23 to 2.
+It also removed most of the X2 bets (the fuller window rejects fewer "below" brackets) and the survivors trade at
+a thinner price (avg NO 0.921, break-even loss rate 7.4%). The 17 remaining losses are forecast misses, not
+timing: 2 are late lows, 12 are the same pre-dawn losers as X2 (9 at KAUS, where even the coldest model forecast the low 4-12F too warm),
+and 3 are new "above" losses at NYC/PHL where every model forecast the low too cold (4 "above" losses in all). A 14.7% loss rate against a
+7.4% break-even is not a window problem.
+
+**X2 stays DEAD; X2b DEAD at the dev gate (p 0.995, both halves negative). Cause of X2's loss = two things:**
+(1) the 18:00 window cutoff (23/35 losses; fixed by X2b), and (2) the 3F margin is not enough for daily lows --
+lead-1 model lows miss by > 3F far more often than highs do (radiational cooling at KAUS/DEN, cold-air bias at
+NYC/PHL). (2) is what kills it. Sealed was never loaded, so it remains clean for any future lows idea.
+
+**Something off found on the way (affects all wx forecast caches, not the live rule's leak-safety).** Open-Meteo
+labels a whole response with ONE `utc_offset_seconds` -- the offset in force on the REQUEST date -- not the
+DST-correct offset per date (a Chicago request made in October returns GMT-5 for January dates). wx_expand's
+build ran 2026-10-19 (DST), so every winter "local hour <= 18:00" window in data/wx_expand.parquet is really
+23:00 previous day .. 17:59 standard time. The alignment check reproduced the cached fcsafe columns with 0
+mismatches only after emulating that fixed offset (6% of KAUS GFS bracket-rows differed with DST-correct
+times). For highs this is harmless (earlier cutoff = still pre-decision); a cache built in winter would shift
+summer windows to <= 19:00 local, still before the 22:00 decision. sports/wx.py `forecast_daily_max` uses the
+same `timezone=tz` request and inherits it. X2b requests GMT and converts itself, so it is unaffected.
