@@ -1021,3 +1021,29 @@ experiments:
     models").
   tags: run31_vanilla, run31_vanilla_s2, run31_vanilla_lr1e4, run31_vanilla_lr1e4_s2
   priority: 1
+- id: E37
+  title: Random-label controls -- shuffled labels (negative control) and random-projection labels (BEST-RQ-style)
+  roadmap: user request 2026-10-29 ("what if we swap with random labels? ... if we see similar results then that's
+    saying we're doing something weird")
+  baseline: run16 (3 seeds) and run23 (stock MFCC labels); floors in analysis/calltype_floors.json
+  change: 'Labels only, run16''s recipe and 763-file corpus unchanged (slurm/train_run37_labels.sh). Arm SHUFFLE: run16''s
+    spectrogram k=200 labels with every file given another file''s sequence (fixed derangement, seed 0; same vocabulary,
+    marginal and run lengths, no relation to the audio). Arm RANDPROJ: each frame''s standardised 39-d MFCC (run23''s
+    features) times a fixed random 39x16 matrix, nearest of 200 fixed random unit vectors (cosine); nothing learned.
+    scripts/random_labels.py.'
+  question: Does the pipeline learn from its labels at all (shuffle), and does the target recipe matter once targets are a
+    fixed function of the audio (randproj)?
+  success: 'Pre-registered 2026-10-29 before any label was built. SHUFFLE (1 seed, run37_shuffle): the pipeline is
+    "using its labels" only if 11-class CPU call type at the best layer is resolved below run16 (seed_pairs_cpu.py) AND
+    below 0.7186, the midpoint between the untrained floor (mean of 3 random-init seeds 0.6019) and run16
+    (0.8353). If instead it is within 0.02 of run16, STOP: audit the label pipeline (alignment, the loss, what the
+    model is predicting) before any other run is interpreted. Anything between is reported as is. RANDPROJ (2 seeds,
+    run37_randproj, _s2): arm contrast vs run16''s 3 seeds and vs run23 with seed_mean_pairs_cpu.py (birds + seeds), best
+    layer and layer 3; "the target recipe does not matter here" if both are not distinguishable. Power: only differences
+    of about 0.03 resolve under that test, so a tie is weak evidence.'
+  script: scripts/random_labels.py (built on savio-dtn), then slurm/train_run37_labels.sh x3
+  status: approved
+  decision_2026_10_29: Approved by the user 2026-10-29 ("ok", answering "queue both arms, or only the shuffled-label
+    control?").
+  tags: run37_shuffle, run37_randproj, run37_randproj_s2
+  priority: 1
