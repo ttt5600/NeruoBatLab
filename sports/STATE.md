@@ -37,6 +37,25 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   Tonight: ATL ML lean = PASS (exactly the gap type that lost);
   CLE@ATL over ~238 (totals model 242.5, ~+2.4 after bias).
 
+## SESSION 2026-10-29 PM SUMMARY (read first)
+- User: STANDING AUTHORITY to run sealed/paper tests; deposits + real-money caps theirs. Maker E4 ON. Weather: keep running small,
+  judge after ~300 settled (live 78-1, NO avg .979, breakeven .979; ~$0.18/day expected) -- user agreed "stick with it".
+- Manual tier-C bets (bet.py journal): KXNFLNEXTTEAM-26JTAYLOR28-MIN YES 12@.38 ($4.76); -IND NO 15@.62 ($9.55). Settle Dec 1.
+  Kalshi cash after: $18.84. bet.py refused $15 single bet (tier-C cap $12.50) -- cap kept, not bypassed.
+- Personal finances (numbers only in gitignored notes/private_account.md): de-lever plan given for RH main (agent cannot trade it);
+  user to execute Phase 1 at 10-30 open, then ask agent to verify. Idea: later move core ETF money to MCP acct w/ trade approvals.
+- Research today: DEAD -- Q003 sealed, L2 rating sides, NBA early-season (<=15g), Q015 approval, player opp/venue/revenge props,
+  WCN sealed, NBA clock/calendar/arena 0/6. ALIVE -- <=8-game early-form forward test (nba_early_form_logger.py, run tick on game
+  nights, not automated), NBA sim (scripts/nba_sim.py; injury delta ~2x line move), L40b (fixed 10-30 03:00Z, see below).
+  RUNNING agents: Q012 crypto hourly vs implied vol; Q011 NBA injury-report lag on Kalshi.
+- L40b STALL FIX 10-30 ~03:00Z: lip_paper.fetch_trades per-ticker catch-up was uncapped -> 1h+ ticks on high-volume tickers,
+  stalled 00:08-03:00Z; also global path silently capped at 200 pages (~15 min of busy tape). Now global <= 6 h gap (cap 6000
+  pages), per-ticker capped 50 pages, TRUNC flagged. 00:08-03:00Z counts as unobserved (zero for us) per prereg.
+  ROOT CAUSE (diagnosed 03:30Z): sustained HTTP 429 on our IP (parallel research agents pulling Kalshi history) + get() gave up
+  after 5 short retries -> every tick crashed, trades_since never advanced. get() now backs off 5..60 s on 429, 8 tries.
+  L40 (killed) logger UNLOADED (launchctl bootout) to save quota. Weather exec unaffected (0 x 429); tonight maker bids
+  resting; one 10-30 pick skip_balance (cash $18.84 after Taylor bets).
+
 ## 2026-10-29 16:47 PT IBKR OUTAGE + FIX: IBKR server reset 11:20 PT -> "Re-login is required" 11:26 -> 2FA push unanswered ->
 ## gateway shut down 16:45 -> FX could not trade ~11:20-16:47. Restarted (launchctl kickstart), re-auth without 2FA, AUTHENTICATED,
 ## minimized. BUG FIXED: forecastex_exec.sh only logged on keywords; TWS failure text "API connection failed" was not one ->

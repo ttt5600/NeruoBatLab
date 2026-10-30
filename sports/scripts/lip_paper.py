@@ -127,7 +127,9 @@ def pts(s: str) -> float:
     return datetime.fromisoformat(s.replace("Z", "+00:00")).timestamp()
 
 
-def get(path: str, params=None, tries: int = 5):
+def get(path: str, params=None, tries: int = 8):
+    # 10-29: research jobs on the same IP caused sustained 429s; 5 short retries crashed every tick. 429 now backs off
+    # exponentially (5, 10, 20, 40, 60 s ...) instead of failing the tick.
     for a in range(tries):
         wait = REQ_GAP - (time.time() - _last_req[0])
         if wait > 0:
@@ -136,7 +138,10 @@ def get(path: str, params=None, tries: int = 5):
         _nreq[0] += 1
         try:
             r = requests.get(f"{API}{path}", params=params, headers=H, timeout=30)
-            if r.status_code == 429 or r.status_code >= 500:
+            if r.status_code == 429:
+                time.sleep(min(5.0 * 2 ** a, 60.0))
+                continue
+            if r.status_code >= 500:
                 time.sleep(2.0 * (a + 1))
                 continue
             r.raise_for_status()
@@ -237,8 +242,11 @@ def _trade(t: dict):
 
 def fetch_trades(since: float, watch: set, order_tickers: set) -> tuple[list, str]:
     """Prints since `since` on watched tickers. Global tape for normal gaps; per-ticker for long gaps (asleep)."""
+    # 10-29 fix: the global tape runs ~13 pages/min when busy, so the old 200-page cap silently truncated 20-min gaps,
+    # and the uncapped per-ticker path took hours on high-volume L40b tickers (each stall lengthened the next gap).
+    # Global tape now covers gaps up to 6 h; every path is page-capped and a hit cap is labelled TRUNC in the tape tag.
     out = []
-    if now_ts() - since <= 20 * 60:
+    if now_ts() - since <= 6 * 3600:
         cur, pages = "", 0
         while True:
             params = {"limit": 1000, "min_ts": int(since) - 1}
@@ -249,11 +257,12 @@ def fetch_trades(since: float, watch: set, order_tickers: set) -> tuple[list, st
             out += [_trade(t) for t in tr if t["ticker"] in watch]
             pages += 1
             cur = d.get("cursor") or ""
-            if not cur or not tr or pages >= 200:
+            if not cur or not tr or pages >= 6000:
                 break
-        return out, f"global:{pages}p"
+        return out, f"global:{pages}p" + (" TRUNC" if cur and tr else "")
+    trunc = 0
     for tk in sorted(order_tickers):
-        cur = ""
+        cur, pages = "", 0
         while True:
             params = {"ticker": tk, "limit": 1000, "min_ts": int(since) - 1}
             if cur:
@@ -261,10 +270,12 @@ def fetch_trades(since: float, watch: set, order_tickers: set) -> tuple[list, st
             d = get("/markets/trades", params)
             tr = d.get("trades") or []
             out += [_trade(t) for t in tr]
+            pages += 1
             cur = d.get("cursor") or ""
-            if not cur or not tr:
+            if not cur or not tr or pages >= 50:
+                trunc += bool(cur and tr)
                 break
-    return out, f"per_ticker:{len(order_tickers)}"
+    return out, f"per_ticker:{len(order_tickers)}" + (f" TRUNC:{trunc}" if trunc else "")
 
 
 # ---------------------------------------------------------------- state
