@@ -79,6 +79,13 @@ straddle cost x 100, contracts per event, concurrent events per peak week).
 **Too-good guard.** Mean ROI > +10%/event over > 200 events -> inspect rows (exit after release, BMO/AMC errors,
 strike/expiry mismatch, stale exit quotes identical to entry) before reporting.
 
+**Amendment A1 (2026-10-30 14:06 PT, before any P&L; budget).** The DoltHub fetch slowed to ~10 pairs/min. The
+dev fetch is capped at 14:51 PT (45 min more). Dates are fetched in date order, so a capped dev set is the earliest
+events up to the date reached; dev = every dev event whose entry and exit snapshots were fetched by the cap.
+"Both dev halves" = the two chronological halves of the events actually scored. The fallback stage (step back one
+Mon/Wed/Fri) only runs if the primary stage finishes. Failed queries (API timeouts) count as missing snapshots. The
+date reached and n are reported. Sealed would be fetched under the same rules, only on a dev pass.
+
 **Power (before results).** Expected dev n ~ 450-500 after drops, ~60-70 week clusters (events bunch in earnings
 seasons). Prior per-event sd of a 5-day pre-earnings straddle ROI ~ 10-15% (natural spread adds a near-constant
 negative shift); with clustering the SE is ~0.8-1.2%, so 80% power at one-sided .025 needs a true mean of ~+2.3-3.4%:

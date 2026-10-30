@@ -146,5 +146,260 @@ def cmd_events():
     print(k.groupby("ticker").size().to_dict())
 
 
+# ------------------------------------------------------------------------------------------------ chains
+SEALED_FROM = pd.Timestamp("2024-10-23")
+
+
+def load_events(split):
+    ev = pd.read_parquet(DATA / "events.parquet")
+    ev = ev[ev.dropped == ""].copy()
+    return ev[ev.e_session < SEALED_FROM] if split == "dev" else ev[ev.e_session >= SEALED_FROM]
+
+
+def mwf_days():
+    td = trading_days()
+    return td[td.weekday.isin([0, 2, 4])]
+
+
+def snap_candidates(ev):
+    """Entry/exit candidate dates per event (primary, one fallback), Mon/Wed/Fri trading days only."""
+    m = mwf_days()
+    out = []
+    for i, r in ev.iterrows():
+        en = m[m <= r.entry_max][-2:][::-1]
+        ex = m[(m <= r.t0) & (m > en[0])][-2:][::-1]
+        out.append({"i": i, "ticker": r.ticker, "en": list(en), "ex": list(ex)})
+    return out
+
+
+def _q(day, tickers, tries=4):
+    import requests
+    tl = ",".join(f"'{t}'" for t in sorted(tickers))
+    q = (f"SELECT date, act_symbol, expiration, strike, call_put, bid, ask, vol, delta FROM option_chain "
+         f"WHERE date='{day}' AND act_symbol IN ({tl})")
+    for k in range(tries):
+        try:
+            r = requests.get(API, params={"q": q}, timeout=150)
+            d = json.loads(r.text)
+            if d.get("query_execution_status") == "Success":
+                return d["rows"]
+        except Exception:
+            pass
+        time.sleep(2 + 3 * k)
+    return None
+
+
+def fetch_dates(need):
+    """need: {date_str: set(tickers)}; skips (date, ticker) already logged."""
+    CHAINS.mkdir(parents=True, exist_ok=True)
+    logf = DATA / "fetch_log.csv"
+    done = set()
+    if logf.exists():
+        lg = pd.read_csv(logf)
+        done = set(zip(lg.date, lg.ticker))
+    todo = {d: {t for t in ts if (d, t) not in done} for d, ts in need.items()}
+    todo = {d: ts for d, ts in todo.items() if ts}
+    print("dates to fetch", len(todo), "pairs", sum(map(len, todo.values())), flush=True)
+
+    def one(item):
+        d, ts = item
+        time.sleep(0.5)
+        return d, ts, _q(d, ts)
+
+    with ThreadPoolExecutor(max_workers=6) as ex:
+        for k, (d, ts, rows) in enumerate(ex.map(one, sorted(todo.items()))):
+            if rows is None:
+                print("FAIL", d, flush=True)
+                continue
+            df = pd.DataFrame(rows)
+            f = CHAINS / f"{d}.parquet"
+            if f.exists() and len(df):
+                df = pd.concat([pd.read_parquet(f), df], ignore_index=True)
+            if len(df):
+                df.to_parquet(f, index=False)
+            n = df.groupby("act_symbol").size() if len(df) else pd.Series(dtype=int)
+            pd.DataFrame([{"date": d, "ticker": t, "n": int(n.get(t, 0))} for t in ts]).to_csv(
+                logf, mode="a", header=not logf.exists(), index=False)
+            if k % 20 == 0:
+                print(k, d, len(df), flush=True)
+
+
+def cmd_fetch(split):
+    ev = load_events(split)
+    cands = snap_candidates(ev)
+    for stage in (0, 1):
+        need = {}
+        logf = DATA / "fetch_log.csv"
+        have = {}
+        if logf.exists():
+            lg = pd.read_csv(logf)
+            have = {(d, t): n for d, t, n in zip(lg.date, lg.ticker, lg.n)}
+        for c in cands:
+            for key in ("en", "ex"):
+                ds = [x.strftime("%Y-%m-%d") for x in c[key]]
+                if not ds:
+                    continue
+                if stage == 0:
+                    need.setdefault(ds[0], set()).add(c["ticker"])
+                elif have.get((ds[0], c["ticker"]), 1) == 0 and len(ds) > 1:
+                    need.setdefault(ds[1], set()).add(c["ticker"])
+        if split == "dev":
+            assert all(pd.Timestamp(d) < SEALED_FROM for d in need)
+        fetch_dates(need)
+
+
+# ------------------------------------------------------------------------------------------------ scoring
+def build_trades(split):
+    ev = load_events(split)
+    cands = snap_candidates(ev)
+    lg = pd.read_csv(DATA / "fetch_log.csv")
+    have = {(d, t): n for d, t, n in zip(lg.date, lg.ticker, lg.n)}
+    cache = {}
+
+    def chain(d, t):
+        if d not in cache:
+            f = CHAINS / f"{d}.parquet"
+            c = pd.read_parquet(f) if f.exists() else pd.DataFrame(columns=["act_symbol"])
+            for col in ("strike", "bid", "ask", "vol", "delta"):
+                if col in c:
+                    c[col] = pd.to_numeric(c[col], errors="coerce")
+            cache[d] = c.drop_duplicates()
+        c = cache[d]
+        return c[c.act_symbol == t]
+
+    def bump(k):
+        drops[k] = drops.get(k, 0) + 1
+
+    rows, drops = [], {}
+    for c in cands:
+        r = ev.loc[c["i"]]
+        t = c["ticker"]
+        en = next((x for x in c["en"] if have.get((x.strftime("%Y-%m-%d"), t), 0) > 0), None)
+        ex = None if en is None else next(
+            (x for x in c["ex"] if x > en and have.get((x.strftime("%Y-%m-%d"), t), 0) > 0), None)
+        if en is None or ex is None:
+            bump("no_snapshot")
+            continue
+        assert ex <= r.t0 < r.e_session and en < ex
+        a, b = chain(en.strftime("%Y-%m-%d"), t), chain(ex.strftime("%Y-%m-%d"), t)
+        exps = sorted(x for x in set(a.expiration) & set(b.expiration) if pd.Timestamp(x) > r.e_session)
+        if not exps:
+            bump("no_common_expiry")
+            continue
+        xp = exps[0]
+        a, b = a[a.expiration == xp], b[b.expiration == xp]
+        ac = a[a.call_put == "Call"].set_index("strike")
+        ap = a[a.call_put == "Put"].set_index("strike")
+        bc = b[b.call_put == "Call"].set_index("strike")
+        bp = b[b.call_put == "Put"].set_index("strike")
+        ok_en = [k for k in ac.index.intersection(ap.index)
+                 if ac.bid[k] > 0 and ap.bid[k] > 0 and ac.ask[k] >= ac.bid[k] and ap.ask[k] >= ap.bid[k]]
+        if not ok_en:
+            bump("no_entry_quote")
+            continue
+        par = {k: abs((ac.bid[k] + ac.ask[k]) / 2 - (ap.bid[k] + ap.ask[k]) / 2) for k in ok_en}
+        k_free = min(par, key=par.get)                              # entry-ATM ignoring exit availability
+        ok = [k for k in ok_en if k in bc.index and k in bp.index]
+        if not ok:
+            bump("no_exit_strike")
+            continue
+        k = min(ok, key=par.get)
+        cm0, pm0 = (ac.bid[k] + ac.ask[k]) / 2, (ap.bid[k] + ap.ask[k]) / 2
+        F = k + cm0 - pm0
+        if abs(k - F) / F > 0.03:
+            bump("strike_far_from_forward")
+            continue
+        cost = ac.ask[k] + ap.ask[k]
+        cb1, pb1 = max(bc.bid[k], 0), max(bp.bid[k], 0)
+        cm1, pm1 = (bc.bid[k] + bc.ask[k]) / 2, (bp.bid[k] + bp.ask[k]) / 2
+        rows.append({"ticker": t, "e_session": r.e_session, "t0": r.t0, "timing": r.timing, "entry": en, "exit": ex,
+                     "expiry": xp, "strike": k, "k_free": k_free, "fwd": F, "k_dist": abs(k - F) / F,
+                     "c_bid0": ac.bid[k], "c_ask0": ac.ask[k], "p_bid0": ap.bid[k], "p_ask0": ap.ask[k],
+                     "c_bid1": bc.bid[k], "c_ask1": bc.ask[k], "p_bid1": bp.bid[k], "p_ask1": bp.ask[k],
+                     "iv0": (ac.vol[k] + ap.vol[k]) / 2, "iv1": (bc.vol[k] + bp.vol[k]) / 2,
+                     "cost": cost, "mid0": cm0 + pm0, "mid1": cm1 + pm1,
+                     "roi": (cb1 + pb1 - cost - 4 * FEE) / cost,
+                     "roi_mid": (cm1 + pm1 - cm0 - pm0) / (cm0 + pm0),
+                     "rel_spread0": (cost - ac.bid[k] - ap.bid[k]) / (cm0 + pm0),
+                     "rel_spread1": (bc.ask[k] + bp.ask[k] - bc.bid[k] - bp.bid[k]) / (cm1 + pm1),
+                     "stale_exit": bool(bc.bid[k] == ac.bid[k] and bc.ask[k] == ac.ask[k]
+                                        and bp.bid[k] == ap.bid[k] and bp.ask[k] == ap.ask[k])})
+    tr = pd.DataFrame(rows).sort_values(["e_session", "ticker"]).reset_index(drop=True)
+    # P2: entry IV below the name's trailing median over >= 4 previous events in this split
+    tr["iv_med_prior"] = np.nan
+    for t, g in tr.groupby("ticker"):
+        iv = g.iv0.values
+        tr.loc[g.index, "iv_med_prior"] = [np.median(iv[:j]) if j >= 4 else np.nan for j in range(len(iv))]
+    tr["p2"] = tr.iv0 < tr.iv_med_prior
+    tr["week"] = tr.e_session.dt.strftime("%G-%V")
+    return tr, drops
+
+
+def cluster_boot(x, g, seed=0):
+    x = np.asarray(x, float)
+    codes, _ = pd.factorize(pd.Series(list(g)))
+    s = np.bincount(codes, weights=x)
+    n = np.bincount(codes).astype(float)
+    idx = np.random.default_rng(seed).integers(0, len(s), size=(NBOOT, len(s)))
+    return s[idx].sum(1) / n[idx].sum(1)
+
+
+def summarize(tr):
+    x = tr.roi.values
+    m = cluster_boot(x, tr.week)
+    mm = cluster_boot(tr.roi_mid.values, tr.week)
+    h = len(tr) // 2
+    wk = tr.groupby("week").roi.sum()
+    r = {"n": int(len(tr)), "dates": f"{tr.e_session.min():%Y-%m-%d}..{tr.e_session.max():%Y-%m-%d}",
+         "weeks": int(tr.week.nunique()), "roi": float(x.mean()),
+         "roi_lo": float(np.percentile(m, 2.5)), "roi_hi": float(np.percentile(m, 97.5)),
+         "p": float((m <= 0).mean()), "se_cluster": float(m.std()), "sd": float(x.std(ddof=1)),
+         "median": float(np.median(x)), "win_rate": float((x > 0).mean()),
+         "half1": float(x[:h].mean()), "half2": float(x[h:].mean()),
+         "roi_mid": float(tr.roi_mid.mean()), "roi_mid_lo": float(np.percentile(mm, 2.5)),
+         "roi_mid_hi": float(np.percentile(mm, 97.5)), "rel_spread_med": float(tr.rel_spread0.median()),
+         "worst_week": float(wk.min()), "worst_week_at": str(wk.idxmin()), "worst_event": float(x.min()),
+         "median_cost_usd": float(tr.cost.median() * 100), "max_events_per_week": int(tr.week.value_counts().max())}
+    r["passed"] = bool(r["p"] < BAR and r["half1"] > 0 and r["half2"] > 0)
+    r["too_good"] = bool(r["roi"] > 0.10 and r["n"] > 200)
+    return r
+
+
+def cmd_score(split):
+    tr, drops = build_trades(split)
+    RES.mkdir(parents=True, exist_ok=True)
+    tr.to_csv(RES / f"trades_{split}.csv", index=False)
+    print("drops", drops, "trades", len(tr), "stale exits", int(tr.stale_exit.sum()),
+          "strike != unconstrained ATM", int((tr.strike != tr.k_free).sum()), "P2 n", int(tr.p2.sum()))
+    print("k_dist pct 50/90/max", np.round(np.percentile(tr.k_dist, [50, 90, 100]), 4),
+          "hold days median", (tr.exit - tr.entry).dt.days.median(),
+          "DTE at entry median", (pd.to_datetime(tr.expiry) - tr.entry).dt.days.median())
+    yr = tr.e_session.dt.year
+    print("median rel spread entry/exit by year:", tr.groupby(yr).rel_spread0.median().round(3).to_dict(),
+          tr.groupby(yr).rel_spread1.median().round(3).to_dict())
+    print("by year ROI natural:", tr.groupby(yr).roi.mean().round(4).to_dict())
+    print("by year ROI mid:    ", tr.groupby(yr).roi_mid.mean().round(4).to_dict())
+    print("timing ROI nat/mid:", tr.groupby("timing")[["roi", "roi_mid"]].mean().round(4).to_dict())
+    res = {}
+    for k, sub in (("P1", tr), ("P2", tr[tr.p2])):
+        r = summarize(sub)
+        res[k] = r
+        print(k, split, {a: (round(b, 4) if isinstance(b, float) else b) for a, b in r.items()})
+    (RES / f"results_{split}.json").write_text(json.dumps({"drops": drops, **res}, indent=1, default=str))
+    if "--ledger" in sys.argv:
+        with LEDGER.open("a") as f:
+            for j, (k, r) in enumerate(res.items(), 1):
+                f.write(json.dumps({"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                                    "strategy": f"l11_earnings_straddle_{k}",
+                                    "sha": hashlib.sha256(f"l11:{k}".encode()).hexdigest()[:12],
+                                    "dataset": "l11_dolthub_single_name_options", "split": split,
+                                    "hypothesis": "pre-registered in notes/l11_earnings_straddle.md (commit 3e081d1)",
+                                    "source": "DoltHub post-no-preference/options + yfinance/EDGAR 8-K 2.02 dates",
+                                    "status": "ok", "trial_number": j, "study_trials": K_TRIALS,
+                                    "bonferroni_bar": BAR, "price": "natural bid/ask, $0.03/contract/leg/side",
+                                    **r}, default=str) + "\n")
+        print("appended to ledger")
+
+
 if __name__ == "__main__":
     globals()["cmd_" + sys.argv[1]](*sys.argv[2:3])
