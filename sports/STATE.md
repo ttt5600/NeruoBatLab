@@ -23,6 +23,7 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   preflight 0 FAIL/0 WARN -> tonight's E1/E2 picks rest as post-only NO bids (sealed M3 rule). Q003 sealed scorer
   pre-registered + committed 08e539b (IN1_d6 one shot, seed 3004, 1,500 tickers/556 events, PASS = ROI>0 & p<.05).
   **Q003 SEALED FAIL 10-29 (lockbox q003_IN1_d6_sealed): IN1_d6 920/1,500 fills, ROI +1.56% [-1.86,+4.84] p .18 (bar .05); halves +3.30%/-0.01%; adverse selection 2.70c (YES filled .192 vs unfilled .131); MID_d6 +1.29% p .21. DEAD -- dev +7.08% decayed out; do not redo.**
+- Q015 approval averages DEV FAIL 10-29 (notes/q015_approval_avg.md): T1 24h -17.4% [-28.6,-6.1]; T2 72h +6.2% [-5.1,+18.6] p .15; T3 daily -1.9%; T4 2h -50.3%; market Brier beats model (vol model too wide). Post-hoc lead: bracket holding last published value hit 58.3% vs mid 47.8% (n151) -> needs fresh prereg + forward. q015_logger.py built (not installed).
 - Tonight 10-29 scan: no manual bet clears the bar (NBA 3 games within ~2-3c of Pinnacle; only flag ATL -3.5 YES .43 +2.3c
   normal-approx = tier C; NHL CLV~0 paper; NFL rain 0 signals; gap logger EFL WBA "+252%" = stale-quote bug).
 - L40b DEPLOYED (com.jonathanwang.quant-lip-paper-b, 300 tickers seed 4040, window 10-30..11-09, 9 tests pass). Check first tick
