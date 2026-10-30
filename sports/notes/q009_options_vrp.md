@@ -98,4 +98,51 @@ Coverage starts 2020-01-06 (2019-09..12 empty or too slow to probe: empty dates 
 
 ## 3. Results (Step 3)
 
-(filled in after the prereg commit)
+Prereg commit 2421dcf; amendment A1 + scorer ae1e7f1 (both before any P&L). `scripts/q009_options_vrp.py dev`;
+trades `results/q009_options_vrp/trades_dev.csv`, numbers `results/q009_options_vrp/results_dev.json`, ledger rows
+q009_spy_put_spread_T1 / q009_spy_iron_condor_T2 (split dev). Split: 355 weeks with data; dev = 249 weeks
+2020-01-06..2024-10-14; sealed = from week 2024-10-21 (106 weeks), **not opened** (both trials failed dev).
+
+| Trial | n | ROI on max loss (observed) | 2.5 / 97.5 (block boot) | p (bar .025) | dev halves | win | full loss | sd | SE block / iid | Sharpe ann. | Verdict |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| T1 put spread | 240 | **+2.31%** | [-2.73%, +8.20%] | 0.127 | -1.32% / +5.94% | 92.5% | 6.2% | 0.277 | 0.0284 / 0.0179 | 0.60 | **FAIL -- not distinguishable from 0** |
+| T2 iron condor | 240 | **-2.00%** | [-11.38%, +7.94%] | 0.593 | +0.30% / -4.29% | 74.2% | 10.4% | 0.462 | 0.0486 / 0.0298 | -0.31 | **FAIL -- not distinguishable from 0** |
+
+T1 rows: mean DTE 52 (the 3-expiry grid rarely offers 45), short delta -0.158, width $9.3 (~2%), natural credit
+$0.84, max loss $8.45. By entry year: 2020 -4.3%, 2021 +7.7%, 2022 -7.0%, 2023 +6.8%, 2024 +8.4%.
+
+**Risk at fund sizing** (equity path realised at expiry; ruin = P(ever -50%) in 52 entries, 10k block-bootstrap paths):
+
+| Trial | f (max loss / position) | dev end equity | max drawdown | worst month (% bankroll) | P(halve, 52 wk) | median 52-wk growth |
+|---|---|---|---|---|---|---|
+| T1 | 2% | 1.100 | 12.8% | -8.0% (2020-03) | 0.000 | +4.6% |
+| T1 | 5% | 1.185 | 30.3% | -20.0% (2020-03) | 0.0004 | +11.7% |
+| T2 | 2% | 0.875 | 25.5% | -9.3% (2023-12) | 0.000 | -0.7% |
+| T2 | 5% | 0.602 | 57.0% | -23.1% (2023-12) | 0.025 | -2.7% |
+
+**Costs are not the problem.** Natural-vs-mid friction on SPY is small: T1 half-spreads total $0.028 per spread
+(3.4% of the credit); T1 ROI at mid would be +2.67% vs +2.31% at the natural (descriptive only, not a trial). The
+problem is variance: one full loss (-100%) erases ~10 winners (+9.7% median), so 6 years of weekly entries give SE
+2.8% per trade. Power: 80% detection at one-sided .025 needs ~+8%/trade; the observed +2.3% would need ~12x the
+trades (~60 years of weekly entries) to certify. Doubling a bankroll in 12 months at +2.3%/trade x 52 trades needs
+f ~ 60% of bankroll per position -- incompatible with the drawdowns above. **Verdict: DEAD for the fund mandate**
+(not shown absent: the VRP may exist at ~+2%/trade, but it is neither certifiable nor large enough to matter).
+
+Audit (section 4) found nothing that inflates the result; too-good guard not triggered (Sharpe 0.60 / -0.31).
+
+## 4. Row-level audit (dev rows only, `q009_options_vrp.py audit`)
+
+- 33,052 rows, 249 entry snapshots; 3 expirations on every snapshot; median 23 strikes per (date, expiry, type).
+- Crossed quotes (ask < bid) 0; bid = 0 on 1,387 rows (excluded by the filter); bid = ask on 179 rows (far-OTM
+  0.01/0.01 type; allowed); NaN 0; expiry <= date 0; duplicate keys 0; delta sign errors 0; calls = puts = 16,526.
+- Relative spread (bid > 0): 10/50/90% = 0.4% / 1.4% / 15.4% of mid.
+- **Snapshot timing:** put-call parity spot on the nearest expiry vs Yahoo: median |error| 0.13% vs the same-day
+  close (40% within 0.1%), 0.45% vs the open, 0.58% vs the previous close, 0.33% vs next open -> the quotes are an
+  end-of-day snapshot near the 16:00 close (residual consistent with ignoring carry). Whether exactly 16:00 or a
+  15:45-15:59 snapshot cannot be told from EOD data; quotes at the close are tradeable only if you are filling right
+  then, so a live paper logger should quote ~15:45-15:55.
+- **Stale holiday rows:** 32 entry snapshots fell on NYSE holidays (full rows present) -> replaced per A1.
+- 1 week (2024-08-05) had no snapshot at all; 9 dev weeks had no valid T1 structure (no expiry in [21,70] or
+  width outside [1%,4%]).
+- Settlement uses Yahoo unadjusted close; SPY options are American and settle into shares -- early assignment and
+  pin risk ignored (losses bounded by the width either way). Survivorship n/a (one underlying).
