@@ -313,3 +313,5 @@ confirm home state (CA vs CO) for venue legality.
 - **Q011 NBA injury-report lag on Kalshi DEV FAIL 0/4 (notes/q011_nba_injury_lag.md): T1 game mkt 884 bets net CLV -1.61c [-1.76,-1.46]; real post-report drift +0.34c < half-spread .55c + fee ~1.75c; ~half the move happens BEFORE the PDF (reporters). Kills the taker 'sim repricer' speed edge. Untested lead: maker entry after report (adverse-selection risk, L19).**
 
 - **Q012 Kalshi hourly crypto vs spot+vol model DEAD 10-30 (notes/q012_crypto_hourly.md): 4 trials underpowered, all CIs cross 0 (best T1 +3.7% [-2.0,+8.4] n113); Kalshi mid Brier beats model; mid overprices tails 1-2c but spread+fee eat it (far-fav at ask -0.82% [-1.64,-0.09], post hoc). L19 lesson at hourly horizon. No sealed ask.**
+
+- **Q016 commodities (AAA gas vs RBOB, WTI/gold/natgas/Brent vs futures) DEAD 10-30 (notes/q016_commodities.md): 0/4, max 27 bets; far rungs have no YES bid -> favourite costs $1 (N2/N6 structure again); where two-sided, priced within ~1c of futures model; gas model Brier not better than Kalshi mid.**

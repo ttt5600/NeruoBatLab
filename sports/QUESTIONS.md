@@ -173,4 +173,4 @@ Q012 [DEAD 10-30] Kalshi hourly crypto above/below (KXBTCD/KXETHD) vs Deribit-im
 Q013 Rotten Tomatoes / Metacritic threshold markets vs the running score (forward logger first: too few settled events).
 Q014 Truth Social post-count markets vs the running count (forward logger first).
 Q015 [DEV FAIL 10-29] RCP / VoteHub approval-average markets vs the recomputed average from listed polls.
-Q016 AAA weekly/monthly gas vs RBOB pass-through (first check far-level quotes exist; daily N6 placed 0 bets).
+Q016 [DEAD 10-30] AAA weekly/monthly gas vs RBOB pass-through (first check far-level quotes exist; daily N6 placed 0 bets).
