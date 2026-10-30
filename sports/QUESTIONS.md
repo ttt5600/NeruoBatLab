@@ -169,7 +169,7 @@ lineup release time)? Test vs opener and vs close, by sport (MLB lineups ~3-4 h 
 SITUATIONAL_FACTORS.md rows on availability.
 
 ## Q012-Q016 [proposed, from Q010 census 10-29] -- stubs (question/mechanism/baseline/power) in notes/contract_census_2026-10-29.md
-Q012 Kalshi hourly crypto above/below (KXBTCD/KXETHD) vs Deribit-implied probability (largest non-sports capacity; HFT-heavy; L19 fav-maker dead there).
+Q012 [DEAD 10-30] Kalshi hourly crypto above/below (KXBTCD/KXETHD) vs Deribit-implied probability (largest non-sports capacity; HFT-heavy; L19 fav-maker dead there).
 Q013 Rotten Tomatoes / Metacritic threshold markets vs the running score (forward logger first: too few settled events).
 Q014 Truth Social post-count markets vs the running count (forward logger first).
 Q015 [DEV FAIL 10-29] RCP / VoteHub approval-average markets vs the recomputed average from listed polls.

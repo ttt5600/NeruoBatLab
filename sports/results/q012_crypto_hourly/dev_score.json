@@ -1,0 +1,348 @@
+{
+ "trials": {
+  "T1_FADE_T15": {
+   "ts": "2026-10-30T04:05:53+00:00",
+   "strategy": "q012_T1_FADE_T15",
+   "sha": "a67fd1d2d262",
+   "dataset": "q012_crypto_hourly",
+   "hypothesis": "pre-registered in notes/q012_crypto_hourly.md; Kalshi KXBTCD/KXETHD ask vs Coinbase spot + realised-vol empirical-CDF fair value, taker at ask + 0.07p(1-p)",
+   "source": "QUESTIONS Q012",
+   "status": "ok",
+   "split": "DEV ET date 2025-01-01..2026-04-10 (seeded draw)",
+   "trial_number": 1,
+   "study_trials": 4,
+   "bonferroni_bar": 0.0125,
+   "bets": 113,
+   "events": 91,
+   "units": 3.7678750000000014,
+   "staked": 101.232125,
+   "roi": 0.03722015121188063,
+   "ci_lo": -0.019825423048298887,
+   "ci_hi": 0.0841730103855003,
+   "p": 0.0902,
+   "boot_mean": 0.03712775636884177,
+   "half1": 0.018912096901875054,
+   "half2": 0.050839765678581,
+   "half1_n": 48,
+   "half2_n": 65,
+   "win_rate": 0.9292035398230089,
+   "mean_p_model": 0.9526329213373234,
+   "mean_cost": 0.8958595132743362,
+   "by_asset": {
+    "BTC": {
+     "n": 100,
+     "roi": 0.044441694081316714
+    },
+    "ETH": {
+     "n": 13,
+     "roi": -0.02064550501215819
+    }
+   },
+   "sens": {
+    "fee_1c_rounded": {
+     "bets": 91,
+     "roi": 0.02469135802469135,
+     "ci_lo": -0.04463120608427599,
+     "ci_hi": 0.08373144923934811,
+     "p": 0.2226
+    },
+    "gauss_model": {
+     "bets": 69,
+     "roi": 0.010326404099146824,
+     "ci_lo": -0.07580504449318394,
+     "ci_hi": 0.07488830333980348,
+     "p": 0.3634
+    }
+   },
+   "passed": false,
+   "verdict": "UNDERPOWERED"
+  },
+  "T2_FADE_T30": {
+   "ts": "2026-10-30T04:05:53+00:00",
+   "strategy": "q012_T2_FADE_T30",
+   "sha": "a67fd1d2d262",
+   "dataset": "q012_crypto_hourly",
+   "hypothesis": "pre-registered in notes/q012_crypto_hourly.md; Kalshi KXBTCD/KXETHD ask vs Coinbase spot + realised-vol empirical-CDF fair value, taker at ask + 0.07p(1-p)",
+   "source": "QUESTIONS Q012",
+   "status": "ok",
+   "split": "DEV ET date 2025-01-01..2026-04-10 (seeded draw)",
+   "trial_number": 2,
+   "study_trials": 4,
+   "bonferroni_bar": 0.0125,
+   "bets": 222,
+   "events": 145,
+   "units": 3.4760340000000043,
+   "staked": 199.523966,
+   "roi": 0.017421636456444557,
+   "ci_lo": -0.028641638669581998,
+   "ci_hi": 0.059130972197619015,
+   "p": 0.2156,
+   "boot_mean": 0.017470027412641104,
+   "half1": 0.030922667153124736,
+   "half2": 0.00882866978221941,
+   "half1_n": 86,
+   "half2_n": 136,
+   "win_rate": 0.9144144144144144,
+   "mean_p_model": 0.9557611559232305,
+   "mean_cost": 0.8987566036036037,
+   "by_asset": {
+    "BTC": {
+     "n": 208,
+     "roi": 0.021918389180112168
+    },
+    "ETH": {
+     "n": 14,
+     "roi": -0.04917259395303876
+    }
+   },
+   "sens": {
+    "fee_1c_rounded": {
+     "bets": 185,
+     "roi": 0.015719467956469158,
+     "ci_lo": -0.032662798610900504,
+     "ci_hi": 0.05967367469478642,
+     "p": 0.254
+    },
+    "gauss_model": {
+     "bets": 143,
+     "roi": 0.003519731421628264,
+     "ci_lo": -0.05833159864863646,
+     "ci_hi": 0.05254112333823894,
+     "p": 0.4136
+    }
+   },
+   "passed": false,
+   "verdict": "UNDERPOWERED"
+  },
+  "T3_FADE_T10": {
+   "ts": "2026-10-30T04:05:53+00:00",
+   "strategy": "q012_T3_FADE_T10",
+   "sha": "a67fd1d2d262",
+   "dataset": "q012_crypto_hourly",
+   "hypothesis": "pre-registered in notes/q012_crypto_hourly.md; Kalshi KXBTCD/KXETHD ask vs Coinbase spot + realised-vol empirical-CDF fair value, taker at ask + 0.07p(1-p)",
+   "source": "QUESTIONS Q012",
+   "status": "ok",
+   "split": "DEV ET date 2025-01-01..2026-04-10 (seeded draw)",
+   "trial_number": 3,
+   "study_trials": 4,
+   "bonferroni_bar": 0.0125,
+   "bets": 83,
+   "events": 71,
+   "units": -0.8237709999999991,
+   "staked": 74.823771,
+   "roi": -0.011009482534634605,
+   "ci_lo": -0.09172128800568642,
+   "ci_hi": 0.055177416430024405,
+   "p": 0.6048,
+   "boot_mean": -0.011705180309233973,
+   "half1": -0.049060372096138664,
+   "half2": 0.020089843684346916,
+   "half1_n": 37,
+   "half2_n": 46,
+   "win_rate": 0.891566265060241,
+   "mean_p_model": 0.956600359772423,
+   "mean_cost": 0.9014912168674698,
+   "by_asset": {
+    "BTC": {
+     "n": 68,
+     "roi": -0.019665125449532545
+    },
+    "ETH": {
+     "n": 15,
+     "roi": 0.027885430421517473
+    }
+   },
+   "sens": {
+    "fee_1c_rounded": {
+     "bets": 67,
+     "roi": -0.015682349015682363,
+     "ci_lo": -0.10746514382596573,
+     "ci_hi": 0.06229022101330994,
+     "p": 0.6324
+    },
+    "gauss_model": {
+     "bets": 48,
+     "roi": -0.028108086043534916,
+     "ci_lo": -0.12851383419339496,
+     "ci_hi": 0.05370979169727687,
+     "p": 0.7336
+    }
+   },
+   "passed": false,
+   "verdict": "UNDERPOWERED"
+  },
+  "T4_ANY_T15": {
+   "ts": "2026-10-30T04:05:53+00:00",
+   "strategy": "q012_T4_ANY_T15",
+   "sha": "a67fd1d2d262",
+   "dataset": "q012_crypto_hourly",
+   "hypothesis": "pre-registered in notes/q012_crypto_hourly.md; Kalshi KXBTCD/KXETHD ask vs Coinbase spot + realised-vol empirical-CDF fair value, taker at ask + 0.07p(1-p)",
+   "source": "QUESTIONS Q012",
+   "status": "ok",
+   "split": "DEV ET date 2025-01-01..2026-04-10 (seeded draw)",
+   "trial_number": 4,
+   "study_trials": 4,
+   "bonferroni_bar": 0.0125,
+   "bets": 255,
+   "events": 185,
+   "units": -2.796106,
+   "staked": 158.796106,
+   "roi": -0.017608152179751813,
+   "ci_lo": -0.08939039062422224,
+   "ci_hi": 0.05097012252804044,
+   "p": 0.6908,
+   "boot_mean": -0.018370183140851818,
+   "half1": 0.01109778367621793,
+   "half2": -0.04541361657721326,
+   "half1_n": 113,
+   "half2_n": 142,
+   "win_rate": 0.611764705882353,
+   "mean_p_model": 0.697184159849483,
+   "mean_cost": 0.6227298274509804,
+   "by_asset": {
+    "BTC": {
+     "n": 226,
+     "roi": -0.0013462560733198215
+    },
+    "ETH": {
+     "n": 29,
+     "roi": -0.1480190761936764
+    }
+   },
+   "sens": {
+    "fee_1c_rounded": {
+     "bets": 210,
+     "roi": -0.027490619496132955,
+     "ci_lo": -0.10600748351481748,
+     "ci_hi": 0.05085639596099956,
+     "p": 0.7438
+    },
+    "gauss_model": {
+     "bets": 391,
+     "roi": -0.08916834061452164,
+     "ci_lo": -0.21954584258081156,
+     "ci_hi": 0.04428705316419466,
+     "p": 0.9052
+    }
+   },
+   "passed": false,
+   "verdict": "UNDERPOWERED"
+  }
+ },
+ "calibration_T15": [
+  {
+   "bucket": "[0.0, 0.02)",
+   "n": 2227,
+   "events": 1128,
+   "mean_mid": 0.008931297709923664,
+   "yes_rate": 0.001796138302649304,
+   "mean_p_emp": 0.00538219094933508,
+   "mean_p_gauss": 0.0029254021627907667
+  },
+  {
+   "bucket": "[0.02, 0.05)",
+   "n": 1849,
+   "events": 1190,
+   "mean_mid": 0.029010275824770147,
+   "yes_rate": 0.01352082206598161,
+   "mean_p_emp": 0.014793245745679088,
+   "mean_p_gauss": 0.015934013809421728
+  },
+  {
+   "bucket": "[0.05, 0.1)",
+   "n": 791,
+   "events": 700,
+   "mean_mid": 0.06623261694058154,
+   "yes_rate": 0.04424778761061947,
+   "mean_p_emp": 0.04504503285083528,
+   "mean_p_gauss": 0.06187667990647466
+  },
+  {
+   "bucket": "[0.1, 0.2)",
+   "n": 632,
+   "events": 627,
+   "mean_mid": 0.14261867088607597,
+   "yes_rate": 0.12658227848101267,
+   "mean_p_emp": 0.1146591933868653,
+   "mean_p_gauss": 0.15665658825557402
+  },
+  {
+   "bucket": "[0.2, 0.35)",
+   "n": 568,
+   "events": 565,
+   "mean_mid": 0.269806338028169,
+   "yes_rate": 0.2623239436619718,
+   "mean_p_emp": 0.24483140814910878,
+   "mean_p_gauss": 0.28870204752937995
+  },
+  {
+   "bucket": "[0.35, 0.5)",
+   "n": 458,
+   "events": 458,
+   "mean_mid": 0.4263427947598253,
+   "yes_rate": 0.4432314410480349,
+   "mean_p_emp": 0.4155899164268108,
+   "mean_p_gauss": 0.4329620450628221
+  },
+  {
+   "bucket": "[0.5, 0.65)",
+   "n": 405,
+   "events": 404,
+   "mean_mid": 0.5742098765432099,
+   "yes_rate": 0.5925925925925926,
+   "mean_p_emp": 0.583306004076882,
+   "mean_p_gauss": 0.5658398214472956
+  },
+  {
+   "bucket": "[0.65, 0.8)",
+   "n": 513,
+   "events": 512,
+   "mean_mid": 0.7252534113060429,
+   "yes_rate": 0.7173489278752436,
+   "mean_p_emp": 0.7484357455618585,
+   "mean_p_gauss": 0.7045759773949968
+  },
+  {
+   "bucket": "[0.8, 0.9)",
+   "n": 576,
+   "events": 572,
+   "mean_mid": 0.854140625,
+   "yes_rate": 0.859375,
+   "mean_p_emp": 0.8717464118293883,
+   "mean_p_gauss": 0.8300307140150993
+  },
+  {
+   "bucket": "[0.9, 0.95)",
+   "n": 600,
+   "events": 589,
+   "mean_mid": 0.9263916666666667,
+   "yes_rate": 0.94,
+   "mean_p_emp": 0.9337048826128055,
+   "mean_p_gauss": 0.9099265308939666
+  },
+  {
+   "bucket": "[0.95, 0.98)",
+   "n": 1546,
+   "events": 1142,
+   "mean_mid": 0.9654301423027167,
+   "yes_rate": 0.9793014230271668,
+   "mean_p_emp": 0.9807256930190743,
+   "mean_p_gauss": 0.9792800170718353
+  },
+  {
+   "bucket": "[0.98, 1.0)",
+   "n": 2651,
+   "events": 1312,
+   "mean_mid": 0.9888947566955866,
+   "yes_rate": 0.99622783855149,
+   "mean_p_emp": 0.993345471896655,
+   "mean_p_gauss": 0.9961295771217175
+  }
+ ],
+ "brier_T15": {
+  "mid": 0.05445208138264669,
+  "p_emp": 0.05495848309077757,
+  "p_gauss": 0.05524077324935648,
+  "n": 12816
+ }
+}
