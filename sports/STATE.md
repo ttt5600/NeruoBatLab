@@ -4,6 +4,14 @@
 ## HANDOFF #6 2026-10-30 -- START HERE: notes/HANDOFF_2026-10-30.md (authority, live systems + IBKR gotcha, forward tests,
 ## verdicts, tools, 2 agents running at handoff, pending user asks). Personal finance only in notes/private_account.md (gitignored).
 
+## 2026-10-30 ~02:00 PT LOOP SESSION -- 3 tests scored, all DEAD, no agents running (details EDGES_AND_AGENTS.md tail)
+- L36 CFB totals vs opener SEALED FAIL: ROI at real open +0.7%/399 [-10.7,+11.5]; CLV +1.53 pts holds (vig eats it).
+- NBA injury->teammate props + hot streaks DEV 0/8: open already holds .39-.53 of sim delta; hot streaks slightly over-priced.
+- X2b daily lows (18:00-window fix): cause verified (23/35 losses), fix -> still -8.57%/116; sealed lows never loaded.
+- BUGS logged, not fixed: sports/espn.py CFB scoreboard limit=1000 -> only ~25 featured games/day (use 300);
+  Open-Meteo request-day UTC offset shifts wx_expand winter windows 1 h (wx.py same; no leak for highs).
+- Next candidates (not started): CFB DK-opener timestamped paper logger (maker at first number); L1 public models vs opener.
+
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
 Last updated: 2026-10-22 ~09:15Z (HANDOFF #3 -- read it first). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree
