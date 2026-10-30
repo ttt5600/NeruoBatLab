@@ -4,6 +4,16 @@
 ## HANDOFF #6 2026-10-30 -- START HERE: notes/HANDOFF_2026-10-30.md (authority, live systems + IBKR gotcha, forward tests,
 ## verdicts, tools, 2 agents running at handoff, pending user asks). Personal finance only in notes/private_account.md (gitignored).
 
+## 2026-10-30 14:35 PT -- 5 tests today, ALL DEAD; loop stopped, no agents running
+- Q009 SPY short-vol (put spread/condor, real bid/ask, DoltHub free chains): T1 +2.31%/240 p .127 -> variance, not cost.
+- L11 earnings straddles: -3.95%/311 at bid/ask (mid +1.19% n.d.); weekly-expiry version untestable in this data.
+- NBA early-form F1: 10-30 ticks via nohup ~/.claude/jobs/588c8b26/tmp/ef_ticks.sh + caffeinate until 18:15 PT;
+  report at the end of data/nba_early_form_ticks_2026-10-30.log. Future game nights still need a manual tick (or a
+  launchd agent from a non-Desktop copy -- TCC).
+- New data source: DoltHub post-no-preference/options (free EOD chains w/ bid/ask, M/W/F, 2020+, slow API).
+- Bug to verify: data/company_graph/earn_events.parquet EDGAR times ~+4h.
+- Leads left (all weak): weekly ATM straddle forward logger; CFB DK-opener timestamped logger; L1 public models vs opener.
+
 ## 2026-10-30 ~02:00 PT LOOP SESSION -- 3 tests scored, all DEAD, no agents running (details EDGES_AND_AGENTS.md tail)
 - L36 CFB totals vs opener SEALED FAIL: ROI at real open +0.7%/399 [-10.7,+11.5]; CLV +1.53 pts holds (vig eats it).
 - NBA injury->teammate props + hot streaks DEV 0/8: open already holds .39-.53 of sim delta; hot streaks slightly over-priced.
