@@ -1047,3 +1047,6 @@ experiments:
     control?").
   tags: run37_shuffle, run37_randproj, run37_randproj_s2
   priority: 1
+  jobs_2026_10_29: 'labels built on savio-dtn 23:31-23:42 (~/jobs/build_e37_labels.log: shuffle 2.21% frames unchanged,
+    200/200 used; randproj 200/200 codes, perplexity 144.6). run37_shuffle 40632813, run37_randproj 40632814,
+    run37_randproj_s2 40632815 (train_run37_labels.sh), logs ~/jobs/.'

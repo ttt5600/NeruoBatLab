@@ -1,5 +1,5 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-29 (lead session_01EGDWEvYFd6zSmWQfUugJnH; E36 vanilla baseline submitted)
+Updated: 2026-10-29 (lead session_01EGDWEvYFd6zSmWQfUugJnH; E36 + E37 submitted; doc: direct comparisons + roadmap)
 Next: check job 40578099's log for "[teacher] eval mode, 24 layers" and "PASS: labels written" (else scancel
 40578100 40578101); when trainings finish, export with ~/export_weights.py and score with harness/score_run.sh,
 then judge E13/E30 by their frozen prereg_2026_10_27 criteria (seed_mean_pairs_cpu.py).
@@ -13,6 +13,8 @@ Call type is CPU ONLY (076). Model table: `python zfeval/experiments/our_models_
 - E30: run30 40578102 + run30s2 40578103 (log-mel front end). Slurm est. start Nov 10-11 (2026-10-29 check).
 - E36 vanilla HuBERT on ZF: relabel 40631383 (MFCC k=100) -> run31 40631384/85 (stock lr 5e-4) + 40631386/87 (lr 1e-4).
   When done: fill the pending block in Claude Doc ba903e67 (section 'Against vanilla HuBERT') with all-models forest plot.
+- E37 random labels: shuffle 40632813, randproj 40632814/40632815. Pass rule in experiments.yaml (shuffle < 0.7186).
+- Queue est. (2026-10-29 23:50): E13 relabel Nov 10, E30 Nov 11, E36 relabel Nov 12; paid queue would spend allocation.
 
 ## Latest results (2026-10-27)
 - 085: build_teacher never called .eval() -> every model-teacher label set (run12/13/18/19/22, DAPT E17-E28, E14, E27)
