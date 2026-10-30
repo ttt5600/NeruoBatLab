@@ -204,7 +204,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | G1 | Kalshi sports favourite >= 85% 1 h pre-start | FLB | dev +2.0%/383 p .062 (bar .0083) [L:kalshi_sports] | never-scored sealed candidate, not recommended [EA] | scripts/kalshi_longshot.py |
 | G4 | Kalshi sports dog 20-50c (post hoc) | FLB | dev +1.4%/4,429 p .21 [L:kalshi_sports] | same | same |
 | MKdog | Kalshi maker on dogs 20-50c | spread capture | dev +9.8%/898 fills p .009 (bar .0063); gate LEAD q .066 [FS]; ladder test says spread capture doesn't survive [R] | never-scored sealed candidate | scripts/kalshi_maker.py |
-| WCN | NFL west_coast_night | body clock | dev +21.5%/107 p .007; gate LEAD q .053 [FS]; circadian mirror lost -10.6% [S] | NFL lockbox pending, not recommended | lab/strategies |
+| WCN (**SEALED FAIL 10-29: +12.2%/99 p .105 -> DEAD**) | NFL west_coast_night | body clock | dev +21.5%/107 p .007; gate LEAD q .053 [FS]; circadian mirror lost -10.6% [S] | NFL lockbox pending, not recommended | lab/strategies |
 | DUL | NFL div_unders_late (wk >= 10, post hoc) | familiarity | dev +9.8%/623 p .0098; gate LEAD q .070 [FS] | NFL lockbox pending | lab/strategies |
 | QBC | NFL QB-change weeks | stale opener on QB news | spread CLV +1.15 pts/210 [L:nfl_simple_model T14] | tier 3 [PL] | nfl_simple_model.py |
 | RYU | NFL rush-yard unders in low-total games / big-dog RB rush unders | game script | C7 +7.7pp p .039 n 155; C3 ROI +12% p .078 n 99 (2024 only) [L:nfl_props_script] | tier 3; L4 as a whole dead [PL] | scripts/nfl_props_script.py |

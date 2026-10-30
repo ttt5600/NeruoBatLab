@@ -206,3 +206,15 @@ altitude, refs, coaches, recency, luck, home/away and big-favourite angles all l
 
 Deprioritised (low prior, from research_prop_models.md): blind b2b/bye fades (decayed), post-COVID home-court angles,
 NBA totals bands, surface, humidity, revenge, contract year.
+
+
+## 10-29 results (notes/nba_clock_calendar_arena.md; lockbox WCN) -- supersede the rows above where they differ
+| Factor | League | Tested | Result | Source | Status |
+|---|---|---|---|---|---|
+| West-coast team at night vs East (WCN) | NFL | SEALED | lockbox 2020-25 +12.2%/99, units CI [-6.9,+30.4], p .105 (bar .05); 2025 carries +8.9u; dev +21.5% decayed | lockbox west_coast_night | **DEAD** |
+| Body-clock late tip (East visitor at West 7 PM PT) | NBA | YES | opp ATS -1.75%/237 p .62 | ledger ncca_B1 | DEAD (priced) |
+| Early tip (<= 15:30 local) -> under | NBA | YES | -0.78%/316 p .56 | ncca_B2 | DEAD |
+| Friday / weekend matinee home ATS + under | NBA | YES | -6.76%/2,330 p 1.00 | ncca_B3 | DEAD |
+| Nightlife (prev night LA/NY/MIA/LV) home ATS | NBA | YES | -9.30%/291 p .95; control -5.1% | ncca_B4 | DEAD |
+| Arena sightlines (visitor shooting) | NBA | YES | split-half 3P% r .10 [-.37,.46], FG% .29 [-.03,.53] | ncca_B5 | DEAD (not stable) |
+| Altitude visitor props unders (DEN/UTA) | NBA | YES | -1.90%/2,996 p .85; = base over-shading | ncca_B6 | DEAD |

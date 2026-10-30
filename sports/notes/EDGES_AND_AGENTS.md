@@ -303,3 +303,5 @@ confirm home state (CA vs CO) for venue legality.
 - **Q015 approval averages DEV FAIL 10-29 (notes/q015_approval_avg.md): T1 24h -17.4% [-28.6,-6.1]; T2 72h +6.2% [-5.1,+18.6] p .15; T3 daily -1.9%; T4 2h -50.3%; market Brier beats model (vol model too wide). Post-hoc lead: bracket holding last published value hit 58.3% vs mid 47.8% (n151) -> needs fresh prereg + forward. q015_logger.py built (not installed).**
 
 - **Player x opponent/venue/revenge props DEAD 10-29 (notes/nba_player_opp_venue.md, dev 22-23..24-25 at OPEN): 0/5 pass; T1 pts opp decile 9,279 bets -5.3% [-7.2,-3.3]; T3 pooled -5.2%; T5 revenge overs 1,491 -6.7% [-11.2,-2.1]; T4 logit coef .020 [.001,.039] p .018 (bar .01). Reliability player-vs-opp r .017 [-.005,.039], venue r .024 -> ~0.36 pt persistent. Jokic vs NOP +3.25 pts over 22 games = within multiple-comparison noise.**
+
+- **WCN NFL body-clock SEALED FAIL 10-29 (+12.2%/99, CI ~[-7,+31], p .105); NBA clock/calendar/arena 0/6 (notes/nba_clock_calendar_arena.md).**
