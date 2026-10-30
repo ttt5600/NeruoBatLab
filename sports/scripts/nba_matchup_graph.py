@@ -22,6 +22,8 @@ import scipy.sparse as sp
 from scipy.sparse.linalg import spsolve
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys  # noqa: E402
+sys.path.insert(0, str(ROOT / "scripts"))
 DATA = ROOT / "data" / "nba_matchups"
 OUT = ROOT / "results" / "nba_matchup_graph"
 LEDGER = ROOT / "lab" / "ledger.jsonl"
@@ -273,9 +275,142 @@ def example(away: str, home: str) -> None:
                   f"over ~{pp:.0f} poss; m_ij-weighted {ml * pp / 100:+.2f} pts (a_i {amap.get(oid, 0):+.1f})")
 
 
+# ------------------------------------------------------------------------------- Step 2 (prior-season state)
+SEASON_OF = {2023: ("2022-23", "2021-22"), 2024: ("2023-24", "2022-23"), 2025: ("2024-25", "2023-24")}
+G_BAR = 0.05 / 3
+
+
+def norm(n: str) -> str:
+    import re
+    import unicodedata
+    import nba_injury_teammate_props as itp
+    t = unicodedata.normalize("NFKD", str(n)).encode("ascii", "ignore").decode().lower()
+    t = re.sub(r"[^a-z ]", "", t)
+    t = "".join(w for w in t.split() if w not in {"jr", "sr", "ii", "iii", "iv"})
+    al = {re.sub(r"(jr|iii)$", "", k): re.sub(r"(jr|iii)$", "", v) for k, v in itp.NAME_ALIAS.items()}
+    return al.get(t, t)
+
+
+def names_of(t: pd.DataFrame) -> pd.DataFrame:
+    return pd.concat([t[["off_id", "off_name"]].rename(columns={"off_id": "id", "off_name": "name"}),
+                      t[["def_id", "def_name"]].rename(columns={"def_id": "id", "def_name": "name"})]).drop_duplicates("id")
+
+
+def prior_state(prev: str) -> dict:
+    t = season_totals(prev)
+    c = fit_cell(t, "pts", sigma2=1.0)  # sigma2 irrelevant for d_j / a_i
+    dmap = c["def"].set_index("def_id").d
+    t = t[t.poss > 0].copy()
+    t["d"] = t.def_id.map(dmap).fillna(0.0)
+    t["dw"] = t.d * t.poss
+    g = t.groupby("off_id")
+    usual = g.dw.sum() / g.poss.sum()
+    P = g.poss.sum() / g.gp.max()
+    return {"pairs": t.set_index(["off_id", "def_id"]).poss, "d": dmap, "usual": usual, "P": P, "names": names_of(t)}
+
+
+def signals() -> pd.DataFrame:
+    import nba_player_opp_venue as pov
+    out, audit = [], {}
+    for es, (cur, prev) in SEASON_OF.items():
+        st = prior_state(prev)
+        box = pov.load_box([es]).sort_values("start_utc")
+        nb = pd.concat([st["names"], names_of(season_totals(cur))]).drop_duplicates("id")
+        nb["k"] = nb.name.map(norm)
+        k2id = nb[~nb.k.duplicated(keep=False)].set_index("k").id
+        eb = box.drop_duplicates("athlete_id")[["athlete_id", "name"]].copy()
+        eb["k"] = eb.name.map(norm)
+        eb["nba_id"] = eb.k.map(k2id)
+        eb.loc[eb.k.duplicated(keep=False), "nba_id"] = np.nan
+        box["nba_id"] = box.athlete_id.map(eb.set_index("athlete_id").nba_id)
+        audit[cur] = {"espn_players": int(len(eb)), "matched": int(eb.nba_id.notna().sum()),
+                      "matched_minutes_share": float(box[box.nba_id.notna()].minutes.sum() / box.minutes.sum())}
+        tg = box[["event_id", "team_id", "start_utc"]].drop_duplicates(["event_id", "team_id"]).sort_values("start_utc")
+        tg["prev_event"] = tg.groupby("team_id").event_id.shift(1)
+        prev_ev = tg.set_index(["event_id", "team_id"]).prev_event.to_dict()
+        roster = box.groupby(["event_id", "team_id"]).nba_id.apply(lambda x: [int(v) for v in x.dropna()]).to_dict()
+        # A2 (bug fix before outcomes): GP in totals counts pair meetings, so P_i = prior-season poss / prior-season
+        # ESPN games played (minutes > 0), names matched the same way
+        pb = pov.load_box([es - 1])
+        gpk = pb.groupby(pb.name.map(norm)).event_id.nunique()
+        nm = st["names"].assign(k=lambda x: x.name.map(norm)).drop_duplicates("k", keep=False).set_index("id").k
+        gp_prev = pd.Series(st["P"].index.map(nm).map(gpk), index=st["P"].index)
+        P = (st["pairs"].groupby(level=0).sum() / gp_prev).dropna()
+        audit[cur]["P_matched_off_players"] = int(len(P))
+        dmap, usual = st["d"], st["usual"]
+        pair_by_off = {k: v.droplevel(0) for k, v in st["pairs"].groupby(level=0)}
+        for r in box[box.nba_id.notna()].itertuples():
+            pe = prev_ev.get((r.event_id, r.opp_id))
+            if pe is None or pd.isna(pe):
+                continue
+            oid = int(r.nba_id)
+            pv = pair_by_off.get(oid)
+            if pv is None or oid not in P.index:
+                continue
+            n = pv.reindex(roster.get((pe, r.opp_id), [])).dropna()
+            if n.sum() < 30:
+                continue
+            sh = n / n.sum()
+            gd = (float((sh * dmap.reindex(sh.index).fillna(0.0)).sum()) - float(usual[oid])) * float(P[oid]) / 100
+            out.append({"event_id": r.event_id, "athlete_id": r.athlete_id, "nba_id": oid, "season_cur": cur,
+                        "graph_delta": gd, "n_prior_vs_DO": float(n.sum()), "P": float(P[oid]),
+                        "top_def": int(sh.idxmax()), "top_share": float(sh.max())})
+    sg = pd.DataFrame(out)
+    OUT.mkdir(parents=True, exist_ok=True)
+    sg.to_parquet(OUT / "signals.parquet")
+    print("match audit", audit)
+    print(sg.groupby("season_cur").graph_delta.describe().round(2).to_string())
+    print("share |delta|>=1.5:", round(float((sg.graph_delta.abs() >= 1.5).mean()), 3))
+    return sg
+
+
+def trials(ledger: bool) -> dict:
+    import nba_injury_teammate_props as itp
+    import nba_player_opp_venue as pov
+    itp.BAR = G_BAR
+    sg = pd.read_parquet(OUT / "signals.parquet")
+    q = itp.load_quotes()
+    q = q[q.stat == "points"]
+    m = q.merge(sg, on=["event_id", "athlete_id"], how="inner")
+    m["resid"] = m.actual - m.L
+    res = {"quotes_points": int(len(q)), "quotes_with_signal": int(len(m)),
+           "G1_over_ge_1.5": itp.roi_trial(m[m.graph_delta >= 1.5], "over"),
+           "G2_under_le_-1.5": itp.roi_trial(m[m.graph_delta <= -1.5], "under"),
+           "G3_slope": itp.slope_trial(m, "graph_delta", "resid")}
+    for k in ("G1_over_ge_1.5", "G2_under_le_-1.5"):
+        r = res[k]
+        if r.get("bets", 0) > 200 and r["roi"] > 0.10:
+            r["TOO_GOOD_inspect"] = True
+    res["by_season"] = {s: {"n": int(len(x)), "G1": itp.roi_trial(x[x.graph_delta >= 1.5], "over").get("roi"),
+                            "G2": itp.roi_trial(x[x.graph_delta <= -1.5], "under").get("roi")}
+                        for s, x in m.groupby("season_cur")}
+    box = pov.load_box([2023, 2024, 2025]).sort_values(["athlete_id", "start_utc"])
+    box["base10"] = box.groupby(["athlete_id", "season"]).points.transform(
+        lambda x: x.shift(1).rolling(10, min_periods=5).mean())
+    m2 = m.merge(box[["event_id", "athlete_id", "base10"]], on=["event_id", "athlete_id"]).dropna(subset=["base10"])
+    res["desc_line_minus_base10_on_delta"] = itp.slope_ci(m2.assign(y=m2.L - m2.base10), "graph_delta", "y")
+    res["desc_actual_minus_base10_on_delta"] = itp.slope_ci(m2.assign(y=m2.actual - m2.base10), "graph_delta", "y")
+    m[m.graph_delta >= 1.5].to_csv(OUT / "bets_G1.csv", index=False)
+    m[m.graph_delta <= -1.5].to_csv(OUT / "bets_G2.csv", index=False)
+    (OUT / "trials.json").write_text(json.dumps(res, indent=1, default=str))
+    print(json.dumps(res, indent=1, default=str))
+    if ledger:
+        sha = hashlib.sha1(Path(__file__).read_bytes()).hexdigest()[:12]
+        ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        with LEDGER.open("a") as f:
+            for n, k in enumerate(["G1_over_ge_1.5", "G2_under_le_-1.5", "G3_slope"], 1):
+                rec = {"ts": ts, "strategy": f"nba_matchup_graph_{k}_dev", "sha": sha, "dataset": "nba_matchup_graph",
+                       "hypothesis": "pre-registered in notes/nba_matchup_graph.md (commit 373ffad)",
+                       "source": "stats.nba.com leagueseasonmatchups prior-season totals + ESPN graded props",
+                       "status": "ok", "split": "DEV", "trial_number": n, "study_trials": 3, "bonferroni_bar": G_BAR,
+                       "trial": k, "price": "ESPN open", **res[k]}
+                f.write(json.dumps(rec, default=str) + "\n")
+    return res
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["parse", "reliability", "example"])
+    ap.add_argument("cmd", choices=["parse", "reliability", "example", "signals", "trials"])
     ap.add_argument("args", nargs="*")
     ap.add_argument("--ledger", action="store_true")
     a = ap.parse_args()
@@ -283,6 +418,10 @@ def main() -> None:
         parse()
     elif a.cmd == "reliability":
         reliability(a.ledger)
+    elif a.cmd == "signals":
+        signals()
+    elif a.cmd == "trials":
+        trials(a.ledger)
     else:
         example(*a.args)
 

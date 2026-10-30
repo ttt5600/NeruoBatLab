@@ -131,3 +131,9 @@ Too-good guard: ROI > +10% on > 200 bets -> inspect rows before reporting. SEALE
 only after a dev pass, once (state would be 2024-25 totals).
 Descriptive (not trials): how much of graph_delta the opening line already has: slope of (line_open - player's
 prior-10-game points mean) on graph_delta.
+
+### AMENDMENT A2 (2026-10-30, bug fix BEFORE any outcome/line join)
+GP in leagueseasonmatchups counts the games a PAIR met, not the player's games, so P_i = sum n / max GP was ~500
+"possessions per game" and graph_delta had SD ~15 pts. Fixed: P_i = prior-season matchup possessions / prior-season
+ESPN games played (minutes > 0), name-matched the same way. Signal after the fix (no outcomes): SD ~0.95-1.01 pts
+per season, 11.1% of player-games beyond +-1.5; 52,549 player-games with a signal; name match 99.9%+ of minutes.
