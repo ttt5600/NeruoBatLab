@@ -307,3 +307,5 @@ confirm home state (CA vs CO) for venue legality.
 - **WCN NFL body-clock SEALED FAIL 10-29 (+12.2%/99, CI ~[-7,+31], p .105); NBA clock/calendar/arena 0/6 (notes/nba_clock_calendar_arena.md).**
 
 - **Q013 RT/Metacritic + Q014 Truth Social FORWARD paper loggers LIVE 10-30 03:21Z (launchd com.jonathanwang.quant-q013/q014, 15 min; notes/q013_rt_scores.md, q014_truth_social.md). Q013 first picks ~10-30 08:00Z; Q014 calibrates until 11-06 then frozen. Report: scripts/q013_logger.py report | q014_logger.py report. Note: Truth Social count history backtestable via Roll Call (separate trial).**
+
+- **Q017 ERCOT peak load (notes/q017_ercot_load.md): A edge rule DEV FAIL (-9.4%/128, -10.4%/143); B far-bracket NO (E1 pattern) 12/12 and 7/7 wins (+5.6%, +14.8%) = LEAD, too few bets. Market beats our day-ahead model by 10:00 CT. Forward logger scripts/q017_logger.py built, NOT yet in launchd (needs ~30-min ticks).**

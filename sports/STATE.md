@@ -49,6 +49,7 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   nights, not automated), NBA sim (scripts/nba_sim.py; injury delta ~2x line move), L40b (fixed 10-30 03:00Z, see below).
   RUNNING agents: Q012 crypto hourly vs implied vol; Q011 NBA injury-report lag on Kalshi.
 - Q013 RT/Metacritic + Q014 Truth Social FORWARD paper loggers LIVE 10-30 03:21Z (launchd com.jonathanwang.quant-q013/q014, 15 min; notes/q013_rt_scores.md, q014_truth_social.md). Q013 first picks ~10-30 08:00Z; Q014 calibrates until 11-06 then frozen. Report: scripts/q013_logger.py report | q014_logger.py report. Note: Truth Social count history backtestable via Roll Call (separate trial).
+- Q017 ERCOT peak load (notes/q017_ercot_load.md): A edge rule DEV FAIL (-9.4%/128, -10.4%/143); B far-bracket NO (E1 pattern) 12/12 and 7/7 wins (+5.6%, +14.8%) = LEAD, too few bets. Market beats our day-ahead model by 10:00 CT. Forward logger scripts/q017_logger.py built, NOT yet in launchd (needs ~30-min ticks).
 - L40b STALL FIX 10-30 ~03:00Z: lip_paper.fetch_trades per-ticker catch-up was uncapped -> 1h+ ticks on high-volume tickers,
   stalled 00:08-03:00Z; also global path silently capped at 200 pages (~15 min of busy tape). Now global <= 6 h gap (cap 6000
   pages), per-ticker capped 50 pages, TRUNC flagged. 00:08-03:00Z counts as unobserved (zero for us) per prereg.
