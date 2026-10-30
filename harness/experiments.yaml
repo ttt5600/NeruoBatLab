@@ -1021,6 +1021,9 @@ experiments:
     models").
   tags: run31_vanilla, run31_vanilla_s2, run31_vanilla_lr1e4, run31_vanilla_lr1e4_s2
   priority: 1
+  jobs_2026_10_30: 'MOVED to paid A40 (savio3_gpu, a40_gpu3_normal, fc_birdpow; user ok 2026-10-30, est. ~1,175 SU/run):
+    relabel 40631383 (moved in place, running 09:40); trainings resubmitted with --time 24:00:00, chained one at a time:
+    40654078 stock s1337 -> 40654079 lr1e-4 s1337 -> 40654080 stock s2 -> 40654081 lr1e-4 s2. Old 40631384-87 cancelled.'
 - id: E37
   title: Random-label controls -- shuffled labels (negative control) and random-projection labels (BEST-RQ-style)
   roadmap: user request 2026-10-29 ("what if we swap with random labels? ... if we see similar results then that's
@@ -1050,3 +1053,5 @@ experiments:
   jobs_2026_10_29: 'labels built on savio-dtn 23:31-23:42 (~/jobs/build_e37_labels.log: shuffle 2.21% frames unchanged,
     200/200 used; randproj 200/200 codes, perplexity 144.6). run37_shuffle 40632813, run37_randproj 40632814,
     run37_randproj_s2 40632815 (train_run37_labels.sh), logs ~/jobs/.'
+  jobs_2026_10_30: 'MOVED to paid A40 (same QoS), chained: 40654075 shuffle -> 40654076 randproj s1337 -> 40654077
+    randproj s2. Old 40632813-15 cancelled. QoS cap cpu=128,gpu=16 shared by all FCA users of a40_gpu3_normal.'
