@@ -68,3 +68,18 @@ gate failure).
 
 Step 2 (graph simulator + trials G1/G2/G3 at the open) is pre-registered here ONLY if a component passes, in a
 separate commit before any outcome is joined to a line.
+
+### AMENDMENT A1 (2026-10-30, BEFORE any reliability number; reason = fetch throttling)
+The per-game fetch stalled after 599 games of 2023-24 (2023-10-24 .. ~2024-01-06): from 15:03 every request
+timed out (stats.nba.com soft throttle at ~1 req/s). Per-game history for >= 2 seasons is therefore NOT in hand.
+`leagueseasonmatchups` (PerMode=Totals) returns ALL pairs of a season in one request (2023-24: 137,763 pairs with
+GP, PARTIAL_POSS, PLAYER_PTS, MATCHUP_FGA/AST/TOV) -- the same pair-season sums the per-game rows would give.
+Changes (everything else as pre-registered):
+- Season-to-season (PRIMARY gate): pair-season and defender-season aggregates come from leagueseasonmatchups
+  totals for 2022-23, 2023-24, 2024-25.
+- sigma2 (per-possession variance, needed for EB shrink of m_ij) is estimated once from the 599 per-game 2023-24
+  games and used for every cell.
+- Split-half: only within the 599 per-game 2023-24 games (alternate games), secondary.
+- "Typical starter" exposure from those 599 games.
+- Season totals contain the whole season = LOOKAHEAD for any trial; they are used for the reliability gate only.
+  If a component passes, Step 2 needs per-game data (re-fetch at a slower pace) before any trial.
