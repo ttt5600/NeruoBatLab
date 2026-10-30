@@ -993,3 +993,31 @@ experiments:
     the DTN reads the same files fine, so imports were checked there. Note finding 040 used 40 mel bins;
     this control uses fairseq''s actual default, 23. Score: bash harness/score_run.sh run23_mfcc
     /global/scratch/users/jonathanswang/temp_train_run23_mfcc 200 40144546 2026-10-19 14:20: relabel 40144545 COMPLETED 0:0, gate PASS: 763/763 files on the audio grid, 40,395,560 frames, 200 populated clusters, largest 2.836%, perplexity 127.6, MFCC->spectrogram purity 0.247 (a very different partition from run16''s labels). Its import check passed on a compute node, so the login-node EIO did not reach compute nodes. run23 PENDING (Priority), Slurm est. start 2026-10-21 21:05.'
+- id: E36
+  title: Vanilla HuBERT on the zebra finch corpus (the stock recipe, same architecture, same data)
+  roadmap: user request 2026-10-29 ("the standard hubert model with the same architecture with the same small zebra
+    finch dataset")
+  baseline: none -- this IS the reference every other model is compared against
+  change: 'torchaudio examples/hubert iteration-1 recipe (git 27433050) on the 120 zebra finch files (116.03 h):
+    k=100 k-means on 39-d Kaldi MFCC fit on those files (relabel_mfcc_zfonly.sh), hubert_pretrain_base (94.4M),
+    mask 0.8 / 10 frames, feature penalty weight 10, feature_grad_mult 0.1, AdamW peak lr 5e-4, warmup 32,000, linear
+    decay. Forced by our hardware, as for every run: 4 L40 (~322 s of audio per update vs stock 2,800) and run16''s
+    93,750 updates (stock 250,000).'
+  question: How much do our models gain over vanilla HuBERT trained on the same zebra finch data, and does the stock
+    recipe train at all at our batch size?
+  arms: 'stock lr 5e-4, seeds 1337 and 2 (run31, run31s2); lr 1e-4, seeds 1337 and 2 (run31lr, run31lrs2) -- the one
+    change our runs needed (run5 stalled at lr 5e-4, though with a 3,125-update warmup and our 0.4/3 masking).'
+  success: 'Pre-registered 2026-10-29, a reference measurement with no pass mark. BASELINE RULE (fixed now): the stock
+    arm is "vanilla HuBERT" if BOTH stock seeds learn -- final masked accuracy at least 0.05 above the share of the most
+    frequent label (the always-guess-the-commonest-label rate run5 stalled at) -- otherwise the lr-1e-4 arm is, and the
+    stock arm is reported as "does not train at our batch size". Every model is then compared with the baseline arm on
+    11-class CPU call type: multi-seed recipes with seed_mean_pairs_cpu.py (birds + seeds interval), single models with
+    seed_pairs_cpu.py, at each model''s best layer and at layer 3, plus the 10-split mean. Secondary: detection AUC,
+    BirdPark, chick, label-free.'
+  script: pytorchAudio/examples/hubert/slurm/relabel_mfcc_zfonly.sh then slurm/train_run31_vanilla.sh x4 (--export LR,
+    SEED, EXP), --dependency=afterok on the relabel
+  status: approved
+  decision_2026_10_29: Approved by the user 2026-10-29 ("lets make one and add it ... with the comparisons of all the
+    models").
+  tags: run31_vanilla, run31_vanilla_s2, run31_vanilla_lr1e4, run31_vanilla_lr1e4_s2
+  priority: 1
