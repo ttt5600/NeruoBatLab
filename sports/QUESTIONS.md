@@ -163,7 +163,7 @@ Enumerate EVERY open contract family on Kalshi (all 8 shards' series), Polymarke
 tag each with an external forecast/reference source (if any), liquidity, fee, settlement source; rank families where a
 public, better-calibrated reference exists (the weather pattern) -> each top family becomes a prereg question.
 
-## Q011 [proposed] MLB/sports lineup-substitution props (user: "backup hitter")
+## Q011 [NBA version DEV FAIL 10-30] MLB/sports lineup-substitution props (user: "backup hitter")
 When a regular is rested/injured and a backup starts, are player/team props or game lines slow to adjust (opener vs
 lineup release time)? Test vs opener and vs close, by sport (MLB lineups ~3-4 h pre-game; NBA rest news), using
 SITUATIONAL_FACTORS.md rows on availability.
