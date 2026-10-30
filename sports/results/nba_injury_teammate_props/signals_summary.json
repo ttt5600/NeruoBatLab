@@ -1,0 +1,31 @@
+{
+ "audit": {
+  "report_rows": 489453,
+  "rows_matched_game": 488773,
+  "player_rows_pre_tip": 361963,
+  "player_rows_unmatched": 23011,
+  "player_rows_ambiguous": 0
+ },
+ "team_games": 7920,
+ "team_games_report_covered": 7776,
+ "team_games_with_news": 2040,
+ "news_absences": 2596,
+ "unlisted_rotation_dnps": 190,
+ "carryover_listed_rotation": 4451,
+ "news_team_games_by_class": {
+  "LATE": 1027,
+  "EARLY": 542,
+  "MID": 471
+ },
+ "teammate_rows": 24626,
+ "d_pts_top_per_teamgame": {
+  "count": 2040.0,
+  "mean": 3.276,
+  "std": 1.734,
+  "min": 0.506,
+  "25%": 2.255,
+  "50%": 2.821,
+  "75%": 3.669,
+  "max": 15.87
+ }
+}
