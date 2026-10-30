@@ -315,3 +315,5 @@ confirm home state (CA vs CO) for venue legality.
 - **Q012 Kalshi hourly crypto vs spot+vol model DEAD 10-30 (notes/q012_crypto_hourly.md): 4 trials underpowered, all CIs cross 0 (best T1 +3.7% [-2.0,+8.4] n113); Kalshi mid Brier beats model; mid overprices tails 1-2c but spread+fee eat it (far-fav at ask -0.82% [-1.64,-0.09], post hoc). L19 lesson at hourly horizon. No sealed ask.**
 
 - **Q016 commodities (AAA gas vs RBOB, WTI/gold/natgas/Brent vs futures) DEAD 10-30 (notes/q016_commodities.md): 0/4, max 27 bets; far rungs have no YES bid -> favourite costs $1 (N2/N6 structure again); where two-sided, priced within ~1c of futures model; gas model Brier not better than Kalshi mid.**
+
+- **NBA style matchups (shot zones / zone defense / passing) DEAD 10-30 (notes/nba_style_matchups.md): 0/4; matchup term SD ~0.25 pts; M1 totals -3.2%/993, M2 ATS -2.8%/1,034, M3 props -7.7%/6,571; zone-defense FG% stable only at rim/short; nba_sim --matchup no improvement (leave off). 2025-26 ESPN pbp FGA match only 61% -- check before using.**

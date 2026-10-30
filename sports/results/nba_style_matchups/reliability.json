@@ -1,0 +1,332 @@
+{
+ "om_rim": {
+  "r_split_half": 0.8534948821496142,
+  "ci": [
+   0.8010202778601981,
+   0.8946805132478035
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.9209573658598535,
+  "stable": true,
+  "kind": "mix"
+ },
+ "op_rim": {
+  "r_split_half": 0.759869839696613,
+  "ci": [
+   0.6693773922568498,
+   0.8340592179066723
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8635523179687065,
+  "stable": true,
+  "kind": "fg"
+ },
+ "dm_rim": {
+  "r_split_half": 0.8398990850260505,
+  "ci": [
+   0.7845035777017086,
+   0.8837918394890751
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.9129838607579487,
+  "stable": true,
+  "kind": "mix"
+ },
+ "dp_rim": {
+  "r_split_half": 0.5528576765777433,
+  "ci": [
+   0.4332026858443002,
+   0.662491357065914
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.7120519606100099,
+  "stable": true,
+  "kind": "fg"
+ },
+ "om_short": {
+  "r_split_half": 0.7846690493538699,
+  "ci": [
+   0.6997698378736151,
+   0.8516631782351296
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8793440438023568,
+  "stable": true,
+  "kind": "mix"
+ },
+ "op_short": {
+  "r_split_half": 0.6182701183775002,
+  "ci": [
+   0.5023020402753954,
+   0.7195313357045577
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.764112383163061,
+  "stable": true,
+  "kind": "fg"
+ },
+ "dm_short": {
+  "r_split_half": 0.8306245603469721,
+  "ci": [
+   0.7657044678834662,
+   0.8798295397282646
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.9074766922055689,
+  "stable": true,
+  "kind": "mix"
+ },
+ "dp_short": {
+  "r_split_half": 0.40477780325135987,
+  "ci": [
+   0.22942729124134226,
+   0.5725151375152927
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.576287299407068,
+  "stable": true,
+  "kind": "fg"
+ },
+ "om_mid": {
+  "r_split_half": 0.9218983381968581,
+  "ci": [
+   0.8869894966680617,
+   0.94710061949484
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.9593622304307637,
+  "stable": true,
+  "kind": "mix"
+ },
+ "op_mid": {
+  "r_split_half": 0.4278885208381147,
+  "ci": [
+   0.28365143760169775,
+   0.5531069491496305
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.5993304303433449,
+  "stable": true,
+  "kind": "fg"
+ },
+ "dm_mid": {
+  "r_split_half": 0.7454380212370926,
+  "ci": [
+   0.6433494974860722,
+   0.8166034215202437
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8541558189602833,
+  "stable": true,
+  "kind": "mix"
+ },
+ "dp_mid": {
+  "r_split_half": 0.13938270578581333,
+  "ci": [
+   -0.007485649931677504,
+   0.28759896814033653
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.24466354470367951,
+  "stable": false,
+  "kind": "fg"
+ },
+ "om_long2": {
+  "r_split_half": 0.9454450622303388,
+  "ci": [
+   0.9195817187996541,
+   0.9636153015565163
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.9719576055737512,
+  "stable": true,
+  "kind": "mix"
+ },
+ "op_long2": {
+  "r_split_half": 0.30664653432758876,
+  "ci": [
+   0.1429447244604558,
+   0.4601665811950792
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.4693641719799787,
+  "stable": true,
+  "kind": "fg"
+ },
+ "dm_long2": {
+  "r_split_half": 0.5678826809993615,
+  "ci": [
+   0.41975993832835745,
+   0.6914245700356857
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.7243943540946515,
+  "stable": true,
+  "kind": "mix"
+ },
+ "dp_long2": {
+  "r_split_half": 0.11331996791577474,
+  "ci": [
+   -0.0615246107729237,
+   0.2759856058497519
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.20357124848469016,
+  "stable": false,
+  "kind": "fg"
+ },
+ "om_c3": {
+  "r_split_half": 0.7900899364725833,
+  "ci": [
+   0.7225224407641875,
+   0.8468094425261973
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8827376997934251,
+  "stable": true,
+  "kind": "mix"
+ },
+ "op_c3": {
+  "r_split_half": 0.08199124407312121,
+  "ci": [
+   -0.0775301663772646,
+   0.23967500820153426
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.15155620624889313,
+  "stable": false,
+  "kind": "fg"
+ },
+ "dm_c3": {
+  "r_split_half": 0.8469784229662016,
+  "ci": [
+   0.7813325084384642,
+   0.8939316542850496
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.9171503169008063,
+  "stable": true,
+  "kind": "mix"
+ },
+ "dp_c3": {
+  "r_split_half": -0.019794486739368275,
+  "ci": [
+   -0.17117915562511596,
+   0.1343850379883081
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": -0.04038844195748779,
+  "stable": false,
+  "kind": "fg"
+ },
+ "om_ab3": {
+  "r_split_half": 0.9302034907952074,
+  "ci": [
+   0.8920721959273535,
+   0.9542975857336992
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.9638398181654735,
+  "stable": true,
+  "kind": "mix"
+ },
+ "op_ab3": {
+  "r_split_half": 0.35729652229659975,
+  "ci": [
+   0.21501482121699242,
+   0.48688504823750867
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.5264826313590486,
+  "stable": true,
+  "kind": "fg"
+ },
+ "dm_ab3": {
+  "r_split_half": 0.7184484220695481,
+  "ci": [
+   0.6263411253426187,
+   0.7943016632606631
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8361594247959004,
+  "stable": true,
+  "kind": "mix"
+ },
+ "dp_ab3": {
+  "r_split_half": 0.18242944364011007,
+  "ci": [
+   0.03713337215151936,
+   0.3231250112329656
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.3085671531968975,
+  "stable": false,
+  "kind": "fg"
+ },
+ "o_ast_sh": {
+  "r_split_half": 0.8263490283722588,
+  "ci": [
+   0.7571763323827139,
+   0.876084063846671
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.9049190658904293,
+  "stable": true,
+  "kind": "pass"
+ },
+ "d_ast_sh": {
+  "r_split_half": 0.6685615506109963,
+  "ci": [
+   0.5571624485431811,
+   0.757313747482734
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8013627670686544,
+  "stable": true,
+  "kind": "pass"
+ },
+ "o_tov_r": {
+  "r_split_half": 0.7771202385723242,
+  "ci": [
+   0.7020721193643696,
+   0.8371984107163316
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8745837470138038,
+  "stable": true,
+  "kind": "pass"
+ },
+ "d_tov_r": {
+  "r_split_half": 0.7626940200535599,
+  "ci": [
+   0.6799983701200091,
+   0.8292073495842707
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8653731292858022,
+  "stable": true,
+  "kind": "pass"
+ },
+ "d_stl_r": {
+  "r_split_half": 0.707369349172275,
+  "ci": [
+   0.6037969554861037,
+   0.7878302106305691
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.8286072952114368,
+  "stable": true,
+  "kind": "pass"
+ },
+ "d_rimblk": {
+  "r_split_half": 0.6433357747115552,
+  "ci": [
+   0.5198580804176187,
+   0.7372696426086245
+  ],
+  "n_team_seasons": 120,
+  "spearman_brown_full": 0.7829632685072848,
+  "stable": true,
+  "kind": "pass"
+ }
+}

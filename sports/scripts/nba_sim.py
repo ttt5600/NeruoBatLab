@@ -291,9 +291,11 @@ def sim_players(si: dict, team_pts, exp_pts_team, p, rng, n):
     return out
 
 
-def price(p: dict, mu0, tot0, h: dict, a: dict, n=20000, seed=7, players=True) -> dict:
+def price(p: dict, mu0, tot0, h: dict, a: dict, n=20000, seed=7, players=True, adj=(0.0, 0.0)) -> dict:
+    """adj = (margin, total) points added to the team means (--matchup: style interaction, nba_style_matchups.py)."""
     rng = np.random.default_rng(seed)
     mu, tot = team_mean(p, mu0, tot0, h, a)
+    mu, tot = mu + float(adj[0]), tot + float(adj[1])
     hp, ap = sim_scores(mu, tot, p, n, rng)
     res = {"mu": mu, "tot": tot, "hp": hp, "ap": ap, "margin": hp - ap, "total": hp + ap,
            "p_home": float((hp > ap).mean())}
@@ -651,9 +653,23 @@ def cmd_game(a) -> int:
     p = load_params()
     L = live_setup(away, home, d, not a.no_refresh)
     S = live_sides(L, a.out, a.inn, a.minutes)
-    res = price(p, L["mu0"], L["tot0"], S["home"]["si"], S["away"]["si"], a.n, a.seed)
+    adj = _matchup_adj(a, away, home, d)
+    res = price(p, L["mu0"], L["tot0"], S["home"]["si"], S["away"]["si"], a.n, a.seed, adj=adj)
     print_game(L, S, p, res, a)
     return 0
+
+
+def _matchup_adj(a, away: str, home: str, d) -> tuple[float, float]:
+    """--matchup: style interaction (zone mix x zone defense, reliability-gated; notes/nba_style_matchups.md).
+    DEV test 0/4 -- it adds no information beyond the close; shown for transparency, coefficient 1 (not fitted)."""
+    if not getattr(a, "matchup", False):
+        return (0.0, 0.0)
+    import nba_style_matchups as nstm
+    r = nstm.live_terms(away, home, d)
+    print(f"  --matchup: I(home off vs away def) {r['I_h']:+.2f}, I(away off vs home def) {r['I_a']:+.2f} -> "
+          f"margin {r['I_margin']:+.2f}, total {r['I_total']:+.2f} pts (season {r['season']}, games before {d}: "
+          f"{r['n_prior_h']}/{r['n_prior_a']})")
+    return (r["I_margin"], r["I_total"])
 
 
 def cmd_delta(a) -> int:
@@ -666,8 +682,9 @@ def cmd_delta(a) -> int:
     L = live_setup(away, home, d, not a.no_refresh)
     S0 = live_sides(L, "", a.inn, a.minutes)
     S1 = live_sides(L, a.out, a.inn, a.minutes)
-    r0 = price(p, L["mu0"], L["tot0"], S0["home"]["si"], S0["away"]["si"], a.n, a.seed, players=False)
-    r1 = price(p, L["mu0"], L["tot0"], S1["home"]["si"], S1["away"]["si"], a.n, a.seed, players=False)
+    adj = _matchup_adj(a, away, home, d)
+    r0 = price(p, L["mu0"], L["tot0"], S0["home"]["si"], S0["away"]["si"], a.n, a.seed, players=False, adj=adj)
+    r1 = price(p, L["mu0"], L["tot0"], S1["home"]["si"], S1["away"]["si"], a.n, a.seed, players=False, adj=adj)
     gone = S1["home"]["manual_out"] + S1["away"]["manual_out"]
     if not gone:
         print(f"no --out name matched; warnings: {S1['warn']}")
@@ -743,13 +760,25 @@ def cmd_validate(a) -> int:
     te = te.merge(L[["event_id", "home_spread_close", "home_spread_open", "total_close", "total_open", "home_ml_close",
                      "away_ml_close"]], on="event_id", how="left")
     rows = []
-    for v, pp in (("act", p), ("strict", ps)):
+    mtag = "_matchup" if getattr(a, "matchup", False) else ""
+    variants = [("act", p, "act"), ("strict", ps, "strict")]
+    if mtag:
+        gtm = pd.read_parquet(ROOT / "data" / "nba_pbp" / "game_terms.parquet")[["event_id", "I_margin", "I_total"]]
+        gtm["event_id"] = gtm.event_id.astype(te.event_id.dtype)
+        te = te.merge(gtm, on="event_id", how="left")
+        print(f"  --matchup: style terms for {int(te.I_margin.notna().sum())}/{len(te)} games "
+              f"(sd I_margin {te.I_margin.std():.3f}, I_total {te.I_total.std():.3f})")
+        variants.append(("act_m", p, "act"))
+    for v, pp, base in variants:
         for r in te.itertuples():
-            h = {"Pfull": r.Pfull_home, "Pav": getattr(r, f"P{v}_home"), "Ofull": r.Ofull_home, "Oav": getattr(r, f"O{v}_home")}
-            aw = {"Pfull": r.Pfull_away, "Pav": getattr(r, f"P{v}_away"), "Ofull": r.Ofull_away, "Oav": getattr(r, f"O{v}_away")}
+            h = {"Pfull": r.Pfull_home, "Pav": getattr(r, f"P{base}_home"), "Ofull": r.Ofull_home, "Oav": getattr(r, f"O{base}_home")}
+            aw = {"Pfull": r.Pfull_away, "Pav": getattr(r, f"P{base}_away"), "Ofull": r.Ofull_away, "Oav": getattr(r, f"O{base}_away")}
             if any(pd.isna(x) for x in list(h.values()) + list(aw.values()) + [r.mu0, r.tot0]):
                 continue
-            res = price(pp, r.mu0, r.tot0, h, aw, n=4000, seed=int(r.event_id) % 2 ** 31, players=False)
+            adj = (0.0, 0.0)
+            if v == "act_m":
+                adj = (0.0 if pd.isna(r.I_margin) else r.I_margin, 0.0 if pd.isna(r.I_total) else r.I_total)
+            res = price(pp, r.mu0, r.tot0, h, aw, n=4000, seed=int(r.event_id) % 2 ** 31, players=False, adj=adj)
             rows.append({"event_id": r.event_id, "var": v, "sim_margin": float(np.median(res["margin"])),
                          "sim_mean": res["mu"], "sim_total": float(np.median(res["total"])), "sim_tmean": res["tot"],
                          "p_home": res["p_home"]})
@@ -760,10 +789,10 @@ def cmd_validate(a) -> int:
     R["p_close"] = np.where((ov >= 0) & (ov <= 0.10), ph_c, np.nan)
     R["y"] = (R.margin > 0).astype(float)
     OUTD.mkdir(parents=True, exist_ok=True)
-    R.drop(columns=[c for c in R.columns if c.startswith("out28")]).to_csv(OUTD / f"validate_{S}_games.csv", index=False)
+    R.drop(columns=[c for c in R.columns if c.startswith("out28")]).to_csv(OUTD / f"validate_{S}{mtag}_games.csv", index=False)
     summ = {"season": S, "train": train, "params_act": p, "params_strict": ps, "provider": prov}
     print(f"\n  scored games {len(te)}; lines from {prov} (open/close as recorded by ESPN)")
-    for v in ("act", "strict"):
+    for v in ("act", "strict") + (("act_m",) if mtag else ()):
         x = R[(R["var"] == v)].dropna(subset=["close_margin", "total_close"])
         d_sc = (x.sim_margin - x.close_margin).abs()
         d_tc = (x.sim_total - x.total_close).abs()
@@ -789,7 +818,8 @@ def cmd_validate(a) -> int:
         summ[v] = out
         f = lambda k: f"{out[k][0]:.2f} [{out[k][1]:.2f}, {out[k][2]:.2f}]"
         lab = "ACT (who actually played = injury-report-at-tip proxy; lookahead on late scratches)" if v == "act" else \
-              "STRICT (previous game's players; no injury info)"
+              ("ACT + --matchup style terms (I_margin, I_total added, coef 1)" if v == "act_m" else
+               "STRICT (previous game's players; no injury info)")
         print(f"\n  == {lab}, n={out['n']}")
         print(f"   spread MAE vs close  {f('spread_mae_vs_close')}   bias sim-close {f('spread_bias_vs_close')}   "
               f"within 1.5 pts: {out['share_spread_within_1.5']:.1%}   corr {out['corr_sim_close_margin']:.3f}")
@@ -844,7 +874,26 @@ def cmd_validate(a) -> int:
               f"corr {c:.3f}  slope move~delta {o['slope_move_on_delta']:.2f} [{o['slope_ci'][0]:.2f}, {o['slope_ci'][1]:.2f}]  "
               f"sign agree {sg:.1%}  MAE(delta-move) {o['mae_delta_vs_move']:.2f}")
     if len(I):
-        I.to_csv(OUTD / f"validate_{S}_injury.csv", index=False)
+        I.to_csv(OUTD / f"validate_{S}{mtag}_injury.csv", index=False)
+    if mtag:
+        A0 = R[R["var"] == "act"].set_index("event_id")
+        A1 = R[R["var"] == "act_m"].set_index("event_id")
+        A1 = A1.reindex(A0.index)
+        ok = A0.close_margin.notna() & A0.total_close.notna()
+        A0, A1 = A0[ok], A1[ok]
+        pair = {}
+        print(f"\n  == --matchup paired comparison (ACT set, n={int(ok.sum())}; diff = with - without; < 0 = matchup better)")
+        for nm, c0, c1, ref in (("spread_vs_close", "sim_mean", "sim_mean", "close_margin"),
+                                ("spread_vs_actual", "sim_mean", "sim_mean", "margin"),
+                                ("total_vs_close", "sim_tmean", "sim_tmean", "total_close"),
+                                ("total_vs_actual", "sim_tmean", "sim_tmean", "total")):
+            e0 = (A0[c0] - A0[ref]).abs().to_numpy(float)
+            e1 = (A1[c1] - A0[ref]).abs().to_numpy(float)
+            pair[nm] = {"mae_without": float(e0.mean()), "mae_with": float(e1.mean()), "diff": boot_ci(e1 - e0)}
+            dd = pair[nm]["diff"]
+            print(f"   {nm:<17} MAE (model mean) without {e0.mean():.3f}  with {e1.mean():.3f}  diff {dd[0]:+.4f} "
+                  f"[{dd[1]:+.4f}, {dd[2]:+.4f}]")
+        summ["matchup_pair"] = pair
 
     tek = [k for k in PL if F.loc[F.event_id == k[0], "season"].iloc[0] == S]
     rng = np.random.default_rng(5)
@@ -856,11 +905,11 @@ def cmd_validate(a) -> int:
     for s in STAT3:
         print(f"   {s}: n={pc[s]['n']}  10-90 coverage {pc[s]['cover_10_90']:.1%} (target 80%)  mean bias "
               f"{pc[s]['mean_bias']:+.2f}  MAE {pc[s]['mae']:.2f}")
-    (OUTD / f"validate_{S}.json").write_text(json.dumps(summ, indent=1, default=str))
+    (OUTD / f"validate_{S}{mtag}.json").write_text(json.dumps(summ, indent=1, default=str))
     v = summ["act"]["spread_mae_vs_close"][0]
     print(f"\n  VERDICT (pre-stated bar: mean |sim spread - close| <= ~1.5 pts = usable as a fast repricer): "
           f"ACT {v:.2f} -> {'WITHIN' if v <= 1.5 else 'NOT within'} 1.5")
-    print(f"  wrote {OUTD / f'validate_{S}.json'}, validate_{S}_games.csv, validate_{S}_injury.csv")
+    print(f"  wrote {OUTD / f'validate_{S}{mtag}.json'}, validate_{S}{mtag}_games.csv, validate_{S}{mtag}_injury.csv")
     return 0
 
 
@@ -881,8 +930,11 @@ def main(argv=None) -> int:
         x.add_argument("--total", type=float)
         x.add_argument("--props")
         x.add_argument("--no-refresh", action="store_true")
+        x.add_argument("--matchup", action="store_true", help="add the zone-style interaction (nba_style_matchups.py)")
     v = sub.add_parser("validate")
     v.add_argument("--season", default="2024-25")
+    v.add_argument("--matchup", action="store_true",
+                   help="also price with the zone-style interaction; writes validate_{S}_matchup* (base files untouched)")
     sub.add_parser("fit")
     a = ap.parse_args(argv)
     if a.cmd == "game":

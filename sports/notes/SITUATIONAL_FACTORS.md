@@ -218,3 +218,4 @@ NBA totals bands, surface, humidity, revenge, contract year.
 | Nightlife (prev night LA/NY/MIA/LV) home ATS | NBA | YES | -9.30%/291 p .95; control -5.1% | ncca_B4 | DEAD |
 | Arena sightlines (visitor shooting) | NBA | YES | split-half 3P% r .10 [-.37,.46], FG% .29 [-.03,.53] | ncca_B5 | DEAD (not stable) |
 | Altitude visitor props unders (DEN/UTA) | NBA | YES | -1.90%/2,996 p .85; = base over-shading | ncca_B6 | DEAD |
+| Style matchups: shot-zone mix x zone defense, rim protection, passing | NBA | YES | 0/4; term SD ~0.25 pts; sim --matchup no gain | notes/nba_style_matchups.md | DEAD |
