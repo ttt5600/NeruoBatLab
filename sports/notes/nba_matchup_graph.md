@@ -83,3 +83,51 @@ Changes (everything else as pre-registered):
 - "Typical starter" exposure from those 599 games.
 - Season totals contain the whole season = LOOKAHEAD for any trial; they are used for the reliability gate only.
   If a component passes, Step 2 needs per-game data (re-fetch at a slower pace) before any trial.
+
+## STEP 1 RESULT (reliability gate, run 2026-10-30, results/nba_matchup_graph/reliability.json)
+Points per 100 partial possessions, season-to-season stacked (22-23->23-24, 23-24->24-25):
+- m_ij (pair interaction): 933 pairs >= 50 poss both seasons. tau2_hat = 0 in a cell (EB shrinks every pair to
+  0); raw-residual r 0.069 [-0.001, 0.136]; persistent SD 2.2/100 -> **DEAD (~0.70 pts persistent)** for a typical
+  starter (sqrt(sum n^2) = 31.6 poss). Split-half (599 games) has only 7 eligible pairs: uninformative.
+- d_j (defender main effect): 688 defenders >= 500 poss both seasons. r 0.857 [0.825, 0.879]; persistent SD
+  4.6/100 -> 1.46 pts/game for a typical starter (de-shrunk 1.65) -> **PASSES the gate** as written.
+  Split-half 0.783 [0.728, 0.830].
+- CAVEAT (looked at after the gate, before Step 2): d_j is mostly POSITION / role. 2023-24 ridge d by position:
+  C +6.4, F -4.3, G -3.7 per 100; the "worst" defenders are rim protectors (Brook Lopez +12.9, Lively, Zubac,
+  Gafford), the "best" are wings (KCP -11.4, Jalen Williams, Jaylen Brown). Centers guard bigs whose matchup points
+  per partial possession are high; it is not "bad defense". corr(d_j, poss-weighted a_i of his assignments) = -0.49.
+  Persistence of position is trivially high, so the gate pass says little; what matters for a bet is the
+  opponent-specific DEVIATION from a player's usual defender mix, which is what Step 2 measures.
+- Secondary: FGA d_j r .909, AST .805, TOV .622; m_ij FGA r_raw .142 [.072, .209] (0.65 pts-equivalent), AST/TOV ~0.
+
+## PRE-REGISTRATION -- Step 2 graph signal + trials (written 2026-10-30 BEFORE any signal was joined to a line,
+## prop price or outcome; no signal distribution looked at yet)
+Per-game history is not available (A1), so point-in-time state = the PREVIOUS SEASON's totals only (strictly
+before every game of the trial season; no lookahead). Season s game uses season s-1 totals:
+2022-23 <- 2021-22, 2023-24 <- 2022-23, 2024-25 <- 2023-24. No within-season updating (stale by design).
+
+Signal for offensive player i (NBA personId) in ESPN game g vs opponent O:
+- D_O(g) = players with minutes > 0 for O in O's most recent ESPN game of the same season strictly before g
+  (point-in-time roster/rotation; O's first game of the season -> no signal).
+- n_ij = prior-season partial possessions of i vs j (any team). Require sum_{j in D_O} n_ij >= 30, else no
+  signal (the a-priori FALLBACK is "no signal"; position-similar imputation is not attempted).
+- share_j = n_ij / sum_{k in D_O} n_ik.  d_j = prior-season ridge defender effect (lambda 300, Step 1 model).
+- usual_i = poss-weighted mean of d_j over ALL of i's prior-season pairs (his normal defender mix).
+- P_i = i's prior-season partial possessions per game = (sum_j n_ij) / max_j GP_ij.
+- graph_delta = (sum_j share_j d_j - usual_i) * P_i / 100   [points; matchup points are used unscaled].
+  m_ij is DEAD and not used.
+- ID join NBA -> ESPN: normalized name (accents stripped, lowercase letters only, suffix jr/sr/ii/iii/iv dropped,
+  nba_injury_teammate_props.NAME_ALIAS applied) within the season's ESPN box; ambiguous/unmatched dropped,
+  match rate reported.
+Prop data: as nba_injury_teammate_props: DEV ESPN graded 2023/2024/2025 (DraftKings/DraftKings/ESPN BET),
+POINTS market only, OPENING line and price, one quote per player-game (no-vig p closest to .5), pushes out.
+Trials (3; Bonferroni bar p < 0.05/3 = 0.0167, date-clustered bootstrap 4000, ROI > 0 in both date halves;
+observed ROI with 2.5/97.5):
+- G1 OVER at the open when graph_delta >= +1.5.
+- G2 UNDER at the open when graph_delta <= -1.5.
+- G3 OLS slope of (actual - line_open) on graph_delta, all quotes with a signal; pass = slope > 0 at the bar,
+  both halves > 0.
+Too-good guard: ROI > +10% on > 200 bets -> inspect rows before reporting. SEALED 2025-26 (Oct-Nov ESPN BET)
+only after a dev pass, once (state would be 2024-25 totals).
+Descriptive (not trials): how much of graph_delta the opening line already has: slope of (line_open - player's
+prior-10-game points mean) on graph_delta.
