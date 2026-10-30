@@ -1,6 +1,9 @@
 ## MASTER INDEX: sports/notes/FUND_BOOK.md -- every edge ever considered (passed / paper / leads / dead), fund rules,
 ## live operations, research system, tools, lessons, pending decisions. Read it FIRST, then the HANDOFF #5 block below.
 
+## HANDOFF #6 2026-10-30 -- START HERE: notes/HANDOFF_2026-10-30.md (authority, live systems + IBKR gotcha, forward tests,
+## verdicts, tools, 2 agents running at handoff, pending user asks). Personal finance only in notes/private_account.md (gitignored).
+
 # quant-trader / sports — STATE (read this first; overwrite at the end of every work chunk)
 
 Last updated: 2026-10-22 ~09:15Z (HANDOFF #3 -- read it first). Branch `worktree-quant-trader` (repo ttt5600/NeruoBatLab), worktree

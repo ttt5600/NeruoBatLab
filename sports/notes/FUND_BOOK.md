@@ -19,7 +19,7 @@ Update this file (and EDGES_AND_AGENTS.md, which keeps the long-form detail) whe
 
 | What | Where |
 |---|---|
-| Session resume | `sports/STATE.md` (top blocks), latest `notes/HANDOFF_*.md` |
+| Session resume | `sports/STATE.md` (top blocks), latest `notes/HANDOFF_*.md` (now HANDOFF_2026-10-30.md) |
 | Long-form registry (numbers, agent IDs, briefs) | `notes/EDGES_AND_AGENTS.md` |
 | Every trial (371 rows) / sealed scores (15 rows) | `lab/ledger.jsonl` / `lab/lockbox.jsonl`; stocks: `lab/stocks_ledger.jsonl` (15) |
 | Older trial ledgers | `lab/reports/prop_loop_ledger.jsonl`, `parlay_ledger.jsonl`, `pattern_confirm.jsonl`, `pattern_survivors.json` |
