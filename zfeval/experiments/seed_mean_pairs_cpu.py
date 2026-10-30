@@ -62,9 +62,11 @@ def main(arms, fixed=None):
     bs = np.array([ma[s].mean() - mb[s].mean() for s in BOOT])
     lo, hi = np.percentile(bs, [2.5, 97.5])
     acc_a, acc_b = [x["acc"] for x in H[na][1]], [x["acc"] for x in H[nb][1]]
-    df = len(acc_a) + len(acc_b) - 2
-    s2 = (float(np.var(acc_a, ddof=1)) * (len(acc_a) - 1) + float(np.var(acc_b, ddof=1)) * (len(acc_b) - 1)) / df \
-        if df > 0 and min(len(acc_a), len(acc_b)) > 1 else float("nan")
+    # pooled within-arm seed variance; a one-model arm (e.g. a download) contributes no degrees of freedom and is
+    # assumed to carry the same seed variance as the arms that have seeds
+    df = (len(acc_a) - 1) + (len(acc_b) - 1)
+    ss = sum(float(np.var(x, ddof=1)) * (len(x) - 1) for x in (acc_a, acc_b) if len(x) > 1)
+    s2 = ss / df if df > 0 else float("nan")
     half = 1.96 * float(np.sqrt(np.var(bs, ddof=1) + s2 * (1 / len(acc_a) + 1 / len(acc_b))))
     plo, phi = diff - half, diff + half
     seedwise = {f"{x['tag']} - {y['tag']}": round(x["acc"] - y["acc"], 4) for x in H[na][1] for y in H[nb][1]}
