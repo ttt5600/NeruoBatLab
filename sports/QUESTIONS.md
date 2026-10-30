@@ -151,7 +151,7 @@ status:     FORWARD PAPER RUNNING (2026-10-28). Pick type `q008` in scripts/fore
             <= 0 or qualifying-ask rate < 25%; early KILL on >= 3 losses in the first 30; pass bar unchanged. Live
             check 10-28: 0 signals; CPI/core CPI/Fed contracts are > 30 d out; MMCPI 3/10, U3 7/9 FX strikes match Kalshi.
 
-## Q009 [proposed] Options / volatility edges (user 10-29: "options... volatility increases"; capacity-rich venue)
+## Q009 [DEAD dev 10-30: notes/q009_options_vrp.md] Options / volatility edges (user 10-29: "options... volatility increases"; capacity-rich venue)
 Mechanism candidates: implied vs realised volatility (variance risk premium is documented to favour SELLING vol on average;
 buying vol needs a timing/selection edge), earnings straddles entered ~5d before and exited pre-print (L11; needs option
 bid/ask history), event-vol around macro releases. Baseline: option mid/ask vs realised move, after spread and fees.

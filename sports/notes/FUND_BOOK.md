@@ -216,6 +216,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 **In-game / live**
 | ID | Idea | Evidence | Why dead | File |
 |---|---|---|---|---|
+| -- | Q009 SPY short-vol: put credit spread / iron condor, real bid/ask (10-30) | T1 +2.31%/240 [-2.73,+8.20] p .127; T2 -2.00%; variance, not spread, kills it | notes/q009_options_vrp.md |
 | -- | NBA injury -> teammate props at OPEN + hot/cold streaks (10-30) | 0/8; A1 -2.3%/1,438, open moves ~.42 per sim pt (realized .63, A4 +.085 p .035); hot OVER -12.4%/6,064, momentum wrong sign | notes/nba_injury_teammate_props.md |
 | N0 H1-H3 | NFL in-game: model gap hold, lag after big plays, late favourite | -5.6%/295, -7.2%/340, 6 bets [L:nfl_ingame] | Kalshi reprices big plays within ~1 min; beats nflfastR (first run had an epoch bug: fake +62%) | scripts/nfl_ingame.py |
 | M4 H1-H3 | NBA in-game same three | -4.9%/1,016, -7.8%/8,397, -7.6%/27 [L:nba_ingame] | Kalshi Brier .171 < ESPN .180 | scripts/nba_ingame.py |
