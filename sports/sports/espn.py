@@ -201,6 +201,54 @@ def parse_prop(item: dict) -> list[dict]:
     return rows
 
 
+def _new_format(item: dict) -> bool:
+    """2026-27+ records: price under item['odds'], no over/under key in 'current'."""
+    cur = item.get("current", {}) or {}
+    return "odds" in item and "over" not in cur and "under" not in cur
+
+
+def _parse_new(item: dict, side: str) -> dict:
+    cur, opn, od = item.get("current", {}) or {}, item.get("open", {}) or {}, item.get("odds", {}) or {}
+    line = (cur.get("target") or {}).get("value")
+    if line is None:  # scorer markets carry the line only in odds.total, if at all
+        line = (od.get("total") or {}).get("value")
+    dec = od.get("decimal") or {}
+    return {"provider_id": _ref_id(item.get("provider", {}).get("$ref"), "casinos"),
+            "market": item["type"]["name"], "market_id": item["type"]["id"],
+            "athlete_id": _ref_id(item.get("athlete", {}).get("$ref"), "athletes"),
+            "team_id": _ref_id(item.get("team", {}).get("$ref"), "teams"),
+            "side": side if line is not None else "yes",
+            "line": _num(line), "line_open": _num((opn.get("target") or {}).get("value")),
+            "dec": _num(dec.get("value")), "dec_open": _num(dec.get("open")),
+            "last_updated": pd.Timestamp(item["lastUpdated"]) if item.get("lastUpdated") else pd.NaT}
+
+
+def parse_props(items: list[dict]) -> list[dict]:
+    """All rows for one propBets page. Old format -> parse_prop per record. New format (ESPN dropped
+    the over/under marker, seen 2026-10-28): a two-way line is two ADJACENT records with the same
+    (athlete, team, market, line); the FIRST is the over (586/586 matched DK's one-sided 'N+' price,
+    notes/props_scan_2026-10-28.md). A record with no adjacent twin is one-sided: side 'yes'."""
+    out, i = [], 0
+    key = lambda it: (it.get("athlete", {}).get("$ref"), it.get("team", {}).get("$ref"), it["type"]["id"],
+                      ((it.get("current") or {}).get("target") or {}).get("value"))
+    while i < len(items):
+        it = items[i]
+        if not _new_format(it):
+            out.extend(parse_prop(it))
+            i += 1
+            continue
+        nxt = items[i + 1] if i + 1 < len(items) else None
+        if (nxt is not None and _new_format(nxt) and key(nxt) == key(it)
+                and key(it)[3] is not None):
+            new = [_parse_new(it, "over"), _parse_new(nxt, "under")]
+            i += 2
+        else:
+            new = [{**_parse_new(it, "yes"), "side": "yes"}]
+            i += 1
+        out.extend(r for r in new if np.isfinite(r["dec"]))  # unpriced alt lines dropped, as before
+    return out
+
+
 def props(league: str, eid: str, cache: bool = True) -> list[dict]:
     out = []
     for it in _odds_list(league, eid, cache):
@@ -214,7 +262,7 @@ def props(league: str, eid: str, cache: bool = True) -> list[dict]:
                           {"limit": 1000, "page": page}, cache=cache)
             except Exception:
                 break  # 404 = this book has no props for the game
-            for r in (x for i in d.get("items", []) for x in parse_prop(i)):
+            for r in parse_props(d.get("items", [])):
                 out.append({"event_id": eid, "provider": it["provider"]["name"], **r})
             if page >= d.get("pageCount", 1):
                 break

@@ -24,6 +24,7 @@ Push: `git -C <worktree> -c credential.helper='!gh auth git-credential' push -q 
   pre-registered + committed 08e539b (IN1_d6 one shot, seed 3004, 1,500 tickers/556 events, PASS = ROI>0 & p<.05).
   **Q003 SEALED FAIL 10-29 (lockbox q003_IN1_d6_sealed): IN1_d6 920/1,500 fills, ROI +1.56% [-1.86,+4.84] p .18 (bar .05); halves +3.30%/-0.01%; adverse selection 2.70c (YES filled .192 vs unfilled .131); MID_d6 +1.29% p .21. DEAD -- dev +7.08% decayed out; do not redo.**
 - Q015 approval averages DEV FAIL 10-29 (notes/q015_approval_avg.md): T1 24h -17.4% [-28.6,-6.1]; T2 72h +6.2% [-5.1,+18.6] p .15; T3 daily -1.9%; T4 2h -50.3%; market Brier beats model (vol model too wide). Post-hoc lead: bracket holding last published value hit 58.3% vs mid 47.8% (n151) -> needs fresh prereg + forward. q015_logger.py built (not installed).
+- Player x opponent/venue/revenge props DEAD 10-29 (notes/nba_player_opp_venue.md, dev 22-23..24-25 at OPEN): 0/5 pass; T1 pts opp decile 9,279 bets -5.3% [-7.2,-3.3]; T3 pooled -5.2%; T5 revenge overs 1,491 -6.7% [-11.2,-2.1]; T4 logit coef .020 [.001,.039] p .018 (bar .01). Reliability player-vs-opp r .017 [-.005,.039], venue r .024 -> ~0.36 pt persistent. Jokic vs NOP +3.25 pts over 22 games = within multiple-comparison noise.
 - Tonight 10-29 scan: no manual bet clears the bar (NBA 3 games within ~2-3c of Pinnacle; only flag ATL -3.5 YES .43 +2.3c
   normal-approx = tier C; NHL CLV~0 paper; NFL rain 0 signals; gap logger EFL WBA "+252%" = stale-quote bug).
 - L40b DEPLOYED (com.jonathanwang.quant-lip-paper-b, 300 tickers seed 4040, window 10-30..11-09, 9 tests pass). Check first tick
@@ -76,7 +77,7 @@ key); ForecastEx/IBKR (feasibility); Robinhood = no event-contract API (manual o
 E5 ForecastEx weather: SEALED PASS-UNDERPOWERED 10-28 (219 bets, +6.9% ROI, p .0004; last-trade prices, thin). Next for E5:
 IBKR account (user) -> forward paper on live bid/ask -> small live.
 Q003: SEALED FAIL 10-29 (lockbox q003_IN1_d6_sealed): IN1_d6 920/1,500 fills, ROI +1.56% [-1.86,+4.84] p .18 (bar .05); halves +3.30%/-0.01%; adverse selection 2.70c (YES filled .192 vs unfilled .131); MID_d6 +1.29% p .21. DEAD -- dev +7.08% decayed out; do not redo.
-TODO (10-28): sports/espn.py::parse_prop returns 0 rows -- ESPN dropped the over/under marker; first record of each pair = over
+DONE 10-29 (parse_props fix, test added; 2026-27 props re-collected). WAS: sports/espn.py::parse_prop returns 0 rows -- ESPN dropped the over/under marker; first record of each pair = over
 (586/586 matched DK "N+"). Fix + re-run collect.py props. Props scan 10-28: Kalshi vs DK fair median gap 0c -> no edge.
 E5 LIVE AUTHORIZED (user 2026-10-28 ~21:45 PT: "no need to dry run mode only", "if it works it works"): ForecastEx executor
 scripts/forecastex_exec.py live on IBKR LIVE account (gateway localhost:5050, auto-confirm on), frozen E5 rule, maker at best bid,

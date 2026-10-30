@@ -34,6 +34,32 @@ def test_parse_prop_keeps_priced_sides_and_drops_alt_lines():
     assert yes[0]["side"] == "yes" and np.isnan(yes[0]["line"])
 
 
+def _new(ath, line, dec, market="Total Points", dec_open=None):
+    """2026-27 record shape (DK, provider 100): price in 'odds', no over/under key."""
+    return {"athlete": {"$ref": f"{CORE}/seasons/2027/athletes/{ath}?lang=en"},
+            "provider": {"$ref": f"{CORE}/casinos/100?lang=en"}, "type": {"id": "1", "name": market},
+            "odds": {"decimal": {"value": str(dec), "open": str(dec_open or dec)},
+                     "total": {"value": str(line), "open": str(line)}},
+            "lastUpdated": "2026-10-29T05:40Z",
+            "current": {"target": {"value": line}} if line is not None else {},
+            "open": {"target": {"value": line}} if line is not None else {}}
+
+
+def test_parse_props_new_format_first_of_pair_is_over():
+    items = [_new("1", 10.5, 1.86, dec_open=1.82), _new("1", 10.5, 1.95),  # pair -> over, under
+             _new("2", 9.0, 2.40, market="Points Milestones"),               # lone record -> yes
+             _new("3", 4.5, 1.90), _new("3", 5.5, 1.90),                     # different lines: not a pair
+             _new("4", None, 7.0, market="First Basket")]
+    r = espn.parse_props(items)
+    assert [(x["athlete_id"], x["side"]) for x in r] == [
+        ("1", "over"), ("1", "under"), ("2", "yes"), ("3", "yes"), ("3", "yes"), ("4", "yes")]
+    assert r[0]["line"] == 10.5 and r[0]["dec"] == 1.86 and r[0]["dec_open"] == 1.82
+    assert r[1]["dec"] == 1.95 and r[0]["provider_id"] == "100" and np.isnan(r[5]["line"])
+    # the old format still goes through parse_prop unchanged, and unpriced alt lines still drop
+    assert espn.parse_props([_prop("over", 274.5, 2.0), _prop(None, 250.0, None)])[0]["side"] == "over"
+    assert len(espn.parse_props([_prop(None, 250.0, None)])) == 0
+
+
 def test_parse_line_reads_open_and_close():
     item = {"provider": {"id": "58", "name": "ESPN BET"}, "spread": -2.5, "overUnder": 45.5,
             "overOdds": -115.0, "underOdds": -105.0,
