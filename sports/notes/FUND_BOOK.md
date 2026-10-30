@@ -188,7 +188,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | L9 | S12 soccer logic at US books in Colorado | E3 at legal books | untested [EA] | needs user's state + CO accounts | scripts/soccer_fd.py |
 | L5 | Shrink P2 prop model toward the market | P2 overconfident (+17 claimed, ~0 delivered) | untested [EA] | new prereg | scripts/nba_props_dist.py |
 | L7 | Situational prop model (arena, b2b, travel, altitude, nightlife, refs), unders first | books shade overs | untested as combined model [EA] | new prereg | notes/research_situational_vars.md, research_prop_models.md |
-| L11 | Earnings straddles (enter ~3-5 d before) / straddle selling | VRP at earnings | literature only (Gao-Xing-Zhang +3.34%; ORATS vendor 85%) [EA], notes/social_edges_2026-10-22.md | untested; needs bid/ask history | notes/earnings.md |
+| L11 (**DEAD dev 10-30, see 3d**) | Earnings straddles (enter ~3-5 d before) / straddle selling | VRP at earnings | literature only (Gao-Xing-Zhang +3.34%; ORATS vendor 85%) [EA], notes/social_edges_2026-10-22.md | untested; needs bid/ask history | notes/earnings.md |
 | L12 | Daily earnings-consensus logging | price each contract's threshold | not started [EA] | -- | -- |
 | L14 | Company graph as a data product (12,917 dated customer filings) | screens, not alpha | data built [EA] | no alpha (see dead) | data/company_graph/, notes/company_graph.md |
 | L16 | X post counts vs Kalshi rumor markets | X may lead (GDELT too late to tell) | one-off test ~$13 [EA] | needs X_BEARER_TOKEN + "yes, spend" | scripts/rumor_signals.py |
@@ -216,6 +216,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 **In-game / live**
 | ID | Idea | Evidence | Why dead | File |
 |---|---|---|---|---|
+| L11 | Earnings ATM straddle T-5 -> pre-release, real bid/ask (10-30) | -3.95%/311 [-5.34,-2.53]; mid +1.19% n.d.; spread x2 eats run-up; weekly-expiry version untested | notes/l11_earnings_straddle.md |
 | -- | Q009 SPY short-vol: put credit spread / iron condor, real bid/ask (10-30) | T1 +2.31%/240 [-2.73,+8.20] p .127; T2 -2.00%; variance, not spread, kills it | notes/q009_options_vrp.md |
 | -- | NBA injury -> teammate props at OPEN + hot/cold streaks (10-30) | 0/8; A1 -2.3%/1,438, open moves ~.42 per sim pt (realized .63, A4 +.085 p .035); hot OVER -12.4%/6,064, momentum wrong sign | notes/nba_injury_teammate_props.md |
 | N0 H1-H3 | NFL in-game: model gap hold, lag after big plays, late favourite | -5.6%/295, -7.2%/340, 6 bets [L:nfl_ingame] | Kalshi reprices big plays within ~1 min; beats nflfastR (first run had an epoch bug: fake +62%) | scripts/nfl_ingame.py |
