@@ -89,6 +89,13 @@ rows (bid/ask swap, settlement close, strike/expiry parse, survivorship) before 
 the literature suggests survives spreads. So this test can only find a large edge; a "not distinguishable" result
 does NOT show the VRP is absent, only that 6 years of weekly SPY spreads cannot certify it. The actual SE is printed.
 
+**Amendment A1 (2026-10-30, written BEFORE any P&L was computed; found while downloading).** Snapshots exist on
+NYSE holidays (e.g. MLK day 2020-01-20, 2021-01-18 have full SPY rows) -- stale copies, not tradeable. Rule: the
+entry snapshot of a week is the first snapshot dated on a Yahoo SPY trading day (`--fix-holidays` in the fetcher
+refetches the next trading day; holiday files kept as `holiday_SPY_*.parquet` for the audit). Also: files are one
+per week (`SPY_wk_<monday>.parquet`), not per month; the dev loader opens only weeks before the first sealed week.
+Coverage starts 2020-01-06 (2019-09..12 empty or too slow to probe: empty dates take ~40 s each on the public API).
+
 ## 3. Results (Step 3)
 
 (filled in after the prereg commit)
