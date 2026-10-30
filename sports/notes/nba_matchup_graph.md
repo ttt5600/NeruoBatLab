@@ -137,3 +137,31 @@ GP in leagueseasonmatchups counts the games a PAIR met, not the player's games, 
 "possessions per game" and graph_delta had SD ~15 pts. Fixed: P_i = prior-season matchup possessions / prior-season
 ESPN games played (minutes > 0), name-matched the same way. Signal after the fix (no outcomes): SD ~0.95-1.01 pts
 per season, 11.1% of player-games beyond +-1.5; 52,549 player-games with a signal; name match 99.9%+ of minutes.
+
+## STEP 2 RESULT (DEV, 2026-10-30; results/nba_matchup_graph/trials.json, bets_G1/G2.csv; ledger rows written)
+46,889 points quotes at the open, 35,017 with a graph signal. Bar p < 0.0167.
+| trial | n | observed | 2.5 / 97.5 | p | halves | verdict |
+|---|---|---|---|---|---|---|
+| G1 OVER delta >= +1.5 | 2,042 bets | ROI -2.4% | -6.4% / +1.6% | .89 | +1.8% / -6.4% | FAIL |
+| G2 UNDER delta <= -1.5 | 2,272 bets | ROI -4.1% | -8.0% / -0.05% | .98 | -1.9% / -6.1% | FAIL |
+| G3 slope (actual - open) ~ delta | 35,017 | 0.118 pts/pt | 0.048 / 0.185 | .0008 | 0.110 / 0.129 | PASS (information, not a bet) |
+- G3 passes as written, but it is small: per season 0.034 (22-23), 0.203, 0.121; quintiles of delta give
+  actual - line +0.00, +0.11, +0.17, +0.11, +0.36 and over-rate 48.3 / 47.7 / 48.5 / 47.9 / 50.2%. Even the top
+  quintile hits 50.2% overs, below break-even at the open hold. Hit minus no-vig: G1 +2.3 pts, G2 +1.3 pts -- the
+  signal is real-ish but about a third of the ~7% hold.
+- How much the line already has (descriptive): (line - prior-10 mean) ~ delta slope 0.105 [0.072, 0.138];
+  (actual - prior-10 mean) ~ delta 0.220 [0.141, 0.297]. The graph delta is ~4-5x too large as a points forecast
+  (true effect ~0.22 per stated point) and the open already prices about half of it.
+- Controlling for line, P_i and log exposure the G3 slope is 0.13 (unchanged).
+- SEALED NOT scored: no BETTABLE trial passed (G1/G2 fail); G3 on the sealed Oct-Nov 2025 set (~1/7 of dev n)
+  would have CI about +-0.18 against an effect of 0.12 -> uninformative. Left unspent for the lead to decide.
+VERDICT: individual matchup graph is DEAD as a betting edge at the open. m_ij (who-guards-whom pair chemistry) is
+noise (~0.70 pts persistent, tau2 = 0); the defender main effect is persistent but mostly position, and the
+opponent-specific part moves actual points ~0.2 per stated point, half of which the open already has.
+
+## Worked example (DESCRIPTIVE, not a bet): DEN @ PHX 2026-10-30
+State = 2025-26 totals; defenders = each team's last 2026-27 rotation (DEN 10-28, 7/9 id-matched; PHX 10-26).
+Murray: Brooks 23%, Goodwin 20%, Gillespie 16% -> -0.66. Jokic: Maluach 25%, Booker 19%, Brooks 10% -> -1.44
+(his usual mix includes more big-man "d", which is the positional artifact). Braun -0.87, Gordon -1.27.
+Booker: Braun 45%, DeRozan 18%, Jokic 13% -> -0.17. Brooks 0.00, Bridges -0.46, Green -0.10.
+At the measured 0.22 pass-through, Jokic's -1.44 is ~-0.3 actual points. Nothing here clears any bar.

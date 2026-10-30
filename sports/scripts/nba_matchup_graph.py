@@ -243,36 +243,56 @@ def reliability(ledger: bool) -> dict:
     return res
 
 
-def example(away: str, home: str) -> None:
-    """Descriptive: point-in-time (all games before today) defender shares for each team's top players vs the
-    opponent's defenders, from 2025-26 + 2026-27 data, with d_j from a fit on those games."""
-    df = pd.read_parquet(DATA / "pairs.parquet")
-    df = df[df.season.isin(["2025-26", "2026-27"])]
-    cell = fit_cell(df, "pts")
-    dmap = cell["def"].set_index("def_id").d
-    amap = cell["pairs"].groupby("off_id").a.first()
-    mp = cell["pairs"].set_index(["off_id", "def_id"]).m
-    cur = df[df.season == "2026-27"]
-    roster = {t: set(cur[cur.def_team == t].def_id) | set(cur[cur.off_team == t].off_id) for t in (away, home)}
-    names = dict(zip(df.def_id, df.def_name)) | dict(zip(df.off_id, df.off_name))
+def example(away: str, home: str, top: int = 4) -> None:
+    """Descriptive only (not a bet): the Step-2 signal for tonight's game. State = 2025-26 season totals (prior
+    season), P_i from ESPN 2025-26 games, D_O = opponent's most recent 2026-27 ESPN game rotation."""
+    import nba_player_opp_venue as pov
+    st = prior_state("2025-26")
+    pb = pov.load_box([2026])
+    gpk = pb.groupby(pb.name.map(norm)).event_id.nunique()
+    nm = st["names"].assign(k=lambda x: x.name.map(norm)).drop_duplicates("k", keep=False)
+    k2id = nm.set_index("k").id
+    names = st["names"].set_index("id").name
+    gp_prev = pd.Series(st["P"].index.map(nm.set_index("id").k).map(gpk), index=st["P"].index)
+    P = (st["pairs"].groupby(level=0).sum() / gp_prev).dropna()
+    # pov.load_box drops teams with < 20 home games (all of them this early), so load 2026-27 directly
+    g = pd.read_parquet(ROOT / "data" / "espn" / "nba" / "games_2027.parquet")
+    g = g[(g.season_type != "preseason") & (g.status == "STATUS_FINAL")]
+    b = pd.read_parquet(ROOT / "data" / "espn" / "nba" / "box_2027.parquet")
+    b = b[b.stat == "minutes"][["event_id", "athlete_id", "team_id", "name", "value"]].rename(columns={"value": "minutes"})
+    box = b.merge(g[["event_id", "start_utc", "home", "away", "home_team_id"]], on="event_id")
+    box = box[box.minutes.astype(float) > 0].copy()
+    box["minutes"] = box.minutes.astype(float)
+    box["home_g"] = box.team_id == box.home_team_id
+    box = box.sort_values("start_utc")
+    box["nba_id"] = box.name.map(norm).map(k2id)
+    pair_by_off = {k: v.droplevel(0) for k, v in st["pairs"].groupby(level=0)}
+    rot = {}
+    for t in (away, home):
+        bt = box[(box.home == t) & box.home_g | (box.away == t) & ~box.home_g]
+        last = bt[bt.start_utc == bt.start_utc.max()]
+        rot[t] = last
+        print(f"{t} last game {last.start_utc.iat[0]} rotation: {len(last)} players, "
+              f"{int(last.nba_id.notna().sum())} id-matched")
     for off, de in ((away, home), (home, away)):
-        o = cur[cur.off_team == off].groupby("off_id").poss.sum().sort_values(ascending=False).head(4)
-        for oid in o.index:
-            h = df[(df.off_id == oid) & (df.def_team == de) & df.def_id.isin(roster[de])]
-            if h.empty:
-                print(f"{names[oid]} ({off}): no prior possessions vs current {de} defenders"); continue
-            sh = h.groupby("def_id").poss.sum(); sh = sh / sh.sum()
-            dl = sum(sh[j] * dmap.get(j, 0.0) for j in sh.index)
-            ml = sum(sh[j] * mp.get((oid, j), 0.0) for j in sh.index)
-            avg_d = float(df[df.off_id == oid].assign(dd=lambda x: x.def_id.map(dmap).fillna(0) * x.poss).dd.sum()
-                          / df[df.off_id == oid].poss.sum())
-            ngames = h.game_id.nunique()
-            tot = h.poss.sum()
-            top = ", ".join(f"{names[j]} {sh[j]:.0%}" for j in sh.sort_values(ascending=False).index[:3])
-            pp = cur[cur.off_id == oid].groupby("game_id").poss.sum().mean()
-            print(f"{names[oid]} ({off}) vs {de}: {ngames} prior games, {tot:.0f} poss; guarded by {top}; "
-                  f"share-weighted d = {dl:+.1f}/100 vs his usual {avg_d:+.1f}/100 -> {(dl - avg_d) * pp / 100:+.2f} pts "
-                  f"over ~{pp:.0f} poss; m_ij-weighted {ml * pp / 100:+.2f} pts (a_i {amap.get(oid, 0):+.1f})")
+        DO = [int(v) for v in rot[de].nba_id.dropna()]
+        o = box[((box.home == off) & box.home_g) | ((box.away == off) & ~box.home_g)]
+        o = o.groupby("nba_id").minutes.sum().sort_values(ascending=False).head(top)
+        for oid in o.index.astype(int):
+            pv = pair_by_off.get(oid)
+            if pv is None or oid not in P.index:
+                print(f"  {names.get(oid, oid)} ({off}): no 2025-26 matchup history"); continue
+            n = pv.reindex(DO).dropna()
+            if n.sum() < 30:
+                print(f"  {names.get(oid, oid)} ({off}): {n.sum():.0f} poss vs current {de} rotation (<30, no signal)"); continue
+            sh = n / n.sum()
+            dl = float((sh * st["d"].reindex(sh.index).fillna(0.0)).sum())
+            gd = (dl - float(st["usual"][oid])) * float(P[oid]) / 100
+            tops = ", ".join(f"{names.get(j, j)} {sh[j]:.0%} (d {st['d'].get(j, 0):+.1f})"
+                             for j in sh.sort_values(ascending=False).index[:3])
+            print(f"  {names.get(oid, oid)} ({off}) vs {de}: {n.sum():.0f} poss in 2025-26 vs tonight's {de} rotation; "
+                  f"guarded by {tops}; mix d {dl:+.1f}/100 vs usual {st['usual'][oid]:+.1f}/100 x {P[oid]:.0f} poss/g "
+                  f"-> graph_delta {gd:+.2f} pts")
 
 
 # ------------------------------------------------------------------------------- Step 2 (prior-season state)
