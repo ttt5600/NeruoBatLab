@@ -93,6 +93,44 @@ per game. Win pays the American open price, push = 0, loss = -1.
   12.89 (2024, 798 games, bias -0.52); dev was ~13.3. The ESPN results chain works.
 - 2025/2026 game counts only: 958 / 572 final games in the FBS feed (no scores were printed or inspected).
 
-## Results
+## Results (scored ONCE, 2026-10-30, after prereg commit 39055da)
 
-(not yet run)
+**Verdict: P1 FAILS, so L36 is DEAD for betting. The ROI is not distinguishable from zero (the test was underpowered,
+as the power check said). The CLV signal replicates out of sample and is stronger than in dev.**
+
+Two code fixes were made after the commit and before any number was printed (the first `score` run crashed on the
+second one and printed only the provider counts): (1) ESPN spells the book "Draft Kings" in 2025+, so the written
+priority "DraftKings first" did not match; the name is normalised. (2) SBR-only `*_open/*_close` columns (NaN for
+ESPN rows) collided in the merge; they are dropped. Neither touches the model, the bet rule or the outcomes.
+
+Data: 1,258 FBS-vs-FBS games (2025 full season incl. bowls/CFP + 2026 through 10-29), 1,255 with a usable open
+total, open prices and close. Book chosen per game: DraftKings 670 / ESPN BET 853 games. Among bets: 2025 = ESPN BET
+225 + DraftKings 26 (bowls), 2026 = DraftKings 148. Price = that book's open over/under price.
+
+| trial | n | observed | 2.5% | 97.5% | p (1-sided) | 2025 | 2026 | pass |
+|---|---|---|---|---|---|---|---|---|
+| **P1 ROI at real open price** | 399 | **+0.7%** | -10.7% | +11.5% | .455 | -3.9% (251) | +8.3% (148) | **no** |
+| P2 total CLV (pts) | 399 | **+1.53** | +1.22 | +1.86 | <.00025 | +1.07 | +2.32 | (secondary) |
+| P3 ROI open price, weeks 1-4 | 134 | -4.9% | -27.9% | +19.5% | .644 | -2.6% (78) | -8.0% (56) | no |
+
+Reported, not counted:
+- Hit rate ex-push 52.9% (211-188, 0 pushes) vs mean no-vig implied prob of the side at the open 50.1%.
+  Average open price -107.0 (avg payout 0.906/u). -110 reference ROI +1.0% [-10.5%, +11.8%].
+- Bet rate 399/1,255 = 31.8% (dev 27.9%). 187 overs / 212 unders.
+- MAE vs outcome on the 1,255 games: model 12.93, open 12.72, close 12.55; model bias +0.01. On its own the model is
+  still worse than the opener, as in dev (13.37 vs 13.25).
+- By book: 2025 ESPN BET CLV +1.12, ROI -2.1%; 2026 DraftKings CLV +2.32, ROI +8.3%.
+
+Reading: the market keeps moving toward the model (+1.5 pts, CI clear of 0, positive in both seasons), but at the
+open price the bets earn back about the vig and no more: 52.9% hits against a break-even of about 52.5% at the -107
+average. Same pattern as NBA/NFL/NHL and dev CFB: the model leads the opener, the close knows everything, and the
+price eats the gap.
+
+Looked off / caveats:
+- 2026 DraftKings opens move much more before the close (mean |move| 3.03 pts vs 1.85 for 2025 ESPN BET), and CLV
+  doubles (+2.32). ESPN gives no open timestamp. The DK "open" is probably the very first (look-ahead, low-limit)
+  number, and whether it can be bet at size at that moment is unknown.
+- Too-good guard not triggered (ROI +0.7%). Spot-checked rows: sides, open/close and grading are consistent.
+
+Files: `scripts/l36_cfb_sealed.py`, `results/l36_cfb_sealed/bets.csv`, `data/lab/l36_cfb_sealed_results.json`,
+ledger row `l36_cfb_totals_P1` in `lab/ledger.jsonl`.

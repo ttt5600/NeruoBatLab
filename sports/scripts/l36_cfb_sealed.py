@@ -228,8 +228,10 @@ def boot(vals, clusters, n=NBOOT, seed=0):
 def score(ledger: bool):
     P = predictions()
     P = P[P["season"].isin(SEALED)].copy()
+    P = P.drop(columns=[c for c in P.columns if c.endswith(("_open", "_close"))])   # SBR-only columns (NaN here)
     L = pd.concat([pd.read_parquet(ESPN / f"lines_full_{y}.parquet") for y in SEALED], ignore_index=True)
     L["event_id"] = L["event_id"].astype(str)
+    L["provider"] = L["provider"].replace({"Draft Kings": "DraftKings"})   # ESPN spells it "Draft Kings" in 2025+
     O = pick_open(L)
     print("providers chosen per event:", O["provider"].value_counts().to_dict())
     P["event_id"] = P["event_id"].astype(str)
