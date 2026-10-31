@@ -1,0 +1,241 @@
+season,label,team,team_name,win_total,over_odds,under_odds,actual_wins,book,as_of,source,fetched_utc
+2020,2019-2020,ATL,Atlanta Hawks,33.5,-120,100,20.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,BOS,Boston Celtics,48.5,-130,110,48.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,BKN,Brooklyn Nets,43.5,105,-125,35.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,CHA,Charlotte Hornets,23.5,110,-130,23.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,CHI,Chicago Bulls,33.5,-140,120,22.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,CLE,Cleveland Cavaliers,24.5,115,-135,19.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,DAL,Dallas Mavericks,40.5,-155,135,43.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,DEN,Denver Nuggets,53.0,-125,105,46.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,DET,Detroit Pistons,37.5,-135,115,20.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,GS,Golden State Warriors,47.5,145,-165,15.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,HOU,Houston Rockets,54.0,-110,-110,44.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,IND,Indiana Pacers,46.5,115,-135,45.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,LAC,Los Angeles Clippers,53.5,-105,-115,49.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,LAL,Los Angeles Lakers,50.5,-105,-115,52.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,MEM,Memphis Grizzlies,27.5,-120,100,34.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,MIA,Miami Heat,43.5,-130,110,44.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,MIL,Milwaukee Bucks,57.5,135,-155,56.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,MIN,Minnesota Timberwolves,35.5,-125,105,19.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,NO,New Orleans Pelicans,37.5,-105,-115,30.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,NY,New York Knicks,26.5,105,-125,21.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,OKC,Oklahoma City Thunder,32.5,-130,110,44.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,ORL,Orlando Magic,41.5,-120,100,33.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,PHI,Philadelphia 76ers,54.5,-120,100,43.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,PHX,Phoenix Suns,29.5,-110,-110,34.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,POR,Portland Trail Blazers,46.5,-110,-110,35.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,SAC,Sacramento Kings,37.5,-120,100,31.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,SA,San Antonio Spurs,46.5,130,-150,32.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,TOR,Toronto Raptors,46.5,-135,115,53.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,UTAH,Utah Jazz,53.5,100,-120,44.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2020,2019-2020,WSH,Washington Wizards,27.0,100,-120,25.0,BetMGM,"October 22, 2019",https://www.sportsoddshistory.com/nba-win/?y=2019-2020&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,ATL,Atlanta Hawks,34.5,-110,-110,41.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,BOS,Boston Celtics,44.5,105,-125,36.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,BKN,Brooklyn Nets,45.5,-110,-110,48.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,CHA,Charlotte Hornets,26.5,-110,-110,33.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,CHI,Chicago Bulls,29.5,-110,-110,31.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,CLE,Cleveland Cavaliers,22.5,-110,-110,22.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,DAL,Dallas Mavericks,42.5,-110,-110,42.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,DEN,Denver Nuggets,44.5,-110,-110,47.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,DET,Detroit Pistons,23.5,-110,-110,20.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,GS,Golden State Warriors,37.5,-110,-110,39.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,HOU,Houston Rockets,34.5,-110,-110,17.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,IND,Indiana Pacers,38.5,-110,-110,34.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,LAC,Los Angeles Clippers,46.5,-110,-110,47.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,LAL,Los Angeles Lakers,47.5,-110,-110,42.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,MEM,Memphis Grizzlies,31.5,-110,-110,38.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,MIA,Miami Heat,43.5,-110,-110,40.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,MIL,Milwaukee Bucks,49.5,-110,-110,46.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,MIN,Minnesota Timberwolves,29.5,-110,-110,23.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,NO,New Orleans Pelicans,36.5,-110,-110,31.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,NY,New York Knicks,21.5,-110,-110,41.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,OKC,Oklahoma City Thunder,22.5,105,-125,22.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,ORL,Orlando Magic,31.5,-110,-110,21.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,PHI,Philadelphia 76ers,43.5,-110,-110,49.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,PHX,Phoenix Suns,38.5,-110,-110,51.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,POR,Portland Trail Blazers,40.5,-110,-110,42.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,SAC,Sacramento Kings,28.5,-110,-110,31.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,SA,San Antonio Spurs,28.5,-110,-110,33.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,TOR,Toronto Raptors,42.5,-110,-110,27.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,UTAH,Utah Jazz,41.5,-110,-110,52.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2021,2020-2021,WSH,Washington Wizards,32.5,-110,-110,34.0,BetMGM,"December 22, 2020",https://www.sportsoddshistory.com/nba-win/?y=2020-2021&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,ATL,Atlanta Hawks,47.5,-110,-110,43.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,BOS,Boston Celtics,45.5,-120,100,51.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,BKN,Brooklyn Nets,56.5,105,-125,44.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,CHA,Charlotte Hornets,38.5,-110,-110,43.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,CHI,Chicago Bulls,42.5,-115,-105,46.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,CLE,Cleveland Cavaliers,26.5,-105,-115,44.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,DAL,Dallas Mavericks,48.5,-105,-115,52.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,DEN,Denver Nuggets,47.5,-120,100,48.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,DET,Detroit Pistons,24.5,-120,100,23.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,GS,Golden State Warriors,48.5,-110,-110,53.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,HOU,Houston Rockets,27.5,110,-130,20.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,IND,Indiana Pacers,42.5,-115,-105,25.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,LAC,Los Angeles Clippers,45.5,-105,-115,42.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,LAL,Los Angeles Lakers,52.5,-110,-110,33.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,MEM,Memphis Grizzlies,41.5,-120,100,56.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,MIA,Miami Heat,48.5,-110,-110,53.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,MIL,Milwaukee Bucks,54.5,-115,-105,51.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,MIN,Minnesota Timberwolves,35.5,-110,-110,46.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,NO,New Orleans Pelicans,39.5,-110,-110,36.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,NY,New York Knicks,41.5,-140,115,37.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,OKC,Oklahoma City Thunder,23.5,-105,-115,24.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,ORL,Orlando Magic,22.5,-110,-110,22.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,PHI,Philadelphia 76ers,50.5,-105,-115,51.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,PHX,Phoenix Suns,51.5,-125,105,64.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,POR,Portland Trail Blazers,44.5,-110,-110,27.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,SAC,Sacramento Kings,36.5,-105,-115,30.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,SA,San Antonio Spurs,28.5,-140,115,34.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,TOR,Toronto Raptors,35.5,-120,100,48.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,UTAH,Utah Jazz,52.5,-110,-110,49.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2022,2021-2022,WSH,Washington Wizards,33.5,-125,105,35.0,BetMGM,"October 19, 2021",https://www.sportsoddshistory.com/nba-win/?y=2021-2022&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,ATL,Atlanta Hawks,46.5,-125,105,41.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,BOS,Boston Celtics,54.5,110,-130,57.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,BKN,Brooklyn Nets,50.5,-115,-105,45.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,CHA,Charlotte Hornets,34.5,125,-155,27.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,CHI,Chicago Bulls,41.5,-125,105,40.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,CLE,Cleveland Cavaliers,46.5,-125,105,51.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,DAL,Dallas Mavericks,48.5,-110,-110,38.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,DEN,Denver Nuggets,51.5,-110,-110,53.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,DET,Detroit Pistons,29.5,-130,110,17.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,GS,Golden State Warriors,52.5,-110,-110,44.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,HOU,Houston Rockets,23.5,-115,-105,22.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,IND,Indiana Pacers,24.5,100,-130,35.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,LAC,Los Angeles Clippers,52.5,-115,-105,44.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,LAL,Los Angeles Lakers,44.5,110,-135,43.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,MEM,Memphis Grizzlies,49.5,-110,-110,51.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,MIA,Miami Heat,49.5,105,-125,44.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,MIL,Milwaukee Bucks,53.5,-110,-110,58.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,MIN,Minnesota Timberwolves,49.5,-110,-110,42.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,NO,New Orleans Pelicans,45.5,-120,100,42.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,NY,New York Knicks,38.5,-110,-110,47.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,OKC,Oklahoma City Thunder,23.5,-115,-105,40.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,ORL,Orlando Magic,26.5,-120,100,34.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,PHI,Philadelphia 76ers,50.5,-135,110,54.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,PHX,Phoenix Suns,52.5,100,-120,45.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,POR,Portland Trail Blazers,39.5,105,-125,33.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,SAC,Sacramento Kings,34.5,-120,100,48.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,SA,San Antonio Spurs,22.5,100,-120,22.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,TOR,Toronto Raptors,46.5,-115,-105,41.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,UTAH,Utah Jazz,23.5,-115,-105,37.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2023,2022-2023,WSH,Washington Wizards,35.5,-110,-110,35.0,BetMGM,"October 18, 2022",https://www.sportsoddshistory.com/nba-win/?y=2022-2023&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,ATL,Atlanta Hawks,42.5,-125,105,36.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,BOS,Boston Celtics,54.5,-115,-105,64.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,BKN,Brooklyn Nets,37.5,-110,-110,32.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,CHA,Charlotte Hornets,31.5,-115,-105,21.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,CHI,Chicago Bulls,37.5,-115,-105,39.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,CLE,Cleveland Cavaliers,50.5,-120,100,48.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,DAL,Dallas Mavericks,45.5,100,-120,50.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,DEN,Denver Nuggets,52.5,-110,-110,57.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,DET,Detroit Pistons,28.5,-105,-115,14.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,GS,Golden State Warriors,48.5,100,-120,46.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,HOU,Houston Rockets,31.5,-115,-105,41.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,IND,Indiana Pacers,38.5,-115,-105,47.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,LAC,Los Angeles Clippers,46.5,-110,-110,51.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,LAL,Los Angeles Lakers,47.5,-105,-115,47.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,MEM,Memphis Grizzlies,45.5,-115,-105,27.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,MIA,Miami Heat,45.5,-115,-105,46.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,MIL,Milwaukee Bucks,54.5,-120,100,49.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,MIN,Minnesota Timberwolves,44.5,-115,-105,56.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,NO,New Orleans Pelicans,44.5,-105,-115,49.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,NY,New York Knicks,45.5,100,-120,50.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,OKC,Oklahoma City Thunder,44.5,100,-120,57.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,ORL,Orlando Magic,37.5,-110,-110,47.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,PHI,Philadelphia 76ers,48.5,-110,-110,47.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,PHX,Phoenix Suns,51.5,-120,100,49.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,POR,Portland Trail Blazers,28.5,-110,-110,21.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,SAC,Sacramento Kings,44.5,-115,-105,46.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,SA,San Antonio Spurs,28.5,-120,100,22.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,TOR,Toronto Raptors,36.5,-105,-115,25.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,UTAH,Utah Jazz,35.5,-130,110,31.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2024,2023-2024,WSH,Washington Wizards,24.5,-110,-110,15.0,BetMGM,"October 24, 2023",https://www.sportsoddshistory.com/nba-win/?y=2023-2024&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,ATL,Atlanta Hawks,36.5,-120,100,40.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,BOS,Boston Celtics,58.5,-105,-115,61.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,BKN,Brooklyn Nets,19.5,-110,-110,26.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,CHA,Charlotte Hornets,30.5,-115,-105,19.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,CHI,Chicago Bulls,28.5,-105,-115,39.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,CLE,Cleveland Cavaliers,48.5,-130,110,64.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,DAL,Dallas Mavericks,49.5,-120,100,39.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,DEN,Denver Nuggets,51.5,110,-130,50.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,DET,Detroit Pistons,25.5,-125,105,44.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,GS,Golden State Warriors,43.5,-125,105,48.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,HOU,Houston Rockets,43.5,-125,105,52.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,IND,Indiana Pacers,46.5,-125,105,50.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,LAC,Los Angeles Clippers,35.5,-105,-115,50.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,LAL,Los Angeles Lakers,43.5,-115,-105,50.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,MEM,Memphis Grizzlies,47.5,100,-120,48.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,MIA,Miami Heat,44.5,-105,-115,37.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,MIL,Milwaukee Bucks,49.5,-105,-115,48.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,MIN,Minnesota Timberwolves,51.5,-110,-110,49.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,NO,New Orleans Pelicans,46.5,105,-125,21.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,NY,New York Knicks,53.5,-110,-110,51.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,OKC,Oklahoma City Thunder,57.5,-110,-110,68.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,ORL,Orlando Magic,47.5,-125,105,41.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,PHI,Philadelphia 76ers,50.5,-105,-115,24.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,PHX,Phoenix Suns,48.5,-120,100,36.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,POR,Portland Trail Blazers,21.5,-105,-115,36.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,SAC,Sacramento Kings,46.5,-110,-110,40.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,SA,San Antonio Spurs,35.5,-120,100,34.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,TOR,Toronto Raptors,29.5,-105,-115,30.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,UTAH,Utah Jazz,28.5,100,-120,17.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2025,2024-2025,WSH,Washington Wizards,20.5,100,-120,18.0,BetMGM,"October 23, 2024",https://www.sportsoddshistory.com/nba-win/?y=2024-2025&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,ATL,Atlanta Hawks,46.5,-115,-105,46.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,BOS,Boston Celtics,41.5,-110,-110,56.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,BKN,Brooklyn Nets,19.5,-110,-110,20.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,CHA,Charlotte Hornets,27.5,-115,-105,44.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,CHI,Chicago Bulls,33.5,-120,100,31.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,CLE,Cleveland Cavaliers,56.5,-115,-105,52.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,DAL,Dallas Mavericks,41.5,-125,105,26.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,DEN,Denver Nuggets,53.5,-125,105,54.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,DET,Detroit Pistons,46.5,105,-125,60.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,GS,Golden State Warriors,47.5,-110,-110,37.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,HOU,Houston Rockets,52.5,100,-120,52.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,IND,Indiana Pacers,37.5,100,-120,19.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,LAC,Los Angeles Clippers,49.5,-105,-115,42.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,LAL,Los Angeles Lakers,46.5,-120,100,53.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,MEM,Memphis Grizzlies,39.5,-125,105,25.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,MIA,Miami Heat,37.5,-120,100,43.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,MIL,Milwaukee Bucks,43.5,-110,-110,32.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,MIN,Minnesota Timberwolves,49.5,-110,-110,49.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,NO,New Orleans Pelicans,30.5,-120,100,26.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,NY,New York Knicks,53.5,-105,-115,53.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,OKC,Oklahoma City Thunder,62.5,-110,-110,64.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,ORL,Orlando Magic,51.5,-115,-105,45.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,PHI,Philadelphia 76ers,43.5,-105,-115,45.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,PHX,Phoenix Suns,30.5,-120,100,45.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,POR,Portland Trail Blazers,35.5,-110,-110,42.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,SAC,Sacramento Kings,32.5,-110,-110,22.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,SA,San Antonio Spurs,44.5,-110,-110,62.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,TOR,Toronto Raptors,39.5,-110,-110,46.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,UTAH,Utah Jazz,18.5,-135,110,22.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2026,2025-2026,WSH,Washington Wizards,20.5,-110,-110,17.0,BetMGM,"October 21, 2025",https://www.sportsoddshistory.com/nba-win/?y=2025-2026&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,ATL,Atlanta Hawks,43.5,-125,105,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,BOS,Boston Celtics,51.5,-120,100,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,BKN,Brooklyn Nets,24.5,-110,-110,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,CHA,Charlotte Hornets,38.5,-105,-115,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,CHI,Chicago Bulls,29.5,-110,-110,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,CLE,Cleveland Cavaliers,48.5,100,-120,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,DAL,Dallas Mavericks,34.5,-110,-110,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,DEN,Denver Nuggets,49.5,105,-125,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,DET,Detroit Pistons,49.5,125,-150,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,GS,Golden State Warriors,36.5,-105,-115,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,HOU,Houston Rockets,48.5,-120,100,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,IND,Indiana Pacers,44.5,-110,-110,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,LAC,Los Angeles Clippers,28.5,-105,-115,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,LAL,Los Angeles Lakers,46.5,-105,-115,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,MEM,Memphis Grizzlies,29.5,-120,100,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,MIA,Miami Heat,46.5,-125,-105,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,MIL,Milwaukee Bucks,25.5,-120,100,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,MIN,Minnesota Timberwolves,48.5,-110,-110,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,NO,New Orleans Pelicans,28.5,-110,-110,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,NY,New York Knicks,52.5,100,-120,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,OKC,Oklahoma City Thunder,62.5,-105,-115,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,ORL,Orlando Magic,43.5,-130,110,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,PHI,Philadelphia 76ers,49.5,-115,-105,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,PHX,Phoenix Suns,40.5,110,-130,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,POR,Portland Trail Blazers,41.5,110,-135,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,SAC,Sacramento Kings,21.5,100,-120,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,SA,San Antonio Spurs,59.5,-125,105,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,TOR,Toronto Raptors,46.5,-120,100,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,UTAH,Utah Jazz,37.5,-120,100,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
+2027,2026-2027,WSH,Washington Wizards,34.5,-110,-110,,BetMGM,,https://www.sportsoddshistory.com/nba-win/?y=2026-2027&sa=nba&t=win&o=t,2026-10-31
