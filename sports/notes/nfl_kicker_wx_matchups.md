@@ -55,3 +55,35 @@ Ledger dataset `nfl_kicker_wx_matchups`. Written and committed BEFORE any line o
 ## Then (descriptive, not bets): 2026-11-01 outdoor games -- Open-Meteo forecast wind/temp/precip at kickoff, each listed
 kicker's model make prob at 40/50 yds, B term per game only if B0 passed, vs ESPN scoreboard lines. Rows from a passing trial
 are labelled BET-CANDIDATE; everything else DESCRIPTIVE.
+
+---
+## RESULTS (2026-10-31, run after the prereg commit e5e3724). Nothing passes, no bets.
+
+Outputs: `data/lab/nfl_kicker_wx/{gates.json,trials.json,bets_A1.csv,a_forecast.parquet,kicker_model.json,today_20261101.csv}`.
+Ledger: 3 rows, dataset `nfl_kicker_wx_matchups`.
+
+| item | n | result | verdict |
+|---|---|---|---|
+| B0 gate: defence (rush EPA - pass EPA allowed), wk1-8 vs wk9+ | 448 team-seasons | r = 0.081 [-0.003, 0.161] | **DEAD** -> B1/B2 not run |
+| (context) rush-D level / pass-D level / offence rush rate | 448 | r 0.258 / 0.239 / 0.522 | levels persist, the split does not |
+| C gate: player x stadium yards residual, away stadiums only | rush 174 / rec 477 / pass 152 cells | r -0.021 / +0.024 / -0.059 (CIs span 0) | **DEAD** |
+| (C, all cells incl. home) | 596 / 1521 / 345 | r -0.13 / -0.14 / -0.15 | negative = leave-one-out artefact, not signal |
+| A1 total UNDER at SBR close, MOS forecast wind >= 15 mph | 250 bets (136-111-3) | ROI +5.1% [-6.8%, +16.6%] at assumed -110, p .196, halves +1.8% / +9.0% | **FAIL, not distinguishable** |
+| A2 kicker props | -- | prop lines only 2022+ = lockbox | not testable, not counted |
+
+- Forecast check: 2,523 of 2,554 outdoor dev games got a MOS forecast (the missing ones are London/Mexico). Median lead 8.1 h, min 6.0 h,
+  0 runtime violations. Correlation with the schedule's observed kickoff wind is 0.66. Airport MOS winds run about 3 mph above stadium obs
+  (bets: forecast mean 19.3 mph vs observed 16.0).
+- Power: per-bet SD 0.95 -> SE 6.0%. The bar needed about +12.7%. A1 was under-powered for the +5-7% sizes seen, so a fail means "not shown".
+- Descriptive (NOT a counted trial, post hoc): points minus close total = -0.19 pts per forecast mph (cluster SE 0.06). The line
+  already moves -0.22 pts/mph open->close. So the close under-adjusts slightly, but at -110 the under rule does not clear the vig.
+- Kicker model (dev 2006-19, n 14,309 FGAs): wind -0.21 logit per 10 mph (se .04). Kicker skill +0.45 per 0.1 make-prob residual
+  (se .09). Temp +0.04 per 10F. Altitude +0.37. An average kicker at 50 yds/50F makes 0.676 calm, 0.622 at 10 mph and 0.566 at 20 mph.
+  The intercept is the 2006-19 level. Kickers have improved since, so the live numbers are only partly absorbed by skill and
+  are probably low at 50 yds (size not measured).
+
+### 2026-11-01 (DESCRIPTIVE ONLY: no row comes from a passing trial)
+Open-Meteo forecast pulled 2026-10-31 evening PT, mean over kickoff..+3 h. Lines are from the ESPN scoreboard (DraftKings).
+No outdoor game is forecast at >= 15 mph, so even the failed A1 rule would not fire. Highest: TB 13 mph (gust 29, 52% rain),
+JAX 12, MIA 10 (gust 37, 47% rain). SoFi (LAC@LAR) is roofed and treated as indoor. B terms were not computed (B0 dead).
+`data/lab/nfl_kicker_wx/today_20261101.csv` has every row (P(make) at 40/50 yds per kicker).
