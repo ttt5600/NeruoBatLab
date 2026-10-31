@@ -1,4 +1,4 @@
-| -- | NFL run/pass matchup splits, player x stadium, FORECAST-wind unders (user 10-31) | split r .08 (noise); stadium r ~0; forecast wind >=15 unders +5.1%/250 p .20 n.d. | notes/nfl_kicker_wx_matchups.md |\n# FUND BOOK -- master index of the prediction-market research fund (written 2026-10-29)
+# FUND BOOK -- master index of the prediction-market research fund (written 2026-10-29)
 
 Every edge we have ever considered, how the fund is run, what runs live, how research is done, and what waits on the PM.
 Numbers are copied from the file cited next to them; nothing here is new analysis. REPO IS PUBLIC: no brokerage
@@ -216,6 +216,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 **In-game / live**
 | ID | Idea | Evidence | Why dead | File |
 |---|---|---|---|---|
+| -- | NFL run/pass matchup splits, player x stadium, FORECAST-wind unders (user 10-31) | split r .08 (noise); stadium r ~0; forecast wind >=15 unders +5.1%/250 p .20 n.d. | notes/nfl_kicker_wx_matchups.md |
 | -- | NBA preseason hype vs early form, fade overhyped / popular teams (user 10-30) | H1 -2.1%/325; H3 fade overhyped -19.2%/86; H4 popular -1.9%/334; H2 slope +.094 p .032 (lead at most) | notes/nba_hype_vs_form.md |
 | -- | NBA who-guards-whom matchup graph -> props at OPEN (user 10-30) | pair effects noise (r .07); defender effect = position; G1/G2 -2.4%/-4.1%; G3 slope +.118 real but << hold | notes/nba_matchup_graph.md |
 | L11 | Earnings ATM straddle T-5 -> pre-release, real bid/ask (10-30) | -3.95%/311 [-5.34,-2.53]; mid +1.19% n.d.; spread x2 eats run-up; weekly-expiry version untested | notes/l11_earnings_straddle.md |
