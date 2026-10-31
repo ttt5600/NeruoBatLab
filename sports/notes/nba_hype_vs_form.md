@@ -86,3 +86,37 @@ All-Star exhibition entities (LEB, DUR, ...) have no win total and drop out of t
 
 ## Result
 (filled in below this line after the run; nothing above edited after scoring)
+
+### Scored 2026-10-31 (`nba_hype_vs_form.py --ledger`, sha 412e9c4e57ea; results/nba_hype_vs_form/score.json, run.log, bets_dev_H*.csv, dev_window.csv; ledger rows nhvf_H1..H4)
+Checks: lookahead 0 mismatches every season; spread-sign vs ML-favourite agreement .979-.998 (lowest 2024-25 ESPN BET opener);
+prices: 2021-22/22-23 close (DK), 2023-24 open 1215 / close 16 (DK, ESPN BET), 2024-25 open (ESPN BET), 2025-26 open (DK/ESPN BET).
+Units map (wins -> pts, prior seasons only): b = 32.2-33.0 pts per unit of win pct, a ~ 0. Frozen X = 2.638, G = 3.324.
+
+| trial | n | observed | 95% CI (date-clustered, 4000) | p one-sided | half1 / half2 | pass |
+|---|---|---|---|---|---|---|
+| H1 shrinkage (K=20) vs earliest line, ML | 325 bets | ROI -2.06% | [-15.80, +11.70] | .619 | -4.81% / +1.08% | no |
+| H2 (margin - M) ~ D slope | 973 games | +0.094 pts/pt | [-0.005, +0.193] | .032 | +0.017 / +0.173 | no (p > .0125) |
+| H3 fade overhyped (H1 subset), ML | 86 bets | ROI -19.18% | [-43.53, +5.71] | .938 | -26.07% / -12.90% | no |
+| H4 fade LAL/GS/BOS/NY/CHI/PHI, ML | 334 bets | ROI -1.90% | [-15.03, +11.78] | .621 | -1.90% / -1.90% | no |
+By season H1: -14.3% (77), +2.8% (96), +6.2% (54), -1.7% (98). Too-good guard not triggered (no ROI > +10%).
+All four: not distinguishable from zero. H2's point estimate is positive (direction of the hypothesis) but its CI touches 0,
+and it is again carried by 2023-24/2024-25 (half1 slope ~0) -- the same pattern as the early-season study's <= 8-game hint.
+
+Descriptive (not trials):
+- Form-only twin (K = 0, own threshold 5.306): 325 bets ROI +2.82% [-11.43, +16.94], halves -11.6% / +16.2%. Shares 145 of
+  325 bets with H1. Adding the hype prior turned +2.8% into -2.1%: hype added nothing (if anything it hurt).
+- F1 overlap: of H1's 325 bets, 43 are F1 bets on the same side (F1 fires 135 times in this window), 5 on the opposite side;
+  the 282 H1 bets F1 would NOT make returned -7.1%.
+- In-sample OLS on the DEV window (no CIs, descriptive): market home margin M = 2.24 + 0.613 * hype diff + 0.295 * form diff
+  (R2 .68); actual margin = 2.88 + 0.489 * hype diff + 0.383 * form diff. So the market leans a bit more on hype and a bit
+  less on form than outcomes do -- the user's direction -- but the size of that tilt is what H2 measures, and H2 does not
+  clear the bar. It is far too small to beat the vig at ML prices (H1, H3 lose).
+
+VERDICT: FAIL on all 4. KILL rule fires (no DEV pass; H2 CI includes 0) -> DEAD as specified. SEALED 2025-26 not scored.
+Power caveat: MDE ~ +22.7% ROI, so this rules out only a large edge; H2 (p .032) is at most a lead that would need its own
+pre-registered test (e.g. pooled with F1's forward rows) -- not a bet. Caveat: no critic subagent review yet.
+
+Current 2026-27 (descriptive only, NOT a bet; results/nba_hype_vs_form/current_2026_27_gaps.csv; ESPN finals through 2026-10-30,
+79 games, 3-6 games per team, BetMGM totals): gap = adjMOV - E.
+Underpriced: MEM +11.65 (5-0, total 29.5), MIN +10.38 (4-2, 48.5), HOU +9.63 (5-1, 48.5), DAL +9.47 (4-2, 34.5), POR +6.21 (3-1, 41.5).
+Overhyped: PHX -10.61 (1-2, 40.5), OKC -8.15 (4-1, 62.5), IND -8.09 (2-4, 44.5), CHI -8.08 (1-5, 29.5), CHA -7.62 (3-3, 38.5).
