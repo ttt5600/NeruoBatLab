@@ -1,4 +1,4 @@
-# FUND BOOK -- master index of the prediction-market research fund (written 2026-10-29)
+| -- | NFL run/pass matchup splits, player x stadium, FORECAST-wind unders (user 10-31) | split r .08 (noise); stadium r ~0; forecast wind >=15 unders +5.1%/250 p .20 n.d. | notes/nfl_kicker_wx_matchups.md |\n# FUND BOOK -- master index of the prediction-market research fund (written 2026-10-29)
 
 Every edge we have ever considered, how the fund is run, what runs live, how research is done, and what waits on the PM.
 Numbers are copied from the file cited next to them; nothing here is new analysis. REPO IS PUBLIC: no brokerage
