@@ -126,10 +126,107 @@ def test_v2_onoff_raises_a_positive_onoff_player_and_legacy_is_unchanged():
         la, lb = (ns.player_rates(st, a, 700090, PRIORS)["r"] for a in ("A", "B"))
         assert la == pytest.approx(lb)
     finally:
-        ns.set_impact("v2", 0.5, 1500)
+        ns.set_impact(ns.DEFAULT_MODE)
 
 
 def test_update_without_margin_keeps_v1_state():
     st = ns.State()
     team_state(st, "AAA", 30, games=3)
     assert all("oo" not in s for s in st.ST.values())
+
+
+# ------------------------------------------------------------------------------------------------ v2.1 components
+def _restore():
+    ns.set_impact(ns.DEFAULT_MODE)
+
+
+def _ps(seed=0, n=300):
+    """Synthetic player-seasons: plus-minus driven by points with a usage-confounded turnover penalty."""
+    import pandas as pd
+    rng = np.random.default_rng(seed)
+    rows = []
+    for season in (2021, 2022, 2023):
+        for i in range(n):
+            m = rng.uniform(400, 2500)
+            rate = {s: rng.uniform(0.5, 2.0) * m / 48 for s in ns.STATS}
+            pm = (0.4 * rate["points"] - 1.5 * rate["turnovers"] + rng.normal(0, 30)) * (1 + 0.3 * (season - 2022))
+            rows.append({"season": season, "athlete_id": f"p{i}", "minutes": m, "plusMinus": pm, **rate})
+    return pd.DataFrame(rows)
+
+
+def test_fit_bpm_shrunk_usage_factor_and_ridge_limits():
+    import nba_simple_model as nsm
+    ps = _ps()
+    pooled = nsm.fit_bpm(ps)
+    same = ns.fit_bpm_shrunk(ps, pooled, None, 1.0)
+    assert np.allclose(same["beta"], pooled["beta"])
+    half = ns.fit_bpm_shrunk(ps, pooled, None, 0.5)
+    for j in ns.USAGE:
+        assert half["beta"][j] == pytest.approx(0.5 * pooled["beta"][j])
+    huge = ns.fit_bpm_shrunk(ps, pooled, 1e9, 1.0)            # lam -> inf: back to the pooled betas
+    assert np.allclose(huge["beta"], pooled["beta"], atol=1e-4)
+    zero = ns.fit_bpm_shrunk(ps, pooled, 0.0, 1.0)            # lam 0: last season's own OLS (differs from pooled)
+    assert not np.allclose(zero["beta"], pooled["beta"], atol=1e-3)
+
+
+def test_recency_kernel_moves_points_not_impact():
+    st = ns.State()
+    try:
+        ns.set_impact("v21", c=4.0, hs=14.0, lam=None, u=1.0, KA=0.0, KM=0.0, HP=180.0, KSHRINK=500.0, KROLE=150.0)
+        for k in range(30):                                     # 10 pts for 25 games, then 30 for 5
+            st.update(700000 + 2 * k, "AAA", [row("p", 10 if k < 25 else 30, 30)], margin=0.0)
+        hot = ns.player_rates(st, "p", 700062, PRIORS)
+        ns.set_impact("v21", c=0.0, lam=None, u=1.0, KA=0.0, KM=0.0, HP=180.0, KSHRINK=500.0, KROLE=150.0)
+        cold = ns.player_rates(st, "p", 700062, PRIORS)
+        assert hot["pts"] > cold["pts"] + 0.02                 # recent games weigh more in the stat projection
+        assert hot["r"] == pytest.approx(cold["r"])            # the impact rating keeps the long kernel
+    finally:
+        _restore()
+
+
+def test_arena_effect_off_by_default_and_shrunk_when_on():
+    st = ns.State()
+    try:
+        ns.set_impact("v21", KA=500.0, c=0.0, KM=0.0)
+        for k in range(20):                                     # scores 30 at arena H, 10 elsewhere
+            v = "HHH" if k % 2 == 0 else "XXX"
+            st.update(700000 + 2 * k, "AAA", [row("p", 30 if v == "HHH" else 10, 30)], margin=0.0, venue=v)
+        at_h = ns.player_rates(st, "p", 700050, PRIORS, venue="HHH")["pts"]
+        else_ = ns.player_rates(st, "p", 700050, PRIORS, venue="QQQ")["pts"]
+        assert at_h > else_
+        ns.set_impact("v21", KA=0.0, c=0.0, KM=0.0)
+        assert ns.player_rates(st, "p", 700050, PRIORS, venue="HHH")["pts"] == pytest.approx(
+            ns.player_rates(st, "p", 700050, PRIORS, venue=None)["pts"])
+    finally:
+        _restore()
+
+
+def test_km_shrinks_early_season_minutes_to_last_season_mpg():
+    st = ns.State()
+    try:
+        ns.set_impact("v21", KM=5.0, c=0.0, KA=0.0)
+        for k in range(60):                                     # last season: 34 mpg
+            st.update(700000 + 2 * k, "AAA", [row("p", 20, 34)])
+        st.update(700400, "AAA", [row("p", 6, 14)])            # new season (gap > 90 d): two 14-min games
+        st.update(700402, "AAA", [row("p", 6, 14)])
+        e_km = ns.player_rates(st, "p", 700404, PRIORS)["em"]
+        ns.set_impact("v21", KM=0.0, c=0.0, KA=0.0)
+        e0 = ns.player_rates(st, "p", 700404, PRIORS)["em"]
+        assert e0 < e_km < 34.0 and e_km > 25.0
+    finally:
+        _restore()
+
+
+def test_presets_reset_extras_and_absence_order_is_deterministic():
+    try:
+        ns.set_impact("v21", KA=123.0)
+        ns.set_impact("v2")
+        assert ns.IMPACT == ns.PRESETS["v2"] and ns.impact_tag() == "v2A0.5K1500G0.2"
+    finally:
+        _restore()
+    st = ns.State()
+    full = team_state(st, "AAA", 30)
+    avail = full - {"AAA_star", "AAA_g", "AAA_w"}
+    a = ns.side_inputs(st, 700100, PRIORS, set(sorted(full)), set(sorted(avail)), team="AAA")["m"]
+    b = ns.side_inputs(st, 700100, PRIORS, set(sorted(full, reverse=True)), set(sorted(avail, reverse=True)), team="AAA")["m"]
+    assert all(a[k] == pytest.approx(b[k], abs=1e-9) for k in a)

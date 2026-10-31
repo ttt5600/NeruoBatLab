@@ -6,7 +6,8 @@
     ../.venv_quant/bin/python scripts/nba_sim.py delta CLE ATL --out "Jalen Johnson" [--date ...]
     ../.venv_quant/bin/python scripts/nba_sim.py validate --season 2024-25
     ../.venv_quant/bin/python scripts/nba_sim.py fit            # (re)fit the live params on dev seasons 2022-23..2024-25
-    add --legacy to any command for the v1 impact (reproduces studies before 2026-10-31)
+    default = v2.1 (shrunk BPM-lite, recency kernel, early-season minutes shrink; notes/nba_sim.md v2.1)
+    add --v2 to reproduce v2 (2026-10-31 morning) or --legacy for the v1 impact (studies before 2026-10-31)
 
 Design and limitations: notes/nba_sim.md.  Argument order is AWAY HOME (as on a ticket: CLE @ ATL).
 
@@ -17,6 +18,10 @@ MODEL (all player/team state is built from games dated strictly before the game 
                  v2 (default since 2026-10-31; --legacy = v1): + 0.5 x shrunk on/off per 48 (K=1500 min)
                  + 0.2 x (shrunk mpg - 24) minutes prior; a 15+ mpg player not yet seen on his new team gets
                  0.77 x his old EWMA minutes. Params: results/nba_sim_params_v2.json (v1: nba_sim_params.json).
+                 v2.1 (default since 2026-10-31 evening; --v2 = v2): BPM betas = last season ridged (lam 16) to the
+                 pooled fit with TOV/FGA at 0.9x; A .25, KSHRINK 1000, HP 270 d; stat projections use a long + 8 x
+                 30-day kernel (recency, not hot hand); KROLE 50; early-season minutes shrunk to last season's mpg
+                 (1 pseudo-game). Arena effect implemented but OFF (failed the rule). Params: nba_sim_params_v21.json.
   stat rates     points/rebounds/assists per minute, shrunk to the player's ROLE prior (G/W/B from his assist:rebound
                  mix) with 150 pseudo-minutes.
   minutes        full rotation = players on the team in its last 10 games (+ ESPN roster adds/drops when live);
@@ -74,21 +79,54 @@ STAT3 = ("pts", "reb", "ast")
 # the box sums, shrunk by n_eff/(n_eff + K) with n_eff = 1/(1/on_min + 1/off_min). BPM-lite alone rated usage
 # creators as below average (TOV beta -3.0, FGA -1.2 per 48: Jaylen Brown -3.2, Ja Morant -2.0, Cunningham -1.5),
 # so adding such a player LOWERED his team and removing him RAISED it. A, K chosen on dev 2023-24 (notes/nba_sim.md).
-IMPACT = {"mode": "v2", "A": 0.5, "K": 1500.0, "G": 0.2}
+# v2.1 extras (all OFF at their defaults, so v2 / legacy reproduce exactly; see notes/nba_sim.md v2.1):
+#   lam  ridge of the last season's BPM-lite betas toward the pooled fit of all seasons < S (None = pooled OLS = v2;
+#        lam is in units of the last season's own X'WX diagonal, so lam=1 weighs the prior like the data)
+#   u    usage factor: TOV and FGA betas fixed at u x their fitted value and the other betas re-solved (1 = off)
+#   c    recency: the stat/minutes kernel is long (half-life HP) + c x short (half-life hs days) (0 = off)
+#   KA   player x arena points-per-minute residual, shrunk by KA pseudo-minutes (0 = off)
+#   KM   early-season minutes: EWMA minutes shrunk toward LAST season's mpg with KM pseudo-games (0 = off)
+#   HP, KSHRINK, KROLE  state half-life (days), shrink-to-replacement and shrink-to-role pseudo-minutes
+EXTRA0 = {"lam": None, "u": 1.0, "c": 0.0, "hs": 14.0, "KA": 0.0, "KM": 0.0, "HP": nsm.HP, "KSHRINK": nsm.KSHRINK, "KROLE": 150.0}
+PRESETS = {"legacy": {"mode": "legacy", "A": 0.5, "K": 1500.0, "G": 0.2, **EXTRA0},
+           "v2": {"mode": "v2", "A": 0.5, "K": 1500.0, "G": 0.2, **EXTRA0}}
+# v2.1 (2026-10-31): every knob tuned on dev 2023-24 only, confirmed on 2024-25 + 2026-27 (notes/nba_sim.md v2.1;
+# results/nba_sim/v21_tune_2024.json, v21_confirm.json, v21_minutes.json). Arena (KA) failed the rule -> 0 (off).
+PRESETS["v21"] = {"mode": "v21", "A": 0.25, "K": 1500.0, "G": 0.2, **EXTRA0,
+                  "lam": 16.0, "u": 0.9, "HP": 270.0, "KSHRINK": 1000.0,      # A: shrunk BPM-lite + state
+                  "c": 8.0, "hs": 30.0, "KROLE": 50.0,                        # B: recency kernel for stat projections
+                  "KM": 1.0, "KA": 0.0}                                       # minutes shrink to last season; C off
+DEFAULT_MODE = "v21"
+IMPACT = dict(PRESETS[DEFAULT_MODE])
 
 
-def set_impact(mode: str, A: float | None = None, K: float | None = None, G: float | None = None) -> None:
+def set_impact(mode: str, A: float | None = None, K: float | None = None, G: float | None = None, **kw) -> None:
+    """mode legacy | v2 | v21; v21 starts from PRESETS['v21'] (if defined) else from the v2 values. kw = EXTRA0 keys."""
+    base = PRESETS.get(mode, PRESETS["v2"])
+    IMPACT.clear()
+    IMPACT.update(base)
     IMPACT["mode"] = mode
-    if G is not None:
-        IMPACT["G"] = float(G)
-    if A is not None:
-        IMPACT["A"] = float(A)
-    if K is not None:
-        IMPACT["K"] = float(K)
+    for k, v in (("A", A), ("K", K), ("G", G)):
+        if v is not None:
+            IMPACT[k] = float(v)
+    for k, v in kw.items():
+        assert k in EXTRA0, k
+        IMPACT[k] = None if v is None else float(v)
 
 
 def impact_tag() -> str:
-    return "legacy" if IMPACT["mode"] == "legacy" else f"v2A{IMPACT['A']:g}K{IMPACT['K']:g}" + (f"G{IMPACT['G']:g}" if IMPACT.get("G") else "")
+    if IMPACT["mode"] == "legacy":
+        return "legacy"
+    tag = f"v2A{IMPACT['A']:g}K{IMPACT['K']:g}" + (f"G{IMPACT['G']:g}" if IMPACT.get("G") else "")
+    for k, v0 in EXTRA0.items():                      # only non-default extras enter the tag (v2 cache names unchanged)
+        v = IMPACT.get(k, v0)
+        if v != v0 and not (k == "hs" and not IMPACT.get("c")):
+            tag += f"{k}{'inf' if v is None else f'{v:g}'}"
+    return tag
+
+
+def _hp() -> float:
+    return float(IMPACT.get("HP", HP))
 
 
 def onoff48(s: dict, dec: float) -> tuple[float, float]:
@@ -155,7 +193,7 @@ class State:
     def __init__(self):
         self.ST, self.TH, self.names = {}, {}, {}
 
-    def update(self, d: int, team: str, rows, margin=None) -> None:
+    def update(self, d: int, team: str, rows, margin=None, venue=None) -> None:
         """margin = the team's final margin in this game (its own perspective); when given, the decayed on/off sums
         used by the v2 impact rating are updated: on = player +/-, off = team margin - player +/- over the minutes
         he sat (game length = team minutes / 5, so OT counts)."""
@@ -165,7 +203,19 @@ class State:
             s = self.ST.get(x.athlete_id)
             if s is None:
                 s = {"s": np.zeros(len(STATS)), "m": 0.0, "gn": 0.0, "t": d, "em": x.minutes}
-            dec = 0.5 ** ((d - s["t"]) / HP)
+            dec = 0.5 ** ((d - s["t"]) / _hp())
+            if d - s["t"] > 90 and s.get("cn", 0) > 0:      # off-season gap: roll this season's mpg into "pmpg"
+                s["pmpg"], s["cn"], s["cmin"] = s["cmin"] / s["cn"], 0, 0.0
+            s["cn"], s["cmin"] = s.get("cn", 0) + 1, s.get("cmin", 0.0) + float(x.minutes)
+            if IMPACT.get("c"):                         # v2.1 recency: short-half-life sums alongside the long ones
+                ds = 0.5 ** ((d - s["t"]) / IMPACT["hs"])
+                s["ss"] = s.get("ss", np.zeros(len(STATS))) * ds + v
+                s["sm"] = s.get("sm", 0.0) * ds + x.minutes
+            if venue is not None and IMPACT.get("KA") and x.minutes > 0:
+                # v2.1 arena: residual points vs his own pre-game long rate (shrunk to 0.45 ppm league-ish level)
+                p0 = (s["s"][I_PTS] * dec + 150 * 0.45) / (s["m"] * dec + 150)
+                vv = s.setdefault("ven", {}).get(venue, np.zeros(2))
+                s["ven"][venue] = vv + np.array([float(x.points) - float(x.minutes) * p0, float(x.minutes)])
             s["s"], s["m"], s["gn"], s["t"] = s["s"] * dec + v, s["m"] * dec + x.minutes, s["gn"] * dec + 1, d
             if margin is not None and np.isfinite(margin):
                 pm = float(getattr(x, "plusMinus", 0.0) or 0.0)
@@ -200,6 +250,8 @@ def priors(box: pd.DataFrame, g: pd.DataFrame, season: int) -> dict:
     if tr.empty:
         tr = ps[ps.season == season]
     bt = nsm.fit_bpm(tr)
+    if IMPACT["mode"] != "legacy" and (IMPACT.get("lam") is not None or IMPACT.get("u", 1.0) != 1.0):
+        bt = fit_bpm_shrunk(tr, bt, IMPACT.get("lam"), IMPACT.get("u", 1.0))
     x = tr[tr.minutes >= 300].copy()
     x["reb"] = x.offensiveRebounds + x.defensiveRebounds
     x["role"] = [role_of(a / m, r / m) for a, r, m in zip(x.assists, x.reb, x.minutes)]
@@ -210,7 +262,38 @@ def priors(box: pd.DataFrame, g: pd.DataFrame, season: int) -> dict:
     return {"bpm": bt, "role": rp}
 
 
-def player_rates(st: State, a, d: int, pr: dict) -> dict:
+USAGE = (STATS.index("fieldGoalsAttempted"), STATS.index("turnovers"))
+
+
+def fit_bpm_shrunk(tr: pd.DataFrame, pooled: dict, lam, u: float) -> dict:
+    """v2.1 BPM-lite betas. lam=None: start from the pooled OLS over all seasons < S (= v2). Else ridge the LAST season's
+    minutes-weighted fit toward the pooled betas, penalty lam x diag(X'WX) of that season (intercept free).
+    u != 1: TOV and FGA betas fixed at u x (that solution) and the other betas re-solved with the same penalty --
+    the plus-minus regression charges creators for the turnovers/shots that come with usage (notes/nba_sim.md)."""
+    x = tr[tr.minutes >= 300]
+    last = x[x.season == x.season.max()] if lam is not None else x
+    X = np.c_[np.ones(len(last)), last[STATS].to_numpy() / last.minutes.to_numpy()[:, None] * 48]
+    y = last.plusMinus.to_numpy() / last.minutes.to_numpy() * 48
+    w = last.minutes.to_numpy(float)
+    XtW = (X * w[:, None]).T
+    A0, b0 = XtW @ X, XtW @ y
+    prior = np.r_[pooled["b0"], pooled["beta"]]
+    D = np.diag(np.r_[0.0, np.diag(A0)[1:]]) * (0.0 if lam is None else float(lam))
+    sol = np.linalg.solve(A0 + D, b0 + D @ prior) if lam is not None else prior.copy()
+    if u != 1.0:
+        fx = np.array([1 + j for j in USAGE])
+        fr = np.array([j for j in range(len(sol)) if j not in fx])
+        sol_fx = u * sol[fx]
+        A, b = A0 + D, b0 + D @ prior
+        sol_fr = np.linalg.solve(A[np.ix_(fr, fr)], b[fr] - A[np.ix_(fr, fx)] @ sol_fx)
+        sol = sol.copy()
+        sol[fx], sol[fr] = sol_fx, sol_fr
+    out = dict(pooled)
+    out.update({"b0": float(sol[0]), "beta": sol[1:].tolist(), "lam": lam, "u": u})
+    return out
+
+
+def player_rates(st: State, a, d: int, pr: dict, venue=None) -> dict:
     """rating r (BPM-lite per 48), ppm for the team-strength O term, role-shrunk pts/reb/ast per minute, em, mpg."""
     bt = pr["bpm"]
     beta, repl, rppm = np.array(bt["beta"]), np.array(bt["repl48"]) / 48, bt["repl_ppm"]
@@ -219,10 +302,17 @@ def player_rates(st: State, a, d: int, pr: dict) -> dict:
         rw = pr["role"]["W"]
         return {"r": bt["b0"] + repl @ beta * 48, "ppm": rppm, "em": DEFAULT_MIN, "mpg": 0.0, "role": "W",
                 "pts": rw[0], "reb": rw[1], "ast": rw[2], "known": False}
-    dec = 0.5 ** ((d - s["t"]) / HP)
+    dec = 0.5 ** ((d - s["t"]) / _hp())
     mm, sv = s["m"] * dec, s["s"] * dec
-    rt = (sv + KSHRINK * repl) / (mm + KSHRINK)
+    KS, KR = float(IMPACT.get("KSHRINK", KSHRINK)), float(IMPACT.get("KROLE", KROLE))
+    rt = (sv + KS * repl) / (mm + KS)                  # impact uses the long (HP) kernel only
     raw_ast, raw_reb = (sv[I_AST] + 20 * repl[I_AST]) / (mm + 20), (sv[I_ORB] + sv[I_DRB] + 20 * (repl[I_ORB] + repl[I_DRB])) / (mm + 20)
+    if IMPACT.get("c") and "ss" in s:
+        # v2.1 recency for the stat PROJECTIONS (pts/reb/ast per minute, ppm): kernel = long + c x short (half-life hs
+        # days). Not a hot-hand bonus: recent games simply weigh more (5-game residuals carry +0.40 into the next 5,
+        # notes/nba_injury_teammate_props.md part B = role/minutes changes). The impact rating r keeps the long kernel.
+        ds = 0.5 ** ((d - s["t"]) / IMPACT["hs"])
+        sv, mm = sv + IMPACT["c"] * s["ss"] * ds, mm + IMPACT["c"] * s["sm"] * ds
     ro = role_of(raw_ast, raw_reb)
     rp = pr["role"].get(ro, pr["role"]["W"])
     r = float(bt["b0"] + rt @ beta * 48)
@@ -232,19 +322,30 @@ def player_rates(st: State, a, d: int, pr: dict) -> dict:
         if IMPACT.get("G"):                           # minutes prior: coaches play better players more
             mpg = (s["m"] * dec + 5 * 12.0) / (s["gn"] * dec + 5)    # 5 pseudo-games at 12 mpg
             r += IMPACT["G"] * (mpg - 24.0)
-    return {"r": r, "ppm": float((sv[I_PTS] + KSHRINK * rppm) / (mm + KSHRINK)),
-            "em": float(s["em"]), "mpg": float(s["m"] / max(s["gn"], 1e-9)), "role": ro,
-            "pts": float((sv[I_PTS] + KROLE * rp[0]) / (mm + KROLE)),
-            "reb": float((sv[I_ORB] + sv[I_DRB] + KROLE * rp[1]) / (mm + KROLE)),
-            "ast": float((sv[I_AST] + KROLE * rp[2]) / (mm + KROLE)), "known": True}
+    ven = 0.0
+    if venue is not None and IMPACT.get("KA") and venue in s.get("ven", {}):
+        vr, vm = s["ven"][venue]
+        ven = float(vr / (vm + IMPACT["KA"]))           # empirical-Bayes shrunk pts/min residual at this arena
+    em = float(s["em"])
+    if IMPACT.get("KM"):
+        n, pm = s.get("cn", 0), s.get("pmpg")
+        if d - s["t"] > 90 and n:                       # new season, no game yet: this state's season is "last"
+            n, pm = 0, s["cmin"] / n
+        if pm is not None:
+            em = (n * em + IMPACT["KM"] * pm) / (n + IMPACT["KM"])
+    return {"r": r, "ppm": float((sv[I_PTS] + KS * rppm) / (mm + KS)) + ven,
+            "em": em, "mpg": float(s["m"] / max(s["gn"], 1e-9)), "role": ro,
+            "pts": float((sv[I_PTS] + KR * rp[0]) / (mm + KR)) + ven,
+            "reb": float((sv[I_ORB] + sv[I_DRB] + KR * rp[1]) / (mm + KR)),
+            "ast": float((sv[I_AST] + KR * rp[2]) / (mm + KR)), "known": True}
 
 
 def side_inputs(st: State, d: int, pr: dict, full: set, avail: set, fixed: dict | None = None, team=None,
-                known_play: bool = False) -> dict:
+                known_play: bool = False, venue=None) -> dict:
     """Minutes + strength for the full rotation and for tonight's set. Raw expected minutes: EWMA minutes when he
     played; for non-regulars (EWMA < REG_MIN) times his participation share unless known_play (backtest sets of
     players who did play). Absent rotation players' raw minutes are redistributed, then one rescale to 240."""
-    R = {a: player_rates(st, a, d, pr) for a in full | avail}
+    R = {a: player_rates(st, a, d, pr, venue) for a in full | avail}
     roles = {a: R[a]["role"] for a in R}
     if team is not None:
         for a in full | avail:
@@ -260,7 +361,7 @@ def side_inputs(st: State, d: int, pr: dict, full: set, avail: set, fixed: dict 
     exp_min = lambda a: R[a]["em"] if R[a]["em"] >= REG_MIN or team is None else R[a]["em"] * max(R[a].get("part", 1.0), 0.1)
     m_full = project_minutes({a: exp_min(a) for a in full}, roles, [], None) if full else {}
     base = {a: (R[a]["em"] if known_play else exp_min(a)) for a in avail}
-    absent = [(exp_min(a), roles[a]) for a in full - avail]
+    absent = sorted(((exp_min(a), roles[a]) for a in full - avail), key=lambda z: (-z[0], z[1]))   # v2.1: fixed order (was set order -> run-to-run noise ~0.003 MAE)
     m_av = project_minutes(base, roles, absent, fixed)
     P = lambda M: float(sum(M[a] * R[a]["r"] for a in M) / 240) if M else np.nan
     O = lambda M: float(sum(M[a] * R[a]["ppm"] for a in M)) if M else np.nan
@@ -394,7 +495,8 @@ def walk(g, box, on_date, stop_before=None):
             r = g.iloc[i]
             for side in ("home", "away"):
                 mg = r.margin if side == "home" else -r.margin
-                st.update(d, r[side], bx.get((r.event_id, r[side]), []), mg)
+                st.update(d, r[side], bx.get((r.event_id, r[side]), []), mg,
+                          venue=r.home if float(r.get("home_ind", 1.0)) == 1.0 else None)
     return st, PR
 
 
@@ -426,7 +528,8 @@ def features(seasons, keep_players=()) -> tuple[pd.DataFrame, dict]:
                 full, prev = st.full_set(T), st.prev_set(T)
                 act = {x.athlete_id for x in bx.get((r.event_id, T), [])}
                 for tag, S in (("strict", prev), ("act", act)):
-                    si = side_inputs(st, d, pr, full, S, team=T, known_play=True)
+                    si = side_inputs(st, d, pr, full, S, team=T, known_play=True,
+                                     venue=r.home if float(r.home_ind) == 1.0 else None)
                     row[f"Pfull_{side}"], row[f"Ofull_{side}"] = si["Pfull"], si["Ofull"]
                     row[f"P{tag}_{side}"], row[f"O{tag}_{side}"] = si["Pav"], si["Oav"]
                     if tag == "act":
@@ -437,10 +540,10 @@ def features(seasons, keep_players=()) -> tuple[pd.DataFrame, dict]:
                         row[f"Aact_{side}"] = sum(x.assists for x in A.values())
                         big = [a for a in full - act if si["R"][a]["mpg"] >= 28]
                         row[f"out28_{side}"] = [(st.names.get(a, a), round(si["R"][a]["mpg"], 1), a in prev) for a in big]
-                        if int(r.season) in keep_players and r.scored:
+                        if int(r.season) in keep_players:                     # v2.1: all games ("scored" flag kept)
                             PL[(r.event_id, side)] = {
                                 "m": si["m"], "R": {a: si["R"][a] for a in si["m"]},
-                                "act": {a: (x.minutes, x.points, x.rebounds, x.assists) for a, x in A.items()}}
+                                "act": {a: (x.minutes, x.points, x.rebounds, x.assists) for a, x in A.items()}, "scored": bool(r.scored)}
             rows.append(row)
 
     walk(g, box, on_date)
@@ -533,7 +636,7 @@ def calibrate_kappa(PL, keys, p, grid=(8, 15, 30, 60, 120, 240)) -> dict:
 def fit_all(train_seasons=(2023, 2024, 2025), feat_seasons=(2021, 2022, 2023, 2024, 2025), save=True) -> dict:
     F, PL = features(list(feat_seasons), keep_players=(max(train_seasons),))
     p = fit_team(F, train_seasons)
-    keys = [k for k in PL if F.loc[F.event_id == k[0], "season"].iloc[0] == max(train_seasons)]
+    keys = [k for k in PL if F.loc[F.event_id == k[0], "season"].iloc[0] == max(train_seasons) and PL[k].get("scored", True)]
     rng = np.random.default_rng(0)
     keys = [keys[i] for i in rng.choice(len(keys), min(500, len(keys)), replace=False)]
     p["min_sd"] = minutes_sd(PL, keys)
@@ -548,7 +651,7 @@ def fit_all(train_seasons=(2023, 2024, 2025), feat_seasons=(2021, 2022, 2023, 20
 
 def params_path() -> Path:
     """legacy -> results/nba_sim_params.json (v1, untouched); v2 -> results/nba_sim_params_v2.json."""
-    return PARAMS if IMPACT["mode"] == "legacy" else PARAMS.with_name("nba_sim_params_v2.json")
+    return PARAMS if IMPACT["mode"] == "legacy" else PARAMS.with_name("nba_sim_params_v2.json" if IMPACT["mode"] == "v2" else "nba_sim_params_v21.json")
 
 
 def load_params() -> dict:
@@ -660,7 +763,8 @@ def live_sides(L: dict, out_str="", in_str="", minutes_str="") -> dict:
         x["manual_in"] = sorted(flat[a] for a in mine(in_ids))
         x["fixed"] = {a: v for a, v in fixed.items() if allc.get(a, (None,))[0] == side}
         x["full"] = x["full"] | mine(in_ids)
-        x["si"] = side_inputs(st, d, L["pr"], x["full"], x["avail"], x["fixed"], team=x["T"])
+        x["si"] = side_inputs(st, d, L["pr"], x["full"], x["avail"], x["fixed"], team=x["T"],
+                              venue=L["row"]["home"] if float(L["row"].get("home_ind", 1.0)) == 1.0 else None)
     return res
 
 
@@ -809,7 +913,7 @@ def cmd_validate(a) -> int:
     feat = list(range(2021, S + 1))
     F, PL = features(feat, keep_players=(S - 1, S))
     p = fit_team(F, train)
-    trk = [k for k in PL if F.loc[F.event_id == k[0], "season"].iloc[0] == S - 1]
+    trk = [k for k in PL if F.loc[F.event_id == k[0], "season"].iloc[0] == S - 1 and PL[k].get("scored", True)]
     rng = np.random.default_rng(0)
     trk = [trk[i] for i in rng.choice(len(trk), min(500, len(trk)), replace=False)]
     p["min_sd"] = minutes_sd(PL, trk)
@@ -832,7 +936,7 @@ def cmd_validate(a) -> int:
     te = te.merge(L[["event_id", "home_spread_close", "home_spread_open", "total_close", "total_open", "home_ml_close",
                      "away_ml_close"]], on="event_id", how="left")
     rows = []
-    mtag = ("_matchup" if getattr(a, "matchup", False) else "") + ("" if IMPACT["mode"] == "legacy" else "_v2")
+    mtag = ("_matchup" if getattr(a, "matchup", False) else "") + ("" if IMPACT["mode"] == "legacy" else "_" + IMPACT["mode"])
     variants = [("act", p, "act"), ("strict", ps, "strict")]
     if getattr(a, "matchup", False):
         gtm = pd.read_parquet(ROOT / "data" / "nba_pbp" / "game_terms.parquet")[["event_id", "I_margin", "I_total"]]
@@ -967,7 +1071,7 @@ def cmd_validate(a) -> int:
                   f"[{dd[1]:+.4f}, {dd[2]:+.4f}]")
         summ["matchup_pair"] = pair
 
-    tek = [k for k in PL if F.loc[F.event_id == k[0], "season"].iloc[0] == S]
+    tek = [k for k in PL if F.loc[F.event_id == k[0], "season"].iloc[0] == S and PL[k].get("scored", True)]
     rng = np.random.default_rng(5)
     tek = [tek[i] for i in rng.choice(len(tek), min(800, len(tek)), replace=False)]
     pc = player_check(PL, tek, p)
@@ -1011,9 +1115,13 @@ def main(argv=None) -> int:
     for x in sub.choices.values():
         x.add_argument("--legacy", action="store_true",
                        help="v1 BPM-lite impact + results/nba_sim_params.json (reproduces studies before 2026-10-31)")
+        x.add_argument("--v2", action="store_true",
+                       help="v2 impact (unshrunk BPM-lite + on/off + minutes prior) + results/nba_sim_params_v2.json")
     a = ap.parse_args(argv)
     if a.legacy:
         set_impact("legacy")
+    elif a.v2:
+        set_impact("v2")
     if a.cmd == "game":
         return cmd_game(a)
     if a.cmd == "delta":

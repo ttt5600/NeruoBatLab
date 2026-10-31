@@ -1,4 +1,4 @@
-"""2026-27 walk-forward check of nba_sim (legacy v1 vs v2 impact) against Draft Kings closes (ESPN lines_2027).
+"""2026-27 walk-forward check of nba_sim (legacy v1 vs v2 vs v2.1 impact) against Draft Kings closes (ESPN lines_2027).
 
     ../.venv_quant/bin/python scripts/nba_sim_check27.py            # all 2026-27 regular-season home games to date
 
@@ -32,7 +32,7 @@ def score(F: pd.DataFrame, p: dict, season: int, lines: pd.DataFrame, only_score
     te = F[(F.season == season) & (F.season_type == "regular-season") & (F.home_ind == 1)]
     if only_scored:
         te = te[te.scored]
-    te = te.merge(lines, on="event_id").dropna(subset=["mu0", "home_spread_close"])
+    te = te.merge(lines, on="event_id").dropna(subset=["mu0", "home_spread_close", "dAbs_act", "dAbs_strict"])
     close = -te.home_spread_close.to_numpy(float)
     ph_c, _, ov = devig_two_way(te.home_ml_close.to_numpy(float), te.away_ml_close.to_numpy(float))
     ph_c = np.where((ov >= 0) & (ov <= .10), ph_c, np.nan)
@@ -65,7 +65,7 @@ def main() -> int:
     L = L[L.provider == L.provider.value_counts().index[0]].drop_duplicates("event_id")
     L = L[["event_id", "home_spread_close", "home_ml_close", "away_ml_close"]]
     R = {}
-    for mode in ("legacy", "v2"):
+    for mode in ("legacy", "v2", "v21"):
         ns.set_impact(mode)
         F, _ = ns.features([2024, 2025, 2026, 2027])
         base = json.loads(ns.params_path().read_text())
@@ -82,9 +82,10 @@ def main() -> int:
                   f"Brier sim {o['brier_sim']:.4f} close {o['brier_close']:.4f}  mean|p_sim-p_close| {o['mae_p_vs_close']:.3f}")
     rng = np.random.default_rng(0)
     for v in ("act", "strict"):
-        d = np.abs(R["v2"][v]["err"]) - np.abs(R["legacy"][v]["err"])
-        bs = d[rng.integers(0, len(d), (4000, len(d)))].mean(1)
-        print(f"paired MAE v2 - legacy ({v}): {d.mean():+.3f} [{np.quantile(bs, .025):+.3f}, {np.quantile(bs, .975):+.3f}]")
+        for a_, b_ in (("v2", "legacy"), ("v21", "v2")):
+            d = np.abs(R[a_][v]["err"]) - np.abs(R[b_][v]["err"])
+            bs = d[rng.integers(0, len(d), (4000, len(d)))].mean(1)
+            print(f"paired MAE {a_} - {b_} ({v}): {d.mean():+.3f} [{np.quantile(bs, .025):+.3f}, {np.quantile(bs, .975):+.3f}]")
     return 0
 
 

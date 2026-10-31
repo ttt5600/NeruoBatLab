@@ -33,7 +33,77 @@ points effect make the sim a better estimate of who wins / of the close?
 - Kill / too-good guard: if any variant beats the CLOSE on MAE-vs-actual or Brier, check lookahead before reporting.
 - Expected: A moves usage creators up (Brown from -1.42 toward ~0+); B small; C ~0 (venue reliability r .024).
 
-## v2 (2026-10-31): impact rating fix -- now the default; `--legacy` reproduces v1 exactly
+## v2.1 RESULT (2026-10-31 evening) -- now the default; `--v2` / `--legacy` reproduce the earlier versions
+
+Tuned on dev 2023-24 only (scripts/nba_sim_v21.py tune -> results/nba_sim/v21_tune_2024.json, coordinate search, two
+passes), confirmed on 2024-25 and 2026-27 (`confirm` -> v21_confirm.json; `minutes` -> v21_minutes.json). Paired
+game-bootstrap 95% CIs of (component - v2), each component added to v2 alone. Stack-MEAN MAE in the harness.
+
+| knob | v2 | v2.1 | what it does |
+|---|---|---|---|
+| u (TOV, FGA beta factor) | 1 | 0.9 | usage betas fixed at 0.9x, other betas re-solved |
+| lam (ridge last season -> pooled) | pooled OLS | 16 | last season's fit, strongly pulled to the pooled one |
+| A / K / G (on-off, minutes prior) | .5 / 1500 / .2 | .25 / 1500 / .2 | |
+| KSHRINK / HP | 500 / 180 d | 1000 / 270 d | longer, more shrunk impact memory |
+| c / hs (recency kernel, stat projections only) | 0 | 8 / 30 d | long + 8 x short (30 d) sums for pts/reb/ast/ppm |
+| KROLE | 150 | 50 | |
+| KM (early-season minutes -> last season mpg) | 0 | 1 game | added on the lead's request (prop ladders) |
+| KA (player x arena) | - | 0 (off) | tuning picked 0 on 2023-24 |
+
+**Keep-rule outcomes (pre-registered above):**
+- **A shrunk BPM: PASS.** spread MAE vs close 24-25 **-0.110 [-0.138, -0.082]**, 26-27 **-0.130 [-0.248, -0.017]**
+  (dev 23-24 -0.052). Brier not distinguishable (24-25 -0.0003 [-0.0010, +0.0004]; 26-27 -0.0013 [-0.0045, +0.0019]).
+  Its own player pts MAE is slightly worse (+0.010 [+0.005, +0.014] on 24-25) because HP 270 slows the pts rates; B
+  more than offsets that in the combined model.
+- **B recency: PASS (player rule).** Game margin unchanged by construction (it only touches stat projections).
+  Player pts MAE vs actual 24-25 **-0.032 [-0.044, -0.020]**, 26-27 -0.017 [-0.080, +0.045] (not worse). Note c=8 /
+  hs=30 means "the last month dominates" -- that is role/minutes drift, NOT a hot-hand bonus; the 10-30 finding that
+  books over-price streaks is untouched (we do not add anything on top of the rate).
+- **C arena: FAIL -> off.** Tuned KA = 0 on 2023-24. Forced KA=8000: 24-25 -0.0015 [-0.0038, +0.0008],
+  26-27 +0.0020 [-0.0057, +0.0098]: not distinguishable from 0, as the 10-29 reliability study predicted.
+  Implemented behind `KA` (set_impact("v21", KA=...)).
+- **Minutes (KM): PASS (player rule).** Games 1-10 minutes MAE: 23-24 5.23 -> 4.89; 24-25 5.13 -> 4.74,
+  paired -0.389 [-0.509, -0.281]; 26-27 5.80 -> 5.24, -0.562 [-0.782, -0.363]. Player pts MAE 24-25 -0.019
+  [-0.024, -0.013], 26-27 -0.167 [-0.260, -0.086]. Game margin MAE not distinguishable (24-25 -0.003 [-0.008, +0.002]).
+  Remaining early-season bias with KM=1 (24-25 / 26-27, v21_minutes.json): bigs (B role) are still UNDER-projected by
+  1.4 / 2.6 min, 32+ mpg players OVER-projected by 1.2 / 1.6 min (stars rest more early; the 42 cap is generous), and the
+  <15 mpg tier is under by 1.6 / 2.1 min. These are the next targets for prop work.
+
+**Full model (`validate`, sim-median spread, ACT set), v2 -> v2.1:**
+
+| | 2023-24 (dev, tuned) v2 -> v2.1 | 2024-25 v2 -> v2.1 | 2026-27 (81 g) v2 -> v2.1 |
+|---|---|---|---|
+| spread MAE vs close | 1.94 -> 1.90 | 1.96 -> **1.86** [1.78, 1.95] | 2.39 -> **2.19** (paired -0.197 [-0.357, -0.052]) |
+| STRICT MAE vs close | 2.38 -> 2.36 | 2.55 -> 2.52 | 2.65 -> 2.63 (paired -0.03 [-0.12, +0.07]) |
+| Brier sim (close) | .2029 -> .2031 (.1975) | .2009 -> .2007 (.1971) | .2208 -> .2180 (.1945) |
+| within 1.5 pts of close | 60.0% -> 60.7% | 60.7% -> 63.3% | |
+| injury news corr / sign | .642 / 78.6% -> .662 / 79.2% | .499 / 74.0% -> .516 / 73.5% | |
+| player pts MAE (10-90 cov) | -> 4.96 (79.5%) | 5.04 (79.0%) -> 4.97 (78.5%) | |
+| fav |close|>=6 gap | | | -2.41 -> -2.11 |
+
+- The sim still does not beat the close anywhere (Brier sim - close stays positive), so no lookahead flag.
+  The 1.5-pt bar is still not met.
+- v2 re-run gives 1.96 on 24-25 vs 1.97 in the morning table: v2.1 also fixed a run-to-run nondeterminism (absent
+  players were redistributed in Python set order, so results moved ~0.003 MAE between processes; now sorted).
+- Live stack (`fit`, dev 2022-23..2024-25): results/nba_sim_params_v21.json.
+- **Brown:** -1.42 (v2) -> **-0.10** (v2.1); live TOV/FGA betas -3.04/-1.24 -> -2.73/-1.11. Others: Cunningham
+  0.63 -> 1.70, Banchero -0.62 -> -0.05, Morant -1.56 -> -1.27, Edwards 2.74 -> 3.64, Jokic 9.73 -> 10.50.
+  `delta NY PHI --out "Jaylen Brown" --date 2026-10-30`: P(PHI) **-2.8c** when he sits (v2 -0.4c, v1 +3.5c).
+  He is still rated about average, so this remains short of a market star value.
+
+**10-31 late slate, descriptive only.** Feeds were snapshotted at 16:05 PT; Kalshi mids are from 16:32 PT, all pre-tip.
+
+| game | fav | Kalshi mid | v2 | v2.1 | v2.1 - Kalshi |
+|---|---|---|---|---|---|
+| SAC@MEM | MEM | 73.5 | 72.8 | 72.2 | -1.3c |
+| CLE@MIL | CLE | 76.5 | 66.3 | 67.5 | -9.0c |
+| MIN@SAS | SAS | 83.5 | 72.4 | 73.1 | -10.4c |
+| OKC@HOU | HOU | 56.5 | 52.7 | 52.1 | -4.4c |
+
+v2.1 moves these by 1c or less. The two 10c gaps are not caused by impact noise: they need a different explanation
+(CLE@MIL is still unexplained; MIN is missing Edwards and Gobert).
+
+## v2 (2026-10-31): impact rating fix -- `--v2` reproduces it (default since 10-31 evening is v2.1); `--legacy` = v1
 
 **Why.** Two live complaints: (1) favourites priced 6-17c below Kalshi on 10-30/10-31; (2) `--in "Jaylen Brown"` made
 PHI weaker. Diagnostics (tmp scripts, numbers below are from their printed output):
@@ -200,5 +270,5 @@ interval overlapping. So 2.30 is a dev number, not a holdout number. A clean rea
 6. Fair spread = the median of integer simulated margins, so it is coarse in 1-pt steps. The model mean is printed
    next to it.
 
-Files: scripts/nba_sim.py, tests/test_nba_sim.py (25 tests), results/nba_sim_params.json,
+Files: scripts/nba_sim.py, scripts/nba_sim_v21.py (v2.1 tune/confirm/minutes), tests/test_nba_sim.py (32 tests), results/nba_sim_params.json,
 results/nba_sim/validate_2025{.json,_games.csv,_injury.csv}. There is a feature cache in data/nba_sim/ (gitignored).
