@@ -15,6 +15,24 @@ Arguments are AWAY then HOME. The props CSV has the columns `player,stat,line`, 
 The game and delta commands refresh ESPN games and box scores first, as team_rating.py does, unless you pass
 `--no-refresh`. They read ESPN's roster and injury feeds as of now.
 
+## v2.1 PRE-REGISTRATION (written 2026-10-31 16:15 PT, BEFORE any v2.1 tuning run)
+
+Question: do (A) shrunk BPM-lite betas, (B) a fast-recency component for per-minute rates, (C) a player x arena
+points effect make the sim a better estimate of who wins / of the close?
+- Tuning: every knob (ridge lambda, TOV/FGA usage factor, impact A/K/G, KSHRINK, KROLE, HP, recency weight/half-life,
+  arena K) is picked on dev **2023-24 ONLY** (team stack fit on 2022-23). 2025-26 is never scored (state only for 26-27).
+- Confirm out of sample on **2024-25** (stack fit 2022-23..2023-24) and **2026-27 to date** (frozen dev stack,
+  walk-forward, DK close). ACT set (as in the v2 table). Baseline = v2 (A .5, K 1500, G .2, OLS betas).
+- **Keep rule:** a component is ON in the default only if, on BOTH 24-25 and 26-27, (spread MAE vs close: paired
+  game-bootstrap 95% CI of (new - v2) excludes 0 below zero in at least one season and its point estimate is not
+  worse (> 0) in the other) OR (the same for Brier vs outcomes). Otherwise it stays implemented behind a flag, OFF.
+- Components that cannot move the margin (C arena; the pts-only part of B) are additionally reported on player
+  points MAE vs actual and vs prop open (graded_2024/2025, ESPN-listed books); the SAME paired-CI rule applied to
+  player points MAE vs actual is the keep criterion for a player-projection-only component (declared here, before
+  any run, because the game-level rule cannot be met by construction for such a component).
+- Kill / too-good guard: if any variant beats the CLOSE on MAE-vs-actual or Brier, check lookahead before reporting.
+- Expected: A moves usage creators up (Brown from -1.42 toward ~0+); B small; C ~0 (venue reliability r .024).
+
 ## v2 (2026-10-31): impact rating fix -- now the default; `--legacy` reproduces v1 exactly
 
 **Why.** Two live complaints: (1) favourites priced 6-17c below Kalshi on 10-30/10-31; (2) `--in "Jaylen Brown"` made
