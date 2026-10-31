@@ -4,6 +4,14 @@
 ## HANDOFF #6 2026-10-30 -- START HERE: notes/HANDOFF_2026-10-30.md (authority, live systems + IBKR gotcha, forward tests,
 ## verdicts, tools, 2 agents running at handoff, pending user asks). Personal finance only in notes/private_account.md (gitignored).
 
+## 2026-10-31 USER BET POLICY (user decision, chat 10-31 ~15:30 PT)
+- Bet on edges, not emotion. Stake = $2-3 per bet ("units for now") on Robinhood event contracts (user places them).
+  Increase size ONLY when a model shows a noticeable, measured edge (forward CLV / sealed pass), never after a hot streak.
+- Tracking: every bet -> bet.py journal (log-external venue=robinhood, strategy = early_form_F1 | open_totals_L32 |
+  judgment); user's reads -> scripts/user_calls.py (live Kalshi price, graded vs close = CLV). Nightly: settle journal from
+  ESPN finals, grade user_calls, pull RH realized P&L (MCP read-only) -> dollar totals ONLY in notes/private_account.md.
+- Model work: nba_sim v2 default (10-31); v2.1 (shrunk BPM + recency + arena, each kept only if validated) in progress.
+
 ## 2026-10-30 14:35 PT -- 5 tests today, ALL DEAD; loop stopped, no agents running
 - Q009 SPY short-vol (put spread/condor, real bid/ask, DoltHub free chains): T1 +2.31%/240 p .127 -> variance, not cost.
 - L11 earnings straddles: -3.95%/311 at bid/ask (mid +1.19% n.d.); weekly-expiry version untestable in this data.
