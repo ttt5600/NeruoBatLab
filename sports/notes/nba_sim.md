@@ -85,8 +85,9 @@ PHI weaker. Diagnostics (tmp scripts, numbers below are from their printed outpu
 | MIN@SAS | SAS | 82.5 | 66.4 | 72.4 | -10.1c |
 | OKC@HOU | HOU | 56.5 | 44.2 | 52.7 | -3.8c |
 
-The mean favourite gap went from -7.7c to -5.3c. CLE@MIL and MIN@SA remain about 10c short. MIL's roster turned over
-(the ridge still carries last season), and the sim still under-values the absent Edwards and Gobert.
+The mean favourite gap went from -7.7c to -5.3c. CLE@MIL and MIN@SA remain about 10c short. CLE@MIL is not explained
+(possibly MIL roster turnover that the team ridge still carries -- unverified); in MIN@SA the sim still under-values
+the absent Edwards and Gobert.
 
 ## Design (and what was used for each piece)
 
