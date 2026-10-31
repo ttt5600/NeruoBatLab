@@ -216,6 +216,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 **In-game / live**
 | ID | Idea | Evidence | Why dead | File |
 |---|---|---|---|---|
+| -- | NBA preseason hype vs early form, fade overhyped / popular teams (user 10-30) | H1 -2.1%/325; H3 fade overhyped -19.2%/86; H4 popular -1.9%/334; H2 slope +.094 p .032 (lead at most) | notes/nba_hype_vs_form.md |
 | -- | NBA who-guards-whom matchup graph -> props at OPEN (user 10-30) | pair effects noise (r .07); defender effect = position; G1/G2 -2.4%/-4.1%; G3 slope +.118 real but << hold | notes/nba_matchup_graph.md |
 | L11 | Earnings ATM straddle T-5 -> pre-release, real bid/ask (10-30) | -3.95%/311 [-5.34,-2.53]; mid +1.19% n.d.; spread x2 eats run-up; weekly-expiry version untested | notes/l11_earnings_straddle.md |
 | -- | Q009 SPY short-vol: put credit spread / iron condor, real bid/ask (10-30) | T1 +2.31%/240 [-2.73,+8.20] p .127; T2 -2.00%; variance, not spread, kills it | notes/q009_options_vrp.md |
