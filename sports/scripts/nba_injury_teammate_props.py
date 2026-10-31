@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import nba_player_opp_venue as pov  # noqa: E402
 import nba_sim as ns  # noqa: E402
+ns.set_impact("legacy")  # this study (2026-10-30) was run on the v1 BPM-lite impact; keep it reproducible
 from q011_reports import norm  # noqa: E402
 
 DATA = ROOT / "data" / "espn" / "nba"

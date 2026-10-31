@@ -6,6 +6,7 @@
     ../.venv_quant/bin/python scripts/nba_sim.py delta CLE ATL --out "Jalen Johnson" [--date ...]
     ../.venv_quant/bin/python scripts/nba_sim.py validate --season 2024-25
     ../.venv_quant/bin/python scripts/nba_sim.py fit            # (re)fit the live params on dev seasons 2022-23..2024-25
+    add --legacy to any command for the v1 impact (reproduces studies before 2026-10-31)
 
 Design and limitations: notes/nba_sim.md.  Argument order is AWAY HOME (as on a ticket: CLE @ ATL).
 
@@ -13,6 +14,9 @@ MODEL (all player/team state is built from games dated strictly before the game 
   player state   decayed (half-life 180 d) sums of box stats + decayed minutes; EWMA(0.3) of minutes when he played.
   impact r_i     "BPM-lite" (nba_simple_model): on-court plus-minus/48 ~ per-48 box rates, minutes-weighted OLS on
                  player-seasons of seasons < S (>= 300 min); rates shrunk to replacement with 500 pseudo-minutes.
+                 v2 (default since 2026-10-31; --legacy = v1): + 0.5 x shrunk on/off per 48 (K=1500 min)
+                 + 0.2 x (shrunk mpg - 24) minutes prior; a 15+ mpg player not yet seen on his new team gets
+                 0.77 x his old EWMA minutes. Params: results/nba_sim_params_v2.json (v1: nba_sim_params.json).
   stat rates     points/rebounds/assists per minute, shrunk to the player's ROLE prior (G/W/B from his assist:rebound
                  mix) with 150 pseudo-minutes.
   minutes        full rotation = players on the team in its last 10 games (+ ESPN roster adds/drops when live);
@@ -60,10 +64,43 @@ STATS = nsm.STATS                     # points, fga, fta, 3pm, orb, drb, ast, to
 I_PTS, I_ORB, I_DRB, I_AST = 0, 4, 5, 6
 HP, KSHRINK, KROLE = nsm.HP, nsm.KSHRINK, 150.0
 CAP, ROLE_W, DEFAULT_MIN = 42.0, 2.0, 15.0
+ACQ_MIN = 0.77   # v2: minutes multiplier for a 15+ mpg player before his first game for a new team (dev 2022-25)
 REG_MIN = 24.0   # EWMA minutes at/above which a player is a regular: his absences are injuries (handled by OUT lists),
                  # below it his expected minutes are EWMA x participation (DNP-coach's-decision risk)
 ALIAS = {"NOP": "NO", "GSW": "GS", "NYK": "NY", "SAS": "SA", "UTA": "UTAH", "WAS": "WSH", "PHO": "PHX", "BRK": "BKN"}
 STAT3 = ("pts", "reb", "ast")
+# Player impact rating. "legacy" = v1 BPM-lite only (reproduces every study before 2026-10-31; --legacy).
+# "v2" = BPM-lite + A x shrunk on/off: 48 x (on-court +/- per min - team margin per min while he sat), decayed like
+# the box sums, shrunk by n_eff/(n_eff + K) with n_eff = 1/(1/on_min + 1/off_min). BPM-lite alone rated usage
+# creators as below average (TOV beta -3.0, FGA -1.2 per 48: Jaylen Brown -3.2, Ja Morant -2.0, Cunningham -1.5),
+# so adding such a player LOWERED his team and removing him RAISED it. A, K chosen on dev 2023-24 (notes/nba_sim.md).
+IMPACT = {"mode": "v2", "A": 0.5, "K": 1500.0, "G": 0.2}
+
+
+def set_impact(mode: str, A: float | None = None, K: float | None = None, G: float | None = None) -> None:
+    IMPACT["mode"] = mode
+    if G is not None:
+        IMPACT["G"] = float(G)
+    if A is not None:
+        IMPACT["A"] = float(A)
+    if K is not None:
+        IMPACT["K"] = float(K)
+
+
+def impact_tag() -> str:
+    return "legacy" if IMPACT["mode"] == "legacy" else f"v2A{IMPACT['A']:g}K{IMPACT['K']:g}" + (f"G{IMPACT['G']:g}" if IMPACT.get("G") else "")
+
+
+def onoff48(s: dict, dec: float) -> tuple[float, float]:
+    """-> (on/off per 48, shrink weight in [0, 1)) from a player's decayed on/off sums."""
+    o = s.get("oo")
+    if o is None:
+        return 0.0, 0.0
+    o = o * dec
+    if o[1] < 1 or o[3] < 1:
+        return 0.0, 0.0
+    neff = 1.0 / (1.0 / o[1] + 1.0 / o[3])
+    return float(48 * (o[0] / o[1] - o[2] / o[3])), float(neff / (neff + IMPACT["K"]))
 
 
 # --------------------------------------------------------------------------------------------------- minutes model
@@ -118,7 +155,11 @@ class State:
     def __init__(self):
         self.ST, self.TH, self.names = {}, {}, {}
 
-    def update(self, d: int, team: str, rows) -> None:
+    def update(self, d: int, team: str, rows, margin=None) -> None:
+        """margin = the team's final margin in this game (its own perspective); when given, the decayed on/off sums
+        used by the v2 impact rating are updated: on = player +/-, off = team margin - player +/- over the minutes
+        he sat (game length = team minutes / 5, so OT counts)."""
+        glen = sum(float(x.minutes) for x in rows) / 5 if rows else 48.0
         for x in rows:
             v = np.array([getattr(x, c) for c in STATS], float)
             s = self.ST.get(x.athlete_id)
@@ -126,6 +167,10 @@ class State:
                 s = {"s": np.zeros(len(STATS)), "m": 0.0, "gn": 0.0, "t": d, "em": x.minutes}
             dec = 0.5 ** ((d - s["t"]) / HP)
             s["s"], s["m"], s["gn"], s["t"] = s["s"] * dec + v, s["m"] * dec + x.minutes, s["gn"] * dec + 1, d
+            if margin is not None and np.isfinite(margin):
+                pm = float(getattr(x, "plusMinus", 0.0) or 0.0)
+                o = s.get("oo", np.zeros(4)) * dec          # on +/-, on minutes, off margin, off minutes
+                s["oo"] = o + np.array([pm, float(x.minutes), float(margin) - pm, max(glen - float(x.minutes), 0.0)])
             s["em"] = 0.7 * s["em"] + 0.3 * x.minutes
             s["team"] = team
             self.ST[x.athlete_id] = s
@@ -180,7 +225,14 @@ def player_rates(st: State, a, d: int, pr: dict) -> dict:
     raw_ast, raw_reb = (sv[I_AST] + 20 * repl[I_AST]) / (mm + 20), (sv[I_ORB] + sv[I_DRB] + 20 * (repl[I_ORB] + repl[I_DRB])) / (mm + 20)
     ro = role_of(raw_ast, raw_reb)
     rp = pr["role"].get(ro, pr["role"]["W"])
-    return {"r": float(bt["b0"] + rt @ beta * 48), "ppm": float((sv[I_PTS] + KSHRINK * rppm) / (mm + KSHRINK)),
+    r = float(bt["b0"] + rt @ beta * 48)
+    if IMPACT["mode"] != "legacy":
+        oo, w = onoff48(s, dec)
+        r += IMPACT["A"] * w * oo
+        if IMPACT.get("G"):                           # minutes prior: coaches play better players more
+            mpg = (s["m"] * dec + 5 * 12.0) / (s["gn"] * dec + 5)    # 5 pseudo-games at 12 mpg
+            r += IMPACT["G"] * (mpg - 24.0)
+    return {"r": r, "ppm": float((sv[I_PTS] + KSHRINK * rppm) / (mm + KSHRINK)),
             "em": float(s["em"]), "mpg": float(s["m"] / max(s["gn"], 1e-9)), "role": ro,
             "pts": float((sv[I_PTS] + KROLE * rp[0]) / (mm + KROLE)),
             "reb": float((sv[I_ORB] + sv[I_DRB] + KROLE * rp[1]) / (mm + KROLE)),
@@ -197,6 +249,14 @@ def side_inputs(st: State, d: int, pr: dict, full: set, avail: set, fixed: dict 
     if team is not None:
         for a in full | avail:
             R[a]["part"] = st.participation(team, a) if a in full else 1.0
+            s = st.ST.get(a)
+            if IMPACT["mode"] != "legacy" and s is not None and s.get("team") != team:
+                # v2: not yet played for this team (trade / signing). Legacy gave him his old-team EWMA minutes in
+                # full, or x0.1 if < 24 (participation 0 on his new team). Dev 2022-25: in the first game for a new
+                # team, 15+ mpg players play ~0.77 of their old EWMA (0.76/0.74/0.79 by tier, n=460).
+                R[a]["part"] = 1.0
+                if R[a]["em"] >= 15:
+                    R[a]["em"] *= ACQ_MIN
     exp_min = lambda a: R[a]["em"] if R[a]["em"] >= REG_MIN or team is None else R[a]["em"] * max(R[a].get("part", 1.0), 0.1)
     m_full = project_minutes({a: exp_min(a) for a in full}, roles, [], None) if full else {}
     base = {a: (R[a]["em"] if known_play else exp_min(a)) for a in avail}
@@ -333,7 +393,8 @@ def walk(g, box, on_date, stop_before=None):
         for i in idx:
             r = g.iloc[i]
             for side in ("home", "away"):
-                st.update(d, r[side], bx.get((r.event_id, r[side]), []))
+                mg = r.margin if side == "home" else -r.margin
+                st.update(d, r[side], bx.get((r.event_id, r[side]), []), mg)
     return st, PR
 
 
@@ -342,7 +403,8 @@ def features(seasons, keep_players=()) -> tuple[pd.DataFrame, dict]:
     report proxy, LOOKAHEAD on late scratches), absence info for >= 28 mpg players; player projections for seasons in
     keep_players (act set) for the distribution checks."""
     CACHE.mkdir(parents=True, exist_ok=True)
-    cp = CACHE / f"features_{min(seasons)}_{max(seasons)}_{'-'.join(map(str, keep_players))}.pkl"
+    tag = "" if IMPACT["mode"] == "legacy" else "_" + impact_tag()      # legacy keeps the v1 cache names
+    cp = CACHE / f"features_{min(seasons)}_{max(seasons)}_{'-'.join(map(str, keep_players))}{tag}.pkl"
     src = [Path(__file__), Path(nsm.__file__)] + [nsm.ESPN / f"{k}_{y}.parquet" for y in seasons for k in ("games", "box")]
     sig = str([(str(f), f.stat().st_mtime) for f in src])
     if cp.exists():
@@ -478,16 +540,26 @@ def fit_all(train_seasons=(2023, 2024, 2025), feat_seasons=(2021, 2022, 2023, 20
     p["kappa"] = calibrate_kappa(PL, keys, dict(p, kappa={}))
     p["kappa_calibrated_on"] = int(max(train_seasons))
     p["fitted"] = pd.Timestamp.now(tz="UTC").isoformat()
+    p["impact"] = dict(IMPACT)
     if save:
-        PARAMS.write_text(json.dumps(p, indent=1))
+        params_path().write_text(json.dumps(p, indent=1))
     return p
 
 
+def params_path() -> Path:
+    """legacy -> results/nba_sim_params.json (v1, untouched); v2 -> results/nba_sim_params_v2.json."""
+    return PARAMS if IMPACT["mode"] == "legacy" else PARAMS.with_name("nba_sim_params_v2.json")
+
+
 def load_params() -> dict:
-    if not PARAMS.exists():
-        print("(no results/nba_sim_params.json -> fitting on dev 2022-23..2024-25, one-time, a few minutes)", file=sys.stderr)
+    pp = params_path()
+    if not pp.exists():
+        print(f"(no {pp.name} -> fitting on dev 2022-23..2024-25, one-time)", file=sys.stderr)
         return fit_all()
-    return json.loads(PARAMS.read_text())
+    p = json.loads(pp.read_text())
+    if IMPACT["mode"] != "legacy" and p.get("impact") != IMPACT:
+        print(f"(! {pp.name} was fit with impact {p.get('impact')}, running {IMPACT}: refit with `fit`)", file=sys.stderr)
+    return p
 
 
 # ------------------------------------------------------------------------------------------------------- live
@@ -760,9 +832,9 @@ def cmd_validate(a) -> int:
     te = te.merge(L[["event_id", "home_spread_close", "home_spread_open", "total_close", "total_open", "home_ml_close",
                      "away_ml_close"]], on="event_id", how="left")
     rows = []
-    mtag = "_matchup" if getattr(a, "matchup", False) else ""
+    mtag = ("_matchup" if getattr(a, "matchup", False) else "") + ("" if IMPACT["mode"] == "legacy" else "_v2")
     variants = [("act", p, "act"), ("strict", ps, "strict")]
-    if mtag:
+    if getattr(a, "matchup", False):
         gtm = pd.read_parquet(ROOT / "data" / "nba_pbp" / "game_terms.parquet")[["event_id", "I_margin", "I_total"]]
         gtm["event_id"] = gtm.event_id.astype(te.event_id.dtype)
         te = te.merge(gtm, on="event_id", how="left")
@@ -792,7 +864,7 @@ def cmd_validate(a) -> int:
     R.drop(columns=[c for c in R.columns if c.startswith("out28")]).to_csv(OUTD / f"validate_{S}{mtag}_games.csv", index=False)
     summ = {"season": S, "train": train, "params_act": p, "params_strict": ps, "provider": prov}
     print(f"\n  scored games {len(te)}; lines from {prov} (open/close as recorded by ESPN)")
-    for v in ("act", "strict") + (("act_m",) if mtag else ()):
+    for v in ("act", "strict") + (("act_m",) if getattr(a, "matchup", False) else ()):
         x = R[(R["var"] == v)].dropna(subset=["close_margin", "total_close"])
         d_sc = (x.sim_margin - x.close_margin).abs()
         d_tc = (x.sim_total - x.total_close).abs()
@@ -875,7 +947,7 @@ def cmd_validate(a) -> int:
               f"sign agree {sg:.1%}  MAE(delta-move) {o['mae_delta_vs_move']:.2f}")
     if len(I):
         I.to_csv(OUTD / f"validate_{S}{mtag}_injury.csv", index=False)
-    if mtag:
+    if getattr(a, "matchup", False):
         A0 = R[R["var"] == "act"].set_index("event_id")
         A1 = R[R["var"] == "act_m"].set_index("event_id")
         A1 = A1.reindex(A0.index)
@@ -936,7 +1008,12 @@ def main(argv=None) -> int:
     v.add_argument("--matchup", action="store_true",
                    help="also price with the zone-style interaction; writes validate_{S}_matchup* (base files untouched)")
     sub.add_parser("fit")
+    for x in sub.choices.values():
+        x.add_argument("--legacy", action="store_true",
+                       help="v1 BPM-lite impact + results/nba_sim_params.json (reproduces studies before 2026-10-31)")
     a = ap.parse_args(argv)
+    if a.legacy:
+        set_impact("legacy")
     if a.cmd == "game":
         return cmd_game(a)
     if a.cmd == "delta":

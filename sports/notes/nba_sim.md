@@ -15,6 +15,79 @@ Arguments are AWAY then HOME. The props CSV has the columns `player,stat,line`, 
 The game and delta commands refresh ESPN games and box scores first, as team_rating.py does, unless you pass
 `--no-refresh`. They read ESPN's roster and injury feeds as of now.
 
+## v2 (2026-10-31): impact rating fix -- now the default; `--legacy` reproduces v1 exactly
+
+**Why.** Two live complaints: (1) favourites priced 6-17c below Kalshi on 10-30/10-31; (2) `--in "Jaylen Brown"` made
+PHI weaker. Diagnostics (tmp scripts, numbers below are from their printed output):
+- **Bug 2 root cause = the BPM-lite rating, not the trade.** Brown's rating was -3.18/48. The live box fit
+  (seasons 2023-24..2025-26) has TOV -3.04/48 and FGA -1.24/48; his 4.0 TOV/48 alone costs -12.3. Adding any player
+  rated below his team's minutes-weighted average lowers the team, and removing him raises it. Legacy
+  `delta NY PHI --out "Jaylen Brown" --date 2026-10-30`: P(PHI) **+3.5c** when Brown sits. Other usage creators were
+  also rated below average: Cunningham -1.5, Banchero -2.4, Morant -2.0, Sengun -1.4, and Edwards only +0.8. The TOV
+  beta is unstable by season (-2.1 for 2021-24, -2.8/-3.3/-3.0 for single seasons 2024/2025/2026).
+  The trade itself adds one thing: an acquired player kept his full old-team minutes (Rupert, 36.4 at MEM, came
+  out at 39 min for PHI). On dev 2022-25, in his first game for a new team a 15+ mpg player plays about 0.77 of his
+  old EWMA (n=460).
+- **Bug 1: the mean margin is NOT systematically compressed.** Slope of close on sim (ACT): 1.09 / 1.01 on dev
+  2023-24 / 2024-25. It is 0.95-1.11 in the first 5 games of a season, so early-season prior shrinkage is not the
+  cause. On 2026-27 to date (81 games, DK close) it is 1.03. The "favourite gap" comes from selection: if you
+  condition on the MARKET being a big favourite (|close| >= 6), a noisier but calibrated sim must on average sit
+  closer to 0. That gap is -1.5 pts on dev 2024-25 and -2.6 on 2026-27, while the slope stays near 1. The fix is
+  a less noisy sim, not a stretch factor. The live 10-31 misses were concentrated in games with star absences:
+  MIN without Edwards (+0.8 rated), OKC without Holmgren/J. Williams/Caruso/Wallace, POR with Morant out rated as
+  a *gain*. These were absences the BPM-lite under-valued.
+- **Probability flattening is small.** sigma_m 13.55 (v1) / 13.47 (v2), against a close-implied SD of 12.9-13.6 on dev.
+  Logit slope of p_close on p_sim is 1.03 (v1) / 1.09 (v2) on 2026-27. At a 12.5-pt spread this is ~1c. Not changed.
+
+**What changed (v2 = `IMPACT` in nba_sim.py):** r = BPM-lite + 0.5 x on/off48 x n_eff/(n_eff+1500) + 0.2 x (mpg - 24).
+- on/off48 = 48 x (his on-court +/- per minute - the team's margin per minute while he sat), from decayed sums
+  kept in State.
+- mpg is shrunk with 5 pseudo-games at 12.
+- A player who has not yet played for his team gets 0.77 x his EWMA minutes (15+ mpg) and participation 1.
+- A=0.5, K=1500, G=0.2 were picked on dev 2023-24 alone (grid; G=0.2 1.955 vs G=0 2.133 MAE vs close). Then
+  they were confirmed on 2024-25 and on 2026-27.
+- New stack (`fit`, dev 2022-23..2024-25): margin = 0.48 + 0.694 mu_ridge + 1.40 dP_full + 2.39 dP_absence,
+  sigma 13.47. The absence coefficient fell from 3.96 to 2.39: the ratings need less stretching.
+- Files: results/nba_sim_params_v2.json; results/nba_sim/validate_{2024,2025}_v2*. Legacy files are untouched.
+  nba_injury_teammate_props.py is pinned to legacy.
+
+| (ACT set unless noted; DK/ESPN BET close) | 2023-24 v1 | 2023-24 v2 | 2024-25 v1 | 2024-25 v2 | 2026-27 v1 | 2026-27 v2 |
+|---|---|---|---|---|---|---|
+| spread MAE vs close | 2.23 [2.13, 2.33] | **1.94** [1.85, 2.03] | 2.30 [2.19, 2.41] | **1.97** [1.88, 2.06] | 2.74 | **2.39** |
+| STRICT MAE vs close | 2.57 | 2.38 | 2.73 | 2.55 | 2.88 | 2.65 |
+| slope close ~ sim | 1.09 | 1.12 | 1.01 | 1.03 | 1.03 | 1.10 |
+| Brier sim (close) | .2048 (.1975) | .2029 | .2026 (.1971) | .2010 | .2208 (.1945) | .2208 |
+| Brier sim - close | +.0074 [+.0035, +.0110] | +.0054 [+.0022, +.0086] | +.0054 [+.0014, +.0096] | +.0038 [+.0003, +.0074] | | |
+| within 1.5 pts of close | 53.5% | 60.0% | 51.9% | 60.8% | | |
+| injury news: corr / sign agree | .600 / 75.5% | .642 / 78.6% | .459 / 69.4% | .499 / 74.0% | | |
+
+- 2026-27 (scripts/nba_sim_check27.py) is 81 home games through 10-30. The player state is point-in-time; the stack
+  is frozen dev params; the full rotation is last-10-games (there is no roster-feed history). The paired MAE
+  difference v2 - v1 is **-0.35 [-0.59, -0.12]** (ACT) and -0.23 [-0.43, -0.04] (STRICT). The 2025-26 season
+  enters only as state, never as a fit.
+- The sim still does NOT beat the close on any season, so there is no lookahead flag. The improvement does not
+  change the verdict: the sim is a repricer, not a signal.
+- Totals and player distributions are unchanged.
+- The 1.5-pt bar is still not met (1.94-1.97).
+- **Brown after the fix:** he is rated -1.42 (from -3.18). `--out "Jaylen Brown"` is now -0.4c for PHI (it was +3.5c).
+  The sign is right but the size is still far below a market star value. The BPM TOV penalty remains the
+  limitation (next step: shrink the box betas toward a stable pooled fit, or add a public impact metric).
+
+**10-31 slate, 15:20 PT, descriptive only (fav = Kalshi favourite; Kalshi mid of yes bid/ask):**
+
+| game | fav | Kalshi | v1 | v2 | v2 - Kalshi |
+|---|---|---|---|---|---|
+| POR@UTA | POR | no 2-sided quote | 57.8 | 57.9 | - |
+| PHI@CHA | PHI | 60.5 | 61.8 | 62.5 | +2.0c |
+| ATL@NOP | ATL | 65.0 | 58.8 | 60.8 | -4.2c |
+| SAC@MEM | MEM | 75.5 | 75.4 | 72.8 | -2.7c |
+| CLE@MIL | CLE | 76.5 | 63.9 | 66.3 | -10.2c |
+| MIN@SAS | SAS | 82.5 | 66.4 | 72.4 | -10.1c |
+| OKC@HOU | HOU | 56.5 | 44.2 | 52.7 | -3.8c |
+
+The mean favourite gap went from -7.7c to -5.3c. CLE@MIL and MIN@SA remain about 10c short. MIL's roster turned over
+(the ridge still carries last season), and the sim still under-values the absent Edwards and Gobert.
+
 ## Design (and what was used for each piece)
 
 | piece | v1 choice |

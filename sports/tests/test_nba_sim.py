@@ -103,3 +103,33 @@ def test_names_to_ids():
     ids, miss = ns._names_to_ids("jalen johnson, Nobody, Jalen", {"1": "Jalen Johnson", "2": "Jalen Wilson"})
     assert ids == {"1"}
     assert any("Nobody" in m for m in miss) and any("ambiguous" in m for m in miss)
+
+
+PM = namedtuple("PM", ["athlete_id", "name", "minutes", "plusMinus"] + ns.STATS)
+
+
+def test_v2_onoff_raises_a_positive_onoff_player_and_legacy_is_unchanged():
+    """Same box line for two players; A's team wins his minutes by +10 and loses the rest, B is the reverse.
+    v2 must rate A above B; legacy must rate them equal (box-only) -- the --legacy path stays v1."""
+    st = ns.State()
+    for k in range(40):
+        base = {s: 0.0 for s in ns.STATS}
+        base.update(points=20, fieldGoalsAttempted=16, turnovers=3)
+        rows = [PM("A", "A", 36, +10, **base), PM("B", "B", 36, -10, **base)]
+        rows += [PM(f"x{j}", f"x{j}", 168 / 8, 0, **{s: 0.0 for s in ns.STATS}) for j in range(8)]
+        st.update(700000 + 2 * k, "TTT", rows, margin=0.0)
+    try:
+        ns.set_impact("v2", 0.5, 1500)
+        ra, rb = (ns.player_rates(st, a, 700090, PRIORS)["r"] for a in ("A", "B"))
+        assert ra > rb + 1.0
+        ns.set_impact("legacy")
+        la, lb = (ns.player_rates(st, a, 700090, PRIORS)["r"] for a in ("A", "B"))
+        assert la == pytest.approx(lb)
+    finally:
+        ns.set_impact("v2", 0.5, 1500)
+
+
+def test_update_without_margin_keeps_v1_state():
+    st = ns.State()
+    team_state(st, "AAA", 30, games=3)
+    assert all("oo" not in s for s in st.ST.values())
