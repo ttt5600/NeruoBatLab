@@ -34,6 +34,19 @@ def early_form(date: str) -> list[str]:
 
 
 def totals(date: str) -> list[str]:
+    """L32b de-biased totals (live decisions only). The raw L32 rule is NOT ticketed: its picks are ~all overs from the
+    model's level offset (notes/l32b_debiased_totals.md); it stays a paper logger only."""
+    f = ROOT / "data" / "l32b_log.jsonl"
+    out = []
+    for r in (json.loads(x) for x in f.read_text().splitlines() if x.strip()) if f.exists() else []:
+        if r.get("type") == "decision" and r.get("kind") == "live" and r.get("pick") and r["key"].startswith(date + "|"):
+            adj = r["model"] - r["c"]
+            out.append(f"| {r['key'].split('|', 1)[1]} | **{r['pick'].upper()} {r['open_line']}** | -110 or better; "
+                       f"skip if line moved within 3 of {adj:.1f} | de-biased totals L32b (gap {r['adj_gap']:+.1f}) |")
+    return out
+
+
+def totals_l32_raw(date: str) -> list[str]:   # kept for reference; not ticketed
     try:
         rep = subprocess.run([str(QK / ".venv/bin/python"), str(QK / "scripts/nba_open_totals.py"), "report"],
                              capture_output=True, text=True, timeout=300).stdout
