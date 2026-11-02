@@ -1,0 +1,61 @@
+id: 087
+title: A Whisper-style log-mel front end in our recipe does not raise call type (E30, two seeds); the pre-registered kill
+  rule fires and the front-end line is closed
+status: confirmed
+claim: 'Replacing the 7-layer waveform CNN with a Whisper-style log-mel front end (80-bin log-mel, two convs, same 20 ms grid),
+  everything else run16''s, gives 11-class CPU call type 0.8247 and 0.8277 (two seeds; seed 2''s best layer is a tie, L2 =
+  L6) against run16''s three seeds 0.8353 / 0.8198 / 0.8411. The pre-registered arm contrast, E30 (2 seeds) minus run16 (3
+  seeds) with a birds + seeds interval, is -0.0059 [-0.0301, +0.0184] at each model''s best layer and -0.0048 [-0.0287, +0.0191]
+  at layer 3; the 10-split arm-mean difference is -0.0089. The pass mark (both intervals above zero, 10-split difference positive)
+  is not met and the kill rule (arm difference negative at both readouts) fires, so the front-end line is closed. In the pre-registration''s
+  own words, log-mel input is not a large lever here, not no lever: the upper bounds still allow up to about two-thirds of
+  Whisper-small''s +0.028 lead over run16.'
+evidence: 'calltype_cpu_rescore.json: run30_logmel 0.8247 (L5), layer 3 0.8180; run30_logmel_s2 0.8277 (L2), layer 3 0.8262;
+  run16_compute4x 0.8353 (L8) / 0.8312; run16_seed2 0.8198 / 0.8127; run16_seed3 0.8411 / 0.8368. seed_mean_pairs_cpu.json
+  "e30 | run16": diff -0.0059, birds-only [-0.0244, +0.0116], birds + seeds [-0.0301, +0.0184] (pooled seed sd 0.0091, df
+  3); seed_mean_pairs_cpu_L3.json: -0.0048, [-0.0197, +0.0083] / [-0.0287, +0.0191] (sd 0.0108). Seed by seed (best layer),
+  6 pairs: -0.0106, +0.0050, -0.0164, -0.0076, +0.0079, -0.0135 (4 of 6 negative). Single pairs vs run16 seed 1 (seed_pairs_cpu[_L3].json):
+  -0.0106 [-0.0360, +0.0103] / -0.0132 [-0.0312, +0.0045]; -0.0076 [-0.0284, +0.0134] / -0.0050 [-0.0228, +0.0120]. 10-split
+  means (calltype_split_sensitivity_cpu.json): E30 0.8161 / 0.8238, run16 0.8277 / 0.8248 / 0.8340, arm difference -0.0089.
+  Secondary, all pre-registered, reported not decided on: in-distribution detection (detection_variants.json, arm chosen as
+  the max of 12 on the same out-of-fold ZF AUC that is reported, one recording in 31 time blocks): E30 0.9634 / 0.9662 vs
+  run16 0.9718 / 0.9718 / 0.9713, arm means 0.9648 vs 0.9716 (-0.0068), point estimates only, no interval. ZF->BirdPark AP
+  over all 12 arms, median [range]: E30 0.7907 [0.6159, 0.8342] and 0.7863 [0.7541, 0.8248]; run16 0.7864 [0.6949, 0.8203],
+  0.7729 [0.6029, 0.8269], 0.7583 [0.4890, 0.8295]: no drop. Chick Be-vs-LT AUC at the pre-committed arm (chick_holdout_variants_cpu.json):
+  E30 0.9894 / 0.9973, run16 0.9942 / 0.9894 / 0.9860: no drop. Label-free k=30 stability at layer 3 (labelfree_stability_cpu.json):
+  E30 0.4523 / 0.4646, run16 0.4793 / 0.4862 / 0.4733, every interval vs the reference crossing zero. Final masked accuracy:
+  not compared (the logged value is a running mean since the last resume, and both E30 seeds resumed). Per-type recall vs
+  run16 and Whisper-small: not run.'
+method: E30 pre-registered 2026-10-27 (harness/experiments.yaml prereg_2026_10_27, critic ACCEPT-WITH-CHANGES applied before
+  submission; approved by the user). utils/logmel_frontend.py + --frontend logmel; slurm/train_run30_logmel.sh (seeds 1337,
+  2), Savio jobs 40578102 / 40578103 on 4 L40 savio_lowprio, 93,750 updates each (seed 2 was preempted and resumed from last.ckpt).
+  Exported with export_weights.py (frontend key carried; bit-identical verification passed for both) and scored with harness/score_run.sh
+  (board protocol, CPU embeddings). Arm contrast with zfeval/experiments/ seed_mean_pairs_cpu.py (per-clip correctness averaged
+  over seeds, bird bootstrap + pooled seed variance).
+provenance: 'Savio /global/scratch/users/jonathanswang/temp_train_run30_logmel{,_s2}; exports external/dapt/run30_logmel{,_s2}.pt;
+  ~/zf_labelset/zf_detection_dataset_v1/analysis/: calltype_cpu_rescore.json, seed_pairs_cpu.json, seed_pairs_cpu_L3.json,
+  seed_mean_pairs_cpu.json, seed_mean_pairs_cpu_L3.json, calltype_split_sensitivity_cpu.json, detection_variants.json; harness/logs/score_run30_logmel*.log.
+  chick_holdout_variants_cpu.json, labelfree_stability_cpu.json.'
+caveats: 'Power, stated at pre-registration: the arm test resolves about +/-0.03, so a front end worth less than that would
+  also read "not met"; the kill closes the line at this budget, it does not show log-mel is worth exactly zero. The front
+  end is 4.6x smaller than the CNN (0.91M vs 4.20M parameters), each output frame sees 65 ms rather than 25 ms, and run16''s
+  93,750-update schedule was not tuned for it. Seed 1337 is not paired with run16''s (the module is built after the CNN, so
+  masks and crops differ). The detection gap has no interval; all five pre-committed ZF AUCs come from one probe per model.
+  Whisper also differs from us in supervised transcription and 680,000 h of audio; neither is tested here (E31 would be the
+  route). The arm interval uses a normal quantile (1.96) although the seed term has 3 degrees of freedom; a t quantile would
+  widen it (the critic''s rough estimate, not in any file: about [-0.038, +0.026] at the best layer), which strengthens ''not
+  met'' and weakens any ''no effect'' reading. The tool keeps 1.96 because E13, E36 and E37 were pre-registered against it.
+  Critic (2026-11-02): ACCEPT-WITH-CHANGES, applied: detection removed from the title and reported as a point estimate on
+  the in-distribution recording only (BirdPark and chick show no drop), Whisper sentence reworded to the pre-registration''s
+  ''not a large lever'', all pre-registered secondaries added or marked not run, lesson recast as an open hypothesis, the
+  split-file regeneration checked (split 0 equals the rescore value for all 46 models).'
+lesson: 'A front end that hands the transformer a log-mel spectrogram instead of learned waveform features did not move call
+  type at this budget, so the input representation is not where our recipe is losing to Whisper. What else separates Whisper
+  (supervised transcription, 680,000 h) is an open hypothesis, not tested here: size and hours alone moved nothing among the
+  downloads, and continuing to train Whisper itself (E31) would test specialisation, not supervision.'
+tags:
+- frontend
+- whisper
+- e30
+- call-type
+date: '2026-11-02'

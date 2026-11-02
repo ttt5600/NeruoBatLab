@@ -1,5 +1,5 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-10-30 (lead session_01EGDWEvYFd6zSmWQfUugJnH; E36 + E37 moved to paid A40; doc updated)
+Updated: 2026-11-02 (lead session_01EGDWEvYFd6zSmWQfUugJnH; E30 scored and closed, finding 087)
 Next: check job 40578099's log for "[teacher] eval mode, 24 layers" and "PASS: labels written" (else scancel
 40578100 40578101); when trainings finish, export with ~/export_weights.py and score with harness/score_run.sh,
 then judge E13/E30 by their frozen prereg_2026_10_27 criteria (seed_mean_pairs_cpu.py).
@@ -10,13 +10,12 @@ Call type is CPU ONLY (076). Model table: `python zfeval/experiments/our_models_
 
 ## In flight (submitted 2026-10-28 ~15:45, savio_lowprio, logs ~/jobs/, ledger rows added)
 - E13: relabel 40578099 (bioxn-large L12 eval) -> run24 40578100 + run24s2 40578101 (afterok; scancel if gate fails)
-- E30: run30 40578102 + run30s2 40578103 (log-mel front end). Slurm est. start Nov 10-11 (2026-10-29 check).
-- E36 on PAID A40 (fc_birdpow, user ok 2026-10-30, ~1,175 SU/run): relabel 40631383 running -> chain 40654078 (stock)
+- E30 DONE: not met, kill fired (finding 087). E13 relabel PASSED; trainings 40578100/01 free queue ~Nov 14.
+- E36 relabel PASSED. E36 on PAID A40 (fc_birdpow, user ok 2026-10-30, ~1,175 SU/run): relabel 40631383 running -> chain 40654078 (stock)
   -> 40654079 (lr1e-4) -> 40654080 (stock s2) -> 40654081 (lr1e-4 s2).
   When done: fill the pending block in Claude Doc ba903e67 (section 'Against vanilla HuBERT') with all-models forest plot.
-- E37 on PAID A40, chain 40654075 (shuffle) -> 40654076 (randproj) -> 40654077 (randproj s2). Pass rule: shuffle < 0.7186.
+- E37 on PAID A40, chain 40654075 (shuffle; RUNNING since Nov 2 08:45) -> 40654076 (randproj) -> 40654077 (randproj s2). Pass rule: shuffle < 0.7186.
 - Allocation fc_birdpow: 573.93 / 300,000 SU used (2026-10-30 check_usage, python2). E13/E30 stay on free lowprio L40.
-- Free-queue est. (2026-10-30): E13 relabel ~Nov 12, E30 ~Nov 13.
 
 ## Latest results (2026-10-27)
 - 085: build_teacher never called .eval() -> every model-teacher label set (run12/13/18/19/22, DAPT E17-E28, E14, E27)
@@ -34,6 +33,7 @@ Call type is CPU ONLY (076). Model table: `python zfeval/experiments/our_models_
 - Older: E26 design, E15 corpus, E33 (rec no), 10-split headline, label audit; Google Doc 123rAGhW T10/T11 (ask first).
 
 ## Traps
+- calltype_split_sensitivity --only used to OVERWRITE its JSON (fixed 2026-11-02: now merges); regenerated, 46 models.
 - Teacher must be .eval(); inference_mode() does not turn dropout off. Test: same input twice -> identical output.
 - Single seed pairs / bird-only bootstraps ignore seed noise (sd ~0.011); use seed_mean_pairs_cpu.py for arm claims.
 - Local python lacks lightning: use /Applications/anaconda3/envs/my_audio_env/bin/python (torch 2.2.2 = Savio) for tests.

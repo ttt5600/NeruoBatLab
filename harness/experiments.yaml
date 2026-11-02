@@ -848,7 +848,11 @@ experiments:
   success: to be pre-registered before submission; 2 seeds per arm; call type and detection against run17
     and AVES
   script: null
-  status: approved
+  status: done
+  finding: '087'
+  result: 'not met, kill rule fired: arm E30 (2 seeds) - run16 (3 seeds) -0.0059 [-0.0301, +0.0184] best layer, -0.0048
+    [-0.0287, +0.0191] layer 3 (birds + seeds), 10-split -0.0089; single seeds 0.8247 / 0.8277. Front-end line closed:
+    log-mel input is not a large lever here (finding 087).'
   decision_2026_10_27: 'Approved by the user 2026-10-27 (AskUserQuestion: "Run E30"), 2 seeds, ~12 GPU-hours lowprio. Criteria in
     prereg_2026_10_27 are frozen from here.'
   priority: 2

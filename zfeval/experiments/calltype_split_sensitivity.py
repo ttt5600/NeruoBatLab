@@ -83,6 +83,12 @@ def main():
                        for lab, a in A.items()})
     name = (f"calltype_split_sensitivity_cpu_L{fixed}.json" if fixed is not None else "calltype_split_sensitivity_cpu.json") \
         if cpu else "calltype_split_sensitivity.json"
+    # --only ADDS to the existing file. Before 2026-11-02 it replaced it, and one --only run wiped the 10-split means
+    # of every other model (regenerated the same day from the CPU caches; the numbers are deterministic).
+    if only and (ANA / name).exists():
+        prev = json.loads((ANA / name).read_text())
+        if prev.get("seeds") == out["seeds"] and prev.get("layer_rule") == out["layer_rule"]:
+            merged = dict(prev["models"]); merged.update(out["models"]); out["models"] = merged
     (ANA / name).write_text(
         json.dumps(out, indent=2))
     print(f"\n{'model':<22}{'seed0':>8}{'mean':>8}{'sd':>8}{'min':>8}{'max':>8}{'d-mean':>9}{'d-sd':>8}")
