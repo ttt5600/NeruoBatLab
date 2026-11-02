@@ -91,3 +91,19 @@ How much to believe it (read before acting):
   (YES) side ever fires now.
 Verdict: PASSED SEALED (weak, low capacity) -> forward paper logger `scripts/e1x_tsa_logger.py` (lead deploys), judge
 at >= 60 settled paper fills: KILL if ROI <= 0 or any 3 losses in the first 30.
+
+## CRITIC (fresh critic subagent, 2026-11-01): WEAKENED, not broken -> ACCEPT-WITH-CHANGES, status stays "weak pass"
+- Every number recomputed from the bets CSVs. No lookahead found: forecast uses only data through the Saturday before T,
+  and residuals only from weeks ending at least 8 days before T. Units and schemas are clean: all trades carry
+  yes_price_dollars, and candles use close or close_dollars in dollars. Sides, costs and P&L rows are correct.
+- DEV rests on KXTSAW-25NOV16. Its 5 fills came from one sweep at T+55.8 h, and that week's ladder was incoherent.
+  Without that week the result is +3.9%, p .022. Also dropping 24NOV10 gives +2.6%, CI [-0.8, +5.5]%, p .058, which is
+  not distinguishable from zero. Restricting to q >= .90 gives +2.8%, CI [-0.5, +4.6]%, also not distinguishable.
+- SEALED fits an edge and fits no edge equally well: 0/24 losses, 9 events, low-side YES only. The pre-registration
+  carried the DEV bar over to SEALED.
+- The fill model is mildly optimistic: 26 fills were trades exactly at our price, so someone else historically rested
+  there, and depth is 1-4 contracts.
+- Provenance: the DEV ledger rows carry sha 203d248. The `_px`/`_yp` schema fixes they ran with were committed later, in
+  4d8db2f. These are bug fixes, not tuning.
+- Unaccounted: this test sits inside a same-day family of E1-style trials (quake + TSA, 6 trials in all).
+The real test is the forward paper logger's kill rule.
