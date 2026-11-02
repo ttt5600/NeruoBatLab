@@ -1,0 +1,19 @@
+id: e2_taker
+family: kalshi_weather_temp
+dataset: kalshi_temp_x1
+rule: edgelab.rules.kalshi_wx:taker
+hypothesis: 'E2/X1: the frozen E1 rule on 17 more daily-high cities (scripts/wx_expand.py picks), taker'
+decision_time: 22:00 station-local the night before
+price_model: taker
+split: vault:kalshi_temp_x1
+min_n: 200
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+  contracts_per_order: 1
+  note: direct-member fees at $0.0001 precision (docs fee_rounding; prod fills ~exact, HANDOFF_2026-10-25); cent rounding
+    is the sensitivity
+legacy: 'FUND_BOOK 3a E2: sealed pass 10-20, LIVE with E1'

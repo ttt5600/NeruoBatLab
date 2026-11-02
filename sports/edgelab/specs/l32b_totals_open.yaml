@@ -1,0 +1,15 @@
+id: l32b_totals_open
+family: nba_totals
+dataset: nba_totals_open
+rule: edgelab.rules.nba:l32b_dev
+hypothesis: 'L32b: NBA total model minus trailing-100-game mean(model - open), bet |adj| >= 3 at the open'
+decision_time: at the opener (ESPN open, no timestamp)
+price_model: book_quote
+split: vault:nba_totals_open
+min_n: 200
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee: {}
+legacy: 'notes/l32b_debiased_totals.md: DEV PASS 11-01 at no-vig open (+8.1%, p .006); forward paper'

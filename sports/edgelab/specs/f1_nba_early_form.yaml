@@ -1,0 +1,16 @@
+id: f1_nba_early_form
+family: nba_sides
+dataset: nba_early_form
+rule: edgelab.rules.forward:unwired
+hypothesis: 'F1 NBA early form (<= 8-game window): form-vs-market ML at the Kalshi ask, 2026-27 weeks 1-3'
+decision_time: pre-tip tick
+price_model: taker
+split: vault:nba_early_form
+min_n: 30
+kill:
+  kind: clv_negative_significant
+  after_n: 30
+  p: 0.05
+fee:
+  rounding: exact
+legacy: LEAD -> forward paper (nba_early_form_logger.py); the dev window was a post-hoc sensitivity

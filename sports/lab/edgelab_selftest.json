@@ -1,0 +1,151 @@
+{
+ "ts": "2026-11-02T17:39:11+00:00",
+ "git_head": "5a2dc6db5a2ecdb531935a3ba1241c071974385d",
+ "alpha": 0.05,
+ "placebo": {
+  "real": {
+   "placebos": 210,
+   "evaluated": 210,
+   "family_trials": 210,
+   "bar": 0.0002380952380952381,
+   "false_pass_corrected": 0.0,
+   "false_pass_uncorrected": 0.004761904761904762,
+   "false_pass_uncorrected_ignoring_clv": 0.004761904761904762,
+   "p_below_alpha_only": 0.004761904761904762,
+   "any_pass_corrected": false,
+   "any_pass_uncorrected": true,
+   "median_roi": -0.03873683453298899,
+   "by_kind": {
+    "nfl_total_lab:random_side": 0,
+    "nfl_total_lab:shuffled_signal": 1,
+    "kalshi_temp_all:coin_flip": 0
+   }
+  },
+  "fair": {
+   "placebos": 210,
+   "evaluated": 210,
+   "family_trials": 210,
+   "bar": 0.0002380952380952381,
+   "false_pass_corrected": 0.0,
+   "false_pass_uncorrected": 0.05238095238095238,
+   "false_pass_uncorrected_ignoring_clv": 0.05238095238095238,
+   "p_below_alpha_only": 0.05238095238095238,
+   "any_pass_corrected": false,
+   "any_pass_uncorrected": true,
+   "median_roi": 0.001109188027173119,
+   "by_kind": {
+    "nfl_total_lab:random_side": 6,
+    "nfl_total_lab:shuffled_signal": 3,
+    "nfl_total_lab:coin_flip": 2
+   }
+  },
+  "false_pass_rate": 0.0,
+  "ok": true
+ },
+ "golden": {
+  "e1_sealed": {
+   "verdict": "pass",
+   "n": 1844,
+   "net_roi": 0.014546997731908394,
+   "ci": [
+    0.006007506463790121,
+    0.022689684227936907
+   ],
+   "p": 0.0003499912502187445,
+   "bar": 0.0011363636363636365,
+   "n_trials_family": 44,
+   "half1": 0.01917261287752358,
+   "half2": 0.009921382586293206,
+   "reasons": []
+  },
+  "l2_t1": {
+   "verdict": "fail",
+   "n": 789,
+   "net_roi": -0.13867662472724165,
+   "ci": [
+    -0.24654496688643623,
+    -0.029957315509710904
+   ],
+   "p": 0.991504247876062,
+   "bar": 0.0002564102564102564,
+   "n_trials_family": 195,
+   "reasons": [
+    "a_p_below_bar",
+    "b_both_halves_positive",
+    "c_concentration_ok"
+   ]
+  },
+  "e1_concentration": 0.12325330258686533,
+  "e1_clv": 0.006151701059676522,
+  "ok": true
+ },
+ "cheaters": {
+  "peek_tape": {
+   "refused": true,
+   "pit_violations": {
+    "inputs_after_decision": 756,
+    "_rows": 756
+   }
+  },
+  "late_price": {
+   "refused": true,
+   "pit_violations": {
+    "quote_after_decision": 1083,
+    "_rows": 1269
+   }
+  },
+  "read_outcome": {
+   "refused": true,
+   "error": "KeyError: 'won'"
+  },
+  "set_outcome": {
+   "refused": true,
+   "error": "VaultError: rules may not set `outcome`; the vault resolves it from the hidden columns"
+  },
+  "amend_after_access": {
+   "refused": true,
+   "error": "honest_e1_copy-ef5e8583 already accessed data (2026-11-02T17:40:08+00:00); amendments are only allowed before the first data access -> register a NEW trial"
+  },
+  "amend_before_access_allowed": {
+   "ok": true
+  },
+  "sealed_without_dev_pass": {
+   "refused": true,
+   "error": "sealed refused for amend_before_access-d1c66e79: state is 'registered'; sealed needs dev_pass"
+  },
+  "rule_edited_after_access": {
+   "refused": true,
+   "error": "edited_rule-81159771: rule module /var/folders/bx/67m84k5n6rb_kzzzlq6c6nqr0000gn/T/tmplpzbvnap/mods/elab_tmp_rule.py changed since registration (6841cd8fb1e2 ->"
+  },
+  "edited_rule_is_new_trial": {
+   "ok": true,
+   "old": "edited_rule-81159771",
+   "new": "edited_rule-261278c3",
+   "family_count": 8
+  },
+  "evaluate_to_live_small": {
+   "refused": true,
+   "error": "evaluate() can never move a strategy to live_small: user-only (GOAL.md rule 6)"
+  },
+  "user_without_approval": {
+   "refused": true,
+   "error": "user transitions need an explicit UserApproval (--user-approved --by NAME)"
+  },
+  "second_unseal": {
+   "refused": true,
+   "error": "sealed refused for e1_taker-40389097: second unseal refused (first: 2026-11-02T17:40:16+00:00)"
+  },
+  "tampered_registry_detected": {
+   "refused": true,
+   "verify": {
+    "ok": false,
+    "lines": 916,
+    "first_break": 7
+   }
+  },
+  "ok": true
+ },
+ "placebo_false_pass_rate": 0.0,
+ "golden_cases_reproduce": true,
+ "ok": true
+}

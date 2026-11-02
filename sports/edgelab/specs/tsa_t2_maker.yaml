@@ -1,0 +1,16 @@
+id: tsa_t2_maker
+family: kalshi_data_ladders
+dataset: kalshi_tsaw
+rule: edgelab.rules.tsa:t2_maker
+hypothesis: 'E1X-T T2: same rungs, maker 1c inside, first crossing tape print = fill, no cancel'
+decision_time: week open + 2 h (Monday)
+price_model: maker_tape
+split: vault:kalshi_tsaw
+min_n: 60
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 2
+fee:
+  rounding: exact
+legacy: 'FUND_BOOK/EDGES: SEALED weak pass 11-01 (24 fills, 0 losses), forward paper (judge >= 60 fills)'

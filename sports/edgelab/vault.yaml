@@ -1,0 +1,122 @@
+# edgelab vault -- per-dataset DATE splits (GOAL.md rule 3). Defined once; changing a split here changes the sha256 that
+# every evaluation records (vault_sha256), so an edit is visible in the registry. Dates are inclusive, on the dataset's
+# `date` column (event / observation date). Rows outside every split are not loadable at all.
+#   dev:     loads freely (logged)
+#   sealed:  loads only for a trial whose dev passed (or, for a dataset with dev: null, a trial registered before the
+#            sealed window opened = a pre-registered prospective test), and only ONCE per trial
+#   forward: data that did not exist when the strategy was frozen; loads for any registered trial (logged)
+# hidden: outcome columns stripped from the frame a rule sees; the vault resolves outcomes by bet_id afterwards.
+# spent_unseals: sealed windows already scored once BEFORE edgelab existed (lab/lockbox.jsonl, ledger). A migrated
+#   trial listed here may re-read its own sealed rows exactly once as a REPLAY (counts as its one unseal); no other
+#   trial may unseal them for that spec id again.
+
+datasets:
+  kalshi_temp_e1:
+    loader: kalshi_temp_e1
+    family: kalshi_weather_temp
+    hidden: [won]
+    outcome: {kind: won_column, key: ticker}
+    splits:
+      dev: [2021-07-01, 2025-06-30]        # lab/datasets.py kalshi_temp dev quarters 2021Q3..2025Q2 (rule fires from 2024-03)
+      sealed: [2025-07-01, 2026-10-06]     # lockbox 2025Q3.. as pulled and scored 2026-10-08
+      forward: [2026-10-22, null]          # live since 10-22; 10-07..10-21 belongs to no split
+    spent_unseals:
+      - {spec_id: e1_taker, when: "2026-10-08", source: "lab/lockbox.jsonl strategy=kalshi_reject_safe_check"}
+      - {spec_id: e4_maker_e1, when: "2026-10-23", source: "lab/lockbox.jsonl strategy=kalshi_temp_maker_M3_N10"}
+  kalshi_temp_x1:
+    loader: kalshi_temp_x1
+    family: kalshi_weather_temp
+    hidden: [won]
+    outcome: {kind: won_column, key: ticker}
+    splits:
+      dev: [2026-01-14, 2026-02-28]        # wx_expand SPLIT
+      sealed: [2026-03-01, 2026-10-18]
+      forward: [2026-10-22, null]
+    spent_unseals:
+      - {spec_id: e2_taker, when: "2026-10-20", source: "lab/lockbox.jsonl strategy=wx_expand_X1_new_highs"}
+      - {spec_id: e4_maker_x1, when: "2026-10-23", source: "lab/lockbox.jsonl strategy=kalshi_temp_maker_M3_N10"}
+  kalshi_temp_all:
+    loader: kalshi_temp_all
+    family: placebo
+    hidden: [won, push, actual]
+    outcome: {kind: won_push_columns, key: [opp_id, selection]}
+    splits:
+      dev: [2021-07-01, 2025-06-30]
+      sealed: [2025-07-01, 2026-10-06]
+      forward: [2026-10-22, null]
+  kalshi_tsaw:
+    loader: kalshi_tsaw
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value, settlement_value_dollars, settlement_ts, last_price_dollars, previous_price_dollars,
+             no_ask_dollars, no_bid_dollars, yes_ask_dollars, yes_bid_dollars, volume_fp, volume_24h_fp, open_interest_fp,
+             status, updated_time]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:
+      dev: [2024-07-07, 2026-02-15]        # scripts/e1x_tsa.py rungs(): 70/30 by week end, cut = 2026-02-15
+      sealed: [2026-02-16, 2026-10-25]
+      forward: [2026-11-01, null]
+      forward_loader: kalshi_tsaw_forward
+    forward_outcome: {kind: none, key: ticker}
+    forward_hidden: []
+    spent_unseals:
+      - {spec_id: tsa_t1_taker, when: "2026-11-02", source: "lab/ledger.jsonl e1x_tsa_T1 SEALED"}
+      - {spec_id: tsa_t2_maker, when: "2026-11-02", source: "lab/ledger.jsonl e1x_tsa_T2 SEALED"}
+  nba_totals_open:
+    loader: nba_totals_open
+    family: nba_totals
+    hidden: [win, push, total, pnl_novig, pnl_110]
+    outcome: {kind: win_push_columns, key: event_id}
+    splits:
+      dev: [2023-10-01, 2025-06-30]        # 2023-24, 2024-25
+      sealed: [2025-10-01, 2026-06-30]     # 2025-26: spent by L32's sealed shot (never re-scored)
+      forward: [2026-10-21, null]
+      forward_loader: nba_totals_open_forward
+    forward_outcome: {kind: l32b_log, key: key}
+    forward_hidden: [result, final_total, pnl_novig, pnl_110, close_line, clv_pts]
+  nba_sides_l2:
+    loader: nba_sides_l2
+    family: nba_sides
+    hidden: [home_score, away_score, pnl]
+    outcome: {kind: l2_side, key: [trial, event_id]}
+    splits:
+      dev: null                            # L2 had no dev period: 2025-26 was its one held-out test
+      sealed: [2025-10-01, 2026-06-30]
+      forward: [2026-10-21, null]
+    spent_unseals:
+      - {spec_id: l2_t1_ml_gap05, when: "2026-10-29", source: "lab/ledger.jsonl l2_team_rating_sides T1"}
+  nfl_total_lab:
+    loader: nfl_total_lab
+    family: placebo
+    hidden: [won, push, home_score, away_score, actual]
+    outcome: {kind: won_push_columns, key: [opp_id, selection]}
+    splits:
+      dev: [2006-01-01, 2020-02-29]        # lab/datasets.py SPLITS nfl_total dev seasons 2006..2019
+      sealed: [2020-08-01, 2026-02-28]
+      forward: [2026-08-01, null]
+  nba_early_form:
+    loader: nba_early_form
+    family: nba_sides
+    hidden: []
+    outcome: {kind: none, key: event_id}
+    splits:
+      dev: null                            # dev study (nba_early_season_bias) is a separate, dead family member
+      sealed: null
+      forward: [2026-10-21, null]
+  kalshi_prop_ladders:
+    loader: kalshi_prop_ladders
+    family: nba_props
+    hidden: []
+    outcome: {kind: none, key: ticker}
+    splits:
+      dev: null
+      sealed: null
+      forward: [2026-11-01, null]
+  q017_ercot:
+    loader: q017_ercot
+    family: kalshi_data_ladders
+    hidden: []
+    outcome: {kind: none, key: ticker}
+    splits:
+      dev: null
+      sealed: null
+      forward: [2026-10-30, null]

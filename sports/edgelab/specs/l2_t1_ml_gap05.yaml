@@ -1,0 +1,16 @@
+id: l2_t1_ml_gap05
+family: nba_sides
+dataset: nba_sides_l2
+rule: edgelab.rules.nba:l2_sides
+params:
+  trial: T1_ml_gap05
+hypothesis: 'L2 T1: bet the moneyline side where team_rating P(win) exceeds the power-de-vigged close by >= 5c'
+decision_time: at the close (tip)
+price_model: book_quote
+split: vault:nba_sides_l2
+min_n: 100
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee: {}
+legacy: 'notes/l2_team_rating_sides.md: DEAD 10-29 (-13.9% on 789)'

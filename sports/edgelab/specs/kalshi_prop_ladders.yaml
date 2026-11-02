@@ -1,0 +1,16 @@
+id: kalshi_prop_ladders
+family: nba_props
+dataset: kalshi_prop_ladders
+rule: edgelab.rules.forward:unwired
+hypothesis: 'Kalshi NBA prop ladders: YES sim >= ask + .08 / NO sim <= bid - .08, vol >= 100, proj >= 20 min'
+decision_time: logger tick
+price_model: taker
+split: vault:kalshi_prop_ladders
+min_n: 150
+kill:
+  kind: clv_negative_significant
+  after_n: 150
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'notes/kalshi_prop_ladders.md: forward paper since 11-01 (judge >= 150 picks & >= 20 games)'

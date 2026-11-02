@@ -1,0 +1,16 @@
+id: q017_b_far_bracket
+family: kalshi_data_ladders
+dataset: q017_ercot
+rule: edgelab.rules.forward:unwired
+hypothesis: 'Q017 B: ERCOT daily peak far-bracket NO (E1 pattern) at the 06/10 CT quote'
+decision_time: 06:00 / 10:00 CT
+price_model: taker
+split: vault:q017_ercot
+min_n: 30
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 2
+fee:
+  rounding: exact
+legacy: 'notes/q017_ercot_load.md: B lead (12/12, 7/7), forward logger built'

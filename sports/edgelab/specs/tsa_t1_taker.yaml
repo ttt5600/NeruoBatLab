@@ -1,0 +1,15 @@
+id: tsa_t1_taker
+family: kalshi_data_ladders
+dataset: kalshi_tsaw
+rule: edgelab.rules.tsa:t1_taker
+hypothesis: 'E1X-T T1: KXTSAW far-side rungs outside F*exp(r_min/max -+ .01) at open+2h, taker at ask + fee'
+decision_time: week open + 2 h (Monday)
+price_model: taker
+split: vault:kalshi_tsaw
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'notes/e1x_tsa.md: T1 dev 0.0% (fail); sealed +0.96%'
