@@ -69,3 +69,25 @@ gate = ">= 95% consistent OR every mismatch is one rung and <= 2% from the value
 results, so revisions cannot leak into P&L; they leak only as small (<~1%) noise in the forecast inputs, which the
 consensus margin (>= max past error + 1%) is meant to absorb. Legacy TSAW-* ladders (same contract) are included; rung
 K parsed from the ticker where floor_strike is missing.
+
+## RESULTS (scored 2026-11-01; DEV once, then SEALED once on the T2 DEV pass)
+Forecast check: rejected rungs settle on the forecast's side 99.27% of the time on DEV (6/827 wrong), 100% on SEALED (368).
+| split | trial | bets | events | losses | ROI | 95% CI (event bootstrap) | p | halves | note |
+|---|---|---|---|---|---|---|---|---|---|
+| DEV 2024-07-07..2025-12/2026-02 | T1 taker | 178 | 30 | 6 | -0.0% | [-1.6, +1.2]% | .47 | +1.3% / -1.9% | FAIL |
+| DEV | T2 maker | 89 fills / 681 posted (13%) | 32 | 6 | **+8.36%** | [+1.0, +20.7]% | .008 | +4.2% / +13.4% | PASS; filled loss 6.7% vs unfilled 0% |
+| SEALED (last 30% of weeks, through 2026-10-25) | T2 maker | 24 fills / 325 posted (7%) | 9 | 0 | **+6.10%** | [+3.3, +11.8]% | 0.000 | +5.2% / +8.0% | PASS by the frozen bar |
+| SEALED | T1 taker | 163 | 17 | 0 | +0.96% | -- | -- | -- | not eligible (failed DEV) |
+
+How much to believe it (read before acting):
+- DEV is fragile: KXTSAW-25NOV16 (shutdown / FAA flight-cut week, market bid low rungs at .05-.50) is +3.50 of the +6.40
+  units. Without it DEV is +3.9% p .023; restricted to q >= .90 it is +2.8% p .055 (post-hoc sensitivities, not gates).
+- SEALED has 0 losses in 24 fills, so the bootstrap is degenerate (p = 0 means "no losing resample", not certainty).
+  Fills cluster by week (9 events). Exact 95% upper bound on the loss rate from 0/24 is 11.7%; break-even at mean cost
+  .942 is 5.8%. So the sealed half is consistent with the edge and also with no edge. Calling this a weak pass.
+- Adverse selection is present (DEV filled 6.7% vs unfilled 0% losses) but the discount (mean cost .861 DEV) covered it.
+- Capacity is tiny: ~0.7 fills/week at 1 contract; depth behind the fills is unknown (fill = any qualifying trade).
+- After 2026-03 the residual max (+14.7%, a holiday week) pushes the high band above the top rung, so only the low
+  (YES) side ever fires now.
+Verdict: PASSED SEALED (weak, low capacity) -> forward paper logger `scripts/e1x_tsa_logger.py` (lead deploys), judge
+at >= 60 settled paper fills: KILL if ROI <= 0 or any 3 losses in the first 30.
