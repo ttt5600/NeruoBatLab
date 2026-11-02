@@ -60,3 +60,28 @@ is a forward paper logger (~250 days to ~80% power).
 ## Kill
 DEV ROI <= 0 on both trials -> DEAD (tail not overpriced vs climatology). DEV positive but p >= .025 -> LEAD, forward
 logger only, no sealed spend.
+
+## RESULT DEV (2026-11-01, scored once): FAIL -- the taker rule barely fires
+| trial | bets | days | losses | ROI | 95% CI | p | halves |
+|---|---|---|---|---|---|---|---|
+| T1 all rungs | 6 | 4 | 2 | +32.5% | [-100%, +330%] | .125 | +149% / +14.6% |
+| T2 K >= 6.4 | 3 | 1 | 0 | +16.0% | n/a (1 day) | -- | half 1 empty |
+Not a pass (bar p < .025, both halves positive). Mechanism: at 23:00 UTC D-1 the YES **bid** sits at or below
+climatology on every rung (mean yes_bid vs p_clim: 6.6 .077 vs .088; 7.0 .035 vs .038), so NO at the ask is never
+cheap. The lottery premium is on the YES **ask** (6.6 ask .181, 6.8 .164, 7.0 .126 vs p .088/.059/.038): a 9-10c
+spread. The 11-02 ladder I saw before the prereg was mid-session, not at the decision time.
+Settlement note: USGS current-catalog daily max differs from Kalshi's expiration_value by > 0.1 on 9 of 54 days (mostly
+the catalog later higher) -> p_clim from the revised catalog slightly overstates YES vs "magnitude displayed at
+expiration"; that bias favours NO, so it does not explain the fail.
+
+## AMENDMENT A1 (2026-11-01, written after the DEV taker result above, BEFORE any trade tape was fetched)
+New mechanism, new trials, same split and bar; the T1/T2 result stands and is not re-scored.
+Maker variant (weather precedent E4: the edge sits in the spread, maker fee 0 on `quadratic` series):
+- At T = 23:00 UTC D-1, on each rung with yes_ask - yes_bid >= 0.02, post a NO bid at q = 1 - yes_ask + 0.01
+  (= offering YES 1c inside the best YES ask). Post only if (1 - p_clim) - q >= 0.03.
+- Fill model (public trade tape `/markets/trades`): filled (1 contract) iff some trade after T and before close has
+  taker_side = yes and yes_price >= 1 - q. No cancel, no re-quote, held to settlement. Fills after a mid-day quake are
+  counted (that is the adverse selection we must survive).
+- Trials (k = 2, bar p < .025 + both halves positive, day-clustered bootstrap on FILLED bets, cost = q, fee 0):
+  M1 all rungs, M2 K >= 6.4. Also reported: fill rate, filled-vs-unfilled loss rate (adverse-selection check, lesson 4).
+- Sealed rule as before (once, only after a DEV pass).

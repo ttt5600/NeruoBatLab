@@ -241,7 +241,7 @@ def cmd_score(split: str) -> int:
                            + (", K>=6.4" if r["trial"] == "T2" else "") + "; skip day if M>=7 in prior 72h",
                 source="agent E1-pattern search 2026-11-01 (notes/e1x_quake.md)", status="ok",
                 split=("DEV 2026-09-02..10-14" if split == "dev" else "SEALED 2026-10-15..11-01"),
-                trial_number=i, study_trials=k, **r)) + "\n")
+                trial_number=i, study_trials=k, **{kk: vv for kk, vv in r.items() if kk != "split"})) + "\n")
     return 0
 
 
