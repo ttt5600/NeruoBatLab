@@ -9,6 +9,9 @@
 # spent_unseals: sealed windows already scored once BEFORE edgelab existed (lab/lockbox.jsonl, ledger). A migrated
 #   trial listed here may re-read its own sealed rows exactly once as a REPLAY (counts as its one unseal); no other
 #   trial may unseal them for that spec id again.
+# forward_adapters: {spec_id: {module, params}} -- for that spec id, the FORWARD split is built from what the live
+#   executor / paper logger actually did (edgelab/adapters/<module>.py) instead of loader + rule. Added 2026-11-02;
+#   the adapter's sha256 is pinned by the trial's first scored forward evaluation (run._adapter_lock).
 
 datasets:
   kalshi_temp_e1:
@@ -23,6 +26,8 @@ datasets:
     spent_unseals:
       - {spec_id: e1_taker, when: "2026-10-08", source: "lab/lockbox.jsonl strategy=kalshi_reject_safe_check"}
       - {spec_id: e4_maker_e1, when: "2026-10-23", source: "lab/lockbox.jsonl strategy=kalshi_temp_maker_M3_N10"}
+    forward_adapters:
+      e4_maker_e1: {module: edgelab.adapters.e4_live, params: {cohort: orig7}}   # live maker orders since 10-30
   kalshi_temp_x1:
     loader: kalshi_temp_x1
     family: kalshi_weather_temp
@@ -35,6 +40,8 @@ datasets:
     spent_unseals:
       - {spec_id: e2_taker, when: "2026-10-20", source: "lab/lockbox.jsonl strategy=wx_expand_X1_new_highs"}
       - {spec_id: e4_maker_x1, when: "2026-10-23", source: "lab/lockbox.jsonl strategy=kalshi_temp_maker_M3_N10"}
+    forward_adapters:
+      e4_maker_x1: {module: edgelab.adapters.e4_live, params: {cohort: x1}}
   kalshi_temp_all:
     loader: kalshi_temp_all
     family: placebo
@@ -61,6 +68,8 @@ datasets:
     spent_unseals:
       - {spec_id: tsa_t1_taker, when: "2026-11-02", source: "lab/ledger.jsonl e1x_tsa_T1 SEALED"}
       - {spec_id: tsa_t2_maker, when: "2026-11-02", source: "lab/ledger.jsonl e1x_tsa_T2 SEALED"}
+    forward_adapters:
+      tsa_t2_maker: {module: edgelab.adapters.tsa_fwd}
   nba_totals_open:
     loader: nba_totals_open
     family: nba_totals
@@ -102,6 +111,8 @@ datasets:
       dev: null                            # dev study (nba_early_season_bias) is a separate, dead family member
       sealed: null
       forward: [2026-10-21, null]
+    forward_adapters:
+      f1_nba_early_form: {module: edgelab.adapters.f1_early_form}
   kalshi_prop_ladders:
     loader: kalshi_prop_ladders
     family: nba_props
@@ -111,6 +122,8 @@ datasets:
       dev: null
       sealed: null
       forward: [2026-11-01, null]
+    forward_adapters:
+      kalshi_prop_ladders: {module: edgelab.adapters.prop_ladders}
   q017_ercot:
     loader: q017_ercot
     family: kalshi_data_ladders
@@ -120,3 +133,5 @@ datasets:
       dev: null
       sealed: null
       forward: [2026-10-30, null]
+    forward_adapters:
+      q017_b_far_bracket: {module: edgelab.adapters.q017_fwd}

@@ -48,7 +48,8 @@ def fee_per_contract(schedule: str, p, contracts: int = 1, rounding: str = "cent
     raise KeyError(f"unknown fee schedule {schedule!r}")
 
 
-DEFAULT_SCHEDULE = {"taker": "kalshi_taker", "maker_tape": "kalshi_maker_quadratic", "book_quote": "book"}
+DEFAULT_SCHEDULE = {"taker": "kalshi_taker", "maker_tape": "kalshi_maker_quadratic", "book_quote": "book",
+                    "maker_fill": "kalshi_maker_quadratic"}   # maker_fill = a REAL prod maker fill (forward adapters)
 
 
 def check_example() -> None:

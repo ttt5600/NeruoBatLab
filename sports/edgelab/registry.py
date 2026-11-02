@@ -3,7 +3,9 @@
 File: lab/edgelab_registry.jsonl (override with EDGELAB_REGISTRY for sandboxes/tests). One JSON event per line; each
 line carries `prev` = sha256 of the previous line's text, so an edited or deleted line breaks verify().
 
-Events: register | amend | access | evaluate | transition | user_approval | legacy_note.
+Events: register | amend | access | evaluate | transition | user_approval | legacy_note | preset_kill.
+preset_kill (GOAL.md rule 7): the FORWARD-stage kill of a strategy, written by `edgelab setkill` only while the trial has
+no scored forward bet, at most once per trial, never edited (there is no amend path; a second one is refused).
 A trial = (spec, rule source). trial_id = <spec id>-<sha256(spec_sha256 + rule_sha256)[:8]>.
   * re-registering byte-identical spec + rule -> the same trial id (not counted twice);
   * any change to the spec (rule, params, filters, threshold, split, price model...) or to the rule module's source
@@ -81,6 +83,31 @@ def validate_spec(spec: dict, historical: bool = False) -> None:
             raise RegistryError("min_n must be a positive int fixed before data access")
         if not isinstance(spec.get("kill"), dict) or "kind" not in spec["kill"]:
             raise RegistryError("kill must be a dict with a 'kind' (rule 7: kill rules are code too)")
+
+
+KILL_KINDS = {"clv_negative_significant": {"after_n": int, "p": float},
+              "roi_ci_below_zero": {"after_n": int},
+              "losses_in_first": {"n": int, "max_losses": int}}
+
+
+def validate_kill(rule: dict) -> dict:
+    """-> a normalized kill rule {'kind', params...}; every parameter of the kind is required, nothing else allowed."""
+    kind = rule.get("kind")
+    if kind not in KILL_KINDS:
+        raise RegistryError(f"kill kind must be one of {sorted(KILL_KINDS)}, got {kind!r}")
+    need = KILL_KINDS[kind]
+    extra = set(rule) - set(need) - {"kind"}
+    missing = [k for k in need if rule.get(k) is None]
+    if missing or extra:
+        raise RegistryError(f"{kind} takes exactly {sorted(need)} (missing {missing}, unexpected {sorted(extra)})")
+    out = {"kind": kind, **{k: typ(rule[k]) for k, typ in need.items()}}
+    if kind == "clv_negative_significant" and not 0 < out["p"] < 1:
+        raise RegistryError("p must be in (0, 1)")
+    if any(out[k] < (0 if k == "max_losses" else 1) for k, typ in need.items() if typ is int):
+        raise RegistryError(f"{kind}: counts must be positive (max_losses >= 0)")
+    if kind == "losses_in_first" and out["max_losses"] >= out["n"]:
+        raise RegistryError("losses_in_first: max_losses must be < n")
+    return out
 
 
 class Registry:
@@ -206,6 +233,51 @@ class Registry:
             if e["event"] == "transition" and e["trial_id"] == trial_id:
                 s = e["to"]
         return s
+
+    def strategy_states(self) -> dict[str, dict]:
+        """{spec id: {'trial_id', 'state', 'registered_at', 'origin'}} for the LATEST registration of each spec id
+        (the same resolution as `edgelab status` / report.resolve). Stdlib only, so read-only consumers
+        (scripts/daily_ticket.py in the launchd copy, whose venv has no yaml) can ask the ladder without the vault."""
+        reg: dict[str, dict] = {}
+        state: dict[str, str] = {}
+        for e in self.events():
+            if e["event"] == "register":
+                sid = e["spec"]["id"]
+                if sid not in reg or e["ts"] >= reg[sid]["ts"]:
+                    reg[sid] = e
+            elif e["event"] == "transition":
+                state[e["trial_id"]] = e["to"]
+        return {sid: {"trial_id": e["trial_id"], "state": state.get(e["trial_id"], "registered"),
+                      "registered_at": e["ts"], "origin": e.get("origin")} for sid, e in reg.items()}
+
+    # ------------------------------------------------------------------ pre-set forward kill (rule 7)
+    def preset_kill(self, trial_id: str) -> dict | None:
+        ev = [e for e in self.events() if e["event"] == "preset_kill" and e["trial_id"] == trial_id]
+        return ev[0] if ev else None
+
+    def forward_scored(self, trial_id: str) -> int:
+        """Max n over this trial's forward evaluations (0 = no forward bet has ever been scored)."""
+        return max([int(e.get("n") or 0) for e in self.evaluations(trial_id, "forward")] or [0])
+
+    def set_preset_kill(self, trial_id: str, rules: list[dict], by: str = "", note: str = "") -> dict:
+        t = self.trial(trial_id)
+        if t.get("origin") in HISTORICAL_ORIGINS:
+            raise RegistryError(f"{trial_id} is a historical import; nothing to kill")
+        if self.state(trial_id) == "dead":
+            raise RegistryError(f"{trial_id} is dead; a kill rule would be meaningless")
+        prior = self.preset_kill(trial_id)
+        if prior:
+            raise RegistryError(f"refused: {trial_id} already has a pre-set forward kill (set {prior['ts']}: "
+                                f"{prior['rules']}); kill rules are never edited")
+        n = self.forward_scored(trial_id)
+        if n:
+            raise RegistryError(f"refused: {trial_id} already has {n} forward bet(s) scored; a kill set now would not "
+                                "be pre-set (GOAL.md rule 7)")
+        rules = [validate_kill(r) for r in rules]
+        if not rules:
+            raise RegistryError("setkill needs at least one rule")
+        return self.append({"event": "preset_kill", "trial_id": trial_id, "split": "forward", "rules": rules,
+                            "by": by, "note": note, "git_head": paths.git_head()})
 
     def evaluations(self, trial_id: str, split: str | None = None) -> list[dict]:
         return [e for e in self.events() if e["event"] == "evaluate" and e["trial_id"] == trial_id

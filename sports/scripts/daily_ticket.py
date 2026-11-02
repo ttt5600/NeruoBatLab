@@ -7,17 +7,47 @@ Sources (all already-running, pre-registered tests; nothing here is a new rule):
   open_totals_L32 ~/.claude/quant-kalshi/scripts/nba_open_totals.py report rows for the date
   user calls      data/user_calls.jsonl (the user's own reads, for CLV)
 Writes data/tickets/<date>.md (gitignored) and prints it. Policy (STATE.md 10-31): flat $2-3, bet only flagged picks.
+
+GOAL.md rule 6 filter (2026-11-02): a strategy's picks are listed ONLY if edgelab says its state is >= forward_paper
+(labelled PAPER for forward_paper). Every other running logger gets one line "not ticketed: <strategy> (<state>)".
+State comes from edgelab's read-only status API (Registry.strategy_states, stdlib only) over lab/edgelab_registry.jsonl
+(in the launchd copy: the snapshot pushed by scripts/qs_sync.sh push). If edgelab cannot be read, NOTHING is ticketed.
 """
 from __future__ import annotations
 
 import argparse
 import json
 import subprocess
-from datetime import datetime
+import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 QK = Path.home() / ".claude" / "quant-kalshi"
+TICKET_OK = {"forward_paper": "PAPER", "live_small": "LIVE_SMALL", "live": "LIVE"}
+# every running logger / executor and the edgelab strategy (spec id) it feeds. Ticket sources have a pick function.
+RUNNING = [("f1_nba_early_form", "early-form F1 logger"), ("l32b_totals_open", "L32b totals logger"),
+           ("kalshi_prop_ladders", "Kalshi prop-ladder logger"), ("q017_b_far_bracket", "Q017 ERCOT logger"),
+           ("tsa_t2_maker", "TSA T2 maker paper logger"), ("e4_maker_e1", "quant-kalshi live maker (orig-7)"),
+           ("e4_maker_x1", "quant-kalshi live maker (X1)")]
+
+
+def edgelab_states() -> tuple[dict | None, str]:
+    """-> ({spec id: state}, one-line provenance) or (None, why). Read-only over the registry."""
+    try:
+        sys.path.insert(0, str(ROOT))
+        from edgelab.registry import Registry
+        reg = Registry(ROOT / "lab" / "edgelab_registry.jsonl")
+        if not reg.path.exists():
+            return None, f"edgelab registry missing ({reg.path})"
+        v = reg.verify()
+        if not v["ok"]:
+            return None, f"edgelab registry hash chain BROKEN at line {v['first_break']}"
+        st = {k: x["state"] for k, x in reg.strategy_states().items()}
+        age = datetime.now(timezone.utc).timestamp() - reg.path.stat().st_mtime
+        return st, f"edgelab registry {v['lines']} lines, chain OK, snapshot {age / 3600:.1f} h old"
+    except Exception as e:  # noqa: BLE001 -- fail closed: no state, no ticket
+        return None, f"edgelab status unavailable ({type(e).__name__}: {e})"
 
 
 def early_form(date: str) -> list[str]:
@@ -73,12 +103,24 @@ def main() -> int:
     ap.add_argument("--date", default=datetime.now().strftime("%Y-%m-%d"))
     ap.add_argument("--stake", type=float, default=2.0)
     a = ap.parse_args()
-    rows = early_form(a.date) + totals(a.date)
+    states, prov = edgelab_states()
+    sources = {"f1_nba_early_form": early_form, "l32b_totals_open": totals}
+    rows, notes = [], []
+    for sid, what in RUNNING:
+        st = states.get(sid, "unregistered") if states is not None else "unknown"
+        label = TICKET_OK.get(st)
+        if label and sid in sources:
+            rows += [r.rstrip()[:-1].rstrip() + f" **{label}** |" for r in sources[sid](a.date)]
+        elif label:
+            notes.append(f"executor-run, no manual picks: {sid} ({st}, {label}) -- {what}")
+        else:
+            notes.append(f"not ticketed: {sid} ({st})")
     md = [f"# Ticket {a.date}  (flat ${a.stake:.0f}/bet; bet only these; log fills -> bet.py log-external)", "",
-          "| game | pick | price | source |", "|---|---|---|---|"] + (rows or ["| -- | no model picks yet | | |"])
+          "| game | pick | price | source |", "|---|---|---|---|"] + (rows or ["| -- | no picks from a strategy at >= forward_paper | | |"])
     c = calls(a.date)
     if c:
         md += ["", "Your calls (tracked for CLV):", "", "| game | pick | price | |", "|---|---|---|---|"] + c
+    md += ["", f"Listed only if edgelab state >= forward_paper (GOAL.md rule 6); {prov}."] + notes
     md += ["", "Early-form picks appear 60-90 min before each tip; re-run this before betting."]
     txt = "\n".join(md)
     d = ROOT / "data" / "tickets"

@@ -53,7 +53,10 @@ def next_gate(reg: Registry, t: dict) -> str:
         return "start forward paper (evaluate --split forward)"
     if st == "forward_paper":
         e = latest(reg, t["trial_id"], "forward") or {}
-        return f"forward n {e.get('n', 0)}/100 passing rule 5 -> USER decides live_small"
+        pk = reg.preset_kill(t["trial_id"])
+        kl = ("kill " + "+".join(r["kind"] for r in pk["rules"]) + " (preset)") if pk else \
+            f"kill {t['spec']['kill'].get('kind')} (spec; no setkill yet)"
+        return f"forward n {e.get('n', 0)}/100 passing rule 5 -> USER decides live_small; {kl}"
     if st in ("live_small", "live"):
         return "user-sized"
     last = [e for e in reg.events() if e["event"] == "transition" and e["trial_id"] == t["trial_id"]]
@@ -155,6 +158,9 @@ def evidence(reg: Registry, name: str) -> dict:
     if lat:
         pit = sum(sum(v for k, v in (x.get("pit_violations") or {}).items() if not k.startswith("_")) for x in lat)
     kill = (fwd or {}).get("kill") or {}
+    pk = reg.preset_kill(tid)
+    if pk and fwd_scored and kill.get("source") != "preset":
+        raise RegistryError(f"{tid}: latest scored forward evaluation did not use the pre-set kill; re-evaluate")
     conc = (fwd_scored or {}).get("concentration") or {}
     clv = (fwd_scored or {}).get("clv") or {}
     kfile = paths.KALSHI_KILL.exists() if str(spec.get("dataset", "")).startswith("kalshi") else None
@@ -192,6 +198,9 @@ def evidence(reg: Registry, name: str) -> dict:
             srcs.add(x["rows_file"]["path"])
     if t.get("rule_path"):
         srcs.add(t["rule_path"])
+    ev["_preset_kill"] = ({"source": "preset", "set_at": pk["ts"], "rules": pk["rules"]} if pk else
+                          {"source": "spec", "set_at": t["ts"], "rules": [spec.get("kill")],
+                           "note": "no `edgelab setkill` rule; the spec's registration-time kill applies"})
     ev["_sources"] = [{"path": p, "sha256": sha256_file(p)} for p in sorted(srcs)]
     ev["_generated_by"] = {"module": "edgelab.report.evidence", "git_sha": paths.git_head(), "trial_id": tid}
     return ev

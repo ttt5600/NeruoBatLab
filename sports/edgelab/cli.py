@@ -7,6 +7,9 @@
   evidence STRATEGY --out f.json       hub-verifier evidence (null where unknown; never defaulted)
   approve STRATEGY --to live_small|live --user-approved --by NAME [--size X]   USER ONLY
   retire STRATEGY --reason TEXT        -> dead (anyone may turn a strategy off)
+  setkill STRATEGY --kind K [--kind K2] [--n N --max-losses M] [--after-n N --p P] [--roi-after-n N]
+                                       pre-set FORWARD kill (rule 7): once, only while 0 forward bets are scored,
+                                       never editable; evaluate --split forward uses it instead of the spec kill
   migrate                              import history + evaluate the live/forward strategies (idempotent)
   verify                               check the registry hash chain
 """
@@ -20,7 +23,7 @@ from pathlib import Path
 import yaml
 
 from . import ladder, migrate, report, run, selftest
-from .registry import Registry
+from .registry import Registry, RegistryError
 
 
 def _print(x):
@@ -49,8 +52,12 @@ def cmd_evaluate(a, reg):
     t = report.resolve(reg, a.strategy)
     out = run.evaluate(t["trial_id"], a.split, reg)
     keep = ["trial_id", "split", "verdict", "n", "net_roi", "ci", "p", "bar", "n_trials_family", "half1", "half2",
-            "concentration", "clv", "sharpe_ann", "needs_audit", "reasons", "kill", "state", "error", "pit_violations"]
-    _print({k: out.get(k) for k in keep if k in out})
+            "concentration", "clv", "sharpe_ann", "needs_audit", "reasons", "kill", "state", "error", "pit_violations",
+            "adapter_report"]
+    x = {k: out.get(k) for k in keep if k in out}
+    if out.get("forward_adapter"):
+        x["forward_adapter"] = {k: out["forward_adapter"][k] for k in ("module", "params", "sha256")}
+    _print(x)
     return 0
 
 
@@ -99,6 +106,37 @@ def cmd_retire(a, reg):
     return 0
 
 
+def binom_tail(n: int, k: int, p: float) -> float:
+    """P(X > k), X ~ Binomial(n, p)."""
+    import math
+    return float(sum(math.comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(k + 1, n + 1)))
+
+
+def cmd_setkill(a, reg):
+    t = report.resolve(reg, a.strategy)
+    rules = []
+    for kind in a.kind:
+        if kind == "losses_in_first":
+            rules.append({"kind": kind, "n": a.n, "max_losses": a.max_losses})
+        elif kind == "clv_negative_significant":
+            rules.append({"kind": kind, "after_n": a.after_n, "p": a.p})
+        elif kind == "roi_ci_below_zero":
+            rules.append({"kind": kind, "after_n": a.roi_after_n if a.roi_after_n is not None else a.after_n})
+    try:
+        ev = reg.set_preset_kill(t["trial_id"], rules, by=a.by or "", note=a.note or "")
+    except RegistryError as e:
+        print(str(e))
+        return 1
+    print(f"pre-set forward kill recorded for {t['trial_id']} at {ev['ts']} (never editable):")
+    for r in ev["rules"]:
+        extra = ""
+        if r["kind"] == "losses_in_first" and a.base_loss_rate is not None:
+            extra = (f"   P(false kill | loss rate {a.base_loss_rate}) = "
+                     f"{binom_tail(r['n'], r['max_losses'], a.base_loss_rate):.4f}")
+        print(f"  {r}{extra}")
+    return 0
+
+
 def cmd_migrate(a, reg):
     migrate.migrate(reg)
     return 0
@@ -125,6 +163,19 @@ def main(argv=None) -> int:
     p.add_argument("--size", type=float); p.add_argument("--note"); p.set_defaults(fn=cmd_approve)
     p = sub.add_parser("retire"); p.add_argument("strategy"); p.add_argument("--reason", required=True)
     p.set_defaults(fn=cmd_retire)
+    p = sub.add_parser("setkill", help="pre-set the FORWARD kill (once, only before any forward bet is scored)")
+    p.add_argument("strategy")
+    p.add_argument("--kind", action="append", required=True,
+                   choices=["clv_negative_significant", "roi_ci_below_zero", "losses_in_first"],
+                   help="repeat for a combined kill (triggers when ANY rule triggers)")
+    p.add_argument("--n", type=int, help="losses_in_first: window = the first n forward bets")
+    p.add_argument("--max-losses", type=int, help="losses_in_first: kill when losses in the window exceed this")
+    p.add_argument("--after-n", type=int, help="clv_negative_significant (and roi_ci_below_zero): armed after n bets")
+    p.add_argument("--p", type=float, help="clv_negative_significant: one-sided p that mean CLV < 0")
+    p.add_argument("--roi-after-n", type=int, help="roi_ci_below_zero: armed after n bets (default --after-n)")
+    p.add_argument("--base-loss-rate", type=float, help="print P(false kill) of losses_in_first at this loss rate")
+    p.add_argument("--by", default=""); p.add_argument("--note")
+    p.set_defaults(fn=cmd_setkill)
     sub.add_parser("migrate").set_defaults(fn=cmd_migrate)
     sub.add_parser("verify").set_defaults(fn=cmd_verify)
     a = ap.parse_args(argv)

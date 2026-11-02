@@ -3,7 +3,8 @@
 # ~/Desktop: macOS TCC). From 2026-11-01 the DEPLOYED copy is the source of truth for the game-day logs.
 #
 #   scripts/qs_sync.sh push   code only -> deployed (scripts/, sports/ pkg, lab/*.py, results/*.json params,
-#                             notes/STATE.md copy for the digest). Never touches deployed logs. Also copies
+#                             notes/STATE.md copy for the digest, edgelab/ + lab/edgelab_registry.jsonl snapshot
+#                             for the ticket's rule-6 filter). Never touches deployed logs. Also copies
 #                             data/user_calls.jsonl worktree -> deployed (the worktree is that file's writer).
 #   scripts/qs_sync.sh pull   deployed logs -> worktree (for analysis / reports). Overwrites the worktree copies.
 #   scripts/qs_sync.sh seed   first deploy only: push + copy the data the jobs read, never overwriting a deployed file.
@@ -26,6 +27,11 @@ push() {
   cp "$SRC/scripts/qs_digest_prompt.md" "$DST/digest_prompt.md"
   [ -f "$SRC/STATE.md" ] && cp "$SRC/STATE.md" "$DST/notes/STATE.md"
   [ -f "$SRC/data/user_calls.jsonl" ] && "${RS[@]}" --update "$SRC/data/user_calls.jsonl" "$DST/data/"
+  # edgelab: package + a READ-ONLY snapshot of the registry, so the deployed daily_ticket.py can ask the ladder
+  # (GOAL.md rule 6). The deployed jobs never write it; re-push after any edgelab evaluate/setkill/approve.
+  mkdir -p "$DST/edgelab"
+  "${RS[@]}" --delete "$SRC/edgelab/" "$DST/edgelab/"
+  [ -f "$SRC/lab/edgelab_registry.jsonl" ] && cp "$SRC/lab/edgelab_registry.jsonl" "$DST/lab/edgelab_registry.jsonl"
   echo "pushed code -> $DST (logs untouched)"
 }
 

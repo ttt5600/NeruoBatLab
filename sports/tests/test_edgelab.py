@@ -184,3 +184,144 @@ def test_cheaters_refused():
 def test_placebo_small_batch():
     p = selftest.placebo(n_each=4, log=lambda *a: None)
     assert p["false_pass_rate"] <= 0.05
+
+
+# ------------------------------------------------------------------ pre-set forward kill (rule 7) + forward adapters
+def _fake_adapter(tmp_path, monkeypatch, outcomes):
+    """A forward adapter on a fake dataset: one bet per outcome (1 win / 0 loss), price .9, maker_fill, 1 contract."""
+    import types
+    src = tmp_path / "fake_adapter.py"
+    src.write_text("# fake adapter v1\n")
+    mod = types.ModuleType("fake_fwd_adapter")
+    mod.__file__ = str(src)
+    mod.OUTCOME, mod.HIDDEN = {"kind": "result_side", "key": "bet_id"}, ["result"]
+    t0 = pd.Timestamp("2026-11-03 02:00", tz="UTC")
+
+    def load(params):
+        n = len(outcomes)
+        d = pd.DataFrame({"bet_id": [f"b{i}" for i in range(n)],
+                          "date": pd.date_range("2026-11-03", periods=n, freq="D"),
+                          "result": ["no" if o == 1 else "yes" for o in outcomes], "settled": True})
+        return d, []
+
+    def rows(frame, params):
+        n = len(frame)
+        dec = t0 + pd.to_timedelta(np.arange(n), unit="D")
+        return pd.DataFrame({"bet_id": frame["bet_id"].to_numpy(), "cluster": frame["date"].dt.strftime("%Y-%m-%d"),
+                             "event_start": dec + pd.Timedelta(hours=2), "decided_at": dec, "inputs_as_of": dec,
+                             "price": 0.9, "price_source": "maker_fill", "price_time": dec + pd.Timedelta(hours=1),
+                             "fill_deadline": dec + pd.Timedelta(hours=20), "side": "no", "stake": 0.9,
+                             "contracts": 1.0, "close_price": 0.91})
+    mod.load, mod.rows = load, rows
+    monkeypatch.setitem(sys.modules, "fake_fwd_adapter", mod)
+    real = vault.config()
+    fake = {**real, "fake_fwd": {"loader": "none", "family": "fam_test", "hidden": [], "outcome": {"kind": "none"},
+                                 "splits": {"dev": None, "sealed": None, "forward": ["2026-11-01", None]},
+                                 "forward_adapters": {"t_fwd": {"module": "fake_fwd_adapter"}}}}
+    monkeypatch.setattr(vault, "config", lambda: fake)
+    return src
+
+
+FWD_SPEC = {**SPEC, "id": "t_fwd", "dataset": "fake_fwd", "rule": "edgelab.rules.forward:unwired",
+            "price_model": "maker_tape", "split": "vault:fake_fwd", "min_n": 5,
+            "kill": {"kind": "roi_ci_below_zero", "after_n": 100}}
+
+
+def _at_sealed_pass(reg):
+    tid = reg.register(FWD_SPEC)
+    ladder.transition(reg, tid, "sealed_pass", "evaluate", reason="test fixture")
+    return tid
+
+
+def test_setkill_refused_after_a_forward_bet_is_scored(tmp_path, monkeypatch):
+    _fake_adapter(tmp_path, monkeypatch, [1, 1, 1])
+    reg = Registry(tmp_path / "r.jsonl")
+    tid = _at_sealed_pass(reg)
+    out = run.evaluate(tid, "forward", reg, save_rows=False)
+    assert out["n"] == 3 and out["kill"]["source"] == "spec"
+    with pytest.raises(RegistryError, match="already has 3 forward bet"):
+        reg.set_preset_kill(tid, [{"kind": "losses_in_first", "n": 30, "max_losses": 2}])
+
+
+def test_setkill_once_and_never_edited(tmp_path, monkeypatch):
+    _fake_adapter(tmp_path, monkeypatch, [])
+    reg = Registry(tmp_path / "r.jsonl")
+    tid = _at_sealed_pass(reg)
+    run.evaluate(tid, "forward", reg, save_rows=False)              # n = 0 does not count as scored
+    reg.set_preset_kill(tid, [{"kind": "losses_in_first", "n": 30, "max_losses": 2}])
+    with pytest.raises(RegistryError, match="already has a pre-set"):
+        reg.set_preset_kill(tid, [{"kind": "losses_in_first", "n": 30, "max_losses": 5}])
+    with pytest.raises(RegistryError):                                # max_losses must be < n
+        reg.set_preset_kill(reg.register({**FWD_SPEC, "min_n": 6}), [{"kind": "losses_in_first", "n": 3, "max_losses": 3}])
+    assert reg.verify()["ok"]
+
+
+def test_setkill_cli_refuses_second(tmp_path, monkeypatch):
+    from edgelab import cli
+    _fake_adapter(tmp_path, monkeypatch, [])
+    p = tmp_path / "r.jsonl"
+    _at_sealed_pass(Registry(p))
+    args = ["--registry", str(p), "setkill", "t_fwd", "--kind", "losses_in_first", "--n", "50", "--max-losses", "5"]
+    assert cli.main(args) == 0
+    assert cli.main(args) == 1
+
+
+def test_preset_kill_triggers_and_kills(tmp_path, monkeypatch):
+    _fake_adapter(tmp_path, monkeypatch, [1, 0, 1, 0, 1, 1])          # 2 losses in the first 6
+    reg = Registry(tmp_path / "r.jsonl")
+    tid = _at_sealed_pass(reg)
+    reg.set_preset_kill(tid, [{"kind": "losses_in_first", "n": 10, "max_losses": 1},
+                              {"kind": "clv_negative_significant", "after_n": 100, "p": 0.05}])
+    out = run.evaluate(tid, "forward", reg, save_rows=False)
+    assert out["kill"]["source"] == "preset" and out["kill"]["triggered"] is True
+    assert out["kill"]["rules"][0]["losses_in_first"] == 2 and out["kill"]["rules"][1]["triggered"] is False
+    assert reg.state(tid) == "dead"
+    from edgelab import migrate, report
+    monkeypatch.setattr(migrate, "first_looks", lambda: {})
+    ev = report.evidence(reg, tid)
+    assert ev["preset_kill_triggered"] is True and ev["_preset_kill"]["source"] == "preset"
+
+
+def test_preset_kill_not_triggered_at_the_limit(tmp_path, monkeypatch):
+    _fake_adapter(tmp_path, monkeypatch, [1, 0, 1, 1, 1])             # 1 loss, max 1 -> alive
+    reg = Registry(tmp_path / "r.jsonl")
+    tid = _at_sealed_pass(reg)
+    reg.set_preset_kill(tid, [{"kind": "losses_in_first", "n": 10, "max_losses": 1}])
+    out = run.evaluate(tid, "forward", reg, save_rows=False)
+    assert out["kill"]["triggered"] is False and reg.state(tid) == "forward_paper"
+
+
+def test_losses_in_first_counts_only_the_window():
+    r = _rows(40, 0.0, 5)
+    r["outcome"] = 1.0
+    order = np.argsort(r["decided_at"].to_numpy(), kind="stable")
+    r.loc[order[-5:], "outcome"] = 0.0                                # 5 losses, all after the first 30
+    k = run.kill_check({"kind": "losses_in_first", "n": 30, "max_losses": 2}, {"n": 40}, schema.enforce(r))
+    assert k["triggered"] is False and k["rules"][0]["losses_in_first"] == 0
+
+
+def test_forward_adapter_locked_after_first_scored(tmp_path, monkeypatch):
+    src = _fake_adapter(tmp_path, monkeypatch, [1, 1])
+    reg = Registry(tmp_path / "r.jsonl")
+    tid = _at_sealed_pass(reg)
+    run.evaluate(tid, "forward", reg, save_rows=False)
+    src.write_text("# fake adapter v2 (edited after seeing forward results)\n")
+    with pytest.raises(RegistryError, match="adapter changed"):
+        run.evaluate(tid, "forward", reg, save_rows=False)
+
+
+def test_kill_validation():
+    from edgelab.registry import validate_kill
+    with pytest.raises(RegistryError):
+        validate_kill({"kind": "losses_in_first", "n": 30})                     # missing max_losses
+    with pytest.raises(RegistryError):
+        validate_kill({"kind": "clv_negative_significant", "after_n": 100, "p": 0.05, "x": 1})
+    assert validate_kill({"kind": "roi_ci_below_zero", "after_n": "60"}) == {"kind": "roi_ci_below_zero", "after_n": 60}
+
+
+def test_strategy_states_matches_resolution(tmp_path):
+    reg = Registry(tmp_path / "r.jsonl")
+    a = reg.register(SPEC)
+    ladder.transition(reg, a, "dead", "retire", reason="t")
+    st = reg.strategy_states()
+    assert st["t_spec"]["trial_id"] == a and st["t_spec"]["state"] == "dead"

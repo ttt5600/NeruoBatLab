@@ -8,7 +8,8 @@ One row = one bet. Required columns:
     decided_at    UTC time the decision was made
     inputs_as_of  UTC time of the newest input the rule used
     price         price paid per $1 payout BEFORE fees (binary contract price; 1/decimal odds for a book)
-    price_source  taker | maker_tape | book_quote
+    price_source  taker | maker_tape | book_quote | maker_fill (a real exchange fill of our resting order, forward
+                  adapters only; PIT-checked like maker_tape: fill >= post and <= fill_deadline)
     price_time    UTC time of the quote (taker/book: must be <= decided_at; maker_tape: the modeled fill time,
                   which must be >= decided_at and < event_start... or <= settlement for markets that trade
                   through the event, see `maker_fill_until`)
@@ -30,7 +31,8 @@ import pandas as pd
 REQUIRED = ["bet_id", "cluster", "event_start", "decided_at", "inputs_as_of", "price", "price_source",
             "price_time", "side", "stake", "outcome"]
 OPTIONAL = ["pnl", "close_price", "fill_deadline", "contracts"]
-PRICE_SOURCES = {"taker", "maker_tape", "book_quote"}
+PRICE_SOURCES = {"taker", "maker_tape", "book_quote", "maker_fill"}
+MAKER_SOURCES = {"maker_tape", "maker_fill"}
 TIME_COLS = ["event_start", "decided_at", "inputs_as_of", "price_time", "fill_deadline"]
 
 
@@ -80,7 +82,7 @@ def normalize(rows: pd.DataFrame) -> pd.DataFrame:
 def pit_check(df: pd.DataFrame) -> dict:
     """Return per-check violation counts (0 everywhere = clean). Rows must already be normalized."""
     nat = {c: df[c].isna() for c in ("event_start", "decided_at", "inputs_as_of", "price_time")}
-    maker = df["price_source"] == "maker_tape"
+    maker = df["price_source"].isin(MAKER_SOURCES)
     deadline = df["fill_deadline"] if "fill_deadline" in df.columns else df["event_start"]
     deadline = deadline.fillna(df["event_start"])
     checks = {
