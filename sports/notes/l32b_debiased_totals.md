@@ -48,3 +48,25 @@ model - first Pinnacle open = +2.90 mean (n 54, `report` 2026-11-01). Question: 
 
 ## Results
 (appended after scoring; see below this line)
+
+### Dev result (2026-11-01, after prereg commit 1cd5cf5; `results/l32b_debiased_totals/dev.json`, `dev_bets.csv`)
+| Rule (same 2,209 games with c) | Bets | Over / under | Win | No-vig ROI [2.5, 97.5] | p | -110 ROI [2.5, 97.5] | CLV pts | 2023-24 / 2024-25 no-vig |
+|---|---|---|---|---|---|---|---|---|
+| **L32b de-biased** | 967 | 473 / 494 | .549 | **+8.1% [+1.9, +14.4]** | .006 | +4.8% [-1.2, +11.1] | +2.39 | +9.3% / +6.8% |
+| T5 original (comparison) | 1,140 | 898 / 242 | .548 | +8.0% [+2.3, +13.8] | .003 | +4.6% [-0.9, +10.3] | +1.84 | +8.5% / +7.3% |
+
+- **PASS** on the pre-registered bar (p .006 < .05, both seasons > 0). Too-good guard not triggered (+8.1% < 10%).
+- Not new evidence of an edge: same games, same model, same opener as T5 (which was itself the selected trial).
+  What it shows is that the edge does NOT depend on the over tilt: balanced 473/494, unders +8.7%, overs +7.4%,
+  and CLV per bet is higher (+2.39 vs +1.84).
+- At -110 neither rule clears zero (p .057 / .052). The bar is the no-vig open (a maker order at fair).
+- Row checks: c recomputed independently for 4 random bets (exact match, 100 prior games each); no duplicate events.
+  Something's off, inherited from T5: 39 bets have an opener price outside 40/60 (as extreme as 24/76, juiced
+  stale openers). They lose -3.9u; excluding them is +8.8% (post-hoc, not the test).
+- c (dev): 2023-24 mean +3.26 (range -0.5 .. +8.7, rising into April); 2024-25 +1.39 (-0.5 .. +2.6).
+
+### Forward: `scripts/l32b_logger.py` built (reads L32 state read-only; logs data/l32b_log.jsonl)
+- Run every 10 min from a session shell (launchd cannot read ~/Desktop):
+  `cd .../quant-trader/sports && while true; do ../.venv_quant/bin/python scripts/l32b_logger.py tick; sleep 600; done`
+- Needs the L32 launchd logger running (it supplies open, model, close). First tick 2026-11-02 01:37Z: 21 decisions
+  (11 live, 10 backfill), c = +2.67 on 44 games.
