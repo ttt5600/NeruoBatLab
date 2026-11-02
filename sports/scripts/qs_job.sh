@@ -56,6 +56,9 @@ case "$job" in
     now=$(date +%s); last=$(cat state/q017_last 2>/dev/null || echo 0)
     [ $((now - last)) -ge 1500 ] || exit 0
     run scripts/q017_logger.py tick && echo "$now" > state/q017_last ;;
+  tsa)      # E1X-T KXTSAW maker paper (notes/e1x_tsa.md): fills+settle once a day; tick Mondays 09:00-17:00 PT
+    if [ "$((10#$hm))" -ge 700 ] && ! done_today tsa_fills; then run scripts/e1x_tsa_logger.py fills && echo "$d" > state/tsa_fills; fi
+    if [ "$(date +%u)" = 1 ] && [ "$((10#$hm))" -ge 900 ] && [ "$((10#$hm))" -lt 1700 ]; then run scripts/e1x_tsa_logger.py tick; fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;

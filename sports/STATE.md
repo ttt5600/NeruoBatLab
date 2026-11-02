@@ -4,6 +4,14 @@
 ## HANDOFF #6 2026-10-30 -- START HERE: notes/HANDOFF_2026-10-30.md (authority, live systems + IBKR gotcha, forward tests,
 ## verdicts, tools, 2 agents running at handoff, pending user asks). Personal finance only in notes/private_account.md (gitignored).
 
+## 2026-11-01 20:00 PT -- HARNESS LIVE (read notes/HARNESS.md); user approved autonomy + "keep searching"
+- launchd from ~/.claude/quant-sports runs ALL game-day paper loggers (F1 early-form, L32b totals, Kalshi prop ladders,
+  daily ticket, Q017 ERCOT, E1X-T TSA maker) + digest 09:00/23:30 PT -> digests/<date>-am|pm.md + Mac notification.
+  Deployed logs = truth: `scripts/qs_sync.sh pull` before analysis; `push` after code edits. NEVER run ticks from the worktree.
+- Paper tests open: F1 (11 bets), L32b (dev pass, forward), Kalshi props (forward, judge >= 150 picks), TSA maker (sealed
+  weak pass, judge >= 60 fills), Q017 far-NO. Simulator: nba_sim v2.2 default.
+- Waiting on user: run `sudo pmset repeat wakeorpoweron MTWRFSU 07:55:00`; IBKR re-login check (ibc-gateway exit 137).
+
 ## 2026-10-31 USER BET POLICY (user decision, chat 10-31 ~15:30 PT)
 - Bet on edges, not emotion. Stake = $2-3 per bet ("units for now") on Robinhood event contracts (user places them).
   Increase size ONLY when a model shows a noticeable, measured edge (forward CLV / sealed pass), never after a hot streak.

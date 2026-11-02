@@ -50,7 +50,7 @@ EOF
 }
 
 EVERY='<key>StartInterval</key><integer>600</integer>'
-for j in early-form l32b props ticket q017; do plist "$j" "$EVERY"; done
+for j in early-form l32b props ticket q017 tsa; do plist "$j" "$EVERY"; done
 plist digest '<key>StartCalendarInterval</key><array>
     <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
     <dict><key>Hour</key><integer>23</integer><key>Minute</key><integer>30</integer></dict>

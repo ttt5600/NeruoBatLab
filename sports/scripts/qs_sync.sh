@@ -15,7 +15,7 @@ RS=(rsync -a --exclude __pycache__ --exclude '*.pyc')
 
 # logs the deployed jobs write (relative to sports/data). Deployed = truth.
 LOGS=(nba_early_form_log.jsonl l32b_log.jsonl l32b_state.json kalshi_prop_log.jsonl kalshi_prop_grades.jsonl
-      tickets/ q017/fwd/)
+      tickets/ q017/fwd/ e1x/tsa_paper.jsonl)
 
 push() {
   mkdir -p "$DST/scripts" "$DST/sports" "$DST/lab" "$DST/results" "$DST/notes" "$DST/data"
@@ -45,7 +45,7 @@ seed() {
   push
   cd "$SRC"
   # data the jobs read; --ignore-existing so a re-seed never clobbers what the deployed jobs wrote
-  for f in espn/nba nba_sim nba_simple_model nba_pbp/game_terms.parquet nba_comebacks/teamlogs.parquet q017 \
+  for f in espn/nba nba_sim nba_simple_model nba_pbp/game_terms.parquet nba_comebacks/teamlogs.parquet q017 e1x \
            "${LOGS[@]}" user_calls.jsonl; do
     f="${f%/}"
     [ -e "data/$f" ] || continue
