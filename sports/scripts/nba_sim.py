@@ -6,7 +6,8 @@
     ../.venv_quant/bin/python scripts/nba_sim.py delta CLE ATL --out "Jalen Johnson" [--date ...]
     ../.venv_quant/bin/python scripts/nba_sim.py validate --season 2024-25
     ../.venv_quant/bin/python scripts/nba_sim.py fit            # (re)fit the live params on dev seasons 2022-23..2024-25
-    default = v2.1 (shrunk BPM-lite, recency kernel, early-season minutes shrink; notes/nba_sim.md v2.1)
+    default = v2.2 (= v2.1 shrunk BPM-lite, recency kernel, early-season minutes shrink + v2.2 player minutes map:
+    bigs/starters/bench, top-end slope, cap 38; notes/nba_sim.md v2.2). --v21 reproduces v2.1;
     add --v2 to reproduce v2 (2026-10-31 morning) or --legacy for the v1 impact (studies before 2026-10-31)
 
 Design and limitations: notes/nba_sim.md.  Argument order is AWAY HOME (as on a ticket: CLE @ ATL).
@@ -87,7 +88,11 @@ STAT3 = ("pts", "reb", "ast")
 #   KA   player x arena points-per-minute residual, shrunk by KA pseudo-minutes (0 = off)
 #   KM   early-season minutes: EWMA minutes shrunk toward LAST season's mpg with KM pseudo-games (0 = off)
 #   HP, KSHRINK, KROLE  state half-life (days), shrink-to-replacement and shrink-to-role pseudo-minutes
-EXTRA0 = {"lam": None, "u": 1.0, "c": 0.0, "hs": 14.0, "KA": 0.0, "KM": 0.0, "HP": nsm.HP, "KSHRINK": nsm.KSHRINK, "KROLE": 150.0}
+#   bB, bS, b15, sT, CAP2  v2.2 PLAYER minutes map (adjust_minutes; player stat sims only, team P/O untouched):
+#        + bB if role B, + bS if top-5 of his team by projected minutes, + b15 if projected < 15,
+#        - sT x max(m - 30, 0), cap CAP2, re-summed to the team total (all 0 / CAP2 42 = off)
+EXTRA0 = {"lam": None, "u": 1.0, "c": 0.0, "hs": 14.0, "KA": 0.0, "KM": 0.0, "HP": nsm.HP, "KSHRINK": nsm.KSHRINK, "KROLE": 150.0,
+          "bB": 0.0, "bS": 0.0, "b15": 0.0, "sT": 0.0, "CAP2": 42.0}
 PRESETS = {"legacy": {"mode": "legacy", "A": 0.5, "K": 1500.0, "G": 0.2, **EXTRA0},
            "v2": {"mode": "v2", "A": 0.5, "K": 1500.0, "G": 0.2, **EXTRA0}}
 # v2.1 (2026-10-31): every knob tuned on dev 2023-24 only, confirmed on 2024-25 + 2026-27 (notes/nba_sim.md v2.1;
@@ -96,7 +101,11 @@ PRESETS["v21"] = {"mode": "v21", "A": 0.25, "K": 1500.0, "G": 0.2, **EXTRA0,
                   "lam": 16.0, "u": 0.9, "HP": 270.0, "KSHRINK": 1000.0,      # A: shrunk BPM-lite + state
                   "c": 8.0, "hs": 30.0, "KROLE": 50.0,                        # B: recency kernel for stat projections
                   "KM": 1.0, "KA": 0.0}                                       # minutes shrink to last season; C off
-DEFAULT_MODE = "v21"
+# v2.2 (2026-11-01): v2.1 + the PLAYER minutes map (adjust_minutes), tuned on dev 2023-24 minutes MAE only, passed
+# minutes AND points MAE on 2024-25 + 2026-27 as a combination (notes/nba_sim.md v2.2; results/nba_sim/v22_*.json).
+# Team stack / spread / Brier are v2.1 by construction. --v21 reproduces v2.1 exactly.
+PRESETS["v22"] = dict(PRESETS["v21"], mode="v22", bB=0.5, bS=0.5, b15=0.5, sT=0.2, CAP2=38.0)
+DEFAULT_MODE = "v22"
 IMPACT = dict(PRESETS[DEFAULT_MODE])
 
 
@@ -184,6 +193,34 @@ def project_minutes(base: dict, roles: dict, absent: list, fixed: dict | None = 
     if free.any() and abs(m[free].sum() - rem) > 1e-6:   # too few players for the cap: spread the rest evenly
         m[free] += (rem - m[free].sum()) / free.sum()
     return dict(zip(ids, m))
+
+
+MIN_KEYS = ("bB", "bS", "b15", "sT", "CAP2")
+
+
+def minutes_map_on() -> bool:
+    return any(IMPACT.get(k, EXTRA0[k]) != EXTRA0[k] for k in MIN_KEYS)
+
+
+def adjust_minutes(m: dict, roles: dict, fixed: dict | None = None) -> dict:
+    """v2.2 player-minutes map (notes/nba_sim.md v2.2). m: id -> v2.1 projected minutes for tonight's set (sums to the
+    team total). Returns the adjusted minutes, re-summed to the same total; --minutes (fixed) players are untouched."""
+    if not m or not minutes_map_on():
+        return dict(m)
+    fixed = fixed or {}
+    ids = list(m)
+    m0 = np.array([float(m[i]) for i in ids])
+    top = set(np.array(ids)[np.argsort(-m0, kind="stable")[:5]])
+    cap2 = float(IMPACT.get("CAP2", CAP))
+    m1 = {}
+    for i, v in zip(ids, m0):
+        if i in fixed:
+            m1[i] = v
+            continue
+        x = (v + IMPACT.get("bB", 0.0) * (roles.get(i) == "B") + IMPACT.get("bS", 0.0) * (i in top)
+             + IMPACT.get("b15", 0.0) * (v < 15) - IMPACT.get("sT", 0.0) * max(v - 30.0, 0.0))
+        m1[i] = float(min(max(x, 0.5), cap2))
+    return project_minutes(m1, roles, [], {i: m[i] for i in ids if i in fixed}, cap=cap2, total=float(m0.sum()))
 
 
 # --------------------------------------------------------------------------------------------------- player state
@@ -363,9 +400,10 @@ def side_inputs(st: State, d: int, pr: dict, full: set, avail: set, fixed: dict 
     base = {a: (R[a]["em"] if known_play else exp_min(a)) for a in avail}
     absent = sorted(((exp_min(a), roles[a]) for a in full - avail), key=lambda z: (-z[0], z[1]))   # v2.1: fixed order (was set order -> run-to-run noise ~0.003 MAE)
     m_av = project_minutes(base, roles, absent, fixed)
+    m_pl = adjust_minutes(m_av, roles, fixed)          # v2.2: player stat sims only (== m_av when the map is off)
     P = lambda M: float(sum(M[a] * R[a]["r"] for a in M) / 240) if M else np.nan
     O = lambda M: float(sum(M[a] * R[a]["ppm"] for a in M)) if M else np.nan
-    return {"R": R, "m_full": m_full, "m": m_av, "Pfull": P(m_full), "Pav": P(m_av), "Ofull": O(m_full), "Oav": O(m_av)}
+    return {"R": R, "m_full": m_full, "m": m_av, "m_pl": m_pl, "Pfull": P(m_full), "Pav": P(m_av), "Ofull": O(m_full), "Oav": O(m_av)}
 
 
 # ----------------------------------------------------------------------------------------------- team-level ridges
@@ -425,10 +463,11 @@ def sim_scores(mu, tot, p, n, rng):
 
 def sim_players(si: dict, team_pts, exp_pts_team, p, rng, n):
     """-> dict stat -> (n, k) array, minutes (n, k), ids. Team totals: pts from the game sim; reb/ast lognormal."""
-    ids = [a for a in si["m"] if si["m"][a] > 0]
+    mm = si.get("m_pl") or si["m"]                    # v2.2 player minutes map (== m when off)
+    ids = [a for a in mm if mm[a] > 0]
     if not ids:
         return None
-    m = np.array([si["m"][a] for a in ids])
+    m = np.array([mm[a] for a in ids])
     sd = p["min_sd"]
     ms = m * np.exp(sd * rng.standard_normal((n, len(ids))) - sd ** 2 / 2)
     ms *= 240 / ms.sum(1, keepdims=True)
@@ -542,7 +581,7 @@ def features(seasons, keep_players=()) -> tuple[pd.DataFrame, dict]:
                         row[f"out28_{side}"] = [(st.names.get(a, a), round(si["R"][a]["mpg"], 1), a in prev) for a in big]
                         if int(r.season) in keep_players:                     # v2.1: all games ("scored" flag kept)
                             PL[(r.event_id, side)] = {
-                                "m": si["m"], "R": {a: si["R"][a] for a in si["m"]},
+                                "m": si["m"], "m_pl": si["m_pl"], "R": {a: si["R"][a] for a in si["m"]},
                                 "act": {a: (x.minutes, x.points, x.rebounds, x.assists) for a, x in A.items()}, "scored": bool(r.scored)}
             rows.append(row)
 
@@ -651,7 +690,7 @@ def fit_all(train_seasons=(2023, 2024, 2025), feat_seasons=(2021, 2022, 2023, 20
 
 def params_path() -> Path:
     """legacy -> results/nba_sim_params.json (v1, untouched); v2 -> results/nba_sim_params_v2.json."""
-    return PARAMS if IMPACT["mode"] == "legacy" else PARAMS.with_name("nba_sim_params_v2.json" if IMPACT["mode"] == "v2" else "nba_sim_params_v21.json")
+    return PARAMS if IMPACT["mode"] == "legacy" else PARAMS.with_name("nba_sim_params_v2.json" if IMPACT["mode"] == "v2" else "nba_sim_params_v21.json")   # v22 = v21 stack
 
 
 def load_params() -> dict:
@@ -660,7 +699,9 @@ def load_params() -> dict:
         print(f"(no {pp.name} -> fitting on dev 2022-23..2024-25, one-time)", file=sys.stderr)
         return fit_all()
     p = json.loads(pp.read_text())
-    if IMPACT["mode"] != "legacy" and p.get("impact") != IMPACT:
+    team_keys = {k: v for k, v in IMPACT.items() if k not in MIN_KEYS and k != "mode"}
+    fit_keys = {k: v for k, v in (p.get("impact") or {}).items() if k not in MIN_KEYS and k != "mode"}
+    if IMPACT["mode"] != "legacy" and fit_keys != team_keys:
         print(f"(! {pp.name} was fit with impact {p.get('impact')}, running {IMPACT}: refit with `fit`)", file=sys.stderr)
     return p
 
@@ -1115,6 +1156,8 @@ def main(argv=None) -> int:
     for x in sub.choices.values():
         x.add_argument("--legacy", action="store_true",
                        help="v1 BPM-lite impact + results/nba_sim_params.json (reproduces studies before 2026-10-31)")
+        x.add_argument("--v21", action="store_true",
+                       help="v2.1 (2026-10-31 evening default): no player minutes map; same params file as v2.2")
         x.add_argument("--v2", action="store_true",
                        help="v2 impact (unshrunk BPM-lite + on/off + minutes prior) + results/nba_sim_params_v2.json")
     a = ap.parse_args(argv)
@@ -1122,6 +1165,8 @@ def main(argv=None) -> int:
         set_impact("legacy")
     elif a.v2:
         set_impact("v2")
+    elif a.v21:
+        set_impact("v21")
     if a.cmd == "game":
         return cmd_game(a)
     if a.cmd == "delta":

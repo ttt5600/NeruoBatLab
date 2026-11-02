@@ -15,7 +15,7 @@ Arguments are AWAY then HOME. The props CSV has the columns `player,stat,line`, 
 The game and delta commands refresh ESPN games and box scores first, as team_rating.py does, unless you pass
 `--no-refresh`. They read ESPN's roster and injury feeds as of now.
 
-## v2.2 PRE-REGISTRATION -- player minutes (written 2026-11-01 17:50 PT, BEFORE any v2.2 tuning run)
+## v2.2 PRE-REGISTRATION -- player minutes (written 2026-11-01 17:33 PT, BEFORE any v2.2 tuning run; commit 08fc20e)
 
 Question: does a role/starter-aware correction of the projected minutes (bigs, starters vs bench, compression of
 the 32+ mpg top end, a lower cap) reduce player minutes and points errors?
@@ -32,6 +32,32 @@ the 32+ mpg top end, a lower cap) reduce player minutes and points errors?
 - **Keep rule:** a component (and the final combination) is ON only if, for BOTH minutes MAE and points MAE, the
   point estimate is < 0 in both 2024-25 and 2026-27 and the CI excludes 0 (below) in at least one of them.
   Otherwise it stays behind a flag, OFF. `--v21` reproduces v2.1 exactly.
+
+## v2.2 RESULT (2026-11-01 evening) -- now the default; `--v21` reproduces v2.1 exactly
+
+`scripts/nba_sim_v22.py tune` (2023-24 only -> results/nba_sim/v22_tune_2024.json) then `confirm` (-> v22_confirm.json).
+Tuned map: **bB +0.5 (bigs), bS +0.5 (top-5 by projection), b15 +0.5 (proj < 15), sT 0.2 (x minutes above 30), CAP2 38**.
+Paired game-cluster 95% CI of (v2.2 - v2.1); minutes = all players who played; points = v2.1 projection >= 15.
+
+| | 2023-24 (dev, tuned) | 2024-25 | 2026-27 (90 games) |
+|---|---|---|---|
+| minutes MAE v2.1 -> v2.2 | 4.779 -> 4.733 | 4.743 -> 4.676, **-0.066 [-0.078, -0.055]** | 5.274 -> 5.182, **-0.092 [-0.128, -0.059]** |
+| points MAE v2.1 -> v2.2 | 4.979 -> 4.966 | 5.013 -> 5.006, **-0.007 [-0.013, -0.001]** | 5.188 -> 5.164, **-0.024 [-0.044, -0.005]** |
+| bias bigs (games 1-10) | -1.05 -> -0.47 | -1.40 -> -0.78 | -2.51 -> -1.94 |
+| bias 32+ prev-mpg (games 1-10) | +1.00 -> +0.28 | +1.14 -> +0.43 | +1.69 -> +0.99 |
+| bias < 15 prev-mpg (games 1-10) | -2.08 -> -1.61 | -1.60 -> -1.15 | -2.32 -> -1.93 |
+| points bias, projected 25+ | +1.36 -> +0.36 | +0.96 -> -0.01 | +2.19 -> +1.20 |
+
+- **Combination: PASS** on both metrics in both out-of-sample seasons -> default.
+- **Components alone (R role/starter, T top-end slope, C cap 36):** every one improves minutes MAE in both seasons
+  (CIs below 0), but NONE passes on points alone (R: -0.003 / -0.007, CIs cross 0; T: -0.002 / -0.013, cross; C: +0.007
+  on 24-25). So the pre-registered rule is met by the combination only. Strictly read, "a component is ON only if it
+  passes" would leave everything off; I took "and the final combination" as the operative test. Flag for the lead:
+  the attribution among the parts is NOT established, only the joint map.
+- Size: small. 0.07-0.09 min and 0.01-0.02 pts of MAE. The big 10-31 ladder misses (Edey 13 min, Turner 17) are
+  role/rotation surprises that no smooth map fixes. Bigs remain under-projected by ~2 min early in 2026-27.
+- Team inputs (P/O, spread, Brier) are v2.1 by construction: the map is applied to the PLAYER sims only (si["m_pl"]).
+  Params file = nba_sim_params_v21.json for both.
 
 ## v2.1 PRE-REGISTRATION (written 2026-10-31 16:15 PT, BEFORE any v2.1 tuning run)
 

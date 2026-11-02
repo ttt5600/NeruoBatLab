@@ -230,3 +230,35 @@ def test_presets_reset_extras_and_absence_order_is_deterministic():
     a = ns.side_inputs(st, 700100, PRIORS, set(sorted(full)), set(sorted(avail)), team="AAA")["m"]
     b = ns.side_inputs(st, 700100, PRIORS, set(sorted(full, reverse=True)), set(sorted(avail, reverse=True)), team="AAA")["m"]
     assert all(a[k] == pytest.approx(b[k], abs=1e-9) for k in a)
+
+
+def test_v22_minutes_map_preserves_total_cap_and_fixed():
+    m = {"s1": 39.0, "s2": 35.0, "b": 30.0, "w": 28.0, "g": 26.0, "x1": 20.0, "x2": 16.0, "x3": 12.0, "x4": 10.0}
+    m = {k: v * 240 / sum(m.values()) for k, v in m.items()}
+    roles = {k: ("B" if k == "b" else "G") for k in m}
+    try:
+        ns.set_impact("v21")
+        assert ns.adjust_minutes(m, roles) == m                      # v2.1: map off -> identity
+        ns.set_impact("v22")
+        out = ns.adjust_minutes(m, roles, fixed={"x4": m["x4"]})
+        assert sum(out.values()) == pytest.approx(sum(m.values()), abs=1e-6)
+        assert max(out.values()) <= ns.PRESETS["v22"]["CAP2"] + 1e-9
+        assert out["x4"] == pytest.approx(m["x4"])                     # --minutes players untouched
+        assert out["s1"] < m["s1"] and out["x3"] > m["x3"]            # top end compressed, bench up
+    finally:
+        _restore()
+
+
+def test_v21_flag_reproduces_v21_player_sims():
+    st = ns.State()
+    full = team_state(st, "AAA", 30)
+    try:
+        ns.set_impact("v21")
+        si = ns.side_inputs(st, 700100, PRIORS, full, full - {"AAA_g"}, team="AAA")
+        assert si["m_pl"] == si["m"]
+        ns.set_impact("v22")
+        si2 = ns.side_inputs(st, 700100, PRIORS, full, full - {"AAA_g"}, team="AAA")
+        assert si2["m"] == pytest.approx(si["m"]) and si2["Pav"] == pytest.approx(si["Pav"])   # team inputs = v2.1
+        assert si2["m_pl"] != si2["m"]
+    finally:
+        _restore()

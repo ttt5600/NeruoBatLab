@@ -54,7 +54,7 @@ def props_open(S: int) -> pd.DataFrame:
 
 def set_cfg(cfg: dict, mode="v21") -> None:
     c = dict(BASE, **cfg)
-    ns.set_impact(mode, c["A"], c["K"], c["G"], **{k: c[k] for k in ns.EXTRA0})
+    ns.set_impact(mode, c["A"], c["K"], c["G"], **{k: c.get(k, ns.EXTRA0[k]) for k in ns.EXTRA0})
 
 
 def _score(F, PL, p, S, only_home=True) -> tuple[pd.DataFrame, pd.DataFrame]:
