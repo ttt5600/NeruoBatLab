@@ -128,7 +128,7 @@ def cmd_build() -> int:
 def rungs(split: str | None = None) -> pd.DataFrame:
     b = pd.read_parquet(D / "tsa_build.parquet")
     df = markets()
-    x = df.merge(b, left_on="event_ticker", right_on="event")
+    x = df.merge(b.drop(columns="wend"), left_on="event_ticker", right_on="event")
     x = x[(x.wend >= "2024-07-07") & (x.wend <= "2026-10-25") & (x.n_resid >= 20) & x.F.notna()]
     x["side"] = np.where(x.K >= x.hi, "no", np.where(x.K <= x.lo, "yes", ""))
     x = x[x.side != ""]
@@ -183,12 +183,12 @@ def cmd_trades() -> int:
 
 
 def _px(c, side):
-    v = c.get(side, {}).get("close_dollars")
+    s = c.get(side, {}); v = s.get("close_dollars", s.get("close"))
     return np.nan if v is None else float(v)
 
 
 def _yp(t):
-    return float(t.get("yes_price_dollars"))
+    v = t.get("yes_price_dollars", t.get("yes_price")); v = float(v); return v / 100 if v > 1.5 else v
 
 
 def boot(f: pd.DataFrame, rng):
