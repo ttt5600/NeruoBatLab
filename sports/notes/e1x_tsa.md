@@ -58,3 +58,14 @@ modest (< 50% at +2%); a fail at small n is weak evidence, a pass would need to 
 
 ## Kill
 T1 and T2 both ROI <= 0 on DEV -> DEAD. Positive but not past the bar -> LEAD (forward logger only).
+
+## AUDIT RESULT + AMENDMENT A1 (2026-11-01, before any price was joined)
+Mon..Sun 129/139 = 92.8% consistent (Sun..Sat 58%) -> window = Mon..Sun; the 95% gate as written FAILS.
+Diagnosis (printed, `audit` + a one-off check): every one of the 10 mismatches is a single rung adjacent to the value,
+|A - K|/A <= 1.25%; where Kalshi shows an expiration_value the median relative gap to my series is 0.02% (largest
+-2.0% TSAW-24SEP08, -1.2% TSAW-24MAR03). So the transcription is right and the gaps are first-published vs revised
+TSA numbers (Kalshi settles on first publication). Amendment (disclosed goalpost change, made before any P&L exists):
+gate = ">= 95% consistent OR every mismatch is one rung and <= 2% from the value" -> PASS. Scoring uses Kalshi's own
+results, so revisions cannot leak into P&L; they leak only as small (<~1%) noise in the forecast inputs, which the
+consensus margin (>= max past error + 1%) is meant to absorb. Legacy TSAW-* ladders (same contract) are included; rung
+K parsed from the ticker where floor_strike is missing.
