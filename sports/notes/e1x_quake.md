@@ -85,3 +85,14 @@ Maker variant (weather precedent E4: the edge sits in the spread, maker fee 0 on
 - Trials (k = 2, bar p < .025 + both halves positive, day-clustered bootstrap on FILLED bets, cost = q, fee 0):
   M1 all rungs, M2 K >= 6.4. Also reported: fill rate, filled-vs-unfilled loss rate (adverse-selection check, lesson 4).
 - Sealed rule as before (once, only after a DEV pass).
+
+## RESULT A1 DEV (2026-11-01, scored once): FAIL -> E1X-Q DEAD (adverse selection)
+| trial | posted | fills | fill rate | loss rate filled / unfilled | ROI | 95% CI | p | halves |
+|---|---|---|---|---|---|---|---|---|
+| M1 all rungs | 217 | 102 | 47% | 46.1% / 7.0% | +1.07% | [-26.9, +29.2]% | .45 | +11.9% / -15.7% |
+| M2 K >= 6.4 | 98 | 35 | 36% | 25.7% / 0.0% (p_clim of filled .082) | -10.6% | [-33.6, +8.4]% | .84 | +4.6% / -27.4% |
+Lesson 4 again, in its purest form: the tail YES ask is lifted only after a quake has happened (informed flow from
+faster feeds than our decision time); on quiet days nobody buys the overpriced tail. The bid side is at climatology,
+so neither taker nor maker can harvest the visible ask premium. Do not redo without a sub-minute cancel-on-quake
+mechanism (and even then the fills that remain are the quiet-day ones the tape shows rarely happen).
+Sealed NOT spent.
