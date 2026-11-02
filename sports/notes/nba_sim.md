@@ -15,6 +15,24 @@ Arguments are AWAY then HOME. The props CSV has the columns `player,stat,line`, 
 The game and delta commands refresh ESPN games and box scores first, as team_rating.py does, unless you pass
 `--no-refresh`. They read ESPN's roster and injury feeds as of now.
 
+## v2.2 PRE-REGISTRATION -- player minutes (written 2026-11-01 17:50 PT, BEFORE any v2.2 tuning run)
+
+Question: does a role/starter-aware correction of the projected minutes (bigs, starters vs bench, compression of
+the 32+ mpg top end, a lower cap) reduce player minutes and points errors?
+- Baseline = v2.1 (default since 10-31). Change = a post-projection minutes map applied to tonight's set, used by the
+  PLAYER stat sims only (team P/O and the game stack keep the v2.1 minutes, so spread/Brier are unchanged by design):
+  m1 = m0 + bB [role B] + bS [top-5 of his team by m0] - s * max(m0 - 30, 0) + b15 [m0 < 15], clipped at CAP2, then
+  re-summed to the team's v2.1 total (additive, weights m(48-m), as project_minutes).
+- Components (each tuned and tested ADDED to v2.1 alone, then combined): R = role/starter (bB, bS, b15),
+  T = top-end slope s, C = cap CAP2 in {36, 38, 40, 42}.
+- Tuning: coordinate search on dev **2023-24 ONLY**, metric = minutes MAE (ACT set, all players who played).
+- Confirm: 2024-25 and 2026-27 to date (walk-forward, frozen tuned values). 2025-26 is never scored.
+- Metrics: minutes MAE (players who played) and player points MAE vs actual on the player set fixed by the v2.1
+  projection (>= 15 min), the same rows in both arms; paired game-cluster bootstrap 95% CI of (v2.2 - v2.1).
+- **Keep rule:** a component (and the final combination) is ON only if, for BOTH minutes MAE and points MAE, the
+  point estimate is < 0 in both 2024-25 and 2026-27 and the CI excludes 0 (below) in at least one of them.
+  Otherwise it stays behind a flag, OFF. `--v21` reproduces v2.1 exactly.
+
 ## v2.1 PRE-REGISTRATION (written 2026-10-31 16:15 PT, BEFORE any v2.1 tuning run)
 
 Question: do (A) shrunk BPM-lite betas, (B) a fast-recency component for per-minute rates, (C) a player x arena
