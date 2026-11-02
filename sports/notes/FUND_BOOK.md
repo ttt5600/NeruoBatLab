@@ -107,6 +107,7 @@ print account values [FUND_CYCLE.md rules 1-3].
 | quant-gap-logger | F3 Kalshi vs Pinnacle game gaps | 2 min | `gap_logger.py report` |
 | quant-thesis-tracker | F6/F7 thesis v1/v2 baskets | weekdays 17:30 (+ 08:00 catch-up [H4]) | `thesis_tracker.py report` |
 | quant-paper-step | separate 60/40 paper-journal project (`~/.claude/quant-paper/launch.py`) | weekdays 14:30 | its own journal |
+| quant-sports-{early-form,l32b,props,ticket,q017,digest} | game-day paper loggers (F1, L32b, prop ladders, ticket, Q017) + headless digest; deployed copy ~/.claude/quant-sports (added 11-01) | 600 s (08:00-22:00 PT; q017 24 h) / digest 09:00 + 23:30 | notes/HARNESS.md; `scripts/qs_stop.sh` pauses all |
 
 All report commands run as `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/<x>.py ...`.
 
