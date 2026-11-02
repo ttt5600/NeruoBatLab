@@ -52,7 +52,7 @@ Update this file (and EDGES_AND_AGENTS.md, which keeps the long-form detail) whe
 | Tier A (sealed pass: weather E1/E2/E4) | <= 1u per night total [S] |
 | Tier B (paper lead with forward evidence) | <= 0.5u per bet [S]. E5 ForecastEx runs as Tier B [S] |
 | Tier C (judgment) | <= 0.25u per bet, monthly C loss cap [S] |
-| Loss stops | daily -3u, weekly -6u [S]; executor stops in .env (section 2) |
+| Loss stops | TWO separate systems: (a) bet.py manual tiers B+C: daily -3u, weekly -6u (1u = $50) [S]; (b) kalshi_exec.py weather executor: daily -5% / weekly -10% of its bankroll B ($400 -> $20 / $40; weekly writes KILL), code constants DAY_LOSS_FRAC/WEEK_LOSS_FRAC (clarified 11-02 after harness audit; no limits changed) |
 | Capital gates | $2k -> **$5k** when tier-A live ROI stays inside the sealed CI ~60 days AND verified qualified volume > ~$250/day; -> **$10k** when a 2nd edge (LIP / Polymarket-US maker / ForecastEx weather) passes sealed + forward [S] |
 | Funding | Never fund betting from the leveraged brokerage account [S], [H5] |
 | Router | Every bet (API or phone) through `scripts/bet.py`; phone bets via `bet.py log-external` [S] |
