@@ -1,7 +1,10 @@
+## 2026-11-03 01:00 PT -- START HERE: notes/HANDOFF_2026-11-03.md (edgelab rules-in-code; only E4 maker orig-7 survives;
+## X1 paused; size-up refused by rule 6; NEXT = self-resetting headless lead + edge search through edgelab only)
+
 ## MASTER INDEX: sports/notes/FUND_BOOK.md -- every edge ever considered (passed / paper / leads / dead), fund rules,
 ## live operations, research system, tools, lessons, pending decisions. Read it FIRST, then the HANDOFF #5 block below.
 
-## HANDOFF #6 2026-10-30 -- START HERE: notes/HANDOFF_2026-10-30.md (authority, live systems + IBKR gotcha, forward tests,
+## (older) HANDOFF #6 2026-10-30: notes/HANDOFF_2026-10-30.md (authority, live systems + IBKR gotcha, forward tests,
 ## verdicts, tools, 2 agents running at handoff, pending user asks). Personal finance only in notes/private_account.md (gitignored).
 
 ## 2026-11-01 20:00 PT -- HARNESS LIVE (read notes/HARNESS.md); user approved autonomy + "keep searching"
