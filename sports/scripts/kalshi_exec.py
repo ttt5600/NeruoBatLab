@@ -126,6 +126,9 @@ def config(e: dict) -> dict:
             "max_age_min": f("KALSHI_MAX_PICK_AGE_MIN", 120), "depth_frac": f("KALSHI_DEPTH_FRAC", 0.5),
             "min_close_min": f("KALSHI_MIN_MINUTES_TO_CLOSE", 60), "stale_order_min": f("KALSHI_STALE_ORDER_MIN", 10),
             "notify": e.get("KALSHI_NOTIFY", "1") != "0",
+            # 2026-11-03 (user): KALSHI_COHORTS=orig7 pauses X1 (edgelab: E4-X1 dead); KALSHI_ORIG7_FRAC sizes orig7
+            "cohorts": {c.strip() for c in e.get("KALSHI_COHORTS", "orig7,x1").split(",") if c.strip()},
+            "orig7_frac": f("KALSHI_ORIG7_FRAC", TIER_FRAC["orig7"]),
             "exec_style": _style(e.get("KALSHI_EXEC_STYLE", "taker")), "ab": e.get("KALSHI_AB", "0") == "1"}
 
 
@@ -166,7 +169,8 @@ def resolve_mode(e: dict, live_flag: bool) -> str:
 
 def caps(cfg: dict, cohort: str | None = None) -> dict:
     b = cfg["bankroll"]
-    order = cfg["max_order"] if b is None else min(cfg["max_order"], TIER_FRAC.get(cohort or "x1", 0.005) * b)
+    frac = cfg.get("orig7_frac", TIER_FRAC["orig7"]) if cohort == "orig7" else TIER_FRAC.get(cohort or "x1", 0.005)
+    order = cfg["max_order"] if b is None else min(cfg["max_order"], frac * b)
     day = cfg["max_day"] if b is None else min(cfg["max_day"], NIGHT_FRAC * b)
     opn = cfg["max_open"] if b is None else min(cfg["max_open"], NIGHT_FRAC * b)
     return {"order": order, "day": day, "open": opn}
@@ -561,6 +565,8 @@ def decide(p: dict, client: Kalshi, mode: str, cfg: dict, now: datetime, spent: 
            "no_ask_now": ask, "depth_1c": depth, "count": 0, "filled": 0, "cost": 0.0}
     if tag_style(cfg):
         rec["exec_style"] = style
+    if rec["cohort"] not in cfg.get("cohorts", {"orig7", "x1"}):
+        return {**rec, "status": "skip_cohort_paused"}
     m = client.market(t)
     cap = caps(cfg, rec["cohort"])
     close = (m or {}).get("close_time")
