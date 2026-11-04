@@ -425,7 +425,9 @@ def main() -> int:
             row = dict(ts=now.isoformat(timespec="seconds"), ticker=m["ticker"], side=side, needle=round(prob, 4),
                        ask=ask, edge=round(e, 4), counted=n["counted"], call=n.get("call"), age_min=round(age, 1))
             bank = bk["bank"]
-            have = bk["rows"][m["ticker"]]["val"] if m["ticker"] in bk["rows"] else 0.0  # marked, same basis as sells
+            # count what we already hold at max(marked value, cost): bid-marked alone made the bot re-buy the
+            # spread every pass (NC-03 / AZ-08 top-ups 07:37 UTC) and fees were already $78 on the night
+            have = max(bk["rows"][m["ticker"]]["val"], bk["rows"][m["ticker"]]["basis"]) if m["ticker"] in bk["rows"] else 0.0
             d = m["_party"] if side == "yes" else ("R" if m["_party"] == "D" else "D")
             room = min(TOTAL_CAP_FRAC * bank - sum(r["val"] for r in bk["rows"].values()),
                        BUCKET_FRAC * bank - bk["dirv"][d])
