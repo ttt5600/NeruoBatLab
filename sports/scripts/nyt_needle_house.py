@@ -127,6 +127,7 @@ def cnn_calls() -> dict:
 
 
 _series: list[str] = []
+PM: dict = {}
 
 
 def poly_mids() -> dict:
@@ -234,6 +235,9 @@ def exits(N: dict, M: list[dict], a, now) -> None:
     bank = bk["bank"]
     for t, r in bk["rows"].items():
         p, bid = r["p"], r["bid"]
+        pm = PM.get((r["m"]["_key"], r["dir"]))  # hold while Polymarket still prices it above our bid (CO-3: the needle
+        if p is not None and pm is not None:      # sold a market-backed D buy at 75c on a stale-looking 30% needle)
+            p = max(p, pm)
         if p is None or bid is None or bid < 0.02:
             continue
         target = 0.0 if bid + a.exit_buffer >= p else min(RACE_CAP_FRAC * bank, a.kelly * kelly(p, bid) * bank)
@@ -326,7 +330,7 @@ def main() -> int:
         now = datetime.now(timezone.utc)
         try:
             N, M = needles(), kalshi_markets()
-            PM = poly_mids()
+            PM.clear(); PM.update(poly_mids())
             for ck, w in cnn_calls().items():  # CNN call where AP/NYT hasn't called yet -> treat like a call
                 if not str((N.get(ck) or {}).get("call", "")).startswith("called"):
                     lo = "R" if w == "D" else "D"
