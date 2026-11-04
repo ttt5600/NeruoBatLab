@@ -87,7 +87,7 @@ def needles() -> dict:
             ps = {"D": pd, "R": 1 - pd, "nyt_D": ps["D"]}
         d = "AL" if seat in (None, "", "0", "AL") else str(int(seat))
         out[(st, d)] = dict(ps, counted=est.get("votes_counted") or 0, updated=est.get("nyt_updated_at"),
-                            call=r.get("race_call_status"))
+                            call=r.get("race_call_status"), ap_total=t.get("total_votes") or 0)
     return out
 
 
@@ -182,8 +182,8 @@ def exits(N: dict, M: list[dict], a, now) -> None:
         if dv > BUCKET_SELL_FRAC * bank:
             target = min(target, r["val"] * BUCKET_FRAC * bank / dv)
         excess = r["val"] - target
-        if target > 0 and excess < max(3.0, 0.2 * r["val"]):
-            continue
+        if target > 0 and (excess < max(3.0, 0.2 * r["val"]) or bid < 0.05):
+            continue  # trimming a 1-2c position only pays the spread: hold it
         cnt = r["kstr"].lstrip("-") if target == 0 else str(int(excess / bid))
         if float(cnt) < 1:
             continue
@@ -234,6 +234,8 @@ def main() -> int:
     ap.add_argument("--call-edge", type=float, default=0.05)  # AP-called races: winner at 0.99
     ap.add_argument("--exit-buffer", type=float, default=0.03)
     ap.add_argument("--frozen-min", type=float, default=20)
+    ap.add_argument("--max-ap-lag", type=float, default=0.05)
+    ap.add_argument("--min-price", type=float, default=0.08)
     a = ap.parse_args()
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
@@ -272,12 +274,15 @@ def main() -> int:
                 SEEN[ck] = (n["counted"], now)
             if not called and (now - SEEN[ck][1]).total_seconds() > a.frozen_min * 60:
                 continue
+            ap_tot = n.get("ap_total") or 0  # model behind the AP count = the market knows more (CA-22: 62% lag)
+            if not called and ap_tot and (ap_tot - n["counted"]) / ap_tot > a.max_ap_lag:
+                continue
             thr = a.call_edge if called else a.edge
             p = n[m["_party"]]
             ya, yb = f(m.get("yes_ask_dollars")), f(m.get("yes_bid_dollars"))
             for side, prob, ask in (("yes", p, ya), ("no", 1 - p, None if yb is None else round(1 - yb, 4))):
-                if ask is None or not 0.01 <= ask <= 0.97:
-                    continue
+                if ask is None or not (0.01 if called else a.min_price) <= ask <= 0.97:
+                    continue  # 1-5c needle longshots lost all night (WI-1, PA-1, TX-9, CA-22): market was right
                 e = prob - ask
                 if e >= thr:
                     sigs.append((e, m, side, prob, ask, n, age))
