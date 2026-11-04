@@ -24,6 +24,7 @@ sys.path.insert(0, str(HERE))
 import kalshi_exec as K  # noqa: E402
 import needle_adj as A  # noqa: E402
 
+SEEN: dict = {}  # race -> (votes_counted, first time seen at that count)
 DEM_SHIFT = 0.0  # set from --dem-shift; added to the projected Dem margin (blue-wave tilt, judgment)
 
 NYT = "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-house.json"
@@ -232,6 +233,7 @@ def main() -> int:
     ap.add_argument("--dem-shift", type=float, default=0.0)
     ap.add_argument("--call-edge", type=float, default=0.05)  # AP-called races: winner at 0.99
     ap.add_argument("--exit-buffer", type=float, default=0.03)
+    ap.add_argument("--frozen-min", type=float, default=20)
     a = ap.parse_args()
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
@@ -253,6 +255,11 @@ def main() -> int:
             age = (now - datetime.fromisoformat(n["updated"])).total_seconds() / 60 if n.get("updated") else 1e9
             called = str(n.get("call", "")).startswith("called")
             if not called and (age > a.max_age_min or n["counted"] < a.min_counted):
+                continue
+            ck = m["_key"]  # frozen-count guard: nyt_updated_at refreshes even when no votes come in (TX-9 sat at
+            if ck not in SEEN or SEEN[ck][0] != n["counted"]:  # 130,429 for 50 min while Kalshi moved)
+                SEEN[ck] = (n["counted"], now)
+            if not called and (now - SEEN[ck][1]).total_seconds() > a.frozen_min * 60:
                 continue
             thr = a.call_edge if called else a.edge
             p = n[m["_party"]]
@@ -297,7 +304,7 @@ def main() -> int:
                 row["action"] = "too_small"
             else:
                 # sweep the book: the limit is the worst price that still clears the entry edge (thin books, IOC)
-                lim = max(ask, min(0.97, round(prob - (a.call_edge if str(n.get("call", "")).startswith("called") else a.edge), 2)))
+                lim = max(ask, min(0.97, ask + 0.05, round(prob - (a.call_edge if str(n.get("call", "")).startswith("called") else a.edge), 2)))
                 cmd = [sys.executable, str(HERE / "bet.py"), "place", m["ticker"], side, "--units", f"{stake / 50:.4f}",
                        "--price", f"{lim:.2f}", "--taker", "--tier", "E", "--strategy", "nyt_needle_house"]
                 if not a.live:
