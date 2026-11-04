@@ -170,8 +170,8 @@ def book(N: dict, M: list[dict]) -> dict:
         val = abs(k) * (bid or 0.0)
         n = N.get(m["_key"])
         p = None if not n or m["_party"] not in n else (n[m["_party"]] if k > 0 else 1 - n[m["_party"]])
-        if p is not None:
-            p = blend(p, yb, ya, k > 0)
+        # exits judge on the RAW needle (user 2026-11-03: "DO NOT BE AFRAID TO HOLD", "trust the arbitrage");
+        # the blend is buy-side sizing only
         rows[m["ticker"]] = dict(m=m, k=k, kstr=kstr, basis=basis, bid=bid, yb=yb, ya=ya, dir=d, val=val, p=p)
         dirv[d] += val
     return {"bank": cash() + sum(r["val"] for r in rows.values()), "rows": rows, "dirv": dirv}
@@ -193,8 +193,9 @@ def exits(N: dict, M: list[dict], a, now) -> None:
         if dv > BUCKET_SELL_FRAC * bank:
             target = min(target, r["val"] * BUCKET_FRAC * bank / dv)
         excess = r["val"] - target
-        if target > 0 and (excess < max(5.0, 0.3 * r["val"]) or bid < 0.05):  # $46.69 fees by 04:55: churn
-            continue  # trimming a 1-2c position only pays the spread: hold it
+        if target > 0 and (a.no_trim or excess < max(5.0, 0.3 * r["val"]) or bid < 0.05):  # $46.69 fees by 04:55
+            if not (dv > BUCKET_SELL_FRAC * bank):
+                continue  # hold: only edge-gone or the correlated-bucket cap sells  # trimming a 1-2c position only pays the spread: hold it
         cnt = r["kstr"].lstrip("-") if target == 0 else str(int(excess / bid))
         if float(cnt) < 1:
             continue
@@ -250,6 +251,7 @@ def main() -> int:
     ap.add_argument("--blend", type=float, default=1.0)
     ap.add_argument("--stop-bank", type=float, default=0.0)
     ap.add_argument("--min-eevp", type=float, default=0.0)
+    ap.add_argument("--no-trim", action="store_true")
     a = ap.parse_args()
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
