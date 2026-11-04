@@ -323,7 +323,7 @@ def cmd_place(a, c=None, now: datetime | None = None, get=None) -> int:
     yes_price = price if side == "yes" else round(1 - price, 2)
     bid_id = uuid.uuid4().hex[:10]
     coid = f"bet-{bid_id}"
-    body = {"ticker": t, "side": "bid" if side == "yes" else "ask", "count": str(n), "price": f"{yes_price:.2f}",
+    body = {"ticker": t, "side": "bid" if side == "yes" else "ask", "count": str(n), "price": f"{round(yes_price, 4):.4f}",
             "self_trade_prevention_type": "taker_at_cross", "client_order_id": coid}
     if a.taker:
         body["time_in_force"] = "immediate_or_cancel"
