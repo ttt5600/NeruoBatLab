@@ -48,6 +48,8 @@ def scan(verbose: bool = True) -> pd.DataFrame:
         except Exception as e:  # one league down must not stop the others
             print(f"  {lg}: fetch failed ({e.__class__.__name__}: {str(e)[:80]})")
             continue
+        if not len(p) or "market" not in p.columns or not len(k):  # empty league (e.g. no games listed) crashed the scan 11-04
+            print(f"  {lg}: no pinnacle/kalshi rows"); continue
         m = live.kalshi_edges(live.match_kalshi(p, k))
         if verbose:
             print(f"  {lg}: pinnacle {p['pin_id'].nunique() if len(p) else 0} games, "
