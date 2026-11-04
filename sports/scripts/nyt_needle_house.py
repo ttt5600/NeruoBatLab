@@ -22,6 +22,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import kalshi_exec as K  # noqa: E402
+import needle_adj as A  # noqa: E402
+
+DEM_SHIFT = 0.0  # set from --dem-shift; added to the projected Dem margin (blue-wave tilt, judgment)
 
 NYT = "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-house.json"
 KB = "https://api.elections.kalshi.com/trade-api/v2"
@@ -62,6 +65,10 @@ def needles() -> dict:
                 ps[pa] = ps.get(pa, 0.0) + float(e["win_probability"])
         if not ps:
             continue
+        mod = A.race_model(r)  # tilt only where the rebuild reproduces NYT (FL-13 broke it: 0.006 -> 1.000)
+        if DEM_SHIFT and mod and "D" in ps and "R" in ps and abs(A.p_dem(mod, 0) - ps["D"]) < 0.03:
+            pd = A.p_dem(mod, DEM_SHIFT)
+            ps = {"D": pd, "R": 1 - pd, "nyt_D": ps["D"]}
         d = "AL" if seat in (None, "", "0", "AL") else str(int(seat))
         out[(st, d)] = dict(ps, counted=est.get("votes_counted") or 0, updated=est.get("nyt_updated_at"),
                             call=r.get("race_call_status"))
@@ -114,6 +121,25 @@ def held(ticker: str) -> bool:
                                for x in p.get("market_positions", []) if x.get("ticker") == ticker)
 
 
+def exit_alerts(N: dict, M: list[dict], buf: float) -> None:
+    """ALERT ONLY -- user 2026-11-03: never sell without confirming. Flags held positions whose exit bid has
+    caught up with the (tilted) needle, or where the needle now sides against us."""
+    import bet as B
+    pos = {p["ticker"]: float(p.get("position_fp") or 0) for p in B.client().positions()
+           if float(p.get("position_fp") or 0) and "HOUSE" in p["ticker"]}
+    for m in M:
+        n, k = N.get(m["_key"]), pos.get(m["ticker"])
+        if not k or not n or m["_party"] not in n:
+            continue
+        p = n[m["_party"]] if k > 0 else 1 - n[m["_party"]]
+        yb, ya = f(m.get("yes_bid_dollars")), f(m.get("yes_ask_dollars"))
+        bid = yb if k > 0 else (None if ya is None else round(1 - ya, 4))
+        if bid is not None and (bid + buf >= p or p < 0.5 * bid):
+            msg = f"{m['ticker']} {'YES' if k > 0 else 'NO'} x{abs(k):g}: needle {p:.3f} vs exit bid {bid:.2f}"
+            print("  EXIT? (alert only, not selling)", msg, flush=True)
+            K.notify_once(f"needle-exit-{m['ticker']}-{round(bid, 2)}", "House needle: consider selling", msg, {})
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--live", action="store_true")
@@ -123,7 +149,11 @@ def main() -> int:
     ap.add_argument("--interval", type=int, default=60)
     ap.add_argument("--max-age-min", type=float, default=20)
     ap.add_argument("--min-counted", type=int, default=1)
+    ap.add_argument("--dem-shift", type=float, default=0.0)
+    ap.add_argument("--exit-buffer", type=float, default=0.03)
     a = ap.parse_args()
+    global DEM_SHIFT
+    DEM_SHIFT = a.dem_shift
     state = json.loads(STATE.read_text()) if STATE.exists() else {"done": {}, "staked": 0.0}
     while True:
         now = datetime.now(timezone.utc)
@@ -150,6 +180,7 @@ def main() -> int:
                 e = prob - ask
                 if e >= a.edge:
                     sigs.append((e, m, side, prob, ask, n, age))
+        exit_alerts(N, M, a.exit_buffer)
         sigs.sort(key=lambda s: -s[0])
         best = {}
         for s_ in sigs:  # one leg per race: the YES-R and NO-D legs are the same bet
