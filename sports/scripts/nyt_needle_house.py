@@ -253,11 +253,15 @@ def main() -> int:
     ap.add_argument("--min-eevp", type=float, default=0.0)
     ap.add_argument("--no-trim", action="store_true")
     ap.add_argument("--price-cap-k", type=float, default=0.4)
+    ap.add_argument("--edge-d", type=float, default=None)
+    ap.add_argument("--edge-r", type=float, default=None)
     a = ap.parse_args()
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
     global BLEND
     BLEND = a.blend
+    a.edge_d = a.edge if a.edge_d is None else a.edge_d
+    a.edge_r = a.edge if a.edge_r is None else a.edge_r
     state = json.loads(STATE.read_text()) if STATE.exists() else {"done": {}, "staked": 0.0}
     if LOG.exists():  # seed the frozen-count guard across restarts: earliest time each race sat at its last count
         for line in LOG.read_text().splitlines():
@@ -306,7 +310,9 @@ def main() -> int:
                 if ask is None or not (0.01 if called else a.min_price) <= ask <= 0.97:
                     continue  # 1-5c needle longshots lost all night (WI-1, PA-1, TX-9, CA-22): market was right
                 e = prob - ask
-                if e >= thr:
+                wins = m["_party"] if side == "yes" else ("R" if m["_party"] == "D" else "D")
+                t_ = thr if called else (a.edge_d if wins == "D" else a.edge_r)  # lean left: NYT ran R of market all night
+                if e >= t_:
                     sigs.append((e, m, side, prob, ask, n, age))
         exits(N, M, a, now)
         bk = book(N, M)
