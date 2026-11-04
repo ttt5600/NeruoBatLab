@@ -129,6 +129,28 @@ def cnn_calls() -> dict:
 _series: list[str] = []
 
 
+def poly_mids() -> dict:
+    """((ST, district), party) -> Polymarket mid. Second opinion: buy only where Polymarket also says Kalshi is cheap
+    (NYT ran ~20-40 pts R of BOTH exchanges all night and the exchanges were right)."""
+    out, off = {}, 0
+    while off < 1000:
+        ev = get(f"https://gamma-api.polymarket.com/events?tag_slug=house-elections&closed=false&limit=100&offset={off}")
+        if not ev:
+            break
+        for e in ev:
+            for m in e.get("markets") or []:
+                q = m.get("question") or ""
+                mm = re.search(r"win the ([A-Z]{2})-(\d+|AL) House seat", q)
+                pa = "R" if "Republican" in q else "D" if "Democratic" in q else None
+                bb, ba = f(m.get("bestBid")), f(m.get("bestAsk"))
+                if not mm or not pa or m.get("closed") or bb is None or ba is None or ba - bb > 0.10:
+                    continue
+                st, d = mm.groups()
+                out[((st, "AL" if d == "AL" or st in AT_LARGE else str(int(d))), pa)] = (bb + ba) / 2
+        off += 100
+    return out
+
+
 def kalshi_markets() -> list[dict]:
     global _series
     if not _series:
@@ -304,6 +326,7 @@ def main() -> int:
         now = datetime.now(timezone.utc)
         try:
             N, M = needles(), kalshi_markets()
+            PM = poly_mids()
             for ck, w in cnn_calls().items():  # CNN call where AP/NYT hasn't called yet -> treat like a call
                 if not str((N.get(ck) or {}).get("call", "")).startswith("called"):
                     lo = "R" if w == "D" else "D"
@@ -340,8 +363,13 @@ def main() -> int:
                                     ("no", blend(1 - p, yb, ya, False), None if yb is None else round(1 - yb, 4))):
                 if ask is None or not (0.01 if called else a.min_price) <= ask <= 0.97:
                     continue  # 1-5c needle longshots lost all night (WI-1, PA-1, TX-9, CA-22): market was right
-                e = prob - ask
                 wins = m["_party"] if side == "yes" else ("R" if m["_party"] == "D" else "D")
+                if not called:  # Polymarket gate: size on the lower of needle-blend and Polymarket's price
+                    pm = PM.get((m["_key"], wins))
+                    if pm is None:
+                        continue
+                    prob = min(prob, pm)
+                e = prob - ask
                 t_ = thr if called else (a.edge_d if wins == "D" else a.edge_r)  # lean left: NYT ran R of market all night
                 if e >= t_:
                     sigs.append((e, m, side, prob, ask, n, age))
