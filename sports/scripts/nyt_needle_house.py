@@ -100,6 +100,32 @@ def needles() -> dict:
     return out
 
 
+CNN = "https://politics.api.cnn.io/results/national-races/2026-HG.json"  # 20 s cache; own decision desk
+AT_LARGE = {"AK", "DE", "ND", "SD", "VT", "WY"}
+
+
+def cnn_calls() -> dict:
+    """(ST, district) -> winning party letter for races CNN has called (status W, exactly one winner)."""
+    out = {}
+    try:
+        rows = get(CNN)
+    except Exception as e:
+        print("cnn fetch error:", e, flush=True)
+        return out
+    for r in rows:
+        if r.get("status") != "W":
+            continue
+        w = [c for c in r.get("candidates") or [] if c.get("winner")]
+        if len(w) != 1 or w[0].get("candidatePartyCode") not in ("D", "R"):
+            continue
+        st = r.get("stateAbbreviation")
+        dn = str(r.get("ecKey", "")).rsplit("-", 1)[-1]
+        if not st or not dn.isdigit():
+            continue
+        out[(st, "AL" if st in AT_LARGE else str(int(dn)))] = w[0]["candidatePartyCode"]
+    return out
+
+
 _series: list[str] = []
 
 
@@ -278,6 +304,11 @@ def main() -> int:
         now = datetime.now(timezone.utc)
         try:
             N, M = needles(), kalshi_markets()
+            for ck, w in cnn_calls().items():  # CNN call where AP/NYT hasn't called yet -> treat like a call
+                if not str((N.get(ck) or {}).get("call", "")).startswith("called"):
+                    lo = "R" if w == "D" else "D"
+                    N[ck] = {w: 0.99, lo: 0.01, "counted": 10**9, "call": "called:cnn", "updated": now.isoformat()}
+                    print(f"  CNN CALL ahead of AP: {'-'.join(ck)} -> {w}", flush=True)
         except Exception as e:  # keep running through transient fetch errors
             print(now.isoformat(timespec="seconds"), "fetch error:", e, flush=True)
             time.sleep(a.interval)
