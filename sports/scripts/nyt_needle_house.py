@@ -238,6 +238,17 @@ def main() -> int:
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
     state = json.loads(STATE.read_text()) if STATE.exists() else {"done": {}, "staked": 0.0}
+    if LOG.exists():  # seed the frozen-count guard across restarts: earliest time each race sat at its last count
+        for line in LOG.read_text().splitlines():
+            try:
+                r = json.loads(line)
+                mm = SER.match(r["ticker"].rsplit("-", 2)[0])
+                ck = (mm.group(1), mm.group(2) if mm.group(2) == "AL" else str(int(mm.group(2))))
+                ts = datetime.fromisoformat(r["ts"])
+            except Exception:
+                continue
+            if "counted" in r and (ck not in SEEN or SEEN[ck][0] != r["counted"]):
+                SEEN[ck] = (r["counted"], ts)
     while True:
         now = datetime.now(timezone.utc)
         try:
