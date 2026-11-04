@@ -239,7 +239,15 @@ def book(N: dict, M: list[dict]) -> dict:
         # the blend is buy-side sizing only
         rows[m["ticker"]] = dict(m=m, k=k, kstr=kstr, basis=basis, bid=bid, yb=yb, ya=ya, dir=d, val=val, p=p)
         dirv[d] += val
-    return {"bank": cash() + sum(r["val"] for r in rows.values()), "rows": rows, "dirv": dirv}
+    # bank = cash + Kalshi's portfolio_value (ALL positions: Senate, governor, seat counts too). Cash + House-only
+    # marks read $381 on an ~$620 account at 07:18 UTC and the bucket rule dumped six favorites at the bid.
+    try:
+        import bet as B_
+        _, bal = B_.client().request("GET", "/portfolio/balance")
+        bank = float(bal["balance_dollars"]) + float(bal.get("portfolio_value") or 0) / 100
+    except Exception:
+        bank = cash() + sum(r["val"] for r in rows.values())
+    return {"bank": bank, "rows": rows, "dirv": dirv}
 
 
 def exits(N: dict, M: list[dict], a, now) -> None:
