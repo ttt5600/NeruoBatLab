@@ -74,7 +74,7 @@ def needles() -> dict:
             wp_ = PARTY.get(wp_ or next(((c.get("nyt_model_estimates") or {}).get("party_caucus") for c in
                                           t.get("candidates") or [] if c.get("nyt_id") == won[0]), None))
             if wp_:
-                d = "AL" if seat in (None, "", "0", "AL") else str(int(seat))
+                d = "AL" if seat in (None, "", "0", "AL") or st in AT_LARGE else str(int(seat))
                 lo = "R" if wp_ == "D" else "D"
                 out[(st, d)] = {wp_: 0.99, lo: 0.01, "counted": 10**9, "call": "called:" + ",".join(
                     (r.get("outcome") or {}).get("called_by") or []), "updated": r.get("updated_at", "").replace("Z", "+00:00")}
@@ -94,7 +94,7 @@ def needles() -> dict:
         if DEM_SHIFT and mod and "D" in ps and "R" in ps and abs(A.p_dem(mod, 0) - ps["D"]) < 0.03:
             pd = A.p_dem(mod, DEM_SHIFT)
             ps = {"D": pd, "R": 1 - pd, "nyt_D": ps["D"]}
-        d = "AL" if seat in (None, "", "0", "AL") else str(int(seat))
+        d = "AL" if seat in (None, "", "0", "AL") or st in AT_LARGE else str(int(seat))
         out[(st, d)] = dict(ps, counted=est.get("votes_counted") or 0, updated=est.get("nyt_updated_at"),
                             call=r.get("race_call_status"), ap_total=t.get("total_votes") or 0, eevp=t.get("eevp") or 0)
     return out
