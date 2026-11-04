@@ -142,35 +142,63 @@ def house_positions() -> dict:
             for p in B.client().positions() if float(p.get("position_fp") or 0) and "HOUSE" in p["ticker"]}
 
 
-def exits(N: dict, M: list[dict], buf: float, live: bool, now) -> None:
-    """User 2026-11-03 (after first saying confirm): "I trust you, open and sell where available". Sells the whole
-    position IOC at the bid when the bid has caught up with the (tilted) needle: bid >= p - buf."""
-    import bet as B
+BUCKET_FRAC, BUCKET_SELL_FRAC = 0.50, 0.60  # same-winner races are correlated (one NYT turnout model): cap the bucket
+
+
+def book(N: dict, M: list[dict]) -> dict:
+    """Mark held House positions at the price we could SELL at now. Returns bank (cash + marked value), per-ticker
+    rows and per-direction value (direction = the party our position needs to win)."""
     pos = house_positions()
+    rows, dirv = {}, {"D": 0.0, "R": 0.0}
     for m in M:
         if m["ticker"] not in pos:
             continue
-        k, expo, kstr = pos[m["ticker"]]
-        n = N.get(m["_key"])
-        if not n or m["_party"] not in n:
-            continue
-        p = n[m["_party"]] if k > 0 else 1 - n[m["_party"]]
+        k, basis, kstr = pos[m["ticker"]]
         yb, ya = f(m.get("yes_bid_dollars")), f(m.get("yes_ask_dollars"))
         bid = yb if k > 0 else (None if ya is None else round(1 - ya, 4))
-        if bid is None or bid < 0.02 or bid + buf < p:
+        d = m["_party"] if k > 0 else ("R" if m["_party"] == "D" else "D")
+        val = abs(k) * (bid or 0.0)
+        n = N.get(m["_key"])
+        p = None if not n or m["_party"] not in n else (n[m["_party"]] if k > 0 else 1 - n[m["_party"]])
+        rows[m["ticker"]] = dict(m=m, k=k, kstr=kstr, basis=basis, bid=bid, yb=yb, ya=ya, dir=d, val=val, p=p)
+        dirv[d] += val
+    return {"bank": cash() + sum(r["val"] for r in rows.values()), "rows": rows, "dirv": dirv}
+
+
+def exits(N: dict, M: list[dict], a, now) -> None:
+    """Risk-adjusted selling (user 2026-11-03: "risk adjust when considering selling"). Each position is trimmed to its
+    quarter-Kelly target AT THE BID; target 0 when bid >= needle - buffer (edge gone) -> sell all; and a same-winner
+    bucket above 60% of bank is scaled back to 50%. Buys size at the ask, so buy target < sell target: no churn."""
+    import bet as B
+    bk = book(N, M)
+    bank = bk["bank"]
+    for t, r in bk["rows"].items():
+        p, bid = r["p"], r["bid"]
+        if p is None or bid is None or bid < 0.02:
             continue
-        cnt = kstr.lstrip("-")
-        body = {"ticker": m["ticker"], "side": "ask" if k > 0 else "bid", "count": cnt,
-                "price": f"{(yb if k > 0 else ya):.2f}", "time_in_force": "immediate_or_cancel",
-                "self_trade_prevention_type": "taker_at_cross", "client_order_id": f"needle-exit-{now.strftime('%H%M%S')}-{m['ticker']}"[:60]}
-        row = dict(ts=now.isoformat(timespec="seconds"), event="exit", ticker=m["ticker"], held=k, needle=round(p, 4),
-                   exit_bid=bid, cost_basis=expo)
-        if live:
+        target = 0.0 if bid + a.exit_buffer >= p else min(RACE_CAP_FRAC * bank, a.kelly * kelly(p, bid) * bank)
+        dv = bk["dirv"][r["dir"]]
+        if dv > BUCKET_SELL_FRAC * bank:
+            target = min(target, r["val"] * BUCKET_FRAC * bank / dv)
+        excess = r["val"] - target
+        if target > 0 and excess < max(3.0, 0.2 * r["val"]):
+            continue
+        cnt = r["kstr"].lstrip("-") if target == 0 else str(int(excess / bid))
+        if float(cnt) < 1:
+            continue
+        m, k = r["m"], r["k"]
+        body = {"ticker": t, "side": "ask" if k > 0 else "bid", "count": cnt,
+                "price": f"{(r['yb'] if k > 0 else r['ya']):.2f}", "time_in_force": "immediate_or_cancel",
+                "self_trade_prevention_type": "taker_at_cross", "client_order_id": f"needle-exit-{now.strftime('%H%M%S')}-{t}"[:60]}
+        why = "edge gone" if target == 0 else ("bucket" if dv > BUCKET_SELL_FRAC * bank else "over kelly")
+        row = dict(ts=now.isoformat(timespec="seconds"), event="exit", ticker=t, held=k, sell=cnt, why=why,
+                   needle=round(p, 4), exit_bid=bid, value=round(r["val"], 2), target=round(target, 2), bank=round(bank, 2))
+        if a.live:
             code, out = B.client().create_order(body)
             o = (out or {}).get("order", out) or {}
             row.update(http=code, order_id=o.get("order_id"), fill=o.get("fill_count_fp", o.get("fill_count")))
-        print(f"  EXIT {'LIVE' if live else 'DRY'} {m['ticker']} {'YES' if k > 0 else 'NO'} x{cnt} @ {bid:.2f} "
-              f"(needle {p:.3f}, basis ${expo:.2f}) -> {row.get('http')} fill {row.get('fill')}", flush=True)
+        print(f"  SELL {'LIVE' if a.live else 'DRY'} {t} {'YES' if k > 0 else 'NO'} x{cnt}/{abs(k):g} @ {bid:.2f} [{why}] "
+              f"needle {p:.3f} value ${r['val']:.2f} -> target ${target:.2f} -> {row.get('http')} fill {row.get('fill')}", flush=True)
         with LOG.open("a") as fh:
             fh.write(json.dumps(row) + "\n")
 
@@ -235,7 +263,8 @@ def main() -> int:
                 e = prob - ask
                 if e >= thr:
                     sigs.append((e, m, side, prob, ask, n, age))
-        exits(N, M, a.exit_buffer, a.live, now)
+        exits(N, M, a, now)
+        bk = book(N, M)
         pos = house_positions()
         held_races = {m["_key"]: m["ticker"] for m in M if m["ticker"] in pos}
         sigs.sort(key=lambda s: -s[0])
@@ -253,17 +282,18 @@ def main() -> int:
                 continue
             row = dict(ts=now.isoformat(timespec="seconds"), ticker=m["ticker"], side=side, needle=round(prob, 4),
                        ask=ask, edge=round(e, 4), counted=n["counted"], call=n.get("call"), age_min=round(age, 1))
-            if bank is None:
-                expo_all = sum(v[1] for v in pos.values())
-                bank = cash() + expo_all
-            have = hk[1] if hk else 0.0
-            room = TOTAL_CAP_FRAC * bank - sum(v[1] for v in pos.values())
+            bank = bk["bank"]
+            have = bk["rows"][m["ticker"]]["val"] if m["ticker"] in bk["rows"] else 0.0  # marked, same basis as sells
+            d = m["_party"] if side == "yes" else ("R" if m["_party"] == "D" else "D")
+            room = min(TOTAL_CAP_FRAC * bank - sum(r["val"] for r in bk["rows"].values()),
+                       BUCKET_FRAC * bank - bk["dirv"][d])
             stake = min(RACE_CAP_FRAC * bank, a.kelly * kelly(prob, ask) * bank) - have
             stake = min(stake, room)
             row["stake"] = round(stake, 2)
             print(f"  SIGNAL {m['ticker']} {side.upper()} needle {prob:.3f} ask {ask:.2f} edge {e:+.2f} "
                   f"counted {n['counted']} age {age:.0f}m -> ${stake:.2f}", flush=True)
             if stake < 2.0:
+                bk["dirv"][d] += 0
                 row["action"] = "too_small"
             else:
                 # sweep the book: the limit is the worst price that still clears the entry edge (thin books, IOC)
@@ -275,6 +305,7 @@ def main() -> int:
                 r = subprocess.run(cmd, capture_output=True, text=True)
                 row["action"], row["bet_out"] = ("live" if a.live else "dry"), (r.stdout + r.stderr).strip()[-400:]
                 print("   ", row["bet_out"], flush=True)
+                bk["dirv"][d] += stake  # later signals this pass see the bucket fill
                 if a.live and "placed" in r.stdout and held(m["ticker"]):
                     state["done"][key] = row
                     state["staked"] += stake
