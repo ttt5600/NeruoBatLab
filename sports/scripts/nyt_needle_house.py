@@ -266,8 +266,10 @@ def main() -> int:
             if stake < 2.0:
                 row["action"] = "too_small"
             else:
+                # sweep the book: the limit is the worst price that still clears the entry edge (thin books, IOC)
+                lim = max(ask, min(0.97, round(prob - (a.call_edge if str(n.get("call", "")).startswith("called") else a.edge), 2)))
                 cmd = [sys.executable, str(HERE / "bet.py"), "place", m["ticker"], side, "--units", f"{stake / 50:.4f}",
-                       "--price", f"{ask:.2f}", "--taker", "--tier", "E", "--strategy", "nyt_needle_house"]
+                       "--price", f"{lim:.2f}", "--taker", "--tier", "E", "--strategy", "nyt_needle_house"]
                 if not a.live:
                     cmd.append("--dry")
                 r = subprocess.run(cmd, capture_output=True, text=True)
