@@ -323,6 +323,7 @@ def main() -> int:
     ap.add_argument("--exit-buffer", type=float, default=0.03)
     ap.add_argument("--frozen-min", type=float, default=20)
     ap.add_argument("--max-ap-lag", type=float, default=0.05)
+    ap.add_argument("--poly-gate", action="store_true")  # off = trust a FRESH NYT count over the exchanges (CO-3, AK)
     ap.add_argument("--min-price", type=float, default=0.08)
     ap.add_argument("--blend", type=float, default=1.0)
     ap.add_argument("--stop-bank", type=float, default=0.0)
@@ -392,7 +393,7 @@ def main() -> int:
                 if ask is None or not (0.01 if called else a.min_price) <= ask <= 0.97:
                     continue  # 1-5c needle longshots lost all night (WI-1, PA-1, TX-9, CA-22): market was right
                 wins = m["_party"] if side == "yes" else ("R" if m["_party"] == "D" else "D")
-                if not called:  # Polymarket gate: size on the lower of needle-blend and Polymarket's price
+                if not called and a.poly_gate:  # optional: size on the lower of needle-blend and Polymarket's price
                     pm = PM.get((m["_key"], wins))
                     if pm is None:
                         continue
