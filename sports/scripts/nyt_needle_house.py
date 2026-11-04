@@ -248,6 +248,7 @@ def main() -> int:
     ap.add_argument("--max-ap-lag", type=float, default=0.05)
     ap.add_argument("--min-price", type=float, default=0.08)
     ap.add_argument("--blend", type=float, default=1.0)
+    ap.add_argument("--stop-bank", type=float, default=0.0)
     a = ap.parse_args()
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
@@ -311,6 +312,9 @@ def main() -> int:
             best.setdefault(s_[1]["_key"], s_)
         sigs = list(best.values())
         print(f"{now.isoformat(timespec='seconds')} needles={len(N)} kalshi={len(M)} signals={len(sigs)}", flush=True)
+        if bk["bank"] < a.stop_bank:  # drawdown stop: no new buys, sells/trims above still run
+            print(f"  DRAWDOWN STOP: bank ${bk['bank']:.2f} < ${a.stop_bank:.0f} -- no new buys", flush=True)
+            sigs = []
         for e, m, side, prob, ask, n, age in sigs:
             key = "-".join(m["_key"])
             if m["_key"] in held_races and held_races[m["_key"]] != m["ticker"]:
