@@ -25,7 +25,16 @@ import kalshi_exec as K  # noqa: E402
 import needle_adj as A  # noqa: E402
 
 SEEN: dict = {}  # race -> (votes_counted, first time seen at that count)
-DEM_SHIFT = 0.0  # set from --dem-shift; added to the projected Dem margin (blue-wave tilt, judgment)
+DEM_SHIFT = 0.0
+BLEND = 1.0  # weight on the needle; rest on the market mid (user 2026-11-03: $50 on 2c contracts -> be careful)
+
+
+def blend(p: float, yb, ya, yes: bool) -> float:
+    """Shrink the needle toward the market mid: the stale-needle longshots showed the model can be badly wrong."""
+    if yb is None or ya is None:
+        return p
+    mid = (yb + ya) / 2 if yes else 1 - (yb + ya) / 2
+    return BLEND * p + (1 - BLEND) * mid  # set from --dem-shift; added to the projected Dem margin (blue-wave tilt, judgment)
 
 NYT = "https://static01.nyt.com/elections-assets/pages/data/2026-11-03/results-house.json"
 KB = "https://api.elections.kalshi.com/trade-api/v2"
@@ -161,6 +170,8 @@ def book(N: dict, M: list[dict]) -> dict:
         val = abs(k) * (bid or 0.0)
         n = N.get(m["_key"])
         p = None if not n or m["_party"] not in n else (n[m["_party"]] if k > 0 else 1 - n[m["_party"]])
+        if p is not None:
+            p = blend(p, yb, ya, k > 0)
         rows[m["ticker"]] = dict(m=m, k=k, kstr=kstr, basis=basis, bid=bid, yb=yb, ya=ya, dir=d, val=val, p=p)
         dirv[d] += val
     return {"bank": cash() + sum(r["val"] for r in rows.values()), "rows": rows, "dirv": dirv}
@@ -236,9 +247,12 @@ def main() -> int:
     ap.add_argument("--frozen-min", type=float, default=20)
     ap.add_argument("--max-ap-lag", type=float, default=0.05)
     ap.add_argument("--min-price", type=float, default=0.08)
+    ap.add_argument("--blend", type=float, default=1.0)
     a = ap.parse_args()
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
+    global BLEND
+    BLEND = a.blend
     state = json.loads(STATE.read_text()) if STATE.exists() else {"done": {}, "staked": 0.0}
     if LOG.exists():  # seed the frozen-count guard across restarts: earliest time each race sat at its last count
         for line in LOG.read_text().splitlines():
@@ -280,7 +294,8 @@ def main() -> int:
             thr = a.call_edge if called else a.edge
             p = n[m["_party"]]
             ya, yb = f(m.get("yes_ask_dollars")), f(m.get("yes_bid_dollars"))
-            for side, prob, ask in (("yes", p, ya), ("no", 1 - p, None if yb is None else round(1 - yb, 4))):
+            for side, prob, ask in (("yes", blend(p, yb, ya, True), ya),
+                                    ("no", blend(1 - p, yb, ya, False), None if yb is None else round(1 - yb, 4))):
                 if ask is None or not (0.01 if called else a.min_price) <= ask <= 0.97:
                     continue  # 1-5c needle longshots lost all night (WI-1, PA-1, TX-9, CA-22): market was right
                 e = prob - ask
