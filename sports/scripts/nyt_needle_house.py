@@ -31,7 +31,8 @@ KB = "https://api.elections.kalshi.com/trade-api/v2"
 SER = re.compile(r"^(?:KX)?HOUSE(?:PARTY-)?([A-Z]{2})-?(\d{1,2}|AL)$")
 STATE = K.DEPLOY / "data" / "nyt_needle_house_state.json"
 LOG = K.DEPLOY / "data" / "nyt_needle_house_log.jsonl"
-TIER_C_CAP = 12.50
+RACE_CAP_FRAC = 0.06   # max cost basis per race, of bankroll (user 2026-11-03: +$500, "work with that")
+TOTAL_CAP_FRAC = 0.60  # max total House cost basis, of bankroll
 PARTY = {"DEM": "D", "GOP": "R", "REP": "R"}
 
 
@@ -54,7 +55,21 @@ def needles() -> dict:
     for r in get(NYT)["races"]:
         t = r.get("top_reporting_unit") or {}
         st, seat = t.get("state_postal"), r.get("seat_number")
-        if not st or (r.get("model_settings") or {}).get("model_status") != "active":
+        if not st:
+            continue
+        won = (r.get("outcome") or {}).get("won") or []
+        if r.get("race_call_status") == "called" and len(won) == 1:  # AP call: Kalshi often lags it by minutes
+            cm = r.get("candidate_metadata") or {}
+            wp_ = ((cm.get(won[0]) or {}).get("party") or {}).get("nyt_id")
+            wp_ = PARTY.get(wp_ or next(((c.get("nyt_model_estimates") or {}).get("party_caucus") for c in
+                                          t.get("candidates") or [] if c.get("nyt_id") == won[0]), None))
+            if wp_:
+                d = "AL" if seat in (None, "", "0", "AL") else str(int(seat))
+                lo = "R" if wp_ == "D" else "D"
+                out[(st, d)] = {wp_: 0.99, lo: 0.01, "counted": 10**9, "call": "called:" + ",".join(
+                    (r.get("outcome") or {}).get("called_by") or []), "updated": r.get("updated_at", "").replace("Z", "+00:00")}
+                continue
+        if (r.get("model_settings") or {}).get("model_status") != "active":
             continue
         est = t.get("nyt_model_estimates") or {}
         ps = {}
@@ -121,9 +136,46 @@ def held(ticker: str) -> bool:
                                for x in p.get("market_positions", []) if x.get("ticker") == ticker)
 
 
+def house_positions() -> dict:
+    import bet as B
+    return {p["ticker"]: (float(p.get("position_fp") or 0), float(p.get("market_exposure_dollars") or 0), p.get("position_fp"))
+            for p in B.client().positions() if float(p.get("position_fp") or 0) and "HOUSE" in p["ticker"]}
+
+
+def exits(N: dict, M: list[dict], buf: float, live: bool, now) -> None:
+    """User 2026-11-03 (after first saying confirm): "I trust you, open and sell where available". Sells the whole
+    position IOC at the bid when the bid has caught up with the (tilted) needle: bid >= p - buf."""
+    import bet as B
+    pos = house_positions()
+    for m in M:
+        if m["ticker"] not in pos:
+            continue
+        k, expo, kstr = pos[m["ticker"]]
+        n = N.get(m["_key"])
+        if not n or m["_party"] not in n:
+            continue
+        p = n[m["_party"]] if k > 0 else 1 - n[m["_party"]]
+        yb, ya = f(m.get("yes_bid_dollars")), f(m.get("yes_ask_dollars"))
+        bid = yb if k > 0 else (None if ya is None else round(1 - ya, 4))
+        if bid is None or bid < 0.02 or bid + buf < p:
+            continue
+        cnt = kstr.lstrip("-")
+        body = {"ticker": m["ticker"], "side": "ask" if k > 0 else "bid", "count": cnt,
+                "price": f"{(yb if k > 0 else ya):.2f}", "time_in_force": "immediate_or_cancel",
+                "self_trade_prevention_type": "taker_at_cross", "client_order_id": f"needle-exit-{now.strftime('%H%M%S')}-{m['ticker']}"[:60]}
+        row = dict(ts=now.isoformat(timespec="seconds"), event="exit", ticker=m["ticker"], held=k, needle=round(p, 4),
+                   exit_bid=bid, cost_basis=expo)
+        if live:
+            code, out = B.client().create_order(body)
+            o = (out or {}).get("order", out) or {}
+            row.update(http=code, order_id=o.get("order_id"), fill=o.get("fill_count_fp", o.get("fill_count")))
+        print(f"  EXIT {'LIVE' if live else 'DRY'} {m['ticker']} {'YES' if k > 0 else 'NO'} x{cnt} @ {bid:.2f} "
+              f"(needle {p:.3f}, basis ${expo:.2f}) -> {row.get('http')} fill {row.get('fill')}", flush=True)
+        with LOG.open("a") as fh:
+            fh.write(json.dumps(row) + "\n")
+
+
 def exit_alerts(N: dict, M: list[dict], buf: float) -> None:
-    """ALERT ONLY -- user 2026-11-03: never sell without confirming. Flags held positions whose exit bid has
-    caught up with the (tilted) needle, or where the needle now sides against us."""
     import bet as B
     pos = {p["ticker"]: float(p.get("position_fp") or 0) for p in B.client().positions()
            if float(p.get("position_fp") or 0) and "HOUSE" in p["ticker"]}
@@ -150,6 +202,7 @@ def main() -> int:
     ap.add_argument("--max-age-min", type=float, default=20)
     ap.add_argument("--min-counted", type=int, default=1)
     ap.add_argument("--dem-shift", type=float, default=0.0)
+    ap.add_argument("--call-edge", type=float, default=0.05)  # AP-called races: winner at 0.99
     ap.add_argument("--exit-buffer", type=float, default=0.03)
     a = ap.parse_args()
     global DEM_SHIFT
@@ -170,17 +223,21 @@ def main() -> int:
             if not n or m["_party"] not in n:
                 continue
             age = (now - datetime.fromisoformat(n["updated"])).total_seconds() / 60 if n.get("updated") else 1e9
-            if age > a.max_age_min or n["counted"] < a.min_counted:
+            called = str(n.get("call", "")).startswith("called")
+            if not called and (age > a.max_age_min or n["counted"] < a.min_counted):
                 continue
+            thr = a.call_edge if called else a.edge
             p = n[m["_party"]]
             ya, yb = f(m.get("yes_ask_dollars")), f(m.get("yes_bid_dollars"))
             for side, prob, ask in (("yes", p, ya), ("no", 1 - p, None if yb is None else round(1 - yb, 4))):
                 if ask is None or not 0.01 <= ask <= 0.97:
                     continue
                 e = prob - ask
-                if e >= a.edge:
+                if e >= thr:
                     sigs.append((e, m, side, prob, ask, n, age))
-        exit_alerts(N, M, a.exit_buffer)
+        exits(N, M, a.exit_buffer, a.live, now)
+        pos = house_positions()
+        held_races = {m["_key"]: m["ticker"] for m in M if m["ticker"] in pos}
         sigs.sort(key=lambda s: -s[0])
         best = {}
         for s_ in sigs:  # one leg per race: the YES-R and NO-D legs are the same bet
@@ -189,21 +246,28 @@ def main() -> int:
         print(f"{now.isoformat(timespec='seconds')} needles={len(N)} kalshi={len(M)} signals={len(sigs)}", flush=True)
         for e, m, side, prob, ask, n, age in sigs:
             key = "-".join(m["_key"])
+            if m["_key"] in held_races and held_races[m["_key"]] != m["ticker"]:
+                continue  # never hold both legs of one race
+            hk = pos.get(m["ticker"])
+            if hk and (hk[0] > 0) != (side == "yes"):
+                continue
             row = dict(ts=now.isoformat(timespec="seconds"), ticker=m["ticker"], side=side, needle=round(prob, 4),
                        ask=ask, edge=round(e, 4), counted=n["counted"], call=n.get("call"), age_min=round(age, 1))
-            if key in state["done"]:
-                continue
             if bank is None:
-                bank = cash() + state["staked"]
-            stake = min(TIER_C_CAP, a.kelly * kelly(prob, ask) * bank)
+                expo_all = sum(v[1] for v in pos.values())
+                bank = cash() + expo_all
+            have = hk[1] if hk else 0.0
+            room = TOTAL_CAP_FRAC * bank - sum(v[1] for v in pos.values())
+            stake = min(RACE_CAP_FRAC * bank, a.kelly * kelly(prob, ask) * bank) - have
+            stake = min(stake, room)
             row["stake"] = round(stake, 2)
             print(f"  SIGNAL {m['ticker']} {side.upper()} needle {prob:.3f} ask {ask:.2f} edge {e:+.2f} "
                   f"counted {n['counted']} age {age:.0f}m -> ${stake:.2f}", flush=True)
-            if stake < 1.0:
+            if stake < 2.0:
                 row["action"] = "too_small"
             else:
                 cmd = [sys.executable, str(HERE / "bet.py"), "place", m["ticker"], side, "--units", f"{stake / 50:.4f}",
-                       "--price", f"{ask:.2f}", "--taker", "--tier", "C", "--strategy", "nyt_needle_house"]
+                       "--price", f"{ask:.2f}", "--taker", "--tier", "E", "--strategy", "nyt_needle_house"]
                 if not a.live:
                     cmd.append("--dry")
                 r = subprocess.run(cmd, capture_output=True, text=True)

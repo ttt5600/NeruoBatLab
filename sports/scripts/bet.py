@@ -567,7 +567,7 @@ def main(argv: list[str]) -> int:
     pl.add_argument("--units", type=float)
     pl.add_argument("--contracts", type=int)
     pl.add_argument("--price", type=float)
-    pl.add_argument("--tier", choices=["A", "B", "C"], default="C")
+    pl.add_argument("--tier", choices=["A", "B", "C", "E"], default="C")  # E = election-night needle bot, caps in nyt_needle_house.py
     pl.add_argument("--strategy", default="judgment")
     pl.add_argument("--taker", action="store_true")
     pl.add_argument("--expire")
