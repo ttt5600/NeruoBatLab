@@ -96,7 +96,7 @@ def needles() -> dict:
             ps = {"D": pd, "R": 1 - pd, "nyt_D": ps["D"]}
         d = "AL" if seat in (None, "", "0", "AL") else str(int(seat))
         out[(st, d)] = dict(ps, counted=est.get("votes_counted") or 0, updated=est.get("nyt_updated_at"),
-                            call=r.get("race_call_status"), ap_total=t.get("total_votes") or 0)
+                            call=r.get("race_call_status"), ap_total=t.get("total_votes") or 0, eevp=t.get("eevp") or 0)
     return out
 
 
@@ -193,7 +193,7 @@ def exits(N: dict, M: list[dict], a, now) -> None:
         if dv > BUCKET_SELL_FRAC * bank:
             target = min(target, r["val"] * BUCKET_FRAC * bank / dv)
         excess = r["val"] - target
-        if target > 0 and (excess < max(3.0, 0.2 * r["val"]) or bid < 0.05):
+        if target > 0 and (excess < max(5.0, 0.3 * r["val"]) or bid < 0.05):  # $46.69 fees by 04:55: churn
             continue  # trimming a 1-2c position only pays the spread: hold it
         cnt = r["kstr"].lstrip("-") if target == 0 else str(int(excess / bid))
         if float(cnt) < 1:
@@ -249,6 +249,7 @@ def main() -> int:
     ap.add_argument("--min-price", type=float, default=0.08)
     ap.add_argument("--blend", type=float, default=1.0)
     ap.add_argument("--stop-bank", type=float, default=0.0)
+    ap.add_argument("--min-eevp", type=float, default=0.0)
     a = ap.parse_args()
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
@@ -291,6 +292,8 @@ def main() -> int:
                 continue
             ap_tot = n.get("ap_total") or 0  # model behind the AP count = the market knows more (CA-22: 62% lag)
             if not called and ap_tot and (ap_tot - n["counted"]) / ap_tot > a.max_ap_lag:
+                continue
+            if not called and (n.get("eevp") or 0) < a.min_eevp:  # early needle = mostly NYT's prior (MT-1 at 6%)
                 continue
             thr = a.call_edge if called else a.edge
             p = n[m["_party"]]
