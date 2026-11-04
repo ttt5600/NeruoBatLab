@@ -176,6 +176,15 @@ def kalshi_markets() -> list[dict]:
     return ms
 
 
+def iso(t: str) -> datetime:
+    """fromisoformat that takes any fraction length (py3.10 rejects '06:52:35.75+00:00' from NYT/CNN)."""
+    t = t.replace("Z", "+00:00")
+    m = re.match(r"(.*T\d\d:\d\d:\d\d)(?:\.(\d+))?(.*)$", t)
+    if m:
+        t = m.group(1) + ("." + (m.group(2) + "000000")[:6] if m.group(2) else "") + m.group(3)
+    return datetime.fromisoformat(t)
+
+
 def f(x):
     try:
         return float(x)
@@ -328,7 +337,7 @@ def main() -> int:
                 r = json.loads(line)
                 mm = SER.match(r["ticker"].rsplit("-", 2)[0])
                 ck = (mm.group(1), mm.group(2) if mm.group(2) == "AL" else str(int(mm.group(2))))
-                ts = datetime.fromisoformat(r["ts"])
+                ts = iso(r["ts"])
             except Exception:
                 continue
             if "counted" in r and (ck not in SEEN or SEEN[ck][0] != r["counted"]):
@@ -353,7 +362,7 @@ def main() -> int:
             n = N.get(m["_key"])
             if not n or m["_party"] not in n:
                 continue
-            age = (now - datetime.fromisoformat(n["updated"])).total_seconds() / 60 if n.get("updated") else 1e9
+            age = (now - iso(n["updated"])).total_seconds() / 60 if n.get("updated") else 1e9
             called = str(n.get("call", "")).startswith("called")
             if not called and (age > a.max_age_min or n["counted"] < a.min_counted):
                 continue
