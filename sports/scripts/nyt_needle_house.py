@@ -252,6 +252,7 @@ def main() -> int:
     ap.add_argument("--stop-bank", type=float, default=0.0)
     ap.add_argument("--min-eevp", type=float, default=0.0)
     ap.add_argument("--no-trim", action="store_true")
+    ap.add_argument("--price-cap-k", type=float, default=0.4)
     a = ap.parse_args()
     global DEM_SHIFT
     DEM_SHIFT = a.dem_shift
@@ -334,7 +335,8 @@ def main() -> int:
             d = m["_party"] if side == "yes" else ("R" if m["_party"] == "D" else "D")
             room = min(TOTAL_CAP_FRAC * bank - sum(r["val"] for r in bk["rows"].values()),
                        BUCKET_FRAC * bank - bk["dirv"][d])
-            stake = min(RACE_CAP_FRAC * bank, a.kelly * kelly(prob, ask) * bank) - have
+            # price-scaled cap (user: "$50 on 1 cent" is wrong): <= price_cap_k * price of bank -> 1c ~$3, 10c ~$30
+            stake = min(RACE_CAP_FRAC * bank, a.price_cap_k * ask * bank, a.kelly * kelly(prob, ask) * bank) - have
             stake = min(stake, room)
             row["stake"] = round(stake, 2)
             print(f"  SIGNAL {m['ticker']} {side.upper()} needle {prob:.3f} ask {ask:.2f} edge {e:+.2f} "
