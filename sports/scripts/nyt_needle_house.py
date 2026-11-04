@@ -31,8 +31,8 @@ KB = "https://api.elections.kalshi.com/trade-api/v2"
 SER = re.compile(r"^(?:KX)?HOUSE(?:PARTY-)?([A-Z]{2})-?(\d{1,2}|AL)$")
 STATE = K.DEPLOY / "data" / "nyt_needle_house_state.json"
 LOG = K.DEPLOY / "data" / "nyt_needle_house_log.jsonl"
-RACE_CAP_FRAC = 0.06   # max cost basis per race, of bankroll (user 2026-11-03: +$500, "work with that")
-TOTAL_CAP_FRAC = 0.60  # max total House cost basis, of bankroll
+RACE_CAP_FRAC = 0.20   # user 2026-11-03: quarter Kelly, "use up all the potential cash"; 20% = single-race sanity cap
+TOTAL_CAP_FRAC = 0.95  # max total House cost basis, of bankroll
 PARTY = {"DEM": "D", "GOP": "R", "REP": "R"}
 
 
