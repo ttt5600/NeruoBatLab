@@ -166,6 +166,13 @@ def kalshi_markets() -> list[dict]:
                 m["_key"], m["_party"] = (st, d), suf
                 ms.append(m)
         time.sleep(0.15)
+    # KXHOUSERACE-{ST}{NN}-26-{D|R}: ~60 districts with no per-district series (missed until 06:55 UTC)
+    for m in get(f"{KB}/markets?series_ticker=KXHOUSERACE&status=open&limit=500").get("markets", []):
+        g = re.match(r"KXHOUSERACE-([A-Z]{2})(\d{2}|AL)-26-(D|R)$", m["ticker"])
+        if g:
+            st, d, pa = g.groups()
+            m["_key"], m["_party"] = (st, "AL" if d == "AL" or st in AT_LARGE else str(int(d))), pa
+            ms.append(m)
     return ms
 
 
