@@ -84,6 +84,26 @@ def cmd_approve(a, reg):
     t = report.resolve(reg, a.strategy)
     ap = ladder.UserApproval.make(a.by, note=a.note or "")
     if a.size is not None and not a.to:
+        f = report.latest(reg, t["trial_id"], "forward") or {}
+        if not f.get("forward_eligible_for_user"):
+            # GOAL.md rule 6 amendment (2026-11-05): one early step <= 2x for a forward_paper strategy with a kill set
+            ev = reg.events()
+            prior = [e for e in ev if e["event"] == "user_approval" and e["trial_id"] == t["trial_id"]
+                     and e.get("size") is not None]
+            has_kill = any(e["event"] == "preset_kill" and e["trial_id"] == t["trial_id"] for e in ev)
+            why = []
+            if reg.state(t["trial_id"]) != "forward_paper":
+                why.append(f"state {reg.state(t['trial_id'])} (needs forward_paper)")
+            if not has_kill:
+                why.append("no pre-set kill (edgelab setkill)")
+            if prior:
+                why.append(f"early size step already used ({prior[-1]['size']}x)")
+            if not 0 < a.size <= ladder.EARLY_SIZE_MAX:
+                why.append(f"size {a.size} > early max {ladder.EARLY_SIZE_MAX}")
+            if why:
+                print(f"refused: before {ladder.FORWARD_MIN_N} eligible forward bets only one early step "
+                      f"<= {ladder.EARLY_SIZE_MAX}x is allowed: " + "; ".join(why))
+                return 1
         reg.append({"event": "user_approval", "trial_id": t["trial_id"], "size": a.size,
                     "approval": {"by": ap.by, "when": ap.when, "note": ap.note}})
         print(f"size {a.size} recorded for {t['trial_id']} by {ap.by} at {ap.when}")

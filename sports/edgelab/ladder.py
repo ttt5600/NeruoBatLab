@@ -7,7 +7,9 @@ Who may move what:
   * evaluate(): registered->dev_pass|dead, dev_pass->sealed_pass|dead, sealed_pass->forward_paper,
     forward_paper->dead (pre-set kill). Nothing else.
   * the user, through `edgelab approve --user-approved --by <name>`: forward_paper->live_small, live_small->live,
-    and size changes. Requires forward eligibility (>= 100 forward bets passing rule 5 on forward data alone).
+    and size changes. Requires forward eligibility (>= 100 forward bets passing rule 5 on forward data alone),
+    except ONE early size step <= EARLY_SIZE_MAX for a forward_paper strategy with a pre-set kill (GOAL.md rule 6
+    amendment, user 2026-11-05).
   * anyone: -> dead (retire).
 A needs_audit verdict never moves a trial; it is recorded on the evaluation and blocks the next step.
 """
@@ -23,6 +25,7 @@ EVALUATE_EDGES = {("registered", "dev_pass"), ("registered", "dead"), ("dev_pass
 USER_EDGES = {("forward_paper", "live_small"), ("live_small", "live")}
 USER_ONLY_TARGETS = {"live_small", "live"}
 FORWARD_MIN_N = 100
+EARLY_SIZE_MAX = 2.0   # GOAL.md rule 6 amendment 2026-11-05: one early size step, at most 2x
 
 
 class LadderError(RuntimeError):

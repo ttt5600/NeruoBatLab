@@ -129,6 +129,8 @@ def config(e: dict) -> dict:
             # 2026-11-03 (user): KALSHI_COHORTS=orig7 pauses X1 (edgelab: E4-X1 dead); KALSHI_ORIG7_FRAC sizes orig7
             "cohorts": {c.strip() for c in e.get("KALSHI_COHORTS", "orig7,x1").split(",") if c.strip()},
             "orig7_frac": f("KALSHI_ORIG7_FRAC", TIER_FRAC["orig7"]),
+            # 2026-11-05 (user, edgelab early 2x step): day/open share of bankroll; loss stops unchanged
+            "night_frac": f("KALSHI_NIGHT_FRAC", NIGHT_FRAC),
             "exec_style": _style(e.get("KALSHI_EXEC_STYLE", "taker")), "ab": e.get("KALSHI_AB", "0") == "1"}
 
 
@@ -171,8 +173,9 @@ def caps(cfg: dict, cohort: str | None = None) -> dict:
     b = cfg["bankroll"]
     frac = cfg.get("orig7_frac", TIER_FRAC["orig7"]) if cohort == "orig7" else TIER_FRAC.get(cohort or "x1", 0.005)
     order = cfg["max_order"] if b is None else min(cfg["max_order"], frac * b)
-    day = cfg["max_day"] if b is None else min(cfg["max_day"], NIGHT_FRAC * b)
-    opn = cfg["max_open"] if b is None else min(cfg["max_open"], NIGHT_FRAC * b)
+    nf = cfg.get("night_frac", NIGHT_FRAC)
+    day = cfg["max_day"] if b is None else min(cfg["max_day"], nf * b)
+    opn = cfg["max_open"] if b is None else min(cfg["max_open"], nf * b)
     return {"order": order, "day": day, "open": opn}
 
 

@@ -30,6 +30,9 @@ never the verdict.
    live. `forward_paper` -> `live_small` needs >= 100 forward bets passing rule 5 on forward data alone. Only the user
    moves anything to `live_small`/`live` or changes size. The daily ticket lists only strategies at >= forward_paper
    (labelled PAPER) and says so.
+   **Amendment (user, 2026-11-05):** before 100 forward bets, the user may approve ONE size step of at most 2x for a
+   strategy at forward_paper (so it passed sealed) that already trades live and has a pre-set kill (rule 7). Any
+   further size step still needs the 100 forward bets. edgelab enforces this (`approve --size`).
 7. **Kill rules are code too:** each forward strategy has a pre-set kill (e.g. CLV < 0 with p < .05 after 100 bets).
 8. **The harness tests itself.** Placebo strategies (random sides, shuffled signals) are run through the same pipeline;
    their false-pass rate must be <= alpha. Golden cases must reproduce: E1 weather consensus-reject = sealed pass;
