@@ -140,6 +140,8 @@ All report commands run as `cd ~/.claude/quant-kalshi && .venv/bin/python script
 ---------------------------------------------------------------------------------------------------------------------
 ## 3. EDGE REGISTRY
 
+**11-05: what to actually bet now (tiers A/B/C, stakes, pre-set kills) -> notes/ACT_LIST.md.**
+
 Status words: PASSED SEALED = dev pass then one-shot sealed pass on the user's yes (the only real edges). PAPER = running
 forward, no money. LEAD = dev/descriptive signal not past the bar, or awaiting a PM decision. DEAD = failed; do not
 redo without a new mechanism. "dev" = development-period backtest; "sealed" = lockbox, scored once.

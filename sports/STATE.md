@@ -1,3 +1,7 @@
+## 2026-11-05 -- ACT LIST: notes/ACT_LIST.md (user: "add edges even if not 100%, act on something"). Tier A = E4 only
+## (edgelab). Tier B judgment-size leads w/ pre-set kills: L39 monthly rain NO maker (Nov 24-30), DUL NFL div unders wk10
+## (11-12..16), F1 early-form, TSA maker $1. Dropped on forward data: props, L32, Q004, L34 ML, L40b, Q008.
+
 ## 2026-11-03 01:00 PT -- START HERE: notes/HANDOFF_2026-11-03.md (edgelab rules-in-code; only E4 maker orig-7 survives;
 ## X1 paused; size-up refused by rule 6; NEXT = self-resetting headless lead + edge search through edgelab only)
 
