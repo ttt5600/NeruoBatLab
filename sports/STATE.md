@@ -1,3 +1,6 @@
+## 2026-11-05 16:50Z -- ELECTION NEEDLE BOT live & holding: read ~/.claude/quant-kalshi/data/NEEDLE_STATE.md (top block).
+## Account $638.58 vs $731 net in; tools in ~/.claude/quant-kalshi/needle_tools/; restart only via restart_bot.sh.
+
 ## 2026-11-05 -- ACT LIST: notes/ACT_LIST.md (user: "add edges even if not 100%, act on something"). Tier A = E4 only
 ## (edgelab). Tier B judgment-size leads w/ pre-set kills: L39 monthly rain NO maker (Nov 24-30), DUL NFL div unders wk10
 ## (11-12..16), F1 early-form, TSA maker $1. Dropped on forward data: props, L32, Q004, L34 ML, L40b, Q008.
