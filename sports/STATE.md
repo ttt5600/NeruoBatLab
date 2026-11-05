@@ -1,3 +1,7 @@
+## 2026-11-05 17:30Z -- KALSHI CASH PUT TO WORK (user "Both"): weather E4 2x live (caps $6.20/6ct/day $60/open $80,
+## GOAL.md rule-6 amendment -> USER MUST RE-LOCK fund.yaml sha 8f2d97bd..); lead_exec.py LIVE (DUL wk10 from 11-12,
+## L39 Nov 24-30, TSA $1) -- see notes/ACT_LIST.md. ForecastEx ledger shows $42.30 phantom open risk (reconcile ignores
+## 'not found' orders) -> blocks FX picks; fix in code next.
 ## 2026-11-05 16:50Z -- ELECTION NEEDLE BOT live & holding: read ~/.claude/quant-kalshi/data/NEEDLE_STATE.md (top block).
 ## Account $638.58 vs $731 net in; tools in ~/.claude/quant-kalshi/needle_tools/; restart only via restart_bot.sh.
 

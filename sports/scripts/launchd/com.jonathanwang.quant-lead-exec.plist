@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- TEMPLATE ONLY - NOT LOADED. lead_exec.py (notes/ACT_LIST.md tier B: lead_L39 / lead_TSA / lead_DUL).
+     Deploy (user's call): cp scripts/lead_exec.py scripts/kalshi_exec.py ~/.claude/quant-kalshi/scripts/
+                           cp scripts/launchd/lead_exec.sh ~/.claude/quant-kalshi/ ; chmod +x it
+                           cp this file ~/Library/LaunchAgents/ ; launchctl bootstrap gui/$(id -u) <that path>
+     Every 15 min: the DUL window is 90..30 min before kickoff, so each game gets ~4 ticks inside it.
+     The wrapper runs DRY. Real orders need BOTH `run --live` in lead_exec.sh AND EXEC_MODE=live +
+     LEAD_EXEC_MODE=live in ~/.claude/quant-kalshi/.env. -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.jonathanwang.quant-lead-exec</string>
+  <key>ProgramArguments</key><array><string>/bin/bash</string><string>/Users/jonathanwang/.claude/quant-kalshi/lead_exec.sh</string></array>
+  <key>StartInterval</key><integer>900</integer>
+  <key>StandardErrorPath</key><string>/Users/jonathanwang/.claude/quant-kalshi/lead_exec.err</string>
+</dict></plist>

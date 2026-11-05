@@ -22,6 +22,13 @@ Numbers below come from the deployed logs read 11-05 (~/.claude/quant-kalshi/dat
 | B3 | F1 NBA early-form sides | picks appear 60-90 min before tip (launchd early-form logger / daily ticket) | forward 28 bets +3.6% [-28,+36] (not distinguishable); user journal 5-3 +$3.22 | $2 per pick | judge at 100 bets: ROI CI upper < 0 or CLV < 0 p<.05 |
 | B4 | TSA weekly MAKER NO (KXTSAW) | same rule as tsa_t2_maker paper (8 orders/week posted by the TSA logger); mirror them as real $1 bids | dev 89 fills +8.4%, sealed 24 fills 0 losses +6.1%; edgelab: dead on concentration (one shutdown week) | $1 per order, <= $8/week | 2 losses in first 30 fills |
 
+**Execution (user 11-05 "Both"):** B1/B2/B4 are placed on Kalshi by `scripts/lead_exec.py` (LIVE since 11-05 17:25Z,
+launchd com.jonathanwang.quant-lead-exec every 15 min, deployed ~/.claude/quant-kalshi; gate .env LEAD_EXEC_MODE=live;
+journal data/lead_exec.jsonl; stop all = touch data/LEAD_KILL, one = data/LEAD_DISABLE_<L39|TSA|DUL>). Lead open <= $40,
+keeps >= $80 cash for weather. DUL: series KXNFLTOTAL, NO on the strike nearest 50c, 30-90 min pre-kickoff, NO ask <= .56.
+TSA mirrors the paper side (YES or NO). bet.py does NOT see these bets yet. B3 F1 stays user-placed on RH.
+E4 sized 2x 11-05 (edgelab early step; caps $6.20/6 ct/day $60/open $80; loss stops unchanged).
+
 ## Tier C -- watch only (forward data says no for now)
 - L33 NFL vs opener: 3 settled (2-1). Too small; keep the logger.
 - L34 NHL totals slice 19-17-1 +6.0% is POST HOC (ML side 13-26 -24.8%); not betting a slice picked after looking.
