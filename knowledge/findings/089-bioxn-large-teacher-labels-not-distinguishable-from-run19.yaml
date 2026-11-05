@@ -1,0 +1,54 @@
+id: '089'
+title: Labels from BirdAVES bioxn-large (layer 12, eval mode) are not distinguishable from run19's train-mode AVES-bio labels on call type (E13, two seeds; not met, the kill rule does not fire)
+status: confirmed
+claim: 'run16''s recipe and corpus trained on k=200 labels from birdaves-bioxn-large layer 12 of 24 (read in eval mode) give
+  11-class CPU call type 0.8514 and 0.8538 (two seeds) against run19''s 0.8458 and 0.8546 (AVES-bio layer 6 labels, read in
+  train mode). The pre-registered arm contrast, E13 (2 seeds) minus run19 (2 seeds) with a birds + seeds interval, is +0.0023
+  [-0.0125, +0.0172] at each model''s best layer and -0.0022 [-0.0154, +0.0110] at layer 3; the 10-split arm-mean difference
+  is +0.0037. Not distinguishable. The pass mark (both intervals above zero, 10-split difference positive) is not met. The
+  kill rule (arm difference negative at both readouts) does not fire, because the best-layer difference is positive. Two seeds
+  are final, so E13 is closed with neither a pass nor a kill: the stronger-teacher line is not closed by its rule, and any
+  further teacher test needs a new pre-registration (and E35 to separate eval from train mode).'
+evidence: 'calltype_cpu_rescore.json: run24_bioxnl12 0.8514 (L1), L3 0.8423; run24_bioxnl12_s2 0.8538 (L4), L3 0.8488;
+  run19_avesteacher 0.8458 (L1), L3 0.8441; run19_seed2 0.8546 (L1), L3 0.8514.
+  seed_mean_pairs_cpu.json "e13 | run19": arm means 0.8526 vs 0.8502, diff +0.0023, birds only [-0.0090, +0.0143], birds + seeds
+  [-0.0125, +0.0172] (pooled seed sd 0.0045, df 2); seed by seed +0.0056, -0.0032, +0.0079, -0.0009.
+  seed_mean_pairs_cpu_L3.json "e13 | run19": 0.8455 vs 0.8477, -0.0022, birds only [-0.0115, +0.0066], birds + seeds [-0.0154, +0.0110]
+  (sd 0.0049); seed by seed -0.0018, -0.0091, +0.0047, -0.0026.
+  calltype_split_sensitivity_cpu.json 10-split means: run24 0.8445 / 0.8436, run19 0.8368 / 0.8438; arm difference +0.0037.
+  Context (single pairs vs run16 seed 1, seed_pairs_cpu.json): +0.0161 [-0.0027, +0.0359], +0.0185 [-0.0015, +0.0375].
+  Secondary, not decided on (detection_variants.json precommit, native arm, layer chosen on the same ZF AUC that is reported,
+  one recording, no interval): ZF AUC 0.9721 / 0.9716 vs run19 0.9715 / 0.9708.'
+method: 'E13 pre-registered 2026-10-27 (harness/experiments.yaml prereg_2026_10_27, critic ACCEPT-WITH-CHANGES applied before
+  submission); the user chose the teacher (bioxn-large L12). Relabel slurm/relabel_teacher_combined.sh, job 40578099
+  (TAG=bioxnl12_eval, LAYER=12; log ~/jobs/relabel_teacher_bioxnl12_40578099.log: "[teacher] eval mode, 24 layers, 315,427,968
+  params", "[gate] vocabulary 200, empty clusters 0, largest cluster 1.195%, perplexity 190.9", "PASS: labels written").
+  Trainings slurm/train_teacher_labels.sh, jobs 40578100 (seed 1337) and 40578101 (seed 2), 4 x L40S savio_lowprio, both
+  `max_steps=93750` reached (epoch=37-step=93750.ckpt). Exported bit-identically and scored with harness/score_run.sh. Arm
+  contrast with zfeval/experiments/seed_mean_pairs_cpu.py.'
+provenance: 'Savio /global/scratch/users/jonathanswang/temp_train_run24_bioxnl12{,_s2}; exports external/dapt/run24_bioxnl12{,_s2}.pt;
+  ~/zf_labelset/zf_detection_dataset_v1/analysis/: calltype_cpu_rescore.json, seed_mean_pairs_cpu.json, seed_mean_pairs_cpu_L3.json,
+  calltype_split_sensitivity_cpu.json, seed_pairs_cpu.json, detection_variants.json; savio_artifacts/metrics/run24_bioxnl12{,_s2}/;
+  harness/logs/score_run24_bioxnl12_20261105-024102.log, score_run24_bioxnl12_s2_20261105-025721.log.'
+caveats: 'Power, stated at pre-registration: only a gain of about +0.03 over run19 would pass, so a null is weak evidence; the
+  teacher-level lead of bioxn-large at this layer was only +0.0071 (no interval). The seed term is small: E13''s two seeds differ
+  by 0.0024, so the pooled sd (0.0045 / 0.0049, df 2) mostly reflects run19''s 0.0088 gap, while run16''s three seeds give 0.0111 at
+  the best layer and 0.0126 at layer 3; the tool also uses 1.96 with 2 degrees of freedom. With run16''s sd the intervals would be
+  about [-0.0224, +0.0270] and [-0.0285, +0.0241] (by hand, 2026-11-05), so gains up to about +0.027 are not excluded. Each arm is
+  also one k-means label draw, and that variance (finding 085) is not in the seed term. The arms differ in more than the teacher:
+  bioxn-large labels were read in eval mode, run19''s in train mode (finding 085), so even a pass could not have credited the
+  teacher alone (E35). Both E13 runs were preempted on the free queue and restarted 4 times each (run19 seed 2: 6 times); each
+  restart reloaded the last end-of-epoch checkpoint and redid the unsaved steps (up to 2,317) with a fresh random stream for
+  masks and dropout. Batch order depends only on the epoch, and the final weights received exactly 93,750 updates.'
+lesson: 'Swapping AVES-bio layer 6 (train mode) for bioxn-large layer 12 (eval mode) labels moved the student less than this
+  test resolves. A teacher-level lead of +0.0071 with no interval was no reason to expect more (compare finding 086). Among
+  from-scratch models, the AVES-family-label arms (run19, E13) remain the point-estimate top, while AVES-initialised continued
+  pretraining scores a little higher still (daptv3aves_2e4s2 0.8570).'
+critic: 'ACCEPT-WITH-CHANGES (2026-11-05): resume caveat was wrong (no update applied twice; fresh mask/dropout stream, same batch
+  order), seed-sd caveat incomplete, lesson generalised one teacher pair into a law; line status now stated; L40S; gate log cited.'
+tags:
+- e13
+- teacher
+- labels
+- call-type
+date: '2026-11-05'

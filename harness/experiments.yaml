@@ -391,7 +391,7 @@ experiments:
   question: Does a better teacher give better targets?
   success: call type above run19 with the interval excluding zero
   script: null
-  status: approved
+  status: done
   decision_2026_10_27: 'User chose teacher (A) birdaves-bioxn-large layer 12 (AskUserQuestion, 2026-10-27). Criteria in
     prereg_2026_10_27 are frozen from here. Tags run24_bioxnl12, run24_bioxnl12_s2; relabel TAG=bioxnl12_eval.'
   priority: 8
@@ -426,6 +426,9 @@ experiments:
     40578100 (seed 1337, EXP temp_train_run24_bioxnl12) and run24s2 40578101 (SEED=2, EXP temp_train_run24_bioxnl12_s2),
     both --dependency=afterok; if the relabel gate fails, scancel them. Logs ~/jobs/. Delete combined_teacher_bioxnl12_eval/
     data/hubert_12/feat after PASS.'
+  result_2026_11_05: 'DONE, finding 089. Not met; kill rule does not fire (best layer +0.0023 [-0.0125, +0.0172], layer 3
+    -0.0022 [-0.0154, +0.0110], 10-split +0.0037). Two seeds final: closed with neither pass nor kill; a further teacher
+    test needs a new pre-registration (and E35). Delete combined_teacher_bioxnl12_eval feat/ on Savio (not yet done).'
 - id: E14
   roadmap: idea 6
   title: Start from BirdAVES and specialise it on zebra finch
@@ -1028,6 +1031,11 @@ experiments:
   jobs_2026_10_30: 'MOVED to paid A40 (savio3_gpu, a40_gpu3_normal, fc_birdpow; user ok 2026-10-30, est. ~1,175 SU/run):
     relabel 40631383 (moved in place, running 09:40); trainings resubmitted with --time 24:00:00, chained one at a time:
     40654078 stock s1337 -> 40654079 lr1e-4 s1337 -> 40654080 stock s2 -> 40654081 lr1e-4 s2. Old 40631384-87 cancelled.'
+  interim_2026_11_05: 'Stock seed 1 (40654078) FAILED the baseline rule: masked accuracy (running total) 0.070 < 0.0849
+    (largest cluster 3.488% + 0.05), loss 3.07 min at step 22,116 -> 4.29 = label entropy ln(72.5); best-loss save step 23,405.
+    So the baseline arm is lr 1e-4. lr1e-4 seed 1 (40654079, step 93,635) scores 0.8356 (L7). Interim arm contrasts in
+    seed_mean_pairs_cpu[_L3].json "<arm> | vanilla_lr1e4"; all 57 models vs vanilla in seed_pairs_cpu[_L3].json. Seed-2 order
+    swapped 2026-11-05 (40654081 lr1e-4 s2 first, then 40654080 stock s2). Finding after 40654081.'
 - id: E37
   title: Random-label controls -- shuffled labels (negative control) and random-projection labels (BEST-RQ-style)
   roadmap: user request 2026-10-29 ("what if we swap with random labels? ... if we see similar results then that's
@@ -1059,3 +1067,7 @@ experiments:
     run37_randproj_s2 40632815 (train_run37_labels.sh), logs ~/jobs/.'
   jobs_2026_10_30: 'MOVED to paid A40 (same QoS), chained: 40654075 shuffle -> 40654076 randproj s1337 -> 40654077
     randproj s2. Old 40632813-15 cancelled. QoS cap cpu=128,gpu=16 shared by all FCA users of a40_gpu3_normal.'
+
+  result_shuffle_2026_11_05: 'SHUFFLE DONE, finding 088: 0.6334 (L1), -0.2019 [-0.2364, -0.1664] vs run16, below 0.7186 ->
+    "the pipeline is using its labels". Scored checkpoint step 72,709 of 93,750. RANDPROJ seed 1 (40654076) 0.8447 (L4);
+    interim arm vs run16 +0.0126 [-0.0186, +0.0438] best, +0.0166 [-0.0179, +0.0511] L3; judged after 40654077.'

@@ -37,9 +37,16 @@ ssh_s() { ssh -o BatchMode=yes "$H" "$@" 2> >(grep -v -iE "post-quantum|store no
 run() { echo "+ $*"; [ -n "${DRY:-}" ] || "$@"; }
 
 echo "== score $TAG  (exp $EXP, $NC classes, job ${JOB:-?})  $(date)"
-CK=$(ssh_s "ls $CKDIR 2>/dev/null | grep -E '^epoch=[0-9]+-step=[0-9]+\.ckpt$' | sort -t= -k3 -n | tail -1")
-[ -n "$CK" ] || { echo "FATAL: no epoch=*-step=*.ckpt in $CKDIR"; exit 2; }
+# final.ckpt (pytorchAudio 1bc6d7ec, 2026-11-05) holds the step a run actually stopped at. Without it, the newest
+# epoch=*-step=* file is only the last top-k save: on Savio's Lightning 2.6.1 nothing is written once train_loss stops
+# improving (run37_shuffle scored at 72,709 of 93,750; run31_vanilla at 23,405).
+CK=$(ssh_s "ls $CKDIR 2>/dev/null | grep -qx final.ckpt && echo final.ckpt || ls $CKDIR 2>/dev/null | grep -E '^epoch=[0-9]+-step=[0-9]+\.ckpt$' | sort -t= -k3 -n | tail -1")
+[ -n "$CK" ] || { echo "FATAL: no final.ckpt or epoch=*-step=*.ckpt in $CKDIR"; exit 2; }
 echo "   final checkpoint: $CK"
+STEP=${CK##*step=}; STEP=${STEP%.ckpt}
+if [ "$CK" != final.ckpt ] && [ "$STEP" -lt "${MAX_STEPS:-93750}" ]; then
+    echo "   WARNING: step $STEP < max_steps ${MAX_STEPS:-93750} and no final.ckpt: the run's last updates were not saved; report the step"
+fi
 ssh_s "test -f ~/export_weights.py && test -f $S/adultvoc_16k/BlaBla0506_110302-DC-01.wav" \
     || { echo "FATAL: ~/export_weights.py or the verification clip is missing on Savio"; exit 2; }
 for f in run15_calltype calltype_cpu_rescore seed_pairs_cpu detection_variants chick_holdout_variants calltype_labelfree; do

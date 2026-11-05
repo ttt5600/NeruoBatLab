@@ -1,0 +1,56 @@
+id: '088'
+title: Shuffled labels collapse call type to 0.633, 0.20 below run16 (E37 negative control) -- the pipeline learns from its labels
+status: confirmed
+claim: 'run16''s recipe and 763-file corpus trained on run16''s own spectrogram k=200 labels, with every file given another
+  file''s label sequence (a fixed derangement), never gets past the label marginal: epoch train loss stays at 4.584-4.603 nats
+  from epoch 3 on, against the shuffled labels'' entropy ln(98.8) = 4.593. Its 11-class CPU call type is 0.6334 (best layer 1)
+  against run16''s 0.8353 (layer 8): -0.2019 [-0.2364, -0.1664], resolved, and below the pre-registered 0.7186 midpoint
+  between the untrained floor and run16. The pre-registered rule reads "the pipeline is using its labels". Point values
+  only, no paired interval: it sits 0.021-0.046 above three untrained HuBERTs and 0.035 below a no-network log-mel summary.
+  So the near-ties of E30 (front end) and E34 (MFCC targets) with run16 are not a pipeline that ignores its targets.'
+evidence: 'calltype_cpu_rescore.json: run37_shuffle acc11_cpu 0.6334 (best_layer_cpu 1), per-layer L3 0.6257 and layers 8-11
+  0.5557 / 0.5149 / 0.4933 / 0.3590, below every layer of every untrained init (lowest 0.5718, calltype_floors.json per_layer),
+  as expected of a model whose output ignores its input; run16_compute4x 0.8353 (L8). seed_pairs_cpu.json
+  "run37_shuffle | run16_compute4x": diff -0.2019, [-0.2364, -0.1664], resolved. calltype_split_sensitivity_cpu.json (10 fold
+  splits): run37_shuffle mean 0.6315 (sd 0.0091), run16_compute4x 0.8277, diff_mean -0.1962. seed_pairs_cpu.json
+  "run37_shuffle | run31_vanilla_lr1e4": -0.2022 [-0.2305, -0.1773]. calltype_floors.json: randinit_s0 0.6061, randinit_s1
+  0.5876, randinit_s2 0.6120, logmel 0.6679.
+  Training (savio_artifacts/metrics/run37_shuffle/run37_shuffle_version_0_metrics.csv; one process, no resume):
+  train_loss_epoch 4.584-4.603 over epochs 3-37, 4.5969 at epoch 28 (step 72,731, the scored checkpoint''s epoch);
+  train_masked_accuracy_epoch, a running total since step 0, 0.0945 at step 2,507 and 0.1015 at the end. For comparison
+  run16''s own final train loss on real labels is 1.05507 (savio_artifacts/logs/train_run16_compute4x_39203444.log, epoch 37).
+  Label statistics (Savio ~/jobs/build_e37_labels.log, printed 2026-11-05): original 40,395,592 frames, perplexity 75.7,
+  largest label 9.41%; shuffled perplexity 98.8, largest label 10.17%; 2.21% of frames keep their original label (also in
+  experiments.yaml E37 jobs_2026_10_29).
+  Secondary, not decided on (detection_variants.json precommit, native arm): ZF AUC 0.8908 (L3) vs run16 0.9718 (L0).
+  ZF->BirdPark does not separate it from run16: AUC 0.8494 / AP 0.7470 vs run16 0.8085 / 0.7451 and log-energy 0.8542 /
+  0.7472 (zf_to_bp.logenergy); point values, BirdPark has about 4 independent blocks.'
+method: 'E37 pre-registered 2026-10-29 before any label was built (harness/experiments.yaml E37 success; approved by the user).
+  Labels: pytorchAudio/examples/hubert/scripts/random_labels.py shuffle (derangement seed 0, cropped or tiled to each file''s
+  own length). Training: slurm/train_run37_labels.sh, Savio job 40654075 (4 x A40, fc_birdpow), max_steps 93,750 reached.
+  Scored with harness/score_run.sh (export bit-identical to the checkpoint; board protocol, CPU embeddings).'
+provenance: 'Savio /global/scratch/users/jonathanswang/temp_train_run37_shuffle (checkpoint epoch=28-step=72709.ckpt); export
+  external/dapt/run37_shuffle.pt; ~/zf_labelset/zf_detection_dataset_v1/analysis/: calltype_cpu_rescore.json, seed_pairs_cpu.json,
+  calltype_split_sensitivity_cpu.json, calltype_floors.json, detection_variants.json; savio_artifacts/logs/train_run37_shuffle_40654075.log,
+  savio_artifacts/metrics/run37_shuffle/.'
+caveats: 'The scored checkpoint is step 72,709 of 93,750: on Savio''s Lightning 2.6.1 last.ckpt is only rewritten with a top-k
+  save, and train loss had stopped improving, so the final step was not saved (fixed since, pytorchAudio 1bc6d7ec). The learning
+  rate at 72,709 is 2.32e-5 (23% of the 1.0e-4 peak) and the missing 21k updates carry 5.2% of the summed schedule, far too little
+  to close a 0.085 gap to the bar. The network was still changing slightly (feature penalty 0.385 at epoch 28, 0.364 at the end).
+  One seed, as pre-registered. Three differences from run16 besides the labels: run16 is scored at its final step 93,750, it
+  trained on L40S GPUs (this run on A40s), and shuffling changes the label marginal (perplexity 98.8 vs 75.7) because sequences
+  are cropped or tiled to new lengths. Why training on unpredictable targets moves the probe off the untrained floor at all is
+  not studied. The control rules out a pipeline that ignores its labels; it does not say which property of the labels matters
+  (the randproj arm, pending its second seed).'
+lesson: 'This probe has a high floor and a crowded top: untrained networks score 0.588-0.612, every pretrained encoder on the
+  board 0.809-0.865, and run16''s three seeds alone span 0.021. A collapsing negative control rules out one explanation of the
+  near-ties among recipes, a pipeline that ignores its labels. Whether the target recipe matters is the randproj arm''s question,
+  and under that test only differences of about 0.03 resolve.'
+critic: 'ACCEPT-WITH-CHANGES (2026-11-05): lesson ranges were wrong (0.82-0.86 -> 0.809-0.865), floors/log-mel comparison has no
+  interval, masked accuracy is a running total, E36 not yet judged; added layers 8-11, LR share of the missing steps, BirdPark.'
+tags:
+- e37
+- control
+- labels
+- call-type
+date: '2026-11-05'

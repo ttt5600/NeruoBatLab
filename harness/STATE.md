@@ -1,40 +1,34 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-11-02 (lead session_01EGDWEvYFd6zSmWQfUugJnH; E30 scored and closed, finding 087)
-Next: check job 40578099's log for "[teacher] eval mode, 24 layers" and "PASS: labels written" (else scancel
-40578100 40578101); when trainings finish, export with ~/export_weights.py and score with harness/score_run.sh,
-then judge E13/E30 by their frozen prereg_2026_10_27 criteria (seed_mean_pairs_cpu.py).
+Updated: 2026-11-05 (lead session_01EGDWEvYFd6zSmWQfUugJnH; the side-hustle session stood down on zf)
+Next: when 40654081 (E36 lr1e-4 seed 2) finishes, score it (harness/score_run.sh, tag run31_vanilla_lr1e4_s2, 100 classes),
+rerun the "<arm> | vanilla_lr1e4" contrasts with both vanilla seeds, write the E36 finding (critic), refresh Doc ba903e67.
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS (data deleted locally 2026-10-22). Deliver visually.
 Call type is CPU ONLY (076). Model table: `python zfeval/experiments/our_models_table.py`.
 ## LOOPS OFF (2026-10-21): no /loop, harness agent, escalation or auto-resume unless the user asks.
 
-## In flight (submitted 2026-10-28 ~15:45, savio_lowprio, logs ~/jobs/, ledger rows added)
-- E13: relabel 40578099 (bioxn-large L12 eval) -> run24 40578100 + run24s2 40578101 (afterok; scancel if gate fails)
-- E30 DONE: not met, kill fired (finding 087). E13 relabel PASSED; trainings 40578100/01 free queue ~Nov 14.
-- E36 relabel PASSED. E36 on PAID A40 (fc_birdpow, user ok 2026-10-30, ~1,175 SU/run): relabel 40631383 running -> chain 40654078 (stock)
-  -> 40654079 (lr1e-4) -> 40654080 (stock s2) -> 40654081 (lr1e-4 s2).
-  When done: fill the pending block in Claude Doc ba903e67 (section 'Against vanilla HuBERT') with all-models forest plot.
-- E37 on PAID A40, chain 40654075 (shuffle; RUNNING since Nov 2 08:45) -> 40654076 (randproj) -> 40654077 (randproj s2). Pass rule: shuffle < 0.7186.
-- Allocation fc_birdpow: 573.93 / 300,000 SU used (2026-10-30 check_usage, python2). E13/E30 stay on free lowprio L40.
+## In flight (paid A40, fc_birdpow; QOSGrpCpuLimit shared with other FCA users)
+- 40654081 E36 lr1e-4 seed 2 (moved first 2026-11-05) -> 40654080 E36 stock seed 2 (afterany:40654081).
+- 40654077 E37 randproj seed 2 (pending on the QoS cap). Then judge randproj by its E37 rule (arm vs run16 x3 and vs run23).
+- E13 relabel feat/ on Savio (combined_teacher_bioxnl12_eval/data/hubert_12/feat, ~165 GB) is due for deletion per the
+  prereg; not done -- confirm the path holds only features, then delete.
 
-## Latest results (2026-10-27)
-- 085: build_teacher never called .eval() -> every model-teacher label set (run12/13/18/19/22, DAPT E17-E28, E14, E27)
-  read with dropout 0.1; 17% of L6 labels move at fixed codebook, but partition AMI 0.578 ~= k-means seed refit 0.585.
-  Fixed + tests, committed (pytorchAudio 6ef94ca8) and on Savio (md5-checked). analysis/teacher_dropout_diagnostic.json
-- 086: call-type alignment of rebuilt labels fails validation (gets AVES>spectrogram student contrast backwards);
-  not a layer-chooser. analysis/e13_teacher_proxy.json
-- Arm contrast tool zfeval/experiments/seed_mean_pairs_cpu.py (birds + seeds interval): run19 (2) - run16 (3) = +0.0182
-  best / +0.0209 L3, NOT resolved [-0.0076,+0.0439] / [-0.0051,+0.0469]; 6/6 seed pairs positive. seed_mean_pairs_cpu*.json
-- E30 log-mel front end built + tested (utils/logmel_frontend.py, --frontend logmel, export/scoring bit-identical,
-  learnable: tests/_artifacts/logmel_overfit_compare_relaxed.json). Script slurm/train_run30_logmel.sh.
+## Latest results (2026-11-05; analysis JSONs in ~/zf_labelset/zf_detection_dataset_v1/analysis)
+- 088 E37 shuffle: 0.6334, -0.2019 [-0.2364,-0.1664] vs run16 -> pipeline uses its labels. Scored at step 72,709.
+- 089 E13: arm +0.0023 [-0.0125,+0.0172] best, -0.0022 L3; not met, kill not fired; closed.
+- E36 interim: stock lr failed the baseline rule (loss -> 4.29 = label entropy); lr1e-4 s1 0.8356 = run16 0.8353.
+  Arms vs vanilla (seed_mean_pairs_cpu*.json): run16 -0.0035, run19 +0.0147, E13 +0.0170, E30 -0.0094, all n.d.
+  57 models vs vanilla in seed_pairs_cpu[_L3].json; forest plot in the Doc (widget a557a9c6-097f).
+- E37 randproj s1 0.8447; vs run16 arm +0.0126 [-0.0186,+0.0438]; vs run23 +0.0026 [-0.0137,+0.0208] (seed_pairs).
+- 087 E30 closed. Floors: untrained 0.5876-0.6120, log-mel 0.6679.
 
 ## Waiting on the user
-- E35 (eval-mode AVES control) not proposed. User decided 2026-10-27: E13 teacher = bioxn-large L12; E30 approved.
-- Older: E26 design, E15 corpus, E33 (rec no), 10-split headline, label audit; Google Doc 123rAGhW T10/T11 (ask first).
+- Which lead session continues (peer agreed zf is mine). $150 question answered: election-night Kalshi bot (quant session).
+- Optional: E36b (vanilla on mixed corpus), E31, lab share read-only, delete 14 GB BEANS on Savio, demo re-record.
 
 ## Traps
-- calltype_split_sensitivity --only used to OVERWRITE its JSON (fixed 2026-11-02: now merges); regenerated, 46 models.
-- Teacher must be .eval(); inference_mode() does not turn dropout off. Test: same input twice -> identical output.
-- Single seed pairs / bird-only bootstraps ignore seed noise (sd ~0.011); use seed_mean_pairs_cpu.py for arm claims.
-- Local python lacks lightning: use /Applications/anaconda3/envs/my_audio_env/bin/python (torch 2.2.2 = Savio) for tests.
-- Login-node python EIO is intermittent: import-check on savio-dtn, then plain sbatch + manual ledger row.
+- score_run.sh now prefers $CKDIR/final.ckpt and WARNS when the newest epoch=*-step=* is short of max_steps (2026-11-05).
+  Runs before pytorchAudio 1bc6d7ec have no final.ckpt; report their scored step.
+- Logged masked accuracy is a running total since process start; it cannot show the end state of a collapsed run.
+- Teacher must be .eval(). Single seed pairs ignore seed noise (sd ~0.011); a one-seed arm's seed term is borrowed (df 1-2).
+- calltype_split_sensitivity --only merges. Local tests: my_audio_env python (torch 2.2.2 = Savio).
