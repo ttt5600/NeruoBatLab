@@ -262,7 +262,7 @@ def exits(N: dict, M: list[dict], a, now) -> None:
         pm = PM.get((r["m"]["_key"], r["dir"]))  # hold while Polymarket still prices it above our bid (CO-3: the needle
         if p is not None and pm is not None:      # sold a market-backed D buy at 75c on a stale-looking 30% needle)
             p = max(p, pm)
-        if p is None or bid is None or bid < 0.02:
+        if p is None or bid is None or bid < 0.02 or bid >= 0.99:  # >=99c: settles at $1 anyway; a $1.00 sell is an invalid order (400)
             continue
         target = 0.0 if bid + a.exit_buffer >= p else min(RACE_CAP_FRAC * bank, a.kelly * kelly(p, bid) * bank)
         dv = bk["dirv"][r["dir"]]
