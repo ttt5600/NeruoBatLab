@@ -232,6 +232,10 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | L28 | NBA big-lead buy (>=25 Q3 / >=20 Q4, ask <= .96) | **sealed FAIL** 15 bets 13-2, -8.6% [LB] | adverse selection: cheap leaders = market knows something | scripts/nba_bigleads_logger.py |
 | L37 | NBA mid-game comeback rule | **sealed FAIL** 477 bets -3.9c/contract p .97 [LB], [S] | in-game Kalshi sharper than model (Brier .1284 vs .1319) | scripts/nba_midgame_scan.py |
 | L38 | Fade in-game trailing longshots | 0/8 trials, 3,051 snapshots [L:ingame_longshot] | sealed-period 1.5c bias did not replicate | notes/ingame_longshot.md |
+| CBB-IG | CBB in-game WP vs Kalshi (11-05) | T1 -1.40%/2000, T2 lowvol -4.14%/611, T3 maker +0.34%/2020, all dev dead | Kalshi Brier <= model every bucket; thin games are lopsided | scripts/cbb_ingame.py |
+| SOC-IG | Soccer in-game Poisson vs Kalshi (11-05) | T1 -2.01%/1321, T2 late draw -3.73%/721 dev dead | Kalshi better every bucket/tercile; NHL empty-net = weak lead, logger only | scripts/kalshi_ingame_lowscore.py |
+| NBA-LU | NBA lineup-aware in-game WP (11-05) | no money trial: player term n.d.; resid coef +0.116 [-0.18,+0.43] | availability already priced | scripts/nba_ingame_lineup.py |
+| XV-LAG | Live Pinnacle vs Kalshi lag (11-05) | untestable: guest API cached ~15 min; 0 signals on fresh views | needs logged-in feed | scripts/live_lag_logger.py |
 | -- | NBA live totals model vs KXNBATOTAL | Brier .1196 < model .1240; rule -2.1%/336 [L:nba_live_totals] | pace adds ~nothing beyond pregame total/time/margin | notes/nba_live_totals.md |
 | CB1 | Fade trailing NFL dogs in-game | Kalshi +1.8pp over vegas_wp, ~1% after fees [EA] | too small to test | notes/nfl_comebacks_matchups.md |
 | -- | Live Pinnacle-vs-Kalshi scanner flags | 0 flags >= 2% EV [R] | Kalshi within 1-2c | scripts/live_edges.py |
