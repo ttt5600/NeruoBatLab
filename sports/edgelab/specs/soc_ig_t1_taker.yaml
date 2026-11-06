@@ -1,0 +1,15 @@
+id: soc_ig_t1_taker
+family: kalshi_ingame
+dataset: kalshi_soccer_ingame
+rule: edgelab.rules.ingame_lowscore:t1_taker_edge5
+hypothesis: 'Soccer 1X2 in-game T1: Skellam time-decay model (pregame lambdas from the Kalshi pre-KO mids, 2023-24 ESPN goal-minute + stoppage profile, red-card multipliers, pregame residual decaying with remaining share) - ask - taker fee >= 0.05 on any of H/D/A YES or NO at a 1-min candle end, excluding 3 min after a goal/red and 8c price jumps; first trigger per game, taker, hold'
+decision_time: in-game, every 1-min candle end t (ESPN goals/reds with wallclock <= t; quote = candle ending at t)
+price_model: taker
+split: vault:kalshi_soccer_ingame
+min_n: 200
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+legacy: 'new 2026-11-05 (scripts/kalshi_ingame_lowscore.py); NBA/NFL in-game dead (FUND_BOOK 3d); soccer pregame S1-S3 dead'

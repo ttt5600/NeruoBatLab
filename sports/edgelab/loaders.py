@@ -167,3 +167,15 @@ LOADERS = {
     "nba_sides_l2": nba_sides_l2, "nfl_total_lab": nfl_total_lab, "nba_early_form": nba_early_form,
     "kalshi_prop_ladders": kalshi_prop_ladders, "q017_ercot": q017_ercot, "kalshi_tsaw_forward": kalshi_tsaw_forward,
 }
+
+
+# ------------------------------------------------------------------ soccer 1X2 in-game vs Kalshi (scripts/kalshi_ingame_lowscore.py)
+def kalshi_soccer_ingame():
+    """data/ingame_lowscore_soccer_frame.parquet: one row per game x market x 1-min candle in play (model p + quotes)."""
+    f = DATA / "ingame_lowscore_soccer_frame.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    return x, [str(f)]
+
+
+LOADERS["kalshi_soccer_ingame"] = kalshi_soccer_ingame

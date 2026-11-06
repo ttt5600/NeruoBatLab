@@ -135,3 +135,12 @@ datasets:
       forward: [2026-10-30, null]
     forward_adapters:
       q017_b_far_bracket: {module: edgelab.adapters.q017_fwd}
+  kalshi_soccer_ingame:
+    loader: kalshi_soccer_ingame
+    family: kalshi_ingame
+    hidden: [result, game_vol]           # game_vol = in-game volume total (post hoc) -> hidden
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:
+      dev: [2025-04-01, 2026-02-28]        # first Kalshi soccer game markets .. Feb 2026 (= kalshi_soccer.py DEV cut)
+      sealed: [2026-03-01, 2026-10-31]
+      forward: [2026-11-06, null]

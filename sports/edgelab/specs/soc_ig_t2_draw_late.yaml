@@ -1,0 +1,15 @@
+id: soc_ig_t2_draw_late
+family: kalshi_ingame
+dataset: kalshi_soccer_ingame
+rule: edgelab.rules.ingame_lowscore:t2_draw_late
+hypothesis: 'Soccer in-game T2 (draw time decay): Tie market only, second half elapsed >= 15 min; same model; draw YES or NO when model - ask - taker fee >= 0.04; first trigger per game, taker, hold'
+decision_time: in-game, every 1-min candle end t in the second half from match minute 60
+price_model: taker
+split: vault:kalshi_soccer_ingame
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+legacy: 'new 2026-11-05 (scripts/kalshi_ingame_lowscore.py)'
