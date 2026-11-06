@@ -1,0 +1,23 @@
+id: ht1_hourly_maker
+family: kalshi_weather_temp
+dataset: kalshi_temp_hourly
+rule: edgelab.rules.kalshi_wx_hourly:maker
+params:
+  n_min: 10
+  margin: 3.0
+hypothesis: 'HT1: Kalshi hourly temperature (KXTEMP*H/*HS, 10 series). At T = open + 15 min (H - 45 min), every
+  Open-Meteo model trajectory v(H-2) + [fc(H) - fc(H-2)] (lead-1 previous runs, >= 3 of 5 models) misses strike K by
+  > 3 F -> post-only bid on the consensus side (NO if all below, YES if all above) at min(floor side mid, side ask - 1c),
+  q in [0.50, 0.99], spread <= 10c; filled iff >= 10 contracts print at <= q in (T, H]; maker fee 0; hold.'
+decision_time: market open + 15 min (45 min before the observation hour H)
+price_model: maker_tape
+split: vault:kalshi_temp_hourly
+min_n: 200
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-06 (scripts/kalshi_hourly_temp.py, census scripts/wx_census_all.py); N3 10-19 called hourly
+  "too thin" on median per-market volume, but per-event volume is large (MIAH 26M contracts lifetime)'

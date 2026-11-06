@@ -309,3 +309,18 @@ def kalshi_ytviews():
 
 
 LOADERS["kalshi_ytviews"] = kalshi_ytviews
+
+
+# ------------------------------------------------------------------ Kalshi HOURLY temperature (scripts/kalshi_hourly_temp.py)
+def kalshi_temp_hourly():
+    """data/kalshi_hourly_temp/frame.parquet: one row per settled hourly-temperature market (inputs at T = open + 15 min,
+    1-min quotes for input-selected markets) + attrs['tape'] = public trades (T, H] on the rule-selected tickers."""
+    D = DATA / "kalshi_hourly_temp"
+    f, ft = D / "frame.parquet", D / "tape.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["tape"] = pd.read_parquet(ft)
+    return x, [str(f), str(ft)]
+
+
+LOADERS["kalshi_temp_hourly"] = kalshi_temp_hourly

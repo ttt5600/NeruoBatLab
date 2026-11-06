@@ -209,3 +209,12 @@ datasets:
       dev: [2026-05-01, 2026-08-31]        # key = UTC date of PM US game start; 700 random matched games (seed 20261106)
       sealed: [2026-09-01, 2026-11-04]     # 700 random (seed 20261107), pulled only after a dev pass; 2026-11-05 = probe day
       forward: [2026-11-06, null]          # live logger scripts/pmus_lag_logger.py (not wired to edgelab yet)
+  kalshi_temp_hourly:
+    loader: kalshi_temp_hourly
+    family: kalshi_weather_temp
+    hidden: [result, expiration_value, volume, settle_ts]   # settle_ts of the TARGET market; v2_settle_ts stays visible
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = event-ticker local date; set 2026-11-06 before any quote/outcome pull
+      dev: [2026-04-16, 2026-09-30]        # first KXTEMP*H events .. Sep 30 (old *H series end 09-10; *HS start 09-10)
+      sealed: [2026-10-01, 2026-11-05]     # MIAH + NYCHS/CHIHS/LAXHS only
+      forward: [2026-11-07, null]
