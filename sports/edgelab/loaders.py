@@ -211,3 +211,22 @@ def pm_maker_no():
 
 
 LOADERS["pm_maker_no"] = pm_maker_no
+
+
+# ------------------------------------------------------------------ PortWatch weekly chokepoints far-bracket (scripts/dl_portwatch.py)
+def kalshi_portwatch():
+    """scripts/dl_portwatch.py rungs(): every far-rejected rung (K outside last published week x residual range) with
+    T; plus hourly candles and the public trade tape (maker fills strictly through q). date = week end (Sunday)."""
+    _imp_scripts()
+    import dl_portwatch as P
+    x = P.rungs()
+    x = x[x.result.isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["wend"])
+    D = DATA / "dl"
+    x.attrs["candles"] = json.loads((D / "pw_candles.json").read_text())
+    x.attrs["trades"] = json.loads((D / "pw_trades.json").read_text())
+    return x, [str(D / "pw_build.parquet"), str(D / "portwatch_daily.parquet"), str(D / "pw_candles.json"),
+               str(D / "pw_trades.json")]
+
+
+LOADERS["kalshi_portwatch"] = kalshi_portwatch

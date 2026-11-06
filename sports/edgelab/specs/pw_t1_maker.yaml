@@ -1,0 +1,16 @@
+id: pw_t1_maker
+family: kalshi_data_ladders
+dataset: kalshi_portwatch
+rule: edgelab.rules.portwatch:t1_maker
+hypothesis: 'DL-PW T1: PortWatch weekly chokepoint ladders; rungs outside (F+1)e^(r_min/max -+ .05)-1 (F = last published week, r = all earlier wk/wk log ratios) -> maker far side at min(mid, ask-1c), fill only if tape prints strictly through, no cancel'
+decision_time: Wednesday 00:00Z of the target week (after the Tuesday ~14:13Z PortWatch publication of week W-1)
+price_model: maker_tape
+split: vault:kalshi_portwatch
+min_n: 30
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 2
+fee:
+  rounding: exact
+legacy: 'new 2026-11-06 (notes/data_ladders_far.md, scripts/dl_portwatch.py); fee_type quadratic (maker 0)'

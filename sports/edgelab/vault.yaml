@@ -161,3 +161,12 @@ datasets:
     splits:
       dev: [2025-05-01, 2026-04-30]        # smallmarket_calibration DEV window (92 sampled days); key = UTC date of S
       sealed: [2026-05-01, 2026-10-31]     # never priced (count-only census 10-27); every day enumerated
+  kalshi_portwatch:
+    loader: kalshi_portwatch
+    family: kalshi_data_ladders
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = week end (Sunday); set 2026-11-06 before any outcome/quote join
+      dev: [2026-04-26, 2026-09-20]        # first KXHORMUZWEEKLY week .. Sep 20 (Panama/Suez/Bab from Aug 02)
+      sealed: [2026-09-27, 2026-11-01]
+      forward: [2026-11-08, null]
