@@ -31,7 +31,8 @@ Never act on a number you remember; re-open its source. Keep wake replies to a f
   `zfeval/slurm/beans_detect.sh` (Savio; TASKS/MODELS/BASELINE env). Recipe: pi_notes 2026-10-14 04:40.
 - Data subsets: `pytorchAudio/examples/hubert/scripts/{subset_corpus,merge_corpora,cluster_source_mix}.py`.
 - Dashboards: `harness/build_board.py` (docs/model_board.html), `harness/build_comparison.py`;
-  roadmap `docs/roadmap.html` republished to https://claude.ai/artifact/K2NJhuv7hqnZj9FVBbwRo7.
+  roadmap: `harness/ROADMAP.md` (canonical) and the Roadmap section of the report doc
+  https://claude.ai/artifact/Q3Bf46TNUyRHh8cZZEdH1M; `docs/roadmap.html` (K2NJhuv7hqnZj9FVBbwRo7) is superseded.
 - Savio: `sv status | push | train <slurm script> | log JOBID`; `lab` on the cluster. Task doc:
   Claude Docs project 1e00135c-6030-4114-b1a2-2c0172f139e2 (AGENT.md step 7).
 
@@ -95,7 +96,7 @@ Never act on a number you remember; re-open its source. Keep wake replies to a f
    other-animal evaluations unless the user asks. DAPT-for-call-type work and per-call-type visual
    analysis (notebooks/08_calltype_errors.ipynb, the error browser artifact
    https://claude.ai/artifact/8vsjrxjswggK2eZpuBxUbu) come before everything below.
-1. The visualisation backlog in `docs/roadmap.html` section 04: call-type confusion matrices, embedding
+1. The visualisation backlog in `docs/roadmap.html` section 04 (superseded page; the backlog itself still stands): call-type confusion matrices, embedding
    by call type, clustering quality, layer sweeps for all models, and a forest plot of every
    comparison. Each one is a figure plus a notebook cell under `notebooks/`, built from existing JSONs.
 2. T4: report level-normalised input as the BirdPark headline (finding 049). Re-scoring only, no

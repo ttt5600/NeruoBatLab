@@ -104,7 +104,7 @@ by keyword or you will silently set `masked_weight` and zero the cross-entropy. 
 ├── notebooks/                        build_*.py generate the .ipynb; never hand-edit cells
 ├── paper/                            results registry, number audit, figure pipeline
 ├── release/zf_hubert_run11/          shareable bundle
-└── docs/                             roadmap.html, method notes
+└── docs/                             method notes; roadmap.html is superseded (see harness/ROADMAP.md)
 ```
 
 Local data lives **outside** the repo, in `~/zf_labelset/`:
@@ -229,7 +229,8 @@ failure. Add the file in the same edit that creates it.
 
 1. `knowledge/CONTEXT.md` — the findings digest, including the refutations. Read those; several
    refuted ideas look obviously correct and have each cost a day.
-2. `docs/roadmap.html` — the experiment design space: what is done, running, planned.
+2. `harness/ROADMAP.md` — where we are, next steps, leads and closed lines (canonical since 2026-11-05;
+   `docs/roadmap.html` is frozen at the October plan).
 3. `zfeval/experiments/detection_variants.py` — the canonical evaluation. Its docstring states the
    four ways this comparison can be faked and what it does about each.
 4. `pytorchAudio/examples/hubert/slurm/` — every experiment's rationale is in its script header,

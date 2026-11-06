@@ -303,10 +303,29 @@ footer {
   color: var(--faint);
   font-size: .82rem;
 }
+.superseded {
+  background: var(--accent-bg);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  margin: 2rem 0 0;
+}
+.superseded h4 { margin: 0 0 .35rem; font-size: .95rem; font-weight: 600; color: var(--accent-dk); }
+.superseded p { margin: 0; font-size: .92rem; color: var(--ink-2); max-width: 46rem; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 
 <div class="wrap">
+
+<aside class="superseded" role="note">
+  <h4>Superseded on Nov 5, 2026</h4>
+  <p>
+    This page is frozen at the October plan, and its call-type numbers predate the CPU re-encoding
+    (finding 076). The current roadmap, with where we are, next steps and open leads, is the Roadmap
+    section of the <a href="https://claude.ai/artifact/Q3Bf46TNUyRHh8cZZEdH1M">HuBERT report</a>.
+  </p>
+</aside>
 
 <header class="mast">
   <p class="eyebrow">Zebra finch · self-supervised audio encoders</p>
