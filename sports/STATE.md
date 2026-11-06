@@ -1,3 +1,9 @@
+## 2026-11-06 -- EDGE SEARCH WAVES 1-2 DONE (11 agents, ~15 trials): ALL DEAD. In-game (CBB/soccer/NBA-lineup/Pinnacle lag/
+## PM-Kalshi/PM US real ask), Polymarket (overreaction, time-to-resolution, longshot maker), media weekly, PortWatch/EIA,
+## hourly temp. Lesson: maker NO only works where the outcome is physical (no informed counterparty); in-game prices are sharp.
+## Leads left: NHL empty-net (logger built, not deployed), KXRAIND* per-city daily rain (~60 days/city), L39 Nov 24-30.
+## Registry 1,040 lines chain OK. Pending user: re-lock fund.yaml (GOAL.md rule-6), home state for Polymarket US.
+
 ## 2026-11-05 17:30Z -- KALSHI CASH PUT TO WORK (user "Both"): weather E4 2x live (caps $6.20/6ct/day $60/open $80,
 ## GOAL.md rule-6 amendment -> USER MUST RE-LOCK fund.yaml sha 8f2d97bd..); lead_exec.py LIVE (DUL wk10 from 11-12,
 ## L39 Nov 24-30, TSA $1) -- see notes/ACT_LIST.md. ForecastEx ledger shows $42.30 phantom open risk (reconcile ignores

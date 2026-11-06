@@ -170,6 +170,27 @@ datasets:
       dev: [2026-04-26, 2026-09-20]        # first KXHORMUZWEEKLY week .. Sep 20 (Panama/Suez/Bab from Aug 02)
       sealed: [2026-09-27, 2026-11-01]
       forward: [2026-11-08, null]
+  kalshi_ytviews:
+    loader: kalshi_ytviews
+    family: kalshi_media_weekly
+    hidden: [result, expiration_value, settlement_value_dollars, settlement_ts, last_price_dollars, previous_price_dollars,
+             previous_yes_ask_dollars, previous_yes_bid_dollars, no_ask_dollars, no_bid_dollars, yes_ask_dollars,
+             yes_bid_dollars, yes_ask_size_fp, yes_bid_size_fp, volume_fp, volume_24h_fp, open_interest_fp, status,
+             updated_time, expiration_time]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = week end (Sunday); set 2026-11-06 before any quote/outcome join
+      dev: [2026-08-01, 2026-10-11]        # first KXYTVIEWSW week .. Oct 11 (~70% of weeks)
+      sealed: [2026-10-12, 2026-11-01]
+      forward: [2026-11-08, null]
+  kalshi_temp_hourly:
+    loader: kalshi_temp_hourly
+    family: kalshi_weather_temp
+    hidden: [result, expiration_value, volume, settle_ts]   # settle_ts of the TARGET market; v2_settle_ts stays visible
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = event-ticker local date; set 2026-11-06 before any quote/outcome pull
+      dev: [2026-04-16, 2026-09-30]        # first KXTEMP*H events .. Sep 30 (old *H series end 09-10; *HS start 09-10)
+      sealed: [2026-10-01, 2026-11-05]     # MIAH + NYCHS/CHIHS/LAXHS only
+      forward: [2026-11-07, null]
   pm_jumps:
     loader: pm_jumps
     family: overreaction_fade
@@ -188,18 +209,6 @@ datasets:
                                            # descriptive (scripts/pm_timing.py describe) already read on dev only
       sealed: [2026-05-01, 2026-10-31]     # never priced; builder samples 46 days (seed 20261106) and EXCLUDES
                                            # mentions + culture_tech (pm_maker_no's sealed categories)
-  kalshi_ytviews:
-    loader: kalshi_ytviews
-    family: kalshi_media_weekly
-    hidden: [result, expiration_value, settlement_value_dollars, settlement_ts, last_price_dollars, previous_price_dollars,
-             previous_yes_ask_dollars, previous_yes_bid_dollars, no_ask_dollars, no_bid_dollars, yes_ask_dollars,
-             yes_bid_dollars, yes_ask_size_fp, yes_bid_size_fp, volume_fp, volume_24h_fp, open_interest_fp, status,
-             updated_time, expiration_time]
-    outcome: {kind: result_equals_side, key: ticker}
-    splits:                                # date = week end (Sunday); set 2026-11-06 before any quote/outcome join
-      dev: [2026-08-01, 2026-10-11]        # first KXYTVIEWSW week .. Oct 11 (~70% of weeks)
-      sealed: [2026-10-12, 2026-11-01]
-      forward: [2026-11-08, null]
   pmus_ingame_lag:
     loader: pmus_ingame_lag
     family: cross_venue
@@ -209,12 +218,3 @@ datasets:
       dev: [2026-05-01, 2026-08-31]        # key = UTC date of PM US game start; 700 random matched games (seed 20261106)
       sealed: [2026-09-01, 2026-11-04]     # 700 random (seed 20261107), pulled only after a dev pass; 2026-11-05 = probe day
       forward: [2026-11-06, null]          # live logger scripts/pmus_lag_logger.py (not wired to edgelab yet)
-  kalshi_temp_hourly:
-    loader: kalshi_temp_hourly
-    family: kalshi_weather_temp
-    hidden: [result, expiration_value, volume, settle_ts]   # settle_ts of the TARGET market; v2_settle_ts stays visible
-    outcome: {kind: result_equals_side, key: ticker}
-    splits:                                # date = event-ticker local date; set 2026-11-06 before any quote/outcome pull
-      dev: [2026-04-16, 2026-09-30]        # first KXTEMP*H events .. Sep 30 (old *H series end 09-10; *HS start 09-10)
-      sealed: [2026-10-01, 2026-11-05]     # MIAH + NYCHS/CHIHS/LAXHS only
-      forward: [2026-11-07, null]
