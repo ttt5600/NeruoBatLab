@@ -194,3 +194,20 @@ def kalshi_soccer_ingame():
 
 
 LOADERS["kalshi_soccer_ingame"] = kalshi_soccer_ingame
+
+
+# ------------------------------------------------------------------ Polymarket maker NO (scripts/pm_maker_no.py)
+def pm_maker_no():
+    """data/pm_maker_no/frame.parquet (one row per mention/culture binary market: anchor S, t = S - 24 h, display
+    YES p_t, closed_time, p_close, won = NO resolved) + attrs['trades'] = {ticker: prints after t} (trades.parquet)."""
+    D = DATA / "pm_maker_no"
+    f, ft = D / "frame.parquet", D / "trades.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    tr = pd.read_parquet(ft)
+    tr = tr[tr["ticker"].isin(set(x["ticker"]))]
+    x.attrs["trades"] = {k: g[["timestamp", "price", "yes"]].reset_index(drop=True) for k, g in tr.groupby("ticker")}
+    return x, [str(f), str(ft)]
+
+
+LOADERS["pm_maker_no"] = pm_maker_no

@@ -1,0 +1,20 @@
+id: pm_h2a_maker_no
+family: polymarket_calibration
+dataset: pm_maker_no
+rule: edgelab.rules.pm_maker_no:h2a_maker
+hypothesis: 'H2a (FUND_BOOK 3c H1/H2): on Polymarket mention + culture/award markets (pm_category mentions|culture_tech),
+  YES display price 0.02-0.10 at S-24h -> rest a NO bid at 1 - ceil_cent(p) (sell YES at the display, rounded up), no
+  cancel, filled only if the public taker tape prints THROUGH our price after posting; hold to resolution; maker fee 0.
+  Adverse selection is in the fill model: fills happen when YES buyers pay up, which is when YES is more likely.'
+decision_time: S - 24 h, S = min(endDate, gameStartTime)
+price_model: maker_tape
+split: vault:pm_maker_no
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+  schedules: {maker_tape: none}
+legacy: 'new 2026-11-06 (scripts/pm_maker_no.py); dev = 92 sampled days 2025-05-01..2026-04-30 (smallmarket_calibration
+  enumeration); sealed = every day 2026-05-01..2026-10-31, never priced (count-only census 10-27)'

@@ -153,3 +153,11 @@ datasets:
       dev: [2025-04-01, 2026-02-28]        # first Kalshi soccer game markets .. Feb 2026 (= kalshi_soccer.py DEV cut)
       sealed: [2026-03-01, 2026-10-31]
       forward: [2026-11-06, null]
+  pm_maker_no:
+    loader: pm_maker_no
+    family: polymarket_calibration
+    hidden: [won]
+    outcome: {kind: won_column, key: ticker}   # won = 1 if NO resolved (YES lost); 50/50 resolutions dropped by builder
+    splits:
+      dev: [2025-05-01, 2026-04-30]        # smallmarket_calibration DEV window (92 sampled days); key = UTC date of S
+      sealed: [2026-05-01, 2026-10-31]     # never priced (count-only census 10-27); every day enumerated
