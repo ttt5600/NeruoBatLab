@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TEMPLATE ONLY, NOT INSTALLED (user decides). In-game Pinnacle-vs-Kalshi lag logger, trial xv_live_lag_t03.
+     Install sketch (mirrors install_gap_logger_agent.sh; launchd cannot read ~/Desktop, TCC):
+       DST=$HOME/.claude/quant-kalshi; rsync sports/sports/ -> $DST/sports/; cp scripts/live_lag_logger.py $DST/scripts/
+       replace __DST__ below, copy to ~/Library/LaunchAgents/com.jonathanwang.quant-live-lag.plist,
+       launchctl bootstrap gui/$(id -u) <plist>
+     Each launch runs 59 min (polls Kalshi every 10 s / each Pinnacle URL every 30 s while games are live, idles at
+     1/min otherwise) and is relaunched hourly. Output: __DST__/data/live_lag/<UTC date>.jsonl -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.jonathanwang.quant-live-lag</string>
+  <key>WorkingDirectory</key><string>__DST__</string>
+  <key>ProgramArguments</key><array>
+    <string>__DST__/.venv/bin/python</string><string>scripts/live_lag_logger.py</string>
+    <string>run</string><string>--minutes</string><string>59</string>
+    <string>--out</string><string>__DST__/data/live_lag</string>
+  </array>
+  <key>StartInterval</key><integer>3600</integer>
+  <key>RunAtLoad</key><true/>
+  <key>StandardOutPath</key><string>__DST__/live_lag.log</string>
+  <key>StandardErrorPath</key><string>__DST__/live_lag.err</string>
+</dict></plist>

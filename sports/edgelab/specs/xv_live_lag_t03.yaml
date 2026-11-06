@@ -1,0 +1,32 @@
+id: xv_live_lag_t03
+family: cross_venue
+dataset: xv_live_lag
+rule: edgelab.rules.forward:unwired
+hypothesis: >-
+  In-game cross-venue lag: when a FRESH Pinnacle live moneyline view arrives (received <= 45 s after its CDN
+  last-modified), buy Kalshi game-winner YES on a side if fair - ask - taker_fee(ask) >= 0.03, where fair =
+  min(power, Shin) de-vig of Pinnacle's two-way live moneyline (never proportional). NBA, NCAAB, NHL, NFL, CFB.
+decision_time: logger tick at Pinnacle receipt (scripts/live_lag_logger.py; Kalshi quote recv <= decision, <= 15 s old)
+price_model: taker
+split: vault:xv_live_lag
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: cent
+params:
+  fresh_s: 45
+  kal_max_age_s: 15
+  thresh: 0.03
+  ask_range: [0.05, 0.95]
+  dedup_s: 600
+  devig: min(power, shin)
+  outcome: Kalshi settlement of the ticker (game winner incl. OT)
+  clv: Kalshi mid at decision +60 s and +300 s minus ask
+  leagues: [nba, cbb, nhl, nfl, cfb]
+legacy: >-
+  New 2026-11-05. Probe: every Pinnacle guest endpoint is Cloudflare-cached max-age ~905 s, so live odds are up to
+  15 min stale; cache-busting refused (204), not attempted further. Seconds-level lag is not measurable from this
+  source; the rule acts only on freshly refilled views.
