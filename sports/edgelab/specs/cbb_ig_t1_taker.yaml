@@ -1,0 +1,15 @@
+id: cbb_ig_t1_taker
+family: kalshi_ingame
+dataset: cbb_ingame
+rule: edgelab.rules.cbb_ingame:t1_taker_all
+hypothesis: 'CBB in-game T1: frozen probit WP model (fit ESPN 2023-25, prior = Kalshi pregame mid) - ask - taker fee >= 0.05 at any 60-s snapshot (state lagged 60 s), buy that side at the ask, first trigger per game, hold'
+decision_time: in-game, every 60 s (ESPN state as of t - 60 s; Kalshi quote = last 1-min candle ending <= t)
+price_model: taker
+split: vault:cbb_ingame
+min_n: 200
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+legacy: 'new 2026-11-05 (scripts/cbb_ingame.py); NBA/NFL in-game versions dead (FUND_BOOK 3d)'

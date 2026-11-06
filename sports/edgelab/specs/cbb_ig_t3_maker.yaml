@@ -1,0 +1,16 @@
+id: cbb_ig_t3_maker
+family: kalshi_ingame
+dataset: cbb_ingame
+rule: edgelab.rules.cbb_ingame:t3_maker
+hypothesis: 'CBB in-game T3: same model; post bid+1c on a side where model - q - maker fee >= 0.05 (spread >= 2c) for 180 s; fill = a later 1-min candle trades through q; first fill per game, hold'
+decision_time: in-game, every 60 s (ESPN state as of t - 60 s; Kalshi quote = last 1-min candle ending <= t)
+price_model: maker_tape
+split: vault:cbb_ingame
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+  schedules: {maker_tape: kalshi_maker_qwmf}
+legacy: 'new 2026-11-05 (scripts/cbb_ingame.py); KXNCAAMBGAME fee_type quadratic_with_maker_fees'

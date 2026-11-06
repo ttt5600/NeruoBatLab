@@ -135,6 +135,15 @@ datasets:
       forward: [2026-10-30, null]
     forward_adapters:
       q017_b_far_bracket: {module: edgelab.adapters.q017_fwd}
+  cbb_ingame:
+    loader: cbb_ingame
+    family: kalshi_ingame
+    hidden: [result, home_won, volume]   # volume = total incl. in-game trading (post hoc) -> hidden
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:
+      dev: [2025-11-03, 2026-01-31]        # first Kalshi CBB games .. end of January (2025-26)
+      sealed: [2026-02-01, 2026-04-30]     # Feb .. NCAA tournament (2025-26)
+      forward: [2026-11-06, null]          # 2026-27 after registration day; 11-02..11-05 belong to no split
   kalshi_soccer_ingame:
     loader: kalshi_soccer_ingame
     family: kalshi_ingame

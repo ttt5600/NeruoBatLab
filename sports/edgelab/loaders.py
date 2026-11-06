@@ -161,11 +161,26 @@ def kalshi_tsaw_forward():
     return d, [str(f)]
 
 
+# ------------------------------------------------------------------ CBB in-game vs Kalshi (scripts/cbb_ingame.py)
+def cbb_ingame():
+    """data/cbb_ingame/snapshots.parquet (one row per game x 60-s decision time; built by scripts/cbb_ingame.py build)
+    + the 1-min candles per game in attrs (maker fills from trade low/high, CLV mark)."""
+    D = DATA / "cbb_ingame"
+    f, fc = D / "snapshots.parquet", D / "candles.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    cd = pd.read_parquet(fc)
+    cd = cd[cd["eid"].isin(set(x["eid"]))]
+    x.attrs["candles"] = {e: c.sort_values("end").reset_index(drop=True) for e, c in cd.groupby("eid")}
+    return x, [str(f), str(fc)]
+
+
 LOADERS = {
     "kalshi_temp_e1": kalshi_temp_e1, "kalshi_temp_x1": kalshi_temp_x1, "kalshi_temp_all": kalshi_temp_all,
     "kalshi_tsaw": kalshi_tsaw, "nba_totals_open": nba_totals_open, "nba_totals_open_forward": nba_totals_open_forward,
     "nba_sides_l2": nba_sides_l2, "nfl_total_lab": nfl_total_lab, "nba_early_form": nba_early_form,
     "kalshi_prop_ladders": kalshi_prop_ladders, "q017_ercot": q017_ercot, "kalshi_tsaw_forward": kalshi_tsaw_forward,
+    "cbb_ingame": cbb_ingame,
 }
 
 
