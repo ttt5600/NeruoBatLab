@@ -252,6 +252,28 @@ def pm_jumps():
 
 LOADERS["pm_jumps"] = pm_jumps
 
+# ------------------------------------------------------------------ Kalshi -> Polymarket US in-game lag (scripts/pmus_lag.py)
+def pmus_ingame_lag():
+    """data/pmus_lag/frame_{dev,sealed}.parquet: one row per Kalshi in-game jump (pre-decision columns, result hidden;
+    `ticker` = PM US slug so result_equals_side keys on it, Kalshi ticker in `kticker`) + attrs['pm'] = {slug:
+    DataFrame[ts, long, short]} PM US minute observations (pm_{split}.parquet). Sealed exists only after its pull."""
+    D = DATA / "pmus_lag"
+    xs, hs, srcs = [], [], []
+    for s in ("dev", "sealed"):
+        f, fh = D / f"frame_{s}.parquet", D / f"pm_{s}.parquet"
+        if f.exists():
+            xs.append(pd.read_parquet(f)); hs.append(pd.read_parquet(fh)); srcs += [str(f), str(fh)]
+    x = pd.concat(xs, ignore_index=True).rename(columns={"ticker": "kticker"})
+    x["ticker"] = x["slug"]
+    x["date"] = pd.to_datetime(x["date"])
+    x["k_close_ts"] = (pd.to_datetime(x["k_close"], utc=True) - pd.Timestamp("1970-01-01", tz="UTC")) / pd.Timedelta(seconds=1)
+    h = pd.concat(hs, ignore_index=True)
+    x.attrs["pm"] = {k: g[["ts", "long", "short"]].sort_values("ts").reset_index(drop=True) for k, g in h.groupby("slug")}
+    return x, srcs
+
+
+LOADERS["pmus_ingame_lag"] = pmus_ingame_lag
+
 
 # ------------------------------------------------------------------ Polymarket time-to-resolution favourites (scripts/pm_timing.py)
 def pm_timing():

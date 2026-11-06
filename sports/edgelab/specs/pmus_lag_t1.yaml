@@ -1,0 +1,19 @@
+id: pmus_lag_t1
+family: cross_venue
+dataset: pmus_ingame_lag
+rule: edgelab.rules.pmus_lag:t1_all
+hypothesis: 'PMUS-LAG T1: Kalshi leads Polymarket in-game by ~10-20 s (notes/xvenue_ingame.md). After a Kalshi jump
+  (>= 4c vs the trade <= 10 s earlier, PM-long team ticker, price 0.05-0.95, one per game per 60 s), buying Polymarket
+  US toward it at PM US''s book-derived ASK observed 3-10 s after the jump + taker fee 0.0695 p(1-p), held to
+  settlement, earns > 0. Every such jump.'
+decision_time: first PM US price-history minute observation in [t_jump + 3 s, t_jump + 10 s]
+price_model: taker
+split: vault:pmus_ingame_lag
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+  schedules: {taker: pmus_taker}
+legacy: 'new 2026-11-06 (scripts/pmus_lag.py, notes/pmus_lag.md); registered before any split price was pulled'

@@ -200,3 +200,12 @@ datasets:
       dev: [2026-08-01, 2026-10-11]        # first KXYTVIEWSW week .. Oct 11 (~70% of weeks)
       sealed: [2026-10-12, 2026-11-01]
       forward: [2026-11-08, null]
+  pmus_ingame_lag:
+    loader: pmus_ingame_lag
+    family: cross_venue
+    hidden: [result]                       # 'yes' | 'no' = PM US long side settled 1 / 0; bet_id = slug|t_jump_ms
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # set 2026-11-06 before any PM US price / Kalshi tape of these games was read;
+      dev: [2026-05-01, 2026-08-31]        # key = UTC date of PM US game start; 700 random matched games (seed 20261106)
+      sealed: [2026-09-01, 2026-11-04]     # 700 random (seed 20261107), pulled only after a dev pass; 2026-11-05 = probe day
+      forward: [2026-11-06, null]          # live logger scripts/pmus_lag_logger.py (not wired to edgelab yet)

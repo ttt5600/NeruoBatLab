@@ -1,0 +1,17 @@
+id: pmus_lag_t2
+family: cross_venue
+dataset: pmus_ingame_lag
+rule: edgelab.rules.pmus_lag:t2_stale
+hypothesis: 'PMUS-LAG T2: as T1 (Kalshi jump -> buy Polymarket US toward it at its ask 3-10 s later + taker fee
+  0.0695 p(1-p), hold), but only when PM US is still stale: Kalshi jump price in side terms - ask - fee >= 0.02.'
+decision_time: first PM US price-history minute observation in [t_jump + 3 s, t_jump + 10 s]
+price_model: taker
+split: vault:pmus_ingame_lag
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+  schedules: {taker: pmus_taker}
+legacy: 'new 2026-11-06 (scripts/pmus_lag.py, notes/pmus_lag.md); registered before any split price was pulled'

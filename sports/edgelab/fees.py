@@ -16,6 +16,7 @@ import numpy as np
 KALSHI_TAKER = 0.07
 KALSHI_MAKER_QWMF = 0.0175
 FORECASTEX_PER_CONTRACT = 0.01
+PMUS_TAKER = 0.0695
 
 
 def _ceil_cent(x: np.ndarray) -> np.ndarray:
@@ -41,6 +42,8 @@ def fee_per_contract(schedule: str, p, contracts: int = 1, rounding: str = "cent
         return np.zeros_like(p)
     if schedule == "kalshi_maker_qwmf":
         return kalshi_fee_per_contract(p, contracts, KALSHI_MAKER_QWMF, rounding)
+    if schedule == "pmus_taker":   # Polymarket US taker 0.0695*C*p*(1-p) (docs.polymarket.us/fees.md, 2026-10-28)
+        return kalshi_fee_per_contract(p, contracts, PMUS_TAKER, rounding)
     if schedule == "forecastex":
         return np.full_like(p, FORECASTEX_PER_CONTRACT)
     if schedule in ("book", "none"):
