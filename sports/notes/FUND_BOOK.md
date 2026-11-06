@@ -240,7 +240,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | PM-T | Polymarket favourite by time-to-resolution (11-06) | mid +5.0% @30d vs +1.7% @1h real; maker 7d -2.49%, 30d +0.08% dead | unfilled favourites all won | scripts/pm_timing.py |
 | MEDIA | YouTube/Netflix/charts weekly far-bracket (11-06) | ytv_m1_maker n18 fail (min n, 79% one week); Netflix/charts no PIT data | < $50/wk capacity | scripts/e1x_media.py |
 | PW | PortWatch chokepoints / EIA crude (11-06) | pw_t1_maker dead at data gate: revisions, 49/63 match first print; EIA too thin | pure forecast market, nothing observed pre-close | scripts/dl_portwatch.py |
-| XV-PM | Kalshi vs Polymarket in-game (11-06) | buy Kalshi toward PM -2.58c [-3.06,-2.08] dead; buy PM toward Kalshi = LEAD (+0.9..4.1c at mid, untrusted) -> PM US real-ask test running | Kalshi leads 10-20 s | scripts/xvenue_ingame.py |
+| XV-PM | Kalshi vs Polymarket in-game (11-06) | buy Kalshi toward PM -2.58c [-3.06,-2.08] dead; buy PM toward Kalshi looked +0.9..4.1c at mid; at PM US REAL ASK pmus_lag_t1 -3.60% [-8.80,+1.62] n2341, t2 +1.01% [-15.7,+21.0] n481 -> DEAD | Kalshi leads 10-20 s | scripts/xvenue_ingame.py |
 | XV-LAG | Live Pinnacle vs Kalshi lag (11-05) | untestable: guest API cached ~15 min; 0 signals on fresh views | needs logged-in feed | scripts/live_lag_logger.py |
 | -- | NBA live totals model vs KXNBATOTAL | Brier .1196 < model .1240; rule -2.1%/336 [L:nba_live_totals] | pace adds ~nothing beyond pregame total/time/margin | notes/nba_live_totals.md |
 | CB1 | Fade trailing NFL dogs in-game | Kalshi +1.8pp over vegas_wp, ~1% after fees [EA] | too small to test | notes/nfl_comebacks_matchups.md |
