@@ -29,6 +29,10 @@ inputs_as_of = Tuesday 15:00Z. F = A_{W-1} (last published full week). Residuals
 every earlier week V of the SAME chokepoint since 2019 whose week ended >= 9 days before T (i.e. published by the
 Tuesday before last). Rung REJECTED-HIGH (bet NO) if K + 1 >= (F + 1) e^(r_max + 0.05); REJECTED-LOW (bet YES) if
 K + 1 <= (F + 1) e^(r_min - 0.05). Only events open at T with a quote at T.
+Amended before any edgelab data access (2026-11-06): bet only if week W-1 was PUBLISHED before T, publication time =
+earliest Kalshi settlement_ts over the 4 series for that week end (PortWatch was a day late on 10-13 and 10-27;
+settlements land 14:20-14:50Z). Fetch note: the ArcGIS layer 429s on full queries (shared 6,000 units/min); queries
+with cacheHint=true and 3 fields go through. As fetched 11-06 the layer ends 2026-10-25 (week 11-01 unpublished).
 
 ## Trial (k = 1): pw_t1_maker
 Post on the far side at T: NO bid q = min(NO mid, NO ask - 0.01) (NO ask = 1 - yes_bid, NO mid = 1 - (yb+ya)/2);
@@ -47,3 +51,17 @@ Far NO fills cost ~.90-.98, profit a few cents; with ~40 dev events and maybe 1-
 nearly zero losses. Hormuz is in a regime break (transits ~5-100/week vs ~700 normal) -> r_min/r_max from 2026 crash
 weeks are extreme, so few rungs will be rejected. Capacity: maker fills limited by the tape; reported with the result.
 Kill: dev ROI <= 0 or fail -> DEAD for this family, no re-tweak.
+
+## RESULT 2026-11-06 -- AUDIT GATE FAILED, trial never scored -> pw_t1_maker-49f5009f retired (dead)
+`dl_portwatch.py audit`: Mon..Sun sums of the CURRENT PortWatch layer agree with Kalshi settlements on 49/63 settled
+events (0.778; Sun..Sat 0.492) vs the 0.90 gate. 13 of 14 mismatches are Hormuz and they are revisions, not window
+errors: MAY03 settled in (30,40] but the layer now says 86; MAY17 (10,15] vs 38; JUL19 (75,100] vs 44; JUL05
+(200,225] vs 162. Suez/Panama/Bab agree on all but 1 event (Suez AUG02 291 vs (280,290]).
+Mechanism: Kalshi settles on PortWatch's FIRST print; in the Hormuz crisis (AIS-dark tankers) PortWatch later revises
+weekly counts by up to ~2x. The layer keeps no vintages, so any backtest built on it uses revised W-1 inputs and
+revised history -> not point-in-time. Lesson: audit settlement-vs-source BEFORE trusting a public series as history.
+Other findings: publication is weekly (Tuesday ~14:13Z; 10-13 and 10-27 a day late; week 11-01 still unpublished
+11-06), so nothing of the target week is observable before close -- these are forecast markets, not
+partial-observation markets. G-EIA KXEIACRUDEW: 10 settled events, mostly < 100 contracts -> no trial.
+Way forward (no trial spent): a Tuesday vintage logger (snapshot the layer each week, cacheHint=true) would give
+first-print history; after ~20 weeks a forward-only Suez/Panama/Bab/Hormuz far-bracket test is possible.

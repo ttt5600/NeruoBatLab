@@ -27,7 +27,7 @@ EPOCH = pd.Timestamp("1970-01-01", tz="UTC")
 def daily() -> dict[str, pd.Series]:
     df = pd.read_parquet(D / "portwatch_daily.parquet")
     d = df["date"]
-    if np.issubdtype(d.dtype, np.number):
+    if pd.api.types.is_numeric_dtype(d):
         traps.check_epoch_seconds(d // 1000, "portwatch date ms")
         d = pd.to_datetime(d, unit="ms", utc=True)
     else:
@@ -77,9 +77,17 @@ def cmd_audit() -> int:
     return 0
 
 
+def pub_times(m: pd.DataFrame) -> dict:
+    """week end -> earliest Kalshi settlement_ts over the 4 series = proxy for when PortWatch published that week
+    (publication is usually Tuesday ~14:13Z but was a day late on 10-13 and 10-27)."""
+    st = pd.to_datetime(m["settlement_ts"], utc=True, format="ISO8601")
+    return st.groupby(m["wend"]).min().dropna().to_dict()
+
+
 def cmd_build() -> int:
     s = daily()
     m = markets()
+    pub = pub_times(m)
     rows = []
     for ev, g in m.groupby("event_ticker"):
         wend = g.wend.iloc[0]
@@ -98,7 +106,7 @@ def cmd_build() -> int:
         for _, k in g.iterrows():
             rows.append({"ticker": k.ticker, "event_ticker": ev, "series": k.series, "portid": pid, "wend": wend,
                          "K": k.K, "T": T, "open_time": k.open_time, "close_time": k.close_time,
-                         "F": F, "r_min": rmin, "r_max": rmax, "n_resid": int(ok.sum()),
+                         "F": F, "pub_prev": pub.get(wend - pd.Timedelta(days=7), pd.NaT), "r_min": rmin, "r_max": rmax, "n_resid": int(ok.sum()),
                          "hi": (F + 1) * np.exp(rmax + M) - 1, "lo": (F + 1) * np.exp(rmin - M) - 1,
                          "_src": k._src, "result": k.result})
     b = pd.DataFrame(rows)
@@ -110,6 +118,8 @@ def cmd_build() -> int:
 def rungs() -> pd.DataFrame:
     x = pd.read_parquet(D / "pw_build.parquet")
     x = x[x.F.notna() & (x.n_resid >= 52)]
+    # point-in-time: week W-1 must have been published (settled on Kalshi) before T
+    x = x[pd.to_datetime(x.pub_prev, utc=True) < pd.to_datetime(x["T"], utc=True)]
     x = x[pd.to_datetime(x.open_time, utc=True) < pd.to_datetime(x["T"], utc=True)]
     x = x[pd.to_datetime(x.close_time, utc=True) > pd.to_datetime(x["T"], utc=True)]
     x["side"] = np.where(x.K >= x.hi, "no", np.where(x.K <= x.lo, "yes", ""))

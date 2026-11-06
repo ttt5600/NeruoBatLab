@@ -16,12 +16,12 @@ PORTS = {"chokepoint1": "suez", "chokepoint2": "panama", "chokepoint4": "babelma
 
 
 def q(params: dict) -> dict:
-    for a in range(60):
-        r = requests.get(URL + "/query", params={**params, "f": "json"}, timeout=60)
+    for a in range(400):
+        r = requests.get(URL + "/query", params={**params, "cacheHint": "true", "f": "json"}, timeout=60)
         j = r.json()
         if "error" in j:
             print("retry", j["error"].get("code"), flush=True)
-            time.sleep(20)
+            time.sleep(60.3 - time.time() % 60)   # quota resets each minute: retry at the boundary
             continue
         return j
     raise RuntimeError("quota")
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     for pid in PORTS:
         off = 0
         while True:
-            j = q({"where": f"portid='{pid}'", "outFields": "*", "orderByFields": "date ASC",
+            j = q({"where": f"portid='{pid}'", "outFields": "date,portid,n_total", "orderByFields": "date ASC",
                    "resultOffset": off, "resultRecordCount": 2000})
             fs = [f["attributes"] for f in j.get("features", [])]
             rows += fs
