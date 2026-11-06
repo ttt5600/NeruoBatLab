@@ -268,3 +268,22 @@ def pm_timing():
 
 
 LOADERS["pm_timing"] = pm_timing
+
+
+# ------------------------------------------------------------------ KXYTVIEWSW weekly YouTube max daily views (E1X-M)
+def kalshi_ytviews():
+    """scripts/e1x_media.py yt_rungs(): consensus-rejected rungs at Sunday 16:00Z + hourly candles and trade tape."""
+    _imp_scripts()
+    import e1x_media as Y
+    x = Y.yt_rungs()
+    x = x[x.result.isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["wend"])
+    x = x.drop(columns=["open", "close"])
+    D = DATA / "e1x_media"
+    x.attrs["candles"] = json.loads((D / "ytv_candles.json").read_text())
+    x.attrs["trades"] = json.loads((D / "ytv_trades.json").read_text())
+    return x, [str(D / "ytv_build.parquet"), str(D / "KXYTVIEWSW_markets.parquet"), str(D / "ytv_candles.json"),
+               str(D / "ytv_trades.json")]
+
+
+LOADERS["kalshi_ytviews"] = kalshi_ytviews

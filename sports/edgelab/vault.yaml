@@ -188,3 +188,15 @@ datasets:
                                            # descriptive (scripts/pm_timing.py describe) already read on dev only
       sealed: [2026-05-01, 2026-10-31]     # never priced; builder samples 46 days (seed 20261106) and EXCLUDES
                                            # mentions + culture_tech (pm_maker_no's sealed categories)
+  kalshi_ytviews:
+    loader: kalshi_ytviews
+    family: kalshi_media_weekly
+    hidden: [result, expiration_value, settlement_value_dollars, settlement_ts, last_price_dollars, previous_price_dollars,
+             previous_yes_ask_dollars, previous_yes_bid_dollars, no_ask_dollars, no_bid_dollars, yes_ask_dollars,
+             yes_bid_dollars, yes_ask_size_fp, yes_bid_size_fp, volume_fp, volume_24h_fp, open_interest_fp, status,
+             updated_time, expiration_time]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = week end (Sunday); set 2026-11-06 before any quote/outcome join
+      dev: [2026-08-01, 2026-10-11]        # first KXYTVIEWSW week .. Oct 11 (~70% of weeks)
+      sealed: [2026-10-12, 2026-11-01]
+      forward: [2026-11-08, null]

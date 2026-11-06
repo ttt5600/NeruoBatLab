@@ -1,0 +1,16 @@
+id: ytv_m1_maker
+family: kalshi_media_weekly
+dataset: kalshi_ytviews
+rule: edgelab.rules.media_yt:m1_maker
+hypothesis: 'E1X-M YouTube: at Sunday 16:00Z, NO on KXYTVIEWSW rungs K >= U*exp(r_max+0.02) (U = lowest still-trading rung, r_max = max past ln(weekly max/U)); maker q = min(NO mid, NO ask-1c), fill only on a tape print through q, no cancel'
+decision_time: Sunday 16:00 UTC of the Mon..Sun week (Kalshi early-close states and prior settlements only)
+price_model: maker_tape
+split: vault:kalshi_ytviews
+min_n: 40
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 2
+fee:
+  rounding: exact
+legacy: 'new 2026-11-06 (scripts/e1x_media.py, notes/e1x_media.md); KXYTVIEWSW fee_type quadratic (maker 0)'

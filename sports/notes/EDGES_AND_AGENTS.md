@@ -239,6 +239,8 @@ slate card (notes/slate_2026-10-25.md: 0 flags, in-game cheat sheets). Re-launch
 | NHL PDO/shooting luck + blind unders by opening total (scripts/nhl_luck.py, dataset nhl_luck, SBR 2007-08..2022-23 + NHL API shots) | 0/17 pass. Under at open 6.5 -4.3%/1,160 (L34 +5.8% no-vig lead does not replicate); luck bets lose ~vig; close prices ~90% of luck; totals drift TOWARD luck open->close | notes/nhl_luck.md |
 
 ---------------------------------------------------------------------------------------------------------------------
+- **E1X-M media weekly (11-06, notes/e1x_media.md, scripts/e1x_media.py)**: YouTube KXYTVIEWSW maker-NO ytv_m1_maker-55fb9db5 dev FAIL (n 18, +14.5% [5.5,25.2], concentration 0.79, d_min_n) -> dead; capacity median $0/wk (only 3 of 10 weeks had any print through the bid, <= $69). Netflix (FlixPatrol 403, no free dailies) and charts (HDD projections prose-only, Kworb no PIT history, KXBBSINGLE n 8) DROPPED before any trial. Rungs close early on YES, so the locked-YES state is never tradable.
+
 ## 6. AGENTS: who did what, where the output is, how to reach them
 
 How to reach: the IDs below are background subagents of the session "automated trading system development" (peer id
