@@ -235,6 +235,12 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | CBB-IG | CBB in-game WP vs Kalshi (11-05) | T1 -1.40%/2000, T2 lowvol -4.14%/611, T3 maker +0.34%/2020, all dev dead | Kalshi Brier <= model every bucket; thin games are lopsided | scripts/cbb_ingame.py |
 | SOC-IG | Soccer in-game Poisson vs Kalshi (11-05) | T1 -2.01%/1321, T2 late draw -3.73%/721 dev dead | Kalshi better every bucket/tercile; NHL empty-net = weak lead, logger only | scripts/kalshi_ingame_lowscore.py |
 | NBA-LU | NBA lineup-aware in-game WP (11-05) | no money trial: player term n.d.; resid coef +0.116 [-0.18,+0.43] | availability already priced | scripts/nba_ingame_lineup.py |
+| H1/H2 | Polymarket longshot-NO maker, mention/culture (11-06) | pm_h2a_maker_no dev +1.11% [-1.54,+3.21] n398 p .18 dead; sealed 2026-05..10 unused | fills = losers: filled YES 4.8% vs unfilled 0% | scripts/pm_maker_no.py |
+| OVR | Polymarket overreaction fade (11-06) | W15 fade at ask -0.8%/4,395; +26.5% maker = lifetime-volume selection artefact, retired | chart reversion = bid/ask bounce | scripts/pm_jumps.py |
+| PM-T | Polymarket favourite by time-to-resolution (11-06) | mid +5.0% @30d vs +1.7% @1h real; maker 7d -2.49%, 30d +0.08% dead | unfilled favourites all won | scripts/pm_timing.py |
+| MEDIA | YouTube/Netflix/charts weekly far-bracket (11-06) | ytv_m1_maker n18 fail (min n, 79% one week); Netflix/charts no PIT data | < $50/wk capacity | scripts/e1x_media.py |
+| PW | PortWatch chokepoints / EIA crude (11-06) | pw_t1_maker dead at data gate: revisions, 49/63 match first print; EIA too thin | pure forecast market, nothing observed pre-close | scripts/dl_portwatch.py |
+| XV-PM | Kalshi vs Polymarket in-game (11-06) | buy Kalshi toward PM -2.58c [-3.06,-2.08] dead; buy PM toward Kalshi = LEAD (+0.9..4.1c at mid, untrusted) -> PM US real-ask test running | Kalshi leads 10-20 s | scripts/xvenue_ingame.py |
 | XV-LAG | Live Pinnacle vs Kalshi lag (11-05) | untestable: guest API cached ~15 min; 0 signals on fresh views | needs logged-in feed | scripts/live_lag_logger.py |
 | -- | NBA live totals model vs KXNBATOTAL | Brier .1196 < model .1240; rule -2.1%/336 [L:nba_live_totals] | pace adds ~nothing beyond pregame total/time/margin | notes/nba_live_totals.md |
 | CB1 | Fade trailing NFL dogs in-game | Kalshi +1.8pp over vegas_wp, ~1% after fees [EA] | too small to test | notes/nfl_comebacks_matchups.md |
