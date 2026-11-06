@@ -178,3 +178,13 @@ datasets:
     splits:                                # set 2026-11-06 before any trade tape or outcome was read; key = UTC date of S
       dev: [2025-05-01, 2026-04-30]        # the 92 smallmarket_calibration sampled days (seed 20261027)
       sealed: [2026-05-01, 2026-10-31]     # never tape-pulled; builder EXCLUDES mentions + culture_tech here (= pm_maker_no sealed)
+  pm_timing:
+    loader: pm_timing
+    family: polymarket_calibration
+    hidden: [result]                       # winning token: 'tok0' / 'tok1' (50/50 resolutions dropped by builder)
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # set 2026-11-06 before any trade tape was pulled; key = UTC date of S
+      dev: [2025-05-01, 2026-04-30]        # the 92 smallmarket_calibration sampled days (seed 20261027); mid-price
+                                           # descriptive (scripts/pm_timing.py describe) already read on dev only
+      sealed: [2026-05-01, 2026-10-31]     # never priced; builder samples 46 days (seed 20261106) and EXCLUDES
+                                           # mentions + culture_tech (pm_maker_no's sealed categories)

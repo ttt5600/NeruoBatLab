@@ -251,3 +251,20 @@ def pm_jumps():
 
 
 LOADERS["pm_jumps"] = pm_jumps
+
+
+# ------------------------------------------------------------------ Polymarket time-to-resolution favourites (scripts/pm_timing.py)
+def pm_timing():
+    """data/pm_timing/frame.parquet: one row per (binary market, horizon 7d|30d) with p0 at t = S - h, closed_time,
+    p_close, result (hidden: winning token) + attrs['trades'] = {ticker: prints after t, tok0 flag} (trades.parquet)."""
+    D = DATA / "pm_timing"
+    f, ft = D / "frame.parquet", D / "trades.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    tr = pd.read_parquet(ft)
+    tr = tr[tr["ticker"].isin(set(x["ticker"]))]
+    x.attrs["trades"] = {k: g[["timestamp", "price", "tok0"]].reset_index(drop=True) for k, g in tr.groupby("ticker")}
+    return x, [str(f), str(ft)]
+
+
+LOADERS["pm_timing"] = pm_timing

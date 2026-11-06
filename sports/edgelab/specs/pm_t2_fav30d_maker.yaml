@@ -1,0 +1,19 @@
+id: pm_t2_fav30d_maker
+family: polymarket_calibration
+dataset: pm_timing
+rule: edgelab.rules.pm_timing:t2_fav30d_maker
+hypothesis: 'User idea 11-06 (time-to-resolution EV): far from resolution Polymarket favourites are underpriced (DEV mid
+  descriptive: fav return +5.0% at S-30d vs +1.7% at S-1h). At t = S - 30d (S = min(endDate, gameStartTime)), categories
+  except mentions/culture_tech, favourite display 0.65-0.95 -> rest a bid on the favourite at the display rounded DOWN
+  to the cent, no cancel, filled only on a public print THROUGH the bid after t; hold to resolution; maker fee 0.'
+decision_time: S - 720 h
+price_model: maker_tape
+split: vault:pm_timing
+min_n: 100
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+  schedules: {maker_tape: none}
+legacy: 'new 2026-11-06 (scripts/pm_timing.py, notes/pm_timing.md)'
