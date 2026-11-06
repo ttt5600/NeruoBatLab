@@ -131,9 +131,12 @@ def trades_after(r):
     t = int(r.S.timestamp()) - 24 * 3600
     out, cursor = [], None
     for _ in range(200):
-        params = {"condition": r.cond, "limit": 1000} if cursor is None else {"cursor": cursor}
+        # the cursor alone returns an empty page; it must be sent WITH the condition (checked 11-06)
+        params = {"condition": r.cond, "limit": 1000} if cursor is None else {"condition": r.cond, "cursor": cursor}
         d = sm.get(DATA_API, params, cache=True)
         if not d or not d.get("data"):
+            if cursor is not None:
+                INCOMPLETE.append(r.ticker)
             break
         for x in d["data"]:
             if int(x["timestamp"]) > t:
@@ -144,7 +147,12 @@ def trades_after(r):
         cursor = (d.get("pagination") or {}).get("next_cursor")
         if oldest <= t or not cursor:
             break
+    else:
+        INCOMPLETE.append(r.ticker)
     return out
+
+
+INCOMPLETE: list = []
 
 
 def cmd_trades():
@@ -159,7 +167,7 @@ def cmd_trades():
         print(f"  {min(i + 500, len(rs))}/{len(rs)} prints {len(rows)}", flush=True)
     tr = pd.DataFrame(rows, columns=["ticker", "timestamp", "price", "size", "yes", "token_ok"])
     bad = int((~tr.token_ok).sum()) if len(tr) else 0
-    print(f"prints {len(tr)}; token mismatch {bad}")
+    print(f"prints {len(tr)}; token mismatch {bad}; markets with a truncated tape: {len(set(INCOMPLETE))}")
     tr[tr.token_ok].drop(columns=["token_ok"]).to_parquet(OUT / "trades.parquet", index=False)
 
 
