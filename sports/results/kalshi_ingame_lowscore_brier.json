@@ -1,0 +1,226 @@
+{
+ "soccer": {
+  "by_minutes_left": [
+   {
+    "ml_bucket": "0-5",
+    "n_rows": 13174.0,
+    "games": 1404.0,
+    "brier_kalshi": 0.11678247684833763,
+    "brier_model": 0.11890408616175212,
+    "model_minus_kalshi": 0.0021216093134144853
+   },
+   {
+    "ml_bucket": "5-15",
+    "n_rows": 31758.0,
+    "games": 1719.0,
+    "brier_kalshi": 0.12836837725927325,
+    "brier_model": 0.1304620645128191,
+    "model_minus_kalshi": 0.0020936872535458617
+   },
+   {
+    "ml_bucket": "15-30",
+    "n_rows": 59267.0,
+    "games": 1888.0,
+    "brier_kalshi": 0.14784612811513997,
+    "brier_model": 0.15050995033577538,
+    "model_minus_kalshi": 0.002663822220635409
+   },
+   {
+    "ml_bucket": "30-45",
+    "n_rows": 166225.0,
+    "games": 1981.0,
+    "brier_kalshi": 0.16268878493006467,
+    "brier_model": 0.1651466998815401,
+    "model_minus_kalshi": 0.0024579149514754317
+   },
+   {
+    "ml_bucket": "45-60",
+    "n_rows": 71553.0,
+    "games": 1997.0,
+    "brier_kalshi": 0.17584178825486005,
+    "brier_model": 0.17802981577620533,
+    "model_minus_kalshi": 0.0021880275213452816
+   },
+   {
+    "ml_bucket": "60-75",
+    "n_rows": 74394.0,
+    "games": 2001.0,
+    "brier_kalshi": 0.18537669200473159,
+    "brier_model": 0.18653116341279746,
+    "model_minus_kalshi": 0.001154471408065877
+   },
+   {
+    "ml_bucket": "75+",
+    "n_rows": 70917.0,
+    "games": 2003.0,
+    "brier_kalshi": 0.19412325147707885,
+    "brier_model": 0.1943133952746163,
+    "model_minus_kalshi": 0.00019014379753745647
+   }
+  ],
+  "by_volume_tercile": [
+   {
+    "vol_tercile": "high",
+    "n_rows": 180147.0,
+    "games": 668.0,
+    "brier_kalshi": 0.17592921267076334,
+    "brier_model": 0.17874921242592712,
+    "model_minus_kalshi": 0.0028199997551637823
+   },
+   {
+    "vol_tercile": "low",
+    "n_rows": 146387.0,
+    "games": 668.0,
+    "brier_kalshi": 0.15710369004761351,
+    "brier_model": 0.15827666039029084,
+    "model_minus_kalshi": 0.0011729703426773264
+   },
+   {
+    "vol_tercile": "mid",
+    "n_rows": 167221.0,
+    "games": 668.0,
+    "brier_kalshi": 0.16334705793530718,
+    "brier_model": 0.16463273051009336,
+    "model_minus_kalshi": 0.0012856725747861786
+   }
+  ],
+  "vol_cuts": [
+   59100.66666666666,
+   252240.66666666666
+  ]
+ },
+ "soccer_tie": {
+  "by_minutes_left": [
+   {
+    "ml_bucket": "0-5",
+    "n_rows": 5239.0,
+    "games": 1372.0,
+    "brier_kalshi": 0.13922988642870776,
+    "brier_model": 0.14184197250800432,
+    "model_minus_kalshi": 0.002612086079296555
+   },
+   {
+    "ml_bucket": "5-15",
+    "n_rows": 11575.0,
+    "games": 1685.0,
+    "brier_kalshi": 0.1591132548596112,
+    "brier_model": 0.16185210503454678,
+    "model_minus_kalshi": 0.002738850174935581
+   },
+   {
+    "ml_bucket": "15-30",
+    "n_rows": 20864.0,
+    "games": 1863.0,
+    "brier_kalshi": 0.17370666578796012,
+    "brier_model": 0.17606091523354836,
+    "model_minus_kalshi": 0.0023542494455882357
+   },
+   {
+    "ml_bucket": "30-45",
+    "n_rows": 56003.0,
+    "games": 1970.0,
+    "brier_kalshi": 0.1776258410263736,
+    "brier_model": 0.17892331438142536,
+    "model_minus_kalshi": 0.0012974733550517592
+   },
+   {
+    "ml_bucket": "45-60",
+    "n_rows": 24087.0,
+    "games": 1995.0,
+    "brier_kalshi": 0.18409607568397893,
+    "brier_model": 0.18447580609908962,
+    "model_minus_kalshi": 0.0003797304151106906
+   },
+   {
+    "ml_bucket": "60-75",
+    "n_rows": 24813.0,
+    "games": 2000.0,
+    "brier_kalshi": 0.18512833393785516,
+    "brier_model": 0.18521565825966493,
+    "model_minus_kalshi": 8.732432180977301e-05
+   },
+   {
+    "ml_bucket": "75+",
+    "n_rows": 23588.0,
+    "games": 2003.0,
+    "brier_kalshi": 0.1869085997117178,
+    "brier_model": 0.18691751821854785,
+    "model_minus_kalshi": 8.918506830046802e-06
+   }
+  ],
+  "by_volume_tercile": [
+   {
+    "vol_tercile": "high",
+    "n_rows": 61935.0,
+    "games": 668.0,
+    "brier_kalshi": 0.18577769556793414,
+    "brier_model": 0.1875726325458654,
+    "model_minus_kalshi": 0.0017949369779312607
+   },
+   {
+    "vol_tercile": "low",
+    "n_rows": 49603.0,
+    "games": 668.0,
+    "brier_kalshi": 0.16730347106021815,
+    "brier_model": 0.16813094659451033,
+    "model_minus_kalshi": 0.000827475534292188
+   },
+   {
+    "vol_tercile": "mid",
+    "n_rows": 57445.0,
+    "games": 668.0,
+    "brier_kalshi": 0.1740111345634955,
+    "brier_model": 0.1743467731906323,
+    "model_minus_kalshi": 0.00033563862713678616
+   }
+  ],
+  "vol_cuts": [
+   59100.66666666666,
+   252240.66666666666
+  ]
+ },
+ "nhl": {
+  "by_minutes_left": [
+   {
+    "ml_bucket": "0-5",
+    "n_rows": 664.0,
+    "games": 58.0,
+    "brier_kalshi": 0.16227390813253012,
+    "brier_model": 0.1602374317277407,
+    "model_minus_kalshi": -0.0020364764047894335
+   },
+   {
+    "ml_bucket": "5-15",
+    "n_rows": 1223.0,
+    "games": 75.0,
+    "brier_kalshi": 0.11779897792313983,
+    "brier_model": 0.1169963702883401,
+    "model_minus_kalshi": -0.0008026076347997235
+   },
+   {
+    "ml_bucket": "15-30",
+    "n_rows": 3281.0,
+    "games": 83.0,
+    "brier_kalshi": 0.1546350426699177,
+    "brier_model": 0.1595293280796101,
+    "model_minus_kalshi": 0.004894285409692389
+   },
+   {
+    "ml_bucket": "30-45",
+    "n_rows": 3353.0,
+    "games": 83.0,
+    "brier_kalshi": 0.18951374142558905,
+    "brier_model": 0.194826539059218,
+    "model_minus_kalshi": 0.005312797633628963
+   },
+   {
+    "ml_bucket": "45-60",
+    "n_rows": 2123.0,
+    "games": 83.0,
+    "brier_kalshi": 0.2123330428638719,
+    "brier_model": 0.2163254167756179,
+    "model_minus_kalshi": 0.0039923739117460055
+   }
+  ]
+ }
+}
