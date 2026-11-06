@@ -37,7 +37,10 @@ def legacy(reg: Registry, tid: str) -> dict | None:
 
 def next_gate(reg: Registry, t: dict) -> str:
     st = reg.state(t["trial_id"])
-    sp = vault.config()[t["spec"]["dataset"]]["splits"]
+    cfg = vault.config().get(t["spec"]["dataset"])
+    if cfg is None:  # registered before its dataset has a vault entry (user adds the split window)
+        return f"no vault entry for dataset {t['spec']['dataset']!r}: user must add its split window to vault.yaml"
+    sp = cfg["splits"]
     if st == "registered":
         if sp.get("dev") is not None and not reg.evaluations(t["trial_id"], "dev"):
             return "run dev"
