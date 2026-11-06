@@ -170,3 +170,11 @@ datasets:
       dev: [2026-04-26, 2026-09-20]        # first KXHORMUZWEEKLY week .. Sep 20 (Panama/Suez/Bab from Aug 02)
       sealed: [2026-09-27, 2026-11-01]
       forward: [2026-11-08, null]
+  pm_jumps:
+    loader: pm_jumps
+    family: overreaction_fade
+    hidden: [result]                       # 'yes' | 'no' per market; bet_id = ticker|t_jump
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # set 2026-11-06 before any trade tape or outcome was read; key = UTC date of S
+      dev: [2025-05-01, 2026-04-30]        # the 92 smallmarket_calibration sampled days (seed 20261027)
+      sealed: [2026-05-01, 2026-10-31]     # never tape-pulled; builder EXCLUDES mentions + culture_tech here (= pm_maker_no sealed)

@@ -1,0 +1,22 @@
+id: ovr_t1_down_maker
+family: overreaction_fade
+dataset: pm_jumps
+rule: edgelab.rules.overreaction:t1_down_maker
+hypothesis: 'OVR-T1 (user 11-06 "things swing wildly for things that do not matter"): on Polymarket politics/world,
+  finance/econ, sports (pre-game) and other binary markets, after the YES price falls >= 5c within 15 min, a resting
+  YES bid at the jump print level (posted 60 s after, no cancel, filled only by a later print strictly below it) earns
+  > 0 to resolution. Found on DEV after ~60 descriptive cells (notes/overreaction_fade.md): dev +4.3c/contract
+  [1.2,7.3], placebo-YES-bid excess +34% [19,50]; up-jump fades LOSE (asymmetric), taker fades ~0. Frame is sampled
+  on ex-post lifetime volume >= $10k (placebo YES bias +2c in politics on dev) -- disclosed, same frame in sealed.'
+decision_time: jump print + 60 s
+price_model: maker_tape
+split: vault:pm_jumps
+min_n: 300
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+  schedules: {maker_tape: none}
+legacy: 'new 2026-11-06 (scripts/pm_jumps.py); dev = 92 sampled days 2025-05..2026-04 (tape pulled, studied);
+  sealed = every day 2026-05-01..2026-10-31 excl. mentions/culture_tech, never tape-pulled at registration'

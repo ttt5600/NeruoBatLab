@@ -230,3 +230,24 @@ def kalshi_portwatch():
 
 
 LOADERS["kalshi_portwatch"] = kalshi_portwatch
+
+
+# ------------------------------------------------------------------ Polymarket jump / overreaction fade (scripts/pm_jumps.py)
+def pm_jumps():
+    """data/pm_jumps/frame_{dev,sealed}.parquet: one row per detected 5c/15-min jump (pre-decision columns only,
+    decided_at = jump print + 60 s, result hidden) + attrs['trades'] = {ticker: DataFrame[ts, p]} = YES-equivalent
+    public taker tape after the first decision (trades_{split}.parquet). Sealed frame exists only after its pull."""
+    D = DATA / "pm_jumps"
+    xs, trs, srcs = [], [], []
+    for s in ("dev", "sealed"):
+        f, ft = D / f"frame_{s}.parquet", D / f"trades_{s}.parquet"
+        if f.exists():
+            xs.append(pd.read_parquet(f)); trs.append(pd.read_parquet(ft)); srcs += [str(f), str(ft)]
+    x = pd.concat(xs, ignore_index=True)
+    x["date"] = pd.to_datetime(x["date"])
+    tr = pd.concat(trs, ignore_index=True)
+    x.attrs["trades"] = {k: g[["ts", "p"]].reset_index(drop=True) for k, g in tr.groupby("ticker")}
+    return x, srcs
+
+
+LOADERS["pm_jumps"] = pm_jumps
