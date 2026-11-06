@@ -1,0 +1,15 @@
+{
+ "posthoc": "PLAYER model (no team FE), not pre-registered",
+ "ll_player": 0.5594551654112125,
+ "coef_player_minus_kalshi": 0.17098006651792275,
+ "ci": [
+  -0.1376992155856147,
+  0.5009323068126411
+ ],
+ "coef_player_minus_base": -0.08922724458827452,
+ "ci2": [
+  -2.054051665685777,
+  2.1600683299613106
+ ],
+ "sd_player_minus_base": 0.06594271113292446
+}

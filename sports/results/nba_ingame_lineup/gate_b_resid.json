@@ -1,0 +1,25 @@
+{
+ "n_snaps": 81491,
+ "n_games": 676,
+ "dates": [
+  "2025-04-15",
+  "2026-01-14"
+ ],
+ "kalshi_result_agrees_espn": 1.0,
+ "ll_kalshi": 0.552414075492067,
+ "ll_full": 0.5632339551694249,
+ "ll_base": 0.5595196903743203,
+ "primary_coef_full_minus_kalshi": 0.11583395642949275,
+ "primary_ci": [
+  -0.17880815004384637,
+  0.43421278054037005
+ ],
+ "kalshi_coef": 0.8739366440004269,
+ "secondary_coef_full_minus_base": -0.07052128044443898,
+ "secondary_ci": [
+  -0.8009447670909187,
+  0.6186716181624428
+ ],
+ "sd_full_minus_kalshi_logit": 0.438778953958105,
+ "sd_full_minus_base_logit": 0.2243511537160897
+}

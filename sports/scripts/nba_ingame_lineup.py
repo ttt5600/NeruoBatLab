@@ -43,6 +43,13 @@ GATE B (descriptive, the one that decides): refit BASE and FULL on all games dat
   gate): the same with (logit FULL - logit BASE) = the player increment only.
   Money trials (<= 2, edgelab family kalshi_ingame, date split) are registered ONLY IF the PRIMARY CI excludes 0 on
   the positive side. Otherwise: dead, no trials.
+
+VERDICT (2026-11-05): DEAD, no trials registered. results/nba_ingame_lineup/gate_{a_oos,b_resid,b_posthoc_player}.json
+  Gate A (test 2,462 games / 116,369 minute rows): log loss base .43639, +player .43604 (diff -.00035
+  [-.00080, +.00011], not distinguishable), full (+team FE) .44876 (+.0124 [+.0075, +.0173], worse).
+  Gate B (DEV 676 games / 81,491 candles): Kalshi .5524 < base .5595 < full .5632. PRIMARY coef on (FULL - Kalshi)
+  +0.116 [-0.179, +0.434] -> crosses 0. Secondary (FULL - BASE) -0.071 [-0.80, +0.62]. Post-hoc (not pre-reg)
+  PLAYER-only model: (PLAYER - Kalshi) +0.171 [-0.138, +0.501]; (PLAYER - BASE) -0.089 [-2.05, +2.16].
 """
 from __future__ import annotations
 
@@ -123,7 +130,9 @@ def parse(eid: str, rat: dict) -> list[dict]:
     for t in j["boxscore"].get("players", []):
         sd = side_of_tid.get(t["team"]["id"])
         for a in t["statistics"][0]["athletes"]:
-            aid = a["athlete"]["id"]
+            aid = a["athlete"].get("id")
+            if aid is None:
+                continue
             team_of[aid] = sd
             if a.get("starter"):
                 starters[sd].add(aid)
