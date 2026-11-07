@@ -453,6 +453,14 @@ Deployed tools: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/<x>.py`. 
 10. **Ops**: never infer which job to run from the wall clock (launchd runs late after sleep); verify a fill before a
    convention KILL; Kalshi taker fee is charged exactly, not rounded to 1c [S], [H4].
 
+11. **Information-latency gaps are real but only on FRESH sources** (election 11-03, notes/election_needle_2026.md).
+   Buy when a public resolution-path feed (vote count) is current and the thin venue lags (AZ-08 47c->95c); a frozen
+   feed is the trap (stale NYT needles lost ~$150 on 1-9c longshots). Gate on freshness, cross-check the 2nd venue.
+12. **Churn eats thin edges**: ~$78 fees in one night > the realised edge. Enter once, hold to settlement.
+13. **Measure the bank from the exchange** (cash + portfolio_value); partial marks + a withdrawal triggered forced sells.
+14. **Long-lived bots must run from outside ~/Desktop** (TCC revokes python's Desktop access mid-run) and survive
+   lid-close sleep; poll only held/needed series (85 series @20s -> Kalshi 429s).
+
 ---------------------------------------------------------------------------------------------------------------------
 ## 7. Pending user decisions / next steps
 
