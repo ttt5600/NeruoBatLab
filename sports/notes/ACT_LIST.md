@@ -43,3 +43,9 @@ NBA -24.6%/25 | L34 NHL ML -24.8% | L40b LIP interim kill both fill models | Q00
   11-04 23:48 PT. Check at IBKR, re-login gateway (`launchctl kickstart -k gui/$UID/com.jonathanwang.ibc-gateway`).
 - 11-05 ForecastEx picks all refused by the loss stop on "open B+C risk 2.92u" (non-FX positions, likely needle bets).
 - DUL status conflict: registry dead (historical_import) vs FUND_BOOK LEAD. Listed here as a user-judgment lead only.
+
+## In-game small real money (user 11-07: "small amounts of real money for our NHL and other NFL games") -- ARMED 11-07
+- B5 NHL last-15-min taker (mirrors paper trial nhl_ig_t1_late_taker): $1/bet, $5/day, $40 season; kill 10 losses in first 30 or preset after 100.
+- B6 NFLF live big-play maker fade (scripts/nfl_fade_live.py = live PROXY of F1, ESPN WP swing >= .08; not the pre-registered F1): $2/order, $10/game-day, $40 total; kill P&L <= -$15 or 8 losses in first 20.
+- Executor scripts/ingame_exec.py (be3bded), flags LEAD_LIVE_NHL=1 / LEAD_LIVE_NFLF=1 in ~/.claude/quant-kalshi/.env (backup .env.bak-2026-11-07-preingame).
+  Stop one: touch ~/.claude/quant-kalshi/data/LEAD_DISABLE_NHL (or _NFLF); stop all: ingame_exec.py kill "reason".
