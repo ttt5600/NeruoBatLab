@@ -1,3 +1,4 @@
+## 2026-11-07 -- INFO-GAP census done: notes/info_gap_census_2026-11-07.md (top: canvass margin brackets KXMIDTERMMOV etc.; 5 prereg stubs = PROPOSALS). Election lessons: notes/election_needle_2026.md.
 ## 2026-11-06 -- EDGE SEARCH WAVES 1-2 DONE (11 agents, ~15 trials): ALL DEAD. In-game (CBB/soccer/NBA-lineup/Pinnacle lag/
 ## PM-Kalshi/PM US real ask), Polymarket (overreaction, time-to-resolution, longshot maker), media weekly, PortWatch/EIA,
 ## hourly temp. Lesson: maker NO only works where the outcome is physical (no informed counterparty); in-game prices are sharp.
