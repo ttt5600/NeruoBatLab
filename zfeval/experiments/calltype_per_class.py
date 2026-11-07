@@ -11,7 +11,8 @@ Differences are OBSERVED differences (not the resample mean), with percentile in
 Classes are small (Di has 18 clips from few birds), so read the intervals before the bars.
 
   python calltype_per_class.py         -> analysis/calltype_per_class.json      (MPS caches; superseded by 076)
-  python calltype_per_class.py --cpu   -> analysis/calltype_per_class_cpu.json  (CPU caches, CPU best layer)
+  python calltype_per_class.py --cpu   -> analysis/calltype_per_class_cpu.json  (CPU caches, CPU best layer; per-class
+                                          differences vs run16 in "vs_ref" and vs E36 vanilla HuBERT in "vs_vanilla")
 
 --cpu reads features/ct11_<tag>_cpuemb.npy, probes each model's CPU best layer from calltype_cpu_rescore.json and
 asserts the overall accuracy reproduces acc11_cpu there, so the breakdown is of the predictions the board scores.
@@ -77,7 +78,16 @@ CPU_MODELS = [
     ("BirdAVES bioxn-large", "aves", "birdaves-bioxn-large"),
     ("HuBERT base (speech)", "other", "hf-hubert-base-ls960"), ("Whisper base", "other", "hf-whisper-base-enc"),
     ("Whisper small", "other", "hf-whisper-small-enc"),
+    # added 2026-11-07: everything trained since Oct 19
+    ("run22", "ours", "run22_avesfsd"), ("run23", "ours", "run23_mfcc"),
+    ("E13", "ours", "run24_bioxnl12"), ("E13 seed 2", "ours", "run24_bioxnl12_s2"),
+    ("E29", "ours", "run29_avesrecipe"), ("E29 seed 2", "ours", "run29_avesrecipe_s2"),
+    ("E30", "ours", "run30_logmel"), ("E30 seed 2", "ours", "run30_logmel_s2"),
+    ("E36 vanilla lr 1e-4", "vanilla", "run31_vanilla_lr1e4"), ("E36 stock lr", "vanilla", "run31_vanilla"),
+    ("E37 random projection", "ours", "run37_randproj"), ("E37 shuffled labels", "control", "run37_shuffle"),
+    ("E20 (DAPT)", "dapt", "daptv3aves_2e4s2_step15000"),
 ]
+VANILLA = "E36 vanilla lr 1e-4"   # second reference for --cpu (E36's baseline arm); its seed 2 is pending
 
 
 def cpu_models():
@@ -128,22 +138,24 @@ def main(use_cpu=False):
     idx = {g: np.where(birds == g)[0] for g in uniq}
     sels = [np.concatenate([idx[g] for g in rng.choice(uniq, len(uniq), replace=True)]) for _ in range(N_BOOT)]
     hit = {lab: (p == y) for lab, p in pred.items()}
-    for lab in pred:
-        if lab == REF:
-            continue
-        diffs = {}
-        for i, c in enumerate(classes):
-            m = y == i
-            obs = hit[lab][m].mean() - hit[REF][m].mean()
-            bs = []
-            for s in sels:
-                ms = s[m[s]]
-                if len(ms):
-                    bs.append(hit[lab][ms].mean() - hit[REF][ms].mean())
-            lo, hi = np.percentile(bs, [2.5, 97.5])
-            diffs[c] = dict(diff=float(obs), lo=float(lo), hi=float(hi),
-                            resolved=bool(lo > 0 or hi < 0))
-        out["models"][lab]["vs_ref"] = diffs
+    refs = [(REF, "vs_ref")] + ([(VANILLA, "vs_vanilla")] if use_cpu and VANILLA in pred else [])
+    for ref, key in refs:
+        for lab in pred:
+            if lab == ref:
+                continue
+            diffs = {}
+            for i, c in enumerate(classes):
+                m = y == i
+                obs = hit[lab][m].mean() - hit[ref][m].mean()
+                bs = []
+                for s in sels:
+                    ms = s[m[s]]
+                    if len(ms):
+                        bs.append(hit[lab][ms].mean() - hit[ref][ms].mean())
+                lo, hi = np.percentile(bs, [2.5, 97.5])
+                diffs[c] = dict(diff=float(obs), lo=float(lo), hi=float(hi),
+                                resolved=bool(lo > 0 or hi < 0))
+            out["models"][lab][key] = diffs
     out_path.write_text(json.dumps(out, indent=2))
 
     print("\nper-class recall")

@@ -21,6 +21,9 @@ Goal (hub goal zf): specialise a HuBERT-architecture encoder to zebra finch, jud
   scratch: run19 seed 2 0.8546, E13 seed 2 0.8538. Nothing we trained beats the best download.
 - **Closed this round:** E30 log-mel front end (087, kill fired), E13 stronger teacher (089, not met, kill not fired).
 - Detection: every pretrained model reaches ZF AUC ~0.97; the shuffled-label model 0.891.
+- **By call type (2026-11-07, calltype_per_class_cpu.json "vs_vanilla", Doc heatmap widget 160dd46e-e837):** Tet is where
+  models differ. All 16 downloads / AVES-family-label / AVES-init models gain +3 to +10 points on Tet over vanilla (10 resolved,
+  bird bootstrap only); our own-label runs sit at -3 to +3, none resolved. Thuk/Tuck hard for all. Not yet a finding.
 
 ## In flight (paid A40 on fc_birdpow, waiting on a QoS cap shared with other users; check with `sw status` or squeue)
 - 40654081 E36 vanilla lr 1e-4 seed 2 (runs first), then 40654080 E36 stock seed 2.
@@ -52,6 +55,8 @@ Goal (hub goal zf): specialise a HuBERT-architecture encoder to zebra finch, jud
 - **A sharper test.** Recipe effects under 0.03 are invisible, so more training runs cannot rank recipes. Options: a power
   analysis (how many birds/clips resolve 0.01), the label audit (174 clips wrong for every model, Mac-era count: a labelling
   ceiling?), or tasks where models do differ (per-call-type clusters/ABX, individual identity, the chick holdout).
+- **A Tet-focused arm test.** The heatmap suggests AVES-family training buys Tet specifically. Pre-register a Tet (+Thuk/Tuck)
+  recall contrast, arm vs arm with seeds (e.g. run19+E13 vs run16+vanilla); it may resolve where 11-class accuracy cannot.
 - **Where Whisper wins.** Its call-type lead over run16 is mostly Tet and Nest (finding 081). A per-type look at what our
   models confuse could point at the missing information (timing? harmonics?).
 - **Decision ensemble on call type.** Averaging two encoders' probabilities helped detection (031); it is untested on call

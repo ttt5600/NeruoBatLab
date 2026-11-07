@@ -1,7 +1,7 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
 Updated: 2026-11-05 evening (lead session_01EGDWEvYFd6zSmWQfUugJnH; handoff before the user's /clear)
 ON RESUME: read harness/ROADMAP.md and give the user, in under 15 lines: where we are, possible leads, next steps.
-Next: user runs `sv login` (BRC cert expired 2026-11-05 13:31); then check 40654081/40654077/40654080 and follow
+Next: jobs 40654077/40654081 est. start 2026-11-13 (A40 queue, Priority); when done follow
 ROADMAP.md "Next steps" 1-3 (score finished jobs, E36 finding with both vanilla seeds, E37 randproj verdict).
 
 ## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS (data deleted locally 2026-10-22). Deliver visually.
@@ -19,6 +19,7 @@ Call type is CPU ONLY (076). Model table: `python zfeval/experiments/our_models_
   vanilla (seed_mean_pairs_cpu*.json "<arm> | vanilla_lr1e4"): run16 -0.0035, run19 +0.0147, E13 +0.0170, E30 -0.0094, all n.d.
   57 models vs vanilla: forest_vs_run31_vanilla_lr1e4.json (zfeval/experiments/forest_vs_ref.py); Doc widget a557a9c6-097f.
 - E37 randproj s1 0.8447: vs run16 arm +0.0126 [-0.0186,+0.0438]; vs run23 +0.0026 [-0.0137,+0.0208].
+- Per call type (calltype_per_class_cpu.json, 34 models, "vs_vanilla"): Tet carries the model gaps; Doc heatmap 160dd46e-e837.
 - Roadmap: harness/ROADMAP.md (canonical) = Doc ba903e67 section "Roadmap" (https://claude.ai/artifact/Q3Bf46TNUyRHh8cZZEdH1M).
   docs/roadmap.html (artifact K2NJhuv7hqnZj9FVBbwRo7) is frozen at Oct 17 and marked superseded.
 
