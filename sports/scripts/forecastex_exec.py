@@ -74,7 +74,8 @@ TIER_B_USD = 0.5 * UNIT
 FRESH_H = 6
 CUTOFF_MIN = 15
 TAG = "E5X-"
-DONE = {"filled", "cancelled", "canceled", "inactive", "expired", "rejected"}
+NOT_FOUND = "expired_not_found"   # past cutoff, gateway has no record, no fills, no position (see reconcile)
+DONE = {"filled", "cancelled", "canceled", "inactive", "expired", "rejected", NOT_FOUND}
 
 
 def paths(home: Path | None = None) -> dict:
@@ -316,10 +317,12 @@ class Exec:
 
     def trades_by_tag(self) -> dict[str, dict]:
         """Executions from /iserver/account/trades summed per order_ref (= our cOID tag)."""
+        self.fills_ok = False
         try:
             rows = self.c.fills(limit=1000)
         except (VenueError, TradingDisabled):
             return {}
+        self.fills_ok = True
         out: dict[str, dict] = {}
         for r in rows:
             ref = r.get("order_ref") or ""
@@ -337,6 +340,7 @@ class Exec:
         now = now or datetime.now(timezone.utc)
         trades = self.trades_by_tag()
         n = 0
+        pos = None   # conid -> position, read lazily (only needed for a not-found order)
         for oid, o in self.orders().items():
             if o["status"] in DONE or o.get("settled"):
                 continue
@@ -344,6 +348,11 @@ class Exec:
                 s = self.order_status(oid)
             except VenueError as e:
                 self.out(f"  reconcile {oid}: {e}")
+                if "not found" in str(e).lower():
+                    if pos is None:
+                        pos = self._positions_by_conid()
+                    if self.close_not_found(oid, o, trades, pos, now, str(e)):
+                        n += 1
                 continue
             t = trades.get(o["tag"], {})
             filled = max(s["filled"], t.get("filled", 0.0))
@@ -361,6 +370,44 @@ class Exec:
                                "stake_usd": round(filled * (o["price"] + FEE), 2), "order_status": s["status"]})
                 n += 1
         return n
+
+    def _positions_by_conid(self) -> dict[int, float] | None:
+        """conid -> position from the gateway; None if the read failed (then nothing is closed)."""
+        try:
+            return {int(r.get("conid") or 0): float(r.get("position") or 0) for r in self.c.positions()}
+        except (VenueError, TradingDisabled) as e:
+            self.out(f"  positions read failed: {e}")
+            return None
+
+    def close_not_found(self, oid: str, o: dict, trades: dict, pos: dict | None, now: datetime, err: str) -> bool:
+        """An order the gateway no longer knows (e.g. placed in a gateway session that died before the cutoff:
+        the new session lists neither it nor its completion) would stay 'submitted' forever and count its full cost
+        as open risk in bet.py. Close it as NOT_FOUND with filled 0 only when ALL hold: past cutoff, our journal saw
+        no fill, the fills read succeeded and shows no execution for its tag, and the positions read succeeded and
+        shows no position on its conid. Anything else -> leave it open (never guess a fill) and say why."""
+        why = []
+        if now < _ts(o["cutoff"]):
+            why.append("before cutoff")
+        if float(o.get("filled") or 0) > 0:
+            why.append(f"journal has filled {o['filled']}")
+        if not getattr(self, "fills_ok", False):
+            why.append("fills read failed")
+        elif trades.get(o.get("tag", ""), {}).get("filled", 0.0) > 0:
+            why.append("gateway executions exist for its tag")
+        if pos is None:
+            why.append("positions read failed")
+        elif abs(pos.get(int(o.get("conid") or 0), 0.0)) > 1e-9:
+            why.append(f"gateway position {pos[int(o['conid'])]:g} on conid {o['conid']}")
+        if why:
+            self.out(f"  {oid} not found but NOT closed: {'; '.join(why)}")
+            return False
+        self.log({"kind": "status", "ts": _iso(now), "order_id": oid, "status": NOT_FOUND, "filled": 0.0,
+                  "avg_price": None, "commission": None, "evidence": {"gateway": err[:200], "fills_for_tag": 0,
+                  "position_on_conid": 0, "cutoff": o["cutoff"]}})
+        self._bet({"event": "update", "id": f"fx-{oid}", "ts": _iso(now), "filled": 0.0, "stake_usd": 0.0,
+                   "order_status": NOT_FOUND})
+        self.out(f"  CLOSED {oid} {o['ticker']}: {NOT_FOUND} (past cutoff, no gateway record, no fills, no position)")
+        return True
 
     def expire(self, now: datetime) -> int:
         n = 0

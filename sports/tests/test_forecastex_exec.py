@@ -252,3 +252,70 @@ def test_stale_and_past_cutoff_picks(home):
     write_picks(home, pick(ts="2026-10-30T01:00:00+00:00"))
     ex.run(datetime(2026, 10, 30, 3, 50, tzinfo=timezone.utc))
     assert any("past order cutoff" in l for l in out)
+
+
+# ---- order the gateway no longer knows (11-04 LAS/LAX: gateway session died before the cutoff; new session has no record)
+LATER = datetime(2026, 10, 30, 3, 50, tzinfo=timezone.utc)   # past cutoff (03:44)
+
+
+def lost_order(home, gw):
+    write_picks(home, pick())
+    ex, out = make(home, gw, live=True)
+    ex.run(NOW)
+    oid = next(iter(ex.orders()))
+
+    def gone(o):
+        raise fe.VenueError(f"order permId {o} not found on the Gateway")
+    ex.order_status = gone
+    return ex, out, oid
+
+
+def open_risk():
+    return sum(bet.risk(b) for b in bet.bets().values())
+
+
+def test_not_found_past_cutoff_closes_with_zero_fill(home):
+    gw = Gateway()
+    ex, out, oid = lost_order(home, gw)
+    assert open_risk() == 4.75
+    assert ex.reconcile(LATER) == 1
+    o = ex.orders()[oid]
+    assert o["status"] == fe.NOT_FOUND and o["filled"] == 0
+    assert open_risk() == 0.0                                          # phantom risk gone from bet.py
+    assert ex.expire(LATER) == 0 and not gw.sent("DELETE", "/order/")   # no more cancel retries
+    assert ex.reconcile(LATER) == 0                                     # terminal: not re-read
+    assert ex.settle(LATER) == 1 and ex.orders()[oid]["result"] == "void-unfilled"
+    assert bet.bets()[f"fx-{oid}"]["pnl_usd"] == 0.0
+
+
+def test_not_found_before_cutoff_stays_open(home):
+    ex, out, oid = lost_order(home, Gateway())
+    assert ex.reconcile(NOW) == 0 and ex.orders()[oid]["status"] == "submitted"
+    assert any("before cutoff" in l for l in out) and open_risk() == 4.75
+
+
+def test_not_found_with_execution_for_tag_stays_open(home):
+    gw = Gateway()
+    ex, out, oid = lost_order(home, gw)
+    gw.trades = [{"order_ref": "E5X-UHLGA_102926_63", "size": "5", "price": "0.94", "commission": "0.05"}]
+    ex.reconcile(LATER)
+    assert ex.orders()[oid]["status"] != fe.NOT_FOUND and any("executions exist" in l for l in out)
+
+
+def test_not_found_with_position_on_conid_stays_open(home):
+    ex, out, oid = lost_order(home, Gateway())
+    ex.c.positions = lambda market=None: [{"conid": 2063, "position": 5.0}]
+    ex.reconcile(LATER)
+    assert ex.orders()[oid]["status"] == "submitted" and any("gateway position 5" in l for l in out)
+    assert open_risk() == 4.75
+
+
+@pytest.mark.parametrize("broken", ["fills", "positions"])
+def test_not_found_with_failed_reads_stays_open(home, broken):
+    ex, out, oid = lost_order(home, Gateway())
+
+    def boom(*a, **k):
+        raise fe.VenueError("gateway read failed")
+    setattr(ex.c, broken, boom)
+    ex.reconcile(LATER)
+    assert ex.orders()[oid]["status"] == "submitted" and any(f"{broken} read failed" in l for l in out)
