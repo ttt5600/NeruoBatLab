@@ -32,5 +32,3 @@ exchange reprices slower than the source. It existed only when ALL of these held
   python lose ~/Desktop access (TCC) and the Mac sleeps with the lid closed -> run long-lived bots from outside Desktop.
 - Not an edgelab strategy: judgment trading with user sizing. Any repeat (2028, specials, primaries) should be
   pre-registered as a forward paper test on the freshness-gated rule first.
-</content>
-</invoke>
