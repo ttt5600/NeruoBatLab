@@ -409,3 +409,27 @@ def kalshi_nhl_ingame():
 
 
 LOADERS["kalshi_nhl_ingame"] = kalshi_nhl_ingame
+
+
+# ------------------------------------------------------------------ physical ladders (scripts/phys_ladders.py)
+def _phys(name):
+    D = DATA / "phys_ladders"
+    f, ft = D / f"{name}_frame.parquet", D / f"{name}_tape.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["tape"] = pd.read_parquet(ft)
+    return x, [str(f), str(ft)]
+
+
+def kalshi_spacex_count():
+    """data/phys_ladders/spacex_frame.parquet: one row per (monthly KXSPACEXCOUNT ticker, daily 16:00Z decision)."""
+    return _phys("spacex")
+
+
+def kalshi_spr_level():
+    """data/phys_ladders/spr_frame.parquet: one row per settled KXSPRLVL market (decision = open + 1 h)."""
+    return _phys("spr")
+
+
+LOADERS["kalshi_spacex_count"] = kalshi_spacex_count
+LOADERS["kalshi_spr_level"] = kalshi_spr_level

@@ -227,3 +227,21 @@ datasets:
       dev: [2026-05-01, 2026-08-31]        # key = UTC date of PM US game start; 700 random matched games (seed 20261106)
       sealed: [2026-09-01, 2026-11-04]     # 700 random (seed 20261107), pulled only after a dev pass; 2026-11-05 = probe day
       forward: [2026-11-06, null]          # live logger scripts/pmus_lag_logger.py (not wired to edgelab yet)
+  kalshi_spacex_count:
+    loader: kalshi_spacex_count
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value, volume]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = 1st of the event month (monthly events only); set 2026-11-06
+      dev: [2025-07-01, 2026-05-31]        # before any launch history / quote / tape / outcome pull
+      sealed: [2026-06-01, 2026-10-31]
+      forward: [2026-11-01, null]
+  kalshi_spr_level:
+    loader: kalshi_spr_level
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value, volume]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = event-ticker release date (Wed); set 2026-11-06 before any EIA
+      dev: [2026-04-01, 2026-09-02]        # history / quote / tape / outcome pull
+      sealed: [2026-09-09, 2026-11-04]
+      forward: [2026-11-11, null]
