@@ -25,12 +25,19 @@ Output (ROOT/data/live/):
                             `final` row per game the first tick it is seen FINAL/OFF.
   nhl_ingame_results.jsonl  Kalshi settlement per ticker (result yes/no), fetched after the game is final.
   nhl_ingame_paper_state.json  anchors, schedule cache, pending settlements.
+  nhl_ingame_rule_signals.jsonl  (11-07) rows the FROZEN rule edgelab.rules.nhl_ingame.t1_late_taker_edge3 decides at
+                            THIS tick, evaluated live on the game's ticks so far (same loader code as the trial), one
+                            per (game, backed team). Each tick that is not idle hands them (possibly none) to the
+                            deployed executor ~/.claude/quant-kalshi/scripts/ingame_exec.py (subprocess, its own venv;
+                            DRY unless .env arms LEAD_LIVE_NHL=1). The hook runs only from the deployed copy
+                            (INGAME_EXEC_HOOK=1 forces it, =0 turns it off). The paper rows above are unchanged.
 Errors in one source are logged and the tick exits 1 (the launchd wrapper records the exit code); state stays valid.
 """
 from __future__ import annotations
 
 import json
 import os
+import subprocess
 import sys
 import time
 from datetime import datetime, timezone
@@ -53,6 +60,11 @@ PRE_WIN, POST_WIN = 75 * 60, 5 * 3600
 LIVE_STATES = {"LIVE", "CRIT"}
 FINAL_STATES = {"FINAL", "OFF"}
 MONTHS = "JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC".split()
+SIGNALS = LIVE / "nhl_ingame_rule_signals.jsonl"
+DEPLOYED = Path.home() / ".claude" / "quant-sports"
+EXEC_PY = Path.home() / ".claude" / "quant-kalshi" / ".venv" / "bin" / "python"
+EXEC = Path.home() / ".claude" / "quant-kalshi" / "scripts" / "ingame_exec.py"
+TAIL_BYTES = 12_000_000        # ~10k tick rows: every tick of tonight's games (first trigger per side needs them all)
 
 
 def _get(url, params=None, timeout=15):
@@ -307,6 +319,16 @@ def tick(get=_get, now: datetime | None = None, clock=now_utc) -> int:
         for tk in (htk, atk):
             pend.setdefault(tk, {})["last"] = now.timestamp()
     append(OUT, rows)
+    sigs = []
+    try:
+        sigs = rule_signals(rows, st)
+        append(SIGNALS, [{**s_, "emitted_at": iso(clock())} for s_ in sigs])
+    except Exception as ex:  # noqa: BLE001
+        rc = 1
+        print(f"  rule signal error: {type(ex).__name__}: {ex}")
+    save_state(st)                           # exec_keys persisted before the executor is called
+    if rows or sigs:
+        rc = max(rc, exec_hook(sigs))
     try:
         n_set = settle(st, now, get)
     except Exception as ex:  # noqa: BLE001
@@ -323,9 +345,94 @@ def tick(get=_get, now: datetime | None = None, clock=now_utc) -> int:
     live = [f"{r['away']}@{r['home']} P{r['period']} {r['minutes_left']} m{r['margin']:+d} p={r['p_model']} "
             f"hb/ha={r['home_bid']:.2f}/{r['home_ask']:.2f}" for r in tk_rows]
     print(f"{iso(now)} logged {len(tk_rows)} live games, {sum(r['signal'] is not None for r in tk_rows)} paper "
-          f"signals, {sum(r['kind'] == 'final' for r in rows)} finals, {n_set} settled"
+          f"signals, {len(sigs)} rule signals, {sum(r['kind'] == 'final' for r in rows)} finals, {n_set} settled"
           + ("; " + " | ".join(live) if live else ""))
     return rc
+
+
+def read_tail(path: Path, n: int = TAIL_BYTES) -> list[dict]:
+    if not path.exists():
+        return []
+    with path.open("rb") as f:
+        f.seek(0, 2)
+        size = f.tell()
+        f.seek(max(0, size - n))
+        raw = f.read().decode(errors="replace")
+    lines = raw.splitlines()[1:] if size > n else raw.splitlines()
+    out = []
+    for l in lines:
+        try:
+            out.append(json.loads(l))
+        except json.JSONDecodeError:
+            pass
+    return out
+
+
+def rule_signals(rows: list[dict], st: dict, hist: list[dict] | None = None) -> list[dict]:
+    """Bets the frozen trial rule takes AT this tick: run the edgelab loader + rule over each live game's ticks so far
+    (results faked so the settlement-completeness filter keeps the game; `result` and `mark` are not decision inputs)
+    and keep rows whose decided_at is this tick's. One signal per (game, backed team), ever (state `exec_keys`)."""
+    ticks = [r for r in rows if r.get("kind") == "tick"]
+    if not ticks:
+        return []
+    from edgelab.loaders import nhl_frame_from_log
+    from edgelab.rules.nhl_ingame import t1_late_taker_edge3
+    gids = {r["gid"] for r in ticks}
+    hist = read_tail(OUT) if hist is None else hist
+    hist = [r for r in hist if r.get("kind") == "tick" and r.get("gid") in gids]
+    fake = [{"ticker": r[k], "result": "yes"} for r in hist + ticks for k in ("home_ticker", "away_ticker")]
+    bets = t1_late_taker_edge3(nhl_frame_from_log(hist, fake))
+    if bets.empty:
+        return []
+    now_t = {r["gid"]: epoch(r["decided_at"]) for r in ticks}
+    by_tk = {}
+    for r in ticks:
+        by_tk[r["home_ticker"]] = (r, "home")
+        by_tk[r["away_ticker"]] = (r, "away")
+    seen = st.setdefault("exec_keys", {})
+    out = []
+    for b in bets.itertuples(index=False):
+        tk, _, side = b.bet_id.split("|")
+        if tk not in by_tk:
+            continue
+        r, team = by_tk[tk]
+        if int(b.decided_at.timestamp()) != now_t[r["gid"]]:
+            continue                       # this side's first trigger was an earlier tick (already a paper bet)
+        backed = team if side == "yes" else ("away" if team == "home" else "home")
+        key = f"NHL|{r['gid']}|{backed}"
+        if key in seen:
+            continue
+        p_team = r["p_model"] if team == "home" else 1 - r["p_model"]
+        p_side = p_team if side == "yes" else 1 - p_team
+        price = float(b.price)
+        seen[key] = r["decided_at"]
+        out.append({"strategy": "NHL", "key": key, "ticker": tk, "side": side, "price": price,
+                    "decided_at": r["decided_at"], "source": "nhl_ingame_paper.jsonl",
+                    "source_row": f"{r['gid']}|{r['decided_at']}", "gid": r["gid"], "backed": backed,
+                    "p_side": round(p_side, 5), "edge": round(p_side - price - TAKER * price * (1 - price), 4),
+                    "game_day": r["game_date"], "minutes_left": r["minutes_left"], "rule": "t1_late_taker_edge3"})
+    return out
+
+
+def exec_hook_on() -> bool:
+    v = os.environ.get("INGAME_EXEC_HOOK")
+    return v == "1" if v is not None else ROOT.resolve() == DEPLOYED.resolve()
+
+
+def exec_hook(sigs: list[dict]) -> int:
+    """Hand this tick's rule signals to the deployed executor (it is DRY unless the lead arms LEAD_LIVE_NHL=1)."""
+    if not exec_hook_on() or not EXEC.exists() or not EXEC_PY.exists():
+        return 0
+    try:
+        r = subprocess.run([str(EXEC_PY), str(EXEC), "tick"], input="".join(json.dumps(s) + "\n" for s in sigs),
+                           capture_output=True, text=True, timeout=50, cwd=str(EXEC.parents[1]))
+    except subprocess.TimeoutExpired:
+        print("  exec: ingame_exec.py timed out (50 s)")
+        return 1
+    txt = (r.stdout + r.stderr).strip()
+    if txt:
+        print("  exec: " + txt.replace("\n", "\n  exec: "))
+    return 0 if r.returncode == 0 else 1
 
 
 def report() -> int:

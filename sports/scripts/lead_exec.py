@@ -67,6 +67,10 @@ KICK_TOL_MIN = 20                # Kalshi expected_expiration_time - 3h must mat
 NFL_SERIES = "KXNFLTOTAL"
 KALSHI_TEAM = {"JAX": "JAC", "LA": "LAR"}  # nflverse -> Kalshi codes (others identical; checked 11-05 week 9 events)
 ZERO = ("no_fill", "rejected", "rejected_post_only", "not_placed")
+# In-game strategies executed by scripts/ingame_exec.py (11-07). Their rows share data/lead_exec.jsonl (keyed by `key`,
+# not ticker: two NHL sides / several NFL fades can share one market) but ingame_exec.py reconciles, settles, caps and
+# kills them; the functions below skip them so the L39/TSA/DUL accounting is unchanged.
+INGAME = ("NHL", "NFLF")
 
 # sources (module globals so tests can point them elsewhere)
 L39_PICKS = Path(os.environ.get("LEAD_L39_PICKS") or kx.DEPLOY / "data" / "kalshi_wx_monthly_picks.jsonl")
@@ -134,7 +138,7 @@ def fold(hist: list[dict], mode: str) -> dict:
     for r in hist:
         if r.get("mode") != mode or "ticker" not in r:
             continue
-        ev, t = r.get("event", "order"), r["ticker"]
+        ev, t = r.get("event", "order"), r.get("key") or r["ticker"]
         if ev == "order" and (t not in out or (out[t].get("strategy") == "DUL"
                                                and out[t].get("status", "").startswith("skip"))):
             out[t] = dict(r)  # a DUL skip does not block a later decision on the same game inside its window
@@ -167,7 +171,7 @@ def spent_in(state: dict, strategy: str, key: str) -> float:
 
 
 def open_exposure(state: dict) -> float:
-    return sum(committed(o) for o in state.values() if not o.get("settled"))
+    return sum(committed(o) for o in state.values() if not o.get("settled") and o.get("strategy") not in INGAME)
 
 
 def settled_rows(state: dict, strategy: str) -> list[dict]:
@@ -459,7 +463,7 @@ def place(client: kx.Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
 def reconcile(client: kx.Kalshi, mode: str, cfg: dict, now: datetime) -> None:
     """Resolve submitting/unknown/resting rows from the exchange; cancel our maker bids whose market has closed."""
     for t, o in fold(journal(), mode).items():
-        if o.get("status") not in ("submitting", "unknown", "resting") or o.get("settled"):
+        if o.get("status") not in ("submitting", "unknown", "resting") or o.get("settled") or o.get("strategy") in INGAME:
             continue
         match = [x for x in client.orders(ticker=t) if x.get("client_order_id") == o.get("client_order_id")]
         if match:
@@ -492,7 +496,8 @@ def settle(client: kx.Kalshi, now: datetime) -> int:
     hist, n = journal(), 0
     for mode in sorted({r.get("mode") for r in hist if r.get("mode")}):
         for t, o in fold(hist, mode).items():
-            if o.get("settled") or o.get("status") in ("resting", "submitting", "unknown") or committed(o) <= 0:
+            if (o.get("settled") or o.get("status") in ("resting", "submitting", "unknown") or committed(o) <= 0
+                    or o.get("strategy") in INGAME):
                 continue
             if mode == "dry" and o.get("status") == "dry":
                 o = {**o, "filled": o.get("count", 0)}  # dry assumes the whole order filled (maker fills unknown)

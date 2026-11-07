@@ -17,6 +17,7 @@ All jobs are paper / read-only: no orders, no keys. Live executors (quant-kalshi
 | quant-sports-ticket | `daily_ticket.py --date <PT date>` | 600 s, 08:00-22:00 PT | data/tickets/<date>.md |
 | quant-sports-q017 | `q017_logger.py tick` | 600 s fire, runs if >= 25 min since last, **24 h** | data/q017/fwd/{vintages,quotes}.jsonl |
 | quant-sports-nhl-ingame | `nhl_ingame_logger.py tick` (NHL score/now + KXNHLGAME quotes, Poisson/empty-net model; settles tickers after FINAL) | **60 s, 24 h**; exits with no network outside [start - 75 min, start + 5 h] of a cached schedule; idle runs write only `state/nhl_ingame_heartbeat` | data/live/nhl_ingame_paper.jsonl, nhl_ingame_results.jsonl, nhl_ingame_paper_state.json |
+| quant-sports-nfl-fade | `nfl_fade_live.py tick` (F1L: live proxy of F1 -- ESPN WP big plays >= 0.08, YES bid at t+60..120 s; F1 candle grade after t+780 s) | **60 s, 24 h**; 15 s sub-ticks for ~50 s inside [start - 15 min, start + 5 h]; idle otherwise | data/live/nfl_fade_live.jsonl, nfl_fade_live_state.json |
 | quant-sports-digest | `qs_digest.sh` (fund_status.py + `claude -p`) | 09:00 and 23:30 PT | digests/<date>-<am\|pm>.md + notification |
 
 Q017 is deliberately not windowed: its frozen decision times are 06:00 / 10:00 CT (= 04:00 / 08:00 PT) and need a
@@ -26,6 +27,12 @@ forward from 2026-11-08; rule edgelab/rules/nhl_ingame.py decides bets from the 
 flag). Pregame anchor = home mid seen pre-puck-drop, else the last Kalshi 1-min candle <= scheduled start (so a Mac
 asleep at puck drop still logs the game). Any API error -> `exit 1` line in logs/nhl-ingame.log, state kept. If the
 Mac sleeps through the last 15 min of a game, that game simply has no late rows (missing, not wrong).
+REAL-MONEY HOOK (11-07, user "small amounts of real money for NHL and NFL"): nhl-ingame evaluates the FROZEN trial rule
+live each tick (edgelab loader + rule on the game's ticks so far -> data/live/nhl_ingame_rule_signals.jsonl) and
+nfl-fade emits F1L signals; both pipe them (and housekeeping) to ~/.claude/quant-kalshi/scripts/ingame_exec.py in the
+quant-kalshi venv. DRY until .env has EXEC_MODE=live + LEAD_EXEC_MODE=live + LEAD_LIVE_NHL=1 / LEAD_LIVE_NFLF=1.
+Caps, guards and kills: ingame_exec.py docstring. Journal: quant-kalshi data/lead_exec.jsonl (rows keyed `key`).
+`ingame_exec.py status` = per-strategy mode / spend / P&L. The paper rows stay the edgelab record.
 Run logs: `~/.claude/quant-sports/logs/<job>.log` (every run: header line + script output + `exit N`; rotated at 5 MB);
 launchd's own stdout/stderr: `logs/launchd-<job>.{out,err}`. Per-day stamps: `state/`.
 Entry point: `scripts/qs_job.sh <job>` (window check, `caffeinate -i` around every run, STOP file check).

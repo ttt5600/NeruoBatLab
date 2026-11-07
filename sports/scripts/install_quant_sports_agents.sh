@@ -7,6 +7,7 @@
 #   com.jonathanwang.quant-sports-ticket       daily ticket writer       every 600 s (08:00-22:00 PT)
 #   com.jonathanwang.quant-sports-q017         Q017 ERCOT paper logger   every 600 s (wrapper: >= 25 min apart, 24 h)
 #   com.jonathanwang.quant-sports-nhl-ingame   NHL in-game paper logger  every 60 s (24 h; exits fast with no game)
+#   com.jonathanwang.quant-sports-nfl-fade     NFL F1L live paper logger every 60 s (15 s sub-ticks in game windows)
 #   com.jonathanwang.quant-sports-digest       fund digest (claude -p)   09:00 and 23:30 PT
 # All paper / read-only: no orders, no keys. Re-running is safe: code is re-pushed, deployed logs are never touched.
 # The live executors (quant-kalshi-paper / forecastex-exec) and ~/.claude/quant-kalshi/.env are NOT touched.
@@ -53,6 +54,7 @@ EOF
 EVERY='<key>StartInterval</key><integer>600</integer>'
 for j in early-form l32b props ticket q017 tsa; do plist "$j" "$EVERY"; done
 plist nhl-ingame '<key>StartInterval</key><integer>60</integer>'
+plist nfl-fade '<key>StartInterval</key><integer>60</integer>'
 plist digest '<key>StartCalendarInterval</key><array>
     <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
     <dict><key>Hour</key><integer>23</integer><key>Minute</key><integer>30</integer></dict>

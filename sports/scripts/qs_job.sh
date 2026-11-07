@@ -10,9 +10,12 @@
 #               06:00 and 10:00 CT (= 04:00 / 08:00 PT) with a quote needed in [T-45 min, T].
 #   nhl-ingame  24 h, launchd every 60 s: nhl_ingame_logger.py tick (exits without network when no NHL game is in
 #               [start - 75 min, start + 5 h]; idle runs leave only state/nhl_ingame_heartbeat, not log lines)
+#   nfl-fade    24 h, launchd every 60 s: nfl_fade_live.py tick (F1L proxy; idle exit without network outside game windows)
 #   digest      scripts/qs_digest.sh (09:00 / 23:30 PT via StartCalendarInterval)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
 # root makes every job a no-op (scripts/qs_stop.sh). Paper only: none of these jobs place orders or read keys.
+# Exception by design (11-07): nhl-ingame and nfl-fade pipe their signals to ~/.claude/quant-kalshi/scripts/
+# ingame_exec.py (separate venv + .env); it sends orders only when .env arms EXEC_MODE + LEAD_EXEC_MODE + LEAD_LIVE_<S>.
 set -u
 QS="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$QS" || exit 1
@@ -66,6 +69,13 @@ case "$job" in
     echo "$(date '+%F %T %Z') rc=$rc" > state/nhl_ingame_heartbeat
     if [ $rc -ne 0 ] || ! printf '%s' "$out" | grep -q ' idle: '; then
       { echo "=== $(date '+%F %T %Z') $job: nhl_ingame_logger.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi ;;
+  nfl-fade)     # F1L live proxy paper logger (scripts/nfl_fade_live.py, 11-07): 15 s sub-ticks for ~50 s while an NFL
+                # game is in [start - 15 min, start + 5 h]; hands signals to ingame_exec.py (DRY unless LEAD_LIVE_NFLF=1)
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/nfl_fade_live.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/nfl_fade_heartbeat
+    if [ $rc -ne 0 ] || ! printf '%s' "$out" | grep -q ' idle: '; then
+      { echo "=== $(date '+%F %T %Z') $job: nfl_fade_live.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
