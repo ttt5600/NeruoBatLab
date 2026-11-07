@@ -1,0 +1,16 @@
+id: nhl_ig_t1_late_taker
+family: kalshi_ingame
+dataset: kalshi_nhl_ingame
+rule: edgelab.rules.nhl_ingame:t1_late_taker_edge3
+hypothesis: 'NHL in-game T1 (forward-only): Poisson + last-3-min empty-net model (2023-24 pbp prior, pregame strength from the Kalshi pre-puck-drop home mid) beats Kalshi KXNHLGAME live asks in the last 15 min of regulation (period 3, REG, 0 < minutes_left <= 15; OT excluded, no OT clock in the model). Buy the side with p_model - price - 0.07 p(1-p) >= 0.03 (YES at the ask or NO at 1 - bid, either team market), excluding ticks < 180 s after an observed score change and ticks where the home mid moved >= 8c vs any of the previous 3 ticks (<= 5 min); first trigger per (game, backed team), taker, 1 contract, hold to settlement. Threshold fixed from the DEV frame (Apr-Jun 2025, 74 games, last 15 min) before any forward row: Brier model-minus-Kalshi -0.0020 (0-5 min) / -0.0008 (5-15 min); |model - mid| median 0.020, p90 0.062 -> 0.03 net keeps ~top 10% disagreements, ~0.4 bets/game. Dev taker ROI at 0.03 was -15% (n 28): a prospective test of a weak Brier lead, not of a dev pass.'
+decision_time: in-game, every 60-s logger tick (decided_at = after both the api-web.nhle.com score/now and the Kalshi quote fetch; inputs_as_of = max of NHL fetch, Kalshi fetch, pregame anchor)
+price_model: taker
+split: vault:kalshi_nhl_ingame
+min_n: 100
+clv: 'close_price = same market mid at the first live tick in [t+300, t+420] s, else [t+60, t+180] s (NaN if none); mid vs our ask, so CLV carries a half-spread handicap by design'
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+legacy: 'new 2026-11-06; logger scripts/nhl_ingame_logger.py deployed via launchd com.jonathanwang.quant-sports-nhl-ingame (60 s); model scripts/kalshi_ingame_lowscore.py (commit 5528c1f); soccer/CBB in-game T1-T3 dead in this family'

@@ -153,6 +153,15 @@ datasets:
       dev: [2025-04-01, 2026-02-28]        # first Kalshi soccer game markets .. Feb 2026 (= kalshi_soccer.py DEV cut)
       sealed: [2026-03-01, 2026-10-31]
       forward: [2026-11-06, null]
+  kalshi_nhl_ingame:
+    loader: kalshi_nhl_ingame              # scripts/nhl_ingame_logger.py (launchd quant-sports-nhl-ingame, 60 s ticks)
+    family: kalshi_ingame
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:
+      dev: null                            # dev study = Apr-Jun 2025 frame (ingame_lowscore_nhl_frame.parquet, not here);
+      sealed: null                         # NHL 2025-26 sealed by the frozen MANIFEST (notes/nhl_simple_model.md)
+      forward: [2026-11-08, null]          # logger deployed 2026-11-06; 11-06..11-07 rows belong to no split
   pm_maker_no:
     loader: pm_maker_no
     family: polymarket_calibration

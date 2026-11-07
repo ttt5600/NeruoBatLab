@@ -325,3 +325,87 @@ def pmus_ingame_lag():
 
 
 LOADERS["pmus_ingame_lag"] = pmus_ingame_lag
+
+
+# ------------------------------------------------------------------ NHL in-game forward log (scripts/nhl_ingame_logger.py)
+NHL_FRAME_COLS = ["date", "gid", "ticker", "team", "t", "inputs_as_of", "price_time", "event_start", "period",
+                  "period_type", "intermission", "minutes_left", "margin", "p_team", "bid", "ask", "recent_goal",
+                  "jump", "mark", "mark_src", "result"]
+
+
+def _nhl_epoch(s) -> np.ndarray:
+    return ((pd.to_datetime(s, utc=True) - pd.Timestamp("1970-01-01", tz="UTC")) // pd.Timedelta(seconds=1)).to_numpy()
+
+
+def nhl_frame_from_log(rows: list[dict], results: list[dict]) -> pd.DataFrame:
+    """Logger rows -> one row per tick x team market. Only games whose BOTH tickers have a Kalshi result are kept
+    (completeness filter on settlement, not on the outcome's value). Decision columns use ticks with decided_at <= t
+    only; `mark` (CLV) looks forward and is never a decision input."""
+    ticks = [r for r in rows if r.get("kind") == "tick"]
+    empty = pd.DataFrame({c: pd.Series(dtype="datetime64[ns]" if c == "date" else object) for c in NHL_FRAME_COLS})
+    if not ticks:
+        return empty
+    d = pd.DataFrame(ticks)
+    d["t"] = _nhl_epoch(d["decided_at"])
+    d = d.sort_values(["gid", "t"]).drop_duplicates(["gid", "t"]).reset_index(drop=True)
+    asof = pd.json_normalize(d["as_of"].tolist())
+    d["inputs_as_of"] = pd.concat([pd.to_datetime(asof[c], utc=True) for c in ("nhl", "kalshi", "anchor")],
+                                  axis=1).max(axis=1)
+    d["price_time"] = pd.to_datetime(asof["kalshi"], utc=True)
+    # 3-min goal cooldown: a score change first observed at tick t blocks [t, t+180)
+    tot = d["home_score"].fillna(0).astype(int) + d["away_score"].fillna(0).astype(int)
+    prev = tot.groupby(d["gid"]).shift(1)
+    chg = prev.notna() & tot.ne(prev)
+    last = d["t"].where(chg).groupby(d["gid"]).ffill()
+    d["recent_goal"] = (d["t"] - last) < 180
+    # price jump: home mid vs each of the previous 3 ticks (within 300 s)
+    d["hmid"] = (d["home_bid"] + d["home_ask"]) / 2
+    jump = pd.Series(False, index=d.index)
+    for k in (1, 2, 3):
+        pm_, pt_ = d.groupby("gid")["hmid"].shift(k), d.groupby("gid")["t"].shift(k)
+        jump |= ((d["hmid"] - pm_).abs() >= 0.08) & ((d["t"] - pt_) <= 300)
+    d["jump"] = jump
+    fin = {r["gid"]: r["decided_at"] for r in rows if r.get("kind") == "final"}
+    res = {r["ticker"]: r for r in results}
+    out = []
+    for team in ("home", "away"):
+        p = pd.to_numeric(d["p_model"], errors="coerce")
+        m = d.assign(team=team, ticker=d[f"{team}_ticker"], bid=d[f"{team}_bid"], ask=d[f"{team}_ask"],
+                     p_team=p if team == "home" else 1 - p)
+        tt_all, mid_all = m["t"].to_numpy(), ((m["bid"] + m["ask"]) / 2).to_numpy()
+        ok_all = ((m["bid"] > 0) & (m["ask"] < 1)).to_numpy()
+        mark = np.full(len(m), np.nan)
+        src = np.array([None] * len(m), dtype=object)
+        for idx in m.groupby("gid").indices.values():
+            tt, mm, ok = tt_all[idx], mid_all[idx], ok_all[idx]
+            for j, i in enumerate(idx):
+                for lo, hi, lab in ((300, 420, "+300s"), (60, 180, "+60s")):
+                    w = np.where(ok & (tt >= tt[j] + lo) & (tt <= tt[j] + hi))[0]
+                    if len(w):
+                        mark[i], src[i] = mm[w[0]], lab
+                        break
+        m["mark"], m["mark_src"] = mark, src
+        out.append(m)
+    x = pd.concat(out, ignore_index=True)
+    last_t = x.groupby("gid")["t"].transform("max")
+    x["event_start"] = pd.to_datetime([fin[g] if g in fin else pd.Timestamp(int(lt) + 60, unit="s", tz="UTC")
+                                       for g, lt in zip(x["gid"], last_t)], utc=True)
+    x["result"] = [res[tk]["result"] if tk in res else None for tk in x["ticker"]]
+    settled = x["result"].notna().groupby(x["gid"]).transform("all")
+    x = x[settled.astype(bool)].copy()
+    if x.empty:
+        return empty
+    x["date"] = pd.to_datetime(x["game_date"])
+    x["intermission"] = x["intermission"].fillna(False).astype(bool)
+    return x[NHL_FRAME_COLS].reset_index(drop=True)
+
+
+def kalshi_nhl_ingame():
+    """Forward-only: the launchd logger's data/live/nhl_ingame_paper.jsonl + nhl_ingame_results.jsonl (the deployed
+    copy ~/.claude/quant-sports is the writer; the worktree copy after `qs_sync.sh pull` is the fallback)."""
+    base = QS_DATA / "live" if (QS_DATA / "live" / "nhl_ingame_paper.jsonl").exists() else DATA / "live"
+    f, fr = base / "nhl_ingame_paper.jsonl", base / "nhl_ingame_results.jsonl"
+    return nhl_frame_from_log(_jsonl(f), _jsonl(fr)), [str(f), str(fr)]
+
+
+LOADERS["kalshi_nhl_ingame"] = kalshi_nhl_ingame

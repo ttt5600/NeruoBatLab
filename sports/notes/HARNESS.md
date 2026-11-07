@@ -16,10 +16,16 @@ All jobs are paper / read-only: no orders, no keys. Live executors (quant-kalshi
 | quant-sports-props | `kalshi_prop_logger.py grade` (first tick per day) + `tick` | 600 s, 08:00-22:00 PT | data/kalshi_prop_log.jsonl, kalshi_prop_grades.jsonl |
 | quant-sports-ticket | `daily_ticket.py --date <PT date>` | 600 s, 08:00-22:00 PT | data/tickets/<date>.md |
 | quant-sports-q017 | `q017_logger.py tick` | 600 s fire, runs if >= 25 min since last, **24 h** | data/q017/fwd/{vintages,quotes}.jsonl |
+| quant-sports-nhl-ingame | `nhl_ingame_logger.py tick` (NHL score/now + KXNHLGAME quotes, Poisson/empty-net model; settles tickers after FINAL) | **60 s, 24 h**; exits with no network outside [start - 75 min, start + 5 h] of a cached schedule; idle runs write only `state/nhl_ingame_heartbeat` | data/live/nhl_ingame_paper.jsonl, nhl_ingame_results.jsonl, nhl_ingame_paper_state.json |
 | quant-sports-digest | `qs_digest.sh` (fund_status.py + `claude -p`) | 09:00 and 23:30 PT | digests/<date>-<am\|pm>.md + notification |
 
 Q017 is deliberately not windowed: its frozen decision times are 06:00 / 10:00 CT (= 04:00 / 08:00 PT) and need a
 quote in [T-45 min, T]; an 08:00-22:00 PT window would make both unobservable.
+NHL in-game (added 2026-11-06): forward paper for edgelab trial `nhl_ig_t1_late_taker` (dataset kalshi_nhl_ingame,
+forward from 2026-11-08; rule edgelab/rules/nhl_ingame.py decides bets from the log, the logger's `signal` is only a
+flag). Pregame anchor = home mid seen pre-puck-drop, else the last Kalshi 1-min candle <= scheduled start (so a Mac
+asleep at puck drop still logs the game). Any API error -> `exit 1` line in logs/nhl-ingame.log, state kept. If the
+Mac sleeps through the last 15 min of a game, that game simply has no late rows (missing, not wrong).
 Run logs: `~/.claude/quant-sports/logs/<job>.log` (every run: header line + script output + `exit N`; rotated at 5 MB);
 launchd's own stdout/stderr: `logs/launchd-<job>.{out,err}`. Per-day stamps: `state/`.
 Entry point: `scripts/qs_job.sh <job>` (window check, `caffeinate -i` around every run, STOP file check).

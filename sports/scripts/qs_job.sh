@@ -8,6 +8,8 @@
 #   ticket      08:00-22:00 PT: daily_ticket.py --date <PT date>  (writes data/tickets/<date>.md)
 #   q017        24 h, every >= 25 min: q017_logger.py tick. Deliberately NOT windowed: its frozen decision times are
 #               06:00 and 10:00 CT (= 04:00 / 08:00 PT) with a quote needed in [T-45 min, T].
+#   nhl-ingame  24 h, launchd every 60 s: nhl_ingame_logger.py tick (exits without network when no NHL game is in
+#               [start - 75 min, start + 5 h]; idle runs leave only state/nhl_ingame_heartbeat, not log lines)
 #   digest      scripts/qs_digest.sh (09:00 / 23:30 PT via StartCalendarInterval)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
 # root makes every job a no-op (scripts/qs_stop.sh). Paper only: none of these jobs place orders or read keys.
@@ -59,6 +61,12 @@ case "$job" in
   tsa)      # E1X-T KXTSAW maker paper (notes/e1x_tsa.md): fills+settle once a day; tick Mondays 09:00-17:00 PT
     if [ "$((10#$hm))" -ge 700 ] && ! done_today tsa_fills; then run scripts/e1x_tsa_logger.py fills && echo "$d" > state/tsa_fills; fi
     if [ "$(date +%u)" = 1 ] && [ "$((10#$hm))" -ge 900 ] && [ "$((10#$hm))" -lt 1700 ]; then run scripts/e1x_tsa_logger.py tick; fi ;;
+  nhl-ingame)   # forward paper for edgelab trial on kalshi_nhl_ingame (notes/HARNESS.md); log only non-idle runs
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/nhl_ingame_logger.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/nhl_ingame_heartbeat
+    if [ $rc -ne 0 ] || ! printf '%s' "$out" | grep -q ' idle: '; then
+      { echo "=== $(date '+%F %T %Z') $job: nhl_ingame_logger.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;
