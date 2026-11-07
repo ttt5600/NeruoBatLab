@@ -1,5 +1,5 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-11-05 evening (lead session_01EGDWEvYFd6zSmWQfUugJnH; handoff before the user's /clear)
+Updated: 2026-11-07 (lead session_01EGDWEvYFd6zSmWQfUugJnH; per-call-type heatmap; jobs still queued)
 ON RESUME: read harness/ROADMAP.md and give the user, in under 15 lines: where we are, possible leads, next steps.
 Next: jobs 40654077/40654081 est. start 2026-11-13 (A40 queue, Priority); when done follow
 ROADMAP.md "Next steps" 1-3 (score finished jobs, E36 finding with both vanilla seeds, E37 randproj verdict).
