@@ -1,0 +1,22 @@
+id: sp1_spr_maker
+family: kalshi_data_ladders
+dataset: kalshi_spr_level
+rule: edgelab.rules.spr_level:maker
+params:
+  n_min: 10
+  margin: 1.0
+hypothesis: 'SP1: Kalshi weekly SPR level (KXSPRLVL, EIA WPSR Table 1). At open + 1 h, v0 = last published SPR stock,
+  dmax = largest |weekly change| of the past 104 weeks (EIA WCSSTUS1). Rungs K >= v0 + dmax + 1 -> NO maker; K <=
+  v0 - dmax - 1 -> YES maker; bid at min(floor side mid, side ask - 1c), q in [.50,.99], spread <= 10c; filled iff >= 10
+  contracts print at <= q before the 14:30Z release; maker fee 0; hold. SPR moves only by scheduled DOE flows.'
+decision_time: event open + 1 h (Wednesday ~16:30Z, after the previous WPSR release)
+price_model: maker_tape
+split: vault:kalshi_spr_level
+min_n: 30
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 1
+fee:
+  rounding: exact
+legacy: 'new 2026-11-06 (notes/phys_ladders.md; census scripts/phys_census.py); fee_type quadratic (maker 0)'

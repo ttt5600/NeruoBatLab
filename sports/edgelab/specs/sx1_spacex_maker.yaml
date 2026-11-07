@@ -1,0 +1,23 @@
+id: sx1_spacex_maker
+family: kalshi_data_ladders
+dataset: kalshi_spacex_count
+rule: edgelab.rules.spacex_count:maker
+params:
+  n_min: 10
+  margin: 2
+hypothesis: 'SX1: Kalshi monthly SpaceX launch count (KXSPACEXCOUNT-<YYMON>, "more than K launches"). Daily at 16:00Z,
+  c = SpaceX liftoffs so far this month (ET, Launch Library 2), L = days left, cap = fastest L-day burst in the past
+  365 d. When K + 1 - c >= cap + 2 the rung is mechanically out of reach -> first such T (with spread <= 10c and
+  q in [.50,.99]) post one NO bid at min(floor NO mid, NO ask - 1c); filled iff >= 10 contracts print at <= q before
+  month end; maker fee 0; hold. Physical cap, public observation -> counterparty is a lottery buyer.'
+decision_time: 16:00Z daily during the event month; first T where the rung is unreachable and the quote passes
+price_model: maker_tape
+split: vault:kalshi_spacex_count
+min_n: 30
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 1
+fee:
+  rounding: exact
+legacy: 'new 2026-11-06 (notes/phys_ladders.md; census scripts/phys_census.py); fee_type quadratic (maker 0)'
