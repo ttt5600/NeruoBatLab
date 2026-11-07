@@ -1,6 +1,6 @@
 {
- "ts": "2026-11-05T17:14:37+00:00",
- "git_head": "db07eeeed7fa67ace93358e899a2407995479e72",
+ "ts": "2026-11-06T11:25:03+00:00",
+ "git_head": "8c2f54fde5c62c24e18fb8e07eb6d5bf670e122d",
  "alpha": 0.05,
  "placebo": {
   "real": {
@@ -104,7 +104,7 @@
   },
   "amend_after_access": {
    "refused": true,
-   "error": "honest_e1_copy-ef5e8583 already accessed data (2026-11-05T17:15:34+00:00); amendments are only allowed before the first data access -> register a NEW trial"
+   "error": "honest_e1_copy-ef5e8583 already accessed data (2026-11-06T11:25:56+00:00); amendments are only allowed before the first data access -> register a NEW trial"
   },
   "amend_before_access_allowed": {
    "ok": true
@@ -115,7 +115,7 @@
   },
   "rule_edited_after_access": {
    "refused": true,
-   "error": "edited_rule-81159771: rule module /var/folders/bx/67m84k5n6rb_kzzzlq6c6nqr0000gn/T/tmpbtaxe3kw/mods/elab_tmp_rule.py changed since registration (6841cd8fb1e2 ->"
+   "error": "edited_rule-81159771: rule module /var/folders/bx/67m84k5n6rb_kzzzlq6c6nqr0000gn/T/tmpymgced7e/mods/elab_tmp_rule.py changed since registration (6841cd8fb1e2 ->"
   },
   "edited_rule_is_new_trial": {
    "ok": true,
@@ -133,7 +133,7 @@
   },
   "second_unseal": {
    "refused": true,
-   "error": "sealed refused for e1_taker-40389097: second unseal refused (first: 2026-11-05T17:15:42+00:00)"
+   "error": "sealed refused for e1_taker-40389097: second unseal refused (first: 2026-11-06T11:26:03+00:00)"
   },
   "tampered_registry_detected": {
    "refused": true,
