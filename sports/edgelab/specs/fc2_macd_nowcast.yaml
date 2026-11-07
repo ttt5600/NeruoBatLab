@@ -1,0 +1,24 @@
+id: fc2_macd_nowcast
+family: kalshi_data_ladders
+dataset: fx_climate
+rule: edgelab.rules.fx_climate:macd
+params:
+  k: 3.0
+  gap_days: 2
+hypothesis: 'FC2: ForecastEx MACD (NOAA GML Mauna Loa monthly mean CO2). After month M ends and its Mauna Loa daily
+  values are public (M_end + 3 d), pred = mean of >= 20 daily values + c (c, sd fit 2015-01..2024-06). Strike X with
+  pred + 3 sd <= X -> buy NO; pred - 3 sd > X -> buy YES. Bought on the earliest CT trade-day starting after the input
+  was public and >= 2 days before expiry on which that instrument traded, at that day''s HIGH trade (daily files carry
+  no bid/ask; worst price any buyer paid) + $0.01 fee; hold to settlement.'
+decision_time: end of the first CT trade-day starting after M_end + 4 d 00:00 UTC on which the bought instrument traded
+price_model: taker
+split: vault:fx_climate
+min_n: 30
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 2
+fee:
+  schedules:
+    taker: forecastex
+legacy: 'new 2026-11-06 (scripts/fx_climate.py; census in notes/fx_climate.md).'

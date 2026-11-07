@@ -433,3 +433,19 @@ def kalshi_spr_level():
 
 LOADERS["kalshi_spacex_count"] = kalshi_spacex_count
 LOADERS["kalshi_spr_level"] = kalshi_spr_level
+
+
+# ------------------------------------------------------------------ ForecastEx monthly climate (scripts/fx_climate.py)
+def fx_climate():
+    """data/fx_climate/frame.parquet: one row per settled GTM / MACD contract (nowcast inputs + hidden result) +
+    attrs['days'] = per-CT-trade-day high/end/qty of each instrument that traded (days.parquet)."""
+    D = DATA / "fx_climate"
+    f, fd = D / "frame.parquet", D / "days.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    dd = pd.read_parquet(fd)
+    x.attrs["days"] = dd[dd["ticker"].isin(set(x["ticker"]))].reset_index(drop=True)
+    return x, [str(f), str(fd)]
+
+
+LOADERS["fx_climate"] = fx_climate
