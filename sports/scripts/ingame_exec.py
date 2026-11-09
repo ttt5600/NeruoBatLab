@@ -187,7 +187,7 @@ def apply_fills(o: dict, x: dict, cfg: dict, now: datetime) -> dict:
         rest = max(float(o["count"]) - u["filled"], 0.0)
         u["cost"] = round(u["cost"] + rest * taker_unit(o["limit_price"]), 4)   # remainder stays committed
     r = upd(o, now, **u)
-    if u["filled"] and u["avg_price"] is not None and abs(u["avg_price"] - o["limit_price"]) > CONVENTION_TOL:
+    if u["filled"] and u["avg_price"] is not None and lx.fill_price_bad(u["avg_price"], o["limit_price"]):
         lx.write_lead_kill(f"ingame fill price check failed on {o['ticker']}: paid {u['avg_price']} vs limit "
                            f"{o['limit_price']}", cfg)
     return r

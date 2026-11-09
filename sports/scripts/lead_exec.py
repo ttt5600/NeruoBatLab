@@ -63,6 +63,7 @@ GLOBAL_OPEN_CAP = 40.00
 CASH_RESERVE = 80.00
 DEPTH_FRAC = 0.5                 # DUL taker: <= half the NO-ask depth within 1c (as kalshi_exec)
 CONVENTION_TOL = 0.02
+IMPROVE_TOL = 0.10               # paying well under the limit is normal; this far under suggests a YES/NO price mix-up
 KICK_TOL_MIN = 20                # Kalshi expected_expiration_time - 3h must match the schedule kickoff
 NFL_SERIES = "KXNFLTOTAL"
 KALSHI_TEAM = {"JAX": "JAC", "LA": "LAR"}  # nflverse -> Kalshi codes (others identical; checked 11-05 week 9 events)
@@ -401,6 +402,11 @@ def write_lead_kill(reason: str, cfg: dict) -> None:
     kx.notify("Kalshi LEAD exec KILLED", reason, cfg)
 
 
+def fill_price_bad(paid: float, ref: float) -> bool:
+    """Convention check: above the limit is impossible on a real fill; a few cents below it is price improvement."""
+    return paid > ref + CONVENTION_TOL or paid < ref - IMPROVE_TOL
+
+
 def apply_fills(rec: dict, o: dict, cfg: dict, now: datetime) -> dict:
     """Exchange Order -> update row; maker remainder stays committed at q; convention check -> LEAD_KILL."""
     u = kx.fills_from_order(o)
@@ -411,7 +417,7 @@ def apply_fills(rec: dict, o: dict, cfg: dict, now: datetime) -> dict:
         rest = max(float(rec["count"]) - u["filled"], 0.0)
         u["cost"] = round(u["cost"] + rest * (rec["maker_q"] + kx.maker_fee_unit(rec["maker_q"], rec.get("fee_type"))), 4)
     ref = rec.get("maker_q", rec.get("avg_price"))
-    if u["filled"] and u["avg_price"] is not None and ref is not None and abs(u["avg_price"] - ref) > CONVENTION_TOL:
+    if u["filled"] and u["avg_price"] is not None and ref is not None and fill_price_bad(u["avg_price"], ref):
         u["cost"] = round(u["filled"] * 1.0 + u["fee"], 4)
         append({"event": "update", "ts": iso(now), "mode": rec["mode"], "ticker": rec["ticker"], **u})
         write_lead_kill(f"fill price check failed on {rec['ticker']}: paid {u['avg_price']} vs {ref}", cfg)

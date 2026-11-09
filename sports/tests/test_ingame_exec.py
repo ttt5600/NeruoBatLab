@@ -222,6 +222,12 @@ def _settled(n_loss, n_win, s="NHL", mode="live", pnl_l=-0.82, pnl_w=0.16):
     return out
 
 
+@pytest.mark.parametrize("paid,limit,bad", [(0.42, 0.45, False), (0.45, 0.45, False), (0.47, 0.45, False),
+                                            (0.48, 0.45, True), (0.34, 0.45, True)])
+def test_fill_price_check_is_one_sided(paid, limit, bad):
+    assert lx.fill_price_bad(paid, limit) is bad       # 11-08: 0.42 vs limit 0.45 falsely wrote LEAD_KILL
+
+
 def test_kill_rules():
     assert ix.kill_verdict(_settled(10, 5), "NHL").startswith("10 losses")
     assert ix.kill_verdict(_settled(9, 21), "NHL") is None
