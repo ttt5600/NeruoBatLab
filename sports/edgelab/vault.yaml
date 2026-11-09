@@ -254,3 +254,12 @@ datasets:
       dev: [2024-08-01, 2026-03-31]        # before any GTM/MACD price / outcome pull (only ticker/expiry metadata seen)
       sealed: [2026-04-01, 2026-11-05]     # releases Apr..Nov 5 2026 (GTM Mar..Sep 2026, MACD Mar..Oct 2026)
       forward: [2026-11-06, null]
+  kalshi_tornado_count:
+    loader: kalshi_tornado_count
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value, volume]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = 1st of the event month; set 2026-11-09 before any Kalshi expiration
+      dev: [2023-07-01, 2025-09-30]        # value / candle / tape pull for a settled month
+      sealed: [2025-10-01, 2026-10-31]
+      forward: [2026-11-01, null]

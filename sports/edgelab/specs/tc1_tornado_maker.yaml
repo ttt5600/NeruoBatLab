@@ -1,0 +1,25 @@
+id: tc1_tornado_maker
+family: kalshi_data_ladders
+dataset: kalshi_tornado_count
+rule: edgelab.rules.tornado_count:maker
+params:
+  n_min: 10
+  margin: 5
+hypothesis: 'TC1: Kalshi monthly preliminary tornado count (KXTORNADO, "above K"). Daily at 16:00Z, c = SPC report-day
+  tornado count so far this month (SPC NAT_<MON>.json), L = report days left, cap = largest L-consecutive-day total in
+  this calendar month over 2005-2022. When K + 1 - c >= cap + 5 the rung is out of reach -> first such T (spread <=
+  10c, q in [.50,.99]) post one NO bid at min(floor NO mid, NO ask - 1c); filled iff >= 10 contracts print at <= q
+  before close; maker fee 0; hold. All rungs are "greater", so passed rungs have no NO leg. PRE-REGISTERED GATE, before
+  scoring, dev months only: SPC month total today vs Kalshi expiration_value, |diff| <= max(3, 3%), >= 90% of months;
+  fail -> no evaluation, retire.'
+decision_time: 16:00Z daily during the event month; first T where the rung is unreachable and the quote passes
+price_model: maker_tape
+split: vault:kalshi_tornado_count
+min_n: 30
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 1
+fee:
+  rounding: exact
+legacy: 'new 2026-11-09 (notes/phys_ladders.md lead A; builder scripts/tornado_ladder.py); fee_type quadratic (maker 0)'

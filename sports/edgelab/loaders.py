@@ -449,3 +449,12 @@ def fx_climate():
 
 
 LOADERS["fx_climate"] = fx_climate
+
+
+# ------------------------------------------------------------------ KXTORNADO monthly count (scripts/tornado_ladder.py)
+def kalshi_tornado_count():
+    """data/phys_ladders/tornado_frame.parquet: one row per (monthly KXTORNADO ticker, daily 16:00Z decision)."""
+    return _phys("tornado")
+
+
+LOADERS["kalshi_tornado_count"] = kalshi_tornado_count
