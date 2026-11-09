@@ -1,0 +1,20 @@
+id: lock_t2_nba_maker99
+family: lock_in
+dataset: lock_in_nba_total
+rule: edgelab.rules.lock_in:t2_maker
+params:
+  n_queue: 5000
+hypothesis: 'LOCK T2: same locked NBA markets, ask already 1.00 at decision: post a YES bid at 99c 60 s after the play and collect 1c from sellers before close. Fill model: >= 5,000 contracts must print at <= 99c after T (queue proxy from live 99c depth, 2026-11-09). Maker fee 0.0175 p(1-p) (quadratic_with_maker_fees).'
+decision_time: ESPN play wallclock + 60 s
+price_model: maker_tape
+split: vault:lock_in_nba_total
+min_n: 100
+kill:
+  kind: losses_in_first
+  n: 100
+  max_losses: 1
+fee:
+  rounding: exact
+  schedules:
+    maker_tape: kalshi_maker_qwmf
+legacy: 'new 2026-11-09 (scripts/lock_in.py, notes/lock_in.md); descriptive look at 20 + 78 dev games beforehand (prices only); 99c depth snapshot 11-09 sets N'

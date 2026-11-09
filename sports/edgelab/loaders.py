@@ -477,3 +477,18 @@ def kalshi_power_week():
 
 
 LOADERS["kalshi_power_week"] = kalshi_power_week
+
+
+# ------------------------------------------------------------------ lock-in (scripts/lock_in.py)
+def lock_in_nba_total():
+    """data/lock_in/frame_{dev,sealed}.parquet: one row per NBA ticker whose YES is fixed by the public score (rules/lock_in.py)."""
+    D = DATA / "lock_in"
+    fs = [p for p in (D / "frame_dev.parquet", D / "frame_sealed.parquet") if p.exists()]
+    ts = [p for p in (D / "tape_dev.parquet", D / "tape_sealed.parquet") if p.exists()]
+    x = pd.concat([pd.read_parquet(p) for p in fs], ignore_index=True)
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["tape"] = pd.concat([pd.read_parquet(p) for p in ts], ignore_index=True)
+    return x, [str(p) for p in fs + ts]
+
+
+LOADERS["lock_in_nba_total"] = lock_in_nba_total

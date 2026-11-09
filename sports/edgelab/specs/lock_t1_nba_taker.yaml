@@ -1,0 +1,16 @@
+id: lock_t1_nba_taker
+family: lock_in
+dataset: lock_in_nba_total
+rule: edgelab.rules.lock_in:t1_taker
+hypothesis: 'LOCK T1: NBA markets already determined by the public score (KXNBATOTAL over rungs with running total >= K + 3.5; KXNBAGAME winner after the last ESPN play) still offer YES at <= 99c 60 s after the play. Buy at the ask + taker fee, hold to settlement. Requires yes_bid >= .95 at T.'
+decision_time: ESPN play wallclock + 60 s; Kalshi quote = last 1-min candle ending <= decision
+price_model: taker
+split: vault:lock_in_nba_total
+min_n: 100
+kill:
+  kind: losses_in_first
+  n: 100
+  max_losses: 1
+fee:
+  rounding: exact
+legacy: 'new 2026-11-09 (scripts/lock_in.py, notes/lock_in.md); descriptive look at 20 + 78 dev games beforehand (prices only)'

@@ -254,6 +254,14 @@ datasets:
       dev: [2024-08-01, 2026-03-31]        # before any GTM/MACD price / outcome pull (only ticker/expiry metadata seen)
       sealed: [2026-04-01, 2026-11-05]     # releases Apr..Nov 5 2026 (GTM Mar..Sep 2026, MACD Mar..Oct 2026)
       forward: [2026-11-06, null]
+  lock_in_nba_total:
+    loader: lock_in_nba_total              # scripts/lock_in.py: KXNBATOTAL over rungs already passed by the running score
+    family: lock_in
+    hidden: [result, expiration_value, volume]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = ET game date; set 2026-11-09 before any KXNBATOTAL price/tape/outcome was read
+      dev: [2025-10-21, 2026-01-31]
+      sealed: [2026-02-01, 2026-06-14]
   kalshi_tornado_count:
     loader: kalshi_tornado_count
     family: kalshi_data_ladders
