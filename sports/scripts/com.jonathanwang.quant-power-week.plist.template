@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- PW1 forward paper logger (pw1_power_week_maker-25925930). Paper only, no order code. NOT INSTALLED.
+     Install (from sports/):
+       scripts/qs_sync.sh push
+       mkdir -p ~/.claude/quant-sports/data/live
+       cp scripts/com.jonathanwang.quant-power-week.plist.template ~/Library/LaunchAgents/com.jonathanwang.quant-power-week.plist
+       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.jonathanwang.quant-power-week.plist
+     Verify: launchctl kickstart gui/$(id -u)/com.jonathanwang.quant-power-week ; tail ~/.claude/quant-sports/logs/power_week.log
+     Ticks 09:30 and 15:30 local (17:30Z / 23:30Z in PST). -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.jonathanwang.quant-power-week</string>
+  <key>ProgramArguments</key><array>
+    <string>/bin/bash</string><string>-c</string>
+    <string>.venv/bin/python scripts/power_week.py tick; .venv/bin/python scripts/power_week.py settle</string>
+  </array>
+  <key>WorkingDirectory</key><string>/Users/jonathanwang/.claude/quant-sports</string>
+  <key>EnvironmentVariables</key><dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key><string>/Users/jonathanwang</string>
+  </dict>
+  <key>StartCalendarInterval</key><array>
+    <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>30</integer></dict>
+    <dict><key>Hour</key><integer>15</integer><key>Minute</key><integer>30</integer></dict>
+  </array>
+  <key>StandardOutPath</key><string>/Users/jonathanwang/.claude/quant-sports/logs/power_week.log</string>
+  <key>StandardErrorPath</key><string>/Users/jonathanwang/.claude/quant-sports/logs/power_week.log</string>
+</dict>
+</plist>

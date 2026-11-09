@@ -35,3 +35,15 @@ selected rung -> ~2 rungs/month x ~1c = a few $/month. Real but tiny: the market
 ## SP1 (edgelab/rules/spr_level.py)
 2026 SPR is in an emergency drain (455 -> 282 Mbbl); trailing-104-wk max |weekly change| = 9.92 from 2026-07 on, so
 only APR08 rungs (dmax 1.76) were out of reach: 3 fills, one event. The rule cannot fire while the drain dominates dmax.
+
+## TC1 KXTORNADO + PW1 weekly ISO power (2026-11-09)
+**TC1 `tc1_tornado_maker-6dcaab12`: DEAD at the pre-registered gate, never scored.** SPC month total as it stands today vs
+Kalshi expiration_value, dev months, |diff| <= max(3, 3%): 17/26 = 0.654 < 0.90 (results/tornado_gate.json). Every miss is
+SPC above Kalshi (+4..+55; 24DEC 145 vs 90, 25MAR 300 vs 268, 24MAY 571 vs 542): the archive keeps growing after the
+10:00 ET first-of-month expiration read, so c from today's archive is not the count anyone could see. Same trap as PortWatch.
+Any retry needs a forward first-print logger of NAT_<MON>.json. All rungs are 'greater', so a "passed" rung has no NO leg.
+SPC facts: summary/<y>/ruf/NAT/NAT_<MON>.json has daily counts back to 2004 = the filtered daily CSV (raw before filtering existed).
+**PW1 `pw1_power_week_maker-25925930`: forward paper, registered, logger NOT installed.** Settlement = all-hours average
+of REAL-TIME prices Fri 5 PM ET -> Fri 5 PM ET; day-ahead is not in the settlement, but realised intervals pin part of the week and DA forecasts the rest.
+MISO + ERCOT keyless; PJM settlement feed returns 401 without a key, excluded. scripts/power_week.py tick|settle; install
+command in scripts/com.jonathanwang.quant-power-week.plist.template. Loader prefers ~/.claude/quant-sports/data/live.

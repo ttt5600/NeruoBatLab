@@ -1,0 +1,225 @@
+{
+ "trial": "tc1_tornado_maker-6dcaab12",
+ "n_months": 26,
+ "n_match": 17,
+ "share": 0.6538461538461539,
+ "bar": 0.9,
+ "passed": false,
+ "median_diff": 3.0,
+ "rows": [
+  {
+   "event": "KXTORNADO-24DEC",
+   "spc": 145,
+   "kalshi": 90.0,
+   "diff": 55.0,
+   "tol": 3.0,
+   "match": false
+  },
+  {
+   "event": "KXTORNADO-24NOV",
+   "spc": 39,
+   "kalshi": 39.0,
+   "diff": 0.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "KXTORNADO-25APR",
+   "spc": 352,
+   "kalshi": 328.0,
+   "diff": 24.0,
+   "tol": 9.84,
+   "match": false
+  },
+  {
+   "event": "KXTORNADO-25AUG",
+   "spc": 42,
+   "kalshi": 42.0,
+   "diff": 0.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "KXTORNADO-25FEB",
+   "spc": 43,
+   "kalshi": 41.0,
+   "diff": 2.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "KXTORNADO-25JAN",
+   "spc": 20,
+   "kalshi": 20.0,
+   "diff": 0.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "KXTORNADO-25JUL",
+   "spc": 96,
+   "kalshi": 91.0,
+   "diff": 5.0,
+   "tol": 3.0,
+   "match": false
+  },
+  {
+   "event": "KXTORNADO-25JUN",
+   "spc": 252,
+   "kalshi": 251.0,
+   "diff": 1.0,
+   "tol": 7.529999999999999,
+   "match": true
+  },
+  {
+   "event": "KXTORNADO-25MAR",
+   "spc": 300,
+   "kalshi": 268.0,
+   "diff": 32.0,
+   "tol": 8.04,
+   "match": false
+  },
+  {
+   "event": "KXTORNADO-25MAY",
+   "spc": 332,
+   "kalshi": 329.0,
+   "diff": 3.0,
+   "tol": 9.87,
+   "match": true
+  },
+  {
+   "event": "KXTORNADO-25SEP",
+   "spc": 58,
+   "kalshi": 58.0,
+   "diff": 0.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "TORNADO-23AUG",
+   "spc": 148,
+   "kalshi": 145.0,
+   "diff": 3.0,
+   "tol": 4.35,
+   "match": true
+  },
+  {
+   "event": "TORNADO-23DEC",
+   "spc": 46,
+   "kalshi": 46.0,
+   "diff": 0.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "TORNADO-23JUL",
+   "spc": 117,
+   "kalshi": 116.0,
+   "diff": 1.0,
+   "tol": 3.48,
+   "match": true
+  },
+  {
+   "event": "TORNADO-23OCT",
+   "spc": 31,
+   "kalshi": 31.0,
+   "diff": 0.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "TORNADO-23SEP",
+   "spc": 22,
+   "kalshi": 21.0,
+   "diff": 1.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "TORNADO-24APR",
+   "spc": 384,
+   "kalshi": 362.0,
+   "diff": 22.0,
+   "tol": 10.86,
+   "match": false
+  },
+  {
+   "event": "TORNADO-24AUG",
+   "spc": 94,
+   "kalshi": 90.0,
+   "diff": 4.0,
+   "tol": 3.0,
+   "match": false
+  },
+  {
+   "event": "TORNADO-24FEB",
+   "spc": 52,
+   "kalshi": 48.0,
+   "diff": 4.0,
+   "tol": 3.0,
+   "match": false
+  },
+  {
+   "event": "TORNADO-24JAN",
+   "spc": 45,
+   "kalshi": 45.0,
+   "diff": 0.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "TORNADO-24JUL",
+   "spc": 221,
+   "kalshi": 217.0,
+   "diff": 4.0,
+   "tol": 6.51,
+   "match": true
+  },
+  {
+   "event": "TORNADO-24JUN",
+   "spc": 166,
+   "kalshi": 163.0,
+   "diff": 3.0,
+   "tol": 4.89,
+   "match": true
+  },
+  {
+   "event": "TORNADO-24MAR",
+   "spc": 67,
+   "kalshi": 66.0,
+   "diff": 1.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "TORNADO-24MAY",
+   "spc": 571,
+   "kalshi": 542.0,
+   "diff": 29.0,
+   "tol": 16.259999999999998,
+   "match": false
+  },
+  {
+   "event": "TORNADO-24OCT",
+   "spc": 53,
+   "kalshi": 50.0,
+   "diff": 3.0,
+   "tol": 3.0,
+   "match": true
+  },
+  {
+   "event": "TORNADO-24SEP",
+   "spc": 73,
+   "kalshi": 61.0,
+   "diff": 12.0,
+   "tol": 3.0,
+   "match": false
+  }
+ ],
+ "_sources": [
+  {
+   "path": "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/data/phys_ladders/spc_months.json"
+  }
+ ],
+ "_generated_by": "scripts/tornado_ladder.py gate"
+}

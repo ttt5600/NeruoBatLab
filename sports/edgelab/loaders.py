@@ -458,3 +458,22 @@ def kalshi_tornado_count():
 
 
 LOADERS["kalshi_tornado_count"] = kalshi_tornado_count
+
+
+# ------------------------------------------------------------------ weekly ISO power, forward paper (scripts/power_week.py)
+def kalshi_power_week():
+    """Forward-only: data/live/power_week_ticks.jsonl + _results.jsonl + _tape.jsonl (deployed ~/.claude/quant-sports
+    copy is the writer; worktree copy after `qs_sync.sh pull` is the fallback). Rows without a settled result drop."""
+    base = QS_DATA / "live" if (QS_DATA / "live" / "power_week_ticks.jsonl").exists() else DATA / "live"
+    f, fr, ft = base / "power_week_ticks.jsonl", base / "power_week_results.jsonl", base / "power_week_tape.jsonl"
+    ticks, res, tape = pd.DataFrame(_jsonl(f)), pd.DataFrame(_jsonl(fr)), pd.DataFrame(_jsonl(ft))
+    if ticks.empty or res.empty:
+        x = pd.DataFrame(columns=list(dict.fromkeys(list(ticks.columns) + ["date", "result", "expiration_value", "mark_yes_bid", "mark_yes_ask"])))
+    else:
+        x = ticks.merge(res, on="ticker", how="inner", validate="many_to_one")
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["tape"] = tape
+    return x, [str(f), str(fr), str(ft)]
+
+
+LOADERS["kalshi_power_week"] = kalshi_power_week

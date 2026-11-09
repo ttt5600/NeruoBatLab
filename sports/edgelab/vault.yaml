@@ -263,3 +263,12 @@ datasets:
       dev: [2023-07-01, 2025-09-30]        # value / candle / tape pull for a settled month
       sealed: [2025-10-01, 2026-10-31]
       forward: [2026-11-01, null]
+  kalshi_power_week:
+    loader: kalshi_power_week
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # forward only; date = Friday the week starts; set 2026-11-09 before the first tick
+      dev: null
+      sealed: null
+      forward: [2026-11-06, null]

@@ -1,0 +1,22 @@
+id: pw1_power_week_maker
+family: kalshi_data_ladders
+dataset: kalshi_power_week
+rule: edgelab.rules.power_week:maker
+params:
+  n_min: 10
+hypothesis: 'PW1 (forward paper): Kalshi weekly ISO hub power (KXMISOINDW, KXERCOTNORTHW) settles on the all-hours
+  average REAL-TIME price, so realised intervals pin part of the week. Each tick: r = average the remaining intervals
+  need to reach K; hi = 2 * max(DA mean of unstarted hours, 14-day RT mean) + 20; lo = 0.25 * min(same) - 10. With >=
+  20% of the week realised: NO maker if r > hi, YES maker if r < lo; first qualifying tick, spread <= 10c, q = min(floor
+  side mid, side ask - 1c) in [.50,.99]; filled iff >= 10 contracts print at <= q before close; maker fee 0; hold.'
+decision_time: each logger tick (17:30Z and 23:30Z) while the week is open; first qualifying tick per ticker
+price_model: maker_tape
+split: vault:kalshi_power_week
+min_n: 30
+kill:
+  kind: losses_in_first
+  n: 30
+  max_losses: 1
+fee:
+  rounding: exact
+legacy: 'new 2026-11-09 (notes/phys_ladders.md lead B; logger scripts/power_week.py); forward only, no backtest; fee_type quadratic (maker 0)'
