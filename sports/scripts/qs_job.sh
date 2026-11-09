@@ -77,6 +77,11 @@ case "$job" in
     if [ $rc -ne 0 ] || ! printf '%s' "$out" | grep -q ' idle: '; then
       { echo "=== $(date '+%F %T %Z') $job: nfl_fade_live.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
+  lock-queue)   # READ-ONLY queue measurement for lock_t2_nba_maker99 (scripts/lock_queue_logger.py): stays up polling every
+                # 15 s only while an NBA game is in period >= 4 or snapshots are owed; idle runs print nothing
+    /usr/bin/caffeinate -i "$PY" -u scripts/lock_queue_logger.py tick >> "$LOG" 2>&1; rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/lock_queue_heartbeat
+    [ $rc -eq 0 ] || echo "$(date '+%F %T %Z') lock-queue exit $rc" >> "$LOG" ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;

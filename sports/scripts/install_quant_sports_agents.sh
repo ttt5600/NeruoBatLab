@@ -55,6 +55,7 @@ EVERY='<key>StartInterval</key><integer>600</integer>'
 for j in early-form l32b props ticket q017 tsa; do plist "$j" "$EVERY"; done
 plist nhl-ingame '<key>StartInterval</key><integer>60</integer>'
 plist nfl-fade '<key>StartInterval</key><integer>60</integer>'
+plist lock-queue '<key>StartInterval</key><integer>60</integer>'
 plist digest '<key>StartCalendarInterval</key><array>
     <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
     <dict><key>Hour</key><integer>23</integer><key>Minute</key><integer>30</integer></dict>
