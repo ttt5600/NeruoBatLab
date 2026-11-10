@@ -1,3 +1,17 @@
+## 2026-11-10 04:00Z -- INCIDENT, READ FIRST (session before /clear). Then notes/ACT_LIST.md + EDGES_AND_AGENTS.md tail.
+## NFLF runaway exit loop (scripts/ingame_exec.py ~L291-322, this session's code): IOC exit sell filled, find_order(cid)
+##   returned no fill -> retried with a NEW coid each tick (exit_attempts to 21); every sell executed; selling YES not held
+##   opens NO. Result: KXNFLGAME-26NOV09BUFMIN-MIN -325 (NO, ~$266 exposure), -BUF -60 (NO, $22.56). Kalshi cash $14.37.
+##   USER: "do not sell" -> HOLD to settlement. NFLF DISABLED (data/LEAD_DISABLE_NFLF + LEAD_LIVE_NFLF=0); do NOT re-arm.
+## FIRST JOB: fix every exit/sell path: cap count at the exchange-reported position (GET /portfolio/positions) before
+##   each sell, never sell more than held, stop after 1 unconfirmed attempt; add a test reproducing find_order=None;
+##   audit lead_exec/kalshi_exec/needle for any other sell path. Then reconcile BUFMIN P&L after settlement.
+## Live now: Kalshi weather E4 2x (111 settled, 109-2, +$1.42 at 11-09), ForecastEx (fixed; +$5.40), lead bot (DUL from
+##   Thu 11-12, L39 Nov 24-30, TSA), NHL late $1 live (1-2, -$1.39). NFLF before the incident 1-7, -$2.80.
+## Loggers: NHL in-game (paper trial from 11-08), lock-queue 99c depth (NBA, read-only, from 11-09), NFL fade paper.
+## Pending user: hub re-lock (hub doctor 7 FAIL: nothing root-locked at /Library/AgentHub; command in ACT_LIST/chat),
+##   IBKR weekly 2FA, Mac lid open + plugged in.
+
 ## 2026-11-07 -- INFO-GAP census done: notes/info_gap_census_2026-11-07.md (top: canvass margin brackets KXMIDTERMMOV etc.; 5 prereg stubs = PROPOSALS). Election lessons: notes/election_needle_2026.md.
 ## 2026-11-06 -- EDGE SEARCH WAVES 1-2 DONE (11 agents, ~15 trials): ALL DEAD. In-game (CBB/soccer/NBA-lineup/Pinnacle lag/
 ## PM-Kalshi/PM US real ask), Polymarket (overreaction, time-to-resolution, longshot maker), media weekly, PortWatch/EIA,
