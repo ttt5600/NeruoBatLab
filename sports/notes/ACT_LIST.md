@@ -31,7 +31,11 @@ E4 sized 2x 11-05 (edgelab early step; caps $6.20/6 ct/day $60/open $80; loss st
 
 ## Tier C -- watch only (forward data says no for now)
 - L33 NFL vs opener: 3 settled (2-1). Too small; keep the logger.
-- L34 NHL totals slice 19-17-1 +6.0% is POST HOC (ML side 13-26 -24.8%); not betting a slice picked after looking.
+- L34 KILLED by its pre-set rule 11-10 (110 settled, CLV -0.0005 [-0.0044,+0.0033]); totals slice stays post hoc.
+- SCORECARDS (11-10): `cd sports && ../.venv_quant/bin/python scripts/scorecards.py [--kalshi]` -> notes/SCORECARDS.md,
+  one card per strategy vs its pre-set kill. Near-kill: F1 (CLV vs ASK -0.0068 [-0.0120,-0.0016] n29; vs mid n.s.;
+  rule doesn't say which CLV -> user to pin), Q004 (NHL -27.6%/76). Lock-in 99c: horn queue median ~201k vs frozen
+  N=5,000 (1 night, 7 games, 116 locks; 0 locks <= 5k) -> T2 maker likely uncapturable; log more nights.
 - E5/FX1 ForecastEx weather: STOP PROPOSED 11-10 (notes/e5_forecastex_audit.md). Maker fills adversely selected (every
   losing station-day filled, 0/200 unfilled days lost); asks on 6.9% of picks. Q008 KILLED by rule (0 qualifying/56).
   Also: bet.py loss stop blocked 373 FX picks on OTHER strategies' ~2.9u open risk (still daily after 11-07 fix);
