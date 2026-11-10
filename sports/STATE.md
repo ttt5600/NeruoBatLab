@@ -10,6 +10,11 @@
 ##   +$63.47 by luck incl. unsettled BUFMIN. The "NFLF 1-7 -$2.80" below is WRONG (journal records intent, not fills).
 ##   order_guard.jsonl appears only after the first guarded order (deployed 04:11:48Z) -> check after next weather run.
 ##   New tools: scripts/scorecards.py [--kalshi], scripts/post_trade_review.py, notes/lessons.jsonl (29).
+##   MEMORY VAULT v0 done (peer session memory-vault): branch memory-vault c650e5b in ~/agent-harness/.claude/worktrees/
+##   memory-vault/memory_vault/ (bin/vault q|sql|brief; DB ~/.claude/memory_vault/vault.sqlite); bench pass@8 .91 vs
+##   memory files alone .73. USER: merge branch + yes to hook/MCP (DESIGN.md s9). Gotchas: the one ForecastEx fill is in
+##   BOTH bets.jsonl (E5) and forecastex_exec (E5X) -> cross-journal sums double-count +$5.40; Claude Code deletes
+##   transcripts after 30 d (cleanupPeriodDays; oldest Oct 11) -> user may raise it.
 ## 2026-11-10 04:00Z -- INCIDENT, READ FIRST (session before /clear). Then notes/ACT_LIST.md + EDGES_AND_AGENTS.md tail.
 ## NFLF runaway exit loop (scripts/ingame_exec.py ~L291-322, this session's code): IOC exit sell filled, find_order(cid)
 ##   returned no fill -> retried with a NEW coid each tick (exit_attempts to 21); every sell executed; selling YES not held
