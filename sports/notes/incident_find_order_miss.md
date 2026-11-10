@@ -33,7 +33,8 @@ Read-only API today (scripts/diag_find_order.py -> results/incident_find_order_m
   POST (response discarded; most likely insufficient cash), so they did no harm. 21+14+14 = 49 exits executed:
   BUF 3-21*3 = -60 and MIN 25-14*8-14*17 = -325, which match the positions now.
 Journal evidence of the lag (results/incident_find_order_miss/lead_exec.jsonl, all live POSTs through ingame/lead place()):
-- The GET /portfolio/orders lookup made right after a 201 did NOT list the new order on 27 of 28 POSTs. That includes
+- The GET /portfolio/orders lookup made right after a 201 did NOT list the new order on 27 of 27 live 201 POSTs (critic recount; earlier "27 of 28"). These are ENTRY
+  POSTs only: the old exit code discarded its POST responses, so lag on the exits is INFERRED, not observed. That includes
   NHL IOC entries whose POST response said fill_count 1.00/2.00. All 27 were found on a later lookup. In 8 cases
   that lookup came 1-2 s later, so the lag is about a second.
 - The one old-exit lookup that succeeded (MIN ...2011 attempt 14) was the lucky read.
@@ -49,8 +50,12 @@ Journal evidence of the lag (results/incident_find_order_miss/lead_exec.jsonl, a
   listing + stale positions -> filled is taken from the response; incident replay -> one sell, booked on the first tick.
 - Fixture fix in tests/test_order_guard.py: when the fake kills an IOC unfilled, its POST response now also says 0
   (it used to claim a fill).
-- Full suite: 420 pass. 2 fail in tests/test_bet.py on a post_only assertion. bet.py does not use order_guard, so
-  these failures are unrelated.
+- Full suite: 420 pass. 2 fail in tests/test_bet.py on price formatting ('0.5600' vs '0.56'); they fail on HEAD
+  too (bet.py/test_bet.py unchanged, no order_guard import) -> pre-existing, unrelated.
+- Critic 11-10 (critic_find_order in inbox): DEPLOY. Arithmetic recomputed from raw.json; resp_fill cannot cause an
+  over-sell (over-count -> row closes early = under-sell, safe; under-count -> next exit capped by min(journal, held));
+  fixture change legitimate. Deploy scope = copy order_guard.py only (ingame/lead/kalshi_exec deployed copies already
+  byte-identical). Deploy is a USER gate.
 
 ## Exposure of other paths
 - kalshi_exec weather: reads the POST response fill_count first, so it is not exposed.

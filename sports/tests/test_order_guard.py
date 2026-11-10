@@ -50,6 +50,7 @@ def realistic(e, hide_exits=True, exit_fill=True):
             o = e.orders[-1]
             if b["side"] == "ask" and not exit_fill:
                 o.update(fill_count_fp="0", status="canceled", taker_fill_cost_dollars="0")
+                out = {**out, "fill_count": "0.00", "remaining_count": "0.00"}   # POST response agrees with the order
             f = float(o["fill_count_fp"])
             e.positions[b["ticker"]] = e.positions.get(b["ticker"], 0) + (f if b["side"] == "bid" else -f)
             if b["side"] == "ask" and hide_exits:

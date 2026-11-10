@@ -152,12 +152,27 @@ def safe_reduce(client, ticker: str, side_held: str, want: float, own_price: flo
     out.update(sent=code != 0, http=code, response=resp if code not in (200, 201) else None)
     if code == 0:
         return {**out, "reason": resp.get("error")}
+    # The POST response is the only synchronous truth: GET /portfolio/orders did not list a just-created order on
+    # 27 of 28 live POSTs (notes/incident_find_order_miss.md), so a lookup right after the POST reads "not found".
+    rf = resp_fill(resp) if code in (200, 201) else 0.0
     try:
         h1 = held(client, ticker, side_held)
     except Exception:  # noqa: BLE001
-        return {**out, "filled": None, "held_after": None}
-    f = min(max(h0 - h1, 0.0), float(n))
-    return {**out, "held_after": h1, "filled": f if f > 0 else None}
+        return {**out, "filled": min(rf, float(n)) if rf > 0 else None, "held_after": None}
+    f = min(max(h0 - h1, rf, 0.0), float(n))
+    return {**out, "held_after": h1, "filled": f if f > 0 else None, "resp_fill": rf}
+
+
+def resp_fill(resp) -> float:
+    """Contracts filled per a create-order response: {"fill_count": "8.00", ...} on prod (no _fp suffix, no
+    status), or a nested {"order": {...fill_count_fp...}}. 0.0 if absent/unparseable."""
+    if not isinstance(resp, dict):
+        return 0.0
+    o = resp.get("order") if isinstance(resp.get("order"), dict) else resp
+    try:
+        return max(float(o.get("fill_count_fp") or o.get("fill_count") or 0), 0.0)
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def resolve_attempt(client, ticker: str, cid: str, side_held: str, held_before: float, count: float,
