@@ -120,16 +120,15 @@ def test_exit_held_as_no_is_never_sold_as_yes(ex, tmp_path):
     assert sells(ex) == [] and ex.positions[NF] == -325
 
 
-def test_unconfirmed_attempt_blocks_new_cid_then_zero_fill_allows_retry(ex, tmp_path):
+def test_unconfirmed_attempt_never_retried(ex, tmp_path):
     realistic(ex, hide_exits=True, exit_fill=False)       # IOC killed unfilled, lookup also blind
     sig = filled_nflf(ex, tmp_path)
     run(ex, [], at=at(sig, 485))
     assert len(sells(ex)) == 1
     r = lx.fold(lx.journal(), "live")[sig["key"]]
     assert r["exit_pending"] and r["exit_attempts"] == 1
-    run(ex, [], at=at(sig, 500))   # later tick: no lookup, position unchanged -> confirmed zero -> attempt 2
-    s = sells(ex)
-    assert len(s) == 2 and s[0]["client_order_id"] != s[1]["client_order_id"]
+    run(ex, [], at=at(sig, 500))   # critic 11-10: MAX_EXIT_ATTEMPTS = 1 -> no second sell, hold to settlement
+    assert len(sells(ex)) == 1
     assert ex.positions[NF] == 4
 
 
@@ -170,7 +169,7 @@ def test_resolve_attempt(ex):
     assert og.resolve_attempt(c, NF, "nope", "yes", 4, 4, allow_zero=False) == 3
     ex.orders.append({"order_id": "z", "client_order_id": "seen", "ticker": NF, "status": "canceled",
                       "fill_count_fp": "2"})
-    assert og.resolve_attempt(c, NF, "seen", "yes", 4, 4, allow_zero=False) == 2
+    assert og.resolve_attempt(c, NF, "seen", "yes", 4, 4, allow_zero=False) == 3   # position shows 3 sold > lookup 2
 
 
 # ---------------------------------------------------------------- 3b. exposure cap from the exchange position
@@ -250,3 +249,29 @@ def test_lead_and_weather_use_guard(ex, monkeypatch):
             "cost": 1.64}
     kx.place(c, wrec, {"notify": False, "max_order": 6.20}, NOW)
     assert seen == [("lead_DUL", 2.00), ("weather", 6.20)]
+
+
+# critic 11-10: blind order lookup + stale position reads on ticks seconds apart must not open NO
+def lagged(e, stale_reads):
+    send, st = e.send, {"left": 0, "snap": None}
+    def s2(method, url, headers, params, data, timeout):
+        if method == "POST":
+            st["snap"] = dict(e.positions)
+            code, out = send(method, url, headers, params, data, timeout)
+            st["left"] = stale_reads
+            return code, out
+        if url.endswith("/portfolio/positions") and st["left"] > 0:
+            st["left"] -= 1
+            return 200, {"market_positions": [{"ticker": t, "position_fp": str(q)} for t, q in st["snap"].items()]}
+        return send(method, url, headers, params, data, timeout)
+    e.send = s2
+    return e
+
+def test_lag_blind_lookup_ticks_seconds_apart_never_oversells(ex, tmp_path):
+    realistic(ex, hide_exits=True)
+    sig = filled_nflf(ex, tmp_path)
+    lagged(ex, stale_reads=6)
+    run(ex, [], at=at(sig, 485))
+    run(ex, [], at=at(sig, 487))
+    run(ex, [], at=at(sig, 600))
+    assert ex.positions[NF] >= 0

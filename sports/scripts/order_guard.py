@@ -167,13 +167,15 @@ def resolve_attempt(client, ticker: str, cid: str, side_held: str, held_before: 
     2) else the exchange position change since the attempt (> 0 = that many filled);
     3) else 0.0 only when allow_zero (a LATER tick, so the position had time to update), otherwise None."""
     x = _find(client, ticker, cid)
-    if x is not None and x.get("status") != "resting":
-        return min(float(x.get("fill_count_fp") or 0), float(count))
+    looked = float(x.get("fill_count_fp") or 0) if x is not None and x.get("status") != "resting" else None
     try:
         h = held(client, ticker, side_held)
     except Exception:  # noqa: BLE001
-        return None
-    f = min(max(float(held_before) - h, 0.0), float(count))
+        return min(looked, float(count)) if looked is not None else None
+    # never let a lookup that says 0 override a position that shows the fill: take the larger of the two
+    f = min(max(float(held_before) - h, 0.0, looked or 0.0), float(count))
+    if looked is not None:
+        return f
     if f > 0:
         return f
     return 0.0 if allow_zero else None

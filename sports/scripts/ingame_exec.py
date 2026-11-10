@@ -62,7 +62,7 @@ STRATS = {
              "fill_s": 240, "exit_s": 480, "give_up_s": 900, "pnl_stop": -15.00, "early_window": 20, "early_losses": 8},
 }
 MAX_AGE_S = 20
-MAX_EXIT_ATTEMPTS = 3       # per position; a new attempt only after the previous one is CONFIRMED to have filled 0
+MAX_EXIT_ATTEMPTS = 1       # per position (critic 11-10: a stale lookup + stale position read can fake a "0 filled"; one shot, then hold)
 MAX_MOVE = 0.02
 CONVENTION_TOL = 0.02
 MAKER_FEE = 0.0175          # KXNFLGAME fee_type quadratic_with_maker_fees (checked 11-07); sizing uses the taker 0.07
