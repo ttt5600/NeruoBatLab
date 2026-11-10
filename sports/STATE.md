@@ -1,6 +1,6 @@
 ## 2026-11-10 (later) -- WAVE 5 "lock down edges" (protocol notes/AGENT_PROTOCOL.md; inbox notes/findings_inbox.jsonl;
-##   detail = EDGES_AND_AGENTS.md "11-10 wave 5" lines). 5/6 done + merged; raind_daily_rain still running (dev only;
-##   told R1 daily rain sealed-FAILED -> maker / KXRAIND only, never R1's lockbox dates).
+##   detail = EDGES_AND_AGENTS.md "11-10 wave 5" lines). 6/6 done + merged + committed. Daily rain RD1/RD2 DEAD dev
+##   (taker priced; maker adversely selected 9/9 losses filled -> same as E5: a general pattern now).
 ##   E4 HOLDS, underpowered: maker-only 39 fills 38-1 ROI +1.72% [-4.33,+6.11]; binding cap 6 ct/order, depth 2x ok.
 ##   E5 ForecastEx: STOP PROPOSED (maker fills adversely selected; asks on 6.9% of picks) -- USER yes needed; 4 resting $59.
 ##   Q008 + L34 KILLED by pre-set rules. Lock-in 99c: horn queue ~201k vs N 5k (1 night). F1 CLV-vs-ask < 0 (rule ambiguous).
