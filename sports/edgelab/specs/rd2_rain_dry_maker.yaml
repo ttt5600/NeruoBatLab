@@ -1,0 +1,21 @@
+id: rd2_rain_dry_maker
+family: kalshi_weather_precip
+dataset: kalshi_rain_daily_nyc
+rule: edgelab.rules.rain_daily:maker
+params:
+  thresh: 5.0
+  n_min: 10
+hypothesis: 'RD2: same input as RD1 (NWS MOS 18Z D-1 GFS+NAM max 6-h PoP <= 5%, 22:00 local D-1). Post-only NO bid at
+  q = min(floor NO mid, NO ask - 1c), q in [.50,.99], never cancelled; filled iff >= 10 contracts print at no_price
+  STRICTLY < q in (T, close]; maker fee 0; hold.'
+decision_time: 22:00 station-local on D-1
+price_model: maker_tape
+split: vault:kalshi_rain_daily_nyc
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-09 (notes/raind_daily_rain.md)'

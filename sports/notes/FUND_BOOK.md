@@ -305,6 +305,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | -- | Kalshi temp: forecast-error, ensemble, spread regime, fade longshots, longshot thin volume, revision lag, lead-2 check | -23.7%..+33% (revision lag n 69 p .13) [L:kalshi_temp] | only consensus-reject survived (= E1) | scripts/kalshi_temp*.py |
 | X2 | Consensus-reject on daily LOWS | -6.38%/224 [L:kalshi_temp_expand] | 18:00 cutoff caused 23/35 losses (verified 10-30); window fix X2b still -8.57%/116 p .995 -> 1-day low forecasts miss > 3F (notes/x2_lows_window.md) | scripts/wx_expand.py |
 | R1 | Daily rain all-models-dry -> NO | dev +3.42%/361; **sealed FAIL** +0.49%/274 p .28 [LB] | summer dev didn't carry into autumn | scripts/kalshi_rain.py |
+| RD1/RD2 | Daily rain GFS-MOS dry (max 6h PoP <= 5%) -> NO, KXRAINNYC/KXRAINSEA 2021-26 (excl. R1 window), taker + maker (11-10 wave 5) | RD1 taker n140 +0.07% [-4.53,+4.28] p .48, CLV -0.69c; RD2 maker n69 < min 100 (kill), -4.42% [-13.2,+3.5]; 9/9 maker losses filled vs 0/70 unfilled (p .0014) | market prices it; maker adversely selected (same as E5). KXRAIND* per-city has ~0 settled history -- not a lead | notes/raind_daily_rain.md, scripts/raind_daily_rain.py |
 | R2 | Daily rain all-wet -> YES | -0.9%/47 [L:kalshi_rain] | -- | same |
 | N1 | Day-of temp consensus-reject (06:00) | D1 +0.19%/1,279 p .34; D2 -1.31%/364 [L:kalshi_temp_dayof] | Kalshi prices overnight runs by 06:00 | scripts/wx_dayof.py |
 | N3 | Hourly temperature markets | median 1-71 contracts [R] | too thin | -- |

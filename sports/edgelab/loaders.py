@@ -460,6 +460,20 @@ def kalshi_tornado_count():
 LOADERS["kalshi_tornado_count"] = kalshi_tornado_count
 
 
+# ------------------------------------------------------------------ daily rain NYC/SEA (scripts/raind_daily_rain.py)
+def kalshi_rain_daily_nyc():
+    """data/raind/rain_frame.parquet: one row per settled daily-rain ticker (KXRAINNYC/KXRAINSEA T0, KXRAIN-*-NYC)."""
+    D = DATA / "raind"
+    f, ft = D / "rain_frame.parquet", D / "rain_tape.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["tape"] = pd.read_parquet(ft)
+    return x, [str(f), str(ft)]
+
+
+LOADERS["kalshi_rain_daily_nyc"] = kalshi_rain_daily_nyc
+
+
 # ------------------------------------------------------------------ weekly ISO power, forward paper (scripts/power_week.py)
 def kalshi_power_week():
     """Forward-only: data/live/power_week_ticks.jsonl + _results.jsonl + _tape.jsonl (deployed ~/.claude/quant-sports

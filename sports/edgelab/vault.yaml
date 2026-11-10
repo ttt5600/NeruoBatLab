@@ -280,3 +280,12 @@ datasets:
       dev: null
       sealed: null
       forward: [2026-11-06, null]
+  kalshi_rain_daily_nyc:
+    loader: kalshi_rain_daily_nyc          # scripts/raind_daily_rain.py: KXRAINNYC/KXRAINSEA T0 + KXRAIN-*-NYC daily rain
+    family: kalshi_weather_precip
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = event day D; set 2026-11-09 from the market list only (70/30 of 926
+      dev: [2021-08-01, 2026-01-15]        # unique dates) before any price / MOS / outcome pull (notes/raind_daily_rain.md)
+      sealed: [2026-01-16, 2026-11-08]
+      forward: [2026-11-10, null]

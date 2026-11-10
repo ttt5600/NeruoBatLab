@@ -1,0 +1,21 @@
+id: rd1_rain_dry_taker
+family: kalshi_weather_precip
+dataset: kalshi_rain_daily_nyc
+rule: edgelab.rules.rain_daily:taker
+params:
+  thresh: 5.0
+hypothesis: 'RD1: Kalshi daily rain (KXRAINNYC 2021-26 Central Park, KXRAINSEA 2021-22, KXRAIN-NYC). At 22:00 local
+  D-1, NWS MOS 18Z D-1 runs (IEM archive; GFS required, NAM when present) all give max 6-h PoP <= 5% over the climate
+  day -> buy NO at the NO ask (1 - yes_bid, last hourly candle <= T), quote 0.01 <= yes_bid < yes_ask, spread <= 10c,
+  NO ask in [.50,.99]; taker fee; hold. Legacy rules count trace as YES.'
+decision_time: 22:00 station-local on D-1
+price_model: taker
+split: vault:kalshi_rain_daily_nyc
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-09 (notes/raind_daily_rain.md; R1 = KXRAIN multi-city Open-Meteo taker, sealed FAIL -- different series/forecast)'
