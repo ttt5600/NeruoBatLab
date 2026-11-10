@@ -52,19 +52,37 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import lead_exec as lx  # noqa: E402
+import order_guard as og  # noqa: E402
 
 kx = lx.kx
 STRATS = {
     "NHL": {"tag": "live_NHL", "max_order": 1.00, "day_cap": 5.00, "season_cap": 40.00, "slip": 0.01,
-            "early_window": 30, "early_losses": 10, "judge_after": 100},
-    "NFLF": {"tag": "live_NFLF", "max_order": 2.00, "day_cap": 10.00, "season_cap": 40.00,
+            "early_window": 30, "early_losses": 10, "judge_after": 100, "ticker_cap": 1.00},
+    "NFLF": {"tag": "live_NFLF", "max_order": 2.00, "day_cap": 10.00, "season_cap": 40.00, "ticker_cap": 4.00,
              "fill_s": 240, "exit_s": 480, "give_up_s": 900, "pnl_stop": -15.00, "early_window": 20, "early_losses": 8},
 }
 MAX_AGE_S = 20
+MAX_EXIT_ATTEMPTS = 3       # per position; a new attempt only after the previous one is CONFIRMED to have filled 0
 MAX_MOVE = 0.02
 CONVENTION_TOL = 0.02
 MAKER_FEE = 0.0175          # KXNFLGAME fee_type quadratic_with_maker_fees (checked 11-07); sizing uses the taker 0.07
 ZERO = lx.ZERO
+
+
+def trip(s: str, cfg: dict):
+    """order_guard breaker callback: disable strategy `s` (data/LEAD_DISABLE_<s>) and notify."""
+    def _t(why: str) -> None:
+        lx.disable_path(s).parent.mkdir(parents=True, exist_ok=True)
+        lx.disable_path(s).write_text(f"{iso(datetime.now(timezone.utc))} {why}\n")
+        lx.append({"event": "disable", "ts": iso(datetime.now(timezone.utc)), "strategy": s, "reason": why})
+        kx.notify(f"Kalshi {STRATS[s]['tag']} BREAKER", why, cfg)
+    return _t
+
+
+def guarded(client, rec_or_s, body: dict, cfg: dict, now: datetime):
+    s = rec_or_s if isinstance(rec_or_s, str) else rec_or_s["strategy"]
+    return og.guarded_create(client, body, strategy=STRATS[s]["tag"], cap=STRATS[s]["ticker_cap"],
+                             on_trip=trip(s, cfg), now=now)
 
 
 def iso(t: datetime) -> str:
@@ -210,7 +228,7 @@ def place(client, rec: dict, cfg: dict, now: datetime) -> dict:
         return lx.append({**rec, "status": "skip_exchange_has_position", "count": 0, "cost": 0.0})
     rec = lx.append({**rec, "status": "submitting", "client_order_id": cid})       # write-ahead
     try:
-        code, out = client.create_order(order_body(rec, cid))
+        code, out = guarded(client, rec, order_body(rec, cid), cfg, now)
     except kx.TransportError as ex:
         kx.notify(f"Kalshi {rec['tag']} order UNKNOWN", f"{t}: {ex}", cfg)
         return upd(rec, now, status="unknown", error=str(ex)[:300])
@@ -291,35 +309,73 @@ def nflf_manage(client, o: dict, cfg: dict, now: datetime) -> dict:
     left = float(o.get("filled") or 0) - float(o.get("exit_filled") or 0)
     if left > 0 and t >= o["exit_at"] and o.get("status") != "resting" and not o.get("exit_gave_up") \
             and not o.get("settled"):
-        if t >= int(o["t_play"]) + S["give_up_s"]:
-            kx.notify("Kalshi live_NFLF exit gave up", f"{o['ticker']}: holding {left:g} to settlement", cfg)
-            return upd(o, now, exit_gave_up=True)
-        yb, _ = yes_quotes(client, o["ticker"])
-        if not (yb == yb and yb > 0):
-            return o
-        k = int(o.get("exit_attempts") or 0) + 1
-        cid = coid("NFLF", o["mode"], o["key"], f"/exit/{k}")
-        o = upd(o, now, exit_attempts=k, exit_coid=cid, exit_limit=yb)              # write-ahead
-        body = {"ticker": o["ticker"], "side": "ask", "count": str(int(left)), "price": f"{yb:.4f}",
-                "time_in_force": "immediate_or_cancel", "self_trade_prevention_type": "taker_at_cross",
-                "client_order_id": cid}
-        try:
-            client.create_order(body)
-        except kx.TransportError as ex:
-            return upd(o, now, exit_error=str(ex)[:200])
-        x = find_order(client, o, cid)
-        f = float((x or {}).get("fill_count_fp") or 0)
-        if f > 0:
-            fee = float((x or {}).get("taker_fees_dollars") or 0) or kx.fee_total(f, yb)
-            proceeds = round(float(o.get("exit_proceeds") or 0) + f * yb - fee, 4)   # lower bound: IOC sells >= bid
-            o = upd(o, now, exit_filled=float(o.get("exit_filled") or 0) + f, exit_proceeds=proceeds, exit_price=yb,
-                    exit_raw={k_: (x or {}).get(k_) for k_ in ("taker_fill_cost_dollars", "maker_fill_cost_dollars",
-                                                               "outcome_side", "status")})
-            if float(o["exit_filled"]) >= float(o["filled"]) - 1e-9:
-                o = close_row(o, now, proceeds - lx.committed(o), "exited")
-                kx.notify(f"Kalshi live_NFLF exit {o['mode']}", f"{o['ticker']} sold {o['exit_filled']:g} @ {yb} "
-                          f"P&L ${o['pnl']:+.2f}", cfg)
+        return nflf_exit(client, o, cfg, now, left)     # resolves a pending attempt before any give-up
     return o
+
+
+def _book_exit(o: dict, now: datetime, f: float, px: float, cfg: dict) -> dict:
+    """Record f contracts sold at px (IOC sells fill at >= the limit, so proceeds are a lower bound)."""
+    o = upd(o, now, exit_pending=None)
+    if f <= 0:
+        return o
+    proceeds = round(float(o.get("exit_proceeds") or 0) + f * px - kx.fee_total(f, px), 4)
+    o = upd(o, now, exit_filled=float(o.get("exit_filled") or 0) + f, exit_proceeds=proceeds, exit_price=px)
+    if float(o["exit_filled"]) >= float(o["filled"]) - 1e-9:
+        o = close_row(o, now, proceeds - lx.committed(o), "exited")
+        kx.notify(f"Kalshi live_NFLF exit {o['mode']}", f"{o['ticker']} sold {o['exit_filled']:g} @ {px} "
+                  f"P&L ${o['pnl']:+.2f}", cfg)
+    return o
+
+
+def nflf_exit(client, o: dict, cfg: dict, now: datetime, left: float) -> dict:
+    """Sell what we hold, never more (2026-11-09 incident: selling YES not held opens NO). Every attempt is capped at
+    the EXCHANGE YES position; a new client_order_id is used only after the previous attempt is confirmed (order
+    lookup, or the position change on a later tick) to have filled zero; at most MAX_EXIT_ATTEMPTS."""
+    t, S = o["ticker"], STRATS["NFLF"]
+    if o.get("exit_pending"):
+        f = og.resolve_attempt(client, t, o["exit_pending"], "yes", float(o.get("exit_held_before") or 0),
+                               float(o.get("exit_count") or 0), allow_zero=True)
+        if f is None:   # still unconfirmed: never send a new cid; past give-up, hold to settlement
+            if now.timestamp() >= int(o["t_play"]) + S["give_up_s"] and not o.get("exit_gave_up"):
+                kx.notify("Kalshi live_NFLF exit UNCONFIRMED", f"{t}: attempt {o['exit_pending']} unresolved; "
+                          f"holding, check the position by hand", cfg)
+                o = upd(o, now, exit_gave_up=True, needs_reconcile=True)
+            return o
+        o = _book_exit(o, now, f, float(o["exit_limit"]), cfg)
+        if o.get("settled") or f > 0:
+            return o
+        left = float(o.get("filled") or 0) - float(o.get("exit_filled") or 0)
+    if now.timestamp() >= int(o["t_play"]) + S["give_up_s"] or int(o.get("exit_attempts") or 0) >= MAX_EXIT_ATTEMPTS:
+        kx.notify("Kalshi live_NFLF exit gave up", f"{t}: holding {left:g} to settlement", cfg)
+        return upd(o, now, exit_gave_up=True)
+    yb, _ = yes_quotes(client, t)
+    if not (yb == yb and yb > 0):
+        return o
+    try:
+        h = og.held(client, t, "yes")
+    except Exception as ex:  # noqa: BLE001 -- no position read, no sell
+        return upd(o, now, exit_error=f"position read failed: {str(ex)[:150]}")
+    if h < 1:   # the journal thinks we hold `left`, the exchange shows no YES: nothing to sell, reconcile by hand
+        kx.notify("Kalshi live_NFLF exit: no position", f"{t}: journal {left:g} YES, exchange {h:g}; closed, "
+                  f"reconcile by hand", cfg)
+        o = upd(o, now, exit_note=f"exchange YES held {h:g} < 1 with {left:g} left in journal", needs_reconcile=True)
+        return close_row(o, now, float(o.get("exit_proceeds") or 0) - lx.committed(o), "no_position")
+    k = int(o.get("exit_attempts") or 0) + 1
+    cid = coid("NFLF", o["mode"], o["key"], f"/exit/{k}")
+    n = int(min(left, h))
+    o = upd(o, now, exit_attempts=k, exit_pending=cid, exit_coid=cid, exit_limit=yb, exit_held_before=h,
+            exit_count=n)                                                   # write-ahead
+    try:
+        r = og.safe_reduce(client, t, "yes", n, yb, cid, strategy=S["tag"], cap=S["ticker_cap"],
+                           on_trip=trip("NFLF", cfg), now=now)
+    except kx.TransportError as ex:
+        return upd(o, now, exit_error=str(ex)[:200])                        # stays pending: resolved next tick
+    if not r["sent"]:
+        return upd(o, now, exit_pending=None, exit_error=str(r.get("reason"))[:200])
+    if r.get("filled"):
+        return _book_exit(o, now, float(r["filled"]), yb, cfg)
+    f = og.resolve_attempt(client, t, cid, "yes", h, n, allow_zero=False)  # same tick: zero is not trusted yet
+    return o if f is None else _book_exit(o, now, f, yb, cfg)
 
 
 def close_row(o: dict, now: datetime, pnl: float, result: str) -> dict:

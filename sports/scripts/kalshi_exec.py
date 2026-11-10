@@ -659,8 +659,11 @@ def place(client: Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
                 "client_order_id": coid}
     ref = rec["maker_q"] if maker else rec["no_ask_now"]  # the price a correct fill must be near
     upd = {"event": "update", "ts": now.isoformat(timespec="seconds"), "mode": mode, "ticker": t}
+    import order_guard as og               # lazy: order_guard imports this module
+    og.kx = sys.modules[__name__]          # same module object when this file runs as __main__
     try:
-        code, out = client.create_order(body)
+        code, out = og.guarded_create(client, body, strategy="weather", cap=float(cfg["max_order"]),
+                                      on_trip=lambda why: write_kill(why, cfg), now=now)
     except TransportError as ex:
         append({**upd, "status": "unknown", "error": str(ex)[:300]})
         notify(f"Kalshi {mode} order UNKNOWN", f"{t}: {ex} -- will reconcile next run", cfg)

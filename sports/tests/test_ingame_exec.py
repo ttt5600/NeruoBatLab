@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import kalshi_exec as kx  # noqa: E402
 import lead_exec as lx  # noqa: E402
 import ingame_exec as ix  # noqa: E402
+import order_guard as og  # noqa: E402
 from test_lead_exec import FakeExchange, FakeClient, write_env  # noqa: E402
 
 NOW = datetime(2026, 11, 9, 2, 30, tzinfo=timezone.utc)
@@ -137,7 +138,8 @@ def test_price_moved_refused(ex, tmp_path):
 
 
 # ---------------------------------------------------------------- caps
-def test_nhl_day_and_season_caps(ex, tmp_path):
+def test_nhl_day_and_season_caps(ex, tmp_path, monkeypatch):
+    monkeypatch.setattr(og, "MAX_ORDERS", 100)   # 7 games on one fake ticker would (rightly) trip the breaker
     write_env(tmp_path, **ARM, LEAD_LIVE_NHL="1")
     for i in range(7):
         run(ex, [nhl_sig(gid=f"g{i}")])
@@ -165,7 +167,8 @@ def test_cash_reserve(ex, tmp_path):
     assert posts(ex) == [] and rows(event="order")[0]["status"] == "skip_cash"
 
 
-def test_nflf_caps_order_and_gameday(ex, tmp_path):
+def test_nflf_caps_order_and_gameday(ex, tmp_path, monkeypatch):
+    monkeypatch.setattr(og, "MAX_ORDERS", 100)   # 7 games on one fake ticker would (rightly) trip the breaker
     write_env(tmp_path, **ARM, LEAD_LIVE_NFLF="1")
     for i in range(7):
         run(ex, [nfl_sig(play=f"p{i}")])
@@ -287,6 +290,7 @@ def test_nflf_live_rest_cancel_exit(ex, tmp_path):
     run(ex, [], at=datetime.fromtimestamp(sig["t_play"] + 300, timezone.utc))
     assert len(posts(ex)) == 1                             # no exit before t + 480
     book(ex, NF, 0.43, 0.45)
+    ex.positions[NF] = 3                                   # the exit is capped at the exchange-held YES
     run(ex, [], at=datetime.fromtimestamp(sig["t_play"] + 485, timezone.utc))
     exit_body = posts(ex)[-1][3]
     assert exit_body["side"] == "ask" and exit_body["count"] == "3" and exit_body["price"] == "0.4300"

@@ -46,6 +46,7 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import kalshi_exec as kx  # noqa: E402
+import order_guard as og  # noqa: E402
 
 ET = ZoneInfo("America/New_York")
 
@@ -395,6 +396,14 @@ def own_price(o: dict, side: str) -> float | None:
     return f["avg_no"] if f["filled"] else None  # kalshi_exec names it avg_no; it is cost/filled for either side
 
 
+def trip(strategy: str, why: str, cfg: dict) -> None:
+    """order_guard breaker: disable this strategy (data/LEAD_DISABLE_<s>) and notify."""
+    disable_path(strategy).parent.mkdir(parents=True, exist_ok=True)
+    disable_path(strategy).write_text(f"{iso(datetime.now(timezone.utc))} {why}\n")
+    append({"event": "disable", "ts": iso(datetime.now(timezone.utc)), "strategy": strategy, "reason": why})
+    kx.notify(f"Kalshi lead {strategy} BREAKER", why, cfg)
+
+
 def write_lead_kill(reason: str, cfg: dict) -> None:
     lead_kill_path().parent.mkdir(parents=True, exist_ok=True)
     lead_kill_path().write_text(f"{iso(datetime.now(timezone.utc))} {reason}\n")
@@ -437,7 +446,9 @@ def place(client: kx.Kalshi, rec: dict, cfg: dict, now: datetime) -> dict:
     upd = {"event": "update", "ts": iso(now), "mode": mode, "ticker": t}
     maker = rec.get("maker_q") is not None
     try:
-        code, out = client.create_order(order_body(rec, cid))
+        code, out = og.guarded_create(client, order_body(rec, cid), strategy=rec["tag"],
+                                      cap=STRATS[rec["strategy"]]["max_order"],
+                                      on_trip=lambda why: trip(rec["strategy"], why, cfg), now=now)
     except kx.TransportError as ex:
         append({**upd, "status": "unknown", "error": str(ex)[:300]})
         kx.notify(f"Kalshi lead {mode} order UNKNOWN", f"{t}: {ex}", cfg)
