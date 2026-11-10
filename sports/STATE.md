@@ -1,8 +1,15 @@
-## 2026-11-10 (later) -- AGENT WAVE 5 "lock down edges" RUNNING (6 bg agents, protocol notes/AGENT_PROTOCOL.md).
-##   Topics -> notes/<topic>.md + rows in notes/findings_inbox.jsonl: e4_live_audit, e5_forecastex_audit, scorecards
-##   (scripts/scorecards.py -> notes/SCORECARDS.md), raind_daily_rain (new edge, dev only), incident_find_order_miss
-##   (open item a), learning_loop (notes/lessons.jsonl, traps.py, scripts/post_trade_review.py). After /clear: merge
-##   unmerged inbox rows into EDGES_AND_AGENTS/FUND_BOOK/ACT_LIST + memory, then commit. Agents do no git/orders.
+## 2026-11-10 (later) -- WAVE 5 "lock down edges" (protocol notes/AGENT_PROTOCOL.md; inbox notes/findings_inbox.jsonl;
+##   detail = EDGES_AND_AGENTS.md "11-10 wave 5" lines). 5/6 done + merged; raind_daily_rain still running (dev only;
+##   told R1 daily rain sealed-FAILED -> maker / KXRAIND only, never R1's lockbox dates).
+##   E4 HOLDS, underpowered: maker-only 39 fills 38-1 ROI +1.72% [-4.33,+6.11]; binding cap 6 ct/order, depth 2x ok.
+##   E5 ForecastEx: STOP PROPOSED (maker fills adversely selected; asks on 6.9% of picks) -- USER yes needed; 4 resting $59.
+##   Q008 + L34 KILLED by pre-set rules. Lock-in 99c: horn queue ~201k vs N 5k (1 night). F1 CLV-vs-ask < 0 (rule ambiguous).
+##   INCIDENT (a) SOLVED: order-list read-after-write lag ~1-2 s; fix = fill from POST response, cec89a0, critic DEPLOY,
+##   NOT deployed (copy order_guard.py only; USER gate). (b) needle bot NOT running (PID 45461 gone).
+##   NFLF runaway ALSO on 11-08 (replicated): 70 sells vs 8 intended exits; true strategy record 4-7 -$0.23; incident
+##   +$63.47 by luck incl. unsettled BUFMIN. The "NFLF 1-7 -$2.80" below is WRONG (journal records intent, not fills).
+##   order_guard.jsonl appears only after the first guarded order (deployed 04:11:48Z) -> check after next weather run.
+##   New tools: scripts/scorecards.py [--kalshi], scripts/post_trade_review.py, notes/lessons.jsonl (29).
 ## 2026-11-10 04:00Z -- INCIDENT, READ FIRST (session before /clear). Then notes/ACT_LIST.md + EDGES_AND_AGENTS.md tail.
 ## NFLF runaway exit loop (scripts/ingame_exec.py ~L291-322, this session's code): IOC exit sell filled, find_order(cid)
 ##   returned no fill -> retried with a NEW coid each tick (exit_attempts to 21); every sell executed; selling YES not held
