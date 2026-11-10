@@ -1,3 +1,8 @@
+## 2026-11-10 (later) -- AGENT WAVE 5 "lock down edges" RUNNING (6 bg agents, protocol notes/AGENT_PROTOCOL.md).
+##   Topics -> notes/<topic>.md + rows in notes/findings_inbox.jsonl: e4_live_audit, e5_forecastex_audit, scorecards
+##   (scripts/scorecards.py -> notes/SCORECARDS.md), raind_daily_rain (new edge, dev only), incident_find_order_miss
+##   (open item a), learning_loop (notes/lessons.jsonl, traps.py, scripts/post_trade_review.py). After /clear: merge
+##   unmerged inbox rows into EDGES_AND_AGENTS/FUND_BOOK/ACT_LIST + memory, then commit. Agents do no git/orders.
 ## 2026-11-10 04:00Z -- INCIDENT, READ FIRST (session before /clear). Then notes/ACT_LIST.md + EDGES_AND_AGENTS.md tail.
 ## NFLF runaway exit loop (scripts/ingame_exec.py ~L291-322, this session's code): IOC exit sell filled, find_order(cid)
 ##   returned no fill -> retried with a NEW coid each tick (exit_attempts to 21); every sell executed; selling YES not held
