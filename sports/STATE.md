@@ -3,9 +3,16 @@
 ##   returned no fill -> retried with a NEW coid each tick (exit_attempts to 21); every sell executed; selling YES not held
 ##   opens NO. Result: KXNFLGAME-26NOV09BUFMIN-MIN -325 (NO, ~$266 exposure), -BUF -60 (NO, $22.56). Kalshi cash $14.37.
 ##   USER: "do not sell" -> HOLD to settlement. NFLF DISABLED (data/LEAD_DISABLE_NFLF + LEAD_LIVE_NFLF=0); do NOT re-arm.
-## FIRST JOB: fix every exit/sell path: cap count at the exchange-reported position (GET /portfolio/positions) before
-##   each sell, never sell more than held, stop after 1 unconfirmed attempt; add a test reproducing find_order=None;
-##   audit lead_exec/kalshi_exec/needle for any other sell path. Then reconcile BUFMIN P&L after settlement.
+## FIX DONE + DEPLOYED 11-10 (9436809 + fc581f1): scripts/order_guard.py -- sells capped at exchange-held, ONE exit
+##   attempt, fill = max(lookup, position change), per-ticker exposure cap from exchange position, breaker (5 cids/10 min
+##   on a ticker -> strategy kill), wired into ingame/lead/kalshi_exec; 129 tests pass; critic "deploy with changes" ->
+##   changes applied. Still open: (a) WHY find_order missed the IOC exits (read-only GET of incident cids) before NFLF is
+##   ever re-armed; (b) needle bot nyt_needle_house.py STILL RUNNING live (PID 45461, started outside launchd, no guard,
+##   new cid per pass but sells <= held) -- asked user whether to stop it, no answer yet; (c) reconcile BUFMIN after settle.
+## NEXT JOBS (user 11-10): learning loop -- traps.py checks for this week's 5 traps, nightly post-trade review ->
+##   lessons.jsonl, live scorecards for every strategy. Memory vault delegated to bg session "memory-vault"
+##   (brief ~/agent-harness/memory_vault/BRIEF.md; outputs REPORT.md/DESIGN.md there; it reports to this session name).
+## Context hooks live: .claude/settings.local.json (PreCompact commits notes; SessionStart re-injects this file + bot status).
 ## Live now: Kalshi weather E4 2x (111 settled, 109-2, +$1.42 at 11-09), ForecastEx (fixed; +$5.40), lead bot (DUL from
 ##   Thu 11-12, L39 Nov 24-30, TSA), NHL late $1 live (1-2, -$1.39). NFLF before the incident 1-7, -$2.80.
 ## Loggers: NHL in-game (paper trial from 11-08), lock-queue 99c depth (NBA, read-only, from 11-09), NFL fade paper.
