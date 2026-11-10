@@ -1,0 +1,30 @@
+{
+ "live_orders_ex_ext_cancel": 68,
+ "live_fill_rate_ex_ext": 0.618,
+ "model_N10_rate_ex_ext": 0.706,
+ "at_q_only_fill": "8/14",
+ "tradethrough_fill": "34/34",
+ "dev_fills": 1239,
+ "dev_fills_tradethrough": 1127,
+ "dev_losers_filled": 70,
+ "dev_losers_filled_tradethrough": 70,
+ "h_point": 0.571,
+ "units_point": 37.84,
+ "units_model": 39.91,
+ "taker_units": 30.46,
+ "roi_fill_point": 0.0318,
+ "roi_fill_model": 0.0322,
+ "units_ci": [
+  19.7,
+  56.12
+ ],
+ "maker_minus_taker_point": 7.38,
+ "maker_minus_taker_ci": [
+  2.16,
+  12.38
+ ],
+ "roi_fill_ci": [
+  0.0168,
+  0.0467
+ ]
+}

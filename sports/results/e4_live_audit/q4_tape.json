@@ -1,0 +1,26 @@
+{
+ "orders": 74,
+ "live_fill_rate": 0.568,
+ "model_N1_fill_rate": 0.703,
+ "crosstab_N1": {
+  "model=False,live=False": 22,
+  "model=False,live=True": 0,
+  "model=True,live=False": 10,
+  "model=True,live=True": 42
+ },
+ "model_N10_fill_rate": 0.676,
+ "crosstab_N10": {
+  "model=False,live=False": 24,
+  "model=False,live=True": 0,
+  "model=True,live=False": 8,
+  "model=True,live=True": 42
+ },
+ "tradethrough_lt_q_rate_among_live_fills": 0.81,
+ "tradethrough_lt_q_rate_among_live_nofills": 0.031,
+ "vol_le_q_ge_2x_size": "42/42",
+ "vol_lt_q_ge_2x_size": "33/42",
+ "vol_le_q_ge_4x_size": "42/42",
+ "vol_lt_q_ge_4x_size": "30/42",
+ "median_vol_le_q_filled": 514.61,
+ "median_vol_le_q_nofill": 0.0
+}

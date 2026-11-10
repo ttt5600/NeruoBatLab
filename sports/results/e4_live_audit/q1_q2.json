@@ -1,0 +1,33 @@
+{
+ "maker_fills_settled": 39,
+ "maker_record": "38-1",
+ "maker_pnl": 1.84,
+ "maker_cost": 107.16,
+ "roi_dollar": 0.0172,
+ "roi_dollar_ci": [
+  -0.0433,
+  0.0611
+ ],
+ "roi_equal": 0.0152,
+ "roi_equal_ci": [
+  -0.0435,
+  0.0634
+ ],
+ "n_dates": 9,
+ "placed_settled": 71,
+ "fill_rate": 0.549,
+ "filled_loss": "1/39",
+ "unfilled_loss": "0/32",
+ "taker_cf_pnl": 1.95,
+ "maker_minus_taker": -0.11,
+ "maker_minus_taker_ci": [
+  -1.35,
+  0.95
+ ],
+ "sd_live": 0.182,
+ "n_needed_sd_live": 527,
+ "halfwidth_now_sd_live": 0.0571,
+ "sd_model": 0.242,
+ "n_needed_sd_model": 930,
+ "halfwidth_now_sd_model": 0.0759
+}

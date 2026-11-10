@@ -1,0 +1,85 @@
+
+=== KXNFLGAME-26NOV09BUFMIN-BUF: 22 journal cids (21 exit)
+A  client.orders(ticker) -> 22 orders; statuses Counter({'executed': 22})
+   field names on an order: ['action', 'book_side', 'client_order_id', 'created_time', 'exchange_index', 'fill_count_fp', 'initial_count_fp', 'last_update_time', 'maker_fees_dollars', 'maker_fill_cost_dollars', 'no_price_dollars', 'order_id', 'outcome_side', 'remaining_count_fp', 'self_trade_prevention_type', 'side', 'status', 'subaccount_number', 'taker_fees_dollars', 'taker_fill_cost_dollars', 'ticker', 'type', 'user_id', 'yes_price_dollars']
+A2 raw pages (limit=200): sizes [22], total 22
+B  status=resting   -> 0 orders; journal cids among them: 0
+B  status=canceled  -> 0 orders; journal cids among them: 0
+B  status=executed  -> 22 orders; journal cids among them: 22
+D  fills -> 22 rows (pages [22]); fill fields ['action', 'book_side', 'count_fp', 'created_time', 'exchange_index', 'fee_cost', 'fill_id', 'is_taker', 'market_ticker', 'no_price_dollars', 'order_id', 'outcome_side', 'side', 'subaccount_number', 'ticker', 'trade_id', 'ts', 'yes_price_dollars']
+   kind  att ts                        cid        listed status   fill_count_fp fill_count taker$   find_order->fills_from_order  fills(order_id)
+   entry   0 2026-11-10T02:24:49+00:00 f92d9417   Y      executed 3.00          None       0.000000 filled=3 st=filled            3
+   exit    1 2026-11-10T02:32:01+00:00 68fd428f   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit    2 2026-11-10T02:32:06+00:00 497b0bde   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit    3 2026-11-10T02:32:18+00:00 b87e30be   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit    4 2026-11-10T02:32:34+00:00 c854e366   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit    5 2026-11-10T02:32:50+00:00 8d649aa2   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit    6 2026-11-10T02:33:08+00:00 574dbd57   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit    7 2026-11-10T02:33:51+00:00 bce9678a   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit    8 2026-11-10T02:34:08+00:00 edd32239   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit    9 2026-11-10T02:34:10+00:00 d6520bc8   Y      executed 3.00          None       1.140000 filled=3 st=filled            3
+   exit   10 2026-11-10T02:34:24+00:00 bbf8c4bd   Y      executed 3.00          None       1.170000 filled=3 st=filled            3
+   exit   11 2026-11-10T02:34:40+00:00 f35577e8   Y      executed 3.00          None       1.170000 filled=3 st=filled            3
+   exit   12 2026-11-10T02:35:13+00:00 6cd8646e   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   13 2026-11-10T02:35:42+00:00 69f78380   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   14 2026-11-10T02:35:58+00:00 5dcf7b7a   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   15 2026-11-10T02:36:15+00:00 877212bc   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   16 2026-11-10T02:36:15+00:00 359aacdf   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   17 2026-11-10T02:36:31+00:00 03eda3fe   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   18 2026-11-10T02:37:18+00:00 d6236276   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   19 2026-11-10T02:37:33+00:00 60cdc5fb   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   20 2026-11-10T02:37:49+00:00 402954ab   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+   exit   21 2026-11-10T02:38:06+00:00 f0126edf   Y      executed 3.00          None       1.110000 filled=3 st=filled            3
+C  fills whose order_id is not in the orders list: 0
+   position now: [('KXNFLGAME-26NOV09BUFMIN-BUF', '-60.00')]
+
+=== KXNFLGAME-26NOV09BUFMIN-MIN: 37 journal cids (35 exit)
+A  client.orders(ticker) -> 30 orders; statuses Counter({'executed': 30})
+   field names on an order: ['action', 'book_side', 'client_order_id', 'created_time', 'exchange_index', 'fill_count_fp', 'initial_count_fp', 'last_update_time', 'maker_fees_dollars', 'maker_fill_cost_dollars', 'no_price_dollars', 'order_id', 'outcome_side', 'remaining_count_fp', 'self_trade_prevention_type', 'side', 'status', 'subaccount_number', 'taker_fees_dollars', 'taker_fill_cost_dollars', 'ticker', 'type', 'user_id', 'yes_price_dollars']
+A2 raw pages (limit=200): sizes [30], total 30
+B  status=resting   -> 0 orders; journal cids among them: 0
+B  status=canceled  -> 0 orders; journal cids among them: 0
+B  status=executed  -> 30 orders; journal cids among them: 30
+D  fills -> 33 rows (pages [33]); fill fields ['action', 'book_side', 'count_fp', 'created_time', 'exchange_index', 'fee_cost', 'fill_id', 'is_taker', 'market_ticker', 'no_price_dollars', 'order_id', 'outcome_side', 'side', 'subaccount_number', 'ticker', 'trade_id', 'ts', 'yes_price_dollars']
+   kind  att ts                        cid        listed status   fill_count_fp fill_count taker$   find_order->fills_from_order  fills(order_id)
+   entry   0 2026-11-10T02:43:30+00:00 3dc6f086   Y      executed 8.00          None       0.000000 filled=8 st=filled            8
+   exit    1 2026-11-10T02:50:04+00:00 29389acb   Y      executed 8.00          None       5.840000 filled=8 st=filled            8
+   exit    2 2026-11-10T02:50:21+00:00 6e4d34b9   Y      executed 8.00          None       5.840000 filled=8 st=filled            8
+   exit    3 2026-11-10T02:50:38+00:00 5cf9ab2d   Y      executed 8.00          None       5.840000 filled=8 st=filled            8
+   exit    4 2026-11-10T02:50:46+00:00 b6eb8def   Y      executed 8.00          None       5.840000 filled=8 st=filled            8
+   exit    5 2026-11-10T02:51:42+00:00 dc4908b6   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit    6 2026-11-10T02:51:59+00:00 5110e05f   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit    7 2026-11-10T02:52:04+00:00 6cefead8   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit    8 2026-11-10T02:52:18+00:00 065a37a0   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit    9 2026-11-10T02:53:08+00:00 adc5e184   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit   10 2026-11-10T02:53:20+00:00 0f260623   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit   11 2026-11-10T02:53:37+00:00 b1c3c332   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit   12 2026-11-10T02:53:53+00:00 a81a18f2   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit   13 2026-11-10T02:54:09+00:00 c7904b45   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   exit   14 2026-11-10T02:54:15+00:00 300bcb9c   Y      executed 8.00          None       5.680000 filled=8 st=filled            8
+   entry   0 2026-11-10T03:34:57+00:00 f3634c71   Y      executed 17.00         None       0.000000 filled=17 st=filled           17
+   exit    1 2026-11-10T03:41:41+00:00 68f1800d   Y      executed 17.00         None       14.450000 filled=17 st=filled           17
+   exit    2 2026-11-10T03:41:46+00:00 16f3270d   Y      executed 17.00         None       14.450000 filled=17 st=filled           17
+   exit    3 2026-11-10T03:42:02+00:00 4a68951c   Y      executed 17.00         None       14.450000 filled=17 st=filled           17
+   exit    4 2026-11-10T03:42:19+00:00 9324504f   Y      executed 17.00         None       14.280000 filled=17 st=filled           17
+   exit    5 2026-11-10T03:42:35+00:00 d5e7ca4f   Y      executed 17.00         None       14.280000 filled=17 st=filled           17
+   exit    6 2026-11-10T03:42:45+00:00 9c92e83f   Y      executed 17.00         None       14.280000 filled=17 st=filled           17
+   exit    7 2026-11-10T03:43:37+00:00 2aec5892   Y      executed 17.00         None       14.620000 filled=17 st=filled           17
+   exit    8 2026-11-10T03:43:48+00:00 5fe7a3fc   Y      executed 17.00         None       14.620000 filled=17 st=filled           17
+   exit    9 2026-11-10T03:43:54+00:00 7df52d53   Y      executed 17.00         None       14.620000 filled=17 st=filled           17
+   exit   10 2026-11-10T03:44:10+00:00 92d21f9a   Y      executed 17.00         None       14.620000 filled=17 st=filled           17
+   exit   11 2026-11-10T03:44:51+00:00 1db30beb   Y      executed 17.00         None       14.620000 filled=17 st=filled           17
+   exit   12 2026-11-10T03:45:13+00:00 63b09430   Y      executed 17.00         None       14.620000 filled=17 st=filled           17
+   exit   13 2026-11-10T03:45:29+00:00 fdcbcecc   Y      executed 17.00         None       15.130000 filled=17 st=filled           17
+   exit   14 2026-11-10T03:45:46+00:00 c3cf49ad   Y      executed 17.00         None       15.130000 filled=17 st=filled           17
+   exit   15 2026-11-10T03:45:54+00:00 3cd4c35a   N      None     None          None       None     None (cid not listed)         0
+   exit   16 2026-11-10T03:46:02+00:00 2ca1b6aa   N      None     None          None       None     None (cid not listed)         0
+   exit   17 2026-11-10T03:46:57+00:00 4706e89a   N      None     None          None       None     None (cid not listed)         0
+   exit   18 2026-11-10T03:47:04+00:00 1f977e0f   N      None     None          None       None     None (cid not listed)         0
+   exit   19 2026-11-10T03:47:22+00:00 9ab27d5d   N      None     None          None       None     None (cid not listed)         0
+   exit   20 2026-11-10T03:47:39+00:00 082f3269   N      None     None          None       None     None (cid not listed)         0
+   exit   21 2026-11-10T03:48:01+00:00 f875f309   N      None     None          None       None     None (cid not listed)         0
+C  fills whose order_id is not in the orders list: 0
+   position now: [('KXNFLGAME-26NOV09BUFMIN-MIN', '-325.00')]
+
+raw rows -> results/incident_find_order_miss/raw.json

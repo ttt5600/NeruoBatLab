@@ -1,0 +1,617 @@
+{
+ "picks": 1713,
+ "fills": 1239,
+ "units_all": 39.91,
+ "slices": [
+  {
+   "slice": "ask<0.90 (dropped by floor)",
+   "picks": 286,
+   "fills": 227,
+   "fill_rate": 0.794,
+   "units": 11.89,
+   "units_ci": [
+    -4.36,
+    27.69
+   ],
+   "roi_fill": 0.0524,
+   "roi_ci": [
+    -0.0173,
+    0.1236
+   ],
+   "loss_rate_filled": 0.1982,
+   "taker_units": 14.04,
+   "maker_minus_taker": -2.15
+  },
+  {
+   "slice": "ask>=0.90 (kept)",
+   "picks": 1427,
+   "fills": 1012,
+   "fill_rate": 0.709,
+   "units": 28.02,
+   "units_ci": [
+    16.82,
+    38.87
+   ],
+   "roi_fill": 0.0277,
+   "roi_ci": [
+    0.0166,
+    0.0377
+   ],
+   "loss_rate_filled": 0.0247,
+   "taker_units": 16.42,
+   "maker_minus_taker": 11.6
+  },
+  {
+   "slice": "ask [0,0.8)",
+   "picks": 100,
+   "fills": 87,
+   "fill_rate": 0.87,
+   "units": 10.21,
+   "units_ci": [
+    -2.55,
+    22.92
+   ],
+   "roi_fill": 0.1173,
+   "roi_ci": [
+    -0.0303,
+    0.2654
+   ],
+   "loss_rate_filled": 0.2644,
+   "taker_units": 9.8,
+   "maker_minus_taker": 0.4
+  },
+  {
+   "slice": "ask [0.8,0.9)",
+   "picks": 186,
+   "fills": 140,
+   "fill_rate": 0.753,
+   "units": 1.69,
+   "units_ci": [
+    -8.4,
+    11.38
+   ],
+   "roi_fill": 0.012,
+   "roi_ci": [
+    -0.0629,
+    0.083
+   ],
+   "loss_rate_filled": 0.1571,
+   "taker_units": 4.24,
+   "maker_minus_taker": -2.55
+  },
+  {
+   "slice": "ask [0.9,0.95)",
+   "picks": 237,
+   "fills": 190,
+   "fill_rate": 0.802,
+   "units": 7.6,
+   "units_ci": [
+    -0.09,
+    14.3
+   ],
+   "roi_fill": 0.04,
+   "roi_ci": [
+    -0.002,
+    0.076
+   ],
+   "loss_rate_filled": 0.0632,
+   "taker_units": 5.6,
+   "maker_minus_taker": 2.0
+  },
+  {
+   "slice": "ask [0.95,0.98)",
+   "picks": 391,
+   "fills": 296,
+   "fill_rate": 0.757,
+   "units": 10.61,
+   "units_ci": [
+    4.99,
+    15.47
+   ],
+   "roi_fill": 0.0358,
+   "roi_ci": [
+    0.0172,
+    0.0508
+   ],
+   "loss_rate_filled": 0.0203,
+   "taker_units": 7.36,
+   "maker_minus_taker": 3.25
+  },
+  {
+   "slice": "ask [0.98,1.01)",
+   "picks": 799,
+   "fills": 526,
+   "fill_rate": 0.658,
+   "units": 9.81,
+   "units_ci": [
+    4.14,
+    14.7
+   ],
+   "roi_fill": 0.0186,
+   "roi_ci": [
+    0.0078,
+    0.0278
+   ],
+   "loss_rate_filled": 0.0133,
+   "taker_units": 3.46,
+   "maker_minus_taker": 6.35
+  },
+  {
+   "slice": "q>=0.97 (live-typical)",
+   "picks": 581,
+   "fills": 395,
+   "fill_rate": 0.68,
+   "units": 8.63,
+   "units_ci": [
+    5.21,
+    11.38
+   ],
+   "roi_fill": 0.0218,
+   "roi_ci": [
+    0.0137,
+    0.0274
+   ],
+   "loss_rate_filled": 0.0051,
+   "taker_units": 5.2,
+   "maker_minus_taker": 3.43
+  }
+ ],
+ "cities": [
+  {
+   "slice": "HIGHAUS",
+   "picks": 67,
+   "fills": 31,
+   "fill_rate": 0.463,
+   "units": 4.21,
+   "units_ci": [
+    -1.07,
+    9.85
+   ],
+   "roi_fill": 0.1359,
+   "roi_ci": [
+    -0.0405,
+    0.3091
+   ],
+   "loss_rate_filled": 0.0968,
+   "taker_units": 4.65,
+   "maker_minus_taker": -0.43
+  },
+  {
+   "slice": "HIGHCHI",
+   "picks": 57,
+   "fills": 19,
+   "fill_rate": 0.333,
+   "units": -2.29,
+   "units_ci": [
+    -7.17,
+    1.81
+   ],
+   "roi_fill": -0.1206,
+   "roi_ci": [
+    -0.3526,
+    0.1178
+   ],
+   "loss_rate_filled": 0.2632,
+   "taker_units": -0.69,
+   "maker_minus_taker": -1.6
+  },
+  {
+   "slice": "HIGHMIA",
+   "picks": 37,
+   "fills": 20,
+   "fill_rate": 0.541,
+   "units": -2.46,
+   "units_ci": [
+    -6.85,
+    1.11
+   ],
+   "roi_fill": -0.1228,
+   "roi_ci": [
+    -0.3146,
+    0.0528
+   ],
+   "loss_rate_filled": 0.2,
+   "taker_units": -2.04,
+   "maker_minus_taker": -0.42
+  },
+  {
+   "slice": "HIGHNY",
+   "picks": 58,
+   "fills": 25,
+   "fill_rate": 0.431,
+   "units": -2.5,
+   "units_ci": [
+    -7.46,
+    1.91
+   ],
+   "roi_fill": -0.0999,
+   "roi_ci": [
+    -0.2891,
+    0.0792
+   ],
+   "loss_rate_filled": 0.24,
+   "taker_units": -0.9,
+   "maker_minus_taker": -1.6
+  },
+  {
+   "slice": "KXHIGHAUS",
+   "picks": 208,
+   "fills": 154,
+   "fill_rate": 0.74,
+   "units": 1.47,
+   "units_ci": [
+    -6.33,
+    9.2
+   ],
+   "roi_fill": 0.0096,
+   "roi_ci": [
+    -0.0426,
+    0.0598
+   ],
+   "loss_rate_filled": 0.0844,
+   "taker_units": -0.94,
+   "maker_minus_taker": 2.41
+  },
+  {
+   "slice": "KXHIGHCHI",
+   "picks": 149,
+   "fills": 121,
+   "fill_rate": 0.812,
+   "units": 11.67,
+   "units_ci": [
+    7.31,
+    16.3
+   ],
+   "roi_fill": 0.0964,
+   "roi_ci": [
+    0.0616,
+    0.1271
+   ],
+   "loss_rate_filled": 0.0248,
+   "taker_units": 8.79,
+   "maker_minus_taker": 2.88
+  },
+  {
+   "slice": "KXHIGHDEN",
+   "picks": 236,
+   "fills": 186,
+   "fill_rate": 0.788,
+   "units": 8.33,
+   "units_ci": [
+    -0.05,
+    16.29
+   ],
+   "roi_fill": 0.0448,
+   "roi_ci": [
+    0.0002,
+    0.086
+   ],
+   "loss_rate_filled": 0.0645,
+   "taker_units": 5.55,
+   "maker_minus_taker": 2.78
+  },
+  {
+   "slice": "KXHIGHLAX",
+   "picks": 76,
+   "fills": 32,
+   "fill_rate": 0.421,
+   "units": 1.89,
+   "units_ci": [
+    1.2,
+    2.75
+   ],
+   "roi_fill": 0.0591,
+   "roi_ci": [
+    0.0426,
+    0.0787
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 2.07,
+   "maker_minus_taker": -0.18
+  },
+  {
+   "slice": "KXHIGHMIA",
+   "picks": 66,
+   "fills": 46,
+   "fill_rate": 0.697,
+   "units": 2.22,
+   "units_ci": [
+    1.69,
+    2.85
+   ],
+   "roi_fill": 0.0483,
+   "roi_ci": [
+    0.0388,
+    0.0602
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 1.5,
+   "maker_minus_taker": 0.72
+  },
+  {
+   "slice": "KXHIGHNY",
+   "picks": 145,
+   "fills": 120,
+   "fill_rate": 0.828,
+   "units": 6.61,
+   "units_ci": [
+    1.53,
+    11.56
+   ],
+   "roi_fill": 0.0551,
+   "roi_ci": [
+    0.0103,
+    0.095
+   ],
+   "loss_rate_filled": 0.0417,
+   "taker_units": 4.84,
+   "maker_minus_taker": 1.77
+  },
+  {
+   "slice": "KXHIGHPHIL",
+   "picks": 170,
+   "fills": 117,
+   "fill_rate": 0.688,
+   "units": 2.31,
+   "units_ci": [
+    -4.0,
+    7.6
+   ],
+   "roi_fill": 0.0197,
+   "roi_ci": [
+    -0.0327,
+    0.0676
+   ],
+   "loss_rate_filled": 0.0684,
+   "taker_units": 2.23,
+   "maker_minus_taker": 0.08
+  },
+  {
+   "slice": "KXHIGHTATL",
+   "picks": 28,
+   "fills": 28,
+   "fill_rate": 1.0,
+   "units": -1.6,
+   "units_ci": [
+    -5.57,
+    2.18
+   ],
+   "roi_fill": -0.0572,
+   "roi_ci": [
+    -0.1965,
+    0.0773
+   ],
+   "loss_rate_filled": 0.1429,
+   "taker_units": -2.12,
+   "maker_minus_taker": 0.52
+  },
+  {
+   "slice": "KXHIGHTBOS",
+   "picks": 25,
+   "fills": 20,
+   "fill_rate": 0.8,
+   "units": 0.67,
+   "units_ci": [
+    0.47,
+    0.86
+   ],
+   "roi_fill": 0.0333,
+   "roi_ci": [
+    0.0274,
+    0.0413
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 0.47,
+   "maker_minus_taker": 0.2
+  },
+  {
+   "slice": "KXHIGHTDAL",
+   "picks": 35,
+   "fills": 31,
+   "fill_rate": 0.886,
+   "units": 0.98,
+   "units_ci": [
+    -1.56,
+    2.65
+   ],
+   "roi_fill": 0.0316,
+   "roi_ci": [
+    -0.048,
+    0.0871
+   ],
+   "loss_rate_filled": 0.0323,
+   "taker_units": 0.52,
+   "maker_minus_taker": 0.46
+  },
+  {
+   "slice": "KXHIGHTDC",
+   "picks": 45,
+   "fills": 39,
+   "fill_rate": 0.867,
+   "units": -0.94,
+   "units_ci": [
+    -4.96,
+    2.14
+   ],
+   "roi_fill": -0.0242,
+   "roi_ci": [
+    -0.1131,
+    0.0569
+   ],
+   "loss_rate_filled": 0.0769,
+   "taker_units": -1.28,
+   "maker_minus_taker": 0.33
+  },
+  {
+   "slice": "KXHIGHTHOU",
+   "picks": 18,
+   "fills": 16,
+   "fill_rate": 0.889,
+   "units": 0.59,
+   "units_ci": [
+    0.28,
+    1.02
+   ],
+   "roi_fill": 0.0372,
+   "roi_ci": [
+    0.0229,
+    0.0492
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 0.42,
+   "maker_minus_taker": 0.17
+  },
+  {
+   "slice": "KXHIGHTLV",
+   "picks": 28,
+   "fills": 20,
+   "fill_rate": 0.714,
+   "units": 0.86,
+   "units_ci": [
+    0.58,
+    1.19
+   ],
+   "roi_fill": 0.0431,
+   "roi_ci": [
+    0.0344,
+    0.0515
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 0.82,
+   "maker_minus_taker": 0.04
+  },
+  {
+   "slice": "KXHIGHTMIN",
+   "picks": 21,
+   "fills": 17,
+   "fill_rate": 0.81,
+   "units": 0.94,
+   "units_ci": [
+    0.5,
+    1.54
+   ],
+   "roi_fill": 0.0555,
+   "roi_ci": [
+    0.0343,
+    0.0768
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 0.75,
+   "maker_minus_taker": 0.19
+  },
+  {
+   "slice": "KXHIGHTNOLA",
+   "picks": 67,
+   "fills": 50,
+   "fill_rate": 0.746,
+   "units": 2.71,
+   "units_ci": [
+    2.18,
+    3.31
+   ],
+   "roi_fill": 0.0542,
+   "roi_ci": [
+    0.0462,
+    0.0633
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 2.8,
+   "maker_minus_taker": -0.09
+  },
+  {
+   "slice": "KXHIGHTOKC",
+   "picks": 29,
+   "fills": 21,
+   "fill_rate": 0.724,
+   "units": 1.35,
+   "units_ci": [
+    0.68,
+    2.09
+   ],
+   "roi_fill": 0.0642,
+   "roi_ci": [
+    0.042,
+    0.0954
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 1.44,
+   "maker_minus_taker": -0.09
+  },
+  {
+   "slice": "KXHIGHTPHX",
+   "picks": 34,
+   "fills": 30,
+   "fill_rate": 0.882,
+   "units": 0.45,
+   "units_ci": [
+    -1.75,
+    1.86
+   ],
+   "roi_fill": 0.0151,
+   "roi_ci": [
+    -0.0622,
+    0.0604
+   ],
+   "loss_rate_filled": 0.0333,
+   "taker_units": 0.09,
+   "maker_minus_taker": 0.36
+  },
+  {
+   "slice": "KXHIGHTSATX",
+   "picks": 22,
+   "fills": 19,
+   "fill_rate": 0.864,
+   "units": -0.07,
+   "units_ci": [
+    -2.28,
+    1.31
+   ],
+   "roi_fill": -0.0036,
+   "roi_ci": [
+    -0.1225,
+    0.0689
+   ],
+   "loss_rate_filled": 0.0526,
+   "taker_units": -0.22,
+   "maker_minus_taker": 0.15
+  },
+  {
+   "slice": "KXHIGHTSEA",
+   "picks": 50,
+   "fills": 39,
+   "fill_rate": 0.78,
+   "units": 0.54,
+   "units_ci": [
+    -1.69,
+    1.86
+   ],
+   "roi_fill": 0.0139,
+   "roi_ci": [
+    -0.0407,
+    0.0462
+   ],
+   "loss_rate_filled": 0.0256,
+   "taker_units": 0.25,
+   "maker_minus_taker": 0.29
+  },
+  {
+   "slice": "KXHIGHTSFO",
+   "picks": 42,
+   "fills": 38,
+   "fill_rate": 0.905,
+   "units": 1.96,
+   "units_ci": [
+    1.48,
+    2.48
+   ],
+   "roi_fill": 0.0516,
+   "roi_ci": [
+    0.0428,
+    0.0605
+   ],
+   "loss_rate_filled": 0.0,
+   "taker_units": 1.47,
+   "maker_minus_taker": 0.49
+  }
+ ]
+}

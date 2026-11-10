@@ -1,0 +1,26 @@
+{
+ "2x_conservative": {
+  "pnl": 3.12,
+  "cost": 189.88,
+  "roi": 0.0164,
+  "orders_full": "32/39"
+ },
+ "2x_optimistic": {
+  "pnl": 3.68,
+  "cost": 214.32
+ },
+ "4x_conservative": {
+  "pnl": 4.96,
+  "cost": 326.04,
+  "roi": 0.0152,
+  "orders_full": "29/39"
+ },
+ "4x_optimistic": {
+  "pnl": 7.36,
+  "cost": 428.64
+ },
+ "1x": {
+  "pnl": 1.84,
+  "cost": 107.16
+ }
+}
