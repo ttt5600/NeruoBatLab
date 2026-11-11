@@ -289,3 +289,12 @@ datasets:
       dev: [2021-08-01, 2026-01-15]        # unique dates) before any price / MOS / outcome pull (notes/raind_daily_rain.md)
       sealed: [2026-01-16, 2026-11-08]
       forward: [2026-11-10, null]
+  game_release_totals:
+    loader: game_release_totals            # scripts/game_release_slump.py export (notes/game_release_slump.md)
+    family: game_release
+    hidden: [won, push, final]
+    outcome: {kind: won_push_columns, key: [game_id, sel]}
+    splits:                                # set 2026-11-11 before any outcome aggregation; dev = every release event in
+      dev: [2007-01-01, 2023-06-30]        # dev seasons (NFL<=2019, NBA<=2018-19, NHL<=2022-23, CFB<=2022)
+      sealed: null                         # no sealed era in this frame (NBA/NFL 2019+ sealed seasons not read)
+      forward: [2026-11-19, null]          # GTA VI week; no forward loader yet (paper proposal only)

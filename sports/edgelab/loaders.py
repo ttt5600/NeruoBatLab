@@ -506,3 +506,16 @@ def lock_in_nba_total():
 
 
 LOADERS["lock_in_nba_total"] = lock_in_nba_total
+
+
+# ------------------------------------------------------------------ game-release slump (scripts/game_release_slump.py)
+def game_release_totals():
+    """results/game_release_slump/edgelab_frame.parquet: one row per in-season game (NFL/NBA/NHL/CFB, dev seasons) in
+    days 0..13 after a mega video-game launch (notes/game_release_slump.md), UNDER side at the closing total."""
+    f = SPORTS / "results" / "game_release_slump" / "edgelab_frame.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    return x, [str(f)]
+
+
+LOADERS["game_release_totals"] = game_release_totals

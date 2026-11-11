@@ -1,0 +1,48 @@
+
+=== w7 ===
+ALL  n_win  1766 n_ctrl  5544 | D pts +nan | D sd +0.020 [-0.032,+0.077] | under win% 49.6 | under ROI win -4.97% [-8.85,-1.04] ctrl -2.70%
+CFB  n_win   727 n_ctrl  2035 | D pts +0.14 | D sd +0.008 [-0.086,+0.096] | under win% 51.0 | under ROI win -2.51% [-9.38,+5.06] ctrl -1.54%
+NBA  n_win   388 n_ctrl  1097 | D pts +0.58 | D sd +0.033 [-0.056,+0.110] | under win% 48.7 | under ROI win -6.91% [-10.71,-3.97] ctrl -0.92%
+NFL  n_win   175 n_ctrl   619 | D pts +0.08 | D sd +0.006 [-0.137,+0.156] | under win% 49.4 | under ROI win -3.01% [-16.26,+9.14] ctrl -4.20%
+NHL  n_win   476 n_ctrl  1793 | D pts +0.12 | D sd +0.053 [-0.013,+0.131] | under win% 48.2 | under ROI win -7.86% [-14.16,-1.52] ctrl -4.59%
+                         n     Dz    roi
+event                                   
+CoD BO3 + Fallout 4  171.0 -0.021  0.015
+CoD Black Ops        170.0  0.195 -0.124
+CoD Black Ops 4      126.0 -0.097  0.128
+CoD Black Ops II     119.0  0.017 -0.059
+CoD Ghosts           169.0 -0.065 -0.068
+CoD MW 2019          112.0  0.234 -0.153
+CoD MW II 2022       103.0 -0.048 -0.089
+CoD MW2              167.0 -0.052 -0.026
+CoD MW3              118.0 -0.088 -0.026
+CoD WWII             169.0  0.012  0.014
+Destiny               74.0  0.062 -0.116
+GTA IV                27.0 -0.057 -0.088
+GTA V                 74.0  0.046 -0.090
+RDR2                 167.0  0.081 -0.107
+Rockstar subset (GTA IV/V, RDR2): n 268 D sd +0.057 [-0.057,+0.081] under ROI -10.06%
+
+=== w14 ===
+ALL  n_win  3560 n_ctrl  5544 | D pts +nan | D sd +0.014 [-0.023,+0.053] | under win% 50.5 | under ROI win -3.43% [-6.21,-0.66] ctrl -2.70%
+CFB  n_win  1444 n_ctrl  2035 | D pts +0.62 | D sd +0.037 [-0.036,+0.107] | under win% 50.6 | under ROI win -3.30% [-8.42,+2.02] ctrl -1.54%
+NBA  n_win   802 n_ctrl  1097 | D pts +0.02 | D sd +0.001 [-0.105,+0.105] | under win% 50.4 | under ROI win -3.76% [-10.43,+1.82] ctrl -0.92%
+NFL  n_win   352 n_ctrl   619 | D pts +0.36 | D sd +0.027 [-0.068,+0.123] | under win% 49.4 | under ROI win -2.76% [-9.10,+3.14] ctrl -4.20%
+NHL  n_win   962 n_ctrl  1793 | D pts +0.01 | D sd +0.006 [-0.041,+0.057] | under win% 50.7 | under ROI win -3.60% [-7.74,+0.61] ctrl -4.59%
+                         n     Dz    roi
+event                                   
+CoD BO3 + Fallout 4  340.0 -0.058  0.044
+CoD Black Ops        345.0  0.089 -0.012
+CoD Black Ops 4      293.0 -0.010  0.067
+CoD Black Ops II     243.0  0.111 -0.117
+CoD Ghosts           333.0 -0.034 -0.061
+CoD MW 2019          229.0  0.137 -0.117
+CoD MW II 2022       212.0 -0.059 -0.046
+CoD MW2              337.0  0.006 -0.036
+CoD MW3              242.0 -0.105 -0.016
+CoD WWII             337.0  0.044 -0.053
+Destiny              136.0  0.042 -0.052
+GTA IV                43.0 -0.039 -0.095
+GTA V                137.0  0.153 -0.102
+RDR2                 333.0 -0.041 -0.027
+Rockstar subset (GTA IV/V, RDR2): n 513 D sd +0.014 [-0.041,+0.153] under ROI -5.26%

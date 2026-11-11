@@ -1,0 +1,17 @@
+id: gr14_release_unders
+family: game_release
+dataset: game_release_totals
+rule: edgelab.rules.game_release:unders
+params:
+  window: 14
+hypothesis: 'GR2: user idea 11-11 -- athletes lose sleep after mega video-game launches (>= $500M in 7 days, paid
+  console/PC; 14 launch clusters 2008-2022, notes/game_release_slump.md). Bet UNDER every NFL/NBA/NHL/CFB game (dev
+  seasons) on days 0..13 after release at the closing total (real price NFL/NHL, -110 NBA/CFB). Clustered by event.'
+decision_time: game day, at the close (pre-start)
+price_model: book_quote
+split: vault:game_release_totals
+min_n: 300
+kill:
+  kind: roi_ci_below_zero
+  after_n: 300
+legacy: 'new 2026-11-11 (notes/game_release_slump.md)'
