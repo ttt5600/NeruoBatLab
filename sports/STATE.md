@@ -1,3 +1,7 @@
+## 2026-11-10 KELLY STEP 1 APPLIED (user: size up strategies whose OWN trades work; rule notes/SIZING_RULE.md):
+##   E4 orig7 now 12 ct / $12.40 per order, night+open $80 (NIGHT_FRAC .20), env backup .env.bak-2026-11-10-preKelly1.
+##   Not eligible: NHL B5 (live 3-3 -$1.92, ROI -39% [-80,+2.7]; those NHL trades are ours, $1), X1, L39/TSA/DUL (0 live),
+##   E5, NFLF. Next E4 step earliest 11-24 if live since 11-10 not significantly negative. Exchange balance $384.56.
 ## 2026-11-10 (later) -- WAVE 5 "lock down edges" (protocol notes/AGENT_PROTOCOL.md; inbox notes/findings_inbox.jsonl;
 ##   detail = EDGES_AND_AGENTS.md "11-10 wave 5" lines). 6/6 done + merged + committed. Daily rain RD1/RD2 DEAD dev
 ##   (taker priced; maker adversely selected 9/9 losses filled -> same as E5: a general pattern now).
