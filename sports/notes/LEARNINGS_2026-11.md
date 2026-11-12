@@ -1,0 +1,75 @@
+# Quant-trader learnings, November 2026 (one heading per learning, for the memory vault)
+
+Source session: quant lead "automated trading system development", 2026-11-09..11. Each learning cites its evidence.
+Detail lives in notes/EDGES_AND_AGENTS.md ("11-10 wave 5" and later lines) and the files named below.
+
+## Execution and market microstructure
+
+### Resting maker bids on event-day markets fill only when the event is going against you
+ForecastEx weather (E5): every losing station-day filled, 0 of 200 unfilled days lost (p 7.4e-6 at station-day level);
+Kalshi daily rain (RD2): 9/9 losses filled vs 0/70 unfilled (p .0014). A forecast edge at mid/last-trade is not a trading
+edge. Before going live with any maker strategy, compare outcomes of filled vs unfilled orders. E4 daily-high survives
+because its brackets are far from reachable. Sources: notes/e5_forecastex_audit.md, notes/raind_daily_rain.md.
+
+### Kalshi's order list lags a new order by about 1-2 seconds
+27/27 live entry POSTs were missing from GET /portfolio/orders on the immediate lookup and present 1-2 s later. The POST
+response already carries `fill_count` (no `_fp` suffix). Reading "not listed" as "not filled" caused the NFLF runaway
+exit (new client_order_id every tick). Rule: take fills from the POST response and position change; a lookup miss is
+UNKNOWN; never issue a new coid for an unconfirmed action. Source: notes/incident_find_order_miss.md; fix cec89a0.
+
+### Executor journals record intent, not fills -- reconcile from the exchange
+The NFLF runaway ran on 11-08 as well as 11-09 (70 sells vs 8 intended exits; 49 vs 3), hidden for a day because the
+journal booked clean exits (-$2.80 "record"). Rebuilt from exchange fills: strategy 4-7 -$0.23, runaway +$63.47 by luck.
+Replicated independently. Sources: notes/SCORECARDS.md, notes/post_trade_review_2026-11-10.md, results/replicator_nflf/.
+
+### A shared exchange account lets one bot cancel another bot's orders
+6 E4 weather orders were cancelled externally on 11-04 at the needle bot's cancel-all times; all 6 would have won.
+Give each bot its own order scope, never cancel-all. Source: notes/e4_live_audit.md.
+
+### One ForecastEx fill is booked in two journals
+UHATL_110626_75 (+$5.40) is in both bets.jsonl (E5) and forecastex_exec (E5X); cross-journal P&L sums double-count it.
+Source: memory-vault session report 2026-11-10.
+
+## Edge status (wave 5, 2026-11-10/11)
+
+### E4 weather maker holds but is underpowered
+Maker-only live 39 fills 38-1 ROI +1.72% [-4.33,+6.11]; sealed +2.22% [+1.57,+2.84] inside; ~530-930 fills needed to
+separate from 0. Binding limit is 6 ct/order and depth, not cash. Source: notes/e4_live_audit.md.
+
+### Kelly step-ups: size by quarter Kelly on the CI lower bound, capped by depth and same-night correlation
+User 11-10 authorized raising size on a strategy's OWN record. At 96-98c contracts full Kelly is 30-150% of bankroll and
+one point of win-rate error flips the sign, so depth and correlation bind first. Step 1: E4 6 -> 12 ct/order, night cap
+20%. Rule: notes/SIZING_RULE.md.
+
+### Daily rain and ForecastEx weather are dead at executable prices
+RD1 taker n140 +0.07% [-4.53,+4.28]; RD2 maker n69 < min; R1 sealed fail earlier. E5: asks on 6.9% of picks.
+Sources: notes/raind_daily_rain.md, notes/e5_forecastex_audit.md.
+
+### Video-game mega-releases do not lower game totals
+14 launch clusters 2008-22 (>= $500M week one): unders days 0-6 -4.97% [-8.63,-0.95] n1,766; scoring vs control weeks
++0.020 SD [-0.032,+0.077]. Rules out league-wide slumps > ~0.6 NBA pts. Source: notes/game_release_slump.md.
+
+### "Clutch" / comeback ability is not a team trait
+NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
+Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.
+
+### L34 NHL vs opener and Q008 killed by their pre-set rules
+L34 n110+ CLV ~0; Q008 0 qualifying quotes/56. Source: notes/SCORECARDS.md.
+
+### 99c lock-in queues are mostly too deep, but not always
+KXNBAGAME horn queue median ~201k vs the frozen 5,000 assumption, yet 21% of locks <= 5,000 (2 nights, 14 games).
+Source: notes/SCORECARDS.md LOCK card.
+
+## Process
+
+### Agents must write findings to disk as they go
+Subagent replies die at /clear. Protocol notes/AGENT_PROTOCOL.md: findings_inbox.jsonl rows + own notes + a Learnings
+section with one heading per learning; the lead merges, commits, and ingests into the vault.
+
+### Check the do-not-redo list before briefing an agent
+The daily-rain agent was briefed on a lead that had already sealed-failed (R1); caught from memory and redirected to
+the only new mechanisms. Brief agents with FUND_BOOK section 3d.
+
+### A critic changes the wording, not just the verdict
+E5 "dead" became "no executable channel shown profitable" (both ROI CIs crossed 0); a p-value of 1.5e-14 at strike
+level was 7.4e-6 at station-day level (12 losses = 6 weather events). Cluster at the level where outcomes are shared.

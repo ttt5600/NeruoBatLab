@@ -13,6 +13,11 @@ next /clear; the files below are what survives.
 4. **Final reply** to the lead = a short summary + paths. The lead merges inbox rows into EDGES_AND_AGENTS.md,
    FUND_BOOK.md, ACT_LIST.md, STATE.md and the memory dir, then commits.
 
+5. **Learnings for the memory vault**: end your notes file with a `## Learnings` section, ONE `### <short claim>` heading
+   per learning (claim, the number + source path, why it matters). The vault chunks at headings; a fact buried in a
+   long paragraph is stored but never retrieved. The lead runs `vault ingest --only markdown` and messages the vault
+   session (user 11-11: every agent's learnings must reach the vault).
+
 ## Inbox row (one JSON object per line, append with `>>`, never rewrite the file)
 {"ts":"<UTC ISO>","agent":"<topic>","kind":"started|progress|result|blocked","edge":"<ID e.g. E4, L39, TSA, NHL-late, new>",
  "verdict":"confirmed|holds|weakened|dead|lead|blocked|n/a","headline":"<one line with the key number + interval>",
