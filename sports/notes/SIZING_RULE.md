@@ -43,3 +43,14 @@ KALSHI_MAX_CONTRACTS 6 -> 12; KALSHI_MAX_ORDER_USD 6.20 -> 12.40; KALSHI_ORIG7_F
 KALSHI_NIGHT_FRAC (default .10) -> 0.20; KALSHI_MAX_DAILY_USD 60 -> 80; KALSHI_MAX_OPEN_USD 80 -> 100.
 Unchanged: daily loss stop 5% of B ($20), weekly 10%, depth_frac .5, maker style, X1 paused.
 Next earliest step: 2026-11-24, if the live record since 11-10 is not significantly negative.
+
+## Applied 2026-11-12 -- E4 step 2 (USER WAIVED the 14-day spacing: "we could increase past 11/24 unless you really see
+## some probability saying no")
+Record since step 1 (`kalshi_exec.py status` 11-12 03:10Z): maker 47 filled, filled loss rate 2.2% of 45, P&L +$2.98
+(+$0.66 24 h); total live +$2.56; balance $382.72. Not significantly negative.
+Size: 12 -> 24 ct/order (= 4x the original 6; tape through-price at 4x on 29/39 fills -> depth ceiling; no step 3 above
+24 without new depth evidence). Per order ~$23 = ~6% of bankroll vs 1/4 Kelly ~12% at c .97. Worst plausible night
+(2 losses) ~-$47 = 12% of bankroll. Daily loss stop 5% ($20) unchanged: one loss at 24 ct trips it (24 h pause) -- an
+intended brake.
+.env (backup .env.bak-2026-11-12-preKelly2): MAX_CONTRACTS 24, MAX_ORDER_USD 24.80, ORIG7_FRAC .062, NIGHT_FRAC .30,
+MAX_DAILY_USD 120, MAX_OPEN_USD 120. Revert to step 1 if E4 loses >= 10% of bankroll (~$38) since 11-12 or a kill fires.

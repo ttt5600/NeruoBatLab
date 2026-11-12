@@ -1,3 +1,5 @@
+## 2026-11-12 E4 STEP 2 (user waived 14-day spacing): 24 ct / $24.80 per order, night+open $120 (NIGHT_FRAC .30);
+##   backup .env.bak-2026-11-12-preKelly2. 24 ct = depth ceiling. Revert to step 1 if E4 -$38 since 11-12. SIZING_RULE.md.
 ## 2026-11-11 NBA WAVE (5 agents, all merged; learnings in notes/LEARNINGS_2026-11.md, ingested to the vault by the lead
 ##   since the vault session is offline): L32b EXECUTABLE ON KALSHI (ladders price the opener) -> K1 forward paper, score
 ##   via ACT_LIST command; L30 P-PAINT real but flat as a bet (model feature); 99c lock-in DEAD (logger unloaded);
