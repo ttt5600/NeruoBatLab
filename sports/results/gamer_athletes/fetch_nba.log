@@ -1,0 +1,2 @@
+retry 0 HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=60)
+retry 1 HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=60)

@@ -59,6 +59,12 @@ P-PAINT (teams allowing paint points): -0.537 pts/SD vs the spread, p 2.5e-5, le
 the fade bet is flat (-0.01%/2,972 at -110; +0.66%/1,160 at real close) because +0.86 pts over close only lifts covers to
 52.4%. Effects under ~1-1.5 pts belong inside a model, not as standalone bets. Source: notes/nba_l30_paint.md.
 
+### Known gamer athletes do not slump after big game launches
+Difference-in-differences, 50 sourced gamers (list frozen + hashed before outcomes, evidence dated to avoid hindsight):
+NBA days 0-6 +1.02 pts/game vs matched controls [-0.39,+2.38] (player bootstrap), minutes +1.1. Gamer evidence mostly
+dates from 2018+, so ~5 usable launches; young improving players likely explain the positive sign. Three GTA tests
+(league totals, dose, player) all null or wrong-signed. Source: notes/gamer_athletes.md.
+
 ### "Clutch" / comeback ability is not a team trait
 NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
 Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.
