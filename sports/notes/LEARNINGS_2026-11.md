@@ -105,6 +105,12 @@ but its under picks return -0.17% [-2.51,+2.31] over 5,569 at the open; all unde
 +0.004 [-0.060,+0.069], level -0.63 [-0.97,-0.30]. Back B2B ATS -8.06%/1,787; B2B overs -3.78%/2,113. "Recovery science"
 shows up as stars resting, not better B2B play (untested explanation). Source: notes/b2b_recovery_trend.md.
 
+### Kalshi's in-game price does not misprice "clutch" teams either way
+673 games / 2,507 trailing snapshots (dev): calibration gap top-minus-bottom comeback-record tercile -1.2c [-7.1,+4.8];
+trait coefficient given Kalshi mid +0.02 [-0.18,+0.21]; trailers won 19.7% when priced 19.4%. Four bet rules dead (buy
+top-tercile trailer -17.6%/258). Comeback record mostly measures team quality (.07 WSH to .65 OKC), already priced.
+Source: notes/clutch_market.md.
+
 ### "Clutch" / comeback ability is not a team trait
 NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
 Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.

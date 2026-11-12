@@ -1,0 +1,15 @@
+id: clutch_cm1_top_buy
+family: kalshi_ingame
+dataset: nba_clutch_ingame
+rule: edgelab.rules.clutch_market:cm1_top_buy
+hypothesis: 'NBA in-game clutch reputation (notes/clutch_market.md prereg 2026-11-12): trailer prior-82-game comeback record T_CB top tercile -> buy trailer YES at ask; first qualifying deficit/phase snapshot per game (6+ down, Q2-Q4, state lagged 60 s), taker, hold'
+decision_time: in-game, first 1-min candle per game x cell (ESPN state as of candle end - 60 s)
+price_model: taker
+split: vault:nba_clutch_ingame
+min_n: 200
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: exact
+legacy: 'new 2026-11-12 (scripts/clutch_market.py); user belief clutch factor; L37/L38 in-game NBA dead'

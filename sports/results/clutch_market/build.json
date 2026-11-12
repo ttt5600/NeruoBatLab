@@ -1,0 +1,24 @@
+{
+ "games_dev": 693,
+ "games_with_candles": 676,
+ "snapshots": 2507,
+ "snap_games": 673,
+ "with_T_CB": 2507,
+ "with_T_CL": 2507,
+ "T_CB_cuts": [
+  0.2,
+  0.3243
+ ],
+ "T_CL_cuts": [
+  0.4722,
+  0.536
+ ],
+ "cells": {
+  "D1_MID": 621,
+  "D2_MID": 520,
+  "D1_Q4": 460,
+  "D2_Q4": 344,
+  "D3_MID": 343,
+  "D3_Q4": 219
+ }
+}
