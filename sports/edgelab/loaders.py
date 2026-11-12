@@ -519,3 +519,16 @@ def game_release_totals():
 
 
 LOADERS["game_release_totals"] = game_release_totals
+
+
+def game_release_hype():
+    """results/game_release_dose/edgelab_frame.parquet (scripts/game_release_dose.py sealed): one row per in-season game
+    on days 0..6 after a launch cluster with H >= $600M; dev rows <= 2022-12-31 (SBR/lab), sealed rows 2023-01-01..
+    2026-10-31 (ESPN lines). notes/game_release_dose.md."""
+    f = SPORTS / "results" / "game_release_dose" / "edgelab_frame.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    return x, [str(f)]
+
+
+LOADERS["game_release_hype"] = game_release_hype

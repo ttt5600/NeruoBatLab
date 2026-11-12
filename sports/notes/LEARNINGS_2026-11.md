@@ -49,6 +49,11 @@ Sources: notes/raind_daily_rain.md, notes/e5_forecastex_audit.md.
 14 launch clusters 2008-22 (>= $500M week one): unders days 0-6 -4.97% [-8.63,-0.95] n1,766; scoring vs control weeks
 +0.020 SD [-0.032,+0.077]. Rules out league-wide slumps > ~0.6 NBA pts. Source: notes/game_release_slump.md.
 
+### Bigger game launches do not bring bigger scoring slumps
+Dose-response over 22 launches / 9,880 games: +0.042 SD per ln(launch-week revenue) [-0.046,+0.188], wrong sign. At
+GTA-VI scale (assumed $3B, an extrapolation) the most negative plausible effect is ~-0.07 SD, about break-even at -110.
+Hyped-only rule grh7 dev -7.90%/1,129. Source: notes/game_release_dose.md.
+
 ### "Clutch" / comeback ability is not a team trait
 NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
 Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.

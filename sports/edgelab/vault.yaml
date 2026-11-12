@@ -298,3 +298,12 @@ datasets:
       dev: [2007-01-01, 2023-06-30]        # dev seasons (NFL<=2019, NBA<=2018-19, NHL<=2022-23, CFB<=2022)
       sealed: null                         # no sealed era in this frame (NBA/NFL 2019+ sealed seasons not read)
       forward: [2026-11-19, null]          # GTA VI week; no forward loader yet (paper proposal only)
+  game_release_hype:
+    loader: game_release_hype              # scripts/game_release_dose.py sealed (notes/game_release_dose.md)
+    family: game_release
+    hidden: [won, push, final]
+    outcome: {kind: won_push_columns, key: [game_id, sel]}
+    splits:                                # set 2026-11-11 before any outcome aggregation
+      dev: [2007-01-01, 2022-12-31]        # launches <= 2022 in prior dev seasons (SBR/lab)
+      sealed: [2023-01-01, 2026-10-31]     # 2023+ launches, ESPN lines -- user's explicit yes needed
+      forward: [2026-11-19, null]          # GTA VI week; no forward loader yet

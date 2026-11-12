@@ -1,0 +1,33 @@
+rows 9880 (window 2565) clusters 22 leagues {'CFB': 3507, 'NHL': 3095, 'NBA': 2222, 'NFL': 1056}
+b0 (window effect at $1B) +0.0239 SD  boot [-0.0393,+0.1462]  CR1 [-0.0581,+0.1059]
+b1 (per ln-unit of H) +0.0423 SD  boot [-0.0455,+0.1877]  CR1 [-0.0552,+0.1398]  boot P(b1<0) 0.169
+effect at H=$2B (EXTRAPOLATION) +0.0532 SD  boot [-0.0583,+0.2795]  CR1 [-0.0885,+0.1950]
+effect at H=$3B (EXTRAPOLATION) +0.0704 SD  boot [-0.0730,+0.3558]  CR1 [-0.1090,+0.2497]
+effect at H=$5B (EXTRAPOLATION) +0.0920 SD  boot [-0.0958,+0.4541]  CR1 [-0.1356,+0.3195]
+                                 H_$M  n_win   D_sd
+cluster                                            
+Battlefield 3                   300.0  114.0  0.097
+Halo 3                          300.0   69.0 -0.167
+Fallout 3                       300.0  157.0 -0.127
+The Division                    330.0   99.0 -0.050
+Pokemon Sword/Shield            360.0  118.0 -0.045
+Diablo III                      378.0   20.0  0.054
+Pokemon Sun/Moon                400.0  177.0 -0.060
+GTA IV                          500.0   27.0 -0.056
+CoD Black Ops 4                 500.0  126.0 -0.097
+CoD Black Ops II                500.0  119.0  0.017
+Destiny                         500.0   74.0  0.097
+CoD WWII                        500.0  169.0  0.012
+CoD MW2                         550.0  167.0 -0.052
+Pokemon Scarlet/Violet          600.0   45.0    NaN
+CoD MW 2019                     600.0  112.0  0.224
+CoD Black Ops                   650.0  170.0  0.195
+RDR2                            725.0  167.0  0.081
+CoD MW3                         775.0  118.0 -0.102
+CoD MW II 2022                  800.0  103.0 -0.064
+GTA V                          1000.0   74.0  0.068
+CoD Ghosts                     1000.0  169.0 -0.084
+CoD Black Ops III + Fallout 4  1300.0  171.0 -0.021
+PRE-REG VERDICT: KILL (b1 CI excludes 0 and < 0: False; effect_VI +0.0704 <= -0.06: False)
+GTA-VI-scale most-negative plausible effect (2.5th pct boot, $3B): -0.0730 SD
+SECONDARY (all 50493 dev games, league x season + league x ISO-week FE): b0 +0.0351 b1 +0.0489 effect_VI +0.0889 (point only)

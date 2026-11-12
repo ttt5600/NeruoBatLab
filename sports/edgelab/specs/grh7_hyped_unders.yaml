@@ -1,0 +1,19 @@
+id: grh7_hyped_unders
+family: game_release
+dataset: game_release_hype
+rule: edgelab.rules.game_release_hype:hyped_unders
+params:
+  window: 7
+  h_min: 600000000
+hypothesis: 'GRH1 (user pushback 11-11, "GTA VI is far bigger"): the post-launch slump only shows for EXTREMELY hyped
+  launches. Bet UNDER every NFL/NBA/NHL/CFB regular/post-season game on days 0..6 after a paid-software launch cluster
+  with launch-week revenue H >= $600M (H rule + table frozen in notes/game_release_dose.md before outcomes), at the
+  closing total. Dev = launches <= 2022-12-31; sealed = 2023-01-01..2026-10-31 (ESPN lines). Clustered by launch.'
+decision_time: game day, at the close (pre-start)
+price_model: book_quote
+split: vault:game_release_hype
+min_n: 200
+kill:
+  kind: roi_ci_below_zero
+  after_n: 200
+legacy: 'new 2026-11-11 (notes/game_release_dose.md)'
