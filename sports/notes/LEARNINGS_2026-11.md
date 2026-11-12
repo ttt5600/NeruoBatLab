@@ -82,9 +82,12 @@ Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.
 ### L34 NHL vs opener and Q008 killed by their pre-set rules
 L34 n110+ CLV ~0; Q008 0 qualifying quotes/56. Source: notes/SCORECARDS.md.
 
-### 99c lock-in queues are mostly too deep, but not always
-KXNBAGAME horn queue median ~201k vs the frozen 5,000 assumption, yet 21% of locks <= 5,000 (2 nights, 14 games).
-Source: notes/SCORECARDS.md LOCK card.
+### NBA 99c lock-in maker is dead: the queue forms as one block before you can join
+CORRECTED 11-11: the earlier "21% of locks <= 5,000" counted already-closed markets with empty books; among open books
+0/188 had queue <= 5,000 (moneyline min 109,590). The 99c bid appears ~2 min before the horn (median 126 s, lead 9, WP
+.986) as one block (~80k within 40 s); first-in-queue happened in 0-3.4% of 12,259 near-locked states. Front-of-queue EV
++0.58c [-0.24,+0.86] vs a 1c maker fee. Logger unloaded 11-11. Lesson: a depth statistic must exclude closed/empty books.
+Source: notes/nba_lockin_fill.md.
 
 ## Process
 

@@ -1,3 +1,7 @@
+## 2026-11-11 NBA WAVE (5 agents, all merged; learnings in notes/LEARNINGS_2026-11.md, ingested to the vault by the lead
+##   since the vault session is offline): L32b EXECUTABLE ON KALSHI (ladders price the opener) -> K1 forward paper, score
+##   via ACT_LIST command; L30 P-PAINT real but flat as a bet (model feature); 99c lock-in DEAD (logger unloaded);
+##   GTA/game-release x3 (totals, dose, gamer players) DEAD. Clutch dead since 10-25.
 ## 2026-11-10 KELLY STEP 1 APPLIED (user: size up strategies whose OWN trades work; rule notes/SIZING_RULE.md):
 ##   E4 orig7 now 12 ct / $12.40 per order, night+open $80 (NIGHT_FRAC .20), env backup .env.bak-2026-11-10-preKelly1.
 ##   Not eligible: NHL B5 (live 3-3 -$1.92, ROI -39% [-80,+2.7]; those NHL trades are ours, $1), X1, L39/TSA/DUL (0 live),
@@ -7,7 +11,7 @@
 ##   (taker priced; maker adversely selected 9/9 losses filled -> same as E5: a general pattern now).
 ##   E4 HOLDS, underpowered: maker-only 39 fills 38-1 ROI +1.72% [-4.33,+6.11]; binding cap 6 ct/order, depth 2x ok.
 ##   E5 ForecastEx: STOP PROPOSED (maker fills adversely selected; asks on 6.9% of picks) -- USER yes needed; 4 resting $59.
-##   Q008 + L34 KILLED by pre-set rules. Lock-in 99c: horn queue ~201k vs N 5k (1 night). F1 CLV-vs-ask < 0 (rule ambiguous).
+##   Q008 + L34 KILLED by pre-set rules. Lock-in 99c DEAD 11-11 (logger unloaded). F1 CLV-vs-ask < 0 (rule ambiguous).
 ##   INCIDENT (a) SOLVED: order-list read-after-write lag ~1-2 s; fix = fill from POST response, cec89a0, critic DEPLOY,
 ##   NOT deployed (copy order_guard.py only; USER gate). (b) needle bot NOT running (PID 45461 gone).
 ##   NFLF runaway ALSO on 11-08 (replicated): 70 sells vs 8 intended exits; true strategy record 4-7 -$0.23; incident
