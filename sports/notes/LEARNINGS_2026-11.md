@@ -102,6 +102,13 @@ accurate (Brier .1974 vs .1889); 0/40 series pass (no listing-time predictor bel
 in every sport (E5/L35/RD2 lesson). Only untested angle: a sharp price at listing (needs a forward Pinnacle logger).
 Source: notes/kalshi_first_listing.md.
 
+### Kalshi logical arbs are nearly absent at executable size
+Read-only scanner (scripts/lx1_arb_scan.py), 3 valid scans 11-12: 1 distinct violation >= 2c net at >= 10 ct (Burgum
+leave-date ladder, +2.1c/set, ~$1 on $49 locked to 2028); 0 in Fed, 1.4-1.6M threshold-ladder pairs, exclusive-set NO.
+7-day 1-min replay: 5 leg sets ever >= 2c at best price, most < 10 ct depth. Fake arbs came from a comma parser bug (+98c
+ETH), "exactly k" tagged as "below k", shared-word titles -- verify every arb leg's rules before trusting it.
+Source: notes/lx1_logical_arb.md.
+
 ### Q004 lost because its totals model was biased, not because of timing
 Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
 what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.
