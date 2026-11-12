@@ -253,6 +253,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | O1 | NBA simple model vs opener, gap >= .06 | **sealed FAIL** 554 bets EV -2.55%, ROI -10.2%; CLV +0.68 p .005 [LB], [R] | CLV half the dev size, below ~4% overround | scripts/nba_o1_sealed.py |
 | L8 | Player-level simulation (RotoBot style) | sim open ROI -5.8%/1,784, close -9.0% [L:nba_player_sim] | too much variance; simple model better | notes/player_sim.md |
 | -- | Public NBA models (538 Elo/CARM/RAPTOR, ESPN) vs close + stacking | 0/7; log loss +.008..+.019 [L:nba_public_models] | all worse than the close | notes/nba_public_models.md |
+| B2B-T (**11-12 DEAD**, notes/b2b_recovery_trend.md) | NBA B2B recovery-era trend (user: market overreacts to B2B now) | penalty grew -1.5 -> -2.7, spread markdown grew with it; back-B2B ATS -8.06%/1,787, B2B overs -3.78%/2,113 | market adjusts; recovery = rest days | -- |
 | -- | NBA angles: rest ATS, big-spread dog, heavy fav ML, b2b unders, home dog ML | -1.5%..-3.9% (+0.6% dog) [L:nba_sbr] | priced; unsigned-spread bug caught | scripts/nba_angles.py |
 | -- | NBA Elo disagree >= .10, walk-forward logit edge | +0.6%/3,916 p .40, -4.2%/744 [L:nba_sbr] | market Brier .199 < Elo .207 | scripts/nba_model.py |
 | -- | NBA comebacks / matchups / coaching / timeouts (152 tests) | sides efficient; 0/69 trait cells [EA] | comebacks = deficit x time x spread only | notes/nba_comebacks_matchups.md |

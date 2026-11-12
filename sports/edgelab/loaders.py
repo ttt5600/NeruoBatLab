@@ -544,3 +544,34 @@ def nba_paint_sides():
 
 
 LOADERS["nba_paint_sides"] = nba_paint_sides
+
+
+def _b2b_frame(trial):
+    """results/b2b_recovery_trend/edgelab_frame.parquet (scripts/b2b_recovery_trend.py bets; notes/b2b_recovery_trend.md):
+    dev 2019-20..2024-25 regular season, bubble excluded, SBR closing line at -110. 2025-26 never exported."""
+    f = SPORTS / "results" / "b2b_recovery_trend" / "edgelab_frame.parquet"
+    x = pd.read_parquet(f)
+    x = x[x["trial"] == trial].reset_index(drop=True)
+    x["date"] = pd.to_datetime(x["date"])
+    return x, [str(f)]
+
+
+LOADERS["nba_b2b_sides"] = lambda: _b2b_frame("B1")
+LOADERS["nba_b2b_totals"] = lambda: _b2b_frame("B2")
+
+
+# ------------------------------------------------------------------ NBA in-game clutch-reputation (scripts/clutch_market.py)
+def nba_clutch_ingame():
+    """data/clutch_market/frame.parquet: one row per game x deficit/phase cell (first qualifying 1-min Kalshi candle),
+    trailer/leader quotes, trailer's prior-82-game comeback (T_CB) and clutch (T_CL) records. ticker = ESPN eid;
+    result = winning side (home/away), hidden together with trailer_won."""
+    f = DATA / "clutch_market" / "frame.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    x["ticker"] = x["eid"].astype(str)
+    other = np.where(x["trailer_side"] == "home", "away", "home")
+    x["result"] = np.where(x["trailer_won"] == 1, x["trailer_side"], other)
+    return x, [str(f)]
+
+
+LOADERS["nba_clutch_ingame"] = nba_clutch_ingame

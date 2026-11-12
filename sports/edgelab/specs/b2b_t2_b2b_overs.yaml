@@ -1,0 +1,17 @@
+id: b2b_t2_b2b_overs
+family: nba_totals
+dataset: nba_b2b_totals
+rule: edgelab.rules.nba:paint_sides
+params:
+  trial: B2
+hypothesis: 'b2b_recovery_trend B2 (notes/b2b_recovery_trend.md, pre-registered 2026-11-12; user hypothesis 11-12 that
+  recovery science shrank the real B2B penalty faster than the market): OVER at the SBR closing total when >= 1 team is on the 2nd night of a B2B, -110. Dev 2019-20..2024-25 regular season,
+  bubble excluded. Generic paint_sides rule reused (game_id/trial/sel/dec frame).'
+decision_time: game day, at the close (pre-tip)
+price_model: book_quote
+split: vault:nba_b2b_totals
+min_n: 200
+kill:
+  kind: roi_ci_below_zero
+  after_n: 200
+legacy: 'new 2026-11-12 (notes/b2b_recovery_trend.md)'

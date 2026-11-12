@@ -99,6 +99,12 @@ de-vigged open on 141,746 dev props. L5: the P2 distribution adds real informati
 but its under picks return -0.17% [-2.51,+2.31] over 5,569 at the open; all unders lose 4.3-6.8%. A prop edge must beat
 ~4.5% vig, not 50%. Source: notes/props_situational.md.
 
+### The NBA back-to-back penalty grew, and the market grew with it
+21,454 games 2007-08..2024-25: B2B margin penalty ~-1.5 (2007-12) -> ~-2.7 (2021-24), trend -0.053/season
+[-0.117,+0.011]; closing-spread B2B markdown -1.0 -> -2.1 (-0.058/season [-0.073,-0.042]); B2B ATS residual trend
++0.004 [-0.060,+0.069], level -0.63 [-0.97,-0.30]. Back B2B ATS -8.06%/1,787; B2B overs -3.78%/2,113. "Recovery science"
+shows up as stars resting, not better B2B play (untested explanation). Source: notes/b2b_recovery_trend.md.
+
 ### "Clutch" / comeback ability is not a team trait
 NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
 Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.

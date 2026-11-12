@@ -144,6 +144,15 @@ datasets:
       dev: [2025-11-03, 2026-01-31]        # first Kalshi CBB games .. end of January (2025-26)
       sealed: [2026-02-01, 2026-04-30]     # Feb .. NCAA tournament (2025-26)
       forward: [2026-11-06, null]          # 2026-27 after registration day; 11-02..11-05 belong to no split
+  nba_clutch_ingame:
+    loader: nba_clutch_ingame              # scripts/clutch_market.py build (notes/clutch_market.md, prereg 2026-11-12)
+    family: kalshi_ingame
+    hidden: [result, trailer_won]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:
+      dev: [2025-04-15, 2026-01-14]        # same Kalshi NBA in-game dev boundary as L37/L38/late_wp/lineup Gate B
+      sealed: [2026-01-15, 2026-06-30]     # 2025-26 after 01-14 (user's yes only); frame build drops these rows today
+      forward: [2026-11-13, null]
   kalshi_soccer_ingame:
     loader: kalshi_soccer_ingame
     family: kalshi_ingame
@@ -316,3 +325,21 @@ datasets:
       dev: [2016-10-01, 2025-06-30]        # 2016-17..2024-25 regular season (2015-16 = burn-in for the z scale)
       sealed: [2025-10-01, 2026-06-30]     # 2025-26 -- user's explicit yes needed; no sealed rows exported
       forward: [2026-10-21, null]          # no forward loader
+  nba_b2b_sides:
+    loader: nba_b2b_sides                  # scripts/b2b_recovery_trend.py bets (notes/b2b_recovery_trend.md) trial B1
+    family: nba_sides
+    hidden: [won, push]
+    outcome: {kind: won_push_columns, key: [game_id, trial]}
+    splits:                                # set 2026-11-12 by agent b2b_recovery_trend before any bet aggregation
+      dev: [2019-10-01, 2025-06-30]        # 2019-20..2024-25 regular season, bubble excluded
+      sealed: [2025-10-01, 2026-06-30]     # 2025-26 -- user's explicit yes needed; no sealed rows exported
+      forward: [2026-10-21, null]          # no forward loader
+  nba_b2b_totals:
+    loader: nba_b2b_totals                 # same export, trial B2
+    family: nba_totals
+    hidden: [won, push]
+    outcome: {kind: won_push_columns, key: [game_id, trial]}
+    splits:
+      dev: [2019-10-01, 2025-06-30]
+      sealed: [2025-10-01, 2026-06-30]
+      forward: [2026-10-21, null]
