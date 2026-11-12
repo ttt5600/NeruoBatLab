@@ -95,6 +95,13 @@ CIs < 0); NFL fails vs ESPN's lookahead open. K-CFB n63 CLV +1.49 [+0.86,+2.13] 
 book open costs ~58c once Kalshi has moved. Third CLV-without-ROI case (L36 sealed, P-PAINT). Buy near 50c or the CLV
 is spent on price. Kalshi occurrence_datetime = kickoff + 3 h. Source: notes/kalshi_openers_xleague.md.
 
+### Kalshi sports first-listing staleness is real but small and not capturable
+1,578 events / 40 series (dev 10-20..11-11): first mid moves median 2.5c by T-30 vs 6c first spread; first price less
+accurate (Brier .1974 vs .1889); 0/40 series pass (no listing-time predictor below p<.001). Taker at first ask -10.0%
+[-15.2,-4.8]; maker at first bid -11.0% with filled orders 9.3c [4.4,14.5] worse than unfilled -- adverse selection holds
+in every sport (E5/L35/RD2 lesson). Only untested angle: a sharp price at listing (needs a forward Pinnacle logger).
+Source: notes/kalshi_first_listing.md.
+
 ### Q004 lost because its totals model was biased, not because of timing
 Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
 what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.
