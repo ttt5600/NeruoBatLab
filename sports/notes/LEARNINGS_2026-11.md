@@ -111,6 +111,13 @@ trait coefficient given Kalshi mid +0.02 [-0.18,+0.21]; trailers won 19.7% when 
 top-tercile trailer -17.6%/258). Comeback record mostly measures team quality (.07 WSH to .65 OKC), already priced.
 Source: notes/clutch_market.md.
 
+### E4 is a small edge; the only extra weather capacity is X1, and its forward record is negative so far
+Census 11-12: 505 Kalshi series, no new qualifying weather series. Tape-through capacity (291 forward picks, 21 nights):
+orig-7 ~$0.32/night modelled at 24 ct (real +$1.03), depth-capped; X1 $1.78/$3.26/$5.70 per night at 24/48/96 ct but real
+-$0.82/night (5 losses) and 96 ct ties up ~$328 of ~$383. X1 maker failed dev on concentration (one week 36% of P&L, 7-week
+window), not a bug; its sealed evidence is the user-approved 10-23 lockbox (+1.67% maker). 73% of picks sit at 99c NO
+ask with little volume -- the money is in ~3.7 cheaper picks/night. Source: notes/wx_capacity.md.
+
 ### "Clutch" / comeback ability is not a team trait
 NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
 Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.
