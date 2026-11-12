@@ -65,6 +65,16 @@ NBA days 0-6 +1.02 pts/game vs matched controls [-0.39,+2.38] (player bootstrap)
 dates from 2018+, so ~5 usable launches; young improving players likely explain the positive sign. Three GTA tests
 (league totals, dose, player) all null or wrong-signed. Source: notes/gamer_athletes.md.
 
+### Kalshi NBA totals price the book opener, so opener edges are executable there
+Kalshi KXNBATOTAL ladders list a median 3.4 h before our first Pinnacle sighting (95% of 114 games), already ~3c tight;
+at the Pinnacle-open tick Kalshi's implied total is 0.33 pts from the open vs 1.82 from the close. L32b picks at the
+Kalshi ask + fee: CLV +1.37 pts [+0.35,+2.43], ROI +1.9% [-32.6,+36.3] (n27). Kalshi taker cost ~ -110, so compare to
+the -110 dev number (+4.8%), not no-vig. Source: notes/nba_l32b_exec.md.
+
+### Q004 lost because its totals model was biased, not because of timing
+Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
+what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.
+
 ### "Clutch" / comeback ability is not a team trait
 NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
 Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.

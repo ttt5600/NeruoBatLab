@@ -1,0 +1,16 @@
+id: l32b_k1_kalshi_taker
+family: nba_totals
+dataset: nba_totals_open
+rule: edgelab.rules.forward:unwired
+hypothesis: 'L32b-K1: the L32b de-biased NBA totals pick, executed on Kalshi KXNBATOTAL. At the L32b decision tick (>= 30 min before tip): strike S = ladder strike nearest the Pinnacle open (tie -> lower for over, higher for under); bet only if model - c - S still clears +/-3.0; buy YES (over) / NO (under) at the ask + exact taker fee (100-ct); graded on final vs S. Dev = L32b live picks logged before 2026-11-11 (notes/nba_l32b_exec.md, priced from 1-min candles); forward from 2026-11-12.'
+decision_time: 'L32b logger decision tick; Kalshi quote = last 1-min candle ending <= decision (forward = live orderbook at the tick)'
+price_model: taker
+split: vault:nba_totals_open
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-11 (agent nba_l32b_exec, notes/nba_l32b_exec.md). Rule unwired until a K1 forward adapter exists; pre-reg judge: 100 settled, ROI@ask+fee > 0 one-sided p < .10 AND CLV > 0; kill ROI CI upper < 0 after 60 or CLV <= 0 after 100.'

@@ -29,6 +29,15 @@ keeps >= $80 cash for weather. DUL: series KXNFLTOTAL, NO on the strike nearest 
 TSA mirrors the paper side (YES or NO). bet.py does NOT see these bets yet. B3 F1 stays user-placed on RH.
 E4 sized 2x 11-05 (edgelab early step; caps $6.20/6 ct/day $60/open $80; loss stops unchanged).
 
+## Forward paper -- next Kelly candidate (11-11)
+- **L32b-K1 NBA totals vs opener ON KALSHI** (edgelab `l32b_k1_kalshi_taker-8d6fb950`, notes/nba_l32b_exec.md): Kalshi
+  KXNBATOTAL ladders open ~3.4 h before Pinnacle and price the opener (0.33 pts from open, 1.82 from close). Rule: each L32b
+  pick, Kalshi strike nearest the Pinnacle open, bet only if model - c - strike >= 3 pts our side; YES over / NO under at
+  the ask + taker fee. Dev-on-logged 27 picks ROI +1.9% [-32.6,+36.3], CLV +1.37 pts [+0.35,+2.43]. Judge at 100
+  (~4-5 wk at ~23/wk): pass ROI > 0 p<.10 and CLV > 0; kill ROI CI < 0 after 60 or CLV <= 0 after 100.
+  Score with every scorecard refresh: `cd sports && ../.venv_quant/bin/python results/nba_l32b_exec/q2_fetch.py &&
+  ../.venv_quant/bin/python results/nba_l32b_exec/q2_score.py forward`. Live money only after it passes (Kelly rule).
+
 ## Tier C -- watch only (forward data says no for now)
 - L33 NFL vs opener: 3 settled (2-1). Too small; keep the logger.
 - L34 KILLED by its pre-set rule 11-10 (110 settled, CLV -0.0005 [-0.0044,+0.0033]); totals slice stays post hoc.
