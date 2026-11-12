@@ -93,6 +93,12 @@ the -110 dev number (+4.8%), not no-vig. Source: notes/nba_l32b_exec.md.
 Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
 what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.
 
+### NBA prop situational factors are priced, and a better prop model still loses to the vig
+L7: 0/11 schedule/geography features (B2B, rest, travel, altitude, nightlife, time zones) move prop results vs the
+de-vigged open on 141,746 dev props. L5: the P2 distribution adds real information (+0.094 / +0.112 coef, replicated)
+but its under picks return -0.17% [-2.51,+2.31] over 5,569 at the open; all unders lose 4.3-6.8%. A prop edge must beat
+~4.5% vig, not 50%. Source: notes/props_situational.md.
+
 ### "Clutch" / comeback ability is not a team trait
 NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
 Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.

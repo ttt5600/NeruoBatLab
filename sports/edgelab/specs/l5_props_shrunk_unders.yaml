@@ -1,0 +1,15 @@
+id: l5_props_shrunk_unders
+family: nba_props
+dataset: espn_props_graded
+rule: edgelab.rules.forward:unwired
+hypothesis: 'L5: P2 empirical-distribution model shrunk to the de-vigged ESPN BET open; bet under when fitted P >= market + 3pp'
+decision_time: open line (ESPN BET)
+price_model: taker
+split: scored outside edgelab on dev 2025 (notes/props_situational.md)
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 150
+fee:
+  rounding: exact
+legacy: 'scored 11-12 outside edgelab (no ESPN-props vault dataset): 2025 dev n5,569 ROI -0.17% [-2.51,+2.31]; registered to count toward the nba_props family bar, then retired'

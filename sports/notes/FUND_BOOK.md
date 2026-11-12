@@ -189,8 +189,8 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | L1 | Public models (538/ESPN) vs the OPENER | stale opener | lose to close; never tested vs open [EA] | untested | scripts/nba_public_models.py |
 | L29 | Miami thin-depth: MIA under closing spread next 20 games | user thesis | 0-2 at 10-23 [H4] | track forward | -- |
 | L9 | S12 soccer logic at US books in Colorado | E3 at legal books | untested [EA] | needs user's state + CO accounts | scripts/soccer_fd.py |
-| L5 | Shrink P2 prop model toward the market | P2 overconfident (+17 claimed, ~0 delivered) | untested [EA] | new prereg | scripts/nba_props_dist.py |
-| L7 | Situational prop model (arena, b2b, travel, altitude, nightlife, refs), unders first | books shade overs | untested as combined model [EA] | new prereg | notes/research_situational_vars.md, research_prop_models.md |
+| L5 (**DEAD 11-12**) | Shrink P2 prop model toward the market | P2 overconfident | info replicates (coef +0.094/+0.112) but 2025 dev at ESPN BET open n5,569 -0.17% [-2.51,+2.31]; selection ~6.6 pts < vig; edgelab l5_props_shrunk_unders retired | dead | notes/props_situational.md |
+| L7 (**DEAD 11-12**) | Situational prop model (arena, b2b, travel, altitude, nightlife, refs), unders first | books shade overs | 0/11 features pass on 141,746 dev props (only tz_east +0.43pp/h, one season, ~chance); no model fit | dead | notes/props_situational.md |
 | L11 (**DEAD dev 10-30, see 3d**) | Earnings straddles (enter ~3-5 d before) / straddle selling | VRP at earnings | literature only (Gao-Xing-Zhang +3.34%; ORATS vendor 85%) [EA], notes/social_edges_2026-10-22.md | untested; needs bid/ask history | notes/earnings.md |
 | L12 | Daily earnings-consensus logging | price each contract's threshold | not started [EA] | -- | -- |
 | L14 | Company graph as a data product (12,917 dated customer filings) | screens, not alpha | data built [EA] | no alpha (see dead) | data/company_graph/, notes/company_graph.md |
