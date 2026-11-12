@@ -532,3 +532,15 @@ def game_release_hype():
 
 
 LOADERS["game_release_hype"] = game_release_hype
+
+
+def nba_paint_sides():
+    """results/nba_l30_paint/edgelab_frame.parquet (scripts/nba_l30_paint.py export): one row per (trial, game) the
+    P-PAINT fade selects, dev 2016-17..2024-25 (notes/nba_l30_paint.md)."""
+    f = SPORTS / "results" / "nba_l30_paint" / "edgelab_frame.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    return x, [str(f)]
+
+
+LOADERS["nba_paint_sides"] = nba_paint_sides

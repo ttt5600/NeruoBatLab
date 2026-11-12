@@ -307,3 +307,12 @@ datasets:
       dev: [2007-01-01, 2022-12-31]        # launches <= 2022 in prior dev seasons (SBR/lab)
       sealed: [2023-01-01, 2026-10-31]     # 2023+ launches, ESPN lines -- user's explicit yes needed
       forward: [2026-11-19, null]          # GTA VI week; no forward loader yet
+  nba_paint_sides:
+    loader: nba_paint_sides                # scripts/nba_l30_paint.py export (notes/nba_l30_paint.md)
+    family: nba_sides
+    hidden: [won, push]
+    outcome: {kind: won_push_columns, key: [game_id, trial]}
+    splits:                                # set 2026-11-11 by agent nba_l30_paint (dev = the L30 discovery seasons)
+      dev: [2016-10-01, 2025-06-30]        # 2016-17..2024-25 regular season (2015-16 = burn-in for the z scale)
+      sealed: [2025-10-01, 2026-06-30]     # 2025-26 -- user's explicit yes needed; no sealed rows exported
+      forward: [2026-10-21, null]          # no forward loader

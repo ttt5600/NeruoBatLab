@@ -1,0 +1,18 @@
+id: l30_paint_pp1
+family: nba_sides
+dataset: nba_paint_sides
+rule: edgelab.rules.nba:paint_sides
+params:
+  trial: PP1
+hypothesis: 'L30 P-PAINT (notes/nba_l30_paint.md, pre-registered 2026-11-11): fade the team whose defense concedes the
+  higher season-to-date share of opponents points in the paint (|z| >= 1, z scaled by the SD of earlier seasons), ATS
+  at the main closing line (ESPN pickcenter 2016-17..2022-23, OddsData 2023-24..2024-25) at -110. Expected ROI ~0 from
+  the dev slope (power note). Dev was scored by the agent script before registration with the same frozen rule.'
+decision_time: game day, at the close (pre-tip)
+price_model: book_quote
+split: vault:nba_paint_sides
+min_n: 200
+kill:
+  kind: roi_ci_below_zero
+  after_n: 200
+legacy: 'new 2026-11-11 (notes/nba_l30_paint.md)'

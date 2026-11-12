@@ -84,3 +84,23 @@ def l32b_forward(frame: pd.DataFrame, params: dict | None = None) -> pd.DataFram
                          "inputs_as_of": pd.to_datetime(d["t"], utc=True).to_numpy(),
                          "price_time": pd.to_datetime(d["open_t"], utc=True).to_numpy(),
                          "price": np.nan, "price_source": "book_quote", "side": d["pick"].to_numpy(), "stake": 1.0})
+
+
+def paint_sides(frame: pd.DataFrame, params: dict | None = None) -> pd.DataFrame:
+    """L30 P-PAINT fade (notes/nba_l30_paint.md): ATS side against the team conceding the higher season-to-date share of
+    opponents' points in the paint, |z| >= 1, at the closing spread. params.trial: PP1 (-110, main line) | PP2 (ESPN core
+    DK/ESPN BET close spread + odds). No tip times in the dev frame: event_start = game date 16:00 UTC (convention of
+    edgelab.rules.game_release), decided_at = price_time = start - 1 min, inputs_as_of = 00:00 ET game date (features
+    use games with date < d). Bet at the close -> close_price = price."""
+    f = frame[frame["trial"] == (params or {})["trial"]]
+    d = pd.to_datetime(f["date"]).dt.normalize()
+    start = d.dt.tz_localize("UTC") + pd.Timedelta(hours=16)
+    et0 = d.dt.tz_localize("America/New_York").dt.tz_convert("UTC")
+    b = pd.DataFrame({"bet_id": (f["game_id"].astype(str) + "|" + f["trial"].astype(str)).to_numpy(),
+                      "cluster": d.dt.strftime("%Y-%m-%d").to_numpy(),
+                      "event_start": start.to_numpy(), "decided_at": (start - pd.Timedelta(minutes=1)).to_numpy(),
+                      "inputs_as_of": et0.to_numpy(), "price_time": (start - pd.Timedelta(minutes=1)).to_numpy(),
+                      "price": np.round(1.0 / f["dec"].to_numpy(float), 6), "price_source": "book_quote",
+                      "side": f["sel"].to_numpy(), "stake": 1.0})
+    b["close_price"] = b["price"]
+    return b.reset_index(drop=True)

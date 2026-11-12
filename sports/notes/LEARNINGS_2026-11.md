@@ -54,6 +54,11 @@ Dose-response over 22 launches / 9,880 games: +0.042 SD per ln(launch-week reven
 GTA-VI scale (assumed $3B, an extrapolation) the most negative plausible effect is ~-0.07 SD, about break-even at -110.
 Hyped-only rule grh7 dev -7.90%/1,129. Source: notes/game_release_dose.md.
 
+### A real, partly unpriced NBA effect can still fail to beat the vig
+P-PAINT (teams allowing paint points): -0.537 pts/SD vs the spread, p 2.5e-5, leak-free; market prices ~30% of it. Yet
+the fade bet is flat (-0.01%/2,972 at -110; +0.66%/1,160 at real close) because +0.86 pts over close only lifts covers to
+52.4%. Effects under ~1-1.5 pts belong inside a model, not as standalone bets. Source: notes/nba_l30_paint.md.
+
 ### "Clutch" / comeback ability is not a team trait
 NBA comebacks depend only on deficit x time x spread (0/69 trait cells, 152 tests); Kalshi in-game calibrated 7/7 bins.
 Source: notes/nba_comebacks_matchups.md, notes/late_game_calibration.md.
