@@ -1,0 +1,16 @@
+id: knfl_l33_kalshi_taker
+family: nfl_lines
+dataset: kalshi_openers_nfl
+rule: edgelab.rules.forward:unwired
+hypothesis: 'K-NFL (notes/kalshi_openers_xleague.md, pre-registered 2026-11-12): the L33 NFL simple-model pick from the open_lines_logger (spread model B gap >= 2.0, total model C gap >= 2.5 vs the Pinnacle open), executed on Kalshi KXNFLSPREAD/KXNFLTOTAL at the logger decision tick (>= 30 min pre-kick). S = Kalshi strike (home-margin / total axis) nearest the Pinnacle open, tie -> favorable to our side; bet only if the gap at S still clears the threshold; buy the side at the ask + exact taker fee (100 ct); graded on the final vs S; CLV = Pinnacle close vs S signed. Dev = picks before 2026-11-12 (q2_nfl.py dev); forward from 2026-11-12 (q2_nfl.py forward).'
+decision_time: 'open_lines_logger L33 decision tick; Kalshi quote = last 1-min candle ending <= decision (forward = live orderbook at the tick once wired)'
+price_model: taker
+split: vault:kalshi_openers_nfl
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-12 (agent kalshi_openers_xleague). Unwired until an adapter reads results/kalshi_openers_xleague/q2_nfl_rows_forward.csv. Pre-reg judge: 100 settled, ROI@ask+fee > 0 one-sided p < .10 AND CLV > 0 -> sealed ask; kill ROI CI upper < 0 after 60 or CLV <= 0 after 100.'

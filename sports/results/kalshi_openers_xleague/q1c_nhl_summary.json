@@ -1,0 +1,17 @@
+{
+ "total": {
+  "n": 54,
+  "n_moved": 53,
+  "a_open": 0.073,
+  "a_close": 0.133,
+  "D": [
+   -0.059,
+   -0.091,
+   -0.029
+  ],
+  "closer_open": 0.66,
+  "k_minus_open": 0.008,
+  "used_next_hour": 0,
+  "open_close_abs": 0.123
+ }
+}

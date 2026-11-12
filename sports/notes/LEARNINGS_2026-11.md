@@ -89,6 +89,12 @@ at the Pinnacle-open tick Kalshi's implied total is 0.33 pts from the open vs 1.
 Kalshi ask + fee: CLV +1.37 pts [+0.35,+2.43], ROI +1.9% [-32.6,+36.3] (n27). Kalshi taker cost ~ -110, so compare to
 the -110 dev number (+4.8%), not no-vig. Source: notes/nba_l32b_exec.md.
 
+### Kalshi opens early on the opener for CFB, CBB and NHL too -- but CLV keeps failing to become ROI
+Timing gate D = |Kalshi-open| - |Kalshi-close| at first tight quote: CFB total -0.67, CBB total -1.07, NHL -0.048 (all
+CIs < 0); NFL fails vs ESPN's lookahead open. K-CFB n63 CLV +1.49 [+0.86,+2.13] but ROI -2.1%: buying the strike at the
+book open costs ~58c once Kalshi has moved. Third CLV-without-ROI case (L36 sealed, P-PAINT). Buy near 50c or the CLV
+is spent on price. Kalshi occurrence_datetime = kickoff + 3 h. Source: notes/kalshi_openers_xleague.md.
+
 ### Q004 lost because its totals model was biased, not because of timing
 Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
 what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.

@@ -1,0 +1,16 @@
+id: kcfb_l36_kalshi_taker
+family: cfb_lines
+dataset: kalshi_openers_cfb
+rule: edgelab.rules.forward:unwired
+hypothesis: 'K-CFB (notes/kalshi_openers_xleague.md, pre-registered 2026-11-12): frozen L36 CFB totals model (l36_cfb_sealed.predictions, results-only walk-forward) vs the Kalshi KXNCAAFTOTAL ladder at Kalshi first-tight hour (anchor spread <= 4c, >= 30 min pre-kick). S = strike nearest the DraftKings open (ESPN), tie -> favorable to our side; bet if |pred - S| >= 3.5; buy YES over / NO under at the ask + exact taker fee; graded on final vs S; CLV = DK close - S signed. FBS-vs-FBS only. Dev = 2026-10-01..11-11 (q2_cfb.py); forward from 2026-11-12.'
+decision_time: 'Kalshi first-tight hourly candle (forward = live tick logger)'
+price_model: taker
+split: vault:kalshi_openers_cfb
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-12 (agent kalshi_openers_xleague). Unwired (no forward logger yet). Pre-reg judge as K-NFL: 100 settled, ROI@ask+fee > 0 one-sided p < .10 AND CLV > 0 -> sealed ask; kill ROI CI upper < 0 after 60 or CLV <= 0 after 100.'

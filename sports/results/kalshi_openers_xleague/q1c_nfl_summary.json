@@ -1,0 +1,32 @@
+{
+ "spread": {
+  "n": 6,
+  "n_moved": 3,
+  "a_open": 0.214,
+  "a_close": 1.881,
+  "D": [
+   -1.667,
+   -2.5,
+   -0.5
+  ],
+  "closer_open": 1.0,
+  "k_minus_open": -0.209,
+  "used_next_hour": 0,
+  "open_close_abs": 1.667
+ },
+ "total": {
+  "n": 3,
+  "n_moved": 3,
+  "a_open": 0.274,
+  "a_close": 1.06,
+  "D": [
+   -0.786,
+   -1.357,
+   0.0
+  ],
+  "closer_open": 0.667,
+  "k_minus_open": 0.274,
+  "used_next_hour": 0,
+  "open_close_abs": 1.167
+ }
+}

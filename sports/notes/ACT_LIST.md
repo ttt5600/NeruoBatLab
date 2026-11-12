@@ -38,6 +38,12 @@ E4 sized 2x 11-05 (edgelab early step; caps $6.20/6 ct/day $60/open $80; loss st
   Score with every scorecard refresh: `cd sports && ../.venv_quant/bin/python results/nba_l32b_exec/q2_fetch.py &&
   ../.venv_quant/bin/python results/nba_l32b_exec/q2_score.py forward`. Live money only after it passes (Kelly rule).
 
+- **K-NFL / K-CFB (11-12, notes/kalshi_openers_xleague.md):** Kalshi lists early + sits on the opener for CFB (~6 d),
+  CBB (~20 h), NHL (~32 h); NFL gate fails vs ESPN's lookahead "open". K-CFB (frozen L36 totals) dev n63 CLV +1.49 pts
+  [+0.86,+2.13], ROI -2.1% [-23.9,+20.3] (avg cost .577 -- strike at the DK open is already off 50c); K-NFL n14 CLV +0.79
+  [+0.18,+1.43]. Edgelab knfl_l33_kalshi_taker-445b123e / kcfb_l36_kalshi_taker-613b7d62 (unwired, forward paper). Next
+  prereg: model gap vs Kalshi's 50c strike. CBB totals = best timing gate but no model yet.
+
 ## Tier C -- watch only (forward data says no for now)
 - L33 NFL vs opener: 3 settled (2-1). Too small; keep the logger.
 - L34 KILLED by its pre-set rule 11-10 (110 settled, CLV -0.0005 [-0.0044,+0.0033]); totals slice stays post hoc.

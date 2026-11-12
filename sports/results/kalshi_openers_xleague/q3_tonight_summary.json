@@ -1,0 +1,94 @@
+{
+ "ticks": 4,
+ "first_tick": "2026-11-12 17:28:04.960695+00:00",
+ "last_tick": "2026-11-12 17:59:11.002768+00:00",
+ "kal_cbb_spread": {
+  "events": 24,
+  "new": 0,
+  "new_h_before_kick_med": null,
+  "new_first_spread_med": null,
+  "new_tight": 0
+ },
+ "kal_cbb_total": {
+  "events": 24,
+  "new": 0,
+  "new_h_before_kick_med": null,
+  "new_first_spread_med": null,
+  "new_tight": 0
+ },
+ "kal_cfb_spread": {
+  "events": 120,
+  "new": 0,
+  "new_h_before_kick_med": null,
+  "new_first_spread_med": null,
+  "new_tight": 0
+ },
+ "kal_cfb_total": {
+  "events": 120,
+  "new": 0,
+  "new_h_before_kick_med": null,
+  "new_first_spread_med": null,
+  "new_tight": 0
+ },
+ "kal_nfl_spread": {
+  "events": 14,
+  "new": 0,
+  "new_h_before_kick_med": null,
+  "new_first_spread_med": null,
+  "new_tight": 0
+ },
+ "kal_nfl_total": {
+  "events": 14,
+  "new": 0,
+  "new_h_before_kick_med": null,
+  "new_first_spread_med": null,
+  "new_tight": 0
+ },
+ "kal_nhl_total": {
+  "events": 27,
+  "new": 0,
+  "new_h_before_kick_med": null,
+  "new_first_spread_med": null,
+  "new_tight": 0
+ },
+ "pin_cbb_spread": {
+  "games": 24,
+  "new": 0,
+  "new_h_before_kick_med": null
+ },
+ "pin_cbb_total": {
+  "games": 24,
+  "new": 0,
+  "new_h_before_kick_med": null
+ },
+ "pin_cfb_spread": {
+  "games": 61,
+  "new": 0,
+  "new_h_before_kick_med": null
+ },
+ "pin_cfb_total": {
+  "games": 60,
+  "new": 0,
+  "new_h_before_kick_med": null
+ },
+ "pin_nfl_spread": {
+  "games": 14,
+  "new": 0,
+  "new_h_before_kick_med": null
+ },
+ "pin_nfl_total": {
+  "games": 14,
+  "new": 0,
+  "new_h_before_kick_med": null
+ },
+ "pin_nhl_spread": {
+  "games": 10,
+  "new": 0,
+  "new_h_before_kick_med": null
+ },
+ "pin_nhl_total": {
+  "games": 10,
+  "new": 0,
+  "new_h_before_kick_med": null
+ }
+}
