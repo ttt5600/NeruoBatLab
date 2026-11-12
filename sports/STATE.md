@@ -1,3 +1,8 @@
+## 2026-11-12 STRUCTURE WAVE RUNNING (5 agents; user "keep searching, lots of edges"): kalshi_openers_xleague (L32b
+##   pattern on NFL/NHL/CBB + tonight's timing log), kalshi_first_listing (stale first prices, all sports series),
+##   wx_capacity (X1 maker audit, new weather series, per-city depth), lx1_logical_arb (read-only constraint scanner),
+##   lx2_tail_no_carry (long-dated tail NO incl. Kalshi 3.5% APY). Same-day dead: clutch-vs-market, B2B trend, props L5/L7.
+##   After /clear: merge unmerged findings_inbox rows (protocol), ingest LEARNINGS to vault.
 ## 2026-11-12 E5 ForecastEx kept live with 06:00 station-local event-day cutoff (user yes); kill = any loss in first 15
 ##   fills or ROI<0 after 30. Revert FX_CUTOFF_LOCAL_HOUR=off. IBKR ~$60 start -> $65.50 (read via ib_async clientId 41).
 ## 2026-11-12 E4 STEP 2 (user waived 14-day spacing): 24 ct / $24.80 per order, night+open $120 (NIGHT_FRAC .30);
