@@ -73,6 +73,31 @@ UNIT = 50.0
 TIER_B_USD = 0.5 * UNIT
 FRESH_H = 6
 CUTOFF_MIN = 15
+# 2026-11-12 (user yes; notes/e5_fix.md F1): informed sellers hit our bids 07:30-13:00 local on event day after the
+# morning forecast update, so bids are also cancelled at FX_CUTOFF_LOCAL_HOUR (default 6) station-local on the event
+# date. Set FX_CUTOFF_LOCAL_HOUR=off in .env to restore the old close-of-trading cutoff. Kill rule (preset 11-12): any
+# loss in the first 15 fills, or ROI < 0 after 30 fills -> stop E5 live.
+STATION_TZ = {
+    "LGA": "America/New_York", "BOS": "America/New_York", "PHL": "America/New_York", "DCA": "America/New_York",
+    "ATL": "America/New_York", "CLT": "America/New_York", "MIA": "America/New_York", "JAX": "America/New_York",
+    "DTW": "America/Detroit", "MSP": "America/Chicago", "MDW": "America/Chicago", "BNA": "America/Chicago",
+    "DFW": "America/Chicago", "OKC": "America/Chicago", "SAT": "America/Chicago", "AUS": "America/Chicago",
+    "HOU": "America/Chicago", "MSY": "America/Chicago", "BKF": "America/Denver", "PHX": "America/Phoenix",
+    "LAS": "America/Los_Angeles", "LAX": "America/Los_Angeles", "SFO": "America/Los_Angeles",
+    "SEA": "America/Los_Angeles",
+}
+
+
+def local_cutoff(code: str | None, event_date: str | None, env: dict | None = None) -> datetime | None:
+    """06:00 (FX_CUTOFF_LOCAL_HOUR) station-local on the event date, as UTC; None if disabled/unknown station."""
+    from zoneinfo import ZoneInfo
+    h = str((env or {}).get("FX_CUTOFF_LOCAL_HOUR", os.environ.get("FX_CUTOFF_LOCAL_HOUR", "6"))).strip().lower()
+    if h in ("off", "none", "") or not code or not event_date or code not in STATION_TZ:
+        return None
+    d = datetime.strptime(str(event_date)[:10], "%Y-%m-%d")
+    return d.replace(hour=int(h), tzinfo=ZoneInfo(STATION_TZ[code])).astimezone(timezone.utc)
+
+
 TAG = "E5X-"
 NOT_FOUND = "expired_not_found"   # past cutoff, gateway has no record, no fills, no position (see reconcile)
 DONE = {"filled", "cancelled", "canceled", "inactive", "expired", "rejected", NOT_FOUND}
@@ -182,6 +207,9 @@ class Exec:
         if c is None:
             return {**base, "action": "skip", "reason": "contract not listed"}
         cut = self.cutoff(c)
+        lc = local_cutoff(pick.get("code"), pick.get("event_date"), getattr(self.c, "env", None))
+        if cut is not None and lc is not None:
+            cut = min(cut, lc)
         if cut is None or now >= cut:
             return {**base, "action": "skip", "reason": f"past order cutoff {cut}"}
         b = self.c.book(t)

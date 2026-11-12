@@ -1,3 +1,5 @@
+## 2026-11-12 E5 ForecastEx kept live with 06:00 station-local event-day cutoff (user yes); kill = any loss in first 15
+##   fills or ROI<0 after 30. Revert FX_CUTOFF_LOCAL_HOUR=off. IBKR ~$60 start -> $65.50 (read via ib_async clientId 41).
 ## 2026-11-12 E4 STEP 2 (user waived 14-day spacing): 24 ct / $24.80 per order, night+open $120 (NIGHT_FRAC .30);
 ##   backup .env.bak-2026-11-12-preKelly2. 24 ct = depth ceiling. Revert to step 1 if E4 -$38 since 11-12. SIZING_RULE.md.
 ## 2026-11-11 NBA WAVE (5 agents, all merged; learnings in notes/LEARNINGS_2026-11.md, ingested to the vault by the lead

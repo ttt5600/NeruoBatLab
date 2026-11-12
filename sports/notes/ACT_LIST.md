@@ -47,6 +47,10 @@ E4 sized 2x 11-05 (edgelab early step; caps $6.20/6 ct/day $60/open $80; loss st
   0/188 open books with queue <= 5k (the "21%" were closed markets); EV +0.58c vs 1c fee; lock-queue logger unloaded
   (plist kept; reload: launchctl bootstrap gui/$UID ~/Library/LaunchAgents/com.jonathanwang.quant-sports-lock-queue.plist).
   Proposal: retire edgelab lock_t2_nba_maker99 (sealed stays closed).
+- **E5 LIVE PROBE with 06:00 cutoff (user yes 11-12):** bids cancelled at 06:00 station-local on the event day (before the
+  07:30-13:00 forecast-update sellers; notes/e5_fix.md F1). Deployed 11-12 (forecastex_exec.py STATION_TZ/local_cutoff;
+  backup .bak-2026-11-12-pre0600; revert: FX_CUTOFF_LOCAL_HOUR=off). KILL (preset 11-12): any loss in the first 15 fills,
+  or ROI < 0 after 30 fills -> stop E5 live. ~0.5 fills/day -> ~2 months to 30. IBKR started ~$60, $65.50 on 11-12.
 - E5/FX1 ForecastEx weather: STOP PROPOSED 11-10 (notes/e5_forecastex_audit.md). Maker fills adversely selected (every
   losing station-day filled, 0/200 unfilled days lost); asks on 6.9% of picks. Q008 KILLED by rule (0 qualifying/56).
   Also: bet.py loss stop blocked 373 FX picks on OTHER strategies' ~2.9u open risk (still daily after 11-07 fix);
