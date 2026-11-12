@@ -30,6 +30,18 @@ Give each bot its own order scope, never cancel-all. Source: notes/e4_live_audit
 UHATL_110626_75 (+$5.40) is in both bets.jsonl (E5) and forecastex_exec (E5X); cross-journal P&L sums double-count it.
 Source: memory-vault session report 2026-11-10.
 
+### Kalshi fills: `side` is the outcome you acquired; `action` is not buy/sell from your view
+E4 NO buys appear as action=sell side=no. Rule verified 11-12: YES delta = +count if side=='yes' else -count reproduced
+3/3 open positions (HOUSEME2 -46, KXHIGHCHI -12, KXHIGHPHIL -12) and nets JT-IND to 0; reading `action` literally gave
++142 for a -46 position. Each fill = acquire `side` at `<side>_price_dollars`; P&L per fill = count*(payoff(side)-price)
+-fee, which reproduced the exchange's election settlements exactly (-$143.34). (NFLF replicator used action on
+KXNFLGAME buy-yes/sell-yes fills and also matched -- check per series before trusting either reading.)
+
+### The election needle lost by SELLING, not by entering
+Rebuilt from all 655 fills: settled election P&L -$143.34; had every closing fill been skipped (hold each opening buy
+to settlement) it would have been about +$52.74 -> exits cost ~$196. Kalshi would be ~$822 vs $731 net in. Exits fired on
+a stale needle model during the count. Lesson: a pre-committed hold-to-settlement plan beats reacting to a model mid-count.
+
 ## Edge status (wave 5, 2026-11-10/11)
 
 ### E4 weather maker holds but is underpowered
