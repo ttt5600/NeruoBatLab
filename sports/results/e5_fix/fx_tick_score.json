@@ -1,0 +1,112 @@
+{
+ "n_traded_picks": 199,
+ "event_days": [
+  "2026-11-05",
+  "2026-11-06",
+  "2026-11-07",
+  "2026-11-08",
+  "2026-11-10",
+  "2026-11-11"
+ ],
+ "variants": [
+  {
+   "variant": "B0 rest to close",
+   "fills": 32,
+   "losses": 6,
+   "roi": -0.0892,
+   "units": -2.86
+  },
+  {
+   "variant": "F1 cancel 00:00",
+   "fills": 1,
+   "losses": 0,
+   "roi": 0.4085,
+   "units": 0.41
+  },
+  {
+   "variant": "F1 cancel 06:00",
+   "fills": 3,
+   "losses": 0,
+   "roi": 0.2647,
+   "units": 0.79
+  },
+  {
+   "variant": "F1 cancel 09:00",
+   "fills": 7,
+   "losses": 1,
+   "roi": 0.0149,
+   "units": 0.1
+  },
+  {
+   "variant": "F1 cancel 12:00",
+   "fills": 17,
+   "losses": 4,
+   "roi": -0.1135,
+   "units": -1.93
+  },
+  {
+   "variant": "F1 cancel 15:00",
+   "fills": 31,
+   "losses": 6,
+   "roi": -0.0953,
+   "units": -2.95
+  },
+  {
+   "variant": "F2 X=2",
+   "fills": 29,
+   "losses": 6,
+   "roi": -0.1079,
+   "units": -3.13
+  },
+  {
+   "variant": "F2 X=4",
+   "fills": 19,
+   "losses": 5,
+   "roi": -0.1541,
+   "units": -2.93
+  },
+  {
+   "variant": "F2 X=6",
+   "fills": 17,
+   "losses": 4,
+   "roi": -0.1178,
+   "units": -2.0
+  }
+ ],
+ "loser_fill_hours": [
+  7.53,
+  9.72,
+  9.77,
+  10.63,
+  12.75,
+  13.07
+ ],
+ "winner_fill_hours": [
+  -0.62,
+  0.33,
+  2.79,
+  6.23,
+  7.08,
+  8.04,
+  9.21,
+  10.42,
+  10.47,
+  10.74,
+  11.21,
+  11.35,
+  11.35,
+  12.82,
+  13.27,
+  13.27,
+  13.68,
+  13.68,
+  13.93,
+  14.01,
+  14.11,
+  14.36,
+  14.37,
+  14.43,
+  14.53,
+  19.35
+ ]
+}

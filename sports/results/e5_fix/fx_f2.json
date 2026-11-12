@@ -1,0 +1,188 @@
+{
+ "metar_max_vs_settlement_agree": 1.0,
+ "n": 693,
+ "X2": {
+  "picks_triggered": 89,
+  "fills_on_untriggered": 22,
+  "losses_on_untriggered": 0,
+  "roi_optimistic": 0.0826,
+  "units_optimistic": 1.82,
+  "fills_on_triggered": 32,
+  "winner_fills_on_triggered": 20,
+  "loser_trigger_local_hour": [
+   8.1,
+   9.1,
+   9.1,
+   13.1,
+   13.1,
+   13.1,
+   13.1,
+   13.1,
+   13.1,
+   14.1,
+   14.1,
+   14.1
+  ]
+ },
+ "X4": {
+  "picks_triggered": 233,
+  "fills_on_untriggered": 6,
+  "losses_on_untriggered": 0,
+  "roi_optimistic": 0.1333,
+  "units_optimistic": 0.8,
+  "fills_on_triggered": 48,
+  "winner_fills_on_triggered": 36,
+  "loser_trigger_local_hour": [
+   0.3,
+   0.3,
+   8.1,
+   12.1,
+   12.1,
+   12.1,
+   12.1,
+   12.1,
+   13.1,
+   13.1,
+   13.1,
+   13.1
+  ]
+ },
+ "X6": {
+  "picks_triggered": 417,
+  "fills_on_untriggered": 2,
+  "losses_on_untriggered": 0,
+  "roi_optimistic": 0.266,
+  "units_optimistic": 0.53,
+  "fills_on_triggered": 52,
+  "winner_fills_on_triggered": 40,
+  "loser_trigger_local_hour": [
+   0.3,
+   0.3,
+   0.3,
+   10.1,
+   10.1,
+   11.1,
+   12.1,
+   12.1,
+   12.1,
+   12.1,
+   12.1,
+   12.1
+  ]
+ },
+ "losers": [
+  {
+   "ticker": "UHMIA_110226_82",
+   "side": "NO",
+   "X": 82.0,
+   "side_bid": 0.84,
+   "low_d": 0.02,
+   "obs_max": 85.0,
+   "trig4_local_h": 0.3333333333333333
+  },
+  {
+   "ticker": "UHMIA_110226_83",
+   "side": "NO",
+   "X": 83.0,
+   "side_bid": 0.9,
+   "low_d": 0.02,
+   "obs_max": 85.0,
+   "trig4_local_h": 0.3333333333333333
+  },
+  {
+   "ticker": "UHMIA_110226_84",
+   "side": "NO",
+   "X": 84.0,
+   "side_bid": 0.94,
+   "low_d": 0.02,
+   "obs_max": 85.0,
+   "trig4_local_h": 8.133333333333333
+  },
+  {
+   "ticker": "UHBNA_110226_75",
+   "side": "NO",
+   "X": 75.0,
+   "side_bid": 0.9,
+   "low_d": 0.02,
+   "obs_max": 78.0,
+   "trig4_local_h": 12.133333333333333
+  },
+  {
+   "ticker": "UHBNA_110226_76",
+   "side": "NO",
+   "X": 76.0,
+   "side_bid": 0.94,
+   "low_d": 0.02,
+   "obs_max": 78.0,
+   "trig4_local_h": 13.133333333333333
+  },
+  {
+   "ticker": "UHBNA_110226_77",
+   "side": "NO",
+   "X": 77.0,
+   "side_bid": 0.94,
+   "low_d": 0.02,
+   "obs_max": 78.0,
+   "trig4_local_h": 13.133333333333333
+  },
+  {
+   "ticker": "UHATL_110526_77",
+   "side": "NO",
+   "X": 77.0,
+   "side_bid": 0.76,
+   "low_d": 0.02,
+   "obs_max": 80.0,
+   "trig4_local_h": 12.116666666666667
+  },
+  {
+   "ticker": "UHATL_110526_78",
+   "side": "NO",
+   "X": 78.0,
+   "side_bid": 0.86,
+   "low_d": 0.12,
+   "obs_max": 80.0,
+   "trig4_local_h": 12.116666666666667
+  },
+  {
+   "ticker": "UHATL_110526_79",
+   "side": "NO",
+   "X": 79.0,
+   "side_bid": 0.92,
+   "low_d": 0.02,
+   "obs_max": 80.0,
+   "trig4_local_h": 13.116666666666667
+  },
+  {
+   "ticker": "UHOKC_110526_68",
+   "side": "NO",
+   "X": 68.0,
+   "side_bid": 0.92,
+   "low_d": 0.02,
+   "obs_max": 69.0,
+   "trig4_local_h": 12.116666666666667
+  },
+  {
+   "ticker": "UHBNA_110726_59",
+   "side": "NO",
+   "X": 59.0,
+   "side_bid": 0.88,
+   "low_d": 0.02,
+   "obs_max": 60.0,
+   "trig4_local_h": 12.133333333333333
+  },
+  {
+   "ticker": "UHMSP_110726_54",
+   "side": "NO",
+   "X": 54.0,
+   "side_bid": 0.88,
+   "low_d": 0.04,
+   "obs_max": 55.0,
+   "trig4_local_h": 13.133333333333333
+  }
+ ],
+ "B0": {
+  "fills": 54,
+  "roi": -0.1443,
+  "units": -7.79
+ }
+}

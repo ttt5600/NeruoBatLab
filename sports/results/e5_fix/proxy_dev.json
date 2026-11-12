@@ -1,0 +1,811 @@
+{
+ "N10": [
+  {
+   "variant": "B0 rest to close",
+   "n_picks": 1713,
+   "fills": 1146,
+   "fill_rate": 0.669,
+   "losses_filled": 70,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0611,
+   "roi": 0.0304,
+   "ci": [
+    0.0144,
+    0.0462
+   ],
+   "p": 0.0,
+   "units": 34.85,
+   "fills_per_day": 2.73,
+   "mean_cost_filled": 0.913,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 00:00 local D",
+   "n_picks": 1713,
+   "fills": 519,
+   "fill_rate": 0.303,
+   "losses_filled": 34,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0655,
+   "roi": 0.0376,
+   "ci": [
+    0.0127,
+    0.0616
+   ],
+   "p": 0.0022,
+   "units": 19.53,
+   "fills_per_day": 1.24,
+   "mean_cost_filled": 0.906,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 06:00 local D",
+   "n_picks": 1713,
+   "fills": 800,
+   "fill_rate": 0.467,
+   "losses_filled": 41,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0512,
+   "roi": 0.0395,
+   "ci": [
+    0.0212,
+    0.0579
+   ],
+   "p": 0.0,
+   "units": 31.56,
+   "fills_per_day": 1.9,
+   "mean_cost_filled": 0.918,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 09:00 local D",
+   "n_picks": 1713,
+   "fills": 953,
+   "fill_rate": 0.556,
+   "losses_filled": 51,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0535,
+   "roi": 0.0361,
+   "ci": [
+    0.0193,
+    0.0534
+   ],
+   "p": 0.0,
+   "units": 34.42,
+   "fills_per_day": 2.27,
+   "mean_cost_filled": 0.917,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 12:00 local D",
+   "n_picks": 1713,
+   "fills": 1038,
+   "fill_rate": 0.606,
+   "losses_filled": 55,
+   "losses_all": 70,
+   "loss_rate_filled": 0.053,
+   "roi": 0.0366,
+   "ci": [
+    0.0208,
+    0.0525
+   ],
+   "p": 0.0,
+   "units": 38.04,
+   "fills_per_day": 2.47,
+   "mean_cost_filled": 0.916,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 15:00 local D",
+   "n_picks": 1713,
+   "fills": 1105,
+   "fill_rate": 0.645,
+   "losses_filled": 65,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0588,
+   "roi": 0.0303,
+   "ci": [
+    0.0142,
+    0.0466
+   ],
+   "p": 0.0003,
+   "units": 33.5,
+   "fills_per_day": 2.63,
+   "mean_cost_filled": 0.915,
+   "pass": true
+  },
+  {
+   "variant": "F2 obs X=2F",
+   "n_picks": 1713,
+   "fills": 1128,
+   "fill_rate": 0.658,
+   "losses_filled": 62,
+   "losses_all": 70,
+   "loss_rate_filled": 0.055,
+   "roi": 0.0345,
+   "ci": [
+    0.0195,
+    0.0493
+   ],
+   "p": 0.0,
+   "units": 38.91,
+   "fills_per_day": 2.69,
+   "mean_cost_filled": 0.916,
+   "pass": true
+  },
+  {
+   "variant": "F2 obs X=4F",
+   "n_picks": 1713,
+   "fills": 1099,
+   "fill_rate": 0.642,
+   "losses_filled": 57,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0519,
+   "roi": 0.0371,
+   "ci": [
+    0.0225,
+    0.0526
+   ],
+   "p": 0.0,
+   "units": 40.81,
+   "fills_per_day": 2.62,
+   "mean_cost_filled": 0.917,
+   "pass": true
+  },
+  {
+   "variant": "F2 obs X=6F",
+   "n_picks": 1713,
+   "fills": 1056,
+   "fill_rate": 0.616,
+   "losses_filled": 56,
+   "losses_all": 70,
+   "loss_rate_filled": 0.053,
+   "roi": 0.0346,
+   "ci": [
+    0.0193,
+    0.0504
+   ],
+   "p": 0.0,
+   "units": 36.54,
+   "fills_per_day": 2.51,
+   "mean_cost_filled": 0.918,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-2c",
+   "n_picks": 1713,
+   "fills": 814,
+   "fill_rate": 0.475,
+   "losses_filled": 68,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0835,
+   "roi": 0.0451,
+   "ci": [
+    0.0226,
+    0.0674
+   ],
+   "p": 0.0,
+   "units": 36.71,
+   "fills_per_day": 1.94,
+   "mean_cost_filled": 0.88,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-5c",
+   "n_picks": 1713,
+   "fills": 588,
+   "fill_rate": 0.343,
+   "losses_filled": 68,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1156,
+   "roi": 0.062,
+   "ci": [
+    0.0316,
+    0.0939
+   ],
+   "p": 0.0,
+   "units": 36.46,
+   "fills_per_day": 1.4,
+   "mean_cost_filled": 0.835,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-10c",
+   "n_picks": 1713,
+   "fills": 430,
+   "fill_rate": 0.251,
+   "losses_filled": 65,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1512,
+   "roi": 0.0998,
+   "ci": [
+    0.0552,
+    0.1424
+   ],
+   "p": 0.0,
+   "units": 42.92,
+   "fills_per_day": 1.02,
+   "mean_cost_filled": 0.776,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-15c",
+   "n_picks": 1713,
+   "fills": 344,
+   "fill_rate": 0.201,
+   "losses_filled": 65,
+   "losses_all": 70,
+   "loss_rate_filled": 0.189,
+   "roi": 0.1394,
+   "ci": [
+    0.0804,
+    0.1991
+   ],
+   "p": 0.0,
+   "units": 47.95,
+   "fills_per_day": 0.82,
+   "mean_cost_filled": 0.719,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-20c",
+   "n_picks": 1713,
+   "fills": 285,
+   "fill_rate": 0.166,
+   "losses_filled": 63,
+   "losses_all": 70,
+   "loss_rate_filled": 0.2211,
+   "roi": 0.1766,
+   "ci": [
+    0.1023,
+    0.2549
+   ],
+   "p": 0.0,
+   "units": 50.33,
+   "fills_per_day": 0.68,
+   "mean_cost_filled": 0.671,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F1 09:00 x F3 -5c",
+   "n_picks": 1713,
+   "fills": 331,
+   "fill_rate": 0.193,
+   "losses_filled": 37,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1118,
+   "roi": 0.0669,
+   "ci": [
+    0.0219,
+    0.1101
+   ],
+   "p": 0.0027,
+   "units": 22.15,
+   "fills_per_day": 0.79,
+   "mean_cost_filled": 0.836,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F1 12:00 x F3 -5c",
+   "n_picks": 1713,
+   "fills": 434,
+   "fill_rate": 0.253,
+   "losses_filled": 47,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1083,
+   "roi": 0.0767,
+   "ci": [
+    0.0387,
+    0.1132
+   ],
+   "p": 0.0,
+   "units": 33.27,
+   "fills_per_day": 1.03,
+   "mean_cost_filled": 0.834,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F2 X=4 x F3 -5c",
+   "n_picks": 1713,
+   "fills": 519,
+   "fill_rate": 0.303,
+   "losses_filled": 52,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1002,
+   "roi": 0.0736,
+   "ci": [
+    0.0403,
+    0.105
+   ],
+   "p": 0.0,
+   "units": 38.17,
+   "fills_per_day": 1.24,
+   "mean_cost_filled": 0.843,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F1 09:00 x F3 -10c",
+   "n_picks": 1713,
+   "fills": 194,
+   "fill_rate": 0.113,
+   "losses_filled": 27,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1392,
+   "roi": 0.0984,
+   "ci": [
+    0.0314,
+    0.1653
+   ],
+   "p": 0.0027,
+   "units": 19.09,
+   "fills_per_day": 0.46,
+   "mean_cost_filled": 0.785,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F1 12:00 x F3 -10c",
+   "n_picks": 1713,
+   "fills": 282,
+   "fill_rate": 0.165,
+   "losses_filled": 40,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1418,
+   "roi": 0.1174,
+   "ci": [
+    0.0587,
+    0.1716
+   ],
+   "p": 0.0,
+   "units": 33.1,
+   "fills_per_day": 0.67,
+   "mean_cost_filled": 0.774,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F2 X=4 x F3 -10c",
+   "n_picks": 1713,
+   "fills": 341,
+   "fill_rate": 0.199,
+   "losses_filled": 46,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1349,
+   "roi": 0.1089,
+   "ci": [
+    0.0615,
+    0.1564
+   ],
+   "p": 0.0,
+   "units": 37.13,
+   "fills_per_day": 0.81,
+   "mean_cost_filled": 0.786,
+   "pass": true
+  }
+ ],
+ "N1": [
+  {
+   "variant": "B0 rest to close",
+   "n_picks": 1713,
+   "fills": 1218,
+   "fill_rate": 0.711,
+   "losses_filled": 70,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0575,
+   "roi": 0.0334,
+   "ci": [
+    0.0186,
+    0.0486
+   ],
+   "p": 0.0,
+   "units": 40.66,
+   "fills_per_day": 2.9,
+   "mean_cost_filled": 0.914,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 00:00 local D",
+   "n_picks": 1713,
+   "fills": 585,
+   "fill_rate": 0.342,
+   "losses_filled": 36,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0615,
+   "roi": 0.0362,
+   "ci": [
+    0.0137,
+    0.0586
+   ],
+   "p": 0.002,
+   "units": 21.17,
+   "fills_per_day": 1.39,
+   "mean_cost_filled": 0.91,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 06:00 local D",
+   "n_picks": 1713,
+   "fills": 879,
+   "fill_rate": 0.513,
+   "losses_filled": 43,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0489,
+   "roi": 0.0403,
+   "ci": [
+    0.0239,
+    0.0565
+   ],
+   "p": 0.0,
+   "units": 35.46,
+   "fills_per_day": 2.09,
+   "mean_cost_filled": 0.919,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 09:00 local D",
+   "n_picks": 1713,
+   "fills": 1035,
+   "fill_rate": 0.604,
+   "losses_filled": 52,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0502,
+   "roi": 0.0384,
+   "ci": [
+    0.0222,
+    0.0547
+   ],
+   "p": 0.0,
+   "units": 39.76,
+   "fills_per_day": 2.46,
+   "mean_cost_filled": 0.918,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 12:00 local D",
+   "n_picks": 1713,
+   "fills": 1114,
+   "fill_rate": 0.65,
+   "losses_filled": 57,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0512,
+   "roi": 0.0376,
+   "ci": [
+    0.0226,
+    0.0524
+   ],
+   "p": 0.0,
+   "units": 41.9,
+   "fills_per_day": 2.65,
+   "mean_cost_filled": 0.917,
+   "pass": true
+  },
+  {
+   "variant": "F1 cancel 15:00 local D",
+   "n_picks": 1713,
+   "fills": 1175,
+   "fill_rate": 0.686,
+   "losses_filled": 66,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0562,
+   "roi": 0.0323,
+   "ci": [
+    0.017,
+    0.0475
+   ],
+   "p": 0.0,
+   "units": 37.93,
+   "fills_per_day": 2.8,
+   "mean_cost_filled": 0.916,
+   "pass": true
+  },
+  {
+   "variant": "F2 obs X=2F",
+   "n_picks": 1713,
+   "fills": 1202,
+   "fill_rate": 0.702,
+   "losses_filled": 64,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0532,
+   "roi": 0.0355,
+   "ci": [
+    0.0212,
+    0.0494
+   ],
+   "p": 0.0003,
+   "units": 42.63,
+   "fills_per_day": 2.86,
+   "mean_cost_filled": 0.916,
+   "pass": true
+  },
+  {
+   "variant": "F2 obs X=4F",
+   "n_picks": 1713,
+   "fills": 1173,
+   "fill_rate": 0.685,
+   "losses_filled": 60,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0512,
+   "roi": 0.037,
+   "ci": [
+    0.0222,
+    0.0512
+   ],
+   "p": 0.0,
+   "units": 43.39,
+   "fills_per_day": 2.79,
+   "mean_cost_filled": 0.918,
+   "pass": true
+  },
+  {
+   "variant": "F2 obs X=6F",
+   "n_picks": 1713,
+   "fills": 1133,
+   "fill_rate": 0.661,
+   "losses_filled": 58,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0512,
+   "roi": 0.036,
+   "ci": [
+    0.0214,
+    0.0507
+   ],
+   "p": 0.0,
+   "units": 40.81,
+   "fills_per_day": 2.7,
+   "mean_cost_filled": 0.919,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-2c",
+   "n_picks": 1713,
+   "fills": 871,
+   "fill_rate": 0.508,
+   "losses_filled": 69,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0792,
+   "roi": 0.0481,
+   "ci": [
+    0.0267,
+    0.0697
+   ],
+   "p": 0.0,
+   "units": 41.92,
+   "fills_per_day": 2.07,
+   "mean_cost_filled": 0.881,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-5c",
+   "n_picks": 1713,
+   "fills": 628,
+   "fill_rate": 0.367,
+   "losses_filled": 69,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1099,
+   "roi": 0.0656,
+   "ci": [
+    0.0349,
+    0.0946
+   ],
+   "p": 0.0,
+   "units": 41.22,
+   "fills_per_day": 1.5,
+   "mean_cost_filled": 0.838,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-10c",
+   "n_picks": 1713,
+   "fills": 465,
+   "fill_rate": 0.271,
+   "losses_filled": 66,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1419,
+   "roi": 0.1095,
+   "ci": [
+    0.0693,
+    0.1511
+   ],
+   "p": 0.0,
+   "units": 50.91,
+   "fills_per_day": 1.11,
+   "mean_cost_filled": 0.778,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-15c",
+   "n_picks": 1713,
+   "fills": 381,
+   "fill_rate": 0.222,
+   "losses_filled": 66,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1732,
+   "roi": 0.1554,
+   "ci": [
+    0.101,
+    0.2086
+   ],
+   "p": 0.0,
+   "units": 59.21,
+   "fills_per_day": 0.91,
+   "mean_cost_filled": 0.722,
+   "pass": true
+  },
+  {
+   "variant": "F3 bid q0-20c",
+   "n_picks": 1713,
+   "fills": 312,
+   "fill_rate": 0.182,
+   "losses_filled": 63,
+   "losses_all": 70,
+   "loss_rate_filled": 0.2019,
+   "roi": 0.2023,
+   "ci": [
+    0.1345,
+    0.2747
+   ],
+   "p": 0.0,
+   "units": 63.13,
+   "fills_per_day": 0.74,
+   "mean_cost_filled": 0.673,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F1 09:00 x F3 -5c",
+   "n_picks": 1713,
+   "fills": 351,
+   "fill_rate": 0.205,
+   "losses_filled": 37,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1054,
+   "roi": 0.0752,
+   "ci": [
+    0.0327,
+    0.1165
+   ],
+   "p": 0.0,
+   "units": 26.39,
+   "fills_per_day": 0.84,
+   "mean_cost_filled": 0.837,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F1 12:00 x F3 -5c",
+   "n_picks": 1713,
+   "fills": 465,
+   "fill_rate": 0.271,
+   "losses_filled": 49,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1054,
+   "roi": 0.0771,
+   "ci": [
+    0.0425,
+    0.1109
+   ],
+   "p": 0.0,
+   "units": 35.83,
+   "fills_per_day": 1.11,
+   "mean_cost_filled": 0.836,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F2 X=4 x F3 -5c",
+   "n_picks": 1713,
+   "fills": 559,
+   "fill_rate": 0.326,
+   "losses_filled": 54,
+   "losses_all": 70,
+   "loss_rate_filled": 0.0966,
+   "roi": 0.075,
+   "ci": [
+    0.0439,
+    0.1051
+   ],
+   "p": 0.0,
+   "units": 41.91,
+   "fills_per_day": 1.33,
+   "mean_cost_filled": 0.845,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F1 09:00 x F3 -10c",
+   "n_picks": 1713,
+   "fills": 207,
+   "fill_rate": 0.121,
+   "losses_filled": 27,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1304,
+   "roi": 0.1092,
+   "ci": [
+    0.0448,
+    0.1735
+   ],
+   "p": 0.0008,
+   "units": 22.61,
+   "fills_per_day": 0.49,
+   "mean_cost_filled": 0.786,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F1 12:00 x F3 -10c",
+   "n_picks": 1713,
+   "fills": 307,
+   "fill_rate": 0.179,
+   "losses_filled": 41,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1336,
+   "roi": 0.1251,
+   "ci": [
+    0.0734,
+    0.1776
+   ],
+   "p": 0.0,
+   "units": 38.39,
+   "fills_per_day": 0.73,
+   "mean_cost_filled": 0.776,
+   "pass": true
+  },
+  {
+   "variant": "[desc] F2 X=4 x F3 -10c",
+   "n_picks": 1713,
+   "fills": 374,
+   "fill_rate": 0.218,
+   "losses_filled": 47,
+   "losses_all": 70,
+   "loss_rate_filled": 0.1257,
+   "roi": 0.1198,
+   "ci": [
+    0.0754,
+    0.1631
+   ],
+   "p": 0.0,
+   "units": 44.81,
+   "fills_per_day": 0.89,
+   "mean_cost_filled": 0.787,
+   "pass": true
+  }
+ ],
+ "timing_N10": {
+  "bins_h_after_local_midnight": [
+   -6,
+   0,
+   6,
+   9,
+   12,
+   15,
+   18,
+   30
+  ],
+  "winners": [
+   485,
+   274,
+   143,
+   81,
+   57,
+   31,
+   5
+  ],
+  "losers": [
+   34,
+   7,
+   10,
+   4,
+   10,
+   1,
+   4
+  ]
+ },
+ "meta": {
+  "split": "dev",
+  "n_picks": 1713,
+  "dates": [
+   "2024-03-01",
+   "2026-02-28"
+  ],
+  "side_counts": {
+   "above": 1418,
+   "below": 295
+  },
+  "picks_no_obs": 0,
+  "bar_p": 0.0038461538461538464,
+  "fee": 0.01
+ }
+}

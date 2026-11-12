@@ -37,6 +37,12 @@ E4 NO buys appear as action=sell side=no. Rule verified 11-12: YES delta = +coun
 -fee, which reproduced the exchange's election settlements exactly (-$143.34). (NFLF replicator used action on
 KXNFLGAME buy-yes/sell-yes fills and also matched -- check per series before trusting either reading.)
 
+### ForecastEx informed sellers trade on morning forecast updates, not on the thermometer
+IBKR reqHistoricalTicks gives timestamped ForecastEx trades (contracts vanish ~1 week after expiry; walk 12 h windows).
+All 6 tick-covered losers were sold through our bid 07:30-13:00 local while obs were 3-17F short -> an observation-
+triggered cancel is too late (-10.8%); lower bids only drop winners (losers trade to ~2c). Kalshi same-city markets are
+not a proxy (fill 67-77% vs ~8%). Source: notes/e5_fix.md.
+
 ### The election needle lost by SELLING, not by entering
 Rebuilt from all 655 fills: settled election P&L -$143.34; had every closing fill been skipped (hold each opening buy
 to settlement) it would have been about +$52.74 -> exits cost ~$196. Kalshi would be ~$822 vs $731 net in. Exits fired on

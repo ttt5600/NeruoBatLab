@@ -1,0 +1,8 @@
+944348578 details: 1 Contract(secType='OPT', conId=944348578, symbol='UHPHL', lastTradeDateOrContractMonth='20261112', strike=66.0, right='P', multiplier='1', exchange='FORECASTX', currency='USD', localSymbol='UHPHL_111226_66_NO', tradingClass='UHPHL')
+Error 162, reqId 191: Historical Market Data Service error message:HMDS query returned no data: UHPHL_111226_66_NO@FORECASTX Trades, contract: Contract(secType='OPT', conId=944348578, symbol='UHPHL', lastTradeDateOrContractMonth='20261112', strike=66.0, right='P', multiplier='1', exchange='FORECASTX', currency='USD', localSymbol='UHPHL_111226_66_NO', tradingClass='UHPHL')
+  TRADES 0 [] []
+Error 162, reqId 192: Historical Market Data Service error message:HMDS query returned no data: UHPHL_111226_66_NO@FORECASTX Midpoint, contract: Contract(secType='OPT', conId=944348578, symbol='UHPHL', lastTradeDateOrContractMonth='20261112', strike=66.0, right='P', multiplier='1', exchange='FORECASTX', currency='USD', localSymbol='UHPHL_111226_66_NO', tradingClass='UHPHL')
+  MIDPOINT 0 [] []
+Error 162, reqId 193: Historical Market Data Service error message:HMDS query returned no data: UHPHL_111226_66_NO@FORECASTX Bid, contract: Contract(secType='OPT', conId=944348578, symbol='UHPHL', lastTradeDateOrContractMonth='20261112', strike=66.0, right='P', multiplier='1', exchange='FORECASTX', currency='USD', localSymbol='UHPHL_111226_66_NO', tradingClass='UHPHL')
+  BID_ASK 0 [] []
+  ticks 0 []

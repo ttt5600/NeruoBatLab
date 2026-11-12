@@ -1,0 +1,17 @@
+id: e5fix_f3_bid_m2
+family: kalshi_weather_temp
+dataset: kalshi_temp_maker+forecastex_paper
+rule: null
+params: {}
+hypothesis: 'E5 fix (notes/e5_fix.md): FX consensus-reject picks executed as a NO/YES
+  bid at the best bid at 22:00 local D-1; Kalshi KXHIGH E1+X1 dev picks as timestamped
+  proxy (fill iff >= 10 printed at <= q), FX daily lows as check. F3: bid q0 - 2c,
+  rest to close.'
+decision_time: 22:00 station-local on D-1
+price_model: maker_tape
+split: 'dev: kalshi E1/X1 dev picks; FX event_date < 2026-11-01'
+min_n: 100
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+legacy: new 2026-11-11 e5_fix agent (results/e5_fix/proxy.py, fx_check.py, fx_f2.py)
