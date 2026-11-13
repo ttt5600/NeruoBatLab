@@ -47,6 +47,12 @@ E4 sized 2x 11-05 (edgelab early step; caps $6.20/6 ct/day $60/open $80; loss st
   ~0.85 pts (NBA +0.88, CFB +0.82) < taker break-even ~1.2-1.4 -> ROI ~0 (NBA -2.2%/25, CFB -7.3%/71). Lowered prior for
   K1/K-CFB: expect ~break-even. K50-NFL qualifies for forward paper (underpowered). LO ladder-optimal killed (NBA/NFL).
 
+- **Forward jobs (11-13, notes/ops_forward_wiring.md):** launchd com.jonathanwang.quant-sports-{kx-k1, kx-knfl (K-NFL +
+  K50-NFL), kx-kcfb, kx-openers, lx1}; rows in ~/.claude/quant-sports/data/kx_forward/<trial>.jsonl; shared Kalshi
+  throttle scripts/kx_throttle.py (~3.3 req/s). Stop one: launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-<job>;
+  stop all quant-sports jobs: touch ~/.claude/quant-sports/STOP. LX1 self-stops 2026-11-20 08:00Z. Score with
+  `python -m edgelab evaluate <trial> --split forward` (first real run locks the adapter hash).
+
 ## Tier C -- watch only (forward data says no for now)
 - L33 NFL vs opener: 3 settled (2-1). Too small; keep the logger.
 - L34 KILLED by its pre-set rule 11-10 (110 settled, CLV -0.0005 [-0.0044,+0.0033]); totals slice stays post hoc.
