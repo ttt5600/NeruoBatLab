@@ -121,6 +121,12 @@ bigger gaps worse (EV >= 5%: -78%, n18). Free Pinnacle odds are cached up to ~15
 behind. Team matcher bug: gap_logger._first() maps West Ham and West Bromwich both to "west" (fake +146% EV). F3's
 draw-heavy flags came from counting repeated rows; by first tick draws are 12%. Source: notes/kalshi_soccer_sharp.md.
 
+### Against Kalshi's own line, our opener models' edge is ~0.85 pts -- below taker break-even
+K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.88 [+0.56,+1.31] n25, CFB +0.82
+[+0.40,+1.35] n71; ROI NBA -2.2%, CFB -7.3%. Taker break-even needs ~+1.40 (NBA) / +1.16 (CFB) pts; CLV predicts NBA -2.1%,
+observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
+Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
+
 ### Q004 lost because its totals model was biased, not because of timing
 Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
 what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.

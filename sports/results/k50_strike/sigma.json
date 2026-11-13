@@ -1,0 +1,38 @@
+{
+ "nba": {
+  "season": 2026,
+  "n_total": 1230,
+  "sd_total": 18.61,
+  "bias_total": 0.86,
+  "n_spread": 1230,
+  "sd_spread": 14.18,
+  "providers": {
+   "Draft Kings": 980,
+   "ESPN BET": 251
+  }
+ },
+ "nfl": {
+  "season": 2025,
+  "n_total": 270,
+  "sd_total": 13.09,
+  "bias_total": 0.76,
+  "n_spread": 269,
+  "sd_spread": 12.51,
+  "providers": {
+   "ESPN BET": 177,
+   "Draft Kings": 95
+  }
+ },
+ "cfb": {
+  "season": 2025,
+  "n_total": 901,
+  "sd_total": 15.39,
+  "bias_total": 0.19,
+  "n_spread": 897,
+  "sd_spread": 15.09,
+  "providers": {
+   "ESPN BET": 851,
+   "Draft Kings": 57
+  }
+ }
+}

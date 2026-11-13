@@ -1,0 +1,47 @@
+{
+ "nba_k50_k3.0": {
+  "n": 25,
+  "roi_obs": -0.0224,
+  "roi_clv_implied": -0.021,
+  "clv": 0.88,
+  "cost": 0.5299,
+  "clv_breakeven_pts": 1.4,
+  "cents_per_pt": 2.14
+ },
+ "nba_lo": {
+  "n": 33,
+  "roi_obs": -0.1725,
+  "roi_clv_implied": -0.0163,
+  "clv": -1.73,
+  "cost": 0.4713,
+  "clv_breakeven_pts": -1.34,
+  "cents_per_pt": 2.14
+ },
+ "cfb_k50_k3.5": {
+  "n": 71,
+  "roi_obs": -0.0732,
+  "roi_clv_implied": -0.0173,
+  "clv": 0.82,
+  "cost": 0.53,
+  "clv_breakeven_pts": 1.16,
+  "cents_per_pt": 2.59
+ },
+ "cfb_lo": {
+  "n": 125,
+  "roi_obs": -0.1045,
+  "roi_clv_implied": -0.0189,
+  "clv": 0.02,
+  "cost": 0.5098,
+  "clv_breakeven_pts": 0.38,
+  "cents_per_pt": 2.59
+ },
+ "nfl_lo": {
+  "n": 30,
+  "roi_obs": -0.362,
+  "roi_clv_implied": 0.0387,
+  "clv": -2.68,
+  "cost": 0.409,
+  "clv_breakeven_pts": -2.93,
+  "cents_per_pt": 3.14
+ }
+}

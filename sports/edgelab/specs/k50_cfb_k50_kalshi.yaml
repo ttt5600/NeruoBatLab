@@ -1,0 +1,16 @@
+id: k50_cfb_k50_kalshi
+family: cfb_lines
+dataset: kalshi_openers_cfb
+hypothesis: 'k50_strike (notes/k50_strike.md, pre-registered 2026-11-13 before any outcome). K50-CFB: frozen L36 pred_total vs Kalshi''s own anchor strike S50 (two-sided strike with mid nearest 50c at T). Bet over/home if m - S50 >= k, under/away if <= -k, k = 3.5; buy S50 at the ask + exact taker fee; graded on final vs S50; CLV = close - S50 signed.'
+decision_time: Kalshi first-tight hourly candle (>=30 min pre-kick)
+split: vault:kalshi_openers_cfb
+legacy: new 2026-11-13 (agent k50_strike). Dev = same games as K1/K-CFB/K-NFL dev (disclosed). Pass dev only if ROI p < family bar AND CLV > 0; GO forward if ROI>0, CLV>0, n>=15; kill ROI CI upper < 0 or CLV <= 0 with n >= 20.
+rule: edgelab.rules.forward:unwired
+price_model: taker
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact

@@ -43,6 +43,9 @@ E4 sized 2x 11-05 (edgelab early step; caps $6.20/6 ct/day $60/open $80; loss st
   [+0.86,+2.13], ROI -2.1% [-23.9,+20.3] (avg cost .577 -- strike at the DK open is already off 50c); K-NFL n14 CLV +0.79
   [+0.18,+1.43]. Edgelab knfl_l33_kalshi_taker-445b123e / kcfb_l36_kalshi_taker-613b7d62 (unwired, forward paper). Next
   prereg: model gap vs Kalshi's 50c strike. CBB totals = best timing gate but no model yet.
+- **K50 (11-13, notes/k50_strike.md):** buying at Kalshi's 50c strike cuts cost to ~.53 but CLV vs that strike is only
+  ~0.85 pts (NBA +0.88, CFB +0.82) < taker break-even ~1.2-1.4 -> ROI ~0 (NBA -2.2%/25, CFB -7.3%/71). Lowered prior for
+  K1/K-CFB: expect ~break-even. K50-NFL qualifies for forward paper (underpowered). LO ladder-optimal killed (NBA/NFL).
 
 ## Tier C -- watch only (forward data says no for now)
 - L33 NFL vs opener: 3 settled (2-1). Too small; keep the logger.

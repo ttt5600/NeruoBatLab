@@ -1,0 +1,16 @@
+id: cbb_t1_kalshi_taker
+family: cbb_totals
+dataset: kalshi_cbb_totals
+rule: edgelab.rules.forward:unwired
+hypothesis: 'CBB de-biased totals model (notes/cbb_opener_model.md, pre-registered 2026-11-13): log-points ridge walk-forward (half-life 45 d, lambda 6, prior 0.6 x last season), c = trailing mean(model - DK open) over last 200 same-season games (>= 50, strictly earlier ET dates). At Kalshi KXNCAAMBTOTAL first-tight hour (anchor spread <= 4c, >= 30 min pre-tip), S = anchor strike (mid nearest 50c); bet if |model - c - S| >= 4.0; over -> YES at ask, under -> NO at 1 - bid, + exact taker fee; graded final vs S; CLV = DK close - S signed. Dev = 2026-11-03..11-12 (results/cbb_opener_model/kalshi.py); forward after.'
+decision_time: 'Kalshi first-tight hourly candle (>= 30 min pre-tip)'
+price_model: taker
+split: vault:kalshi_cbb_totals
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-13 (agent cbb_opener_model). Unwired. Judge as K-CFB: 100 settled, ROI@ask+fee > 0 one-sided p < .10 AND CLV > 0 -> sealed ask; kill ROI CI upper < 0 after 60 or CLV <= 0 after 100.'
