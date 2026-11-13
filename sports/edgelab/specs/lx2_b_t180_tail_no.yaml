@@ -1,0 +1,15 @@
+id: lx2_b_t180_tail_no
+family: kalshi_longdated_tail
+dataset: kalshi_longdated_tail
+rule: edgelab.rules.longdated_tail:b_t180
+hypothesis: 'LX2-B (notes/lx2_tail_no_carry.md prereg 2026-11-12): as LX2-A but t = expected_expiration_time - 180 d. Buy 1 NO at 1 - yes_bid when yes_ask <= 10c, yes_bid >= 1c; hold to settlement. Pass (script) = ROI incl. 3.5% APY interest event-cluster CI lower > 0, >= 150 events, top series <= 30% of P&L; evaluator ROI excludes interest.'
+decision_time: 'S - 180 d (S = expected_expiration_time, scheduled at listing); quote = last daily candle ending in (t-7d, t]'
+price_model: taker
+split: vault:kalshi_longdated_tail
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 150
+fee:
+  rounding: exact
+legacy: 'new 2026-11-12 (agent lx2_tail_no_carry, FUND_BOOK 3c LX2)'

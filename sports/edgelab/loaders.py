@@ -575,3 +575,17 @@ def nba_clutch_ingame():
 
 
 LOADERS["nba_clutch_ingame"] = nba_clutch_ingame
+
+
+# ------------------------------------------------------------------ LX2 long-dated tail NO (scripts/lx2_tail_no_carry.py)
+def kalshi_longdated_tail():
+    """data/lx2_tail_no_carry/priced.parquet: one row per settled Kalshi market x horizon trial (A = S-90 d,
+    B = S-180 d; S = expected_expiration_time) with the last daily-candle quote in (t-7d, t]. date = settlement date
+    (UTC); result (yes/no) hidden. ticker = market ticker (same result for both trial rows)."""
+    f = DATA / "lx2_tail_no_carry" / "priced.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["settlement_ts"], utc=True).dt.tz_localize(None).dt.normalize()
+    return x, [str(f)]
+
+
+LOADERS["kalshi_longdated_tail"] = kalshi_longdated_tail

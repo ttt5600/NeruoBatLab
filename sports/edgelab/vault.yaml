@@ -153,6 +153,15 @@ datasets:
       dev: [2025-04-15, 2026-01-14]        # same Kalshi NBA in-game dev boundary as L37/L38/late_wp/lineup Gate B
       sealed: [2026-01-15, 2026-06-30]     # 2025-26 after 01-14 (user's yes only); frame build drops these rows today
       forward: [2026-11-13, null]
+  kalshi_longdated_tail:
+    loader: kalshi_longdated_tail          # scripts/lx2_tail_no_carry.py (notes/lx2_tail_no_carry.md, prereg 2026-11-12)
+    family: kalshi_longdated_tail
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:
+      dev: [2021-01-01, 2025-09-30]        # date = settlement date (UTC); dev = settled before 2025-10-01
+      sealed: [2025-10-01, 2026-09-12]     # through the API historical cutoff; never priced without the user's yes
+      forward: [2026-11-13, null]
   kalshi_soccer_ingame:
     loader: kalshi_soccer_ingame
     family: kalshi_ingame

@@ -109,6 +109,12 @@ leave-date ladder, +2.1c/set, ~$1 on $49 locked to 2028); 0 in Fed, 1.4-1.6M thr
 ETH), "exactly k" tagged as "below k", shared-word titles -- verify every arb leg's rules before trusting it.
 Source: notes/lx1_logical_arb.md.
 
+### Long-dated tail NO on Kalshi earns about the cash rate, not an edge
+T-90: 768 bets / 280 events, NO won 97.5% at mean 97.2c, ROI +0.15% [-1.01,+1.18] (+0.94% with 3.5% APY) -- annualized
+~ Kalshi's cash APY, which idle cash also earns. T-180: -1.90% [-4.63,+0.48]. Only climate positive (+3.0%, 36 events, 0
+losses = 3 hurricane seasons; post hoc, needs sealed 2025 on user yes). Kalshi APY on positions started ~Oct 2024.
+Combo/parlay series KXMVE* page caches reached ~61 GB -- filter at ingest. Source: notes/lx2_tail_no_carry.md.
+
 ### Q004 lost because its totals model was biased, not because of timing
 Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
 what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.
