@@ -1,0 +1,27 @@
+id: ks12p_kalshi_soccer_power
+family: cross_venue
+dataset: xv_kalshi_soccer_gap
+rule: edgelab.rules.forward:unwired
+hypothesis: >-
+  S12 with Kalshi as the soft book: on a gap_logger tick (every 2 min), buy YES or NO of a Kalshi soccer 1X2 contract
+  (H/D/A; epl laliga seriea bund ligue1 efl mls ucl ered) at the ask when (fair - ask - taker_fee) / (ask + fee) >= 0.03,
+  fair = POWER de-vig of Pinnacle's guest-API 1X2 moneyline (Cloudflare cache up to ~15 min stale). First qualifying
+  tick per (ticker, side), kickoff >= 10 min away, 1 contract, hold to Kalshi settlement.
+decision_time: gap_logger tick (scripts/gap_logger.py, ~/.claude/quant-kalshi/data/gap_log.jsonl)
+price_model: taker
+split: vault:xv_kalshi_soccer_gap
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: cent
+params:
+  thresh: 0.03
+  devig: power
+  outcome: Kalshi settlement (90 min + stoppage)
+  clv: Kalshi last 1-min candle mid before Pinnacle start time minus entry ask
+legacy: >-
+  New 2026-11-13 (agent kalshi_soccer_sharp; scripts/kalshi_soccer_sharp.py; notes/kalshi_soccer_sharp.md).
+  Pre-registered dev on gap_log history 2026-10-19..11-13 (scored outside edgelab: no vault entry):
+  37 settled bets / 30 matches, ROI -26.2% [-63.4%, +12.7%], Kalshi-close CLV -0.0115 [-0.0226, +0.0006] -> KILL met.

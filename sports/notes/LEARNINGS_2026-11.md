@@ -115,6 +115,12 @@ T-90: 768 bets / 280 events, NO won 97.5% at mean 97.2c, ROI +0.15% [-1.01,+1.18
 losses = 3 hurricane seasons; post hoc, needs sealed 2025 on user yes). Kalshi APY on positions started ~Oct 2024.
 Combo/parlay series KXMVE* page caches reached ~61 GB -- filter at ingest. Source: notes/lx2_tail_no_carry.md.
 
+### Kalshi soccer vs free Pinnacle odds: the "gaps" are stale Pinnacle, not slow Kalshi
+KS12 (S12 rule, Kalshi as soft book, taker): 37 bets / 30 matches -26.2% [-63.4,+12.7]; CLV vs Kalshi close -1.15 pts;
+bigger gaps worse (EV >= 5%: -78%, n18). Free Pinnacle odds are cached up to ~15 min, so a "gap" is usually Pinnacle
+behind. Team matcher bug: gap_logger._first() maps West Ham and West Bromwich both to "west" (fake +146% EV). F3's
+draw-heavy flags came from counting repeated rows; by first tick draws are 12%. Source: notes/kalshi_soccer_sharp.md.
+
 ### Q004 lost because its totals model was biased, not because of timing
 Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
 what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.
