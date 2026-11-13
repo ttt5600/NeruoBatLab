@@ -15,11 +15,20 @@ SERIES = {  # (league, market) -> series
 }
 
 
+try:  # ops_forward_wiring 11-13: shared cross-process Kalshi throttle (<= ~3.3 req/s over ALL paper jobs) when present
+    import sys as _sys
+    from pathlib import Path as _P
+    _sys.path.append(str(_P(__file__).resolve().parents[2] / "scripts"))
+    from kx_throttle import slot as _slot
+except Exception:  # noqa: BLE001
+    _slot = None
+
+
 def get(path, params=None, tries=8):
     url = f"{API}{path}" + (f"?{urllib.parse.urlencode(params)}" if params else "")
     for i in range(tries):
         try:
-            time.sleep(0.25)
+            _slot() if _slot else time.sleep(0.25)
             with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "x"}), timeout=30) as r:
                 return json.loads(r.read())
         except Exception:  # noqa: BLE001

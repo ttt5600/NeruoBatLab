@@ -82,6 +82,8 @@ datasets:
       forward_loader: nba_totals_open_forward
     forward_outcome: {kind: l32b_log, key: key}
     forward_hidden: [result, final_total, pnl_novig, pnl_110, close_line, clv_pts]
+    forward_adapters:          # 2026-11-13 ops_forward_wiring: K1 = Kalshi-priced L32b picks (scripts/kx_forward.py k1)
+      l32b_k1_kalshi_taker: {module: edgelab.adapters.kx_fwd, params: {trial: k1}}
   nba_sides_l2:
     loader: nba_sides_l2
     family: nba_sides
@@ -352,3 +354,30 @@ datasets:
       dev: [2019-10-01, 2025-06-30]
       sealed: [2025-10-01, 2026-06-30]
       forward: [2026-10-21, null]
+  # 2026-11-13 ops_forward_wiring: Kalshi-execution forward paper trials. Dev for these was scored outside edgelab
+  # (results/kalshi_openers_xleague, results/k50_strike) -> no dev/sealed split here; the forward split is built ONLY by
+  # the adapter (edgelab/adapters/kx_fwd.py over ~/.claude/quant-sports/data/kx_forward/<trial>.jsonl). The loader name
+  # has no LOADERS entry on purpose: anything but an adapter-backed forward evaluation fails loudly.
+  kalshi_openers_nfl:
+    loader: kx_forward_adapter_only
+    family: nfl_lines
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:
+      dev: null
+      sealed: null
+      forward: [2026-11-12, null]
+    forward_adapters:
+      knfl_l33_kalshi_taker: {module: edgelab.adapters.kx_fwd, params: {trial: knfl}}
+      k50_nfl_k50_kalshi: {module: edgelab.adapters.kx_fwd, params: {trial: k50nfl}}
+  kalshi_openers_cfb:
+    loader: kx_forward_adapter_only
+    family: cfb_lines
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:
+      dev: null
+      sealed: null
+      forward: [2026-11-12, null]
+    forward_adapters:
+      kcfb_l36_kalshi_taker: {module: edgelab.adapters.kx_fwd, params: {trial: kcfb}}

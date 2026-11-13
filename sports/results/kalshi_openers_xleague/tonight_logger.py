@@ -1,7 +1,8 @@
 """Read-only timing logger (forward rows), 11-12 night. Every 10 min until --until (UTC):
 Kalshi: all open markets in the 7 ladder series -> per event per tick: anchor strike/bid/ask/sizes, implied line, open_time.
 Pinnacle: main total/spread lines for nfl/nhl/cfb/cbb. No orders. Appends to ticks.jsonl; first sightings in first_seen.json.
-Usage: nohup python tonight_logger.py --until 2026-11-13T07:55Z &"""
+Usage: nohup python tonight_logger.py --until 2026-11-13T07:55Z &
+       python tonight_logger.py --once   (launchd job kx-openers, from 11-13: one tick -> ticks_fwd/, first_seen_fwd.json)"""
 import argparse
 import json
 import sys
@@ -80,11 +81,39 @@ def pin_tick(t):
     return rows
 
 
+def once():
+    """One tick for launchd (ops_forward_wiring 11-13): rows -> ticks_fwd/<UTC date>.jsonl.gz (gzip members appended;
+    gzip.open reads them as one stream), first sightings -> first_seen_fwd.json. The 11-12 one-night files are untouched."""
+    import gzip
+    t = pd.Timestamp.now(tz="UTC")
+    fs_path = OUT / "first_seen_fwd.json"
+    fs = json.loads(fs_path.read_text()) if fs_path.exists() else {}
+    rows = kalshi_tick(t.isoformat()) + pin_tick(t.isoformat())
+    d = OUT / "ticks_fwd"
+    d.mkdir(exist_ok=True)
+    with gzip.open(d / f"{t:%Y-%m-%d}.jsonl.gz", "at") as f:
+        for r in rows:
+            f.write(json.dumps(r, default=str) + "\n")
+            k = r["event"] if "event" in r else f"pin|{r['lg']}|{r['pin_id']}|{r['mk']}"
+            if k not in fs:
+                fs[k] = r
+    tmp = fs_path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(fs, default=str))
+    tmp.replace(fs_path)
+    nk = sum(1 for r in rows if "event" in r)
+    print(t.isoformat(), "rows", len(rows), "kalshi", nk, "pin", len(rows) - nk, "first_seen", len(fs), flush=True)
+    if nk == 0:
+        raise SystemExit("no Kalshi rows this tick")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--until", required=True)
+    ap.add_argument("--until")
     ap.add_argument("--every", type=int, default=600)
+    ap.add_argument("--once", action="store_true", help="one tick into ticks_fwd/ (launchd)")
     a = ap.parse_args()
+    if a.once:
+        return once()
     until = pd.Timestamp(a.until)
     fs_path = OUT / "first_seen.json"
     fs = json.loads(fs_path.read_text()) if fs_path.exists() else {}

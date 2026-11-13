@@ -50,15 +50,23 @@ S.headers["User-Agent"] = "lx1-readonly-scanner"
 
 MIN_GAP = 0.25          # <= 4 req/s: the live bots share this IP; scan 2 + candle retries drew 429s on 11-12
 _last = [0.0]
+try:
+    sys.path.append(str(Path(__file__).resolve().parent))
+    from kx_throttle import slot as _slot
+except Exception:  # noqa: BLE001
+    _slot = None
 
 
 def get(path, params=None, tries=6):
     for i in range(tries):
         try:
-            wait = _last[0] + MIN_GAP - time.time()
-            if wait > 0:
-                time.sleep(wait)
-            _last[0] = time.time()
+            if _slot is not None:
+                _slot()                     # shared cross-process throttle (scripts/kx_throttle.py, 11-13)
+            else:
+                wait = _last[0] + MIN_GAP - time.time()
+                if wait > 0:
+                    time.sleep(wait)
+                _last[0] = time.time()
             r = S.get(K + path, params=params, timeout=60)
             if r.status_code == 429:
                 time.sleep(1.5 * (i + 1)); continue

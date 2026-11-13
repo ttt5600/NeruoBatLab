@@ -624,6 +624,83 @@ def opener_card(cid, title, path, settle_kind, clv_key, unit, rules, need_roi_pa
     return c
 
 
+def kx_card(cid: str, title: str, trial: str, rule_src: list, clv_key: str) -> Card:
+    """Kalshi-execution forward paper (scripts/kx_forward.py -> data/kx_forward/<trial>.jsonl; ops_forward_wiring 11-13).
+    P&L per contract at the logged ask + exact taker fee (100-ct fee / 100); risk = cost. Rule: judge at 100 settled
+    (ROI > 0 one-sided p < .10 AND CLV > 0); kill ROI CI upper < 0 after 60 or CLV <= 0 after 100."""
+    c = Card(cid, title)
+    for r in rule_src:
+        c.rule(r)
+    p = SD / "kx_forward" / f"{trial}.jsonl"
+    rows = jl(p)
+    key = "key" if trial == "k1" else ("event" if trial == "kcfb" else "bet_key")
+    picks = {r[key]: r for r in rows if r.get("kind") == "pick"}
+    st = {r[key]: r for r in rows if r.get("kind") == "settle"}
+    bets = [v for v in picks.values() if v.get("status") == "bet"]
+    s = [(b, st[b[key]]) for b in bets if b[key] in st]
+    status = defaultdict(int)
+    for v in picks.values():
+        status[v.get("status")] += 1
+    pnl, risk, won, clv = [], [], [], []
+    for b, x in s:
+        cost = b["ask"] + b["fee"]
+        w = x.get("won")
+        won.append(w)
+        pnl.append(0.0 if w is None else ((1 - cost) if w else -cost))
+        risk.append(cost)
+        clv.append(x.get(clv_key))
+    disagree = sum(1 for _, x in s if x.get("kalshi_result") and x["kalshi_result"] != x.get("result"))
+    c.lines.append(f"`{rel(p)}`: decisions {len(picks)} ({dict(status)}), bets {len(bets)}, settled {len(s)}, pending "
+                   f"{len(bets) - len(s)}; W-L-P {wl(won)}; {f_roi(pnl, risk)} at ask+fee; {f_clv(clv, ' pts')}; "
+                   f"mean cost {np.mean(risk) if risk else float('nan'):.3f}; exchange result disagrees {disagree}")
+    if not p.exists():
+        c.warn.append(f"{rel(p)} missing -- is launchd job kx-{trial if trial != 'k50nfl' else 'knfl'} running?")
+    n = len(s)
+    r, lo, hi = boot_roi(pnl, risk)
+    m, clo, chi, nc = mean_ci(clv)
+    if n >= 60 and np.isfinite(hi) and hi < 0:
+        c.set("KILLED-by-rule", f"ROI CI upper {hi:+.1%} < 0 after {n}")
+    elif nc >= 100 and m <= 0:
+        c.set("KILLED-by-rule", f"mean CLV {m:+.2f} pts <= 0 after {nc}")
+    elif n < MIN_N:
+        c.set("too-early", f"{n} settled of 100 (judge) / 60 (ROI kill check)")
+    elif (np.isfinite(hi) and hi < 0) or (np.isfinite(chi) and chi < 0):
+        c.set("near-kill", f"n {n}: ROI {r:+.1%} [{lo:+.1%}, {hi:+.1%}], CLV {m:+.2f} [{clo:+.2f}, {chi:+.2f}] pts")
+    else:
+        c.set("alive", f"n {n}/100, ROI {r:+.1%}, CLV {m:+.2f} pts")
+    return c
+
+
+def card_lx1() -> Card:
+    c = Card("LX1", "Kalshi logical-arb scanner (read-only, launchd lx1; judge 2026-11-19)")
+    c.rule(rule_line(NOTES / "lx1_logical_arb.md", "- **Kill**: fewer than"))
+    c.rule(rule_line(NOTES / "lx1_logical_arb.md", "- **Success (worth proposing"), "Success rule")
+    d = QS / "results" / "lx1_logical_arb"
+    scans = jl(d / "scans.jsonl")
+    viol = [r for r in jl(d / "violations.jsonl") if r.get("violation")]
+    keys = defaultdict(list)
+    for r in viol:
+        keys[r["key"]].append(r)
+    last = scans[-1]["ts"] if scans else None
+    c.lines.append(f"`{rel(d)}`: scans {len(scans)} (last {last}), violation rows {len(viol)}, DISTINCT leg sets "
+                   f"{len(keys)} (bar >= 5 in 7 days, window 2026-11-12..11-19)")
+    for k, rs in list(keys.items())[:8]:
+        c.lines.append(f"  {rs[-1]['kind']} seen {len(rs)}x {rs[0]['ts']}..{rs[-1]['ts']} net@10 "
+                       f"{rs[-1].get('net_at_min_size')}: {k[:120]}")
+    if (d / "persistence.csv").exists():
+        c.lines.append("persistence.csv: " + " | ".join((d / "persistence.csv").read_text().splitlines()[:4]))
+    judged = datetime.now(timezone.utc) >= datetime(2026, 11, 20, 8, tzinfo=timezone.utc)
+    if judged and len(keys) < 5:
+        c.set("KILLED-by-rule", f"{len(keys)} distinct violations < 5 in the 7-day window")
+    elif len(keys) >= 5:
+        c.set("alive", f"{len(keys)} distinct violations (bar 5); persistence decides success")
+    elif datetime.now(timezone.utc) >= datetime(2026, 11, 17, tzinfo=timezone.utc) and len(keys) <= 2:
+        c.set("near-kill", f"{len(keys)} distinct violations with <= 3 days left (bar 5)")
+    else:
+        c.set("too-early", f"{len(keys)} distinct violations so far (bar 5 by 2026-11-19)")
+    return c
+
+
 def card_lock(run_sub: bool) -> Card:
     c = Card("LOCK", "lock-in 99c NBA queue-depth logger (read-only measurement for lock_t2_nba_maker99)")
     c.rule(rule_line(ROOT / "scripts" / "lock_queue_logger.py", "N_QUEUE = 5000 was a guess"),
@@ -691,6 +768,15 @@ def main(argv=None) -> int:
                          "clv", " pts", [rule_line(fb, "| Q004 |", -2)], need_roi_pass=True),
              opener_card("Q004-NBA", "first TIGHT Kalshi quote, NBA totals", KD / "open_totals_picks.jsonl",
                          "settle_tight", "clv_pts", " pts", [rule_line(fb, "| Q004 |", -2)], need_roi_pass=True),
+             kx_card("K1", "L32b NBA totals executed on Kalshi KXNBATOTAL (taker, forward paper)", "k1",
+                     [rule_line(NOTES / "nba_l32b_exec.md", "Judge after 100 settled")], "clv_S"),
+             kx_card("K-NFL", "L33 NFL spread/total executed on Kalshi at the opener strike (taker, forward paper)",
+                     "knfl", [rule_line(NOTES / "kalshi_openers_xleague.md", "Forward judge per rule")], "clv"),
+             kx_card("K-CFB", "L36 CFB totals vs Kalshi first-tight ladder (taker, forward paper)", "kcfb",
+                     [rule_line(NOTES / "kalshi_openers_xleague.md", "Forward judge per rule")], "clv"),
+             kx_card("K50-NFL", "L33 NFL models vs Kalshi's own ~50c strike (taker, forward paper)", "k50nfl",
+                     [rule_line(NOTES / "k50_strike.md", "Judge: same as K-NFL")], "clv"),
+             card_lx1(),
              card_lock(run_sub)]
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     killed = [c for c in cards if c.status == "KILLED-by-rule"]

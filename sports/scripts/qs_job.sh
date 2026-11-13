@@ -12,6 +12,8 @@
 #               [start - 75 min, start + 5 h]; idle runs leave only state/nhl_ingame_heartbeat, not log lines)
 #   nfl-fade    24 h, launchd every 60 s: nfl_fade_live.py tick (F1L proxy; idle exit without network outside game windows)
 #   digest      scripts/qs_digest.sh (09:00 / 23:30 PT via StartCalendarInterval)
+#   kx-k1 / kx-knfl / kx-kcfb / kx-openers / lx1   READ-ONLY Kalshi-execution paper trials + scanners (11-13,
+#               notes/ops_forward_wiring.md; installed by scripts/install_kx_forward_agents.sh)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
 # root makes every job a no-op (scripts/qs_stop.sh). Paper only: none of these jobs place orders or read keys.
 # Exception by design (11-07): nhl-ingame and nfl-fade pipe their signals to ~/.claude/quant-kalshi/scripts/
@@ -82,6 +84,38 @@ case "$job" in
     /usr/bin/caffeinate -i "$PY" -u scripts/lock_queue_logger.py tick >> "$LOG" 2>&1; rc=$?
     echo "$(date '+%F %T %Z') rc=$rc" > state/lock_queue_heartbeat
     [ $rc -eq 0 ] || echo "$(date '+%F %T %Z') lock-queue exit $rc" >> "$LOG" ;;
+  # ---- ops_forward_wiring (11-13, notes/ops_forward_wiring.md): READ-ONLY Kalshi-execution paper trials + scanners.
+  # All Kalshi GETs share scripts/kx_throttle.py (one cross-process slot, <= ~3.3 req/s total). Outputs append-only.
+  kx-k1)        # L32b-K1: price new L32b live picks at the tick candle; settle finals. 24 h, every >= 25 min
+    now=$(date +%s); last=$(cat state/kx_k1_last 2>/dev/null || echo 0)
+    [ $((now - last)) -ge 1500 ] || exit 0
+    run scripts/kx_forward.py k1 && echo "$now" > state/kx_k1_last ;;
+  kx-knfl)      # K-NFL + K50-NFL: price new L33 decisions on Kalshi; settle finals. 24 h, every >= 2 h
+    now=$(date +%s); last=$(cat state/kx_knfl_last 2>/dev/null || echo 0)
+    [ $((now - last)) -ge 7000 ] || exit 0
+    run scripts/kx_forward.py knfl; r1=$?
+    run scripts/kx_forward.py k50nfl; r2=$?
+    [ $r1 -eq 0 ] && [ $r2 -eq 0 ] && echo "$now" > state/kx_knfl_last ;;
+  kx-kcfb)      # K-CFB: once a day from 07:00 PT, the pre-registered forward pipeline on games final through yesterday
+    [ "$((10#$hm))" -ge 700 ] || exit 0
+    done_today kx_kcfb && exit 0
+    hi=$(date -v-1d +%F)
+    X=results/kalshi_openers_xleague
+    export KX_LO=2026-11-12 KX_HI="$hi" KX_TAG=fwd
+    run $X/q2_cfb_preds.py --refetch && run $X/q1_fetch.py cfb && run $X/q1_timing.py cfb && run $X/q2_cfb.py \
+      && run scripts/kx_forward.py kcfb && echo "$d" > state/kx_kcfb ;;
+  kx-openers)   # openers timing logger (Kalshi 7 ladder series + Pinnacle), one tick per 10 min, 09:00-24:00 PT
+    [ "$((10#$hm))" -ge 900 ] || exit 0
+    run results/kalshi_openers_xleague/tonight_logger.py --once ;;
+  lx1)          # LX1 logical-arb scanner: scan every >= 2 h until the judge window closes (2026-11-20 08:00Z);
+                # once a day from 06:00 PT: persist --hours 48 + report (report keeps running after the window)
+    now=$(date +%s); last=$(cat state/lx1_last 2>/dev/null || echo 0)
+    if [ "$now" -lt 1795161600 ] && [ $((now - last)) -ge 7000 ]; then
+      run scripts/lx1_arb_scan.py scan && echo "$now" > state/lx1_last
+    fi
+    if [ "$((10#$hm))" -ge 600 ] && ! done_today lx1_daily; then
+      run scripts/lx1_arb_scan.py persist --hours 48 && run scripts/lx1_arb_scan.py report && echo "$d" > state/lx1_daily
+    fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;
