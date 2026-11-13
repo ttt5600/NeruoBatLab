@@ -1,3 +1,8 @@
+## 2026-11-13 OPENER WAVE RUNNING (user "lets keep it running"; 4 agents): ops_forward_wiring (wire K1/K-NFL/K-CFB
+##   forward paper + LX1 2-hourly scan + nightly openers logger under launchd, read-only, user-approved), k50_strike (buy
+##   near Kalshi's 50c strike so CLV becomes ROI), cbb_opener_model (CBB totals model; Kalshi CBB lists ~23 h out, 1 h
+##   before Pinnacle), kalshi_soccer_sharp (S12 with Kalshi as the soft book, taker only). Tonight log 11-12: Kalshi
+##   lists NHL ~70 h vs Pinnacle ~32 h; CFB/NFL 5-7 d before Pinnacle posts.
 ## 2026-11-12 STRUCTURE WAVE DONE + MERGED: openers x-league = CFB/CBB/NHL pass timing gate, K-NFL/K-CFB forward paper
 ##   (CLV yes, ROI not yet; next prereg = buy near Kalshi 50c strike); first-listing DEAD (0/40, maker adverse every sport);
 ##   wx capacity: no new series, X1 forward negative (user call); LX1 arb 1/5 likely fail (schedule not installed); LX2 DEAD

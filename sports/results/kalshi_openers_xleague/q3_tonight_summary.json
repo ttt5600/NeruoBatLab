@@ -1,65 +1,65 @@
 {
- "ticks": 4,
+ "ticks": 85,
  "first_tick": "2026-11-12 17:28:04.960695+00:00",
- "last_tick": "2026-11-12 17:59:11.002768+00:00",
+ "last_tick": "2026-11-13 07:51:50.999318+00:00",
  "kal_cbb_spread": {
-  "events": 24,
-  "new": 0,
-  "new_h_before_kick_med": null,
-  "new_first_spread_med": null,
-  "new_tight": 0
+  "events": 79,
+  "new": 55,
+  "new_h_before_kick_med": 22.90781101,
+  "new_first_spread_med": 0.16000000000000003,
+  "new_tight": 49
  },
  "kal_cbb_total": {
-  "events": 24,
-  "new": 0,
-  "new_h_before_kick_med": null,
-  "new_first_spread_med": null,
-  "new_tight": 0
+  "events": 79,
+  "new": 55,
+  "new_h_before_kick_med": 22.90781101,
+  "new_first_spread_med": 0.5900000000000001,
+  "new_tight": 47
  },
  "kal_cfb_spread": {
-  "events": 120,
-  "new": 0,
-  "new_h_before_kick_med": null,
-  "new_first_spread_med": null,
-  "new_tight": 0
+  "events": 128,
+  "new": 8,
+  "new_h_before_kick_med": 120.23884943083333,
+  "new_first_spread_med": 0.6100000000000001,
+  "new_tight": 4
  },
  "kal_cfb_total": {
-  "events": 120,
-  "new": 0,
-  "new_h_before_kick_med": null,
-  "new_first_spread_med": null,
-  "new_tight": 0
+  "events": 128,
+  "new": 8,
+  "new_h_before_kick_med": 120.23884943083333,
+  "new_first_spread_med": 0.9,
+  "new_tight": 2
  },
  "kal_nfl_spread": {
-  "events": 14,
-  "new": 0,
-  "new_h_before_kick_med": null,
-  "new_first_spread_med": null,
-  "new_tight": 0
+  "events": 15,
+  "new": 1,
+  "new_h_before_kick_med": 167.1085376947222,
+  "new_first_spread_med": 0.29,
+  "new_tight": 1
  },
  "kal_nfl_total": {
-  "events": 14,
-  "new": 0,
-  "new_h_before_kick_med": null,
-  "new_first_spread_med": null,
-  "new_tight": 0
+  "events": 15,
+  "new": 1,
+  "new_h_before_kick_med": 167.1085376947222,
+  "new_first_spread_med": 0.91,
+  "new_tight": 1
  },
  "kal_nhl_total": {
-  "events": 27,
-  "new": 0,
-  "new_h_before_kick_med": null,
-  "new_first_spread_med": null,
+  "events": 32,
+  "new": 5,
+  "new_h_before_kick_med": 70.34476741333333,
+  "new_first_spread_med": 0.79,
   "new_tight": 0
  },
  "pin_cbb_spread": {
-  "games": 24,
-  "new": 0,
-  "new_h_before_kick_med": null
+  "games": 59,
+  "new": 35,
+  "new_h_before_kick_med": 21.838246761944443
  },
  "pin_cbb_total": {
-  "games": 24,
-  "new": 0,
-  "new_h_before_kick_med": null
+  "games": 59,
+  "new": 35,
+  "new_h_before_kick_med": 21.838246761944443
  },
  "pin_cfb_spread": {
   "games": 61,
@@ -67,9 +67,9 @@
   "new_h_before_kick_med": null
  },
  "pin_cfb_total": {
-  "games": 60,
-  "new": 0,
-  "new_h_before_kick_med": null
+  "games": 61,
+  "new": 1,
+  "new_h_before_kick_med": 50.0961677425
  },
  "pin_nfl_spread": {
   "games": 14,
@@ -82,13 +82,13 @@
   "new_h_before_kick_med": null
  },
  "pin_nhl_spread": {
-  "games": 10,
-  "new": 0,
-  "new_h_before_kick_med": null
+  "games": 12,
+  "new": 2,
+  "new_h_before_kick_med": 32.46067057444444
  },
  "pin_nhl_total": {
-  "games": 10,
-  "new": 0,
-  "new_h_before_kick_med": null
+  "games": 12,
+  "new": 2,
+  "new_h_before_kick_med": 32.46067057444444
  }
 }
