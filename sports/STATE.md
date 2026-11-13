@@ -1,4 +1,8 @@
-## 2026-11-12 STRUCTURE WAVE RUNNING (5 agents; user "keep searching, lots of edges"): kalshi_openers_xleague (L32b
+## 2026-11-12 STRUCTURE WAVE DONE + MERGED: openers x-league = CFB/CBB/NHL pass timing gate, K-NFL/K-CFB forward paper
+##   (CLV yes, ROI not yet; next prereg = buy near Kalshi 50c strike); first-listing DEAD (0/40, maker adverse every sport);
+##   wx capacity: no new series, X1 forward negative (user call); LX1 arb 1/5 likely fail (schedule not installed); LX2 DEAD
+##   (= cash rate; hurricane NO post-hoc lead). Agent deleted ~61 GB of its own KXMVE* cache (disk 174 GB free).
+## (was) STRUCTURE WAVE (5 agents; user "keep searching, lots of edges"): kalshi_openers_xleague (L32b
 ##   pattern on NFL/NHL/CBB + tonight's timing log), kalshi_first_listing (stale first prices, all sports series),
 ##   wx_capacity (X1 maker audit, new weather series, per-city depth), lx1_logical_arb (read-only constraint scanner),
 ##   lx2_tail_no_carry (long-dated tail NO incl. Kalshi 3.5% APY). Same-day dead: clutch-vs-market, B2B trend, props L5/L7.
