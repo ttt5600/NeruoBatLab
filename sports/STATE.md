@@ -1,4 +1,8 @@
-## 2026-11-13 OPENER WAVE RUNNING (user "lets keep it running"; 4 agents): ops_forward_wiring (wire K1/K-NFL/K-CFB
+## 2026-11-13 OPENER WAVE DONE: forward jobs wired + verified (kx-k1/knfl/kcfb/openers/lx1, ACT_LIST); K50: edge vs
+##   Kalshi's own line ~0.85 pts < break-even; CBB model CLV +0.83 [+.69,+.97] n2,213 but fails cost (p .054 no-vig, -1.4%
+##   real); KS12 soccer dead (stale free Pinnacle). LESSON: our sports models carry ~0.8-0.9 pts; taker cost needs 1.2-1.4.
+##   Next lever = cheaper execution (fair-fill maker) or bigger edges, not more models. cbb_t1_kalshi_taker registered, unwired.
+## (was) OPENER WAVE (user "lets keep it running"; 4 agents): ops_forward_wiring (wire K1/K-NFL/K-CFB
 ##   forward paper + LX1 2-hourly scan + nightly openers logger under launchd, read-only, user-approved), k50_strike (buy
 ##   near Kalshi's 50c strike so CLV becomes ROI), cbb_opener_model (CBB totals model; Kalshi CBB lists ~23 h out, 1 h
 ##   before Pinnacle), kalshi_soccer_sharp (S12 with Kalshi as the soft book, taker only). Tonight log 11-12: Kalshi

@@ -127,6 +127,13 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### Opener models beat the line but not the cost -- 4 sports now; Kalshi taker costs more than -110
+CBB totals model (walk-forward ridge, de-biased): dev 2023-25 n2,213 CLV +0.83 pts [+0.69,+0.97], no-vig +3.2% p .054
+(fail), at DK open price -1.4%. Kalshi 50c strike costs 0.541 after fee vs 0.524 at -110 -> ~-3.5% expected as taker.
+Same as NBA L32b/K50, CFB, P-PAINT: our models carry ~0.8-0.9 pts of real information; taker break-even needs ~1.2-1.4.
+The binding constraint is execution cost, not prediction. Historical ESPN core API has DK NCAAB open/close since 2023-24.
+Source: notes/cbb_opener_model.md.
+
 ### Q004 lost because its totals model was biased, not because of timing
 Raw model +3.85 pts above the Kalshi strike -> 47/48 picks were overs. De-biasing (L32b's trailing-100 correction) is
 what separates CLV +1.11 (kept picks) from -1.44 / ROI -36% (dropped). Source: notes/nba_l32b_exec.md.
