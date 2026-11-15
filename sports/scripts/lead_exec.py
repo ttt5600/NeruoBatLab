@@ -16,6 +16,9 @@ ACT_LIST.md (11-05) before the first bet. The table below is FROZEN from that fi
   lead_TSA  B4 KXTSAW weekly MAKER (tsa_t2_maker paper rule). Mirror each NEW paper post in e1x/tsa_paper.jsonl as a
             real post-only bid on the SAME side at the same q (the logger posts NO above its band and YES below it).
             contracts = max(1, floor($1 / (q + fee))), <= $8 per KXTSAW event (= week). Kill: 2 losses in first 30 fills.
+            .env LEAD_TSA_SIDES=yes (default yes,no; 2026-11-15 notes/tsa_fill_review.md, ops_e4_prep.md): live copy
+            skips paper posts on the other side (status skip_tsa_side_off, $0, so they no longer use the $8 week cap).
+            The paper logger (e1x/tsa_paper.jsonl) is not touched.
   lead_DUL  B2 NFL division-game UNDER, 2026 REG week >= 10. Kalshi series KXNFLTOTAL, event
             KXNFLTOTAL-<yyMMMdd ET><AWAY><HOME> (Kalshi codes: JAX->JAC, LA->LAR), markets "over X.5" (greater).
             90..30 min before kickoff: strike whose YES mid is closest to 0.50 -> BUY NO (= under) taker IOC at the
@@ -553,6 +556,14 @@ def apply_kill_rules(mode: str, cfg: dict, now: datetime) -> list[str]:
 
 
 # ---------------------------------------------------------------- commands
+def tsa_sides(e: dict) -> set[str]:
+    """Sides of TSA paper posts the live copy mirrors (.env LEAD_TSA_SIDES, default both)."""
+    out = {x.strip().lower() for x in e.get("LEAD_TSA_SIDES", "yes,no").split(",") if x.strip()}
+    if not out <= {"yes", "no"}:
+        raise ValueError(f"LEAD_TSA_SIDES must be a subset of yes,no; got {e.get('LEAD_TSA_SIDES')!r}")
+    return out
+
+
 def cmd_run(argv: list[str] | None = None, client: kx.Kalshi | None = None, now: datetime | None = None) -> int:
     argv = sys.argv[2:] if argv is None else argv
     now = now or datetime.now(timezone.utc)
@@ -603,8 +614,11 @@ def cmd_run(argv: list[str] | None = None, client: kx.Kalshi | None = None, now:
           + (" (DISABLED)" if disable_path("DUL").exists() else ""))
     if disable_path("DUL").exists():
         games = []
+    sides = tsa_sides(e)
     for item in todo + games:
-        if "strategy" in item:
+        if item.get("strategy") == "TSA" and item.get("side") not in sides:
+            rec = {**_base(item, mode, now), "status": "skip_tsa_side_off"}
+        elif "strategy" in item:
             rec = decide_maker(item, client, mode, now, state, cash)
         else:
             rec = decide_dul(item, client, mode, now, state, cash)
