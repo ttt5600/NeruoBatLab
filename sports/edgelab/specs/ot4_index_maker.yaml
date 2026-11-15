@@ -1,0 +1,22 @@
+id: ot4_index_maker
+family: kalshi_data_ladders
+dataset: kalshi_opt_tails
+rule: edgelab.rules.opt_tails:maker
+params:
+  asset_class: index
+hypothesis: 'OT4: Kalshi daily index ladders (crypto KXBTCD/KXETHD 17:00 ET; index KXINX/KXNASDAQ100/KXINXU/KXNASDAQ100U
+  16:00 ET). At 11:00 ET compute options-implied P(YES) (crypto: Deribit mark-IV smile of the first expiry after the
+  Kalshi close, sqrt-time standardised-moneyness map, no extrapolation; index: VIX1D level (NDX x VXN/VIX), Student-t(4)
+  shape, 5/6.5 of a session). Tail side p_T <= .10 -> other side F; spread <= 5c; maker rule per edgelab/rules/opt_tails.py
+  (taker: (1-p_T) - ask - fee >= .03, ask in [.50,.99]; maker: q = min(floor mid, ask-1c), (1-p_T) - q >= .03, filled iff
+  traded through by 1c on an hourly candle before close, fee 0). Risk-neutral used as an upper bound on tail prob.'
+decision_time: 11:00 ET on the close date (crypto close - 6 h, index close - 5 h)
+price_model: maker_tape
+split: vault:kalshi_opt_tails
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 150
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (notes/options_implied_tails.md prereg; FUND_BOOK 3c lead Kalshi crypto vs Deribit)'

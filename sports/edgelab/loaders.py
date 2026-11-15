@@ -605,3 +605,53 @@ def kalshi_album_units():
 
 
 LOADERS["kalshi_album_units"] = kalshi_album_units
+
+
+def kalshi_top_album():
+    """scripts/billboard_top.py selected(): HDD-leader YES / rival NO rows on inputs only + hourly candles + tape."""
+    _imp_scripts()
+    import billboard_top as B
+    D = DATA / "billboard_top"
+    x = B.selected(pd.read_parquet(D / "ta_frame.parquet"))
+    x = x[x.result.isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["wend"])
+    x.attrs["candles"] = json.loads((D / "ta_candles.json").read_text())
+    tp = D / "ta_trades.json"
+    x.attrs["trades"] = json.loads(tp.read_text()) if tp.exists() else {}
+    src = [str(D / "ta_frame.parquet"), str(D / "hdd_chart_docs_all.json"), str(D / "ta_candles.json")]
+    return x.reset_index(drop=True), src + ([str(tp)] if tp.exists() else [])
+
+
+LOADERS["kalshi_top_album"] = kalshi_top_album
+
+
+# ------------------------------------------------------------------ options-implied tails (scripts/options_implied_tails.py)
+def kalshi_opt_tails():
+    """data/opt_tails/frame.parquet: one row per DEV daily crypto/index market with options-implied P(YES) <= .10 or
+    >= .90 (inputs + hidden result); attrs['tape'] = hourly candles ending in (T, close]."""
+    D = DATA / "opt_tails"
+    f, ft = D / "frame.parquet", D / "tape.parquet"
+    x = pd.read_parquet(f)
+    x = x[x.result.isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["tape"] = pd.read_parquet(ft)
+    return x.reset_index(drop=True), [str(f), str(ft)]
+
+
+LOADERS["kalshi_opt_tails"] = kalshi_opt_tails
+
+
+# ------------------------------------------------------------------ L39 early-window climatology NO (scripts/l39_p1m.py)
+def kalshi_wx_monthly_early():
+    """results/l39_expansion/p1m_frame.parquet (DEV ladders only, days_left 7..20) + p1m_tape.parquet (trades after T
+    for input-true tickers). date = month start of the ladder. Agent l39_expansion, 2026-11-15."""
+    D = SPORTS / "results" / "l39_expansion"
+    f, ft = D / "p1m_frame.parquet", D / "p1m_tape.parquet"
+    x = pd.read_parquet(f)
+    x = x[x.result.isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["month"])
+    x.attrs["tape"] = pd.read_parquet(ft)
+    return x.reset_index(drop=True), [str(f), str(ft)]
+
+
+LOADERS["kalshi_wx_monthly_early"] = kalshi_wx_monthly_early

@@ -1,0 +1,15 @@
+id: ta_e_taker
+family: kalshi_data_ladders
+dataset: kalshi_top_album
+rule: edgelab.rules.billboard_top:early_taker
+hypothesis: 'TA-E-T: KXTOPALBUM Billboard 200 #1. Wed 12:00Z inside the Fri..Thu week, HDD midweek-20 (doc _updatedAt < T). YES on HDD leader if F_L >= 1.30 F2; NO on rivals with F <= F_L/1.30 or absent from full top 20 with F_L >= 1.30 U20; skip weeks whose leader matches no open Kalshi market. Taker at ask + fee, ask <= 0.98.'
+decision_time: Wednesday 12:00Z of the tracking week
+price_model: taker
+split: vault:kalshi_top_album
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (notes/billboard_top.md prereg + AMENDMENT 1; data gate early 0.941 / late 0.952 PASS)'

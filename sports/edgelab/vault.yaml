@@ -318,8 +318,17 @@ datasets:
       dev: null
       sealed: null
       forward: [2026-11-06, null]
+  kalshi_wx_monthly_early:
+    loader: kalshi_wx_monthly_early        # scripts/l39_p1m.py: L39 monthly rain/snow ladders, days_left 7..20 (P1m)
+    family: kalshi_weather_precip
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = ladder month start; set 2026-11-15 = the kalshi_wx_winter split
+      dev: [2021-12-01, 2026-06-30]        # (rain dev < 2026-07, snow dev < 2026-03). The builder writes DEV rows only:
+      sealed: [2026-07-01, 2027-02-28]     # snow Mar 2026 (= L39 sealed) is never in the file. Sealed = L39's one shot,
+      forward: [2027-03-01, null]          # shared with W1m; not to be opened separately.
   kalshi_rain_daily_nyc:
-    loader: kalshi_rain_daily_nyc          # scripts/raind_daily_rain.py: KXRAINNYC/KXRAINSEA T0 + KXRAIN-*-NYC daily rain
+    loader: kalshi_rain_daily_nyc         # scripts/raind_daily_rain.py: KXRAINNYC/KXRAINSEA T0 + KXRAIN-*-NYC daily rain
     family: kalshi_weather_precip
     hidden: [result]
     outcome: {kind: result_equals_side, key: ticker}
@@ -410,3 +419,12 @@ datasets:
       forward: [2026-11-15, null]
     forward_adapters:
       nhl_om_a_kft: {module: edgelab.adapters.kx_fwd, params: {trial: nhla}}
+  kalshi_opt_tails:       # options_implied_tails 11-15: split set in notes/options_implied_tails.md before any quote/outcome pull
+    loader: kalshi_opt_tails
+    family: kalshi_data_ladders
+    hidden: [result, status]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = ET close date of the daily event
+      dev: [2024-02-01, 2026-04-10]        # crypto daily events start 2024-10-24; index needs VIX1D hourly (2024-01-29+)
+      sealed: [2026-04-11, 2026-10-31]     # never fetched by this agent
+      forward: [2026-11-16, null]

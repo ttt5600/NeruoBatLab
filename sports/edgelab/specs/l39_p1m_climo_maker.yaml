@@ -1,0 +1,23 @@
+id: l39_p1m_climo_maker
+family: kalshi_weather_precip
+dataset: kalshi_wx_monthly_early
+rule: edgelab.rules.l39_climo:maker
+params:
+  qcol: q995
+hypothesis: 'P1m (L39 early window): Kalshi monthly rain/snow `greater` ladders. At 22:00 station-local on days with
+  7..20 days left, buy NO when X - month-to-date ACIS total > 99.5th percentile of climatological totals over the
+  remaining window (same station, ACIS 1991..year-1, +-10 day start shift, >= 200 windows). Quote: last hourly candle
+  <= T, yes_bid > 0, yes_ask < 1, spread <= 10c, yes_ask > 1c. First qualifying day per ticker. Maker M3: NO bid at
+  min(floor NO mid, NO ask - 1c), filled iff >= 1 contract prints at no_price <= q in (T, close]; fee 0; hold.
+  Rain + snow pooled. Prereg notes/l39_expansion.md (pass: n >= 60, bootstrap p AND market-null p < bar, both halves > 0).'
+decision_time: 22:00 station-local, 7..20 days before month end
+price_model: maker_tape
+split: vault:kalshi_wx_monthly_early
+min_n: 60
+kill:
+  kind: clv_negative_significant
+  after_n: 60
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent l39_expansion; notes/l39_expansion.md). Sibling of W1m/S1m (kalshi_wx_winter ledger trials).'

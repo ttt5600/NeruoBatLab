@@ -1,0 +1,15 @@
+id: ta_e_maker
+family: kalshi_data_ladders
+dataset: kalshi_top_album
+rule: edgelab.rules.billboard_top:early_maker
+hypothesis: 'TA-E-M: TA-E-T selection, maker q = floor_cent(min(mid, ask-1c)) in [0.50,0.98], filled at the first tape trade through q after T and before Kalshi close; maker fee schedule default.'
+decision_time: Wednesday 12:00Z of the tracking week
+price_model: maker_tape
+split: vault:kalshi_top_album
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (notes/billboard_top.md prereg + AMENDMENT 1; data gate early 0.941 / late 0.952 PASS)'

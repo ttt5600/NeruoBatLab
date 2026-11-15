@@ -1,0 +1,15 @@
+id: ta_l_taker
+family: kalshi_data_ladders
+dataset: kalshi_top_album
+rule: edgelab.rules.billboard_top:late_taker
+hypothesis: 'TA-L-T: as TA-E-T but Sat 12:00Z after the week, HDD hits-top-50 (Friday), margin 1.15.'
+decision_time: Saturday 12:00Z after the tracking week
+price_model: taker
+split: vault:kalshi_top_album
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (notes/billboard_top.md prereg + AMENDMENT 1; data gate early 0.941 / late 0.952 PASS)'
