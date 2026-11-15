@@ -138,6 +138,12 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### No free real-time sharp feed from California; cheapest reseller ~$99/mo
+Pinnacle API closed to the public 2025-07-23 and refuses US customers; Betfair bars US residents; The Odds API's Pinnacle
+odds come from the public website with delay (would repeat the stale-feed failure). Cheapest real-time: pinnapi reseller
+$99/mo REST (10 req/s) or $198 with WebSocket, free tier 100 req/day to verify freshness; SharpAPI $399+$149 as a cross-
+check. Novig/ProphetX are free in CA but likely follow Kalshi. Latencies are vendor claims. Source: notes/sharp_feed_research.md.
+
 ### NFL inactive lists are priced before they are published
 2025 season: buying 3 min after the inactive list (QB Q/D ruled out or played) net CLV -1.52c [-2.13,-0.85] n18; post-list
 drift +0.47c [-0.17,+1.17] < ~2.75c entry cost; no jump at the list across 279 games (+0.034c vs placebo). 57% of the
