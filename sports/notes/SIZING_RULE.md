@@ -60,3 +60,32 @@ alone sealed 1,844 picks ROI +2.87%, fill .857, no E1-only CI on record (to comp
 sealed .857 -> sealed fill model optimistic. Live 1 loss in 95 paper picks vs ~2 expected = lucky. Bad night 1-in-100
 ~-$23, 1-in-1000 ~-$43 at 24 ct; max ~3 losses/night. Ops issues -> agent e4_ops_diag: no picks 11-13/14, insufficient
 balance rejects 11-15 05:03Z, maker depth cap not enforced.
+
+## E4 math redone on E1 (orig-7) only -- agent e4_evidence 2026-11-15 (notes/e4_evidence.md, results/e4_evidence/)
+Source: per-pick M3_N10 vector RE-DERIVED from the frozen sealed inputs of the 10-23 lockbox run (data sha e980f9c66792
+asserted; recorded E1 1844 picks / fill .8574 / ROI .0287 reproduced exactly; no new scoring, nothing written to
+lockbox.jsonl). Date-cluster bootstrap (406 dates, 4000). results/e4_evidence/t1_e1_ci.json.
+- E1 sealed ROI +2.87%, 90% CI [+1.98, +3.71], 95% [+1.84, +3.87]. 55 losses, all filled (0 unfilled losses).
+- Live orig-7 maker (kalshi_exec.jsonl -> results/e4_evidence/live_maker_orders.csv): 29 filled / 47 (61.7%; critic
+  counted 30/44 = 68%); losses: filled 1/29, unfilled 0/18 -> adverse model (losses always fill).
+  The shortfall is at q .98: live 15/30 filled vs sealed 420/505; q < .98 live 14/17 vs sealed 1161/1339.
+- Fill-adjusted ROI, model A (every filled loser kept, winners thinned to the live fill rate; pre-registered as the
+  sizing model because live unfilled loss rate <= filled): f .68 -> +1.91%, 90% [+0.80, +2.96]; f .617 -> +1.43%,
+  90% [+0.23, +2.58]. Model C (shortfall only on q .98 winners, what the live split suggests): f .68 +3.11% [+1.97,+4.15].
+1/4 Kelly per bet (c r/(1-c)/4) vs 24 ct x c / $382.72 = 6.0-6.2% of bankroll:
+| r (90% lo) | c .96 | c .97 | c .98 |
+|---|---|---|---|
+| E1 sealed 1.98% | 11.9% | 16.0% | 24.3% |
+| E1 fill-adj A, f .68: 0.80% | 4.8% | 6.5% | 9.9% |
+| E1 fill-adj A, f .617: 0.23% | 1.4% | 1.9% | 2.9% |
+Verdict: on the sealed E1 bound, 24 ct is about half of 1/4 Kelly at every price. On the pre-registered conservative fill
+model with the critic's 68% fill, 24 ct is inside 1/4 Kelly at c .97-.98 and ~25% over at c <= .96; with the 61.7%
+recount it is 2-3x over at all prices. The binding uncertainty is the fill model (47 live orders), not the sealed edge.
+PROPOSAL (lead/user, not applied): keep 24 ct for c >= .97; cap c <= .96 orders at 1/4 Kelly under model A f .68
+(~19 ct at c .96); no step 3. Re-check when live orig-7 maker orders reach ~100.
+Correction: the 11-10 E4 math lists 1/4 Kelly 6.0% at c .96 for r .0157; c r/(1-c)/4 = 9.4% (12.7%/19.2% are right).
+X1 (17 cities): sealed cohort re-derived the same way: ROI +1.67%, 90% CI [+1.01, +2.29] (232 dates;
+results/e4_evidence/t2b_x1_sealed_ci.json), so item 1 is met on its own cohort. Forward since the pause (paper, 94 picks,
+10 nights 11-03..11-12, 3 losses): conservative tape-through ROI +7.1%, 95% CI [-10.7, +26.4]; N10 rule +5.7%
+[-7.5, +19.7] (results/e4_evidence/t2_x1_forward.json). Live X1 before the pause: 21 fills, 0 losses. Item 2 (95% upper
+> 0) is met. X1 is eligible at minimum units if the user restarts it (the 11-03 pause is the user's call).
