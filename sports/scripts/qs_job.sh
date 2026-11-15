@@ -143,6 +143,12 @@ case "$job" in
     if [ $rc -ne 0 ] || [ -n "$out" ]; then
       { echo "=== $(date '+%F %T %Z') $job: ot1_forward.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
+  # ---- ops_series_watch (11-15, notes/ops_series_watch.md): READ-ONLY; installed by scripts/install_series_watch_agent.sh
+  series-watch) # daily Kalshi new-series diff + E4-pattern score; launchd 07:00 PT (+ hourly retry until it succeeds)
+    [ "$((10#$hm))" -ge 700 ] || exit 0
+    done_today series_watch_done && exit 0
+    export SW_NO_MIRROR=1 PYTHONUNBUFFERED=1   # never open ~/Desktop from launchd (TCC open() hangs)
+    run scripts/series_watch.py run --date "$d" && echo "$d" > state/series_watch_done ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;
