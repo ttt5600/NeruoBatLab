@@ -1,3 +1,7 @@
+## 2026-11-15 IBKR STOPPED (user): launchd ibc-gateway + quant-forecastex-exec booted out AND disabled (E5 live probe
+##   paused; paper logger still on). Resume: launchctl enable + bootstrap each plist. KEEP 3-4 AGENTS RUNNING (user):
+##   queue = notes/RESEARCH_QUEUE.md. Running: gameday_ticket (NFL Sun + NBA -> notes/tickets/2026-11-15.md),
+##   maker_fairfill, news_lag (NFL inactives/NBA scratches logger for Sunday), critic_e4_step2.
 ## 2026-11-13 OPENER WAVE DONE: forward jobs wired + verified (kx-k1/knfl/kcfb/openers/lx1, ACT_LIST); K50: edge vs
 ##   Kalshi's own line ~0.85 pts < break-even; CBB model CLV +0.83 [+.69,+.97] n2,213 but fails cost (p .054 no-vig, -1.4%
 ##   real); KS12 soccer dead (stale free Pinnacle). LESSON: our sports models carry ~0.8-0.9 pts; taker cost needs 1.2-1.4.
