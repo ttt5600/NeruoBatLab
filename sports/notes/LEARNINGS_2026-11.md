@@ -138,6 +138,12 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### NFL inactive lists are priced before they are published
+2025 season: buying 3 min after the inactive list (QB Q/D ruled out or played) net CLV -1.52c [-2.13,-0.85] n18; post-list
+drift +0.47c [-0.17,+1.17] < ~2.75c entry cost; no jump at the list across 279 games (+0.034c vs placebo). 57% of the
+24-h move came before the list (insider reports). Same as Q011 NBA injury PDFs. Official releases are not information
+edges on Kalshi. Forward logger scripts/news_lag_logger.py ran 11-15. Source: notes/news_lag.md.
+
 ### Maker execution does not rescue the opener models: fills pick the losers even with a model choosing the side
 180 dev bets (K50 NBA/CFB/NFL + CBB), trade-tape fills at mid-1c: 56% fill; filled CLV -0.90 vs unfilled +2.21, gap -3.10
 [-3.82,-2.58] in every league; CLV-implied filled ROI -3.6% vs taker -4.0%. Maker fee is only 0.44c at 50c, but the
