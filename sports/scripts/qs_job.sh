@@ -160,6 +160,14 @@ case "$job" in
     if [ "$((10#$ehm))" -ge 215 ] && [ "$((10#$ehm))" -lt 305 ] && [ "$(cat state/state_gas_close 2>/dev/null)" != "$ed" ]; then
       run scripts/state_gas_books.py snap --slot close && echo "$ed" > state/state_gas_close
     fi ;;
+  # ---- ops_econ_event_logger (11-15, notes/ops_econ_event_logger.md): READ-ONLY; scripts/install_econ_event_books_agent.sh
+  econ-events)  # KX*EVENT ladder books at release-5/+5/+30 min (+ Deribit BTC/ETH trades at +5). launchd 60 s, 24 h;
+                # idle ticks make no network call (schedule re-pulled <= every 6 h) and print nothing -> heartbeat only
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/econ_event_books.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/econ_events_heartbeat
+    if [ $rc -ne 0 ] || [ -n "$out" ]; then
+      { echo "=== $(date '+%F %T %Z') $job: econ_event_books.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;

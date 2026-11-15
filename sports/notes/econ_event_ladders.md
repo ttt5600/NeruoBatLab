@@ -107,3 +107,8 @@ cannot be replayed for free; the Yahoo 1m/5m/1h proxies (futures, CBOE yield ind
 ### New Kalshi families: check that a book exists before building a forecaster
 The series-watch score (10/10 for metals) rated source, ladder and cadence, but the books were placeholders. One
 pre-release candle pull (~1,350 GETs, ~7 min) answered go/no-go before any model work.
+
+## Re-check date
+**Re-check: 2026-12-20** -- re-census liquidity from the release-5/+5/+30 book logger
+(`~/.claude/quant-sports/data/kx_forward/econ_events/books.jsonl.gz`, live since 2026-11-15, notes/ops_econ_event_logger.md;
+`python scripts/econ_event_books.py check`). Register EV1/EV2 only if >= ~5 rule-eligible quotes per release at p5.
