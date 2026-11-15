@@ -1,3 +1,15 @@
+## 2026-11-15 (day summary, read first) -- BLOCKER: Kalshi cash is per shard; shard 0 (weather/NFL) $4.81 of $604 (~$570
+##   on shard 2 after a ~$500 BTC 15-min trade 11-13 not in any bot journal). E4/DUL/NHL skip until user runs
+##   `bet.py allocate 0=95 3=5 --confirm` (asked; no answer yet). Kalshi total $706.05 vs $731 net in.
+## FIXES DEPLOYED: pick logger retries/per-city isolation (lost 11-13/14 nights to open-meteo timeouts); executor sizes on
+##   shard-0 cash; gap_logger whole-word matcher; L39 logger exclusions + coverage. PREPARED (default off, user yes):
+##   X1 restart 6 ct + sub-cap + kill, E4 price-band caps, TSA yes-only live, edgelab SCORING_VERSION 2 (0 verdicts change).
+## NEW LOGGERS (read-only launchd): nhl-om-a, nhl-goalie, ot1 (+OT1b), series-watch (daily 07:00 PT -> RESEARCH_QUEUE),
+##   state-gas-books, econ-events. Recheck dates: state gas freeze ~12-14, econ events 12-20.
+## DEAD today: maker fair-fill, NFL inactives, NFL weather updates, album units, Billboard #1, L39 P1m (bar), rules quirks,
+##   politics favourites L22, ERCOT/TTF, KS12. LEADS: OT1 crypto tails (front-loaded; forward), NHL opener (CLV<cost).
+## METHOD: bar review + calibration v2 + critic: edgelab mis-specified for near-certain contracts; at our volume small
+##   edges take ~2 yrs to certify -> sizing = judgment within risk limits; amendment text in notes/bar_calibration_v2.md.
 ## 2026-11-15 IBKR STOPPED (user): launchd ibc-gateway + quant-forecastex-exec booted out AND disabled (E5 live probe
 ##   paused; paper logger still on). Resume: launchctl enable + bootstrap each plist. KEEP 3-4 AGENTS RUNNING (user):
 ##   queue = notes/RESEARCH_QUEUE.md. Running: gameday_ticket (NFL Sun + NBA -> notes/tickets/2026-11-15.md),
