@@ -671,6 +671,50 @@ def kx_card(cid: str, title: str, trial: str, rule_src: list, clv_key: str, unit
     return c
 
 
+def card_ot1() -> Card:
+    """OT1 crypto-taker forward paper (scripts/ot1_forward.py -> data/kx_forward/ot1.jsonl; ops_ot1_forward 11-15).
+    $1-of-cost-per-bet ROI at ask + exact fee (the spec) and at the cent-rounded 1-lot fee; one-bet-per-day descriptive.
+    Spec kill: ROI CI entirely below 0 after 150 bets (min_n 150). Bootstrap here is per bet (edgelab clusters by day)."""
+    c = Card("OT1", "Deribit-implied tails vs Kalshi KXBTCD/KXETHD daily ladder, 11:00 ET taker (forward paper)")
+    c.rule(rule_line(NOTES / "ops_ot1_forward.md", "- Judge (frozen spec)"))
+    p = SD / "kx_forward" / "ot1.jsonl"
+    rows = jl(p)
+    res = {}
+    for r in rows:
+        if r.get("kind") == "settle":
+            res.update(r.get("results") or {})
+    days = [r for r in rows if r.get("kind") == "day"]
+    picks = [r for r in rows if r.get("kind") == "pick"]
+    best = {d.get("best_of_day") for d in days if d.get("best_of_day")}
+    bets = [b for b in picks if b.get("status") == "bet"]
+    s = [b for b in bets if res.get(b["ticker"]) in ("yes", "no")]
+    def roi(sel, fk):
+        cost = [b["ask"] + b[fk] for b in sel]
+        return [(1 / cst - 1) if res[b["ticker"]] == b["side"] else -1.0 for b, cst in zip(sel, cost)], [1.0] * len(sel)
+    status = defaultdict(int)
+    for d in days:
+        status[d.get("status")] += 1
+    won = [res[b["ticker"]] == b["side"] for b in s]
+    one = [b for b in s if b["ticker"] in best]
+    c.lines.append(f"`{rel(p)}`: days {len(days)} ({dict(status)}), bets {len(bets)}, settled {len(s)}, pending "
+                   f"{len(bets) - len(s)}; W-L {wl(won)}; {f_roi(*roi(s, 'fee_exact'))} at ask+exact fee; "
+                   f"{f_roi(*roi(s, 'fee_cent_1'))} at ask+1-lot cent fee; one-bet-per-day {len(one)}: "
+                   f"{f_roi(*roi(one, 'fee_exact'))}; mean ask "
+                   f"{np.mean([b['ask'] for b in s]) if s else float('nan'):.3f}; median size at best "
+                   f"{np.median([b.get('size_at_best') or 0 for b in s]) if s else float('nan'):.0f}")
+    if not p.exists():
+        c.warn.append(f"{rel(p)} missing -- is launchd job ot1 running? (forward starts 2026-11-16)")
+    n = len(s)
+    r, lo, hi = boot_roi(*roi(s, "fee_exact"))
+    if n >= 150 and np.isfinite(hi) and hi < 0:
+        c.set("KILLED-by-rule", f"ROI CI upper {hi:+.1%} < 0 after {n}")
+    elif n < 150:
+        c.set("too-early", f"{n} settled of 150 (spec min_n / kill check)")
+    else:
+        c.set("alive", f"n {n}, ROI {r:+.1%} [{lo:+.1%}, {hi:+.1%}]")
+    return c
+
+
 def card_lx1() -> Card:
     c = Card("LX1", "Kalshi logical-arb scanner (read-only, launchd lx1; judge 2026-11-19)")
     c.rule(rule_line(NOTES / "lx1_logical_arb.md", "- **Kill**: fewer than"))
@@ -778,6 +822,7 @@ def main(argv=None) -> int:
                      [rule_line(NOTES / "k50_strike.md", "Judge: same as K-NFL")], "clv"),
              kx_card("NHL-om-A", "xG/GSAx NHL totals model vs Kalshi first-tight 50c rung (taker, forward paper)", "nhla",
                      [rule_line(NOTES / "nhl_opener_model.md", "Judge at 100 settled")], "clv_c", " c", "nhl-om-a"),
+             card_ot1(),
              card_lx1(),
              card_lock(run_sub)]
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")

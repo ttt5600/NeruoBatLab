@@ -16,6 +16,8 @@
 #               notes/ops_forward_wiring.md; installed by scripts/install_kx_forward_agents.sh)
 #   nhl-om-a / nhl-goalie   READ-ONLY NHL opener-model forward paper + goalie-confirmation logger (11-15,
 #               notes/ops_nhl_goalie.md; installed by scripts/install_nhl_agents.sh)
+#   ot1         READ-ONLY OT1 Deribit-vs-Kalshi crypto tails forward paper (11-15, notes/ops_ot1_forward.md;
+#               installed by scripts/install_ot1_agent.sh)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
 # root makes every job a no-op (scripts/qs_stop.sh). Paper only: none of these jobs place orders or read keys.
 # Exception by design (11-07): nhl-ingame and nfl-fade pipe their signals to ~/.claude/quant-kalshi/scripts/
@@ -132,6 +134,14 @@ case "$job" in
     echo "$(date '+%F %T %Z') rc=$rc" > state/nhl_goalie_heartbeat
     if [ $rc -ne 0 ] || ! printf '%s' "$out" | grep -q ' idle: '; then
       { echo "=== $(date '+%F %T %Z') $job"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi ;;
+  # ---- ops_ot1_forward (11-15, notes/ops_ot1_forward.md): READ-ONLY; installed by scripts/install_ot1_agent.sh
+  ot1)          # OT1 forward paper: decide once/day at the first run in [11:00, 12:00) ET (Deribit then Kalshi live book),
+                # settle events after 17:05 ET. launchd 120 s; idle runs print nothing -> only the heartbeat file
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/ot1_forward.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/ot1_heartbeat
+    if [ $rc -ne 0 ] || [ -n "$out" ]; then
+      { echo "=== $(date '+%F %T %Z') $job: ot1_forward.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
