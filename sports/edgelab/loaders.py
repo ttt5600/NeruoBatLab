@@ -655,3 +655,31 @@ def kalshi_wx_monthly_early():
 
 
 LOADERS["kalshi_wx_monthly_early"] = kalshi_wx_monthly_early
+
+
+# ------------------------------------------------------------------ golf top-N "including ties" (scripts/rules_quirks_golf.py)
+def kalshi_golf_topn():
+    """results/rules_quirks/golf_edgelab_frame.parquet: one row per settled KXPGATOP5/10/20 market (yes/no only) with
+    the last hourly candle quote ending <= 11:00 UTC on the first-round Thursday. date = first-round day.
+    Agent rules_quirks, prereg addendum G in notes/rules_quirks.md (2026-11-15)."""
+    f = SPORTS / "results" / "rules_quirks" / "golf_edgelab_frame.parquet"
+    x = pd.read_parquet(f)
+    x = x[x.result.isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["date"])
+    return x.reset_index(drop=True), [str(f)]
+
+
+LOADERS["kalshi_golf_topn"] = kalshi_golf_topn
+
+
+def kalshi_cricket_nr():
+    """results/rules_quirks/cricket_frame.parquet (scripts/rules_quirks_cricket_px.py score): one row per two-team
+    cricket market with the quote at scheduled start - 1 h. date = scheduled start date. Outcome kind 'none' (NR pays
+    $0.50, which the evaluator cannot settle) -- the script is authoritative. Agent rules_quirks 2026-11-15."""
+    f = SPORTS / "results" / "rules_quirks" / "cricket_frame.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["start"], utc=True).dt.tz_localize(None).dt.normalize()
+    return x.reset_index(drop=True), [str(f)]
+
+
+LOADERS["kalshi_cricket_nr"] = kalshi_cricket_nr

@@ -1,0 +1,1730 @@
+{
+ "KXMINNYC": {
+  "title": "Min NYC temp",
+  "n_events": 5,
+  "events": [
+   {
+    "event": "MINNYC-22MAR",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   },
+   {
+    "event": "MINNYC-22FEB",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   },
+   {
+    "event": "MINNYC-22JAN",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   },
+   {
+    "event": "MINNYC-21DEC",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   },
+   {
+    "event": "MINNYC-21",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   }
+  ],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "NWS Climatological Report",
+    "url": "https://forecast.weather.gov/product.php?site=OKX&product=CLI&issuedby=NYC"
+   }
+  ]
+ },
+ "KXMONTHLOWMSN": {
+  "title": "Madison monthly low temperature",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXMSNLOWT": {
+  "title": "Madison temperature below threshold",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXMSNLOWT-31OCT26",
+    "n_mk": 1,
+    "vol": 7487.28,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      "less",
+      null,
+      30
+     ]
+    ],
+    "close": "2026-11-01T04:58:59Z"
+   }
+  ],
+  "rules": "If the minimum official hourly temperature reported by The Weather Company for Dane County Regional Airport (KMSN), Madison, WI, during From this market's issuance (its Market Open Time), inclusive, through November 1, 2026 at 12:59:59 AM EDT, inclusive, corresponding to the end of October 31, 2026 in America/Chicago. Observations before issuance do not count. is strictly below 30 degrees Fahrenheit, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXSJCLOWT": {
+  "title": "Monthly minimum temperature in San Jose",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXSJCLOWT-26DEC31",
+    "n_mk": 1,
+    "vol": 7653.0,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "less",
+      null,
+      40
+     ]
+    ],
+    "close": "2027-01-01T07:59:00Z"
+   }
+  ],
+  "rules": "If any hourly temperature value reported for KSJC in San Jose within December 1, 2026 through December 31, 2026 is strictly less than 40 degrees Fahrenheit, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXLOWTPERIOD": {
+  "title": "Lowest temperature over a period",
+  "n_events": 5,
+  "events": [
+   {
+    "event": "KXLOWTPERIOD-26NOV15BOS",
+    "n_mk": 5,
+    "vol": 12264.91,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "less",
+      null,
+      28
+     ],
+     [
+      "less",
+      null,
+      30
+     ],
+     [
+      "less",
+      null,
+      32
+     ],
+     [
+      "less",
+      null,
+      34
+     ],
+     [
+      "less",
+      null,
+      36
+     ]
+    ],
+    "close": "2026-11-16T04:59:00Z"
+   },
+   {
+    "event": "KXLOWTPERIOD-26NOV15EWR",
+    "n_mk": 5,
+    "vol": 13020.43,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "less",
+      null,
+      32
+     ],
+     [
+      "less",
+      null,
+      34
+     ],
+     [
+      "less",
+      null,
+      36
+     ],
+     [
+      "less",
+      null,
+      38
+     ],
+     [
+      "less",
+      null,
+      40
+     ]
+    ],
+    "close": "2026-11-16T04:59:00Z"
+   },
+   {
+    "event": "KXLOWTPERIOD-26NOV15NYC",
+    "n_mk": 5,
+    "vol": 12161.289999999999,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "less",
+      null,
+      36
+     ],
+     [
+      "less",
+      null,
+      38
+     ],
+     [
+      "less",
+      null,
+      40
+     ],
+     [
+      "less",
+      null,
+      42
+     ],
+     [
+      "less",
+      null,
+      44
+     ]
+    ],
+    "close": "2026-11-16T04:59:00Z"
+   },
+   {
+    "event": "KXLOWTPERIOD-26NOV15PHL",
+    "n_mk": 5,
+    "vol": 3464.89,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "less",
+      null,
+      32
+     ],
+     [
+      "less",
+      null,
+      34
+     ],
+     [
+      "less",
+      null,
+      36
+     ],
+     [
+      "less",
+      null,
+      38
+     ],
+     [
+      "less",
+      null,
+      40
+     ]
+    ],
+    "close": "2026-11-16T04:59:00Z"
+   },
+   {
+    "event": "KXLOWTPERIOD-26NOV15PVD",
+    "n_mk": 5,
+    "vol": 7276.719999999999,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "less",
+      null,
+      30
+     ],
+     [
+      "less",
+      null,
+      32
+     ],
+     [
+      "less",
+      null,
+      34
+     ],
+     [
+      "less",
+      null,
+      36
+     ],
+     [
+      "less",
+      null,
+      38
+     ]
+    ],
+    "close": "2026-11-16T04:59:00Z"
+   }
+  ],
+  "rules": "If the minimum temperature recorded at Boston (KBOS) for Nov 12 to 15, 2026 (inclusive, America/New_York local calendar dates), is less than 28\u00b0 Fahrenheit according to The Weather Company, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov"
+   }
+  ]
+ },
+ "KXYEARLOWNYC": {
+  "title": "New York City annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWCHI": {
+  "title": "Chicago annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWDEN": {
+  "title": "Denver annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWBOS": {
+  "title": "Boston annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWPHL": {
+  "title": "Philadelphia annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWDC": {
+  "title": "Washington DC annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWMSP": {
+  "title": "Minneapolis annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWATL": {
+  "title": "Atlanta annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWDFW": {
+  "title": "Dallas-Fort Worth annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXYEARLOWOKC": {
+  "title": "Oklahoma City annual low hourly temp",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXHDDCVG": {
+  "title": "Cincinnati heating degree days",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXHDDCVG-KCVG-01OCT26-31DEC26",
+    "n_mk": 9,
+    "vol": 24075.65,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "less",
+      null,
+      1250
+     ],
+     [
+      "less",
+      null,
+      1300
+     ],
+     [
+      "less",
+      null,
+      1350
+     ],
+     [
+      "less",
+      null,
+      1400
+     ],
+     [
+      "less",
+      null,
+      1450
+     ],
+     [
+      "less",
+      null,
+      1500
+     ],
+     [
+      "less",
+      null,
+      1550
+     ],
+     [
+      "less",
+      null,
+      1600
+     ],
+     [
+      "less",
+      null,
+      1650
+     ]
+    ],
+    "close": "2027-01-01T04:59:00Z"
+   }
+  ],
+  "rules": "If the cumulative sum of Heating Degree Days (HDD) at Cincinnati/Northern Kentucky International Airport (station identifier KCVG, WMO identifier 72421) is below 1,250.00 between Oct 1, 2026 and Dec 31, 2026, the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXAVGTEMP": {
+  "title": "US average temp",
+  "n_events": 2,
+  "events": [
+   {
+    "event": "AVGTEMP-23AUG",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   },
+   {
+    "event": "AVGTEMP-2022NOV",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   }
+  ],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "National Centers for Environmental Information",
+    "url": "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/national/rankings"
+   }
+  ]
+ },
+ "KXHIGHTEMPDEN": {
+  "title": "High temperature denver",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "NWS Climatological Report",
+    "url": "https://forecast.weather.gov/product.php?site=BOU&product=CLI&issuedby=DEN"
+   }
+  ]
+ },
+ "KXPHILHIGH": {
+  "title": "Highest temperature in Philadelphia",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "NWS Climatological Report",
+    "url": "https://forecast.weather.gov/product.php?site=PHI&product=CLI&issuedby=PHL"
+   }
+  ]
+ },
+ "KXMAXTEMP100": {
+  "title": "Max temp 100",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "the National Weather Service",
+    "url": "https://www.weather.gov"
+   }
+  ]
+ },
+ "KXHOBBYTEMP": {
+  "title": "Maximum temperature at Houston Hobby Airport",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXHOBBYTEMP-26SEP01",
+    "n_mk": 1,
+    "vol": 34541.84,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      null,
+      null,
+      null
+     ]
+    ],
+    "close": "2026-09-01T03:59:00Z"
+   }
+  ],
+  "rules": "If a daily maximum air temperature of at least 103\u00b0F occurs in Houston, Texas, at Houston Hobby Airport in August 2026 as confirmed by the National Weather Service, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "if not U.S.: the national weather service governing area.",
+    "url": "https://www.usa.gov/"
+   },
+   {
+    "name": "the National Weather Service",
+    "url": "https://www.weather.gov"
+   }
+  ]
+ },
+ "KXHOLIDAYTMIN": {
+  "title": "Min temperature holidays ",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXHOLIDAYTMIN-26070450",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   }
+  ],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXHOLIDAYTMAX": {
+  "title": "Max temperature holiday by city",
+  "n_events": 3,
+  "events": [
+   {
+    "event": "KXHOLIDAYTMAX-26070485",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   },
+   {
+    "event": "KXHOLIDAYTMAX-26070475",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   },
+   {
+    "event": "KXHOLIDAYTMAX-260704100",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   }
+  ],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXMAMMOTHSNOW": {
+  "title": "Mammoth Main Lodge seasonal snowfall",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXMAMMOTHSNOW-24DEC26",
+    "n_mk": 11,
+    "vol": 13352.53,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      110,
+      null
+     ],
+     [
+      "greater",
+      125,
+      null
+     ],
+     [
+      "greater",
+      140,
+      null
+     ],
+     [
+      "greater",
+      165,
+      null
+     ],
+     [
+      "greater",
+      190,
+      null
+     ],
+     [
+      "greater",
+      215,
+      null
+     ],
+     [
+      "greater",
+      35,
+      null
+     ],
+     [
+      "greater",
+      50,
+      null
+     ],
+     [
+      "greater",
+      65,
+      null
+     ],
+     [
+      "greater",
+      80,
+      null
+     ],
+     [
+      "greater",
+      95,
+      null
+     ]
+    ],
+    "close": "2026-12-24T20:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall recorded at Mammoth Mountain October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 35 inches, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "OnTheSnow",
+    "url": "https://www.onthesnow.com/"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "Alterra Mountain Company",
+    "url": "https://www.alterramtn.co/en"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com/"
+   },
+   {
+    "name": "the New York Times",
+    "url": "https://www.nytimes.com"
+   }
+  ]
+ },
+ "KXALTASNOW": {
+  "title": "Snowfall in Alta Ski Resort",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXALTASNOW-26DEC",
+    "n_mk": 8,
+    "vol": 1.0,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      100,
+      null
+     ],
+     [
+      "greater",
+      110,
+      null
+     ],
+     [
+      "greater",
+      40,
+      null
+     ],
+     [
+      "greater",
+      50,
+      null
+     ],
+     [
+      "greater",
+      60,
+      null
+     ],
+     [
+      "greater",
+      70,
+      null
+     ],
+     [
+      "greater",
+      80,
+      null
+     ],
+     [
+      "greater",
+      90,
+      null
+     ]
+    ],
+    "close": "2027-01-01T04:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall recorded at Alta Ski Area in December 2026 is above 40 inches, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "OnTheSnow",
+    "url": "https://www.onthesnow.com/"
+   },
+   {
+    "name": "Alta Ski Area",
+    "url": "https://www.alta.com/weather#monthly-snow-totals"
+   }
+  ]
+ },
+ "KXSTOWESNOW": {
+  "title": "Stowe snowfall",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXSTOWESNOW-24DEC26",
+    "n_mk": 11,
+    "vol": 10814.3,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      105,
+      null
+     ],
+     [
+      "greater",
+      115,
+      null
+     ],
+     [
+      "greater",
+      125,
+      null
+     ],
+     [
+      "greater",
+      25,
+      null
+     ],
+     [
+      "greater",
+      35,
+      null
+     ],
+     [
+      "greater",
+      45,
+      null
+     ],
+     [
+      "greater",
+      55,
+      null
+     ],
+     [
+      "greater",
+      65,
+      null
+     ],
+     [
+      "greater",
+      75,
+      null
+     ],
+     [
+      "greater",
+      85,
+      null
+     ],
+     [
+      "greater",
+      95,
+      null
+     ]
+    ],
+    "close": "2026-12-24T20:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall recorded at Stowe Mountain Resort October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 25 inches, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "Vail Resorts",
+    "url": "https://www.vailresorts.com/"
+   },
+   {
+    "name": "Stowe Mountain Resort Snow & Weather Report",
+    "url": "https://www.stowe.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com/"
+   },
+   {
+    "name": "the Associated Press",
+    "url": "https://apnews.com/"
+   },
+   {
+    "name": "the New York Times",
+    "url": "https://www.nytimes.com"
+   }
+  ]
+ },
+ "KXPARKCSNOW": {
+  "title": "Park City Mountain snowfall",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXPARKCSNOW-24DEC26",
+    "n_mk": 9,
+    "vol": 17954.15,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      100,
+      null
+     ],
+     [
+      "greater",
+      130,
+      null
+     ],
+     [
+      "greater",
+      30,
+      null
+     ],
+     [
+      "greater",
+      40,
+      null
+     ],
+     [
+      "greater",
+      50,
+      null
+     ],
+     [
+      "greater",
+      60,
+      null
+     ],
+     [
+      "greater",
+      70,
+      null
+     ],
+     [
+      "greater",
+      80,
+      null
+     ],
+     [
+      "greater",
+      90,
+      null
+     ]
+    ],
+    "close": "2026-12-24T20:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall recorded at Park City Mountain October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 30 inches, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "Vail Resorts",
+    "url": "https://www.vailresorts.com/"
+   },
+   {
+    "name": "Park City Mountain Snow & Weather Report",
+    "url": "https://www.parkcitymountain.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com/"
+   },
+   {
+    "name": "the Associated Press",
+    "url": "https://apnews.com/"
+   },
+   {
+    "name": "the New York Times",
+    "url": "https://www.nytimes.com"
+   }
+  ]
+ },
+ "KXKEYSTONESNOW": {
+  "title": "Keystone snowfall",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXKEYSTONESNOW-24DEC26",
+    "n_mk": 11,
+    "vol": 442.22,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      105,
+      null
+     ],
+     [
+      "greater",
+      45,
+      null
+     ],
+     [
+      "greater",
+      50,
+      null
+     ],
+     [
+      "greater",
+      55,
+      null
+     ],
+     [
+      "greater",
+      60,
+      null
+     ],
+     [
+      "greater",
+      65,
+      null
+     ],
+     [
+      "greater",
+      70,
+      null
+     ],
+     [
+      "greater",
+      75,
+      null
+     ],
+     [
+      "greater",
+      80,
+      null
+     ],
+     [
+      "greater",
+      85,
+      null
+     ],
+     [
+      "greater",
+      90,
+      null
+     ]
+    ],
+    "close": "2026-12-24T20:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall recorded at Keystone Resort October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 45 inches, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "Keystone Resort Snow & Weather Report",
+    "url": "https://www.keystoneresort.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx"
+   },
+   {
+    "name": "Vail Resorts",
+    "url": "https://www.vailresorts.com/"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com/"
+   },
+   {
+    "name": "the Associated Press",
+    "url": "https://apnews.com/"
+   },
+   {
+    "name": "the New York Times",
+    "url": "https://www.nytimes.com"
+   }
+  ]
+ },
+ "KXNORTHSTARSNOW": {
+  "title": "Northstar snowfall",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXNORTHSTARSNOW-24DEC26",
+    "n_mk": 9,
+    "vol": 786.8199999999999,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      105,
+      null
+     ],
+     [
+      "greater",
+      120,
+      null
+     ],
+     [
+      "greater",
+      135,
+      null
+     ],
+     [
+      "greater",
+      20,
+      null
+     ],
+     [
+      "greater",
+      30,
+      null
+     ],
+     [
+      "greater",
+      45,
+      null
+     ],
+     [
+      "greater",
+      60,
+      null
+     ],
+     [
+      "greater",
+      75,
+      null
+     ],
+     [
+      "greater",
+      90,
+      null
+     ]
+    ],
+    "close": "2026-12-24T20:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall recorded at Northstar California Resort October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 20 inches, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "Northstar California Resort Snow & Weather Report",
+    "url": "https://www.northstarcalifornia.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "Vail Resorts",
+    "url": "https://www.vailresorts.com/"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com/"
+   },
+   {
+    "name": "the Associated Press",
+    "url": "https://apnews.com/"
+   },
+   {
+    "name": "the New York Times",
+    "url": "https://www.nytimes.com"
+   }
+  ]
+ },
+ "KXBEAVERSNOW": {
+  "title": "Beaver Creek snowfall",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXBEAVERSNOW-24DEC26",
+    "n_mk": 9,
+    "vol": 4419.139999999999,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      100,
+      null
+     ],
+     [
+      "greater",
+      115,
+      null
+     ],
+     [
+      "greater",
+      30,
+      null
+     ],
+     [
+      "greater",
+      40,
+      null
+     ],
+     [
+      "greater",
+      50,
+      null
+     ],
+     [
+      "greater",
+      60,
+      null
+     ],
+     [
+      "greater",
+      70,
+      null
+     ],
+     [
+      "greater",
+      80,
+      null
+     ],
+     [
+      "greater",
+      90,
+      null
+     ]
+    ],
+    "close": "2026-12-24T20:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall recorded at Beaver Creek Resort October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 30 inches, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "Beaver Creek Resort Snow & Weather Report",
+    "url": "https://www.beavercreek.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx"
+   },
+   {
+    "name": "Vail Resorts",
+    "url": "https://www.vailresorts.com/"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com/"
+   },
+   {
+    "name": "the Associated Press",
+    "url": "https://apnews.com/"
+   },
+   {
+    "name": "the New York Times",
+    "url": "https://www.nytimes.com"
+   }
+  ]
+ },
+ "KXTSNOWFALLBIGSKYM": {
+  "title": "Big Sky monthly snowfall",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXTSNOWFALLBIGSKYM-26DEC",
+    "n_mk": 10,
+    "vol": 146052.3,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      10,
+      null
+     ],
+     [
+      "greater",
+      15,
+      null
+     ],
+     [
+      "greater",
+      20,
+      null
+     ],
+     [
+      "greater",
+      25,
+      null
+     ],
+     [
+      "greater",
+      30,
+      null
+     ],
+     [
+      "greater",
+      35,
+      null
+     ],
+     [
+      "greater",
+      40,
+      null
+     ],
+     [
+      "greater",
+      45,
+      null
+     ],
+     [
+      "greater",
+      5,
+      null
+     ],
+     [
+      "greater",
+      50,
+      null
+     ]
+    ],
+    "close": "2027-01-01T06:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall accumulated at Big Sky Resort, Montana during December 2026, in inches, as reported by OnTheSnow, is strictly greater than 5 inches, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "OnTheSnow - Big Sky",
+    "url": "https://www.onthesnow.com/montana/big-sky-resort/historical-snowfall"
+   }
+  ]
+ },
+ "KXASPSNOWM": {
+  "title": "Aspen Snow Monthly",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXASPSNOWM-25DEC",
+    "n_mk": 2,
+    "vol": 0.0,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      "greater",
+      0.1,
+      null
+     ],
+     [
+      "greater",
+      0.5,
+      null
+     ]
+    ],
+    "close": "2026-01-01T18:58:59Z"
+   }
+  ],
+  "rules": "If the total snowfall in Aspen in Dec 2025 is strictly greater than 0.1 inches according to the National Weather Service(NWS), then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "the National Weather Service",
+    "url": "https://www.weather.gov"
+   }
+  ]
+ },
+ "KXWEEKHTNYC": {
+  "title": "Weekly high temperature New York",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXWEEKHTLAX": {
+  "title": "Weekly high temperature Los Angeles",
+  "n_events": 0,
+  "events": [],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXAVGTKDEN": {
+  "title": "Average Weekly Temp in Denver ",
+  "n_events": 8,
+  "events": [
+   {
+    "event": "KXAVGTKDEN-26OCT11",
+    "n_mk": 5,
+    "vol": 0.0,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      "greater_or_equal",
+      2,
+      null
+     ],
+     [
+      "greater_or_equal",
+      3,
+      null
+     ],
+     [
+      "greater_or_equal",
+      4,
+      null
+     ],
+     [
+      "greater_or_equal",
+      5,
+      null
+     ],
+     [
+      "greater_or_equal",
+      6,
+      null
+     ]
+    ],
+    "close": "2026-10-12T03:59:59Z"
+   },
+   {
+    "event": "KXAVGTKDEN-26OCT04",
+    "n_mk": 5,
+    "vol": 0.0,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      "greater_or_equal",
+      2,
+      null
+     ],
+     [
+      "greater_or_equal",
+      3,
+      null
+     ],
+     [
+      "greater_or_equal",
+      4,
+      null
+     ],
+     [
+      "greater_or_equal",
+      5,
+      null
+     ],
+     [
+      "greater_or_equal",
+      6,
+      null
+     ]
+    ],
+    "close": "2026-10-05T03:59:59Z"
+   },
+   {
+    "event": "KXAVGTKDEN-26SEP27",
+    "n_mk": 5,
+    "vol": 93.0,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      "greater_or_equal",
+      2,
+      null
+     ],
+     [
+      "greater_or_equal",
+      3,
+      null
+     ],
+     [
+      "greater_or_equal",
+      4,
+      null
+     ],
+     [
+      "greater_or_equal",
+      5,
+      null
+     ],
+     [
+      "greater_or_equal",
+      6,
+      null
+     ]
+    ],
+    "close": "2026-09-28T03:59:59Z"
+   },
+   {
+    "event": "KXAVGTKDEN-26SEP20",
+    "n_mk": 5,
+    "vol": 0.0,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      "greater_or_equal",
+      2,
+      null
+     ],
+     [
+      "greater_or_equal",
+      3,
+      null
+     ],
+     [
+      "greater_or_equal",
+      4,
+      null
+     ],
+     [
+      "greater_or_equal",
+      5,
+      null
+     ],
+     [
+      "greater_or_equal",
+      6,
+      null
+     ]
+    ],
+    "close": "2026-09-21T03:59:59Z"
+   },
+   {
+    "event": "KXAVGTKDEN-26SEP13",
+    "n_mk": 5,
+    "vol": 1.88,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      "greater_or_equal",
+      2,
+      null
+     ],
+     [
+      "greater_or_equal",
+      3,
+      null
+     ],
+     [
+      "greater_or_equal",
+      4,
+      null
+     ],
+     [
+      "greater_or_equal",
+      5,
+      null
+     ],
+     [
+      "greater_or_equal",
+      6,
+      null
+     ]
+    ],
+    "close": "2026-09-14T03:59:59Z"
+   },
+   {
+    "event": "KXAVGTKDEN-26SEP06",
+    "n_mk": 5,
+    "vol": 52.08,
+    "status": [
+     "finalized"
+    ],
+    "strikes": [
+     [
+      "greater_or_equal",
+      2,
+      null
+     ],
+     [
+      "greater_or_equal",
+      3,
+      null
+     ],
+     [
+      "greater_or_equal",
+      4,
+      null
+     ],
+     [
+      "greater_or_equal",
+      5,
+      null
+     ],
+     [
+      "greater_or_equal",
+      6,
+      null
+     ]
+    ],
+    "close": "2026-09-07T03:59:59Z"
+   },
+   {
+    "event": "KXAVGTKDEN-26AUG30",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   },
+   {
+    "event": "KXAVGTKDEN-26AUG24",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   }
+  ],
+  "rules": "If there is at least 2 or more consecutive days within October 5, 2026 through October 11, 2026 on which the daily average temperature at KDEN in Denver is strictly greater than 90 degrees Fahrenheit, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   }
+  ]
+ },
+ "KXSNOWCITIES": {
+  "title": "Snowfall by city",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "KXSNOWCITIES-26NOV15",
+    "n_mk": 5,
+    "vol": 31157.52,
+    "status": [
+     "active"
+    ],
+    "strikes": [
+     [
+      "greater",
+      1,
+      null
+     ]
+    ],
+    "close": "2026-11-16T04:59:00Z"
+   }
+  ],
+  "rules": "If the total snowfall recorded in New York City (KNYC) from Nov 12 to 15, 2026 is strictly greater than 1 inch, then the market resolves to Yes.",
+  "settlement_sources": [
+   {
+    "name": "The Weather Company",
+    "url": "https://weather.com/kalshi"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov"
+   }
+  ]
+ },
+ "KXMICHTEMP": {
+  "title": "Lake Michigan surface water temperature",
+  "n_events": 1,
+  "events": [
+   {
+    "event": "MICHTEMP-22AUG29",
+    "n_mk": 0,
+    "vol": 0,
+    "status": [],
+    "strikes": [],
+    "close": null
+   }
+  ],
+  "rules": null,
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://coastwatch.glerl.noaa.gov/ftp/glsea/avgtemps/glsea-temps_1024.dat"
+   }
+  ]
+ }
+}

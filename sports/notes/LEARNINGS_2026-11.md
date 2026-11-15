@@ -138,6 +138,13 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### A loss-free certain-side strategy at 96-98c cannot pass the bar on short history: null p = price^n
+L39 early-month version (P1m): 94 maker fills, 0 losses, +4.28% [+3.61,+5.00], market-null p .021 > bar .00455 -> dead;
+.96^94 = .0216. Passing needs ~132 loss-free fills at 96c, ~213 at 97.5c. With zero losses a bootstrap CI only reflects
+entry-price spread; the evidence is the run length. Judge E4-like ideas by expected fills-to-bar before testing. Also:
+L39 is a forecast-margin rule (2x wettest model + 0.5 in), not "unreachable"; NOAA matched Kalshi 1,259/1,259; the one
+loss was real rain. Source: notes/l39_expansion.md.
+
 ### Billboard #1 on Kalshi is priced by Wednesday, like album units
 HDD Tuesday #1 = Billboard 200 #1 in 0.941 of 68 dev weeks; rule picked 802 Wednesday rows with 0 losses, but the leader's
 YES median bid was .98 with no seller and rivals had no YES bid on 702/754 rows. Taker n7, maker 22 fills (cap ~$1.7k

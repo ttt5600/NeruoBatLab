@@ -428,3 +428,21 @@ datasets:
       dev: [2024-02-01, 2026-04-10]        # crypto daily events start 2024-10-24; index needs VIX1D hourly (2024-01-29+)
       sealed: [2026-04-11, 2026-10-31]     # never fetched by this agent
       forward: [2026-11-16, null]
+  kalshi_golf_topn:       # rules_quirks 11-15: Kalshi top-N pays $1 to all ties (books dead-heat); prereg G in notes/rules_quirks.md
+    loader: kalshi_golf_topn
+    family: kalshi_rules_quirks
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = first-round Thursday
+      dev: [2026-01-01, 2026-06-30]
+      sealed: [2026-07-01, 2026-11-14]     # candles fetched for all, but scored only on the user's yes
+      forward: [2026-11-15, null]
+  kalshi_cricket_nr:      # rules_quirks 11-15: NR/tie -> $0.50 (books void); evaluator cannot settle 0.5 -> outcome none, script scores
+    loader: kalshi_cricket_nr
+    family: kalshi_rules_quirks
+    hidden: [result, sv]
+    outcome: {kind: none, key: ticker}
+    splits:                                # date = scheduled start (UTC date)
+      dev: [2026-01-01, 2026-06-30]
+      sealed: [2026-07-01, 2026-11-14]
+      forward: [2026-11-15, null]
