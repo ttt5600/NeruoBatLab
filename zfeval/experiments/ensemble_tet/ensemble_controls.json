@@ -1,0 +1,66 @@
+{
+ "status": "POST HOC controls, not pre-committed",
+ "results": {
+  "K1": {
+   "members": [
+    "run16_compute4x",
+    "run16_seed2",
+    "run16_seed3"
+   ],
+   "best_member": "run16_seed3",
+   "acc_ens": 0.8490621336459554,
+   "acc_best": 0.8411488862837045,
+   "diff": 0.007913247362250853,
+   "lo95": -0.0030406947351691777,
+   "hi95": 0.01873690820511632
+  },
+  "K2": {
+   "members": [
+    "run19_avesteacher",
+    "run19_seed2"
+   ],
+   "best_member": "run19_seed2",
+   "acc_ens": 0.8560961313012896,
+   "acc_best": 0.854630715123095,
+   "diff": 0.0014654161781946229,
+   "lo95": -0.006432099606347349,
+   "hi95": 0.010601747578813697
+  },
+  "K3": {
+   "members": [
+    "hf-whisper-base-enc",
+    "run16_seed2"
+   ],
+   "best_member": "hf-whisper-base-enc",
+   "acc_ens": 0.8719226260257913,
+   "acc_best": 0.8645955451348183,
+   "diff": 0.007327080890973003,
+   "lo95": -0.004388523544084888,
+   "hi95": 0.020167026084841215
+  },
+  "K4": {
+   "members": [
+    "hf-whisper-base-enc",
+    "hf-hubert-base-ls960"
+   ],
+   "best_member": "hf-whisper-base-enc",
+   "acc_ens": 0.8704572098475967,
+   "acc_best": 0.8645955451348183,
+   "diff": 0.0058616647127783805,
+   "lo95": -0.004705487788908544,
+   "hi95": 0.017530337802941113
+  },
+  "K5": {
+   "members": [
+    "hf-whisper-base-enc",
+    "hf-whisper-small-enc"
+   ],
+   "best_member": "hf-whisper-base-enc",
+   "acc_ens": 0.8672332942555686,
+   "acc_best": 0.8645955451348183,
+   "diff": 0.002637749120750321,
+   "lo95": -0.007790701749880802,
+   "hi95": 0.013555988341135474
+  }
+ }
+}

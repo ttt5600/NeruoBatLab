@@ -1,0 +1,17 @@
+[Parallel(n_jobs=4)]: Using backend LokyBackend with 4 concurrent workers.
+[Parallel(n_jobs=4)]: Done  10 tasks      | elapsed:    8.0s
+[Parallel(n_jobs=4)]: Done  57 out of  57 | elapsed:   42.1s finished
+probes done 44s
+E1 mean   hf-whisper-base-enc+hf-whisper-small-enc+birdaves-bioxn-large  0.8816 vs best hf-whisper-base-enc 0.8646  +0.0170 95% [+0.0061, +0.0269] Bonf [+0.0019, +0.0300]  ensemble better (Bonferroni m=7)
+    L3: +0.0106 [+0.0004, +0.0194]  splits mean +0.0179 pos 10/10
+E2 mean   hf-whisper-base-enc+birdaves-bioxn-large  0.8810 vs best hf-whisper-base-enc 0.8646  +0.0164 95% [+0.0076, +0.0254] Bonf [+0.0046, +0.0283]  ensemble better (Bonferroni m=7)
+    L3: +0.0234 [+0.0117, +0.0362]  splits mean +0.0158 pos 10/10
+E3 mean   hf-whisper-base-enc+run19_seed2  0.8813 vs best hf-whisper-base-enc 0.8646  +0.0167 95% [+0.0057, +0.0305] Bonf [+0.0018, +0.0349]  ensemble better (Bonferroni m=7)
+    L3: +0.0188 [+0.0068, +0.0306]  splits mean +0.0127 pos 10/10
+E4 mean   hf-whisper-base-enc+hf-whisper-small-enc+birdaves-bioxn-large+run19_seed2  0.8828 vs best hf-whisper-base-enc 0.8646  +0.0182 95% [+0.0063, +0.0304] Bonf [+0.0026, +0.0360]  ensemble better (Bonferroni m=7)
+    L3: +0.0226 [+0.0126, +0.0325]  splits mean +0.0205 pos 10/10
+E5 mean   hf-whisper-small-enc+birdaves-bioxn-large+run24_bioxnl12_s2  0.8810 vs best hf-whisper-small-enc 0.8599  +0.0211 95% [+0.0098, +0.0310] Bonf [+0.0065, +0.0339]  ensemble better (Bonferroni m=7)
+    L3: +0.0149 [+0.0052, +0.0232]  splits mean +0.0162 pos 10/10
+C1 concat hf-whisper-base-enc+hf-whisper-small-enc+birdaves-bioxn-large  0.8713 vs best hf-whisper-base-enc 0.8646  +0.0067 95% [-0.0041, +0.0181] Bonf [-0.0076, +0.0221]  not distinguishable (Bonferroni m=7)
+C2 concat hf-whisper-base-enc+birdaves-bioxn-large  0.8693 vs best hf-whisper-base-enc 0.8646  +0.0047 95% [-0.0080, +0.0164] Bonf [-0.0134, +0.0210]  not distinguishable (Bonferroni m=7)
+-> /Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/agent-abfbebe41020c5b4e/zfeval/experiments/ensemble_tet/ensemble_calltype.json  (44s)

@@ -1,0 +1,5 @@
+K1 run16_compute4x+run16_seed2+run16_seed3: 0.8491 vs run16_seed3 0.8411 +0.0079 [-0.0030, +0.0187]
+K2 run19_avesteacher+run19_seed2: 0.8561 vs run19_seed2 0.8546 +0.0015 [-0.0064, +0.0106]
+K3 hf-whisper-base-enc+run16_seed2: 0.8719 vs hf-whisper-base-enc 0.8646 +0.0073 [-0.0044, +0.0202]
+K4 hf-whisper-base-enc+hf-hubert-base-ls960: 0.8705 vs hf-whisper-base-enc 0.8646 +0.0059 [-0.0047, +0.0175]
+K5 hf-whisper-base-enc+hf-whisper-small-enc: 0.8672 vs hf-whisper-base-enc 0.8646 +0.0026 [-0.0078, +0.0136]
