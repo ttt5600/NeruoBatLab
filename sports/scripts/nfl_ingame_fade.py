@@ -50,6 +50,7 @@ def fresh_pbp() -> pd.DataFrame:
     p = PBP / "play_by_play_2026.parquet"
     r = requests.get("https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.parquet", timeout=300)
     r.raise_for_status()
+    p.parent.mkdir(parents=True, exist_ok=True)  # deployed root (~/.claude/quant-sports) has no data/pbp -> crashed 11-15
     p.write_bytes(r.content)  # nflverse rebuilds nightly; always re-download for this test
     d = pd.read_parquet(p, columns=["game_id", "play_id", "time_of_day", "home_team", "away_team", "vegas_home_wp", "season_type"])
     d = d[d.time_of_day.notna() & d.vegas_home_wp.notna() & (d.season_type == "REG")].copy()
