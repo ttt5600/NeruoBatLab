@@ -1,0 +1,15 @@
+id: rq_cricket_c1
+family: kalshi_rules_quirks
+dataset: kalshi_cricket_nr
+rule: edgelab.rules.cricket_nr:c1_dog
+hypothesis: 'rules_quirks C (notes/rules_quirks.md prereg 2026-11-15): Kalshi cricket NR/tie/abandon settles both teams at $0.50 while books void, so a book-copied underdog price misses +q(p_fav-0.5); buy underdog YES at ask in [0.10,0.45] at start-1h, taker + fee. Scored by scripts/rules_quirks_cricket_px.py (evaluator cannot settle at $0.50).'
+decision_time: 'last hourly candle ending <= scheduled start - 1 h (start from the event ticker, America/New_York)'
+price_model: taker
+split: vault:kalshi_cricket_nr
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 150
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent rules_quirks)'

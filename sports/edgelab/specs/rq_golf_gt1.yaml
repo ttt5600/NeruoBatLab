@@ -1,0 +1,15 @@
+id: rq_golf_gt1
+family: kalshi_rules_quirks
+dataset: kalshi_golf_topn
+rule: edgelab.rules.golf_topn:gt1_all
+hypothesis: 'rules_quirks G (notes/rules_quirks.md prereg 2026-11-15): Kalshi KXPGATOP5/10/20 pay $1 to all ties while books dead-heat, so book-copied prices underprice YES; buy YES at ask in [0.03, 0.95] on every listed player at the last hourly candle <= 11:00 UTC first-round Thursday, taker + fee, hold'
+decision_time: 'last hourly candle ending <= 11:00 UTC on the first-round Thursday'
+price_model: taker
+split: vault:kalshi_golf_topn
+min_n: 300
+kill:
+  kind: roi_ci_below_zero
+  after_n: 300
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent rules_quirks)'

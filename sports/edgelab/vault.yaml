@@ -446,3 +446,12 @@ datasets:
       dev: [2026-01-01, 2026-06-30]
       sealed: [2026-07-01, 2026-11-14]
       forward: [2026-11-15, null]
+  kalshi_politics_fav:    # pol_favourites 11-15 (L22, Le arXiv 2602.19520): prereg in notes/pol_favourites.md
+    loader: kalshi_politics_fav
+    family: kalshi_politics
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = settlement date (UTC)
+      dev: [2026-07-01, 2026-11-15]        # = the task's PRIMARY window (after Le's sample); one-shot, rule fixed from the paper
+      sealed: null                         # paper-era 2025-01..2026-06 is scored by the script only (outside the vault)
+      forward: [2026-11-16, null]

@@ -138,6 +138,12 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### Kalshi rules differ from books in golf ties and cricket no-results, but prices follow Kalshi's rules
+4,750 open series classified: sports totals/spreads match books (OT counted; NHL shootout = 1 goal). Golf top-N pays every
+tied player $1 (top-10 pays 1.147 [1.105,1.191] x N), yet the field's prices sum to 11.08 vs 11.45 paid (n.s.); buy YES at
+ask -18.0%/2,376. Cricket no-result = $0.50 both sides (T20 11.9% of events); favourites calibrated incl. 50c; underdog
+-14.7%/216. Check "sum of prices vs actual payout" before building a rules-gap trade. Source: notes/rules_quirks.md.
+
 ### A loss-free certain-side strategy at 96-98c cannot pass the bar on short history: null p = price^n
 L39 early-month version (P1m): 94 maker fills, 0 losses, +4.28% [+3.61,+5.00], market-null p .021 > bar .00455 -> dead;
 .96^94 = .0216. Passing needs ~132 loss-free fills at 96c, ~213 at 97.5c. With zero losses a bootstrap CI only reflects

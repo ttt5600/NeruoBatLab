@@ -1,0 +1,15 @@
+id: rq_cricket_c2
+family: kalshi_rules_quirks
+dataset: kalshi_cricket_nr
+rule: edgelab.rules.cricket_nr:c2_dog_high_nr
+hypothesis: 'rules_quirks C2: as C1 restricted to the high-NR series KXT20MATCH + KXODIMATCH. Scored by scripts/rules_quirks_cricket_px.py (evaluator cannot settle at $0.50).'
+decision_time: 'last hourly candle ending <= scheduled start - 1 h (start from the event ticker, America/New_York)'
+price_model: taker
+split: vault:kalshi_cricket_nr
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 150
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent rules_quirks)'

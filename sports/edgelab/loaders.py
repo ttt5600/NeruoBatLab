@@ -683,3 +683,17 @@ def kalshi_cricket_nr():
 
 
 LOADERS["kalshi_cricket_nr"] = kalshi_cricket_nr
+
+
+# ------------------------------------------------------------------ L22 Kalshi politics favourites (scripts/pol_favourites.py)
+def kalshi_politics_fav():
+    """data/pol_favourites/priced.parquet: one row per settled Politics/Elections/World Kalshi market x trial
+    (T7/T14/T3: t = expected_expiration_time - d), open at t, last daily candle ending in (t-36h, t]. date = settlement
+    date (UTC); result hidden. Agent pol_favourites 2026-11-15 (prereg notes/pol_favourites.md)."""
+    f = DATA / "pol_favourites" / "priced.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["settlement_ts"], utc=True).dt.tz_localize(None).dt.normalize()
+    return x.reset_index(drop=True), [str(f)]
+
+
+LOADERS["kalshi_politics_fav"] = kalshi_politics_fav
