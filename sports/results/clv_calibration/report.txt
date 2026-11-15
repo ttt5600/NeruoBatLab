@@ -1,0 +1,67 @@
+                                            cut  n_mkts  n_games  n_dates  bias_c   lo_c   hi_c  halfw_c     verdict
+0                                           all   11485     1068       45    0.12  -1.30   1.39     1.34  UNRESOLVED
+1                                           cbb    1707      228        9    0.12  -3.76   4.13     3.94  UNRESOLVED
+2                                           cfb    5821      284       28   -0.27  -1.84   1.37     1.60  UNRESOLVED
+3                                           nba     869      188       25   -2.92  -7.37   2.13     4.75  UNRESOLVED
+4                                           nfl    1638       78       16    2.24  -1.12   6.05     3.59  UNRESOLVED
+5                                           nhl    1450      290       42    1.10  -2.42   4.61     3.52  UNRESOLVED
+6                                    cbb|spread     912      228        9   -1.32  -3.83   1.73     2.78  UNRESOLVED
+7                                     cbb|total     795      227        9    1.76  -6.28  10.66     8.47  UNRESOLVED
+8                                    cfb|spread    3910      284       28   -0.05  -1.91   2.29     2.10  UNRESOLVED
+9                                     cfb|total    1911      284       28   -0.73  -4.53   2.50     3.52  UNRESOLVED
+10                                    nba|total     869      188       25   -2.92  -7.58   1.99     4.78  UNRESOLVED
+11                                   nfl|spread    1140       78       16    0.92  -2.43   4.34     3.38  UNRESOLVED
+12                                    nfl|total     498       78       16    5.26  -0.90  12.07     6.48  UNRESOLVED
+13                                    nhl|total    1450      290       42    1.10  -2.32   4.24     3.28  UNRESOLVED
+14             bin (0.028999999999999998, 0.15]     921      260       32   -1.11  -3.70   2.89     3.29  UNRESOLVED
+15                             bin (0.15, 0.35]    2462      739       44   -0.87  -2.69   1.26     1.98  UNRESOLVED
+16                             bin (0.35, 0.65]    7302     1065       45    0.35  -1.59   2.03     1.81  UNRESOLVED
+17                             bin (0.65, 0.85]     718      530       43    2.72  -1.23   6.50     3.86  UNRESOLVED
+18                             bin (0.85, 0.97]      82       82       35    0.06  -6.43   6.66     6.54  UNRESOLVED
+19  cbb|spread|bin (0.028999999999999998, 0.15]      59       45        8   -3.29  -8.98   5.63     7.30  UNRESOLVED
+20                  cbb|spread|bin (0.15, 0.35]     157      112        9   -2.23 -10.72   4.84     7.78  UNRESOLVED
+21                  cbb|spread|bin (0.35, 0.65]     627      228        9   -1.69  -4.74   2.53     3.63  UNRESOLVED
+22                  cbb|spread|bin (0.65, 0.85]      69       64        9    5.78  -3.61  16.32     9.97  UNRESOLVED
+23   cbb|total|bin (0.028999999999999998, 0.15]       1        1        1  -14.50 -14.50 -14.50     0.00      REJECT
+24                   cbb|total|bin (0.15, 0.35]      27       21        7    2.13  -9.06  14.86    11.96  UNRESOLVED
+25                   cbb|total|bin (0.35, 0.65]     735      224        9    1.41  -7.57  10.99     9.28  UNRESOLVED
+26                   cbb|total|bin (0.65, 0.85]      32       28        9    9.98  -9.67  26.90    18.28  UNRESOLVED
+27  cfb|spread|bin (0.028999999999999998, 0.15]     701      166       22   -0.44  -3.39   4.92     4.16  UNRESOLVED
+28                  cfb|spread|bin (0.15, 0.35]    1068      201       26    0.45  -2.73   5.07     3.90  UNRESOLVED
+29                  cfb|spread|bin (0.35, 0.65]    2004      283       28   -0.09  -3.89   3.74     3.82  UNRESOLVED
+30                  cfb|spread|bin (0.65, 0.85]     137       79       17   -1.42 -11.05   6.69     8.87  UNRESOLVED
+31                   cfb|total|bin (0.15, 0.35]     188       79       13  -10.17 -18.62  -1.08     8.77      REJECT
+32                   cfb|total|bin (0.35, 0.65]    1674      282       28   -0.10  -4.07   3.43     3.75  UNRESOLVED
+33                   cfb|total|bin (0.65, 0.85]      49       41       14   14.17   3.40  23.16     9.88      REJECT
+34   nba|total|bin (0.028999999999999998, 0.15]       3        2        1  -12.17 -12.17 -12.17     0.00      REJECT
+35                   nba|total|bin (0.15, 0.35]      54       37       17   -8.27 -21.18  11.88    16.53  UNRESOLVED
+36                   nba|total|bin (0.35, 0.65]     800      185       25   -2.31  -6.67   2.58     4.63  UNRESOLVED
+37                   nba|total|bin (0.65, 0.85]      12       11        9  -17.08 -46.18  15.64    30.91  UNRESOLVED
+38  nfl|spread|bin (0.028999999999999998, 0.15]     157       46       11   -2.95  -8.40   9.27     8.84  UNRESOLVED
+39                  nfl|spread|bin (0.15, 0.35]     445       74       16   -0.03  -5.15   4.60     4.87  UNRESOLVED
+40                  nfl|spread|bin (0.35, 0.65]     487       78       16    3.64  -4.86  11.16     8.01  UNRESOLVED
+41                  nfl|spread|bin (0.65, 0.85]      50       19        7   -5.18 -30.32  14.75    22.53  UNRESOLVED
+42                  nfl|spread|bin (0.85, 0.97]       1        1        1   14.50  14.50  14.50     0.00      REJECT
+43                   nfl|total|bin (0.15, 0.35]      60       36       10   -4.65 -12.99  10.14    11.57  UNRESOLVED
+44                   nfl|total|bin (0.35, 0.65]     410       78       16    6.48  -0.08  14.22     7.15  UNRESOLVED
+45                   nfl|total|bin (0.65, 0.85]      28       19        8    8.64  -4.97  21.86    13.41  UNRESOLVED
+46                   nhl|total|bin (0.15, 0.35]     463      290       42    0.67  -3.58   4.71     4.15  UNRESOLVED
+47                   nhl|total|bin (0.35, 0.65]     565      290       42    0.59  -4.54   5.25     4.90  UNRESOLVED
+48                   nhl|total|bin (0.65, 0.85]     341      289       42    2.80  -0.76   6.39     3.58  UNRESOLVED
+49                   nhl|total|bin (0.85, 0.97]      81       81       35   -0.12  -6.66   6.26     6.46  UNRESOLVED
+50                            near50 cbb|spread     228      228        9   -3.24  -6.28   0.72     3.50  UNRESOLVED
+51                             near50 cbb|total     227      227        9    0.90  -7.18  10.11     8.65  UNRESOLVED
+52                            near50 cfb|spread     284      284       28    1.15  -3.39   5.91     4.65  UNRESOLVED
+53                             near50 cfb|total     284      284       28   -1.68  -5.95   1.95     3.95  UNRESOLVED
+54                             near50 nba|total     188      188       25   -1.47  -7.06   4.37     5.72  UNRESOLVED
+55                            near50 nfl|spread      78       78       16    4.99  -8.12  15.81    11.97  UNRESOLVED
+56                             near50 nfl|total      78       78       16    5.74   0.55  11.59     5.52      REJECT
+57                             near50 nhl|total     290      290       42    0.04  -4.75   4.85     4.80  UNRESOLVED
+
+   cut    n  n_dates  kal_minus_book_c  lo_c  hi_c  sd_c  mad_c verdict_vs_book  outcome_minus_book_c  ob_lo  ob_hi
+0  all  711       45              0.01 -0.07  0.08  1.24   0.93          ACCEPT                  0.87  -1.69   3.64
+1  cbb   84        9             -0.17 -0.36 -0.01  1.34   1.05          REJECT                  4.75  -3.29  14.09
+2  cfb  202       26             -0.01 -0.21  0.15  1.37   1.03          ACCEPT                 -0.55  -4.76   4.67
+3  nba   80       25              0.25  0.03  0.48  1.22   0.98          REJECT                 -1.24 -12.24  10.20
+4  nfl   55       15             -0.46 -0.98 -0.06  1.61   1.31          REJECT                  6.19  -4.58  16.13
+5  nhl  290       42              0.10 -0.03  0.23  0.98   0.75          ACCEPT                  0.31  -4.60   5.26

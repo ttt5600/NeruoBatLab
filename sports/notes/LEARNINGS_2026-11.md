@@ -138,6 +138,12 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### Net CLV cannot be certified as a primary statistic at our scale; keep ROI primary
+Kalshi close calibration vs outcomes: 95% half-width 3.3-8.5c per league (1.34c pooled) vs the 0.25c needed; ~50-70k games
+per league to certify. Kalshi close vs DK de-vigged close at the book line: pooled +0.01c [-0.07,+0.08] n711 (NBA +0.25,
+NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
+selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
+
 ### Crypto daily tails vs Deribit options: a lead (critic pending); maker and stale-input index versions fail
 OT1 (11:00 ET, Deribit-implied tail <= 10%, Kalshi >= 3c richer after fee, take the other side at ask+fee): dev n387 / 195
 crypto-days +4.60% [+1.07,+7.62] p .0058 (bar 1.04e-3), both halves +, CLV +2.9c, monotone in gap (-6.9 .. +11.5%),
