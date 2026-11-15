@@ -138,6 +138,12 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### Kalshi NFL totals do not react to weather-forecast updates, so there is no lag to trade
+261 outdoor games, 5,326 NBM/GFS-MOS run-to-run updates, 32 qualifying events (28 rain-chance, 4 wind): buy the 50c strike
+5 min after the update -> net CLV -1.99c [-3.17,-0.86] n31 (fee + spread); implied total moved ~0 at +15/+60/+180 min and
++0.05 [-0.27,+0.36] by kickoff. A timing trade needs information the market actually prices. Books already move totals
+-0.22 pts per mph forecast wind open->close. Source: notes/nfl_wx_updates.md.
+
 ### A great public forecast is no edge when the book is made from the same forecast
 Census 11-15: only KXALBUMEQUIV (album first-week units, 95 settled) has a public timestamped forecast (HitsDailyDouble
 midweek). Early rule picked 333 dev brackets, 0 losses -- but our side's ask was > .99 on 300/319, so 7 bets (< min 30).
