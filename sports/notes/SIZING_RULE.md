@@ -54,3 +54,9 @@ Size: 12 -> 24 ct/order (= 4x the original 6; tape through-price at 4x on 29/39 
 intended brake.
 .env (backup .env.bak-2026-11-12-preKelly2): MAX_CONTRACTS 24, MAX_ORDER_USD 24.80, ORIG7_FRAC .062, NIGHT_FRAC .30,
 MAX_DAILY_USD 120, MAX_OPEN_USD 120. Revert to step 1 if E4 loses >= 10% of bankroll (~$38) since 11-12 or a kill fires.
+
+Critic 11-15 (critic_e4_step2): KEEP 24, no step 3. Corrections: r = 1.57% is the POOLED E1+X1 sealed CI; orig-7 (E1)
+alone sealed 1,844 picks ROI +2.87%, fill .857, no E1-only CI on record (to compute). Live orig-7 fill 30/44 (68%) vs
+sealed .857 -> sealed fill model optimistic. Live 1 loss in 95 paper picks vs ~2 expected = lucky. Bad night 1-in-100
+~-$23, 1-in-1000 ~-$43 at 24 ct; max ~3 losses/night. Ops issues -> agent e4_ops_diag: no picks 11-13/14, insufficient
+balance rejects 11-15 05:03Z, maker depth cap not enforced.
