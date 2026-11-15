@@ -428,6 +428,8 @@ datasets:
       dev: [2024-02-01, 2026-04-10]        # crypto daily events start 2024-10-24; index needs VIX1D hourly (2024-01-29+)
       sealed: [2026-04-11, 2026-10-31]     # never fetched by this agent
       forward: [2026-11-16, null]
+    forward_adapters:      # ops_ot1_forward 11-15: OT1 forward = what the launchd paper logger logged (scripts/ot1_forward.py)
+      ot1_crypto_taker: {module: edgelab.adapters.ot1_fwd, params: {}}
   kalshi_golf_topn:       # rules_quirks 11-15: Kalshi top-N pays $1 to all ties (books dead-heat); prereg G in notes/rules_quirks.md
     loader: kalshi_golf_topn
     family: kalshi_rules_quirks

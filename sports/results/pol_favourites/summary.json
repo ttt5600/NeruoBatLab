@@ -1,0 +1,1190 @@
+{
+ "PRIMARY": {
+  "T7": {
+   "PE": {
+    "n": 337,
+    "events": 154,
+    "series": 62,
+    "days": 47,
+    "win_rate": 0.7545,
+    "mean_price": 0.7458,
+    "yes_share": 0.383,
+    "pnl": -1.426,
+    "roi_event": [
+     -0.00558,
+     -0.06278,
+     0.05074
+    ],
+    "roi_series": [
+     -0.00558,
+     -0.08081,
+     0.05864
+    ],
+    "roi_day": [
+     -0.00558,
+     -0.07101,
+     0.05461
+    ],
+    "roi_1ct_event": [
+     -0.01259,
+     -0.06981,
+     0.0439
+    ],
+    "top_days": {
+     "2026-11-01": 3.888,
+     "2026-08-18": 2.006,
+     "2026-10-27": 1.793
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXSUEZWEEKLY": 2.295,
+     "KXBABELMANDEBWEEKLY": 1.989,
+     "KXPARDONSTRUMP": 1.269
+    },
+    "worst_series": {
+     "KXMNPRIMARY": -1.526,
+     "KXTRUMPNOMNUM": -2.302,
+     "KXHORMUZWEEKLY": -6.185
+    }
+   },
+   "Politics": {
+    "n": 277,
+    "events": 124,
+    "series": 34,
+    "days": 39,
+    "win_rate": 0.7771,
+    "mean_price": 0.748,
+    "yes_share": 0.361,
+    "pnl": 4.516,
+    "roi_event": [
+     0.02143,
+     -0.03742,
+     0.07949
+    ],
+    "roi_series": [
+     0.02143,
+     -0.05636,
+     0.09957
+    ],
+    "roi_day": [
+     0.02143,
+     -0.03987,
+     0.07875
+    ],
+    "roi_1ct_event": [
+     0.01452,
+     -0.04457,
+     0.07248
+    ],
+    "top_days": {
+     "2026-11-01": 3.888,
+     "2026-08-18": 2.006,
+     "2026-10-27": 1.793
+    },
+    "top_day_share": 0.861,
+    "top_series": {
+     "KXSUEZWEEKLY": 2.295,
+     "KXBABELMANDEBWEEKLY": 1.989,
+     "KXPARDONSTRUMP": 1.269
+    },
+    "worst_series": {
+     "KXPRESSBRIEFINGCOUNT": -0.906,
+     "KXTRUMPNOMNUM": -2.302,
+     "KXHORMUZWEEKLY": -6.185
+    }
+   },
+   "Elections": {
+    "n": 60,
+    "events": 30,
+    "series": 28,
+    "days": 12,
+    "win_rate": 0.65,
+    "mean_price": 0.7358,
+    "yes_share": 0.483,
+    "pnl": -5.941,
+    "roi_event": [
+     -0.1322,
+     -0.29757,
+     0.03598
+    ],
+    "roi_series": [
+     -0.1322,
+     -0.31095,
+     0.03733
+    ],
+    "roi_day": [
+     -0.1322,
+     -0.31354,
+     0.05183
+    ],
+    "roi_1ct_event": [
+     -0.13974,
+     -0.30505,
+     0.0281
+    ],
+    "top_days": {
+     "2026-11-06": 0.925,
+     "2026-11-10": 0.543,
+     "2026-08-26": 0.464
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXEXITPOLL": 0.925,
+     "KXCLOSERMNMSSEN": 0.688,
+     "KXCLOSERNETXSEN": 0.649
+    },
+    "worst_series": {
+     "KXNH1D": -1.449,
+     "KXCLOSERFLSCSEN": -1.497,
+     "KXMNPRIMARY": -1.526
+    }
+   },
+   "World": {
+    "n": 0
+   },
+   "calibration_PE": {
+    "n": 1194,
+    "events": 307,
+    "slope": 1.2310940611667587,
+    "intercept": -0.09339818048824429,
+    "slope_ci": [
+     1.0825857204587,
+     1.4212564695374121
+    ]
+   }
+  },
+  "T14": {
+   "PE": {
+    "n": 273,
+    "events": 149,
+    "series": 116,
+    "days": 61,
+    "win_rate": 0.685,
+    "mean_price": 0.7419,
+    "yes_share": 0.429,
+    "pnl": -19.092,
+    "roi_event": [
+     -0.09264,
+     -0.16496,
+     -0.02372
+    ],
+    "roi_series": [
+     -0.09264,
+     -0.15982,
+     -0.03165
+    ],
+    "roi_day": [
+     -0.09264,
+     -0.14975,
+     -0.02994
+    ],
+    "roi_1ct_event": [
+     -0.09952,
+     -0.17184,
+     -0.03055
+    ],
+    "top_days": {
+     "2026-11-03": 1.168,
+     "2026-11-02": 0.837,
+     "2026-08-01": 0.801
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXNJGOLFVISITCOUNT": 0.967,
+     "KXGOVSDNOMR": 0.707,
+     "KXBULGARIAPRES": 0.649
+    },
+    "worst_series": {
+     "KXLAGODAYS": -1.507,
+     "KXSWEDEN3RD": -1.584,
+     "KXSWEDEN2ND": -1.661
+    }
+   },
+   "Politics": {
+    "n": 155,
+    "events": 88,
+    "series": 64,
+    "days": 45,
+    "win_rate": 0.6968,
+    "mean_price": 0.7413,
+    "yes_share": 0.374,
+    "pnl": -8.917,
+    "roi_event": [
+     -0.07627,
+     -0.16414,
+     0.00802
+    ],
+    "roi_series": [
+     -0.07627,
+     -0.15343,
+     -0.00503
+    ],
+    "roi_day": [
+     -0.07627,
+     -0.16705,
+     0.01022
+    ],
+    "roi_1ct_event": [
+     -0.08314,
+     -0.17134,
+     0.00122
+    ],
+    "top_days": {
+     "2026-11-03": 1.168,
+     "2026-08-01": 0.801,
+     "2026-09-10": 0.626
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXNJGOLFVISITCOUNT": 0.967,
+     "KXPARDONSTRUMP": 0.629,
+     "KXPRESSSECANNOUNCE": 0.615
+    },
+    "worst_series": {
+     "KXNEWDEAL": -1.337,
+     "KXSENATEADJOURN": -1.376,
+     "KXLAGODAYS": -1.507
+    }
+   },
+   "Elections": {
+    "n": 118,
+    "events": 61,
+    "series": 52,
+    "days": 27,
+    "win_rate": 0.6695,
+    "mean_price": 0.7428,
+    "yes_share": 0.5,
+    "pnl": -10.175,
+    "roi_event": [
+     -0.1141,
+     -0.24147,
+     0.0017
+    ],
+    "roi_series": [
+     -0.1141,
+     -0.24016,
+     -0.00975
+    ],
+    "roi_day": [
+     -0.1141,
+     -0.18807,
+     0.00482
+    ],
+    "roi_1ct_event": [
+     -0.121,
+     -0.24851,
+     -0.00512
+    ],
+    "top_days": {
+     "2026-07-29": 0.707,
+     "2026-11-02": 0.649,
+     "2026-08-19": 0.641
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXGOVSDNOMR": 0.707,
+     "KXBULGARIAPRES": 0.649,
+     "KXMOVKSNESEN": 0.6
+    },
+    "worst_series": {
+     "KXLTGOVTX": -1.459,
+     "KXSWEDEN3RD": -1.584,
+     "KXSWEDEN2ND": -1.661
+    }
+   },
+   "World": {
+    "n": 0
+   }
+  },
+  "T3": {
+   "PE": {
+    "n": 506,
+    "events": 236,
+    "series": 45,
+    "days": 89,
+    "win_rate": 0.749,
+    "mean_price": 0.751,
+    "yes_share": 0.291,
+    "pnl": -7.45,
+    "roi_event": [
+     -0.01928,
+     -0.06531,
+     0.02532
+    ],
+    "roi_series": [
+     -0.01928,
+     -0.06893,
+     0.02905
+    ],
+    "roi_day": [
+     -0.01928,
+     -0.06756,
+     0.02784
+    ],
+    "roi_1ct_event": [
+     -0.02639,
+     -0.07236,
+     0.01814
+    ],
+    "top_days": {
+     "2026-08-11": 4.185,
+     "2026-10-20": 1.614,
+     "2026-07-25": 1.525
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXPANAMAWEEKLY": 2.91,
+     "KXTRUMPTIME": 2.483,
+     "KXTRUTHSOCIAL": 2.098
+    },
+    "worst_series": {
+     "KXHORMUZMAX": -4.012,
+     "KXTRUMPENDORSEMENTS": -4.186,
+     "KXTRUMPACT": -4.284
+    }
+   },
+   "Politics": {
+    "n": 469,
+    "events": 222,
+    "series": 32,
+    "days": 84,
+    "win_rate": 0.7527,
+    "mean_price": 0.7515,
+    "yes_share": 0.275,
+    "pnl": -5.423,
+    "roi_event": [
+     -0.01513,
+     -0.06082,
+     0.03011
+    ],
+    "roi_series": [
+     -0.01513,
+     -0.06678,
+     0.03511
+    ],
+    "roi_day": [
+     -0.01513,
+     -0.06341,
+     0.03129
+    ],
+    "roi_1ct_event": [
+     -0.02226,
+     -0.06797,
+     0.02297
+    ],
+    "top_days": {
+     "2026-08-11": 4.034,
+     "2026-10-20": 1.614,
+     "2026-07-25": 1.525
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXPANAMAWEEKLY": 2.91,
+     "KXTRUMPTIME": 2.483,
+     "KXTRUTHSOCIAL": 2.098
+    },
+    "worst_series": {
+     "KXHORMUZMAX": -4.012,
+     "KXTRUMPENDORSEMENTS": -4.186,
+     "KXTRUMPACT": -4.284
+    }
+   },
+   "Elections": {
+    "n": 37,
+    "events": 14,
+    "series": 13,
+    "days": 6,
+    "win_rate": 0.7027,
+    "mean_price": 0.7446,
+    "yes_share": 0.486,
+    "pnl": -2.027,
+    "roi_event": [
+     -0.07233,
+     -0.30923,
+     0.12166
+    ],
+    "roi_series": [
+     -0.07233,
+     -0.35181,
+     0.14113
+    ],
+    "roi_day": [
+     -0.07233,
+     -0.66664,
+     0.05536
+    ],
+    "roi_1ct_event": [
+     -0.07921,
+     -0.31572,
+     0.11514
+    ],
+    "top_days": {
+     "2026-11-04": 1.027,
+     "2026-08-26": 0.464,
+     "2026-08-11": 0.151
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXEARLYVOTE": 1.086,
+     "KXFLMAILVOTE": 0.513,
+     "KXGOVOKNOMR": 0.464
+    },
+    "worst_series": {
+     "KXFL19R": -0.84,
+     "KXMNPRIMARY": -1.594,
+     "KXNH1D": -1.641
+    }
+   },
+   "World": {
+    "n": 0
+   }
+  },
+  "C7": {
+   "PE": {
+    "n": 399,
+    "events": 187,
+    "series": 94,
+    "days": 56,
+    "win_rate": 0.7425,
+    "mean_price": 0.7446,
+    "yes_share": 0.386,
+    "pnl": -5.98,
+    "roi_event": [
+     -0.01979,
+     -0.07567,
+     0.03623
+    ],
+    "roi_series": [
+     -0.01979,
+     -0.08711,
+     0.03912
+    ],
+    "roi_day": [
+     -0.01979,
+     -0.08612,
+     0.03648
+    ],
+    "roi_1ct_event": [
+     -0.02673,
+     -0.08279,
+     0.02929
+    ],
+    "top_days": {
+     "2026-11-01": 3.578,
+     "2026-08-18": 2.006,
+     "2026-11-03": 1.449
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXSUEZWEEKLY": 2.295,
+     "KXBABELMANDEBWEEKLY": 1.989,
+     "KXTRUMPMEET": 1.421
+    },
+    "worst_series": {
+     "KXTRUMPNOMNUM": -1.775,
+     "KXRNCMIDTERMSPEAK": -2.198,
+     "KXHORMUZWEEKLY": -5.471
+    }
+   },
+   "Politics": {
+    "n": 316,
+    "events": 144,
+    "series": 55,
+    "days": 45,
+    "win_rate": 0.7698,
+    "mean_price": 0.7463,
+    "yes_share": 0.361,
+    "pnl": 3.361,
+    "roi_event": [
+     0.01401,
+     -0.04294,
+     0.06953
+    ],
+    "roi_series": [
+     0.01401,
+     -0.05609,
+     0.07834
+    ],
+    "roi_day": [
+     0.01401,
+     -0.04687,
+     0.06308
+    ],
+    "roi_1ct_event": [
+     0.00717,
+     -0.04977,
+     0.06265
+    ],
+    "top_days": {
+     "2026-11-01": 3.578,
+     "2026-08-18": 2.006,
+     "2026-11-03": 1.449
+    },
+    "top_day_share": 1.065,
+    "top_series": {
+     "KXSUEZWEEKLY": 2.295,
+     "KXBABELMANDEBWEEKLY": 1.989,
+     "KXTRUMPMEET": 1.421
+    },
+    "worst_series": {
+     "KXTRUMPNOMNUM": -1.775,
+     "KXRNCMIDTERMSPEAK": -2.198,
+     "KXHORMUZWEEKLY": -5.471
+    }
+   },
+   "Elections": {
+    "n": 83,
+    "events": 43,
+    "series": 39,
+    "days": 18,
+    "win_rate": 0.6386,
+    "mean_price": 0.738,
+    "yes_share": 0.482,
+    "pnl": -9.341,
+    "roi_event": [
+     -0.14984,
+     -0.29519,
+     -0.00503
+    ],
+    "roi_series": [
+     -0.14984,
+     -0.29879,
+     -0.00501
+    ],
+    "roi_day": [
+     -0.14984,
+     -0.26317,
+     0.02877
+    ],
+    "roi_1ct_event": [
+     -0.1572,
+     -0.30238,
+     -0.01256
+    ],
+    "top_days": {
+     "2026-11-06": 0.775,
+     "2026-11-10": 0.543,
+     "2026-10-26": 0.503
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXEXITPOLL": 0.775,
+     "KXCLOSERMNMSSEN": 0.688,
+     "KXCLOSERNETXSEN": 0.649
+    },
+    "worst_series": {
+     "KXSWEDEN2ND": -1.613,
+     "KXMNPRIMARY": -1.622,
+     "KXSWEDEN3RD": -1.632
+    }
+   },
+   "World": {
+    "n": 0
+   },
+   "calibration_PE": {
+    "n": 1517,
+    "events": 437,
+    "slope": 1.1205396016554223,
+    "intercept": -0.30061904713918497,
+    "slope_ci": [
+     0.9834066815457728,
+     1.287736939836114
+    ]
+   }
+  }
+ },
+ "PAPER": {
+  "T7": {
+   "PE": {
+    "n": 547,
+    "events": 249,
+    "series": 214,
+    "days": 141,
+    "win_rate": 0.6837,
+    "mean_price": 0.739,
+    "yes_share": 0.384,
+    "pnl": -37.394,
+    "roi_event": [
+     -0.0909,
+     -0.18091,
+     -0.0111
+    ],
+    "roi_series": [
+     -0.0909,
+     -0.17752,
+     -0.01439
+    ],
+    "roi_day": [
+     -0.0909,
+     -0.18384,
+     -0.00566
+    ],
+    "roi_1ct_event": [
+     -0.09814,
+     -0.18831,
+     -0.01831
+    ],
+    "top_days": {
+     "2025-11-07": 3.471,
+     "2025-12-03": 2.26,
+     "2026-03-01": 2.237
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXAPCALLVAAG": 1.245,
+     "KXMAMDANISWEARING": 1.22,
+     "KXATTENDSOTU": 1.099
+    },
+    "worst_series": {
+     "KXBIDENPARDON": -4.147,
+     "KXPAXTONPRIMARYCOUNTIES": -4.697,
+     "KXCONFFEDGOV": -13.618
+    }
+   },
+   "Politics": {
+    "n": 278,
+    "events": 116,
+    "series": 81,
+    "days": 88,
+    "win_rate": 0.6511,
+    "mean_price": 0.742,
+    "yes_share": 0.367,
+    "pnl": -28.884,
+    "roi_event": [
+     -0.13762,
+     -0.27427,
+     -0.01786
+    ],
+    "roi_series": [
+     -0.13762,
+     -0.28332,
+     -0.02296
+    ],
+    "roi_day": [
+     -0.13762,
+     -0.28515,
+     -0.01125
+    ],
+    "roi_1ct_event": [
+     -0.14454,
+     -0.28117,
+     -0.02484
+    ],
+    "top_days": {
+     "2026-03-01": 2.237,
+     "2026-01-02": 1.418,
+     "2025-10-01": 1.295
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXMAMDANISWEARING": 1.22,
+     "KXATTENDSOTU": 1.099,
+     "KXTRUMPCALL": 1.051
+    },
+    "worst_series": {
+     "KXINAUG": -2.65,
+     "KXBIDENPARDON": -4.147,
+     "KXCONFFEDGOV": -13.618
+    }
+   },
+   "Elections": {
+    "n": 269,
+    "events": 133,
+    "series": 133,
+    "days": 70,
+    "win_rate": 0.7175,
+    "mean_price": 0.7359,
+    "yes_share": 0.401,
+    "pnl": -8.51,
+    "roi_event": [
+     -0.04223,
+     -0.1358,
+     0.04669
+    ],
+    "roi_series": [
+     -0.04223,
+     -0.1358,
+     0.04669
+    ],
+    "roi_day": [
+     -0.04223,
+     -0.14577,
+     0.06048
+    ],
+    "roi_1ct_event": [
+     -0.04982,
+     -0.14323,
+     0.03913
+    ],
+    "top_days": {
+     "2025-11-07": 3.471,
+     "2025-12-03": 2.26,
+     "2025-12-10": 1.317
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXAPCALLVAAG": 1.245,
+     "KXVOTEPERCENTCUOMO": 0.779,
+     "KXVOTEPERCENTCOTTONGOP": 0.779
+    },
+    "worst_series": {
+     "KXCOLOMBIAPRESR1": -1.661,
+     "KXSHERRILLCOUNTIES": -2.601,
+     "KXPAXTONPRIMARYCOUNTIES": -4.697
+    }
+   },
+   "World": {
+    "n": 0
+   },
+   "calibration_PE": {
+    "n": 1892,
+    "events": 672,
+    "slope": 1.0351738031564386,
+    "intercept": -0.23575648339969818,
+    "slope_ci": [
+     0.9322571560999734,
+     1.153881877990347
+    ]
+   }
+  },
+  "T14": {
+   "PE": {
+    "n": 585,
+    "events": 286,
+    "series": 242,
+    "days": 149,
+    "win_rate": 0.694,
+    "mean_price": 0.7407,
+    "yes_share": 0.395,
+    "pnl": -34.973,
+    "roi_event": [
+     -0.07931,
+     -0.1658,
+     -0.0016
+    ],
+    "roi_series": [
+     -0.07931,
+     -0.17335,
+     -0.00387
+    ],
+    "roi_day": [
+     -0.07931,
+     -0.16833,
+     0.00179
+    ],
+    "roi_1ct_event": [
+     -0.08667,
+     -0.17334,
+     -0.00894
+    ],
+    "top_days": {
+     "2026-05-01": 3.425,
+     "2025-12-01": 1.909,
+     "2025-12-03": 1.832
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXTRUMPMEET": 1.633,
+     "KXLAGODAYS": 1.446,
+     "KXSWENCOUNTERS": 1.243
+    },
+    "worst_series": {
+     "KXBIDENPARDON": -3.254,
+     "KXPAXTONPRIMARYCOUNTIES": -4.794,
+     "KXCONFFEDGOV": -15.224
+    }
+   },
+   "Politics": {
+    "n": 326,
+    "events": 154,
+    "series": 111,
+    "days": 94,
+    "win_rate": 0.6871,
+    "mean_price": 0.7442,
+    "yes_share": 0.39,
+    "pnl": -22.849,
+    "roi_event": [
+     -0.09257,
+     -0.22904,
+     0.02166
+    ],
+    "roi_series": [
+     -0.09257,
+     -0.24731,
+     0.01412
+    ],
+    "roi_day": [
+     -0.09257,
+     -0.24427,
+     0.02122
+    ],
+    "roi_1ct_event": [
+     -0.10007,
+     -0.23667,
+     0.01426
+    ],
+    "top_days": {
+     "2026-05-01": 3.425,
+     "2025-12-01": 1.909,
+     "2025-03-01": 1.792
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXTRUMPMEET": 1.633,
+     "KXLAGODAYS": 1.446,
+     "KXSWENCOUNTERS": 1.243
+    },
+    "worst_series": {
+     "KXDHSCOMPONENT": -3.216,
+     "KXBIDENPARDON": -3.254,
+     "KXCONFFEDGOV": -15.224
+    }
+   },
+   "Elections": {
+    "n": 259,
+    "events": 132,
+    "series": 131,
+    "days": 75,
+    "win_rate": 0.7027,
+    "mean_price": 0.7363,
+    "yes_share": 0.402,
+    "pnl": -12.124,
+    "roi_event": [
+     -0.06245,
+     -0.1555,
+     0.02941
+    ],
+    "roi_series": [
+     -0.06245,
+     -0.15652,
+     0.02951
+    ],
+    "roi_day": [
+     -0.06245,
+     -0.16129,
+     0.04826
+    ],
+    "roi_1ct_event": [
+     -0.06965,
+     -0.1628,
+     0.02217
+    ],
+    "top_days": {
+     "2025-12-03": 1.832,
+     "2025-04-29": 1.706,
+     "2025-02-24": 1.501
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXPORTUGALPRESROUND1": 0.977,
+     "KXABBOTTGOPVOTE": 0.804,
+     "KXVOTEPERCENTMAMDANI": 0.752
+    },
+    "worst_series": {
+     "KXPRESPOLAND": -1.67,
+     "KXCOLOMBIAPRESR1": -1.699,
+     "KXPAXTONPRIMARYCOUNTIES": -4.794
+    }
+   },
+   "World": {
+    "n": 0
+   }
+  },
+  "T3": {
+   "PE": {
+    "n": 691,
+    "events": 350,
+    "series": 186,
+    "days": 193,
+    "win_rate": 0.7219,
+    "mean_price": 0.7434,
+    "yes_share": 0.292,
+    "pnl": -23.806,
+    "roi_event": [
+     -0.04555,
+     -0.09307,
+     -0.00148
+    ],
+    "roi_series": [
+     -0.04555,
+     -0.09206,
+     0.00926
+    ],
+    "roi_day": [
+     -0.04555,
+     -0.09362,
+     -0.0008
+    ],
+    "roi_1ct_event": [
+     -0.05286,
+     -0.10034,
+     -0.00884
+    ],
+    "top_days": {
+     "2025-12-03": 1.926,
+     "2026-06-15": 1.827,
+     "2025-12-12": 1.647
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXTRUMPTIME": 2.663,
+     "KXATTENDUFC250": 1.667,
+     "KXPROP50COUNTIES": 1.559
+    },
+    "worst_series": {
+     "KXCHINAANNOUNCE": -3.109,
+     "KXBIDENPARDON": -4.01,
+     "KXAPRPOTUS": -8.629
+    }
+   },
+   "Politics": {
+    "n": 495,
+    "events": 241,
+    "series": 78,
+    "days": 157,
+    "win_rate": 0.7189,
+    "mean_price": 0.7441,
+    "yes_share": 0.246,
+    "pnl": -18.898,
+    "roi_event": [
+     -0.05043,
+     -0.10212,
+     -0.00069
+    ],
+    "roi_series": [
+     -0.05043,
+     -0.104,
+     0.01182
+    ],
+    "roi_day": [
+     -0.05043,
+     -0.10674,
+     0.00087
+    ],
+    "roi_1ct_event": [
+     -0.05769,
+     -0.10929,
+     -0.00788
+    ],
+    "top_days": {
+     "2026-06-15": 1.827,
+     "2025-01-17": 1.312,
+     "2026-05-31": 1.142
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXTRUMPTIME": 2.663,
+     "KXATTENDUFC250": 1.667,
+     "KX538APPROVE": 1.28
+    },
+    "worst_series": {
+     "KXCHINAANNOUNCE": -3.109,
+     "KXBIDENPARDON": -4.01,
+     "KXAPRPOTUS": -8.629
+    }
+   },
+   "Elections": {
+    "n": 196,
+    "events": 109,
+    "series": 108,
+    "days": 58,
+    "win_rate": 0.7296,
+    "mean_price": 0.7416,
+    "yes_share": 0.408,
+    "pnl": -4.907,
+    "roi_event": [
+     -0.03318,
+     -0.13484,
+     0.06559
+    ],
+    "roi_series": [
+     -0.03318,
+     -0.13432,
+     0.06441
+    ],
+    "roi_day": [
+     -0.03318,
+     -0.12811,
+     0.06506
+    ],
+    "roi_1ct_event": [
+     -0.04063,
+     -0.14245,
+     0.05823
+    ],
+    "top_days": {
+     "2025-12-12": 2.023,
+     "2025-12-03": 1.926,
+     "2025-12-10": 1.161
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXPROP50COUNTIES": 1.559,
+     "KXVOTEPERCENTCUOMO": 0.789,
+     "KXSPDPERCENT": 0.766
+    },
+    "worst_series": {
+     "KXSHERRILLCOUNTIES": -1.66,
+     "KXPRESPOLAND": -1.689,
+     "KXFLSD14": -1.708
+    }
+   },
+   "World": {
+    "n": 0
+   }
+  },
+  "C7": {
+   "PE": {
+    "n": 390,
+    "events": 175,
+    "series": 141,
+    "days": 113,
+    "win_rate": 0.6795,
+    "mean_price": 0.7477,
+    "yes_share": 0.392,
+    "pnl": -31.591,
+    "roi_event": [
+     -0.10651,
+     -0.21619,
+     -0.01159
+    ],
+    "roi_series": [
+     -0.10651,
+     -0.22177,
+     -0.0108
+    ],
+    "roi_day": [
+     -0.10651,
+     -0.2188,
+     -0.00437
+    ],
+    "roi_1ct_event": [
+     -0.11329,
+     -0.22306,
+     -0.01832
+    ],
+    "top_days": {
+     "2026-03-01": 2.076,
+     "2025-10-01": 2.031,
+     "2025-11-07": 1.549
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXLAGODAYS": 1.554,
+     "KXTRUMPCALL": 1.264,
+     "KXMAMDANISWEARING": 1.22
+    },
+    "worst_series": {
+     "KXDHSCOMPONENT": -3.398,
+     "KXBIDENPARDON": -4.069,
+     "KXCONFFEDGOV": -13.618
+    }
+   },
+   "Politics": {
+    "n": 269,
+    "events": 109,
+    "series": 75,
+    "days": 86,
+    "win_rate": 0.6654,
+    "mean_price": 0.7481,
+    "yes_share": 0.372,
+    "pnl": -25.694,
+    "roi_event": [
+     -0.12553,
+     -0.26957,
+     -0.00117
+    ],
+    "roi_series": [
+     -0.12553,
+     -0.27559,
+     -0.00258
+    ],
+    "roi_day": [
+     -0.12553,
+     -0.27333,
+     0.00652
+    ],
+    "roi_1ct_event": [
+     -0.13229,
+     -0.27641,
+     -0.00779
+    ],
+    "top_days": {
+     "2026-03-01": 2.076,
+     "2025-10-01": 2.031,
+     "2026-01-02": 1.428
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXLAGODAYS": 1.554,
+     "KXTRUMPCALL": 1.264,
+     "KXMAMDANISWEARING": 1.22
+    },
+    "worst_series": {
+     "KXDHSCOMPONENT": -3.398,
+     "KXBIDENPARDON": -4.069,
+     "KXCONFFEDGOV": -13.618
+    }
+   },
+   "Elections": {
+    "n": 121,
+    "events": 66,
+    "series": 66,
+    "days": 39,
+    "win_rate": 0.7107,
+    "mean_price": 0.7466,
+    "yes_share": 0.438,
+    "pnl": -5.896,
+    "roi_event": [
+     -0.06416,
+     -0.1989,
+     0.06589
+    ],
+    "roi_series": [
+     -0.06416,
+     -0.1989,
+     0.06589
+    ],
+    "roi_day": [
+     -0.06416,
+     -0.20188,
+     0.07242
+    ],
+    "roi_1ct_event": [
+     -0.07095,
+     -0.20597,
+     0.0591
+    ],
+    "top_days": {
+     "2025-11-07": 1.549,
+     "2026-06-02": 1.08,
+     "2026-03-24": 0.766
+    },
+    "top_day_share": null,
+    "top_series": {
+     "KXRHIPAL": 0.766,
+     "KXENDORSEPRATT": 0.756,
+     "KXKILDONAN": 0.747
+    },
+    "worst_series": {
+     "KXSOUTHSURREY": -1.584,
+     "KXSEOULMAYOR": -1.67,
+     "KXMT01D": -1.68
+    }
+   },
+   "World": {
+    "n": 0
+   },
+   "calibration_PE": {
+    "n": 1564,
+    "events": 617,
+    "slope": 1.102448154222668,
+    "intercept": -0.19665375184265138,
+    "slope_ci": [
+     0.986936498652154,
+     1.240753051338389
+    ]
+   }
+  }
+ }
+}

@@ -152,6 +152,12 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### Kalshi politics favourites at 60-85c are priced; edgelab mis-scores scalar settlements
+L22 (Le arXiv 2602.19520): T7 favourites 2026-07..11-15 -0.56% [-6.28,+5.07] n337/154 races (won 75.5% at 74.6c ask);
+T14 -9.26%; paper period -9.09%. Mid-price calibration slope 1.23 [1.08,1.42] (weak) vs paper 1.83 (trade-weighted);
+spreads 6-13c below 80c put the ask 3-6c over mid, ~ the bias. BUG: edgelab result_equals_side scores scalar
+settlements (e.g. 0.25) as losses -- 109 politics markets; fix proposed (edgelab locked). Source: notes/pol_favourites.md.
+
 ### Crypto daily tails vs Deribit options: a lead (critic pending); maker and stale-input index versions fail
 OT1 (11:00 ET, Deribit-implied tail <= 10%, Kalshi >= 3c richer after fee, take the other side at ask+fee): dev n387 / 195
 crypto-days +4.60% [+1.07,+7.62] p .0058 (bar 1.04e-3), both halves +, CLV +2.9c, monotone in gap (-6.9 .. +11.5%),

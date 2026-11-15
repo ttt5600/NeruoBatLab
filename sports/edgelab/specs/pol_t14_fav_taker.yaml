@@ -1,0 +1,15 @@
+id: pol_t14_fav_taker
+family: kalshi_politics
+dataset: kalshi_politics_fav
+rule: edgelab.rules.politics_fav:t14
+hypothesis: 'L22 (notes/pol_favourites.md prereg 2026-11-15; Le arXiv 2602.19520 Table 4 slope 1.83): Kalshi Politics/Elections markets settled 2026-07-01..11-15; at t = expected_expiration_time - 14 d, market open, last daily candle in (t-36h, t] two-sided; buy the favourite (mid > .5) at its ask when the ask is in [0.60, 0.85], 1 ct taker + fee, hold. secondary trial. Script pass also needs >= 150 events and no election day (close UTC date) > 30% of P&L.'
+decision_time: 'S - 14 d (S = expected_expiration_time); quote = last daily candle ending in (t-36h, t]'
+price_model: taker
+split: vault:kalshi_politics_fav
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 150
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent pol_favourites, FUND_BOOK 3c L22)'

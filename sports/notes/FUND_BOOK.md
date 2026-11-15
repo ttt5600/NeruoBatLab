@@ -201,7 +201,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | L17 | RotoBot pick record (social) | AI picks app | no public record; tracker built [EA] | needs posts (X API or paste to data/rotobot/posts.txt) | scripts/rotobot_tracker.py |
 | L18 | Midterms: LA Senate 2-venue cost .9752; TX Gov Abbott .70-.72 vs poll model ~.75 | cross-venue gap / poll model | Kalshi rule text says "Kentucky"; resolution mismatch [S] | judgment <= 1% B; PM's call before 11-03 | scripts/xvenue_elections.py |
 | L21 | PredictIt midterm NO-bundle sums > 110 | NBER abstract | untested; verify fees/caps [EA] | time-boxed to 11-03 | -- |
-| L22 | Kalshi politics underconfidence | arXiv; contradicted by Burgi et al. | weak prior [EA] | untested | notes/prior_research_2026-10-22.md |
+| L22 (**DEAD 11-15, notes/pol_favourites.md**: T7 60-85c favourites -0.56% [-6.28,+5.07] n154 races; paper period -9.1%) | Kalshi politics underconfidence | ask 3-6c over mid ~ the bias | dead | -- | scripts/pol_favourites.py |
 | -- | Kalshi crypto vs Deribit implied probs | options-implied fair | untested [EA] | -- | notes/prior_research_2026-10-22.md |
 | -- | Kalshi combos/parlays above leg product, as maker | combo mispricing | untested [EA], social sweep #7 | -- | notes/social_edges_2026-10-22.md |
 | H1 | Polymarket mention + culture/award NO at real ask | worst-calibrated categories (YES +4-7pp) | exploratory [EA] | ~4.5k legs/90 days forward; tens of $/day | scripts/smallmarket_*.py, notes/smallmarket_calibration.md |
