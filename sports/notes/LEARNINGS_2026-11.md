@@ -150,6 +150,9 @@ crypto-days +4.60% [+1.07,+7.62] p .0058 (bar 1.04e-3), both halves +, CLV +2.9c
 options Brier .04568 < Kalshi .04617; 2025 Q3-Q4 negative; spreads narrowed 3-5c -> 1c. Maker variants adversely
 selected (filled won 88.4% vs unfilled 99.8%). Index arm failed: model input (10:30) older than the quote (11:00) --
 inputs must be at least as fresh as the market. Deribit history via history.deribit.com. Source: notes/options_implied_tails.md.
+CRITIC 11-15 (critic_ot1): no bug (timestamps/DST/fee/settlement/clustering clean; drop top-10 days still +2.6%) but
+WEAKENED: pre-2025-07 +7.3% [+3.7,+10.4] n197, since +1.7% [-4.6,+6.7] n190 (n.s.); one-bet-per-day +3.0% [-1.8,+7.1];
+rests on 24 losses; CLV measured 1 h before settlement mostly reflects the outcome. Forward paper only.
 
 ### Kalshi rules differ from books in golf ties and cricket no-results, but prices follow Kalshi's rules
 4,750 open series classified: sports totals/spreads match books (OT counted; NHL shootout = 1 goal). Golf top-N pays every
