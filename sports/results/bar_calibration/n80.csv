@@ -1,0 +1,43 @@
+scenario,stage,rule,n80_on_grid,max_n,power_at_max_n,months_at_volume,volume_per_month
+e4,all (same bar),current_pass,,2000,0.122,,55.0
+e4,all (same bar),current_pass_or_audit,1000.0,2000,1.0,18.181818181818183,55.0
+e4,dev,proposed,1000.0,2000,1.0,18.181818181818183,55.0
+e4,dev,proposed+halves,1000.0,2000,1.0,18.181818181818183,55.0
+e4,dev,proposed_stat_only,1000.0,2000,1.0,18.181818181818183,55.0
+e4,dev,proposed_stat_prior_deff_only,1000.0,2000,1.0,18.181818181818183,55.0
+e4,fwd_fixed,proposed,500.0,2000,1.0,9.090909090909092,55.0
+e4,fwd_fixed,proposed+halves,500.0,2000,1.0,9.090909090909092,55.0
+e4,fwd_fixed,proposed_stat_only,500.0,2000,1.0,9.090909090909092,55.0
+e4,fwd_fixed,proposed_stat_prior_deff_only,500.0,2000,1.0,9.090909090909092,55.0
+e4,sealed,proposed,500.0,2000,1.0,9.090909090909092,55.0
+e4,sealed,proposed+halves,500.0,2000,1.0,9.090909090909092,55.0
+e4,sealed,proposed_stat_only,500.0,2000,1.0,9.090909090909092,55.0
+e4,sealed,proposed_stat_prior_deff_only,500.0,2000,1.0,9.090909090909092,55.0
+sp,all (same bar),current_pass,,2000,0.025,,60.0
+sp,all (same bar),current_pass_or_audit,,2000,0.025,,60.0
+sp,dev,proposed,1000.0,2000,0.94975,16.666666666666668,60.0
+sp,dev,proposed+halves,1000.0,2000,0.94975,16.666666666666668,60.0
+sp,dev,proposed_stat_only,1000.0,2000,1.0,16.666666666666668,60.0
+sp,dev,proposed_stat_prior_deff_only,1000.0,2000,1.0,16.666666666666668,60.0
+sp,fwd_fixed,proposed,500.0,2000,0.94975,8.333333333333334,60.0
+sp,fwd_fixed,proposed+halves,500.0,2000,0.94975,8.333333333333334,60.0
+sp,fwd_fixed,proposed_stat_only,300.0,2000,1.0,5.0,60.0
+sp,fwd_fixed,proposed_stat_prior_deff_only,300.0,2000,1.0,5.0,60.0
+sp,sealed,proposed,500.0,2000,0.94975,8.333333333333334,60.0
+sp,sealed,proposed+halves,500.0,2000,0.94975,8.333333333333334,60.0
+sp,sealed,proposed_stat_only,300.0,2000,1.0,5.0,60.0
+sp,sealed,proposed_stat_prior_deff_only,300.0,2000,1.0,5.0,60.0
+x1,all (same bar),current_pass,,1000,0.0,,250.0
+x1,all (same bar),current_pass_or_audit,,1000,0.119,,250.0
+x1,dev,proposed,,1000,0.0625,,250.0
+x1,dev,proposed+halves,,1000,0.0625,,250.0
+x1,dev,proposed_stat_only,,1000,0.0625,,250.0
+x1,dev,proposed_stat_prior_deff_only,,1000,0.0635,,250.0
+x1,fwd_fixed,proposed,,1000,0.63825,,250.0
+x1,fwd_fixed,proposed+halves,,1000,0.63725,,250.0
+x1,fwd_fixed,proposed_stat_only,,1000,0.63825,,250.0
+x1,fwd_fixed,proposed_stat_prior_deff_only,,1000,0.6535,,250.0
+x1,sealed,proposed,,1000,0.313,,250.0
+x1,sealed,proposed+halves,,1000,0.313,,250.0
+x1,sealed,proposed_stat_only,,1000,0.313,,250.0
+x1,sealed,proposed_stat_prior_deff_only,,1000,0.31975,,250.0
