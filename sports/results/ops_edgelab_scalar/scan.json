@@ -1,0 +1,336 @@
+{
+ "cbb_ingame:dev": {
+  "kind": "result_equals_side",
+  "rows": 357107,
+  "result": {
+   "yes": 240755,
+   "no": 116352
+  }
+ },
+ "fx_climate:dev": {
+  "kind": "result_equals_side",
+  "rows": 182,
+  "result": {
+   "no": 115,
+   "yes": 67
+  },
+  "settlement_price_not01": 0
+ },
+ "game_release_hype:dev": {
+  "kind": "won_push_columns",
+  "rows": 1129,
+  "won": {
+   "0": 607,
+   "1": 522
+  },
+  "push": {
+   "0": 1088,
+   "1": 41
+  }
+ },
+ "game_release_totals:dev": {
+  "kind": "won_push_columns",
+  "rows": 3560,
+  "won": {
+   "0": 1816,
+   "1": 1744
+  },
+  "push": {
+   "0": 3456,
+   "1": 104
+  }
+ },
+ "kalshi_album_units:dev": {
+  "kind": "result_equals_side",
+  "rows": 663,
+  "result": {
+   "no": 436,
+   "yes": 227
+  }
+ },
+ "kalshi_golf_topn:dev": {
+  "kind": "result_equals_side",
+  "rows": 8847,
+  "result": {
+   "no": 7814,
+   "yes": 1033
+  }
+ },
+ "kalshi_longdated_tail:dev": {
+  "kind": "result_equals_side",
+  "rows": 6908,
+  "result": {
+   "no": 4662,
+   "yes": 2246
+  }
+ },
+ "kalshi_opt_tails:dev": {
+  "kind": "result_equals_side",
+  "rows": 13717,
+  "result": {
+   "no": 9304,
+   "yes": 4413
+  }
+ },
+ "kalshi_politics_fav:dev": {
+  "kind": "result_equals_side",
+  "rows": 17940,
+  "result": {
+   "no": 12902,
+   "yes": 4917,
+   "scalar": 121
+  }
+ },
+ "kalshi_prop_ladders:forward": {
+  "kind": "none",
+  "rows": 0
+ },
+ "kalshi_rain_daily_nyc:dev": {
+  "kind": "result_equals_side",
+  "rows": 764,
+  "result": {
+   "no": 465,
+   "yes": 299
+  }
+ },
+ "kalshi_soccer_ingame:dev": {
+  "kind": "result_equals_side",
+  "rows": 679680,
+  "result": {
+   "no": 453120,
+   "yes": 226560
+  }
+ },
+ "kalshi_spacex_count:dev": {
+  "kind": "result_equals_side",
+  "rows": 1476,
+  "result": {
+   "no": 936,
+   "yes": 540
+  }
+ },
+ "kalshi_spr_level:dev": {
+  "kind": "result_equals_side",
+  "rows": 118,
+  "result": {
+   "no": 79,
+   "yes": 39
+  }
+ },
+ "kalshi_temp_e1:dev": {
+  "kind": "won_column",
+  "rows": 1269,
+  "won": {
+   "1": 1210,
+   "0": 59
+  }
+ },
+ "kalshi_temp_e1:forward": {
+  "kind": "won_column",
+  "rows": 0,
+  "won": {}
+ },
+ "kalshi_temp_e1:sealed": {
+  "kind": "won_column",
+  "rows": 1844,
+  "won": {
+   "1": 1789,
+   "0": 55
+  }
+ },
+ "kalshi_temp_hourly:dev": {
+  "kind": "result_equals_side",
+  "rows": 144073,
+  "result": {
+   "yes": 82361,
+   "no": 61712
+  }
+ },
+ "kalshi_temp_x1:dev": {
+  "kind": "won_column",
+  "rows": 444,
+  "won": {
+   "1": 433,
+   "0": 11
+  }
+ },
+ "kalshi_temp_x1:forward": {
+  "kind": "won_column",
+  "rows": 0,
+  "won": {}
+ },
+ "kalshi_temp_x1:sealed": {
+  "kind": "won_column",
+  "rows": 2464,
+  "won": {
+   "1": 2413,
+   "0": 51
+  }
+ },
+ "kalshi_top_album:dev": {
+  "kind": "result_equals_side",
+  "rows": 1580,
+  "result": {
+   "no": 1484,
+   "yes": 96
+  }
+ },
+ "kalshi_tsaw:dev": {
+  "kind": "result_equals_side",
+  "rows": 827,
+  "result": {
+   "yes": 640,
+   "no": 187
+  },
+  "settlement_value_dollars_not01": 0
+ },
+ "kalshi_tsaw:forward": {
+  "kind": "result_equals_side",
+  "rows": 0,
+  "result": {},
+  "settlement_value_dollars_not01": 0
+ },
+ "kalshi_tsaw:sealed": {
+  "kind": "result_equals_side",
+  "rows": 368,
+  "result": {
+   "yes": 357,
+   "no": 11
+  },
+  "settlement_value_dollars_not01": 0
+ },
+ "kalshi_wx_monthly_early:dev": {
+  "kind": "result_equals_side",
+  "rows": 13384,
+  "result": {
+   "no": 8512,
+   "yes": 4872
+  }
+ },
+ "kalshi_ytviews:dev": {
+  "kind": "result_equals_side",
+  "rows": 179,
+  "result": {
+   "no": 163,
+   "yes": 16
+  },
+  "settlement_value_dollars_not01": 0
+ },
+ "lock_in_nba_total:dev": {
+  "kind": "result_equals_side",
+  "rows": 3631,
+  "result": {
+   "yes": 3631
+  }
+ },
+ "nba_b2b_sides:dev": {
+  "kind": "won_push_columns",
+  "rows": 1787,
+  "won": {
+   "0": 940,
+   "1": 847
+  },
+  "push": {
+   "0": 1761,
+   "1": 26
+  }
+ },
+ "nba_b2b_totals:dev": {
+  "kind": "won_push_columns",
+  "rows": 2113,
+  "won": {
+   "0": 1058,
+   "1": 1055
+  },
+  "push": {
+   "0": 2094,
+   "1": 19
+  }
+ },
+ "nba_clutch_ingame:dev": {
+  "kind": "result_equals_side",
+  "rows": 2507,
+  "result": {
+   "home": 1374,
+   "away": 1133
+  }
+ },
+ "nba_early_form:forward": {
+  "kind": "none",
+  "rows": 56
+ },
+ "nba_paint_sides:dev": {
+  "kind": "won_push_columns",
+  "rows": 4132,
+  "won": {
+   "1": 2137,
+   "0": 1995
+  },
+  "push": {
+   "0": 4073,
+   "1": 59
+  }
+ },
+ "nba_sides_l2:forward": {
+  "kind": "l2_side",
+  "rows": 0
+ },
+ "nba_sides_l2:sealed": {
+  "kind": "l2_side",
+  "rows": 3234
+ },
+ "nba_totals_open:dev": {
+  "kind": "win_push_columns",
+  "rows": 967,
+  "push": {
+   "False": 965,
+   "True": 2
+  },
+  "win": {
+   "1.0": 530,
+   "0.0": 437
+  }
+ },
+ "nba_totals_open:forward": {
+  "kind": "win_push_columns",
+  "rows": 0,
+  "push": {},
+  "win": {}
+ },
+ "pm_jumps:dev": {
+  "kind": "result_equals_side",
+  "rows": 14004,
+  "result": {
+   "no": 7562,
+   "yes": 6442
+  }
+ },
+ "pm_maker_no:dev": {
+  "kind": "won_column",
+  "rows": 10837,
+  "won": {
+   "1.0": 8824,
+   "0.0": 2013
+  }
+ },
+ "pm_timing:dev": {
+  "kind": "result_equals_side",
+  "rows": 9536,
+  "result": {
+   "tok1": 7177,
+   "tok0": 2359
+  }
+ },
+ "pmus_ingame_lag:dev": {
+  "kind": "result_equals_side",
+  "rows": 19892,
+  "result": {
+   "yes": 9993,
+   "no": 9899
+  }
+ },
+ "q017_ercot:forward": {
+  "kind": "none",
+  "rows": 0
+ }
+}

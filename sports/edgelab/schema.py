@@ -20,6 +20,8 @@ One row = one bet. Required columns:
                   studies score); otherwise `stake` dollars of cost are risked per bet
     pnl           optional; if given it must match the evaluator's own recomputation (the rule cannot set costs)
     close_price   optional; same-side price at the close, same units as `price` (NaN when not observed)
+    payout        optional, set ONLY by the vault under SCORING_VERSION >= 2: settlement value per contract for our
+                  side on a scalar-settled market (NaN elsewhere); on those rows outcome == payout, any value in [0, 1]
 
 Violations raise PITViolation with per-check counts; nothing is silently dropped.
 """
@@ -30,7 +32,7 @@ import pandas as pd
 
 REQUIRED = ["bet_id", "cluster", "event_start", "decided_at", "inputs_as_of", "price", "price_source",
             "price_time", "side", "stake", "outcome"]
-OPTIONAL = ["pnl", "close_price", "fill_deadline", "contracts"]
+OPTIONAL = ["pnl", "close_price", "fill_deadline", "contracts", "payout"]
 PRICE_SOURCES = {"taker", "maker_tape", "book_quote", "maker_fill"}
 MAKER_SOURCES = {"maker_tape", "maker_fill"}
 TIME_COLS = ["event_start", "decided_at", "inputs_as_of", "price_time", "fill_deadline"]
@@ -65,12 +67,17 @@ def normalize(rows: pd.DataFrame) -> pd.DataFrame:
     if "close_price" not in df.columns:
         df["close_price"] = np.nan
     df["close_price"] = pd.to_numeric(df["close_price"], errors="coerce")
+    if "payout" in df.columns:   # scalar settlement rows (vault, SCORING_VERSION >= 2): outcome must equal payout
+        df["payout"] = pd.to_numeric(df["payout"], errors="coerce")
+        pay_ok = df["payout"].between(0, 1) & np.isclose(df["outcome"].fillna(-1), df["payout"].fillna(-2))
+    else:
+        pay_ok = pd.Series(False, index=df.index)
     bad = {
         "bet_id_duplicate": int(df["bet_id"].duplicated().sum()),
         "price_source_unknown": int((~df["price_source"].isin(PRICE_SOURCES)).sum()),
         "price_outside_0_1": int((~df["price"].between(0, 1, inclusive="neither")).sum()),
         "stake_not_positive": int((~(df["stake"] > 0)).sum()),
-        "outcome_not_0_half_1": int((~df["outcome"].isin([0, 0.5, 1])).sum()),
+        "outcome_not_0_half_1": int((~(df["outcome"].isin([0, 0.5, 1]) | pay_ok)).sum()),
         "null_cluster": int(df["cluster"].isna().sum()),
     }
     bad = {k: v for k, v in bad.items() if v}

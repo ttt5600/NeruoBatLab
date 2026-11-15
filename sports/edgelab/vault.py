@@ -149,11 +149,47 @@ def outcome_cfg(dataset: str, split: str, spec_id: str | None = None) -> dict:
     return {"outcome": cfg["outcome"], "hidden": cfg.get("hidden", [])}
 
 
-def resolve_outcomes(dataset: str, bets: pd.DataFrame, hidden: pd.DataFrame, frame: pd.DataFrame) -> pd.DataFrame:
-    """Attach `outcome` (1 / 0 / 0.5) to the rule's bet rows from the hidden columns. Rules may not set outcomes."""
-    if "outcome" in bets.columns:
-        raise VaultError("rules may not set `outcome`; the vault resolves it from the hidden columns")
-    kind = (hidden.attrs.get("outcome") or outcome_cfg(dataset, hidden.attrs.get("split", "dev"))["outcome"])["kind"]
+SCALAR_RESULT = "scalar"   # Kalshi `result` of a market that settled at a fractional value
+
+
+def _settle_values(b: pd.DataFrame, hidden: pd.DataFrame, ocfg: dict, key_col: str, keys: pd.Series) -> pd.DataFrame:
+    """SCORING_VERSION >= 2: bets whose hidden result is 'scalar' pay the settlement value for their side.
+    `value_col` (outcome cfg) = hidden column with the YES payout per contract in [0, 1]. Sets `payout` (NaN on every
+    other row, which keeps the v1 outcome mapping) and outcome = payout on scalar rows. A scalar row without a value,
+    or on a side other than yes/no, is a loud error (never silently scored)."""
+    h = hidden.drop_duplicates(key_col).set_index(key_col)
+    res = keys.map(h["result"])
+    sc = (res == SCALAR_RESULT).to_numpy()
+    b["payout"] = np.nan
+    if not sc.any():
+        return b
+    vc = ocfg.get("value_col")
+    if not vc or vc not in h.columns:
+        raise VaultError(f"{int(sc.sum())} bets settled '{SCALAR_RESULT}' but the dataset's outcome has no hidden "
+                         f"value_col ({vc!r}); add the settlement value before scoring under SCORING_VERSION 2")
+    v = pd.to_numeric(keys.map(h[vc]), errors="coerce").to_numpy(float)
+    side = b["side"].astype(str).to_numpy()
+    bad = sc & (np.isnan(v) | (v < 0) | (v > 1) | ~np.isin(side, ["yes", "no"]))
+    if bad.any():
+        raise VaultError(f"{int(bad.sum())} scalar-settled bets lack a value in [0,1] or a yes/no side: "
+                         f"{b.loc[bad, 'bet_id'].head(3).tolist()}")
+    pay = np.where(side == "yes", v, 1.0 - v)
+    b.loc[sc, "payout"] = pay[sc]
+    b.loc[sc, "outcome"] = pay[sc]
+    return b
+
+
+def resolve_outcomes(dataset: str, bets: pd.DataFrame, hidden: pd.DataFrame, frame: pd.DataFrame,
+                     scoring_version: int | None = None) -> pd.DataFrame:
+    """Attach `outcome` (1 / 0 / 0.5) to the rule's bet rows from the hidden columns. Rules may not set outcomes (nor
+    `payout`). scoring_version None = edgelab.SCORING_VERSION; >= 2 adds settlement-value payouts (_settle_values)."""
+    if scoring_version is None:
+        from . import SCORING_VERSION as scoring_version
+    for c in ("outcome", "payout"):
+        if c in bets.columns:
+            raise VaultError(f"rules may not set `{c}`; the vault resolves it from the hidden columns")
+    ocfg = hidden.attrs.get("outcome") or outcome_cfg(dataset, hidden.attrs.get("split", "dev"))["outcome"]
+    kind = ocfg["kind"]
     b = bets.copy()
     if b.empty:
         b["outcome"] = pd.Series(dtype=float)
@@ -171,6 +207,8 @@ def resolve_outcomes(dataset: str, bets: pd.DataFrame, hidden: pd.DataFrame, fra
         b["outcome"] = [0.5 if r == "void" else float(r == s) for r, s in zip(res, b["side"])]
         if "venue_pnl" in h.columns:
             b["pnl"] = [h["venue_pnl"].get(k) for k in b["bet_id"]]
+        if scoring_version >= 2:
+            b = _settle_values(b, hidden, ocfg, "bet_id", b["bet_id"])
         return b
     if kind == "l32b_log":
         st = hidden[hidden["result"].notna()] if "result" in hidden else hidden.iloc[0:0]
@@ -192,6 +230,8 @@ def resolve_outcomes(dataset: str, bets: pd.DataFrame, hidden: pd.DataFrame, fra
     elif kind == "result_equals_side":
         m = dict(zip(hidden["ticker"], hidden["result"]))
         b["outcome"] = [1.0 if m[tk] == s else 0.0 for tk, s in zip(b["bet_id"].str.split("|").str[0], b["side"])]
+        if scoring_version >= 2:
+            b = _settle_values(b, hidden, ocfg, "ticker", b["bet_id"].str.split("|").str[0])
     elif kind == "win_push_columns":
         h = hidden.assign(_k=hidden["event_id"].astype(str))
         win = dict(zip(h["_k"], h["win"]))

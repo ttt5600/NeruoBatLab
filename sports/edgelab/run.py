@@ -89,7 +89,11 @@ def _adapter_lock(reg: Registry, trial_id: str, sha: str) -> None:
                             "a changed adapter is a changed rule -> register a NEW trial")
 
 
-def evaluate(trial_id: str, split: str, reg: Registry | None = None, save_rows: bool = True) -> dict:
+def evaluate(trial_id: str, split: str, reg: Registry | None = None, save_rows: bool = True,
+             scoring_version: int | None = None) -> dict:
+    """scoring_version None = edgelab.SCORING_VERSION (the user's switch); an explicit value is for sandboxes."""
+    from . import SCORING_VERSION
+    sv = SCORING_VERSION if scoring_version is None else int(scoring_version)
     reg = reg or Registry()
     t = reg.trial(trial_id)
     spec = t["spec"]
@@ -103,12 +107,14 @@ def evaluate(trial_id: str, split: str, reg: Registry | None = None, save_rows: 
     else:
         bets = _rule(spec)(frame, spec.get("params") or {})
     adapter_report = dict(bets.attrs.get("adapter_report") or {}) if ad else None
-    bets = vault.resolve_outcomes(spec["dataset"], bets, hidden, frame)
+    bets = vault.resolve_outcomes(spec["dataset"], bets, hidden, frame, scoring_version=sv)
     bar, n_family = reg.family_bar(spec["family"])
     base = {"event": "evaluate", "trial_id": trial_id, "split": split, "family": spec["family"],
             "n_trials_family": n_family, "bar": bar, "replay": access.get("replay", False),
             "access_ts": access["ts"], "sources": access["sources"], "vault_sha256": access["vault_sha256"],
             "rule_sha256": t["rule_sha256"], "spec_sha256": t["spec_sha256"]}
+    if sv >= 2:   # v1 events stay byte-identical to the pre-flag format
+        base["scoring_version"] = sv
     if ad:
         base["forward_adapter"] = ad["record"]
         base["adapter_report"] = adapter_report
@@ -156,7 +162,8 @@ def evaluate(trial_id: str, split: str, reg: Registry | None = None, save_rows: 
     return out
 
 
-def score_only(spec: dict, split: str, bar: float | None, fee: dict | None = None) -> dict:
+def score_only(spec: dict, split: str, bar: float | None, fee: dict | None = None,
+               scoring_version: int | None = None) -> dict:
     """Sensitivity runs that are NOT verdicts (no registry, no ladder): loads through the loader directly, dev split
     only, and says so in its output."""
     if split != "dev":
@@ -170,6 +177,7 @@ def score_only(spec: dict, split: str, bar: float | None, fee: dict | None = Non
     hidden = rows[[c for c in keys if c in rows.columns] + hidden_cols]
     vis = rows.drop(columns=hidden_cols)
     vis.attrs = dict(rows.attrs)
-    bets = vault.resolve_outcomes(spec["dataset"], _rule(spec)(vis, spec.get("params") or {}), hidden, vis)
+    bets = vault.resolve_outcomes(spec["dataset"], _rule(spec)(vis, spec.get("params") or {}), hidden, vis,
+                                  scoring_version=scoring_version)
     rows = schema.enforce(bets)
     return {"NOT_A_VERDICT": True, **_slim(evaluator.score(rows, bar, int(spec["min_n"]), fee or spec.get("fee") or {}))}

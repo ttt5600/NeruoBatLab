@@ -41,15 +41,20 @@ def cost_and_pnl(df: pd.DataFrame, fee: dict) -> tuple[np.ndarray, np.ndarray]:
                                          fee.get("rounding", "cent"))
     cost = price + feec
     out = df["outcome"].to_numpy(float)
+    # payout (SCORING_VERSION >= 2, vault-set on scalar-settled rows only): the contract pays `payout` per contract
+    pay = df["payout"].to_numpy(float) if "payout" in df.columns else np.full(len(df), np.nan)
+    sc = ~np.isnan(pay)
     if "contracts" in df.columns and df["contracts"].notna().all():
         # contract staking: risk = contracts x all-in cost; a win pays contracts x (1 - cost)
         n = df["contracts"].to_numpy(float)
         stake = n * cost
         pnl = np.where(out == 1, n * (1 - cost), np.where(out == 0, -stake, 0.0))
+        pnl = np.where(sc, n * (np.nan_to_num(pay) - cost), pnl)
     else:
         # dollar staking: `stake` dollars of cost buy stake/cost contracts
         stake = df["stake"].to_numpy(float)
         pnl = np.where(out == 1, stake * (1 / cost - 1), np.where(out == 0, -stake, 0.0))
+        pnl = np.where(sc, stake * (np.nan_to_num(pay) / cost - 1), pnl)
     return cost, pnl, stake
 
 
