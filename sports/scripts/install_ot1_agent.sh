@@ -13,6 +13,7 @@ LA="$HOME/Library/LaunchAgents"
 mkdir -p "$DST/scripts" "$DST/edgelab/rules" "$DST/data/kx_forward" "$DST/logs" "$DST/state"
 for f in qs_job.sh kx_throttle.py options_implied_tails.py ot1_forward.py; do cp "$SRC/scripts/$f" "$DST/scripts/$f"; done
 cp "$SRC/edgelab/rules/opt_tails.py" "$DST/edgelab/rules/opt_tails.py"     # frozen rule (sha pinned in the registry)
+cp "$SRC/edgelab/rules/opt_tails_mono.py" "$DST/edgelab/rules/opt_tails_mono.py"   # OT1b frozen (notes/ot1b_monotone.md)
 chmod +x "$DST/scripts/qs_job.sh"
 label="com.jonathanwang.quant-sports-ot1"
 cat > "$LA/$label.plist" <<PL

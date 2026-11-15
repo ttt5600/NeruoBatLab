@@ -1,0 +1,15 @@
+id: rq_golf_gt2b
+family: kalshi_rules_quirks
+dataset: kalshi_golf_topn
+rule: edgelab.rules.golf_topn_b:gt2b_mid
+hypothesis: 'rules_quirks G (notes/rules_quirks.md prereg 2026-11-15): as GT1 but ask in [0.10, 0.60] (drops extreme longshots where the favourite-longshot bias dominates); taker + fee, hold'
+decision_time: 'last hourly candle ending <= 10:00 UTC on the first-round Thursday'
+price_model: taker
+split: vault:kalshi_golf_topn
+min_n: 300
+kill:
+  kind: roi_ci_below_zero
+  after_n: 300
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent rules_quirks)'

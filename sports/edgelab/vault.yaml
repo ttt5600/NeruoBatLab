@@ -430,6 +430,17 @@ datasets:
       forward: [2026-11-16, null]
     forward_adapters:      # ops_ot1_forward 11-15: OT1 forward = what the launchd paper logger logged (scripts/ot1_forward.py)
       ot1_crypto_taker: {module: edgelab.adapters.ot1_fwd, params: {}}
+  kalshi_opt_tails_mono:  # ot1b_monotone 11-15: OT1b (monotone implied p) is FORWARD ONLY -- no dev/sealed window, so the
+    loader: kalshi_opt_tails   # vault cannot score it on the DEV data OT1 already used (prereg notes/ot1b_monotone.md)
+    family: kalshi_data_ladders
+    hidden: [result, status]
+    outcome: {kind: result_side, key: bet_id}
+    splits:
+      dev: null
+      sealed: null
+      forward: [2026-11-16, null]
+    forward_adapters:
+      ot1b_crypto_taker_mono: {module: edgelab.adapters.ot1b_fwd, params: {}}
   kalshi_golf_topn:       # rules_quirks 11-15: Kalshi top-N pays $1 to all ties (books dead-heat); prereg G in notes/rules_quirks.md
     loader: kalshi_golf_topn
     family: kalshi_rules_quirks

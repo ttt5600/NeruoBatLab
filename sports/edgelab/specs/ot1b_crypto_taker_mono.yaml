@@ -1,0 +1,23 @@
+id: ot1b_crypto_taker_mono
+family: kalshi_data_ladders
+dataset: kalshi_opt_tails_mono
+rule: edgelab.rules.opt_tails_mono:taker
+params:
+  asset_class: crypto
+hypothesis: 'OT1b = OT1 (ot1_crypto_taker-18d38e5c, unchanged) except options-implied P(S>K) comes from a MONOTONE,
+  arbitrage-free curve: Black-76 calls on a 401-point log-strike grid over the frozen OT1 Deribit smile (no
+  extrapolation), call-spread probabilities, weighted PAVA non-increasing in K (= greatest convex minorant of C), clip
+  [0,1], linear interpolation (edgelab/rules/opt_tails_mono.py). Same snapshot, amendment-2 frame (recomputed with the
+  OT1b p), taker rule edgelab/rules/opt_tails.py:taker (edge >= .03 after exact fee, ask in [.50,.99], spread <= 5c),
+  $1 of cost per bet, cluster crypto|date. FORWARD ONLY from 2026-11-16 (no dev scoring: DEV already used by OT1).
+  Picks overlap OT1 heavily; not independent evidence.'
+decision_time: 11:00 ET on the close date (snapshot in [11:00, 11:20) ET), same Kalshi GET as OT1
+price_model: taker
+split: vault:kalshi_opt_tails_mono
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 150
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent ot1b_monotone; prereg notes/ot1b_monotone.md; logger scripts/ot1_forward.py pick_b rows)'

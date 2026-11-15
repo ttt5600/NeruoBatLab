@@ -36,6 +36,10 @@ sys.path.insert(0, str(ROOT))
 from kx_throttle import kget  # noqa: E402
 import options_implied_tails as oit  # noqa: E402  (frozen DEV math: smile, p_above_crypto, p_yes, tail_candidates)
 from edgelab.rules.opt_tails import taker  # noqa: E402  (frozen rule)
+try:  # OT1b (frozen, notes/ot1b_monotone.md); an import failure must never stop OT1 -> logged as ot1b_error per snapshot
+    from edgelab.rules.opt_tails_mono import p_above_grid, p_above_mono, taker as taker_b  # noqa: E402
+except Exception:  # noqa: BLE001
+    p_above_grid = p_above_mono = taker_b = None
 
 ET = ZoneInfo("America/New_York")
 SERIES = {"KXBTCD": "BTC", "KXETHD": "ETH"}
@@ -150,6 +154,7 @@ def decide(now: datetime, force: bool = False) -> None:
     for s, cur in SERIES.items():
         trades[s], hosts[s] = deribit_trades(cur, int((t_d - 3600) * 1000), int(t_d * 1000))
     snaps, picks, quotes = [], [], []
+    picks_b = []                      # OT1b (notes/ot1b_monotone.md)
     for s, cur in SERIES.items():
         ev = f"{s}-{tag(d)}17"
         t_k = time.time()
@@ -226,6 +231,13 @@ def decide(now: datetime, force: bool = False) -> None:
                           "decided_at": utc_iso(t_k1), "quote_time": utc_iso(t_k), "inputs_as_of": utc_iso(last_tr / 1000),
                           "event_start": utc_iso(int(m.close_ts) - 1), "spot": sm[0], "strike_type": m.strike_type,
                           "floor": m.floor, "cap": m.cap})
+        # ---- OT1b (notes/ot1b_monotone.md; trial ot1b_crypto_taker_mono): SAME snapshot, monotone implied p.
+        # Additive only: never alters OT1's df / picks above; any failure is logged, OT1 still writes.
+        try:
+            picks_b += ot1b(df, sm, tauK, ev, s, date, on_time, t_k, t_k1, last_tr, quotes, picks)
+            snap["rule_picks_all_rungs_b"] = sum(1 for p in picks_b if p["event"] == ev)
+        except Exception as e:  # noqa: BLE001
+            snap["ot1b_error"] = f"{type(e).__name__}: {str(e)[:200]}"
     bets = [p for p in picks if p["status"] == "bet"]
     best = max(bets, key=lambda p: p["edge"])["ticker"] if bets else None
     st = "decided" if all(x.get("status") == "ok" for x in snaps) else "partial"
@@ -237,11 +249,54 @@ def decide(now: datetime, force: bool = False) -> None:
     day = {"kind": "day", "date": date, "status": st, "forced": force, "decided_at": utc_iso(time.time()),
            "snapshots": snaps, "picks_all": len(picks), "bets": len(bets), "best_of_day": best,
            "best_of_day_edge": max((p["edge"] for p in bets), default=None)}
+    bets_b = [p for p in picks_b if p["status"] == "bet"]
+    day.update({"picks_all_b": len(picks_b), "bets_b": len(bets_b),
+                "best_of_day_b": max(bets_b, key=lambda p: p["edge"])["ticker"] if bets_b else None,
+                "best_of_day_edge_b": max((p["edge"] for p in bets_b), default=None)})
     append(log_path(date, "ot1_quotes"), quotes)
-    append(log_path(date), picks + [day])
+    append(log_path(date), picks + picks_b + [day])
     print(f"{date} {st}: {len(bets)} bets ({len(picks)} rule picks all rungs), best {best}; "
+          f"OT1b {len(bets_b)} bets ({len(picks_b)} picks); "
           + "; ".join(f"{x['series']} {x.get('status')} trades {x['deribit_trades']} smile {x.get('smile_points')} "
                       f"age {x.get('input_age_s')}s" for x in snaps))
+
+
+def ot1b(df, sm, tauK, ev, s, date, on_time, t_k, t_k1, last_tr, quotes, picks_ot1) -> list[dict]:
+    """OT1b: identical to OT1 except P(YES) from the monotone arbitrage-free curve (edgelab/rules/opt_tails_mono.py).
+    Works on a COPY of the OT1 snapshot frame; adds p_yes_b to this event's quote rows. Returns `pick_b` rows."""
+    grid = p_above_grid(sm, tauK)
+    db = df.copy()
+    db["p_yes"] = [oit.p_yes(r, lambda k: p_above_mono(k, grid)) for r in df.to_dict("records")]
+    pb = dict(zip(db["ticker"], db["p_yes"]))
+    for q in quotes:
+        if q["event"] == ev:
+            q["p_yes_b"] = pb.get(q["ticker"])
+    frame_tk = set(oit.tail_candidates(db)["ticker"])
+    allp = taker_b(db, {"asset_class": "crypto"})
+    seen = {p["ticker"]: p for p in picks_ot1}
+    out = []
+    for b in allp.itertuples():
+        m = db[db["ticker"] == b.bet_id].iloc[0]
+        pF = (1 - m.p_yes) if b.side == "no" else m.p_yes
+        ask = float(b.price)
+        size_best = m.yes_bid_size if b.side == "no" else m.yes_ask_size
+        o = seen.get(b.bet_id)
+        if o is not None and o["side"] == b.side and "depth_0c" in o:   # same market/side already has a book GET
+            depth = {k: o[k] for k in ("book_best_ask", "depth_0c", "depth_1c", "depth_2c", "book_time")}
+        else:
+            depth = book_depth(b.bet_id, b.side, ask)
+        inf = b.bet_id in frame_tk
+        out.append({"kind": "pick_b", "trial": "ot1b", "date": date, "key": b.bet_id, "ticker": b.bet_id, "event": ev,
+                    "series": s, "status": ("bet" if inf else "outside_frame") if on_time else "off_time",
+                    "in_frame": inf, "side": b.side, "ask": ask, "pF": float(pF), "p_yes": float(m.p_yes),
+                    "p_yes_ot1": float(df.loc[df["ticker"] == b.bet_id, "p_yes"].iloc[0]),
+                    "edge": float(pF - ask - fee_exact(ask)), "yes_bid": m.yes_bid, "yes_ask": m.yes_ask,
+                    "size_at_best": size_best, **depth,
+                    "fee_exact": fee_exact(ask), "fee_cent_1": fee_cent(ask, 1), "fee_cent_100": fee_cent(ask, 100),
+                    "decided_at": utc_iso(t_k1), "quote_time": utc_iso(t_k), "inputs_as_of": utc_iso(last_tr / 1000),
+                    "event_start": utc_iso(int(m.close_ts) - 1), "spot": sm[0], "strike_type": m.strike_type,
+                    "floor": m.floor, "cap": m.cap})
+    return out
 
 
 def book_depth(ticker: str, side: str, ask: float) -> dict:

@@ -715,6 +715,47 @@ def card_ot1() -> Card:
     return c
 
 
+def card_ot1b() -> Card:
+    """OT1b = OT1 with a monotone arbitrage-free implied P(S>K) (trial ot1b_crypto_taker_mono; prereg
+    notes/ot1b_monotone.md). Same logger/snapshot as OT1: `pick_b` rows in data/kx_forward/ot1.jsonl. Forward only."""
+    c = Card("OT1b", "OT1 with monotone (PAVA call-spread) implied tails, KXBTCD/KXETHD 11:00 ET taker (forward paper)")
+    c.rule(rule_line(NOTES / "ot1b_monotone.md", "- Judge:"))
+    p = SD / "kx_forward" / "ot1.jsonl"
+    rows = jl(p)
+    res = {}
+    for r in rows:
+        if r.get("kind") == "settle":
+            res.update(r.get("results") or {})
+    days = [r for r in rows if r.get("kind") == "day"]
+    best = {d.get("best_of_day_b") for d in days if d.get("best_of_day_b")}
+    bets = [b for b in rows if b.get("kind") == "pick_b" and b.get("status") == "bet"]
+    ot1 = {b["ticker"] for b in rows if b.get("kind") == "pick" and b.get("status") == "bet"}
+    s = [b for b in bets if res.get(b["ticker"]) in ("yes", "no")]
+    def roi(sel, fk):
+        cost = [b["ask"] + b[fk] for b in sel]
+        return [(1 / cst - 1) if res[b["ticker"]] == b["side"] else -1.0 for b, cst in zip(sel, cost)], [1.0] * len(sel)
+    won = [res[b["ticker"]] == b["side"] for b in s]
+    one = [b for b in s if b["ticker"] in best]
+    c.lines.append(f"`{rel(p)}` pick_b: bets {len(bets)} (shared with OT1 {sum(b['ticker'] in ot1 for b in bets)}), "
+                   f"settled {len(s)}, pending {len(bets) - len(s)}; W-L {wl(won)}; {f_roi(*roi(s, 'fee_exact'))} at "
+                   f"ask+exact fee; {f_roi(*roi(s, 'fee_cent_1'))} at ask+1-lot cent fee; one-bet-per-day {len(one)}: "
+                   f"{f_roi(*roi(one, 'fee_exact'))}")
+    errs = [x.get("ot1b_error") for d in days for x in d.get("snapshots", []) if x.get("ot1b_error")]
+    if errs:
+        c.warn.append(f"{len(errs)} snapshot(s) with ot1b_error, e.g. {errs[-1]}")
+    if not p.exists():
+        c.warn.append(f"{rel(p)} missing -- is launchd job ot1 running? (forward starts 2026-11-16)")
+    n = len(s)
+    r, lo, hi = boot_roi(*roi(s, "fee_exact"))
+    if n >= 150 and np.isfinite(hi) and hi < 0:
+        c.set("KILLED-by-rule", f"ROI CI upper {hi:+.1%} < 0 after {n}")
+    elif n < 150:
+        c.set("too-early", f"{n} settled of 150 (spec min_n / kill check)")
+    else:
+        c.set("alive", f"n {n}, ROI {r:+.1%} [{lo:+.1%}, {hi:+.1%}]")
+    return c
+
+
 def card_lx1() -> Card:
     c = Card("LX1", "Kalshi logical-arb scanner (read-only, launchd lx1; judge 2026-11-19)")
     c.rule(rule_line(NOTES / "lx1_logical_arb.md", "- **Kill**: fewer than"))
@@ -823,6 +864,7 @@ def main(argv=None) -> int:
              kx_card("NHL-om-A", "xG/GSAx NHL totals model vs Kalshi first-tight 50c rung (taker, forward paper)", "nhla",
                      [rule_line(NOTES / "nhl_opener_model.md", "Judge at 100 settled")], "clv_c", " c", "nhl-om-a"),
              card_ot1(),
+             card_ot1b(),
              card_lx1(),
              card_lock(run_sub)]
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
