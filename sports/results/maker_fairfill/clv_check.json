@@ -1,0 +1,287 @@
+{
+ "taker_all": {
+  "n": 180,
+  "clv": [
+   0.4833,
+   0.2135,
+   0.8492,
+   0.0
+  ],
+  "roi_clv": [
+   -0.0402,
+   -0.0567,
+   -0.0204,
+   0.9998
+  ]
+ },
+ "pooled_x0": {
+  "n_filled": 132,
+  "clv_filled": -0.307,
+  "clv_unfilled": 2.656,
+  "clv_gap": [
+   -2.9631,
+   -3.7636,
+   -2.2501,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0252,
+   -0.0451,
+   -0.0053,
+   0.9925
+  ],
+  "roi_obs_filled": 0.0638
+ },
+ "nba_x0": {
+  "n_filled": 21,
+  "clv_filled": 0.429,
+  "clv_unfilled": 3.25,
+  "clv_gap": [
+   -2.8214,
+   -4.56,
+   -1.4211,
+   1.0
+  ],
+  "roi_clv_filled": [
+   0.0051,
+   -0.0169,
+   0.0301,
+   0.3397
+  ],
+  "roi_obs_filled": -0.1592
+ },
+ "cfb_x0": {
+  "n_filled": 42,
+  "clv_filled": -0.452,
+  "clv_unfilled": 2.655,
+  "clv_gap": [
+   -3.1076,
+   -4.6375,
+   -2.1666,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0233,
+   -0.0764,
+   0.0097,
+   0.8978
+  ],
+  "roi_obs_filled": -0.0038
+ },
+ "nfl_x0": {
+  "n_filled": 14,
+  "clv_filled": 0.179,
+  "clv_unfilled": 0.5,
+  "clv_gap": [
+   -0.3214,
+   -0.3571,
+   -0.1,
+   1.0
+  ],
+  "roi_clv_filled": [
+   0.0044,
+   -0.0465,
+   0.0238,
+   0.2973
+  ],
+  "roi_obs_filled": 0.1392
+ },
+ "cbb_x0": {
+  "n_filled": 55,
+  "clv_filled": -0.6,
+  "clv_unfilled": 3.0,
+  "clv_gap": [
+   -3.6,
+   -5.1635,
+   -2.3193,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0457,
+   -0.0694,
+   -0.0112,
+   0.9938
+  ],
+  "roi_obs_filled": 0.1812
+ },
+ "pooled_x1": {
+  "n_filled": 100,
+  "clv_filled": -0.895,
+  "clv_unfilled": 2.206,
+  "clv_gap": [
+   -3.1012,
+   -3.8239,
+   -2.5822,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0364,
+   -0.0567,
+   -0.019,
+   1.0
+  ],
+  "roi_obs_filled": 0.1071
+ },
+ "nba_x1": {
+  "n_filled": 12,
+  "clv_filled": -0.417,
+  "clv_unfilled": 2.077,
+  "clv_gap": [
+   -2.4936,
+   -4.5625,
+   -0.5268,
+   0.9958
+  ],
+  "roi_clv_filled": [
+   -0.0119,
+   -0.0513,
+   0.0266,
+   0.7372
+  ],
+  "roi_obs_filled": -0.1634
+ },
+ "cfb_x1": {
+  "n_filled": 32,
+  "clv_filled": -1.062,
+  "clv_unfilled": 2.359,
+  "clv_gap": [
+   -3.4215,
+   -4.8873,
+   -2.5869,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0375,
+   -0.0876,
+   -0.0072,
+   0.9972
+  ],
+  "roi_obs_filled": 0.0155
+ },
+ "nfl_x1": {
+  "n_filled": 11,
+  "clv_filled": -0.136,
+  "clv_unfilled": 0.917,
+  "clv_gap": [
+   -1.053,
+   -1.2333,
+   -1.0462,
+   1.0
+  ],
+  "roi_clv_filled": [
+   0.0072,
+   -0.028,
+   0.0254,
+   0.143
+  ],
+  "roi_obs_filled": 0.1039
+ },
+ "cbb_x1": {
+  "n_filled": 45,
+  "clv_filled": -1.089,
+  "clv_unfilled": 2.364,
+  "clv_gap": [
+   -3.4525,
+   -4.7945,
+   -2.256,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0527,
+   -0.0837,
+   -0.0212,
+   0.9972
+  ],
+  "roi_obs_filled": 0.2451
+ },
+ "pooled_x2": {
+  "n_filled": 86,
+  "clv_filled": -1.128,
+  "clv_unfilled": 1.957,
+  "clv_gap": [
+   -3.0854,
+   -3.8834,
+   -2.4666,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0285,
+   -0.0519,
+   -0.0075,
+   0.9968
+  ],
+  "roi_obs_filled": 0.1466
+ },
+ "nba_x2": {
+  "n_filled": 9,
+  "clv_filled": -1.389,
+  "clv_unfilled": 2.156,
+  "clv_gap": [
+   -3.5451,
+   -4.8824,
+   -2.4545,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0286,
+   -0.0886,
+   0.007,
+   0.9303
+  ],
+  "roi_obs_filled": -0.3161
+ },
+ "cfb_x2": {
+  "n_filled": 28,
+  "clv_filled": -1.286,
+  "clv_unfilled": 2.186,
+  "clv_gap": [
+   -3.4718,
+   -4.953,
+   -2.6298,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0307,
+   -0.0817,
+   0.0006,
+   0.9728
+  ],
+  "roi_obs_filled": 0.1094
+ },
+ "nfl_x2": {
+  "n_filled": 7,
+  "clv_filled": -0.071,
+  "clv_unfilled": 0.45,
+  "clv_gap": [
+   -0.5214,
+   -0.542,
+   -0.4048,
+   1.0
+  ],
+  "roi_clv_filled": [
+   0.0284,
+   -0.0087,
+   0.0767,
+   0.0328
+  ],
+  "roi_obs_filled": 0.1866
+ },
+ "cbb_x2": {
+  "n_filled": 42,
+  "clv_filled": -1.143,
+  "clv_unfilled": 2.04,
+  "clv_gap": [
+   -3.1829,
+   -4.7144,
+   -1.995,
+   1.0
+  ],
+  "roi_clv_filled": [
+   -0.0364,
+   -0.0676,
+   -0.0015,
+   0.9785
+  ],
+  "roi_obs_filled": 0.264
+ }
+}

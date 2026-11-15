@@ -1,0 +1,22 @@
+id: mf_cfb_x0
+family: cfb_lines
+dataset: kalshi_cfb_lines
+hypothesis: 'maker_fairfill (notes/maker_fairfill.md, pre-registered 2026-11-15 before
+  any trade tape). Same bets as the primary K50 taker rule (CBB: cbb_t1). At T post
+  a bid on the model side of the bought rung at floor_cent(side_mid - x), capped at
+  ask-1c; rest to start-5min; FILL iff a tape print strictly through b; cost b + maker
+  fee 0.0175p(1-p) ceil/100ct; graded as the taker bet. League cfb, x = 0c.'
+decision_time: same T as the K50/T1 taker bet; rest until start - 5 min
+split: vault:kalshi_cfb_lines
+legacy: new 2026-11-15 (agent maker_fairfill). PASS dev only if filled ROI p < family
+  bar, n_filled>=15, CLV>0; GO fwd if filled ROI>0, n_filled>=15; KILL if ROI CI upper<0
+  or (AS gap CI upper<0 and ROI<0).
+rule: edgelab.rules.forward:unwired
+price_model: maker_tape
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact

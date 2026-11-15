@@ -1,0 +1,16 @@
+id: news_t1_nfl_qb_inactive
+family: kalshi_news
+dataset: news_lag_nfl_qb
+rule: edgelab.rules.forward:unwired
+hypothesis: 'NFL starting QB designated Questionable/Doubtful (nflverse injuries; starter = >= 70% offense snaps and team-high QB snaps in his previous same-season game). Inactive list published at KO-90 min. At KO-87 min buy KXNFLGAME YES of the benefiting team (QB did not play -> opponent; played -> his team) at the 1-min candle ask (spread <= 10c, within 10 min), + 0.07p(1-p) fee; metric net CLV = mid at KO - ask - fee. Prereg notes/news_lag.md (2026-11-15). Dev = 2025 season; holdout 2026 wk1-10 not priced.'
+decision_time: 'KO - 87 min (inactive list + 3 min)'
+price_model: taker
+split: dev 2025 season / holdout 2026 wk1-10
+min_n: 20
+kill:
+  kind: clv_negative_significant
+  after_n: 20
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent news_lag). Dev scored in scripts/news_lag.py; PASS = mean net CLV > 0, game bootstrap p < .025 (k=2), both chronological halves > 0; KILL = T1 mean <= 0.'

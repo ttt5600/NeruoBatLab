@@ -48,6 +48,17 @@ Rebuilt from all 655 fills: settled election P&L -$143.34; had every closing fil
 to settlement) it would have been about +$52.74 -> exits cost ~$196. Kalshi would be ~$822 vs $731 net in. Exits fired on
 a stale needle model during the count. Lesson: a pre-committed hold-to-settlement plan beats reacting to a model mid-count.
 
+### A single API timeout silently cost E4 two whole nights
+11-13/11-14 UTC: every decision-hour tick crashed on an open-meteo ReadTimeout; cmd_pick had no per-city try/except, so
+no city was logged and E4 placed 0 orders. launchd showed exit 0 because run.sh's last command (the executor) exits 0.
+Fix deployed 11-15: retries, per-city isolation, failed cities retried next hour, tick exits 3 on failure. Lesson: check
+for missing OUTPUT rows per night, not exit codes. Source: notes/e4_ops_diag.md.
+
+### Kalshi cash is per exchange shard; an order sees only its own shard's cash
+Weather/NFL = shard 0, crypto/commodities = 2, basketball/tennis/baseball = 3. 11-13 a ~$500 BTC 15-min trade moved
+cash to shard 2, leaving shard 0 at $4.81 of $604 -> E4 rejects, NHL skips, DUL would skip everything. Executor now
+sizes on shard-0 cash (balance_breakdown). Rebalance: `bet.py allocate 0=95 3=5 --confirm` (moves money; user's call).
+
 ## Edge status (wave 5, 2026-11-10/11)
 
 ### E4 weather maker holds but is underpowered
@@ -126,6 +137,12 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 [+0.40,+1.35] n71; ROI NBA -2.2%, CFB -7.3%. Taker break-even needs ~+1.40 (NBA) / +1.16 (CFB) pts; CLV predicts NBA -2.1%,
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
+
+### Maker execution does not rescue the opener models: fills pick the losers even with a model choosing the side
+180 dev bets (K50 NBA/CFB/NFL + CBB), trade-tape fills at mid-1c: 56% fill; filled CLV -0.90 vs unfilled +2.21, gap -3.10
+[-3.82,-2.58] in every league; CLV-implied filled ROI -3.6% vs taker -4.0%. Maker fee is only 0.44c at 50c, but the
+fills arrive when the line is moving against us. Fifth case (E5, RD2, first-listing, L35, here). At ~100 bets win rate
+cannot show adverse selection; CLV can. Source: notes/maker_fairfill.md.
 
 ### Opener models beat the line but not the cost -- 4 sports now; Kalshi taker costs more than -110
 CBB totals model (walk-forward ridge, de-biased): dev 2023-25 n2,213 CLV +0.83 pts [+0.69,+0.97], no-vig +3.2% p .054
