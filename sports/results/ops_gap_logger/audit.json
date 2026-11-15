@@ -1,0 +1,265 @@
+{
+ "pairs": [
+  [
+   "bund",
+   "Bayer Leverkusen",
+   "Bayern Munich",
+   "bayer",
+   "bayern"
+  ],
+  [
+   "bund",
+   "RB Leipzig",
+   "Paderborn",
+   "rb",
+   "paderborn"
+  ],
+  [
+   "efl",
+   "West Bromwich Albion",
+   "West Ham",
+   "west",
+   "west"
+  ],
+  [
+   "efl",
+   "West Ham United",
+   "West Bromwich",
+   "west",
+   "west"
+  ],
+  [
+   "epl",
+   "Manchester City",
+   "Manchester United",
+   "manchester",
+   "manchester"
+  ],
+  [
+   "epl",
+   "Manchester United",
+   "Manchester City",
+   "manchester",
+   "manchester"
+  ],
+  [
+   "laliga",
+   "Real Betis",
+   "Real Madrid",
+   "real",
+   "real"
+  ],
+  [
+   "laliga",
+   "Real Betis",
+   "Real Sociedad",
+   "real",
+   "real"
+  ],
+  [
+   "laliga",
+   "Real Betis",
+   "Villarreal",
+   "real",
+   "villarreal"
+  ],
+  [
+   "laliga",
+   "Real Madrid",
+   "Real Betis",
+   "real",
+   "real"
+  ],
+  [
+   "laliga",
+   "Real Madrid",
+   "Real Sociedad",
+   "real",
+   "real"
+  ],
+  [
+   "laliga",
+   "Real Madrid",
+   "Villarreal",
+   "real",
+   "villarreal"
+  ],
+  [
+   "laliga",
+   "Real Sociedad",
+   "Real Betis",
+   "real",
+   "real"
+  ],
+  [
+   "laliga",
+   "Real Sociedad",
+   "Real Madrid",
+   "real",
+   "real"
+  ],
+  [
+   "laliga",
+   "Real Sociedad",
+   "Villarreal",
+   "real",
+   "villarreal"
+  ],
+  [
+   "ligue1",
+   "Le Havre",
+   "Le Mans",
+   "le",
+   "le"
+  ],
+  [
+   "ligue1",
+   "Le Havre",
+   "Lens",
+   "le",
+   "lens"
+  ],
+  [
+   "ligue1",
+   "Le Havre",
+   "Lille",
+   "le",
+   "lille"
+  ],
+  [
+   "ligue1",
+   "Le Havre",
+   "Marseille",
+   "le",
+   "marseille"
+  ],
+  [
+   "ligue1",
+   "Le Mans",
+   "Le Havre",
+   "le",
+   "le"
+  ],
+  [
+   "ligue1",
+   "Le Mans",
+   "Lens",
+   "le",
+   "lens"
+  ],
+  [
+   "ligue1",
+   "Le Mans",
+   "Lille",
+   "le",
+   "lille"
+  ],
+  [
+   "ligue1",
+   "Le Mans",
+   "Marseille",
+   "le",
+   "marseille"
+  ],
+  [
+   "mls",
+   "Los Angeles FC",
+   "Los Angeles G",
+   "los",
+   "los"
+  ],
+  [
+   "mls",
+   "New England Revolution",
+   "New York City",
+   "new",
+   "new"
+  ],
+  [
+   "mls",
+   "New England Revolution",
+   "New York RB",
+   "new",
+   "new"
+  ],
+  [
+   "mls",
+   "Real Salt Lake",
+   "Montreal",
+   "real",
+   "montreal"
+  ],
+  [
+   "mls",
+   "San Jose Earthquakes",
+   "San Diego FC",
+   "san",
+   "san"
+  ],
+  [
+   "mls",
+   "St Louis City SC",
+   "Austin",
+   "st",
+   "austin"
+  ],
+  [
+   "mls",
+   "St Louis City SC",
+   "Houston",
+   "st",
+   "houston"
+  ],
+  [
+   "ucl",
+   "Manchester City",
+   "Manchester United",
+   "manchester",
+   "manchester"
+  ],
+  [
+   "ucl",
+   "Manchester United",
+   "Manchester City",
+   "manchester",
+   "manchester"
+  ],
+  [
+   "ucl",
+   "RB Leipzig",
+   "Fenerbahce",
+   "rb",
+   "fenerbahce"
+  ],
+  [
+   "ucl",
+   "Real Betis",
+   "Real Madrid",
+   "real",
+   "real"
+  ],
+  [
+   "ucl",
+   "Real Betis",
+   "Villarreal",
+   "real",
+   "villarreal"
+  ],
+  [
+   "ucl",
+   "Real Madrid",
+   "Real Betis",
+   "real",
+   "real"
+  ],
+  [
+   "ucl",
+   "Real Madrid",
+   "Villarreal",
+   "real",
+   "villarreal"
+  ]
+ ],
+ "n_events": 927,
+ "n_gap_events": 81
+}

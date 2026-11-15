@@ -193,17 +193,13 @@ def cmd_shin() -> int:
                 continue
             r = np.array([1 / pr["home"], 1 / pr["draw"], 1 / pr["away"]])
             fp, fs = gl._power(r), shin(r)
-            hn, an = gl._first(g[1]), gl._first(g[2])
-            cand = k[k.event.str.contains(g[0].strftime("%y%b%d").upper(), regex=False)]
-            evs = [e for e, gg in cand.groupby("event")
-                   if any(hn in gl._first(t) for t in gg.team) and any(an in gl._first(t) for t in gg.team)]
-            ok = len(evs) == 1
+            hit = gl.match_soccer_event(g[0], g[1], g[2], k)  # strict matcher (old _first collided, ops_gap_logger)
+            ok = hit is not None
             for i, s in enumerate("HDA"):
                 row = {"lg": lg, "start": g[0], "home": g[1], "away": g[2], "out": s, "dec": [pr["home"], pr["draw"], pr["away"]][i],
                        "overround": r.sum() - 1, "power": fp[i], "shin": fs[i], "prop": r[i] / r.sum(), "matched": ok}
                 if ok:
-                    q = cand[cand.event == evs[0]]
-                    qq = q[q.ticker.str.endswith("-TIE")] if s == "D" else q[q.team.apply(lambda t: (hn if s == "H" else an) in gl._first(t))]
+                    qq = k[k.ticker.isin([t for t, v in hit[1].items() if v == s])]
                     if len(qq) == 1:
                         qq = qq.iloc[0]
                         row.update(ticker=qq.ticker, yes_bid=qq.yes_bid, yes_ask=qq.yes_ask, no_ask=qq.no_ask)

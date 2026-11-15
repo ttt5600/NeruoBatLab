@@ -1,0 +1,11 @@
+league,event,pin_home,pin_away,kalshi_team,labelled,truth,in_gap_log,gap_rows
+epl,KXEPLGAME-26SEP13MUNMCI,Manchester United,Manchester City,Manchester City,H,A,False,0
+laliga,KXLALIGAGAME-26OCT10RMAVIL,Real Madrid,Villarreal,Villarreal,H,A,False,0
+ligue1,KXLIGUE1GAME-26NOV28MANLIL,Le Mans,Lille,Lille,H,A,True,774
+ligue1,KXLIGUE1GAME-26SEP13MANRCL,Le Mans,Lens,Lens,H,A,False,0
+efl,KXEFLCHAMPIONSHIPGAME-26OCT31WHUWBA,West Ham United,West Bromwich Albion,West Bromwich,H,A,True,3172
+mls,KXMLSGAME-26OCT28NENYRB,New England Revolution,New York RB,New York RB,H,A,False,0
+mls,KXMLSGAME-26OCT25LAFCLAG,Los Angeles FC,Los Angeles G,Los Angeles G,H,A,False,0
+mls,KXMLSGAME-26SEP18NYCNYRB,New York City,New York RB,New York RB,H,A,False,0
+mls,KXMLSGAME-26SEP09SDSJ,San Diego FC,San Jose Earthquakes,San Jose,H,A,False,0
+mls,KXMLSGAME-26SEP09NYCNE,New York City,New England Revolution,New England,H,A,False,0

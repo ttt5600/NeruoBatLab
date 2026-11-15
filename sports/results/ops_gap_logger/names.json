@@ -1,0 +1,5089 @@
+{
+"names": {
+"epl": {
+"kalshi": [
+"Arsenal",
+"Aston Villa",
+"Bournemouth",
+"Brentford",
+"Brighton",
+"Chelsea",
+"Coventry",
+"Crystal Palace",
+"Everton",
+"Fulham",
+"Hull City",
+"Ipswich Town",
+"Leeds United",
+"Liverpool",
+"Manchester City",
+"Manchester United",
+"Newcastle",
+"Nottingham Forest",
+"Sunderland",
+"Tottenham"
+],
+"pin": [
+"Arsenal",
+"Aston Villa",
+"Bournemouth",
+"Brentford",
+"Brighton",
+"Chelsea",
+"Coventry City",
+"Crystal Palace",
+"Everton",
+"Fulham",
+"Hull City",
+"Ipswich Town",
+"Leeds United",
+"Liverpool",
+"Manchester City",
+"Manchester United",
+"Newcastle United",
+"Nottingham Forest",
+"Sunderland",
+"Tottenham Hotspur"
+]
+},
+"laliga": {
+"kalshi": [
+"Alaves",
+"Atletico",
+"Barcelona",
+"Bilbao",
+"Celta Vigo",
+"Deportivo De La Coruna",
+"Elche",
+"Espanyol",
+"Getafe",
+"Levante",
+"Malaga",
+"Osasuna",
+"Real Betis",
+"Real Madrid",
+"Real Sociedad",
+"Santander",
+"Sevilla",
+"Valencia",
+"Vallecano",
+"Villarreal"
+],
+"pin": [
+"Alaves",
+"Athletic Bilbao",
+"Atletico Madrid",
+"Barcelona",
+"Celta Vigo",
+"Deportivo La Coruna",
+"Elche",
+"Espanyol",
+"Getafe",
+"Levante",
+"Malaga",
+"Osasuna",
+"Racing Santander",
+"Rayo Vallecano",
+"Real Betis",
+"Real Madrid",
+"Real Sociedad",
+"Sevilla",
+"Valencia",
+"Villarreal"
+]
+},
+"seriea": {
+"kalshi": [
+"Atalanta",
+"Bologna",
+"Cagliari",
+"Como",
+"Fiorentina",
+"Frosinone",
+"Genoa",
+"Inter",
+"Juventus",
+"Lazio",
+"Lecce",
+"Milan",
+"Monza",
+"Napoli",
+"Parma Calcio",
+"Roma",
+"Sassuolo",
+"Torino",
+"Udinese",
+"Venezia"
+],
+"pin": [
+"AC Milan",
+"Atalanta",
+"Bologna",
+"Cagliari",
+"Como",
+"Fiorentina",
+"Frosinone",
+"Genoa",
+"Internazionale",
+"Juventus",
+"Lazio",
+"Lecce",
+"Monza",
+"Napoli",
+"Parma",
+"Roma",
+"Sassuolo",
+"Torino",
+"Udinese",
+"Venezia"
+]
+},
+"bund": {
+"kalshi": [
+"Augsburg",
+"Bayern Munich",
+"Bremen",
+"Dortmund",
+"Elversberg",
+"FC K\u00f6ln",
+"Frankfurt",
+"Freiburg",
+"Hamburg",
+"Hoffenheim",
+"Leipzig",
+"Leverkusen",
+"Mainz",
+"M\u00b4gladbach",
+"Paderborn",
+"Schalke",
+"Stuttgart",
+"Union Berlin"
+],
+"pin": [
+"Augsburg",
+"Bayer Leverkusen",
+"Bayern Munich",
+"Borussia Dortmund",
+"Borussia Monchengladbach",
+"Eintracht Frankfurt",
+"Elversberg",
+"FC Koln",
+"Freiburg",
+"Hamburger SV",
+"Hoffenheim",
+"Mainz 05",
+"Paderborn",
+"RB Leipzig",
+"Schalke 04",
+"Stuttgart",
+"Union Berlin",
+"Werder Bremen"
+]
+},
+"ligue1": {
+"kalshi": [
+"Angers",
+"Auxerre",
+"Le Havre",
+"Le Mans",
+"Lens",
+"Lille",
+"Lorient",
+"Lyon",
+"Marseille",
+"Monaco",
+"Nice",
+"PSG",
+"Paris FC",
+"Stade Brest 29",
+"Stade Rennais",
+"Strasbourg Alsace",
+"Toulouse",
+"Troyes"
+],
+"pin": [
+"Angers",
+"Auxerre",
+"Brest",
+"Le Havre",
+"Le Mans",
+"Lens",
+"Lille",
+"Lorient",
+"Lyon",
+"Marseille",
+"Monaco",
+"Nice",
+"Paris FC",
+"Paris Saint-Germain",
+"Rennes",
+"Strasbourg",
+"Toulouse",
+"Troyes"
+]
+},
+"efl": {
+"kalshi": [
+"Birmingham",
+"Blackburn",
+"Bolton",
+"Bristol City",
+"Burnley",
+"Cardiff",
+"Charlton",
+"Derby",
+"Lincoln",
+"Middlesbrough",
+"Millwall",
+"Norwich",
+"Portsmouth",
+"Preston",
+"QPR",
+"Sheffield United",
+"Southampton",
+"Stoke",
+"Swansea",
+"Watford",
+"West Bromwich",
+"West Ham",
+"Wolverhampton",
+"Wrexham"
+],
+"pin": [
+"Birmingham City",
+"Blackburn Rovers",
+"Bolton Wanderers",
+"Bristol City",
+"Burnley",
+"Cardiff City",
+"Charlton Athletic",
+"Derby County",
+"Lincoln City",
+"Middlesbrough",
+"Millwall",
+"Norwich City",
+"Portsmouth",
+"Preston North End",
+"Queens Park Rangers",
+"Sheffield United",
+"Southampton",
+"Stoke City",
+"Swansea City",
+"Watford",
+"West Bromwich Albion",
+"West Ham United",
+"Wolverhampton",
+"Wrexham"
+]
+},
+"mls": {
+"kalshi": [
+"Atlanta",
+"Austin",
+"Charlotte",
+"Chicago Fire",
+"Cincinnati",
+"Colorado",
+"Columbus",
+"DC United",
+"Dallas",
+"Houston",
+"Kansas City",
+"Los Angeles F",
+"Los Angeles G",
+"Miami",
+"Minnesota",
+"Montreal",
+"Nashville",
+"New England",
+"New York City",
+"New York RB",
+"Orlando",
+"Philadelphia",
+"Portland",
+"Saint Louis",
+"Salt Lake",
+"San Diego FC",
+"San Jose",
+"Seattle",
+"Toronto",
+"Vancouver"
+],
+"pin": [
+"Charlotte FC",
+"Chicago Fire",
+"Columbus Crew",
+"FC Cincinnati",
+"FC Dallas",
+"Houston Dynamo",
+"Inter Miami",
+"Los Angeles FC",
+"New England Revolution",
+"Orlando City",
+"Philadelphia Union",
+"Portland Timbers",
+"Real Salt Lake",
+"San Jose Earthquakes",
+"Seattle Sounders",
+"St Louis City SC"
+]
+},
+"ucl": {
+"kalshi": [
+"AEK Athens",
+"Arsenal",
+"Aston Villa",
+"Atletico",
+"Barcelona",
+"Bayern Munich",
+"Bodoe/Glimt",
+"Club Brugge",
+"Como",
+"Dortmund",
+"Eindhoven",
+"Fenerbahce",
+"Feyenoord",
+"Galatasaray",
+"Inter",
+"LASK",
+"Leipzig",
+"Lens",
+"Lille",
+"Liverpool",
+"Manchester City",
+"Manchester United",
+"Napoli",
+"PSG",
+"Porto",
+"Real Betis",
+"Real Madrid",
+"Roma",
+"Sabah Masazir",
+"Shakhtar",
+"Slavia Prague",
+"Slovan Bratislava",
+"Sporting CP",
+"Stuttgart",
+"Viking",
+"Villarreal"
+],
+"pin": [
+"AEK Athens",
+"Arsenal",
+"Aston Villa",
+"Atletico Madrid",
+"Barcelona",
+"Bayern Munich",
+"Bodo Glimt",
+"Borussia Dortmund",
+"Club Brugge",
+"Como",
+"Fenerbahce",
+"Feyenoord",
+"Galatasaray",
+"Internazionale",
+"LASK Linz",
+"Lens",
+"Lille",
+"Liverpool",
+"Manchester City",
+"Manchester United",
+"Napoli",
+"PSV",
+"Paris Saint-Germain",
+"Porto",
+"RB Leipzig",
+"Real Betis",
+"Real Madrid",
+"Roma",
+"Sabah FK",
+"Shakhtar Donetsk",
+"Slavia Prague",
+"Slovan Bratislava",
+"Sporting CP",
+"Stuttgart",
+"Viking",
+"Villarreal"
+]
+},
+"ered": {
+"kalshi": [
+"Ajax",
+"Alkmaar",
+"Cambuur",
+"Den Haag",
+"Eindhoven",
+"Enschede",
+"Excelsior",
+"Feyenoord",
+"GA Eagles",
+"Groningen",
+"Heerenveen",
+"Nijmegen",
+"Sittard",
+"Sparta",
+"Telstar",
+"Utrecht",
+"Willem II",
+"Zwolle"
+],
+"pin": [
+"ADO Den Haag",
+"AZ Alkmaar",
+"Ajax",
+"Cambuur Leeuwaarden",
+"Excelsior",
+"FC Twente",
+"FC Utrecht",
+"Feyenoord",
+"Fortuna Sittard",
+"Go Ahead Eagles",
+"Groningen",
+"Heerenveen",
+"NEC Nijmegen",
+"PEC Zwolle",
+"PSV",
+"Sparta Rotterdam",
+"Telstar",
+"Willem II"
+]
+}
+},
+"events": {
+"KXEPLGAME-26NOV29ARSMCI": {
+"TIE": "Tie",
+"MCI": "Manchester City",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26NOV29SUNTOT": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"SUN": "Sunderland"
+},
+"KXEPLGAME-26NOV29FULBOU": {
+"TIE": "Tie",
+"FUL": "Fulham",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26NOV29CRYHUL": {
+"TIE": "Tie",
+"HUL": "Hull City",
+"CRY": "Crystal Palace"
+},
+"KXEPLGAME-26NOV29BRINEW": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"BRI": "Brighton"
+},
+"KXEPLGAME-26NOV29EVELFC": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"EVE": "Everton"
+},
+"KXEPLGAME-26NOV28IPSAVL": {
+"TIE": "Tie",
+"IPS": "Ipswich Town",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26NOV28MUNBRE": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"BRE": "Brentford"
+},
+"KXEPLGAME-26NOV28LEECOV": {
+"TIE": "Tie",
+"LEE": "Leeds United",
+"COV": "Coventry"
+},
+"KXEPLGAME-26NOV27NFOCFC": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"CFC": "Chelsea"
+},
+"KXEPLGAME-26NOV23BREEVE": {
+"TIE": "Tie",
+"EVE": "Everton",
+"BRE": "Brentford"
+},
+"KXEPLGAME-26NOV22LFCMUN": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"LFC": "Liverpool"
+},
+"KXEPLGAME-26NOV22HULBRI": {
+"TIE": "Tie",
+"HUL": "Hull City",
+"BRI": "Brighton"
+},
+"KXEPLGAME-26NOV21NEWARS": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26NOV21TOTIPS": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"IPS": "Ipswich Town"
+},
+"KXEPLGAME-26NOV21COVCRY": {
+"TIE": "Tie",
+"CRY": "Crystal Palace",
+"COV": "Coventry"
+},
+"KXEPLGAME-26NOV21CFCLEE": {
+"TIE": "Tie",
+"LEE": "Leeds United",
+"CFC": "Chelsea"
+},
+"KXEPLGAME-26NOV21BOUNFO": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26NOV21AVLSUN": {
+"TIE": "Tie",
+"SUN": "Sunderland",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26NOV21MCIFUL": {
+"TIE": "Tie",
+"MCI": "Manchester City",
+"FUL": "Fulham"
+},
+"KXEPLGAME-26NOV08MUNAVL": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26NOV08SUNCFC": {
+"TIE": "Tie",
+"SUN": "Sunderland",
+"CFC": "Chelsea"
+},
+"KXEPLGAME-26NOV08BRIBRE": {
+"TIE": "Tie",
+"BRI": "Brighton",
+"BRE": "Brentford"
+},
+"KXEPLGAME-26NOV08IPSBOU": {
+"TIE": "Tie",
+"IPS": "Ipswich Town",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26NOV08CRYLFC": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"CRY": "Crystal Palace"
+},
+"KXEPLGAME-26NOV07NFOMCI": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"MCI": "Manchester City"
+},
+"KXEPLGAME-26NOV07ARSHUL": {
+"TIE": "Tie",
+"HUL": "Hull City",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26NOV07FULNEW": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"FUL": "Fulham"
+},
+"KXEPLGAME-26NOV07LEETOT": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"LEE": "Leeds United"
+},
+"KXEPLGAME-26NOV06EVECOV": {
+"TIE": "Tie",
+"EVE": "Everton",
+"COV": "Coventry"
+},
+"KXEPLGAME-26NOV02NEWEVE": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"EVE": "Everton"
+},
+"KXEPLGAME-26NOV01LFCARS": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26OCT31AVLFUL": {
+"TIE": "Tie",
+"FUL": "Fulham",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26OCT31TOTCRY": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"CRY": "Crystal Palace"
+},
+"KXEPLGAME-26OCT31HULIPS": {
+"TIE": "Tie",
+"IPS": "Ipswich Town",
+"HUL": "Hull City"
+},
+"KXEPLGAME-26OCT31BOULEE": {
+"TIE": "Tie",
+"LEE": "Leeds United",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26OCT31COVSUN": {
+"TIE": "Tie",
+"SUN": "Sunderland",
+"COV": "Coventry"
+},
+"KXEPLGAME-26OCT31MCIBRI": {
+"TIE": "Tie",
+"MCI": "Manchester City",
+"BRI": "Brighton"
+},
+"KXEPLGAME-26OCT31BRENFO": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"BRE": "Brentford"
+},
+"KXEPLGAME-26OCT31CFCMUN": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"CFC": "Chelsea"
+},
+"KXEPLGAME-26OCT25SUNLEE": {
+"TIE": "Tie",
+"SUN": "Sunderland",
+"LEE": "Leeds United"
+},
+"KXEPLGAME-26OCT25MUNBOU": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26OCT25LFCBRI": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"BRI": "Brighton"
+},
+"KXEPLGAME-26OCT25CRYNEW": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"CRY": "Crystal Palace"
+},
+"KXEPLGAME-26OCT25HULBRE": {
+"TIE": "Tie",
+"HUL": "Hull City",
+"BRE": "Brentford"
+},
+"KXEPLGAME-26OCT24CFCTOT": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"CFC": "Chelsea"
+},
+"KXEPLGAME-26OCT24ARSEVE": {
+"TIE": "Tie",
+"EVE": "Everton",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26OCT24COVFUL": {
+"TIE": "Tie",
+"FUL": "Fulham",
+"COV": "Coventry"
+},
+"KXEPLGAME-26OCT24AVLMCI": {
+"TIE": "Tie",
+"MCI": "Manchester City",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26OCT23IPSNFO": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"IPS": "Ipswich Town"
+},
+"KXEPLGAME-26OCT19TOTCOV": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"COV": "Coventry"
+},
+"KXEPLGAME-26OCT18NFOARS": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26OCT18BOUSUN": {
+"TIE": "Tie",
+"SUN": "Sunderland",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26OCT18LEEMUN": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"LEE": "Leeds United"
+},
+"KXEPLGAME-26OCT18BRICRY": {
+"TIE": "Tie",
+"CRY": "Crystal Palace",
+"BRI": "Brighton"
+},
+"KXEPLGAME-26OCT17NEWAVL": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26OCT17MCIIPS": {
+"TIE": "Tie",
+"MCI": "Manchester City",
+"IPS": "Ipswich Town"
+},
+"KXEPLGAME-26OCT17BRELFC": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"BRE": "Brentford"
+},
+"KXEPLGAME-26OCT17FULHUL": {
+"TIE": "Tie",
+"HUL": "Hull City",
+"FUL": "Fulham"
+},
+"KXEPLGAME-26OCT17EVECFC": {
+"TIE": "Tie",
+"EVE": "Everton",
+"CFC": "Chelsea"
+},
+"KXEPLGAME-26OCT12COVNEW": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"COV": "Coventry"
+},
+"KXEPLGAME-26OCT11LFCMCI": {
+"TIE": "Tie",
+"MCI": "Manchester City",
+"LFC": "Liverpool"
+},
+"KXEPLGAME-26OCT11HULEVE": {
+"TIE": "Tie",
+"HUL": "Hull City",
+"EVE": "Everton"
+},
+"KXEPLGAME-26OCT11CRYNFO": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"CRY": "Crystal Palace"
+},
+"KXEPLGAME-26OCT10MUNTOT": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"MUN": "Manchester United"
+},
+"KXEPLGAME-26OCT10AVLBRE": {
+"TIE": "Tie",
+"BRE": "Brentford",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26OCT10SUNBRI": {
+"TIE": "Tie",
+"SUN": "Sunderland",
+"BRI": "Brighton"
+},
+"KXEPLGAME-26OCT10IPSFUL": {
+"TIE": "Tie",
+"IPS": "Ipswich Town",
+"FUL": "Fulham"
+},
+"KXEPLGAME-26OCT10CFCBOU": {
+"TIE": "Tie",
+"CFC": "Chelsea",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26OCT10ARSLEE": {
+"TIE": "Tie",
+"LEE": "Leeds United",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26SEP20FULMUN": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"FUL": "Fulham"
+},
+"KXEPLGAME-26SEP20MCISUN": {
+"TIE": "Tie",
+"SUN": "Sunderland",
+"MCI": "Manchester City"
+},
+"KXEPLGAME-26SEP20LEECRY": {
+"TIE": "Tie",
+"LEE": "Leeds United",
+"CRY": "Crystal Palace"
+},
+"KXEPLGAME-26SEP20BOULFC": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26SEP19NFOCOV": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"COV": "Coventry"
+},
+"KXEPLGAME-26SEP19BRIARS": {
+"TIE": "Tie",
+"BRI": "Brighton",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26SEP19NEWHUL": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"HUL": "Hull City"
+},
+"KXEPLGAME-26SEP19EVEIPS": {
+"TIE": "Tie",
+"IPS": "Ipswich Town",
+"EVE": "Everton"
+},
+"KXEPLGAME-26SEP19TOTAVL": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26SEP18BRECFC": {
+"TIE": "Tie",
+"CFC": "Chelsea",
+"BRE": "Brentford"
+},
+"KXEPLGAME-26SEP14LEENEW": {
+"TIE": "Tie",
+"NEW": "Newcastle",
+"LEE": "Leeds United"
+},
+"KXEPLGAME-26SEP13MUNMCI": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"MCI": "Manchester City"
+},
+"KXEPLGAME-26SEP13COVBRI": {
+"TIE": "Tie",
+"COV": "Coventry",
+"BRI": "Brighton"
+},
+"KXEPLGAME-26SEP12SUNARS": {
+"TIE": "Tie",
+"SUN": "Sunderland",
+"ARS": "Arsenal"
+},
+"KXEPLGAME-26SEP12TOTEVE": {
+"TOT": "Tottenham",
+"TIE": "Tie",
+"EVE": "Everton"
+},
+"KXEPLGAME-26SEP12CRYIPS": {
+"TIE": "Tie",
+"IPS": "Ipswich Town",
+"CRY": "Crystal Palace"
+},
+"KXEPLGAME-26SEP12AVLNFO": {
+"TIE": "Tie",
+"NFO": "Nottingham Forest",
+"AVL": "Aston Villa"
+},
+"KXEPLGAME-26SEP12CFCHUL": {
+"TIE": "Tie",
+"HUL": "Hull City",
+"CFC": "Chelsea"
+},
+"KXEPLGAME-26SEP12BOUBRE": {
+"TIE": "Tie",
+"BRE": "Brentford",
+"BOU": "Bournemouth"
+},
+"KXEPLGAME-26SEP12LFCFUL": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"FUL": "Fulham"
+},
+"KXLALIGAGAME-26NOV29RSOSEV": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"RSO": "Real Sociedad"
+},
+"KXLALIGAGAME-26NOV29RCCVIL": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"RCC": "Celta Vigo"
+},
+"KXLALIGAGAME-26NOV29DEPBAR": {
+"TIE": "Tie",
+"DEP": "Deportivo De La Coruna",
+"BAR": "Barcelona"
+},
+"KXLALIGAGAME-26NOV29VCFOSA": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"OSA": "Osasuna"
+},
+"KXLALIGAGAME-26NOV28RMAALA": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26NOV28ELCATM": {
+"TIE": "Tie",
+"ELC": "Elche",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26NOV28MCFATH": {
+"TIE": "Tie",
+"MCF": "Malaga",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26NOV28RBBRVC": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"RBB": "Real Betis"
+},
+"KXLALIGAGAME-26NOV27LEVSAN": {
+"TIE": "Tie",
+"SAN": "Santander",
+"LEV": "Levante"
+},
+"KXLALIGAGAME-26NOV23LEVELC": {
+"TIE": "Tie",
+"LEV": "Levante",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26NOV22GETATM": {
+"TIE": "Tie",
+"GET": "Getafe",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26NOV22OSAMCF": {
+"TIE": "Tie",
+"OSA": "Osasuna",
+"MCF": "Malaga"
+},
+"KXLALIGAGAME-26NOV22SANRSO": {
+"TIE": "Tie",
+"SAN": "Santander",
+"RSO": "Real Sociedad"
+},
+"KXLALIGAGAME-26NOV22BARVIL": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"BAR": "Barcelona"
+},
+"KXLALIGAGAME-26NOV21RMARCC": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"RCC": "Celta Vigo"
+},
+"KXLALIGAGAME-26NOV21SEVRBB": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"RBB": "Real Betis"
+},
+"KXLALIGAGAME-26NOV21RVCVCF": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"RVC": "Vallecano"
+},
+"KXLALIGAGAME-26NOV21ALADEP": {
+"TIE": "Tie",
+"DEP": "Deportivo De La Coruna",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26NOV20ATHESP": {
+"TIE": "Tie",
+"ESP": "Espanyol",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26NOV08ATMBAR": {
+"TIE": "Tie",
+"BAR": "Barcelona",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26NOV08RCCLEV": {
+"TIE": "Tie",
+"RCC": "Celta Vigo",
+"LEV": "Levante"
+},
+"KXLALIGAGAME-26NOV08VILGET": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"GET": "Getafe"
+},
+"KXLALIGAGAME-26NOV08RSORVC": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"RSO": "Real Sociedad"
+},
+"KXLALIGAGAME-26NOV08ELCRBB": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26NOV07VCFRMA": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"RMA": "Real Madrid"
+},
+"KXLALIGAGAME-26NOV07OSAATH": {
+"TIE": "Tie",
+"OSA": "Osasuna",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26NOV07ESPDEP": {
+"TIE": "Tie",
+"ESP": "Espanyol",
+"DEP": "Deportivo De La Coruna"
+},
+"KXLALIGAGAME-26NOV07MCFSAN": {
+"TIE": "Tie",
+"SAN": "Santander",
+"MCF": "Malaga"
+},
+"KXLALIGAGAME-26NOV06SEVALA": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26NOV02DEPOSA": {
+"TIE": "Tie",
+"OSA": "Osasuna",
+"DEP": "Deportivo De La Coruna"
+},
+"KXLALIGAGAME-26NOV01ATHRSO": {
+"TIE": "Tie",
+"RSO": "Real Sociedad",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26NOV01ELCVCF": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26NOV01SANRMA": {
+"TIE": "Tie",
+"SAN": "Santander",
+"RMA": "Real Madrid"
+},
+"KXLALIGAGAME-26NOV01GETSEV": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"GET": "Getafe"
+},
+"KXLALIGAGAME-26OCT31BARALA": {
+"TIE": "Tie",
+"BAR": "Barcelona",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26OCT31RBBMCF": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"MCF": "Malaga"
+},
+"KXLALIGAGAME-26OCT31RVCRCC": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"RCC": "Celta Vigo"
+},
+"KXLALIGAGAME-26OCT31LEVATM": {
+"TIE": "Tie",
+"LEV": "Levante",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26OCT30VILESP": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"ESP": "Espanyol"
+},
+"KXLALIGAGAME-26OCT26SEVOSA": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"OSA": "Osasuna"
+},
+"KXLALIGAGAME-26OCT25BARRMA": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"BAR": "Barcelona"
+},
+"KXLALIGAGAME-26OCT25RSOLEV": {
+"TIE": "Tie",
+"RSO": "Real Sociedad",
+"LEV": "Levante"
+},
+"KXLALIGAGAME-26OCT25RCCRBB": {
+"TIE": "Tie",
+"RCC": "Celta Vigo",
+"RBB": "Real Betis"
+},
+"KXLALIGAGAME-26OCT25ATHGET": {
+"TIE": "Tie",
+"GET": "Getafe",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26OCT24ATMDEP": {
+"TIE": "Tie",
+"DEP": "Deportivo De La Coruna",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26OCT24VCFVIL": {
+"VIL": "Villarreal",
+"VCF": "Valencia",
+"TIE": "Tie"
+},
+"KXLALIGAGAME-26OCT24SANESP": {
+"TIE": "Tie",
+"SAN": "Santander",
+"ESP": "Espanyol"
+},
+"KXLALIGAGAME-26OCT24RVCELC": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26OCT23ALAMCF": {
+"TIE": "Tie",
+"MCF": "Malaga",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26OCT21LEVATH": {
+"TIE": "Tie",
+"LEV": "Levante",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26OCT19GETRVC": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"GET": "Getafe"
+},
+"KXLALIGAGAME-26OCT18RMASEV": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"RMA": "Real Madrid"
+},
+"KXLALIGAGAME-26OCT18MCFRSO": {
+"TIE": "Tie",
+"RSO": "Real Sociedad",
+"MCF": "Malaga"
+},
+"KXLALIGAGAME-26OCT18RCCALA": {
+"TIE": "Tie",
+"RCC": "Celta Vigo",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26OCT18OSASAN": {
+"TIE": "Tie",
+"SAN": "Santander",
+"OSA": "Osasuna"
+},
+"KXLALIGAGAME-26OCT17VCFATH": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26OCT17RBBBAR": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"BAR": "Barcelona"
+},
+"KXLALIGAGAME-26OCT17VILELC": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26OCT17ESPATM": {
+"TIE": "Tie",
+"ESP": "Espanyol",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26OCT16DEPLEV": {
+"TIE": "Tie",
+"LEV": "Levante",
+"DEP": "Deportivo De La Coruna"
+},
+"KXLALIGAGAME-26OCT12LEVSEV": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"LEV": "Levante"
+},
+"KXLALIGAGAME-26OCT10RVCATH": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26OCT11SANVCF": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"SAN": "Santander"
+},
+"KXLALIGAGAME-26OCT11RBBOSA": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"OSA": "Osasuna"
+},
+"KXLALIGAGAME-26OCT11RSODEP": {
+"TIE": "Tie",
+"RSO": "Real Sociedad",
+"DEP": "Deportivo De La Coruna"
+},
+"KXLALIGAGAME-26OCT11ELCRCC": {
+"TIE": "Tie",
+"RCC": "Celta Vigo",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26OCT10RMAVIL": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"RMA": "Real Madrid"
+},
+"KXLALIGAGAME-26OCT10BARGET": {
+"TIE": "Tie",
+"GET": "Getafe",
+"BAR": "Barcelona"
+},
+"KXLALIGAGAME-26OCT10ALAATM": {
+"TIE": "Tie",
+"ATM": "Atletico",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26OCT09MCFESP": {
+"TIE": "Tie",
+"MCF": "Malaga",
+"ESP": "Espanyol"
+},
+"KXLALIGAGAME-26SEP20VCFRSO": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"RSO": "Real Sociedad"
+},
+"KXLALIGAGAME-26SEP20DEPRBB": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"DEP": "Deportivo De La Coruna"
+},
+"KXLALIGAGAME-26SEP20VILLEV": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"LEV": "Levante"
+},
+"KXLALIGAGAME-26SEP20ATMRMA": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26SEP20GETMCF": {
+"TIE": "Tie",
+"MCF": "Malaga",
+"GET": "Getafe"
+},
+"KXLALIGAGAME-26SEP19SEVBAR": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"BAR": "Barcelona"
+},
+"KXLALIGAGAME-26SEP19RCCSAN": {
+"TIE": "Tie",
+"SAN": "Santander",
+"RCC": "Celta Vigo"
+},
+"KXLALIGAGAME-26SEP19ATHALA": {
+"TIE": "Tie",
+"ATH": "Bilbao",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26SEP19OSARVC": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"OSA": "Osasuna"
+},
+"KXLALIGAGAME-26SEP18ESPELC": {
+"TIE": "Tie",
+"ESP": "Espanyol",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26SEP17MCFVIL": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"MCF": "Malaga"
+},
+"KXLALIGAGAME-26SEP17RBBGET": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"GET": "Getafe"
+},
+"KXLALIGAGAME-26SEP16LEVATH": {
+"TIE": "Tie",
+"LEV": "Levante",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26SEP16BARSAN": {
+"TIE": "Tie",
+"SAN": "Santander",
+"BAR": "Barcelona"
+},
+"KXLALIGAGAME-26SEP16ATMOSA": {
+"TIE": "Tie",
+"OSA": "Osasuna",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26SEP16DEPSEV": {
+"TIE": "Tie",
+"SEV": "Sevilla",
+"DEP": "Deportivo De La Coruna"
+},
+"KXLALIGAGAME-26SEP15ELCRMA": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26SEP15ALAVCF": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26SEP15RVCESP": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"ESP": "Espanyol"
+},
+"KXLALIGAGAME-26SEP13VILRBB": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"RBB": "Real Betis"
+},
+"KXLALIGAGAME-26SEP13RSOATM": {
+"TIE": "Tie",
+"RSO": "Real Sociedad",
+"ATM": "Atletico"
+},
+"KXLALIGAGAME-26SEP13GETDEP": {
+"TIE": "Tie",
+"GET": "Getafe",
+"DEP": "Deportivo De La Coruna"
+},
+"KXLALIGAGAME-26SEP13LEVBAR": {
+"TIE": "Tie",
+"LEV": "Levante",
+"BAR": "Barcelona"
+},
+"KXLALIGAGAME-26SEP13RCCMCF": {
+"TIE": "Tie",
+"RCC": "Celta Vigo",
+"MCF": "Malaga"
+},
+"KXLALIGAGAME-26SEP13RMARVC": {
+"TIE": "Tie",
+"RVC": "Vallecano",
+"RMA": "Real Madrid"
+},
+"KXLALIGAGAME-26SEP13ATHELC": {
+"TIE": "Tie",
+"ELC": "Elche",
+"ATH": "Bilbao"
+},
+"KXLALIGAGAME-26SEP13OSAESP": {
+"TIE": "Tie",
+"OSA": "Osasuna",
+"ESP": "Espanyol"
+},
+"KXLALIGAGAME-26SEP13SANALA": {
+"TIE": "Tie",
+"SAN": "Santander",
+"ALA": "Alaves"
+},
+"KXLALIGAGAME-26SEP13SEVVCF": {
+"VCF": "Valencia",
+"TIE": "Tie",
+"SEV": "Sevilla"
+},
+"KXLALIGAGAME-26SEP07ELCRSO": {
+"TIE": "Tie",
+"RSO": "Real Sociedad",
+"ELC": "Elche"
+},
+"KXLALIGAGAME-26SEP07GETRCC": {
+"TIE": "Tie",
+"RCC": "Celta Vigo",
+"GET": "Getafe"
+},
+"KXSERIEAGAME-26NOV29COMJUV": {
+"TIE": "Tie",
+"JUV": "Juventus",
+"COM": "Como"
+},
+"KXSERIEAGAME-26NOV29ROMMON": {
+"TIE": "Tie",
+"ROM": "Roma",
+"MON": "Monza"
+},
+"KXSERIEAGAME-26NOV29SASNAP": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"NAP": "Napoli"
+},
+"KXSERIEAGAME-26NOV29UDIFIO": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"FIO": "Fiorentina"
+},
+"KXSERIEAGAME-26NOV28INTGEN": {
+"TIE": "Tie",
+"INT": "Inter",
+"GEN": "Genoa"
+},
+"KXSERIEAGAME-26NOV28TORLAZ": {
+"TOR": "Torino",
+"TIE": "Tie",
+"LAZ": "Lazio"
+},
+"KXSERIEAGAME-26NOV28FROPAR": {
+"TIE": "Tie",
+"PAR": "Parma Calcio",
+"FRO": "Frosinone"
+},
+"KXSERIEAGAME-26NOV27VENBFC": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26NOV23MONFIO": {
+"TIE": "Tie",
+"MON": "Monza",
+"FIO": "Fiorentina"
+},
+"KXSERIEAGAME-26NOV22ATAINT": {
+"TIE": "Tie",
+"INT": "Inter",
+"ATA": "Atalanta"
+},
+"KXSERIEAGAME-26NOV22ACMFRO": {
+"TIE": "Tie",
+"FRO": "Frosinone",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26NOV22SASGEN": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"GEN": "Genoa"
+},
+"KXSERIEAGAME-26NOV22BFCUDI": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26NOV22JUVVEN": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"JUV": "Juventus"
+},
+"KXSERIEAGAME-26NOV21NAPTOR": {
+"TOR": "Torino",
+"TIE": "Tie",
+"NAP": "Napoli"
+},
+"KXSERIEAGAME-26NOV21PARROM": {
+"TIE": "Tie",
+"ROM": "Roma",
+"PAR": "Parma Calcio"
+},
+"KXSERIEAGAME-26NOV21LAZLEC": {
+"TIE": "Tie",
+"LEC": "Lecce",
+"LAZ": "Lazio"
+},
+"KXSERIEAGAME-26NOV21COMCAG": {
+"TIE": "Tie",
+"COM": "Como",
+"CAG": "Cagliari"
+},
+"KXSERIEAGAME-26NOV08FIOJUV": {
+"TIE": "Tie",
+"JUV": "Juventus",
+"FIO": "Fiorentina"
+},
+"KXSERIEAGAME-26NOV08INTCOM": {
+"TIE": "Tie",
+"INT": "Inter",
+"COM": "Como"
+},
+"KXSERIEAGAME-26NOV08GENACM": {
+"TIE": "Tie",
+"GEN": "Genoa",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26NOV08MONATA": {
+"TIE": "Tie",
+"MON": "Monza",
+"ATA": "Atalanta"
+},
+"KXSERIEAGAME-26NOV08NAPLAZ": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"LAZ": "Lazio"
+},
+"KXSERIEAGAME-26NOV07ROMSAS": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"ROM": "Roma"
+},
+"KXSERIEAGAME-26NOV07PARBFC": {
+"TIE": "Tie",
+"PAR": "Parma Calcio",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26NOV07TORLEC": {
+"TOR": "Torino",
+"TIE": "Tie",
+"LEC": "Lecce"
+},
+"KXSERIEAGAME-26NOV07CAGFRO": {
+"TIE": "Tie",
+"FRO": "Frosinone",
+"CAG": "Cagliari"
+},
+"KXSERIEAGAME-26NOV06VENUDI": {
+"VEN": "Venezia",
+"UDI": "Udinese",
+"TIE": "Tie"
+},
+"KXSERIEAGAME-26NOV02ATAPAR": {
+"TIE": "Tie",
+"PAR": "Parma Calcio",
+"ATA": "Atalanta"
+},
+"KXSERIEAGAME-26NOV02SASFIO": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"FIO": "Fiorentina"
+},
+"KXSERIEAGAME-26NOV01JUVNAP": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"JUV": "Juventus"
+},
+"KXSERIEAGAME-26NOV01LECGEN": {
+"TIE": "Tie",
+"LEC": "Lecce",
+"GEN": "Genoa"
+},
+"KXSERIEAGAME-26NOV01LAZCAG": {
+"TIE": "Tie",
+"LAZ": "Lazio",
+"CAG": "Cagliari"
+},
+"KXSERIEAGAME-26NOV01FROTOR": {
+"TOR": "Torino",
+"TIE": "Tie",
+"FRO": "Frosinone"
+},
+"KXSERIEAGAME-26NOV01COMVEN": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"COM": "Como"
+},
+"KXSERIEAGAME-26OCT31ACMINT": {
+"TIE": "Tie",
+"INT": "Inter",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26OCT31UDIROM": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"ROM": "Roma"
+},
+"KXSERIEAGAME-26OCT31BFCMON": {
+"TIE": "Tie",
+"MON": "Monza",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26OCT29FIOATA": {
+"TIE": "Tie",
+"FIO": "Fiorentina",
+"ATA": "Atalanta"
+},
+"KXSERIEAGAME-26OCT29FROLEC": {
+"TIE": "Tie",
+"LEC": "Lecce",
+"FRO": "Frosinone"
+},
+"KXSERIEAGAME-26OCT28GENJUV": {
+"TIE": "Tie",
+"JUV": "Juventus",
+"GEN": "Genoa"
+},
+"KXSERIEAGAME-26OCT28MONNAP": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"MON": "Monza"
+},
+"KXSERIEAGAME-26OCT28VENINT": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"INT": "Inter"
+},
+"KXSERIEAGAME-26OCT28PARUDI": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"PAR": "Parma Calcio"
+},
+"KXSERIEAGAME-26OCT28ACMBFC": {
+"TIE": "Tie",
+"BFC": "Bologna",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26OCT27TORCOM": {
+"TOR": "Torino",
+"TIE": "Tie",
+"COM": "Como"
+},
+"KXSERIEAGAME-26OCT27ROMCAG": {
+"TIE": "Tie",
+"ROM": "Roma",
+"CAG": "Cagliari"
+},
+"KXSERIEAGAME-26OCT27SASLAZ": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"LAZ": "Lazio"
+},
+"KXSERIEAGAME-26OCT25UDIACM": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26OCT25LECJUV": {
+"TIE": "Tie",
+"LEC": "Lecce",
+"JUV": "Juventus"
+},
+"KXSERIEAGAME-26OCT25GENVEN": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"GEN": "Genoa"
+},
+"KXSERIEAGAME-26OCT25ATAFRO": {
+"TIE": "Tie",
+"FRO": "Frosinone",
+"ATA": "Atalanta"
+},
+"KXSERIEAGAME-26OCT25INTFIO": {
+"TIE": "Tie",
+"INT": "Inter",
+"FIO": "Fiorentina"
+},
+"KXSERIEAGAME-26OCT24LAZPAR": {
+"TIE": "Tie",
+"PAR": "Parma Calcio",
+"LAZ": "Lazio"
+},
+"KXSERIEAGAME-26OCT24NAPROM": {
+"TIE": "Tie",
+"ROM": "Roma",
+"NAP": "Napoli"
+},
+"KXSERIEAGAME-26OCT24COMSAS": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"COM": "Como"
+},
+"KXSERIEAGAME-26OCT24CAGBFC": {
+"TIE": "Tie",
+"CAG": "Cagliari",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26OCT23TORMON": {
+"TOR": "Torino",
+"TIE": "Tie",
+"MON": "Monza"
+},
+"KXSERIEAGAME-26OCT19PARTOR": {
+"TOR": "Torino",
+"TIE": "Tie",
+"PAR": "Parma Calcio"
+},
+"KXSERIEAGAME-26OCT19MONCAG": {
+"TIE": "Tie",
+"MON": "Monza",
+"CAG": "Cagliari"
+},
+"KXSERIEAGAME-26OCT18JUVLAZ": {
+"TIE": "Tie",
+"LAZ": "Lazio",
+"JUV": "Juventus"
+},
+"KXSERIEAGAME-26OCT18ACMATA": {
+"TIE": "Tie",
+"ATA": "Atalanta",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26OCT18FIOCOM": {
+"TIE": "Tie",
+"FIO": "Fiorentina",
+"COM": "Como"
+},
+"KXSERIEAGAME-26OCT18UDILEC": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"LEC": "Lecce"
+},
+"KXSERIEAGAME-26OCT17ROMGEN": {
+"TIE": "Tie",
+"ROM": "Roma",
+"GEN": "Genoa"
+},
+"KXSERIEAGAME-26OCT17BFCINT": {
+"TIE": "Tie",
+"INT": "Inter",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26OCT17VENNAP": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"NAP": "Napoli"
+},
+"KXSERIEAGAME-26OCT16FROSAS": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"FRO": "Frosinone"
+},
+"KXSERIEAGAME-26OCT12TORUDI": {
+"UDI": "Udinese",
+"TOR": "Torino",
+"TIE": "Tie"
+},
+"KXSERIEAGAME-26OCT12ATAVEN": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"ATA": "Atalanta"
+},
+"KXSERIEAGAME-26OCT11CAGJUV": {
+"TIE": "Tie",
+"JUV": "Juventus",
+"CAG": "Cagliari"
+},
+"KXSERIEAGAME-26OCT11SASACM": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26OCT11LECBFC": {
+"TIE": "Tie",
+"LEC": "Lecce",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26OCT11LAZMON": {
+"TIE": "Tie",
+"MON": "Monza",
+"LAZ": "Lazio"
+},
+"KXSERIEAGAME-26OCT11COMROM": {
+"TIE": "Tie",
+"ROM": "Roma",
+"COM": "Como"
+},
+"KXSERIEAGAME-26OCT10NAPFRO": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"FRO": "Frosinone"
+},
+"KXSERIEAGAME-26OCT10INTPAR": {
+"TIE": "Tie",
+"PAR": "Parma Calcio",
+"INT": "Inter"
+},
+"KXSERIEAGAME-26OCT10GENFIO": {
+"TIE": "Tie",
+"GEN": "Genoa",
+"FIO": "Fiorentina"
+},
+"KXSERIEAGAME-26SEP20ACMLEC": {
+"TIE": "Tie",
+"LEC": "Lecce",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26SEP20JUVATA": {
+"TIE": "Tie",
+"JUV": "Juventus",
+"ATA": "Atalanta"
+},
+"KXSERIEAGAME-26SEP20PARGEN": {
+"TIE": "Tie",
+"PAR": "Parma Calcio",
+"GEN": "Genoa"
+},
+"KXSERIEAGAME-26SEP20FROCOM": {
+"TIE": "Tie",
+"FRO": "Frosinone",
+"COM": "Como"
+},
+"KXSERIEAGAME-26SEP20FIONAP": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"FIO": "Fiorentina"
+},
+"KXSERIEAGAME-26SEP19VENLAZ": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"LAZ": "Lazio"
+},
+"KXSERIEAGAME-26SEP19ROMINT": {
+"TIE": "Tie",
+"ROM": "Roma",
+"INT": "Inter"
+},
+"KXSERIEAGAME-26SEP19BFCTOR": {
+"TOR": "Torino",
+"TIE": "Tie",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26SEP19UDICAG": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"CAG": "Cagliari"
+},
+"KXSERIEAGAME-26SEP18MONSAS": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"MON": "Monza"
+},
+"KXSERIEAGAME-26SEP14INTUDI": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"INT": "Inter"
+},
+"KXSERIEAGAME-26SEP13TORROM": {
+"TOR": "Torino",
+"TIE": "Tie",
+"ROM": "Roma"
+},
+"KXSERIEAGAME-26SEP13COMPAR": {
+"TIE": "Tie",
+"PAR": "Parma Calcio",
+"COM": "Como"
+},
+"KXSERIEAGAME-26SEP12SASJUV": {
+"TIE": "Tie",
+"SAS": "Sassuolo",
+"JUV": "Juventus"
+},
+"KXSERIEAGAME-26SEP13NAPBFC": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"BFC": "Bologna"
+},
+"KXSERIEAGAME-26SEP13LECMON": {
+"TIE": "Tie",
+"MON": "Monza",
+"LEC": "Lecce"
+},
+"KXSERIEAGAME-26SEP12ATACAG": {
+"TIE": "Tie",
+"CAG": "Cagliari",
+"ATA": "Atalanta"
+},
+"KXSERIEAGAME-26SEP13LAZACM": {
+"TIE": "Tie",
+"LAZ": "Lazio",
+"ACM": "Milan"
+},
+"KXSERIEAGAME-26SEP12GENFRO": {
+"TIE": "Tie",
+"GEN": "Genoa",
+"FRO": "Frosinone"
+},
+"KXSERIEAGAME-26SEP11VENFIO": {
+"VEN": "Venezia",
+"TIE": "Tie",
+"FIO": "Fiorentina"
+},
+"KXSERIEAGAME-26SEP07UDILAZ": {
+"UDI": "Udinese",
+"TIE": "Tie",
+"LAZ": "Lazio"
+},
+"KXSERIEAGAME-26SEP07CAGLEC": {
+"TIE": "Tie",
+"LEC": "Lecce",
+"CAG": "Cagliari"
+},
+"KXBUNDESLIGAGAME-26NOV29BVBLEV": {
+"TIE": "Tie",
+"LEV": "Leverkusen",
+"BVB": "Dortmund"
+},
+"KXBUNDESLIGAGAME-26NOV29TSGFCA": {
+"TSG": "Hoffenheim",
+"TIE": "Tie",
+"FCA": "Augsburg"
+},
+"KXBUNDESLIGAGAME-26NOV29SCFRBL": {
+"TIE": "Tie",
+"SCF": "Freiburg",
+"RBL": "Leipzig"
+},
+"KXBUNDESLIGAGAME-26NOV28VFBSGE": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"SGE": "Frankfurt"
+},
+"KXBUNDESLIGAGAME-26NOV28PADSCH": {
+"TIE": "Tie",
+"SCH": "Schalke",
+"PAD": "Paderborn"
+},
+"KXBUNDESLIGAGAME-26NOV28M05UNI": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"M05": "Mainz"
+},
+"KXBUNDESLIGAGAME-26NOV28KOESVE": {
+"TIE": "Tie",
+"SVE": "Elversberg",
+"KOE": "FC K\u00f6ln"
+},
+"KXBUNDESLIGAGAME-26NOV28HSVBMU": {
+"TIE": "Tie",
+"HSV": "Hamburg",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26NOV27SVWBMG": {
+"TIE": "Tie",
+"SVW": "Bremen",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26NOV22SVWHSV": {
+"TIE": "Tie",
+"SVW": "Bremen",
+"HSV": "Hamburg"
+},
+"KXBUNDESLIGAGAME-26NOV22FCAM05": {
+"TIE": "Tie",
+"M05": "Mainz",
+"FCA": "Augsburg"
+},
+"KXBUNDESLIGAGAME-26NOV21SCHVFB": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"SCH": "Schalke"
+},
+"KXBUNDESLIGAGAME-26NOV21UNIRBL": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"RBL": "Leipzig"
+},
+"KXBUNDESLIGAGAME-26NOV21SVESCF": {
+"TIE": "Tie",
+"SVE": "Elversberg",
+"SCF": "Freiburg"
+},
+"KXBUNDESLIGAGAME-26NOV21SGETSG": {
+"TSG": "Hoffenheim",
+"TIE": "Tie",
+"SGE": "Frankfurt"
+},
+"KXBUNDESLIGAGAME-26NOV21LEVPAD": {
+"TIE": "Tie",
+"PAD": "Paderborn",
+"LEV": "Leverkusen"
+},
+"KXBUNDESLIGAGAME-26NOV21BMGBVB": {
+"TIE": "Tie",
+"BVB": "Dortmund",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26NOV20BMUKOE": {
+"TIE": "Tie",
+"KOE": "FC K\u00f6ln",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26NOV08TSGSCH": {
+"TSG": "Hoffenheim",
+"TIE": "Tie",
+"SCH": "Schalke"
+},
+"KXBUNDESLIGAGAME-26NOV08SCFUNI": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"SCF": "Freiburg"
+},
+"KXBUNDESLIGAGAME-26NOV08KOELEV": {
+"TIE": "Tie",
+"LEV": "Leverkusen",
+"KOE": "FC K\u00f6ln"
+},
+"KXBUNDESLIGAGAME-26NOV07VFBSVW": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"SVW": "Bremen"
+},
+"KXBUNDESLIGAGAME-26NOV07M05BMU": {
+"TIE": "Tie",
+"M05": "Mainz",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26NOV07BVBSVE": {
+"TIE": "Tie",
+"SVE": "Elversberg",
+"BVB": "Dortmund"
+},
+"KXBUNDESLIGAGAME-26NOV07RBLFCA": {
+"TIE": "Tie",
+"RBL": "Leipzig",
+"FCA": "Augsburg"
+},
+"KXBUNDESLIGAGAME-26NOV07PADSGE": {
+"TIE": "Tie",
+"SGE": "Frankfurt",
+"PAD": "Paderborn"
+},
+"KXBUNDESLIGAGAME-26NOV06HSVBMG": {
+"TIE": "Tie",
+"HSV": "Hamburg",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26NOV01SGEHSV": {
+"TIE": "Tie",
+"SGE": "Frankfurt",
+"HSV": "Hamburg"
+},
+"KXBUNDESLIGAGAME-26NOV01UNIKOE": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"KOE": "FC K\u00f6ln"
+},
+"KXBUNDESLIGAGAME-26OCT31BMUBVB": {
+"TIE": "Tie",
+"BVB": "Dortmund",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26OCT31SVWTSG": {
+"TSG": "Hoffenheim",
+"TIE": "Tie",
+"SVW": "Bremen"
+},
+"KXBUNDESLIGAGAME-26OCT31SCHRBL": {
+"TIE": "Tie",
+"SCH": "Schalke",
+"RBL": "Leipzig"
+},
+"KXBUNDESLIGAGAME-26OCT31LEVVFB": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"LEV": "Leverkusen"
+},
+"KXBUNDESLIGAGAME-26OCT31FCASCF": {
+"TIE": "Tie",
+"SCF": "Freiburg",
+"FCA": "Augsburg"
+},
+"KXBUNDESLIGAGAME-26OCT31BMGPAD": {
+"TIE": "Tie",
+"PAD": "Paderborn",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26OCT30SVEM05": {
+"TIE": "Tie",
+"SVE": "Elversberg",
+"M05": "Mainz"
+},
+"KXBUNDESLIGAGAME-26OCT25SCFBMU": {
+"TIE": "Tie",
+"SCF": "Freiburg",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26OCT25TSGLEV": {
+"TSG": "Hoffenheim",
+"TIE": "Tie",
+"LEV": "Leverkusen"
+},
+"KXBUNDESLIGAGAME-26OCT24BVBSGE": {
+"TIE": "Tie",
+"SGE": "Frankfurt",
+"BVB": "Dortmund"
+},
+"KXBUNDESLIGAGAME-26OCT24PADHSV": {
+"TIE": "Tie",
+"PAD": "Paderborn",
+"HSV": "Hamburg"
+},
+"KXBUNDESLIGAGAME-26OCT24M05SVW": {
+"TIE": "Tie",
+"SVW": "Bremen",
+"M05": "Mainz"
+},
+"KXBUNDESLIGAGAME-26OCT24KOESCH": {
+"TIE": "Tie",
+"SCH": "Schalke",
+"KOE": "FC K\u00f6ln"
+},
+"KXBUNDESLIGAGAME-26OCT24RBLSVE": {
+"TIE": "Tie",
+"SVE": "Elversberg",
+"RBL": "Leipzig"
+},
+"KXBUNDESLIGAGAME-26OCT24FCAUNI": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"FCA": "Augsburg"
+},
+"KXBUNDESLIGAGAME-26OCT23VFBBMG": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26OCT18BMGTSG": {
+"TSG": "Hoffenheim",
+"TIE": "Tie",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26OCT18LEVSCF": {
+"TIE": "Tie",
+"SCF": "Freiburg",
+"LEV": "Leverkusen"
+},
+"KXBUNDESLIGAGAME-26OCT17BMURBL": {
+"TIE": "Tie",
+"RBL": "Leipzig",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26OCT17SVEFCA": {
+"TIE": "Tie",
+"SVE": "Elversberg",
+"FCA": "Augsburg"
+},
+"KXBUNDESLIGAGAME-26OCT17UNIBVB": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"BVB": "Dortmund"
+},
+"KXBUNDESLIGAGAME-26OCT17SVWPAD": {
+"TIE": "Tie",
+"SVW": "Bremen",
+"PAD": "Paderborn"
+},
+"KXBUNDESLIGAGAME-26OCT17SCHM05": {
+"TIE": "Tie",
+"SCH": "Schalke",
+"M05": "Mainz"
+},
+"KXBUNDESLIGAGAME-26OCT17HSVVFB": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"HSV": "Hamburg"
+},
+"KXBUNDESLIGAGAME-26OCT16SGEKOE": {
+"TIE": "Tie",
+"SGE": "Frankfurt",
+"KOE": "FC K\u00f6ln"
+},
+"KXBUNDESLIGAGAME-26OCT11SCFSCH": {
+"TIE": "Tie",
+"SCH": "Schalke",
+"SCF": "Freiburg"
+},
+"KXBUNDESLIGAGAME-26OCT11KOEBMG": {
+"TIE": "Tie",
+"KOE": "FC K\u00f6ln",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26OCT10RBLSGE": {
+"TIE": "Tie",
+"SGE": "Frankfurt",
+"RBL": "Leipzig"
+},
+"KXBUNDESLIGAGAME-26OCT10TSGHSV": {
+"TSG": "Hoffenheim",
+"TIE": "Tie",
+"HSV": "Hamburg"
+},
+"KXBUNDESLIGAGAME-26OCT10FCABMU": {
+"TIE": "Tie",
+"FCA": "Augsburg",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26OCT10M05LEV": {
+"TIE": "Tie",
+"M05": "Mainz",
+"LEV": "Leverkusen"
+},
+"KXBUNDESLIGAGAME-26OCT10PADVFB": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"PAD": "Paderborn"
+},
+"KXBUNDESLIGAGAME-26OCT10UNISVE": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"SVE": "Elversberg"
+},
+"KXBUNDESLIGAGAME-26OCT09BVBSVW": {
+"TIE": "Tie",
+"SVW": "Bremen",
+"BVB": "Dortmund"
+},
+"KXBUNDESLIGAGAME-26SEP20PADTSG": {
+"TSG": "Hoffenheim",
+"TIE": "Tie",
+"PAD": "Paderborn"
+},
+"KXBUNDESLIGAGAME-26SEP20SCHSVE": {
+"TIE": "Tie",
+"SVE": "Elversberg",
+"SCH": "Schalke"
+},
+"KXBUNDESLIGAGAME-26SEP20LEVRBL": {
+"TIE": "Tie",
+"RBL": "Leipzig",
+"LEV": "Leverkusen"
+},
+"KXBUNDESLIGAGAME-26SEP19VFBBVB": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"BVB": "Dortmund"
+},
+"KXBUNDESLIGAGAME-26SEP19BMGM05": {
+"TIE": "Tie",
+"M05": "Mainz",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26SEP19SVWFCA": {
+"TIE": "Tie",
+"SVW": "Bremen",
+"FCA": "Augsburg"
+},
+"KXBUNDESLIGAGAME-26SEP19SGESCF": {
+"TIE": "Tie",
+"SGE": "Frankfurt",
+"SCF": "Freiburg"
+},
+"KXBUNDESLIGAGAME-26SEP19HSVKOE": {
+"TIE": "Tie",
+"KOE": "FC K\u00f6ln",
+"HSV": "Hamburg"
+},
+"KXBUNDESLIGAGAME-26SEP18BMUUNI": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26SEP13SVEBMU": {
+"TIE": "Tie",
+"SVE": "Elversberg",
+"BMU": "Bayern Munich"
+},
+"KXBUNDESLIGAGAME-26SEP13RBLHSV": {
+"TIE": "Tie",
+"RBL": "Leipzig",
+"HSV": "Hamburg"
+},
+"KXBUNDESLIGAGAME-26SEP12KOESVW": {
+"TIE": "Tie",
+"SVW": "Bremen",
+"KOE": "FC K\u00f6ln"
+},
+"KXBUNDESLIGAGAME-26SEP12FCALEV": {
+"TIE": "Tie",
+"LEV": "Leverkusen",
+"FCA": "Augsburg"
+},
+"KXBUNDESLIGAGAME-26SEP12TSGVFB": {
+"VFB": "Stuttgart",
+"TSG": "Hoffenheim",
+"TIE": "Tie"
+},
+"KXBUNDESLIGAGAME-26SEP12BVBPAD": {
+"TIE": "Tie",
+"PAD": "Paderborn",
+"BVB": "Dortmund"
+},
+"KXBUNDESLIGAGAME-26SEP12SCFBMG": {
+"TIE": "Tie",
+"SCF": "Freiburg",
+"BMG": "M\u00b4gladbach"
+},
+"KXBUNDESLIGAGAME-26SEP12M05SGE": {
+"TIE": "Tie",
+"SGE": "Frankfurt",
+"M05": "Mainz"
+},
+"KXBUNDESLIGAGAME-26SEP11UNISCH": {
+"UNI": "Union Berlin",
+"TIE": "Tie",
+"SCH": "Schalke"
+},
+"KXLIGUE1GAME-26NOV29OLASM": {
+"TIE": "Tie",
+"OL": "Lyon",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26NOV29TFCREN": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"REN": "Stade Rennais"
+},
+"KXLIGUE1GAME-26NOV29AUXOLM": {
+"TIE": "Tie",
+"OLM": "Marseille",
+"AUX": "Auxerre"
+},
+"KXLIGUE1GAME-26NOV28PSGFCL": {
+"TIE": "Tie",
+"PSG": "PSG",
+"FCL": "Lorient"
+},
+"KXLIGUE1GAME-26NOV28NICEST": {
+"TIE": "Tie",
+"NIC": "Nice",
+"EST": "Troyes"
+},
+"KXLIGUE1GAME-26NOV28MANLIL": {
+"TIE": "Tie",
+"MAN": "Le Mans",
+"LIL": "Lille"
+},
+"KXLIGUE1GAME-26NOV28HACRCS": {
+"TIE": "Tie",
+"RCS": "Strasbourg Alsace",
+"HAC": "Le Havre"
+},
+"KXLIGUE1GAME-26NOV28ANGRCL": {
+"TIE": "Tie",
+"RCL": "Lens",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26NOV27STBPAR": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"PAR": "Paris FC"
+},
+"KXLIGUE1GAME-26NOV22OLMMAN": {
+"TIE": "Tie",
+"OLM": "Marseille",
+"MAN": "Le Mans"
+},
+"KXLIGUE1GAME-26NOV22FCLREN": {
+"TIE": "Tie",
+"REN": "Stade Rennais",
+"FCL": "Lorient"
+},
+"KXLIGUE1GAME-26NOV22PARANG": {
+"TIE": "Tie",
+"PAR": "Paris FC",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26NOV21RCSSTB": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"RCS": "Strasbourg Alsace"
+},
+"KXLIGUE1GAME-26NOV21RCLTFC": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"RCL": "Lens"
+},
+"KXLIGUE1GAME-26NOV21LILOL": {
+"TIE": "Tie",
+"OL": "Lyon",
+"LIL": "Lille"
+},
+"KXLIGUE1GAME-26NOV21ASMAUX": {
+"TIE": "Tie",
+"AUX": "Auxerre",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26NOV21NICPSG": {
+"TIE": "Tie",
+"PSG": "PSG",
+"NIC": "Nice"
+},
+"KXLIGUE1GAME-26NOV20ESTHAC": {
+"TIE": "Tie",
+"HAC": "Le Havre",
+"EST": "Troyes"
+},
+"KXLIGUE1GAME-26NOV08RCLOLM": {
+"TIE": "Tie",
+"RCL": "Lens",
+"OLM": "Marseille"
+},
+"KXLIGUE1GAME-26NOV08MANASM": {
+"TIE": "Tie",
+"MAN": "Le Mans",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26NOV08HACFCL": {
+"TIE": "Tie",
+"HAC": "Le Havre",
+"FCL": "Lorient"
+},
+"KXLIGUE1GAME-26NOV08ANGNIC": {
+"TIE": "Tie",
+"NIC": "Nice",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26NOV08STBOL": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"OL": "Lyon"
+},
+"KXLIGUE1GAME-26NOV08RENLIL": {
+"TIE": "Tie",
+"REN": "Stade Rennais",
+"LIL": "Lille"
+},
+"KXLIGUE1GAME-26NOV07PSGEST": {
+"TIE": "Tie",
+"PSG": "PSG",
+"EST": "Troyes"
+},
+"KXLIGUE1GAME-26NOV07AUXPAR": {
+"TIE": "Tie",
+"PAR": "Paris FC",
+"AUX": "Auxerre"
+},
+"KXLIGUE1GAME-26NOV06TFCRCS": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"RCS": "Strasbourg Alsace"
+},
+"KXLIGUE1GAME-26OCT31FCLSTB": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"FCL": "Lorient"
+},
+"KXLIGUE1GAME-26NOV01OLMTFC": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"OLM": "Marseille"
+},
+"KXLIGUE1GAME-26NOV01PARASM": {
+"TIE": "Tie",
+"PAR": "Paris FC",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26OCT31OLANG": {
+"TIE": "Tie",
+"OL": "Lyon",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26NOV01RCSAUX": {
+"TIE": "Tie",
+"RCS": "Strasbourg Alsace",
+"AUX": "Auxerre"
+},
+"KXLIGUE1GAME-26OCT31ESTMAN": {
+"TIE": "Tie",
+"MAN": "Le Mans",
+"EST": "Troyes"
+},
+"KXLIGUE1GAME-26OCT30LILRCL": {
+"TIE": "Tie",
+"RCL": "Lens",
+"LIL": "Lille"
+},
+"KXLIGUE1GAME-26OCT31NICREN": {
+"TIE": "Tie",
+"REN": "Stade Rennais",
+"NIC": "Nice"
+},
+"KXLIGUE1GAME-26OCT30HACPSG": {
+"TIE": "Tie",
+"PSG": "PSG",
+"HAC": "Le Havre"
+},
+"KXLIGUE1GAME-26OCT25PSGOL": {
+"TIE": "Tie",
+"PSG": "PSG",
+"OL": "Lyon"
+},
+"KXLIGUE1GAME-26OCT25OLMHAC": {
+"TIE": "Tie",
+"OLM": "Marseille",
+"HAC": "Le Havre"
+},
+"KXLIGUE1GAME-26OCT25RENRCS": {
+"TIE": "Tie",
+"REN": "Stade Rennais",
+"RCS": "Strasbourg Alsace"
+},
+"KXLIGUE1GAME-26OCT25AUXMAN": {
+"TIE": "Tie",
+"MAN": "Le Mans",
+"AUX": "Auxerre"
+},
+"KXLIGUE1GAME-26OCT24TFCEST": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"EST": "Troyes"
+},
+"KXLIGUE1GAME-26OCT25ANGFCL": {
+"TIE": "Tie",
+"FCL": "Lorient",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26OCT25ASMLIL": {
+"TIE": "Tie",
+"LIL": "Lille",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26OCT24RCLPAR": {
+"TIE": "Tie",
+"RCL": "Lens",
+"PAR": "Paris FC"
+},
+"KXLIGUE1GAME-26OCT23STBNIC": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"NIC": "Nice"
+},
+"KXLIGUE1GAME-26OCT18OLNIC": {
+"TIE": "Tie",
+"OL": "Lyon",
+"NIC": "Nice"
+},
+"KXLIGUE1GAME-26OCT18PARREN": {
+"TIE": "Tie",
+"REN": "Stade Rennais",
+"PAR": "Paris FC"
+},
+"KXLIGUE1GAME-26OCT18HACAUX": {
+"TIE": "Tie",
+"HAC": "Le Havre",
+"AUX": "Auxerre"
+},
+"KXLIGUE1GAME-26OCT18FCLASM": {
+"TIE": "Tie",
+"FCL": "Lorient",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26OCT18ANGOLM": {
+"TIE": "Tie",
+"OLM": "Marseille",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26OCT17ESTRCL": {
+"TIE": "Tie",
+"RCL": "Lens",
+"EST": "Troyes"
+},
+"KXLIGUE1GAME-26OCT17LILSTB": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"LIL": "Lille"
+},
+"KXLIGUE1GAME-26OCT17RCSPSG": {
+"TIE": "Tie",
+"RCS": "Strasbourg Alsace",
+"PSG": "PSG"
+},
+"KXLIGUE1GAME-26OCT16MANTFC": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"MAN": "Le Mans"
+},
+"KXLIGUE1GAME-26OCT11ESTOLM": {
+"TIE": "Tie",
+"OLM": "Marseille",
+"EST": "Troyes"
+},
+"KXLIGUE1GAME-26OCT11RENAUX": {
+"TIE": "Tie",
+"REN": "Stade Rennais",
+"AUX": "Auxerre"
+},
+"KXLIGUE1GAME-26OCT11NICRCS": {
+"TIE": "Tie",
+"RCS": "Strasbourg Alsace",
+"NIC": "Nice"
+},
+"KXLIGUE1GAME-26OCT10STBANG": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26OCT10PSGMAN": {
+"TIE": "Tie",
+"PSG": "PSG",
+"MAN": "Le Mans"
+},
+"KXLIGUE1GAME-26OCT10ASMTFC": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26OCT10FCLPAR": {
+"TIE": "Tie",
+"PAR": "Paris FC",
+"FCL": "Lorient"
+},
+"KXLIGUE1GAME-26OCT10LILHAC": {
+"TIE": "Tie",
+"LIL": "Lille",
+"HAC": "Le Havre"
+},
+"KXLIGUE1GAME-26OCT09RCLOL": {
+"TIE": "Tie",
+"RCL": "Lens",
+"OL": "Lyon"
+},
+"KXLIGUE1GAME-26SEP20OLMPSG": {
+"TIE": "Tie",
+"PSG": "PSG",
+"OLM": "Marseille"
+},
+"KXLIGUE1GAME-26SEP20NICLIL": {
+"TIE": "Tie",
+"NIC": "Nice",
+"LIL": "Lille"
+},
+"KXLIGUE1GAME-26SEP20AUXSTB": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"AUX": "Auxerre"
+},
+"KXLIGUE1GAME-26SEP19OLREN": {
+"TIE": "Tie",
+"REN": "Stade Rennais",
+"OL": "Lyon"
+},
+"KXLIGUE1GAME-26SEP19MANFCL": {
+"TIE": "Tie",
+"MAN": "Le Mans",
+"FCL": "Lorient"
+},
+"KXLIGUE1GAME-26SEP19ANGEST": {
+"TIE": "Tie",
+"EST": "Troyes",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26SEP19TFCHAC": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"HAC": "Le Havre"
+},
+"KXLIGUE1GAME-26SEP19PARRCS": {
+"TIE": "Tie",
+"RCS": "Strasbourg Alsace",
+"PAR": "Paris FC"
+},
+"KXLIGUE1GAME-26SEP18ASMRCL": {
+"TIE": "Tie",
+"RCL": "Lens",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26SEP13STBPSG": {
+"TIE": "Tie",
+"STB": "Stade Brest 29",
+"PSG": "PSG"
+},
+"KXLIGUE1GAME-26SEP13MANRCL": {
+"TIE": "Tie",
+"RCL": "Lens",
+"MAN": "Le Mans"
+},
+"KXLIGUE1GAME-26SEP13LILEST": {
+"TIE": "Tie",
+"LIL": "Lille",
+"EST": "Troyes"
+},
+"KXLIGUE1GAME-26SEP12FCLTFC": {
+"TIE": "Tie",
+"TFC": "Toulouse",
+"FCL": "Lorient"
+},
+"KXLIGUE1GAME-26SEP12AUXNIC": {
+"TIE": "Tie",
+"NIC": "Nice",
+"AUX": "Auxerre"
+},
+"KXLIGUE1GAME-26SEP12PAROL": {
+"TIE": "Tie",
+"PAR": "Paris FC",
+"OL": "Lyon"
+},
+"KXLIGUE1GAME-26SEP12HACANG": {
+"TIE": "Tie",
+"HAC": "Le Havre",
+"ANG": "Angers"
+},
+"KXLIGUE1GAME-26SEP12RCSASM": {
+"TIE": "Tie",
+"RCS": "Strasbourg Alsace",
+"ASM": "Monaco"
+},
+"KXLIGUE1GAME-26SEP11RENOLM": {
+"TIE": "Tie",
+"REN": "Stade Rennais",
+"OLM": "Marseille"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV22BURBLA": {
+"TIE": "Tie",
+"BUR": "Burnley",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21WOLCHA": {
+"WOL": "Wolverhampton",
+"TIE": "Tie",
+"CHA": "Charlton"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21WHUPNE": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"PNE": "Preston"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21SWAWBA": {
+"WBA": "West Bromwich",
+"TIE": "Tie",
+"SWA": "Swansea"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21STKBC": {
+"TIE": "Tie",
+"STK": "Stoke",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21SHUWAT": {
+"WAT": "Watford",
+"TIE": "Tie",
+"SHU": "Sheffield United"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21MIDBRC": {
+"TIE": "Tie",
+"MID": "Middlesbrough",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21LICWRE": {
+"WRE": "Wrexham",
+"TIE": "Tie",
+"LIC": "Lincoln"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21BOLPOR": {
+"TIE": "Tie",
+"POR": "Portsmouth",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21SOUDER": {
+"TIE": "Tie",
+"SOU": "Southampton",
+"DER": "Derby"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21NORCAR": {
+"TIE": "Tie",
+"NOR": "Norwich",
+"CAR": "Cardiff"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV21MILQPR": {
+"TIE": "Tie",
+"QPR": "QPR",
+"MIL": "Millwall"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07CARBUR": {
+"TIE": "Tie",
+"CAR": "Cardiff",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07BCSWA": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07QPRLIC": {
+"TIE": "Tie",
+"QPR": "QPR",
+"LIC": "Lincoln"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07CHASHU": {
+"TIE": "Tie",
+"SHU": "Sheffield United",
+"CHA": "Charlton"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07PNESOU": {
+"TIE": "Tie",
+"SOU": "Southampton",
+"PNE": "Preston"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07BLAWHU": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07WBAMIL": {
+"WBA": "West Bromwich",
+"TIE": "Tie",
+"MIL": "Millwall"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07WATMID": {
+"WAT": "Watford",
+"TIE": "Tie",
+"MID": "Middlesbrough"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07PORSTK": {
+"TIE": "Tie",
+"STK": "Stoke",
+"POR": "Portsmouth"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07WREWOL": {
+"WRE": "Wrexham",
+"WOL": "Wolverhampton",
+"TIE": "Tie"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV07BRCNOR": {
+"TIE": "Tie",
+"NOR": "Norwich",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV06DERBOL": {
+"TIE": "Tie",
+"DER": "Derby",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV04BRCWOL": {
+"WOL": "Wolverhampton",
+"TIE": "Tie",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV04CARWHU": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"CAR": "Cardiff"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV04WREMID": {
+"WRE": "Wrexham",
+"TIE": "Tie",
+"MID": "Middlesbrough"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03WBASOU": {
+"WBA": "West Bromwich",
+"TIE": "Tie",
+"SOU": "Southampton"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03BCMIL": {
+"TIE": "Tie",
+"MIL": "Millwall",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03PORSWA": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"POR": "Portsmouth"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03CHABOL": {
+"TIE": "Tie",
+"CHA": "Charlton",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03BLASTK": {
+"TIE": "Tie",
+"STK": "Stoke",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03DERNOR": {
+"TIE": "Tie",
+"NOR": "Norwich",
+"DER": "Derby"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03WATLIC": {
+"WAT": "Watford",
+"TIE": "Tie",
+"LIC": "Lincoln"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03QPRBUR": {
+"TIE": "Tie",
+"QPR": "QPR",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26NOV03PNESHU": {
+"TIE": "Tie",
+"SHU": "Sheffield United",
+"PNE": "Preston"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31BURPOR": {
+"TIE": "Tie",
+"POR": "Portsmouth",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31BOLBRC": {
+"TIE": "Tie",
+"BRC": "Bristol City",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31MIDCHA": {
+"TIE": "Tie",
+"MID": "Middlesbrough",
+"CHA": "Charlton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31SOUQPR": {
+"TIE": "Tie",
+"SOU": "Southampton",
+"QPR": "QPR"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31SWABLA": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31MILDER": {
+"TIE": "Tie",
+"MIL": "Millwall",
+"DER": "Derby"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31WOLCAR": {
+"WOL": "Wolverhampton",
+"TIE": "Tie",
+"CAR": "Cardiff"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31WHUWBA": {
+"WHU": "West Ham",
+"WBA": "West Bromwich",
+"TIE": "Tie"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31LICBC": {
+"TIE": "Tie",
+"LIC": "Lincoln",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31STKPNE": {
+"TIE": "Tie",
+"STK": "Stoke",
+"PNE": "Preston"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT31NORWAT": {
+"WAT": "Watford",
+"TIE": "Tie",
+"NOR": "Norwich"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT30SHUWRE": {
+"WRE": "Wrexham",
+"TIE": "Tie",
+"SHU": "Sheffield United"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24LICBUR": {
+"TIE": "Tie",
+"LIC": "Lincoln",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24CARBC": {
+"TIE": "Tie",
+"CAR": "Cardiff",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24WHUSOU": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"SOU": "Southampton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24QPRSWA": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"QPR": "QPR"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24WOLWAT": {
+"WOL": "Wolverhampton",
+"WAT": "Watford",
+"TIE": "Tie"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24PNEWBA": {
+"WBA": "West Bromwich",
+"TIE": "Tie",
+"PNE": "Preston"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24BLAWRE": {
+"WRE": "Wrexham",
+"TIE": "Tie",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24STKBRC": {
+"TIE": "Tie",
+"STK": "Stoke",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24CHANOR": {
+"TIE": "Tie",
+"NOR": "Norwich",
+"CHA": "Charlton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24PORMIL": {
+"TIE": "Tie",
+"POR": "Portsmouth",
+"MIL": "Millwall"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT24SHUDER": {
+"TIE": "Tie",
+"SHU": "Sheffield United",
+"DER": "Derby"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT23BOLMID": {
+"TIE": "Tie",
+"MID": "Middlesbrough",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT20WOLPOR": {
+"WOL": "Wolverhampton",
+"TIE": "Tie",
+"POR": "Portsmouth"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17BRCSHU": {
+"TIE": "Tie",
+"SHU": "Sheffield United",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17WBABLA": {
+"WBA": "West Bromwich",
+"TIE": "Tie",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17DERSTK": {
+"TIE": "Tie",
+"STK": "Stoke",
+"DER": "Derby"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17WREPNE": {
+"WRE": "Wrexham",
+"TIE": "Tie",
+"PNE": "Preston"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17SOUBOL": {
+"TIE": "Tie",
+"SOU": "Southampton",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17SWAWHU": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"SWA": "Swansea"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17NORPOR": {
+"TIE": "Tie",
+"POR": "Portsmouth",
+"NOR": "Norwich"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17BCQPR": {
+"TIE": "Tie",
+"QPR": "QPR",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17WATCHA": {
+"WAT": "Watford",
+"TIE": "Tie",
+"CHA": "Charlton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17MILLIC": {
+"TIE": "Tie",
+"MIL": "Millwall",
+"LIC": "Lincoln"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT17MIDCAR": {
+"TIE": "Tie",
+"MID": "Middlesbrough",
+"CAR": "Cardiff"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT16BURWOL": {
+"WOL": "Wolverhampton",
+"TIE": "Tie",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT14LICWHU": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"LIC": "Lincoln"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT14QPRDER": {
+"TIE": "Tie",
+"QPR": "QPR",
+"DER": "Derby"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT14PORSHU": {
+"TIE": "Tie",
+"SHU": "Sheffield United",
+"POR": "Portsmouth"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT14NORSOU": {
+"TIE": "Tie",
+"SOU": "Southampton",
+"NOR": "Norwich"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT13STKMID": {
+"TIE": "Tie",
+"STK": "Stoke",
+"MID": "Middlesbrough"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT13BCPNE": {
+"TIE": "Tie",
+"PNE": "Preston",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT13CARWAT": {
+"WAT": "Watford",
+"TIE": "Tie",
+"CAR": "Cardiff"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT13BURCHA": {
+"TIE": "Tie",
+"CHA": "Charlton",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT13WREWBA": {
+"WRE": "Wrexham",
+"WBA": "West Bromwich",
+"TIE": "Tie"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT13MILSWA": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"MIL": "Millwall"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT13BRCBLA": {
+"TIE": "Tie",
+"BRC": "Bristol City",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT13WOLBOL": {
+"WOL": "Wolverhampton",
+"TIE": "Tie",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT11SOUPOR": {
+"TIE": "Tie",
+"SOU": "Southampton",
+"POR": "Portsmouth"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10SWANOR": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"NOR": "Norwich"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10DERWRE": {
+"WRE": "Wrexham",
+"TIE": "Tie",
+"DER": "Derby"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10BOLSTK": {
+"TIE": "Tie",
+"STK": "Stoke",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10BLACAR": {
+"TIE": "Tie",
+"CAR": "Cardiff",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10SHULIC": {
+"TIE": "Tie",
+"SHU": "Sheffield United",
+"LIC": "Lincoln"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10PNEMIL": {
+"TIE": "Tie",
+"PNE": "Preston",
+"MIL": "Millwall"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10MIDWOL": {
+"WOL": "Wolverhampton",
+"TIE": "Tie",
+"MID": "Middlesbrough"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10WATBUR": {
+"WAT": "Watford",
+"TIE": "Tie",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10CHABRC": {
+"TIE": "Tie",
+"CHA": "Charlton",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT10WBABC": {
+"WBA": "West Bromwich",
+"TIE": "Tie",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26OCT09WHUQPR": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"QPR": "QPR"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP20NORBOL": {
+"TIE": "Tie",
+"NOR": "Norwich",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP20WOLWBA": {
+"WOL": "Wolverhampton",
+"WBA": "West Bromwich",
+"TIE": "Tie"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19PORBLA": {
+"TIE": "Tie",
+"POR": "Portsmouth",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19BURDER": {
+"TIE": "Tie",
+"DER": "Derby",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19WRESOU": {
+"WRE": "Wrexham",
+"TIE": "Tie",
+"SOU": "Southampton"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19QPRPNE": {
+"TIE": "Tie",
+"QPR": "QPR",
+"PNE": "Preston"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19LICSWA": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"LIC": "Lincoln"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19BCMID": {
+"TIE": "Tie",
+"MID": "Middlesbrough",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19MILWHU": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"MIL": "Millwall"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19CARCHA": {
+"TIE": "Tie",
+"CHA": "Charlton",
+"CAR": "Cardiff"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP19STKSHU": {
+"TIE": "Tie",
+"STK": "Stoke",
+"SHU": "Sheffield United"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP18BRCWAT": {
+"WAT": "Watford",
+"TIE": "Tie",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP15BRCLIC": {
+"TIE": "Tie",
+"LIC": "Lincoln",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP15MIDMIL": {
+"TIE": "Tie",
+"MIL": "Millwall",
+"MID": "Middlesbrough"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP13SHUWOL": {
+"WOL": "Wolverhampton",
+"TIE": "Tie",
+"SHU": "Sheffield United"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12SOUBRC": {
+"TIE": "Tie",
+"SOU": "Southampton",
+"BRC": "Bristol City"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12WATSTK": {
+"WAT": "Watford",
+"TIE": "Tie",
+"STK": "Stoke"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12SWABUR": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"BUR": "Burnley"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12BLAMIL": {
+"TIE": "Tie",
+"MIL": "Millwall",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12MIDNOR": {
+"TIE": "Tie",
+"NOR": "Norwich",
+"MID": "Middlesbrough"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12CHAPOR": {
+"TIE": "Tie",
+"POR": "Portsmouth",
+"CHA": "Charlton"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12PNELIC": {
+"TIE": "Tie",
+"PNE": "Preston",
+"LIC": "Lincoln"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12DERBC": {
+"TIE": "Tie",
+"DER": "Derby",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12BOLCAR": {
+"TIE": "Tie",
+"CAR": "Cardiff",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP12WBAQPR": {
+"WBA": "West Bromwich",
+"TIE": "Tie",
+"QPR": "QPR"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP11WHUWRE": {
+"WRE": "Wrexham",
+"WHU": "West Ham",
+"TIE": "Tie"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP09DERWBA": {
+"WBA": "West Bromwich",
+"TIE": "Tie",
+"DER": "Derby"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP09NORBC": {
+"TIE": "Tie",
+"NOR": "Norwich",
+"BC": "Birmingham"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP09CHAQPR": {
+"TIE": "Tie",
+"QPR": "QPR",
+"CHA": "Charlton"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP08CARSTK": {
+"TIE": "Tie",
+"STK": "Stoke",
+"CAR": "Cardiff"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP08BLASHU": {
+"TIE": "Tie",
+"SHU": "Sheffield United",
+"BLA": "Blackburn"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP08WATPNE": {
+"WAT": "Watford",
+"TIE": "Tie",
+"PNE": "Preston"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP08SOUSWA": {
+"TIE": "Tie",
+"SWA": "Swansea",
+"SOU": "Southampton"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP08BOLWHU": {
+"WHU": "West Ham",
+"TIE": "Tie",
+"BOL": "Bolton"
+},
+"KXEFLCHAMPIONSHIPGAME-26SEP08WREBUR": {
+"WRE": "Wrexham",
+"TIE": "Tie",
+"BUR": "Burnley"
+},
+"KXMLSGAME-26NOV24SJHOU": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"HOU": "Houston"
+},
+"KXMLSGAME-26NOV23STLLAFC": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26NOV22CHICLT": {
+"TIE": "Tie",
+"CLT": "Charlotte",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26NOV21MIACLB": {
+"TIE": "Tie",
+"MIA": "Miami",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26NOV21DALPOR": {
+"TIE": "Tie",
+"POR": "Portland",
+"DAL": "Dallas"
+},
+"KXMLSGAME-26NOV21NEPHI": {
+"TIE": "Tie",
+"PHI": "Philadelphia",
+"NE": "New England"
+},
+"KXMLSGAME-26NOV19SEARSL": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"RSL": "Salt Lake"
+},
+"KXMLSGAME-26NOV19ORLCIN": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26NOV07DALCOL": {
+"TIE": "Tie",
+"DAL": "Dallas",
+"COL": "Colorado"
+},
+"KXMLSGAME-26NOV07HOUSTL": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"HOU": "Houston"
+},
+"KXMLSGAME-26NOV07SEALAFC": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26NOV07MINSJ": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"MIN": "Minnesota"
+},
+"KXMLSGAME-26NOV07RSLLAG": {
+"TIE": "Tie",
+"RSL": "Salt Lake",
+"LAG": "Los Angeles G"
+},
+"KXMLSGAME-26NOV07ATXPOR": {
+"TIE": "Tie",
+"POR": "Portland",
+"ATX": "Austin"
+},
+"KXMLSGAME-26NOV07SDSKC": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"SD": "San Diego FC"
+},
+"KXMLSGAME-26NOV07PHITOR": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"PHI": "Philadelphia"
+},
+"KXMLSGAME-26NOV07CHICLB": {
+"TIE": "Tie",
+"CLB": "Columbus",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26NOV07MIACLT": {
+"TIE": "Tie",
+"MIA": "Miami",
+"CLT": "Charlotte"
+},
+"KXMLSGAME-26NOV07CINNSH": {
+"TIE": "Tie",
+"NSH": "Nashville",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26NOV07MTLVAN": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"MTL": "Montreal"
+},
+"KXMLSGAME-26NOV07ORLNE": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"NE": "New England"
+},
+"KXMLSGAME-26NOV07NYRBATL": {
+"TIE": "Tie",
+"NYRB": "New York RB",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26NOV07DCUNYC": {
+"TIE": "Tie",
+"NYC": "New York City",
+"DCU": "DC United"
+},
+"KXMLSGAME-26NOV01PORHOU": {
+"TIE": "Tie",
+"POR": "Portland",
+"HOU": "Houston"
+},
+"KXMLSGAME-26NOV01LAFCMIN": {
+"TIE": "Tie",
+"MIN": "Minnesota",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26NOV01NEMIA": {
+"TIE": "Tie",
+"NE": "New England",
+"MIA": "Miami"
+},
+"KXMLSGAME-26NOV01NSHNYRB": {
+"TIE": "Tie",
+"NYRB": "New York RB",
+"NSH": "Nashville"
+},
+"KXMLSGAME-26NOV01ATLTOR": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26NOV01VANSEA": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"SEA": "Seattle"
+},
+"KXMLSGAME-26OCT31COLCHI": {
+"TIE": "Tie",
+"COL": "Colorado",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26OCT31LAGATX": {
+"TIE": "Tie",
+"LAG": "Los Angeles G",
+"ATX": "Austin"
+},
+"KXMLSGAME-26OCT31SJRSL": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"RSL": "Salt Lake"
+},
+"KXMLSGAME-26OCT31SKCDAL": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"DAL": "Dallas"
+},
+"KXMLSGAME-26OCT31STLSD": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"SD": "San Diego FC"
+},
+"KXMLSGAME-26OCT31NYCMTL": {
+"TIE": "Tie",
+"NYC": "New York City",
+"MTL": "Montreal"
+},
+"KXMLSGAME-26OCT31CLBDCU": {
+"TIE": "Tie",
+"DCU": "DC United",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26OCT31CINPHI": {
+"TIE": "Tie",
+"PHI": "Philadelphia",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26OCT31CLTORL": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"CLT": "Charlotte"
+},
+"KXMLSGAME-26OCT28SJCOL": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"COL": "Colorado"
+},
+"KXMLSGAME-26OCT28VANSD": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"SD": "San Diego FC"
+},
+"KXMLSGAME-26OCT28SEAHOU": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"HOU": "Houston"
+},
+"KXMLSGAME-26OCT28STLPOR": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"POR": "Portland"
+},
+"KXMLSGAME-26OCT28ATXRSL": {
+"TIE": "Tie",
+"RSL": "Salt Lake",
+"ATX": "Austin"
+},
+"KXMLSGAME-26OCT28DALCLB": {
+"TIE": "Tie",
+"DAL": "Dallas",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26OCT28CHIORL": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26OCT28NSHPHI": {
+"TIE": "Tie",
+"PHI": "Philadelphia",
+"NSH": "Nashville"
+},
+"KXMLSGAME-26OCT28MINSKC": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"MIN": "Minnesota"
+},
+"KXMLSGAME-26OCT28NYCATL": {
+"TIE": "Tie",
+"NYC": "New York City",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26OCT28NENYRB": {
+"TIE": "Tie",
+"NYRB": "New York RB",
+"NE": "New England"
+},
+"KXMLSGAME-26OCT28CLTMTL": {
+"TIE": "Tie",
+"MTL": "Montreal",
+"CLT": "Charlotte"
+},
+"KXMLSGAME-26OCT28TORDCU": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"DCU": "DC United"
+},
+"KXMLSGAME-26OCT28MIACIN": {
+"TIE": "Tie",
+"MIA": "Miami",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26OCT25LAFCLAG": {
+"TIE": "Tie",
+"LAG": "Los Angeles G",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26OCT24SDSEA": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"SD": "San Diego FC"
+},
+"KXMLSGAME-26OCT24PORCLT": {
+"TIE": "Tie",
+"POR": "Portland",
+"CLT": "Charlotte"
+},
+"KXMLSGAME-26OCT24RSLSTL": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"RSL": "Salt Lake"
+},
+"KXMLSGAME-26OCT24COLVAN": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"COL": "Colorado"
+},
+"KXMLSGAME-26OCT24SKCATX": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"ATX": "Austin"
+},
+"KXMLSGAME-26OCT24DALSJ": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"DAL": "Dallas"
+},
+"KXMLSGAME-26OCT24HOUMIN": {
+"TIE": "Tie",
+"MIN": "Minnesota",
+"HOU": "Houston"
+},
+"KXMLSGAME-26OCT24PHINE": {
+"TIE": "Tie",
+"PHI": "Philadelphia",
+"NE": "New England"
+},
+"KXMLSGAME-26OCT24ORLNYC": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"NYC": "New York City"
+},
+"KXMLSGAME-26OCT24ATLCHI": {
+"TIE": "Tie",
+"CHI": "Chicago Fire",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26OCT24NYRBMIA": {
+"TIE": "Tie",
+"NYRB": "New York RB",
+"MIA": "Miami"
+},
+"KXMLSGAME-26OCT24CLBTOR": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26OCT24MTLNSH": {
+"TIE": "Tie",
+"NSH": "Nashville",
+"MTL": "Montreal"
+},
+"KXMLSGAME-26OCT21CINDCU": {
+"TIE": "Tie",
+"DCU": "DC United",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26OCT18CINCLB": {
+"TIE": "Tie",
+"CLB": "Columbus",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26OCT17PORCOL": {
+"TIE": "Tie",
+"POR": "Portland",
+"COL": "Colorado"
+},
+"KXMLSGAME-26OCT17LAGSD": {
+"TIE": "Tie",
+"SD": "San Diego FC",
+"LAG": "Los Angeles G"
+},
+"KXMLSGAME-26OCT17SJNSH": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"NSH": "Nashville"
+},
+"KXMLSGAME-26OCT17SEAMTL": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"MTL": "Montreal"
+},
+"KXMLSGAME-26OCT17HOUDAL": {
+"TIE": "Tie",
+"HOU": "Houston",
+"DAL": "Dallas"
+},
+"KXMLSGAME-26OCT17SKCRSL": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"RSL": "Salt Lake"
+},
+"KXMLSGAME-26OCT17ATXVAN": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"ATX": "Austin"
+},
+"KXMLSGAME-26OCT17ATLMIA": {
+"TIE": "Tie",
+"MIA": "Miami",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26OCT17NYRBTOR": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"NYRB": "New York RB"
+},
+"KXMLSGAME-26OCT17NYCLAFC": {
+"TIE": "Tie",
+"NYC": "New York City",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26OCT17ORLDCU": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"DCU": "DC United"
+},
+"KXMLSGAME-26OCT17NECHI": {
+"TIE": "Tie",
+"NE": "New England",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26OCT17MINSTL": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"MIN": "Minnesota"
+},
+"KXMLSGAME-26OCT17PHICLT": {
+"TIE": "Tie",
+"PHI": "Philadelphia",
+"CLT": "Charlotte"
+},
+"KXMLSGAME-26OCT14SDHOU": {
+"TIE": "Tie",
+"SD": "San Diego FC",
+"HOU": "Houston"
+},
+"KXMLSGAME-26OCT14LAGPOR": {
+"TIE": "Tie",
+"POR": "Portland",
+"LAG": "Los Angeles G"
+},
+"KXMLSGAME-26OCT14LAFCATX": {
+"TIE": "Tie",
+"LAFC": "Los Angeles F",
+"ATX": "Austin"
+},
+"KXMLSGAME-26OCT14COLMIN": {
+"TIE": "Tie",
+"MIN": "Minnesota",
+"COL": "Colorado"
+},
+"KXMLSGAME-26OCT14RSLSJ": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"RSL": "Salt Lake"
+},
+"KXMLSGAME-26OCT14STLVAN": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"STL": "Saint Louis"
+},
+"KXMLSGAME-26OCT14DALSEA": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"DAL": "Dallas"
+},
+"KXMLSGAME-26OCT14CHIPHI": {
+"TIE": "Tie",
+"PHI": "Philadelphia",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26OCT14NSHSKC": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"NSH": "Nashville"
+},
+"KXMLSGAME-26OCT14MIANYC": {
+"TIE": "Tie",
+"NYC": "New York City",
+"MIA": "Miami"
+},
+"KXMLSGAME-26OCT14TORORL": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"ORL": "Orlando"
+},
+"KXMLSGAME-26OCT14CINNE": {
+"TIE": "Tie",
+"NE": "New England",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26OCT14DCUNYRB": {
+"TIE": "Tie",
+"NYRB": "New York RB",
+"DCU": "DC United"
+},
+"KXMLSGAME-26OCT14CLBCLT": {
+"TIE": "Tie",
+"CLT": "Charlotte",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26OCT14MTLATL": {
+"TIE": "Tie",
+"MTL": "Montreal",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26OCT11STLLAG": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"LAG": "Los Angeles G"
+},
+"KXMLSGAME-26OCT10LAFCVAN": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26OCT10COLSJ": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"COL": "Colorado"
+},
+"KXMLSGAME-26OCT10MINHOU": {
+"TIE": "Tie",
+"MIN": "Minnesota",
+"HOU": "Houston"
+},
+"KXMLSGAME-26OCT10SKCPOR": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"POR": "Portland"
+},
+"KXMLSGAME-26OCT10ATXNSH": {
+"TIE": "Tie",
+"NSH": "Nashville",
+"ATX": "Austin"
+},
+"KXMLSGAME-26OCT10NYRBSD": {
+"TIE": "Tie",
+"SD": "San Diego FC",
+"NYRB": "New York RB"
+},
+"KXMLSGAME-26OCT10NESEA": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"NE": "New England"
+},
+"KXMLSGAME-26OCT10ORLCLB": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26OCT10CLTDAL": {
+"TIE": "Tie",
+"DAL": "Dallas",
+"CLT": "Charlotte"
+},
+"KXMLSGAME-26OCT10PHIRSL": {
+"TIE": "Tie",
+"RSL": "Salt Lake",
+"PHI": "Philadelphia"
+},
+"KXMLSGAME-26OCT10MIADCU": {
+"TIE": "Tie",
+"MIA": "Miami",
+"DCU": "DC United"
+},
+"KXMLSGAME-26OCT10ATLCIN": {
+"TIE": "Tie",
+"CIN": "Cincinnati",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26OCT10CHINYC": {
+"TIE": "Tie",
+"NYC": "New York City",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26OCT10TORMTL": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"MTL": "Montreal"
+},
+"KXMLSGAME-26OCT06CHIVAN": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26OCT01SEASKC": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"SEA": "Seattle"
+},
+"KXMLSGAME-26SEP30NYRBSTL": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"NYRB": "New York RB"
+},
+"KXMLSGAME-26SEP27CLBMIA": {
+"TIE": "Tie",
+"MIA": "Miami",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26SEP26VANDCU": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"DCU": "DC United"
+},
+"KXMLSGAME-26SEP26LAGCOL": {
+"TIE": "Tie",
+"LAG": "Los Angeles G",
+"COL": "Colorado"
+},
+"KXMLSGAME-26SEP26SJPOR": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"POR": "Portland"
+},
+"KXMLSGAME-26SEP26RSLNE": {
+"TIE": "Tie",
+"RSL": "Salt Lake",
+"NE": "New England"
+},
+"KXMLSGAME-26SEP26ATXSD": {
+"TIE": "Tie",
+"SD": "San Diego FC",
+"ATX": "Austin"
+},
+"KXMLSGAME-26SEP26HOUSKC": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"HOU": "Houston"
+},
+"KXMLSGAME-26SEP26SEAMIN": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"MIN": "Minnesota"
+},
+"KXMLSGAME-26SEP26NSHTOR": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"NSH": "Nashville"
+},
+"KXMLSGAME-26SEP26DALLAFC": {
+"TIE": "Tie",
+"LAFC": "Los Angeles F",
+"DAL": "Dallas"
+},
+"KXMLSGAME-26SEP26PHIORL": {
+"TIE": "Tie",
+"PHI": "Philadelphia",
+"ORL": "Orlando"
+},
+"KXMLSGAME-26SEP26MTLCIN": {
+"TIE": "Tie",
+"MTL": "Montreal",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26SEP26ATLNYC": {
+"TIE": "Tie",
+"NYC": "New York City",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26SEP26CLTCHI": {
+"TIE": "Tie",
+"CLT": "Charlotte",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26SEP26NYRBSTL": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"NYRB": "New York RB"
+},
+"KXMLSGAME-26SEP23SEARSL": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"RSL": "Salt Lake"
+},
+"KXMLSGAME-26SEP20MIASD": {
+"TIE": "Tie",
+"SD": "San Diego FC",
+"MIA": "Miami"
+},
+"KXMLSGAME-26SEP19PORATL": {
+"TIE": "Tie",
+"POR": "Portland",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26SEP19COLSEA": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"COL": "Colorado"
+},
+"KXMLSGAME-26SEP19RSLVAN": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"RSL": "Salt Lake"
+},
+"KXMLSGAME-26SEP19NSHCHI": {
+"TIE": "Tie",
+"NSH": "Nashville",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26SEP19DALATX": {
+"TIE": "Tie",
+"DAL": "Dallas",
+"ATX": "Austin"
+},
+"KXMLSGAME-26SEP19MINLAG": {
+"TIE": "Tie",
+"MIN": "Minnesota",
+"LAG": "Los Angeles G"
+},
+"KXMLSGAME-26SEP19HOUCIN": {
+"TIE": "Tie",
+"HOU": "Houston",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26SEP19STLTOR": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"STL": "Saint Louis"
+},
+"KXMLSGAME-26SEP19SKCPHI": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"PHI": "Philadelphia"
+},
+"KXMLSGAME-26SEP19NEORL": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"NE": "New England"
+},
+"KXMLSGAME-26SEP19SJLAFC": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26SEP19DCUCLT": {
+"TIE": "Tie",
+"DCU": "DC United",
+"CLT": "Charlotte"
+},
+"KXMLSGAME-26SEP19MTLCLB": {
+"TIE": "Tie",
+"MTL": "Montreal",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26SEP18NYCNYRB": {
+"TIE": "Tie",
+"NYRB": "New York RB",
+"NYC": "New York City"
+},
+"KXMLSGAME-26SEP13SDPHI": {
+"TIE": "Tie",
+"SD": "San Diego FC",
+"PHI": "Philadelphia"
+},
+"KXMLSGAME-26SEP13VANATX": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"ATX": "Austin"
+},
+"KXMLSGAME-26SEP13CHINE": {
+"TIE": "Tie",
+"NE": "New England",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26SEP12LAGSEA": {
+"TIE": "Tie",
+"SEA": "Seattle",
+"LAG": "Los Angeles G"
+},
+"KXMLSGAME-26SEP12SJHOU": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"HOU": "Houston"
+},
+"KXMLSGAME-26SEP12RSLNYC": {
+"TIE": "Tie",
+"RSL": "Salt Lake",
+"NYC": "New York City"
+},
+"KXMLSGAME-26SEP12COLMTL": {
+"TIE": "Tie",
+"MTL": "Montreal",
+"COL": "Colorado"
+},
+"KXMLSGAME-26SEP12STLMIN": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"MIN": "Minnesota"
+},
+"KXMLSGAME-26SEP12SKCLAFC": {
+"TIE": "Tie",
+"SKC": "Kansas City",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26SEP12DALPOR": {
+"TIE": "Tie",
+"POR": "Portland",
+"DAL": "Dallas"
+},
+"KXMLSGAME-26SEP12CINCLT": {
+"TIE": "Tie",
+"CLT": "Charlotte",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26SEP12DCUATL": {
+"TIE": "Tie",
+"DCU": "DC United",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26SEP12CLBNYRB": {
+"TIE": "Tie",
+"NYRB": "New York RB",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26SEP12MIANSH": {
+"TIE": "Tie",
+"NSH": "Nashville",
+"MIA": "Miami"
+},
+"KXMLSGAME-26SEP12ORLTOR": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"ORL": "Orlando"
+},
+"KXMLSGAME-26SEP09PORSTL": {
+"TIE": "Tie",
+"STL": "Saint Louis",
+"POR": "Portland"
+},
+"KXMLSGAME-26SEP09LAFCNYRB": {
+"TIE": "Tie",
+"NYRB": "New York RB",
+"LAFC": "Los Angeles F"
+},
+"KXMLSGAME-26SEP09VANLAG": {
+"VAN": "Vancouver",
+"TIE": "Tie",
+"LAG": "Los Angeles G"
+},
+"KXMLSGAME-26SEP09SDSJ": {
+"TIE": "Tie",
+"SJ": "San Jose",
+"SD": "San Diego FC"
+},
+"KXMLSGAME-26SEP09ATXCOL": {
+"TIE": "Tie",
+"COL": "Colorado",
+"ATX": "Austin"
+},
+"KXMLSGAME-26SEP09HOURSL": {
+"TIE": "Tie",
+"RSL": "Salt Lake",
+"HOU": "Houston"
+},
+"KXMLSGAME-26SEP09CHIMIA": {
+"TIE": "Tie",
+"MIA": "Miami",
+"CHI": "Chicago Fire"
+},
+"KXMLSGAME-26SEP09MINDAL": {
+"TIE": "Tie",
+"MIN": "Minnesota",
+"DAL": "Dallas"
+},
+"KXMLSGAME-26SEP09NYCNE": {
+"TIE": "Tie",
+"NYC": "New York City",
+"NE": "New England"
+},
+"KXMLSGAME-26SEP09ATLORL": {
+"TIE": "Tie",
+"ORL": "Orlando",
+"ATL": "Atlanta"
+},
+"KXMLSGAME-26SEP09MTLCLT": {
+"TIE": "Tie",
+"MTL": "Montreal",
+"CLT": "Charlotte"
+},
+"KXMLSGAME-26SEP09DCUCLB": {
+"TIE": "Tie",
+"DCU": "DC United",
+"CLB": "Columbus"
+},
+"KXMLSGAME-26SEP09PHICIN": {
+"TIE": "Tie",
+"PHI": "Philadelphia",
+"CIN": "Cincinnati"
+},
+"KXMLSGAME-26SEP09TORNSH": {
+"TOR": "Toronto",
+"TIE": "Tie",
+"NSH": "Nashville"
+},
+"KXMLSGAME-26SEP05CINDCU": {
+"TIE": "Tie",
+"DCU": "DC United",
+"CIN": "Cincinnati"
+},
+"KXUCLGAME-26NOV25SPOMUN": {
+"TIE": "Tie",
+"SPO": "Sporting CP",
+"MUN": "Manchester United"
+},
+"KXUCLGAME-26NOV25SHAFEN": {
+"TIE": "Tie",
+"SHA": "Shakhtar",
+"FEN": "Fenerbahce"
+},
+"KXUCLGAME-26NOV25PSGROM": {
+"TIE": "Tie",
+"ROM": "Roma",
+"PSG": "PSG"
+},
+"KXUCLGAME-26NOV25LILBMU": {
+"TIE": "Tie",
+"LIL": "Lille",
+"BMU": "Bayern Munich"
+},
+"KXUCLGAME-26NOV25INTVFB": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"INT": "Inter"
+},
+"KXUCLGAME-26NOV25BRULFC": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"BRU": "Club Brugge"
+},
+"KXUCLGAME-26NOV25ATMVIK": {
+"VIK": "Viking",
+"TIE": "Tie",
+"ATM": "Atletico"
+},
+"KXUCLGAME-26NOV25SLAVIL": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"SLA": "Slavia Prague"
+},
+"KXUCLGAME-26NOV25SBHBAR": {
+"TIE": "Tie",
+"SBH": "Sabah Masazir",
+"BAR": "Barcelona"
+},
+"KXUCLGAME-26NOV24SLORBB": {
+"TIE": "Tie",
+"SLO": "Slovan Bratislava",
+"RBB": "Real Betis"
+},
+"KXUCLGAME-26NOV24RMAPSV": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"PSV": "Eindhoven"
+},
+"KXUCLGAME-26NOV24RBLRCL": {
+"TIE": "Tie",
+"RCL": "Lens",
+"RBL": "Leipzig"
+},
+"KXUCLGAME-26NOV24MCINAP": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"MCI": "Manchester City"
+},
+"KXUCLGAME-26NOV24FEYFCP": {
+"TIE": "Tie",
+"FEY": "Feyenoord",
+"FCP": "Porto"
+},
+"KXUCLGAME-26NOV24COMAEK": {
+"TIE": "Tie",
+"COM": "Como",
+"AEK": "AEK Athens"
+},
+"KXUCLGAME-26NOV24ARSBVB": {
+"TIE": "Tie",
+"BVB": "Dortmund",
+"ARS": "Arsenal"
+},
+"KXUCLGAME-26NOV24GALAVL": {
+"TIE": "Tie",
+"GAL": "Galatasaray",
+"AVL": "Aston Villa"
+},
+"KXUCLGAME-26NOV24BOGASK": {
+"TIE": "Tie",
+"BOG": "Bodoe/Glimt",
+"ASK": "LASK"
+},
+"KXUCLGAME-26NOV04BVBRBB": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"BVB": "Dortmund"
+},
+"KXUCLGAME-26NOV04RCLCOM": {
+"TIE": "Tie",
+"RCL": "Lens",
+"COM": "Como"
+},
+"KXUCLGAME-26NOV04RBLMCI": {
+"TIE": "Tie",
+"RBL": "Leipzig",
+"MCI": "Manchester City"
+},
+"KXUCLGAME-26NOV04FCPNAP": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"FCP": "Porto"
+},
+"KXUCLGAME-26NOV04VIKSBH": {
+"VIK": "Viking",
+"TIE": "Tie",
+"SBH": "Sabah Masazir"
+},
+"KXUCLGAME-26NOV04SLAARS": {
+"TIE": "Tie",
+"SLA": "Slavia Prague",
+"ARS": "Arsenal"
+},
+"KXUCLGAME-26NOV04PSVBRU": {
+"TIE": "Tie",
+"PSV": "Eindhoven",
+"BRU": "Club Brugge"
+},
+"KXUCLGAME-26NOV04FENLFC": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"FEN": "Fenerbahce"
+},
+"KXUCLGAME-26NOV04AEKRMA": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"AEK": "AEK Athens"
+},
+"KXUCLGAME-26NOV03ASKSLO": {
+"TIE": "Tie",
+"SLO": "Slovan Bratislava",
+"ASK": "LASK"
+},
+"KXUCLGAME-26NOV03BARAVL": {
+"TIE": "Tie",
+"BAR": "Barcelona",
+"AVL": "Aston Villa"
+},
+"KXUCLGAME-26NOV03ATMBMU": {
+"TIE": "Tie",
+"BMU": "Bayern Munich",
+"ATM": "Atletico"
+},
+"KXUCLGAME-26NOV03MUNROM": {
+"TIE": "Tie",
+"ROM": "Roma",
+"MUN": "Manchester United"
+},
+"KXUCLGAME-26NOV03FEYINT": {
+"TIE": "Tie",
+"INT": "Inter",
+"FEY": "Feyenoord"
+},
+"KXUCLGAME-26NOV03VILPSG": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"PSG": "PSG"
+},
+"KXUCLGAME-26NOV03BOGLIL": {
+"TIE": "Tie",
+"LIL": "Lille",
+"BOG": "Bodoe/Glimt"
+},
+"KXUCLGAME-26NOV03GALVFB": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"GAL": "Galatasaray"
+},
+"KXUCLGAME-26NOV03SHASPO": {
+"TIE": "Tie",
+"SPO": "Sporting CP",
+"SHA": "Shakhtar"
+},
+"KXUCLGAME-26OCT21SPOASK": {
+"TIE": "Tie",
+"SPO": "Sporting CP",
+"ASK": "LASK"
+},
+"KXUCLGAME-26OCT21AVLVIK": {
+"VIK": "Viking",
+"TIE": "Tie",
+"AVL": "Aston Villa"
+},
+"KXUCLGAME-26OCT21RBBFEY": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"FEY": "Feyenoord"
+},
+"KXUCLGAME-26OCT21RMARBL": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"RBL": "Leipzig"
+},
+"KXUCLGAME-26OCT21INTSHA": {
+"TIE": "Tie",
+"SHA": "Shakhtar",
+"INT": "Inter"
+},
+"KXUCLGAME-26OCT21BRURCL": {
+"TIE": "Tie",
+"RCL": "Lens",
+"BRU": "Club Brugge"
+},
+"KXUCLGAME-26OCT21BMUARS": {
+"TIE": "Tie",
+"BMU": "Bayern Munich",
+"ARS": "Arsenal"
+},
+"KXUCLGAME-26OCT21LILGAL": {
+"TIE": "Tie",
+"LIL": "Lille",
+"GAL": "Galatasaray"
+},
+"KXUCLGAME-26OCT21COMMUN": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"COM": "Como"
+},
+"KXUCLGAME-26OCT20PSGBAR": {
+"TIE": "Tie",
+"PSG": "PSG",
+"BAR": "Barcelona"
+},
+"KXUCLGAME-26OCT20FCPPSV": {
+"TIE": "Tie",
+"PSV": "Eindhoven",
+"FCP": "Porto"
+},
+"KXUCLGAME-26OCT20NAPBOG": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"BOG": "Bodoe/Glimt"
+},
+"KXUCLGAME-26OCT20LFCVIL": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"LFC": "Liverpool"
+},
+"KXUCLGAME-26OCT20MCIAEK": {
+"TIE": "Tie",
+"MCI": "Manchester City",
+"AEK": "AEK Athens"
+},
+"KXUCLGAME-26OCT20VFBATM": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"ATM": "Atletico"
+},
+"KXUCLGAME-26OCT20ROMSLO": {
+"TIE": "Tie",
+"SLO": "Slovan Bratislava",
+"ROM": "Roma"
+},
+"KXUCLGAME-26OCT20FENSLA": {
+"TIE": "Tie",
+"SLA": "Slavia Prague",
+"FEN": "Fenerbahce"
+},
+"KXUCLGAME-26OCT20SBHBVB": {
+"TIE": "Tie",
+"SBH": "Sabah Masazir",
+"BVB": "Dortmund"
+},
+"KXUCLGAME-26OCT14RBBFCP": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"FCP": "Porto"
+},
+"KXUCLGAME-26OCT14SLOVFB": {
+"VFB": "Stuttgart",
+"TIE": "Tie",
+"SLO": "Slovan Bratislava"
+},
+"KXUCLGAME-26OCT14MCIPSG": {
+"TIE": "Tie",
+"PSG": "PSG",
+"MCI": "Manchester City"
+},
+"KXUCLGAME-26OCT14SHAAEK": {
+"TIE": "Tie",
+"SHA": "Shakhtar",
+"AEK": "AEK Athens"
+},
+"KXUCLGAME-26OCT14ROMRMA": {
+"TIE": "Tie",
+"ROM": "Roma",
+"RMA": "Real Madrid"
+},
+"KXUCLGAME-26OCT14BOGBVB": {
+"TIE": "Tie",
+"BVB": "Dortmund",
+"BOG": "Bodoe/Glimt"
+},
+"KXUCLGAME-26OCT14AVLFEN": {
+"TIE": "Tie",
+"FEN": "Fenerbahce",
+"AVL": "Aston Villa"
+},
+"KXUCLGAME-26OCT14FEYCOM": {
+"TIE": "Tie",
+"FEY": "Feyenoord",
+"COM": "Como"
+},
+"KXUCLGAME-26OCT14ASKLFC": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"ASK": "LASK"
+},
+"KXUCLGAME-26OCT13VIKBMU": {
+"VIK": "Viking",
+"TIE": "Tie",
+"BMU": "Bayern Munich"
+},
+"KXUCLGAME-26OCT13INTBRU": {
+"TIE": "Tie",
+"INT": "Inter",
+"BRU": "Club Brugge"
+},
+"KXUCLGAME-26OCT13ATMMUN": {
+"TIE": "Tie",
+"MUN": "Manchester United",
+"ATM": "Atletico"
+},
+"KXUCLGAME-26OCT13RBLPSV": {
+"TIE": "Tie",
+"RBL": "Leipzig",
+"PSV": "Eindhoven"
+},
+"KXUCLGAME-26OCT13GALBAR": {
+"TIE": "Tie",
+"GAL": "Galatasaray",
+"BAR": "Barcelona"
+},
+"KXUCLGAME-26OCT13VILNAP": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"NAP": "Napoli"
+},
+"KXUCLGAME-26OCT13ARSLIL": {
+"TIE": "Tie",
+"LIL": "Lille",
+"ARS": "Arsenal"
+},
+"KXUCLGAME-26OCT13SBHSLA": {
+"TIE": "Tie",
+"SLA": "Slavia Prague",
+"SBH": "Sabah Masazir"
+},
+"KXUCLGAME-26OCT13RCLSPO": {
+"TIE": "Tie",
+"SPO": "Sporting CP",
+"RCL": "Lens"
+},
+"KXUCLGAME-26SEP10SLARCL": {
+"TIE": "Tie",
+"SLA": "Slavia Prague",
+"RCL": "Lens"
+},
+"KXUCLGAME-26SEP10COMRBL": {
+"TIE": "Tie",
+"RBL": "Leipzig",
+"COM": "Como"
+},
+"KXUCLGAME-26SEP10BMUBOG": {
+"TIE": "Tie",
+"BOG": "Bodoe/Glimt",
+"BMU": "Bayern Munich"
+},
+"KXUCLGAME-26SEP10MUNSBH": {
+"TIE": "Tie",
+"SBH": "Sabah Masazir",
+"MUN": "Manchester United"
+},
+"KXUCLGAME-26SEP10PSVSHA": {
+"TIE": "Tie",
+"SHA": "Shakhtar",
+"PSV": "Eindhoven"
+},
+"KXUCLGAME-26SEP10FENROM": {
+"TIE": "Tie",
+"ROM": "Roma",
+"FEN": "Fenerbahce"
+},
+"KXUCLGAME-26SEP09SPOGAL": {
+"TIE": "Tie",
+"SPO": "Sporting CP",
+"GAL": "Galatasaray"
+},
+"KXUCLGAME-26SEP09LFCATM": {
+"TIE": "Tie",
+"LFC": "Liverpool",
+"ATM": "Atletico"
+},
+"KXUCLGAME-26SEP09NAPARS": {
+"TIE": "Tie",
+"NAP": "Napoli",
+"ARS": "Arsenal"
+},
+"KXUCLGAME-26SEP09PSGSLO": {
+"TIE": "Tie",
+"SLO": "Slovan Bratislava",
+"PSG": "PSG"
+},
+"KXUCLGAME-26SEP09VFBVIK": {
+"VIK": "Viking",
+"VFB": "Stuttgart",
+"TIE": "Tie"
+},
+"KXUCLGAME-26SEP09BARFEY": {
+"TIE": "Tie",
+"FEY": "Feyenoord",
+"BAR": "Barcelona"
+},
+"KXUCLGAME-26SEP08BVBVIL": {
+"VIL": "Villarreal",
+"TIE": "Tie",
+"BVB": "Dortmund"
+},
+"KXUCLGAME-26SEP08LILRBB": {
+"TIE": "Tie",
+"RBB": "Real Betis",
+"LIL": "Lille"
+},
+"KXUCLGAME-26SEP08FCPMCI": {
+"TIE": "Tie",
+"MCI": "Manchester City",
+"FCP": "Porto"
+},
+"KXUCLGAME-26SEP08RMAINT": {
+"TIE": "Tie",
+"RMA": "Real Madrid",
+"INT": "Inter"
+},
+"KXUCLGAME-26SEP08BRUAVL": {
+"TIE": "Tie",
+"BRU": "Club Brugge",
+"AVL": "Aston Villa"
+},
+"KXUCLGAME-26SEP08AEKASK": {
+"TIE": "Tie",
+"ASK": "LASK",
+"AEK": "AEK Athens"
+},
+"KXEREDIVISIEGAME-26NOV22GAEFOR": {
+"TIE": "Tie",
+"GAE": "GA Eagles",
+"FOR": "Sittard"
+},
+"KXEREDIVISIEGAME-26NOV22SPAAZA": {
+"TIE": "Tie",
+"SPA": "Sparta",
+"AZA": "Alkmaar"
+},
+"KXEREDIVISIEGAME-26NOV22AJAADO": {
+"TIE": "Tie",
+"AJA": "Ajax",
+"ADO": "Den Haag"
+},
+"KXEREDIVISIEGAME-26NOV22TWEWIL": {
+"WIL": "Willem II",
+"TWE": "Enschede",
+"TIE": "Tie"
+},
+"KXEREDIVISIEGAME-26NOV21TELZWO": {
+"ZWO": "Zwolle",
+"TIE": "Tie",
+"TEL": "Telstar"
+},
+"KXEREDIVISIEGAME-26NOV21GROHEE": {
+"TIE": "Tie",
+"HEE": "Heerenveen",
+"GRO": "Groningen"
+},
+"KXEREDIVISIEGAME-26NOV21FEYEXC": {
+"TIE": "Tie",
+"FEY": "Feyenoord",
+"EXC": "Excelsior"
+},
+"KXEREDIVISIEGAME-26NOV21FCUCAM": {
+"TIE": "Tie",
+"FCU": "Utrecht",
+"CAM": "Cambuur"
+},
+"KXEREDIVISIEGAME-26NOV21NIJPSV": {
+"TIE": "Tie",
+"PSV": "Eindhoven",
+"NIJ": "Nijmegen"
+},
+"KXEREDIVISIEGAME-26NOV08FCUNIJ": {
+"TIE": "Tie",
+"NIJ": "Nijmegen",
+"FCU": "Utrecht"
+},
+"KXEREDIVISIEGAME-26NOV08CAMPSV": {
+"TIE": "Tie",
+"PSV": "Eindhoven",
+"CAM": "Cambuur"
+},
+"KXEREDIVISIEGAME-26NOV08AZAGRO": {
+"TIE": "Tie",
+"GRO": "Groningen",
+"AZA": "Alkmaar"
+},
+"KXEREDIVISIEGAME-26NOV08TWEAJA": {
+"TWE": "Enschede",
+"TIE": "Tie",
+"AJA": "Ajax"
+},
+"KXEREDIVISIEGAME-26NOV08HEEFEY": {
+"TIE": "Tie",
+"HEE": "Heerenveen",
+"FEY": "Feyenoord"
+},
+"KXEREDIVISIEGAME-26NOV07EXCGAE": {
+"TIE": "Tie",
+"GAE": "GA Eagles",
+"EXC": "Excelsior"
+},
+"KXEREDIVISIEGAME-26NOV07ADOSPA": {
+"TIE": "Tie",
+"SPA": "Sparta",
+"ADO": "Den Haag"
+},
+"KXEREDIVISIEGAME-26NOV07FORTEL": {
+"TIE": "Tie",
+"TEL": "Telstar",
+"FOR": "Sittard"
+},
+"KXEREDIVISIEGAME-26NOV06WILZWO": {
+"ZWO": "Zwolle",
+"WIL": "Willem II",
+"TIE": "Tie"
+},
+"KXEREDIVISIEGAME-26NOV01GROSPA": {
+"TIE": "Tie",
+"SPA": "Sparta",
+"GRO": "Groningen"
+},
+"KXEREDIVISIEGAME-26NOV01EXCTWE": {
+"TWE": "Enschede",
+"TIE": "Tie",
+"EXC": "Excelsior"
+},
+"KXEREDIVISIEGAME-26NOV01TELFCU": {
+"TIE": "Tie",
+"TEL": "Telstar",
+"FCU": "Utrecht"
+},
+"KXEREDIVISIEGAME-26NOV01ZWOADO": {
+"ZWO": "Zwolle",
+"TIE": "Tie",
+"ADO": "Den Haag"
+},
+"KXEREDIVISIEGAME-26OCT31CAMGAE": {
+"TIE": "Tie",
+"GAE": "GA Eagles",
+"CAM": "Cambuur"
+},
+"KXEREDIVISIEGAME-26OCT31AJAAZA": {
+"TIE": "Tie",
+"AZA": "Alkmaar",
+"AJA": "Ajax"
+},
+"KXEREDIVISIEGAME-26OCT31PSVWIL": {
+"WIL": "Willem II",
+"TIE": "Tie",
+"PSV": "Eindhoven"
+},
+"KXEREDIVISIEGAME-26OCT31HEENIJ": {
+"TIE": "Tie",
+"NIJ": "Nijmegen",
+"HEE": "Heerenveen"
+},
+"KXEREDIVISIEGAME-26OCT31FEYFOR": {
+"TIE": "Tie",
+"FOR": "Sittard",
+"FEY": "Feyenoord"
+},
+"KXEREDIVISIEGAME-26OCT25AZATWE": {
+"TWE": "Enschede",
+"TIE": "Tie",
+"AZA": "Alkmaar"
+},
+"KXEREDIVISIEGAME-26OCT25SPAAJA": {
+"TIE": "Tie",
+"SPA": "Sparta",
+"AJA": "Ajax"
+},
+"KXEREDIVISIEGAME-26OCT25NIJGRO": {
+"TIE": "Tie",
+"NIJ": "Nijmegen",
+"GRO": "Groningen"
+},
+"KXEREDIVISIEGAME-26OCT25PSVFEY": {
+"TIE": "Tie",
+"PSV": "Eindhoven",
+"FEY": "Feyenoord"
+},
+"KXEREDIVISIEGAME-26OCT25FOREXC": {
+"TIE": "Tie",
+"FOR": "Sittard",
+"EXC": "Excelsior"
+},
+"KXEREDIVISIEGAME-26OCT24ADOHEE": {
+"TIE": "Tie",
+"HEE": "Heerenveen",
+"ADO": "Den Haag"
+},
+"KXEREDIVISIEGAME-26OCT24WILCAM": {
+"WIL": "Willem II",
+"TIE": "Tie",
+"CAM": "Cambuur"
+},
+"KXEREDIVISIEGAME-26OCT24FCUZWO": {
+"ZWO": "Zwolle",
+"TIE": "Tie",
+"FCU": "Utrecht"
+},
+"KXEREDIVISIEGAME-26OCT23GAETEL": {
+"TIE": "Tie",
+"TEL": "Telstar",
+"GAE": "GA Eagles"
+},
+"KXEREDIVISIEGAME-26OCT18TWEFCU": {
+"TWE": "Enschede",
+"TIE": "Tie",
+"FCU": "Utrecht"
+},
+"KXEREDIVISIEGAME-26OCT18NIJFOR": {
+"TIE": "Tie",
+"NIJ": "Nijmegen",
+"FOR": "Sittard"
+},
+"KXEREDIVISIEGAME-26OCT18GROAJA": {
+"TIE": "Tie",
+"GRO": "Groningen",
+"AJA": "Ajax"
+},
+"KXEREDIVISIEGAME-26OCT18CAMAZA": {
+"TIE": "Tie",
+"CAM": "Cambuur",
+"AZA": "Alkmaar"
+},
+"KXEREDIVISIEGAME-26OCT18ZWOGAE": {
+"ZWO": "Zwolle",
+"TIE": "Tie",
+"GAE": "GA Eagles"
+},
+"KXEREDIVISIEGAME-26OCT17SPAWIL": {
+"WIL": "Willem II",
+"TIE": "Tie",
+"SPA": "Sparta"
+},
+"KXEREDIVISIEGAME-26OCT17TELFEY": {
+"TIE": "Tie",
+"TEL": "Telstar",
+"FEY": "Feyenoord"
+},
+"KXEREDIVISIEGAME-26OCT17ADOPSV": {
+"TIE": "Tie",
+"PSV": "Eindhoven",
+"ADO": "Den Haag"
+},
+"KXEREDIVISIEGAME-26OCT16HEEEXC": {
+"TIE": "Tie",
+"HEE": "Heerenveen",
+"EXC": "Excelsior"
+},
+"KXEREDIVISIEGAME-26OCT11EXCGRO": {
+"TIE": "Tie",
+"GRO": "Groningen",
+"EXC": "Excelsior"
+},
+"KXEREDIVISIEGAME-26OCT11TELADO": {
+"TIE": "Tie",
+"TEL": "Telstar",
+"ADO": "Den Haag"
+},
+"KXEREDIVISIEGAME-26OCT11ZWOCAM": {
+"ZWO": "Zwolle",
+"TIE": "Tie",
+"CAM": "Cambuur"
+},
+"KXEREDIVISIEGAME-26OCT11FCUWIL": {
+"WIL": "Willem II",
+"TIE": "Tie",
+"FCU": "Utrecht"
+},
+"KXEREDIVISIEGAME-26OCT10AJANIJ": {
+"TIE": "Tie",
+"NIJ": "Nijmegen",
+"AJA": "Ajax"
+},
+"KXEREDIVISIEGAME-26OCT10FORTWE": {
+"TWE": "Enschede",
+"TIE": "Tie",
+"FOR": "Sittard"
+},
+"KXEREDIVISIEGAME-26OCT10FEYAZA": {
+"TIE": "Tie",
+"FEY": "Feyenoord",
+"AZA": "Alkmaar"
+},
+"KXEREDIVISIEGAME-26OCT10GAESPA": {
+"TIE": "Tie",
+"SPA": "Sparta",
+"GAE": "GA Eagles"
+},
+"KXEREDIVISIEGAME-26OCT09PSVHEE": {
+"TIE": "Tie",
+"PSV": "Eindhoven",
+"HEE": "Heerenveen"
+},
+"KXEREDIVISIEGAME-26SEP20NIJGAE": {
+"TIE": "Tie",
+"NIJ": "Nijmegen",
+"GAE": "GA Eagles"
+},
+"KXEREDIVISIEGAME-26SEP20TWEPSV": {
+"TWE": "Enschede",
+"TIE": "Tie",
+"PSV": "Eindhoven"
+},
+"KXEREDIVISIEGAME-26SEP20AZATEL": {
+"TIE": "Tie",
+"TEL": "Telstar",
+"AZA": "Alkmaar"
+},
+"KXEREDIVISIEGAME-26SEP20FEYFCU": {
+"TIE": "Tie",
+"FEY": "Feyenoord",
+"FCU": "Utrecht"
+},
+"KXEREDIVISIEGAME-26SEP19WILFOR": {
+"WIL": "Willem II",
+"TIE": "Tie",
+"FOR": "Sittard"
+},
+"KXEREDIVISIEGAME-26SEP19AJAEXC": {
+"TIE": "Tie",
+"EXC": "Excelsior",
+"AJA": "Ajax"
+},
+"KXEREDIVISIEGAME-26SEP19SPAHEE": {
+"TIE": "Tie",
+"SPA": "Sparta",
+"HEE": "Heerenveen"
+},
+"KXEREDIVISIEGAME-26SEP19ADOCAM": {
+"TIE": "Tie",
+"CAM": "Cambuur",
+"ADO": "Den Haag"
+},
+"KXEREDIVISIEGAME-26SEP18GROZWO": {
+"ZWO": "Zwolle",
+"TIE": "Tie",
+"GRO": "Groningen"
+},
+"KXEREDIVISIEGAME-26SEP15AJAWIL": {
+"WIL": "Willem II",
+"TIE": "Tie",
+"AJA": "Ajax"
+},
+"KXEREDIVISIEGAME-26SEP13PSVSPA": {
+"TIE": "Tie",
+"SPA": "Sparta",
+"PSV": "Eindhoven"
+},
+"KXEREDIVISIEGAME-26SEP13ZWOFEY": {
+"ZWO": "Zwolle",
+"TIE": "Tie",
+"FEY": "Feyenoord"
+},
+"KXEREDIVISIEGAME-26SEP13HEETEL": {
+"TIE": "Tie",
+"TEL": "Telstar",
+"HEE": "Heerenveen"
+},
+"KXEREDIVISIEGAME-26SEP13EXCFCU": {
+"TIE": "Tie",
+"FCU": "Utrecht",
+"EXC": "Excelsior"
+},
+"KXEREDIVISIEGAME-26SEP12CAMNIJ": {
+"TIE": "Tie",
+"NIJ": "Nijmegen",
+"CAM": "Cambuur"
+},
+"KXEREDIVISIEGAME-26SEP12FORAJA": {
+"TIE": "Tie",
+"FOR": "Sittard",
+"AJA": "Ajax"
+},
+"KXEREDIVISIEGAME-26SEP12GAEGRO": {
+"TIE": "Tie",
+"GRO": "Groningen",
+"GAE": "GA Eagles"
+},
+"KXEREDIVISIEGAME-26SEP12TWEADO": {
+"TWE": "Enschede",
+"TIE": "Tie",
+"ADO": "Den Haag"
+},
+"KXEREDIVISIEGAME-26SEP11AZAWIL": {
+"WIL": "Willem II",
+"TIE": "Tie",
+"AZA": "Alkmaar"
+},
+"KXEREDIVISIEGAME-26SEP09TWETEL": {
+"TWE": "Enschede",
+"TIE": "Tie",
+"TEL": "Telstar"
+},
+"KXEREDIVISIEGAME-26SEP08NIJEXC": {
+"TIE": "Tie",
+"NIJ": "Nijmegen",
+"EXC": "Excelsior"
+},
+"KXEREDIVISIEGAME-26SEP05FCUGAE": {
+"TIE": "Tie",
+"GAE": "GA Eagles",
+"FCU": "Utrecht"
+}
+}
+}
