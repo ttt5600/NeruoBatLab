@@ -1,0 +1,24 @@
+L39 coverage for 26DEC (open Climate-and-Weather rain/snow series):
+  snow KXALTASNOW           excluded    8 mkts  KXALTASNOW-26DEC                   resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXBEAVERSNOW         excluded    0 mkts  KXBEAVERSNOW-24DEC26 (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXBOSSNOWM           included    6 mkts  KXBOSSNOWM-26DEC                   BOS
+  snow KXCHISNOWM           included    6 mkts  KXCHISNOWM-26DEC                   ORD
+  snow KXDCSNOWM            included    6 mkts  KXDCSNOWM-26DEC                    DCA
+  snow KXDENSNOWM           included    6 mkts  KXDENSNOWM-26DEC                   DEN
+  snow KXDETSNOWM           included    6 mkts  KXDETSNOWM-26DEC                   DTW
+  snow KXKEYSTONESNOW       excluded    0 mkts  KXKEYSTONESNOW-24DEC26 (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXMAMMOTHSNOW        excluded    0 mkts  KXMAMMOTHSNOW-24DEC26 (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXMKESNOWM           included    6 mkts  KXMKESNOWM-26DEC                   MKE
+  snow KXMSPSNOWM           included    6 mkts  KXMSPSNOWM-26DEC                   MSP
+  snow KXNORTHSTARSNOW      excluded    0 mkts  KXNORTHSTARSNOW-24DEC26 (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXNYCSNOWM           included    6 mkts  KXNYCSNOWM-26DEC                   NYC
+  snow KXPARKCSNOW          excluded    0 mkts  KXPARKCSNOW-24DEC26 (not monthly)  resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXPHILSNOWM          included    6 mkts  KXPHILSNOWM-26DEC                  PHL
+  snow KXPITSNOWM           included    6 mkts  KXPITSNOWM-26DEC                   PIT
+  rain KXRAINNAPAM          excluded    0 mkts  KXRAINNAPAM-01DEC26-31DEC26 (not monthly) Nov-Mar SEASONAL ladder at KAPC (ASOS, not an NWS CLI / ACIS station); not a monthly ladder
+  rain KXRAINWPBM           excluded    0 mkts  KXRAINWPBM-26NOV (not monthly)     rules cite CLIDJT: no such NWS CLI (WPB = PBI), no ACIS record -> settlement source unverifiable
+  snow KXSEASNOWM           included    6 mkts  KXSEASNOWM-26DEC                   SEA
+  snow KXSTOWESNOW          excluded    0 mkts  KXSTOWESNOW-24DEC26 (not monthly)  resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXTSNOWFALLBIGSKYM   excluded   10 mkts  KXTSNOWFALLBIGSKYM-26DEC           resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXTTNSNOWM           included    6 mkts  KXTTNSNOWM-26DEC                   TTN
+included 12 (rain 0, snow 12), excluded 10, UNMAPPED 0

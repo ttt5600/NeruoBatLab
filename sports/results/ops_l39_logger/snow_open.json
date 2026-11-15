@@ -1,0 +1,230 @@
+{
+ "KXALTASNOW": {
+  "events": [
+   "KXALTASNOW-26DEC"
+  ],
+  "rules": "If the total snowfall recorded at Alta Ski Area in December 2026 is above 90 inches, then the market resolves to Yes."
+ },
+ "KXBEAVERSNOW": {
+  "events": [
+   "KXBEAVERSNOW-24DEC26"
+  ],
+  "rules": "If the total snowfall recorded at Beaver Creek Resort October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 90 inches, then the market resolves to Yes."
+ },
+ "KXBOSSNOWM": {
+  "events": [
+   "KXBOSSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Boston in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXCHISNOWM": {
+  "events": [
+   "KXCHISNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Chicago (O'Hare) in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXDCSNOWM": {
+  "events": [
+   "KXDCSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Washington DC in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXDENSNOWM": {
+  "events": [
+   "KXDENSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Denver in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXDETSNOWM": {
+  "events": [
+   "KXDETSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Detroit in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXKEYSTONESNOW": {
+  "events": [
+   "KXKEYSTONESNOW-24DEC26"
+  ],
+  "rules": "If the total snowfall recorded at Keystone Resort October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 45 inches, then the market resolves to Yes."
+ },
+ "KXMAMMOTHSNOW": {
+  "events": [
+   "KXMAMMOTHSNOW-24DEC26"
+  ],
+  "rules": "If the total snowfall recorded at Mammoth Mountain October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 215 inches, then the market resolves to Yes."
+ },
+ "KXMKESNOWM": {
+  "events": [
+   "KXMKESNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Milwaukee in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXMSPSNOWM": {
+  "events": [
+   "KXMSPSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Minneapolis in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXNORTHSTARSNOW": {
+  "events": [
+   "KXNORTHSTARSNOW-24DEC26"
+  ],
+  "rules": "If the total snowfall recorded at Northstar California Resort October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 90 inches, then the market resolves to Yes."
+ },
+ "KXNYCSNOWM": {
+  "events": [
+   "KXNYCSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in New York City in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXNYCSNOWXMAS": {
+  "events": [
+   "KXNYCSNOWXMAS-25DEC26"
+  ],
+  "rules": "If the total snowfall at Central Park (KNYC) in New York City on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXPARKCSNOW": {
+  "events": [
+   "KXPARKCSNOW-24DEC26"
+  ],
+  "rules": "If the total snowfall recorded at Park City Mountain October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 90 inches, then the market resolves to Yes."
+ },
+ "KXPHILSNOWM": {
+  "events": [
+   "KXPHILSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Philadelphia in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXPITSNOWM": {
+  "events": [
+   "KXPITSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Pittsburgh in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXSEASNOWM": {
+  "events": [
+   "KXSEASNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Seattle in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ },
+ "KXSNOWA": {
+  "events": [
+   "KXSNOWA-27FEBCUST1M"
+  ],
+  "rules": "If Snowflake Inc. reports Above 970 customers with trailing 12-month revenue   $1m in fiscal 2027, then the market resolves to Yes."
+ },
+ "KXSNOWBASINOPEN": {
+  "events": [
+   "KXSNOWBASINOPEN-27"
+  ],
+  "rules": "If the first calendar day in the 2026-27 winter season on which Snowbasin Resort conducts Seasonal Opening Operations occurs before Nov 29, 2026, then the market resolves to Yes."
+ },
+ "KXSNOWBIRDOPEN": {
+  "events": [
+   "KXSNOWBIRDOPEN-27"
+  ],
+  "rules": "If the first calendar day in the 2026-27 winter season on which Snowbird Ski Resort conducts Seasonal Opening Operations occurs before Nov 29, 2026, then the market resolves to Yes."
+ },
+ "KXSNOWCITIES": {
+  "events": [
+   "KXSNOWCITIES-26NOV15"
+  ],
+  "rules": "If the total snowfall recorded in Providence (KPVD) from Nov 12 to 15, 2026 is strictly greater than 1 inch, then the market resolves to Yes."
+ },
+ "KXSNOWDAYS": {
+  "events": [
+   "KXSNOWDAYS-01DEC26-01APR27"
+  ],
+  "rules": "If Each Yes contract pays according to a Directional linear payout from $0.00 at 0 qualifying days to $1.00 at 14 days, capped at $0.00\u2013$1.00 and rounded down once to $0.01 based on the number of days between December 1, 2026 and April 1, 2027 with at least 0.1 inches of official daily snowfall in Seattle (Seattle-Tacoma Airport, KSEA). Each No contract pays $1.00 minus the Yes payout. Then the market resolves to Yes."
+ },
+ "KXSNOWFLAKE": {
+  "events": [
+   "KXSNOWFLAKE-26NOVCUST1M"
+  ],
+  "rules": "If Snowflake Inc. reports Above 890 customers with trailing 12-month revenue   $1m in Q3 2027, then the market resolves to Yes."
+ },
+ "KXSNOWTHANKSGIVING": {
+  "events": [
+   "KXSNOWTHANKSGIVING-26NOV26"
+  ],
+  "rules": "If the total new snowfall in Trenton (KTTN) on November 26, 2026 is strictly greater than 0 inches, including a reported trace, then the market resolves to Yes."
+ },
+ "KXSNOWXMASBOS": {
+  "events": [
+   "KXSNOWXMASBOS-25DEC26"
+  ],
+  "rules": "If the total snowfall at Boston Logan (KBOS) in Boston on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASCHI": {
+  "events": [
+   "KXSNOWXMASCHI-25DEC26"
+  ],
+  "rules": "If the total snowfall at Chicago O'Hare (KORD) in Chicago on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASDC": {
+  "events": [
+   "KXSNOWXMASDC-25DEC26"
+  ],
+  "rules": "If the total snowfall at Reagan National (KDCA) in Washington, DC on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASDEN": {
+  "events": [
+   "KXSNOWXMASDEN-25DEC26"
+  ],
+  "rules": "If the total snowfall at Denver International (KDEN) in Denver on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASDET": {
+  "events": [
+   "KXSNOWXMASDET-25DEC26"
+  ],
+  "rules": "If the total snowfall at Detroit Metropolitan (KDTW) in Detroit on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASMKE": {
+  "events": [
+   "KXSNOWXMASMKE-25DEC26"
+  ],
+  "rules": "If the total snowfall at Milwaukee Mitchell (KMKE) in Milwaukee on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASMSP": {
+  "events": [
+   "KXSNOWXMASMSP-25DEC26"
+  ],
+  "rules": "If the total snowfall at Minneapolis\u2013Saint Paul (KMSP) in Minneapolis on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASPHIL": {
+  "events": [
+   "KXSNOWXMASPHIL-25DEC26"
+  ],
+  "rules": "If the total snowfall at Philadelphia International (KPHL) in Philadelphia on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASPIT": {
+  "events": [
+   "KXSNOWXMASPIT-25DEC26"
+  ],
+  "rules": "If the total snowfall at Pittsburgh International (KPIT) in Pittsburgh on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSNOWXMASSEA": {
+  "events": [
+   "KXSNOWXMASSEA-25DEC26"
+  ],
+  "rules": "If the total snowfall at Seattle\u2013Tacoma (KSEA) in Seattle on Dec 25, 2026 is strictly greater than 0 inches, then the market resolves to Yes."
+ },
+ "KXSTOWESNOW": {
+  "events": [
+   "KXSTOWESNOW-24DEC26"
+  ],
+  "rules": "If the total snowfall recorded at Stowe Mountain Resort October 1, 2026 through December 24, 2026 (value recorded at 4:00 PM ET on December 24) is above 25 inches, then the market resolves to Yes."
+ },
+ "KXTSNOWFALLBIGSKYM": {
+  "events": [
+   "KXTSNOWFALLBIGSKYM-26DEC"
+  ],
+  "rules": "If the total snowfall accumulated at Big Sky Resort, Montana during December 2026, in inches, as reported by OnTheSnow, is strictly greater than 50 inches, then the market resolves to Yes."
+ },
+ "KXTTNSNOWM": {
+  "events": [
+   "KXTTNSNOWM-26DEC"
+  ],
+  "rules": "If the total snowfall in Trenton in December 2026 is strictly greater than 8 inches, then the market resolves to Yes."
+ }
+}

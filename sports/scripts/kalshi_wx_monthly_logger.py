@@ -3,6 +3,8 @@
     python scripts/kalshi_wx_monthly_logger.py tick [--force]   # launchd hourly at :05; decides each city ONCE per day
     python scripts/kalshi_wx_monthly_logger.py settle           # score picks whose market has settled (tick also does it)
     python scripts/kalshi_wx_monthly_logger.py report           # n, W/L, P&L per contract + units, taker / maker, by series
+    python scripts/kalshi_wx_monthly_logger.py coverage [26DEC] # read-only: every open monthly rain/snow series of a month
+                                                                # -> included (station) / excluded (reason) / UNMAPPED
 
 The rule is the FROZEN one in scripts/kalshi_wx_winter.py (docstring) and is imported from there, not re-typed:
   window   last 7 days of the month (end-6 <= d <= end), decision T_d = 22:00 STATION-LOCAL on day d.
@@ -17,7 +19,10 @@ The rule is the FROZEN one in scripts/kalshi_wx_winter.py (docstring) and is imp
            q = min(floor_cent(NO mid), NO ask - 1c); fill judged at settle from the public tape (>= 1 contract printed
            at no_price <= q after T_d and before close). One pick per bracket per month (the first qualifying d).
   Quotes here are a live snapshot of the market endpoint (+ orderbook depth), where the backtest used the last
-  hourly candle close -- the only live/backtest difference. Station = winter.rain_station / winter.SNOW.
+  hourly candle close -- the only live/backtest difference. Station = winter.rain_station / SNOW (= winter.SNOW +
+  SNOW_EXTRA: MKE/MSP/PIT/TTN, first listed for Dec 2026, no settled history, so forward-only; winter.SNOW, the
+  dev/sealed universe, is left untouched). EXCLUDE + the resort rule refuse, BY NAME and with a logged reason
+  (state["excluded"]), series whose settlement source is not an NWS CLI / ACIS station -- never skipped by accident.
 
 --force: evaluate every in-window city NOW regardless of local hour. Writes ONLY to the preview file (never to
 picks or the once-per-day state), so an off-schedule quote cannot pre-empt the 22:00 decision.
@@ -55,6 +60,30 @@ PREVIEW = D / "kalshi_wx_monthly_preview.jsonl"
 MARGIN = {"rain": 0.50, "snow": 1.0}
 TZS = ["America/New_York", "America/Chicago", "America/Denver", "America/Phoenix", "America/Los_Angeles"]
 DEC_HOURS = (W.wx.DECISION_HOUR, W.wx.DECISION_HOUR + 1)  # 22:00-23:59 local
+
+# Monthly snow ladders first listed for Dec 2026 (absent from the frozen winter.SNOW). Station = the city's NWS climate
+# (CLI) site. TTN's rules_secondary names it ("Trenton-Mercer Airport (KTTN; NWS climate report CLITTN)"); MKE/MSP/PIT
+# rules name only the city (SNOWOVERTIME terms: "primary official weather measurement station"), and Kalshi's own
+# KXSNOWXMAS<city> rules for the same cities name KMKE / KMSP / KPIT. ACIS ids return complete Dec-2025 data
+# (results/ops_l39_logger/q_hist.py).
+SNOW_EXTRA = {"KXMKESNOWM": "MKE", "KXMSPSNOWM": "MSP", "KXPITSNOWM": "PIT", "KXTTNSNOWM": "TTN"}
+SNOW = {**W.SNOW, **SNOW_EXTRA}
+# Refused by name (notes/l39_expansion.md settlement audit). Never trade these without a new audit.
+EXCLUDE = {
+    "KXRAINWPBM": "rules cite CLIDJT: no such NWS CLI (WPB = PBI), no ACIS record -> settlement source unverifiable",
+    "KXRAINNAPAM": "Nov-Mar SEASONAL ladder at KAPC (ASOS, not an NWS CLI / ACIS station); not a monthly ladder",
+}
+RESORT_WORDS = ("Resort", "Ski Area", "OnTheSnow", "Mountain")
+RESORT_REASON = "resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest"
+
+
+def excluded(series: str, rules: str = "") -> str | None:
+    """Reason this series must never be logged / traded, or None."""
+    if series in EXCLUDE:
+        return EXCLUDE[series]
+    if any(w in (rules or "") for w in RESORT_WORDS):
+        return RESORT_REASON
+    return None
 
 
 def jl(p: Path) -> list[dict]:
@@ -97,11 +126,17 @@ def depth(ticker: str) -> dict:
 
 
 # ------------------------------------------------------------------------------------------------ discovery
-def open_ladders(month_code: str) -> list[dict]:
-    """Open `greater` markets of every monthly rain/snow series for event month `month_code` (e.g. '26OCT')."""
-    series = [(s, "rain") for s in W.rain_series()] + [(s, "snow") for s in W.SNOW]
+def open_ladders(month_code: str, skipped: dict | None = None) -> list[dict]:
+    """Open `greater` markets of every monthly rain/snow series for event month `month_code` (e.g. '26OCT').
+    Excluded series are dropped; their reason goes into `skipped` (series -> reason) when given."""
+    series = [(s, "rain") for s in W.rain_series()] + [(s, "snow") for s in SNOW]
     out = []
     for s, kind in series:
+        why = excluded(s)
+        if why:
+            if skipped is not None:
+                skipped[s] = why
+            continue
         cur = None
         while True:
             p = {"series_ticker": s, "status": "open", "limit": 1000}
@@ -110,7 +145,12 @@ def open_ladders(month_code: str) -> list[dict]:
             d = fetch(f"{wx.API}/markets", p, cache=False)
             for m in d.get("markets", []):
                 if m.get("strike_type") == "greater" and m["event_ticker"].split("-")[-1] == month_code:
-                    sid = W.rain_station(m.get("rules_primary", "")) if kind == "rain" else W.SNOW[s]
+                    why = excluded(s, m.get("rules_primary", ""))
+                    if why:
+                        if skipped is not None:
+                            skipped[s] = why
+                        continue
+                    sid = W.rain_station(m.get("rules_primary", "")) if kind == "rain" else SNOW[s]
                     out.append({**m, "series": s, "kind": kind, "sid": sid})
             cur = d.get("cursor")
             if not cur or not d.get("markets"):
@@ -187,7 +227,12 @@ def cmd_tick(force: bool = False) -> int:
         STATE.write_text(json.dumps(state, indent=1, default=str))
         return 0
     month_codes = {pd.Timestamp(now.astimezone(ZoneInfo(z)).date()).strftime("%y%b").upper() for z in cand}
-    mk = [m for c in month_codes for m in open_ladders(c)]
+    skipped: dict[str, str] = {}
+    mk = [m for c in month_codes for m in open_ladders(c, skipped)]
+    if not force:
+        state["excluded"] = skipped
+    for ser, why in sorted(skipped.items()):
+        print(f"{ser:22s} EXCLUDED  {why}")
     picked = {p["ticker"] for p in jl(PICKS)}
     by_ev: dict[str, list] = {}
     for m in mk:
@@ -197,12 +242,14 @@ def cmd_tick(force: bool = False) -> int:
         sid = g[0]["sid"]
         if not sid:
             state["decisions"][ev] = {"status": "skip", "reason": "no station parsed from rules"}
+            print(f"{ev:22s} SKIP      no station parsed from rules")
             continue
         if sid not in state["station"]:
             try:
                 state["station"][sid] = list(W.station_meta(sid))
             except Exception as ex:  # noqa: BLE001
                 state["decisions"][ev] = {"status": "skip", "reason": f"no NWS station meta: {ex}"[:120]}
+                print(f"{ev:22s} SKIP      no NWS station meta for {sid}")
                 continue
         lat, lon, tz = state["station"][sid]
         local = now.astimezone(ZoneInfo(tz))
@@ -260,10 +307,12 @@ def cmd_settle(quiet: bool = False) -> int:
         close = int(pd.Timestamp(m["close_time"]).timestamp())
         t = W.tape(r["ticker"], int(r["T"]))
         hit = (t.ts > r["T"]) & (t.ts <= close) & (t.no_price <= r["maker_q"] + 1e-9)
-        r |= {"result": m["result"], "won": won, "settled_close": m["close_time"],
-              "maker_filled": bool(t.loc[hit, "count"].sum() >= 1),
+        filled = bool(t.loc[hit, "count"].sum() >= 1)
+        if_filled = (1 - r["maker_q"]) if won else -r["maker_q"]
+        r |= {"result": m["result"], "won": won, "settled_close": m["close_time"], "maker_filled": filled,
               "pnl_taker": (1 - r["taker_cost"]) if won else -r["taker_cost"],
-              "pnl_maker": (1 - r["maker_q"]) if won else -r["maker_q"]}
+              "pnl_maker_if_filled": if_filled,            # counterfactual, NOT P&L
+              "pnl_maker": if_filled if filled else None}  # P&L only when the public tape shows a fill
         if not quiet:
             print(f"settled {r['ticker']} -> {m['result']} ({'WIN' if won else 'LOSS'}) maker fill {r['maker_filled']}")
     if todo:
@@ -271,6 +320,19 @@ def cmd_settle(quiet: bool = False) -> int:
     if not quiet:
         print(f"{len(todo)} past close checked; {sum('result' in r for r in rows)}/{len(rows)} settled")
     return 0
+
+
+def maker_frame(s: pd.DataFrame) -> pd.DataFrame:
+    """Settled picks -> won / mf as real bools (NaN maker_filled = unfilled; astype(bool) would make NaN True), and
+    pnl_mk / u_maker defined ONLY on filled rows. Old rows carry pnl_maker even when unfilled, so maker P&L is
+    recomputed from won + maker_q, never read from pnl_maker."""
+    s = s.copy()
+    s["won"] = s.won.eq(True)
+    s["mf"] = s.maker_filled.eq(True)
+    s["u_taker"] = np.where(s.won, 1 / s.taker_cost - 1, -1.0)
+    s["pnl_mk"] = np.where(s.mf, np.where(s.won, 1 - s.maker_q, -s.maker_q), np.nan)
+    s["u_maker"] = np.where(s.mf, np.where(s.won, 1 / s.maker_q - 1, -1.0), np.nan)
+    return s
 
 
 def cmd_report() -> int:
@@ -284,24 +346,21 @@ def cmd_report() -> int:
             df[c] = np.nan
     df["month"] = df.event.str.split("-").str[-1]
     s = df[df.result.notna()].copy()
-    s["won"] = s.won.astype(bool)
-    s["mf"] = s.maker_filled.astype(bool)
-    s["u_taker"] = np.where(s.won, 1 / s.taker_cost - 1, -1.0)
-    s["u_maker"] = np.where(s.won, 1 / s.maker_q - 1, -1.0)
+    s = maker_frame(s)
 
     def agg(g):
         fm = g[g.mf]
         return pd.Series({"n": len(g), "W": int(g.won.sum()), "L": int((~g.won).sum()),
                           "taker_c/ct": 100 * g.pnl_taker.sum(), "taker_units": g.u_taker.sum(),
-                          "makerAll_c/ct": 100 * g.pnl_maker.sum(), "makerAll_units": g.u_maker.sum(),
-                          "maker_filled": len(fm), "makerTape_c/ct": 100 * fm.pnl_maker.sum(),
-                          "makerTape_units": fm.u_maker.sum()})
+                          "maker_filled": len(fm), "maker_W": int(fm.won.sum()), "maker_L": int((~fm.won).sum()),
+                          "maker_c/ct": 100 * fm.pnl_mk.sum(), "maker_units": fm.u_maker.sum()})
     print(f"L39 forward paper: {len(df)} picks, {len(s)} settled, {len(df) - len(s)} open "
           f"({df[df.result.isna()].groupby('month').size().to_dict()})")
     if len(s):
         tab = s.groupby(["kind", "series"]).apply(agg)
         tab.loc[("ALL", ""), :] = agg(s)
-        print("P&L summed over picks: c/ct = cents per 1-contract pick; units = stake 1 unit of cost per pick")
+        print("P&L summed over picks: c/ct = cents per 1-contract pick; units = stake 1 unit of cost per pick; "
+              "maker_* = tape-FILLED picks only (an unfilled maker bid has no P&L)")
         print(tab.round(2).to_string())
         if (~s.won).any():
             print("losers:", s.loc[~s.won, ["ticker", "d", "X", "obs_d", "fmax", "yes_bid", "yes_ask"]].to_string())
@@ -312,7 +371,62 @@ def cmd_report() -> int:
     return 0
 
 
+# ------------------------------------------------------------------------------------------------ coverage
+SNOW_NOT_LADDER = ("SNOWFLAKE", "SNOWA", "MENTION", "CRAB", "SNOWDAYS", "XMAS", "THANKSGIVING", "SNOWSTORM",
+                   "SNOWCITIES", "OPEN", "RTSNOW")
+
+
+def classify(series: str, kind: str, rules: str, rain_series: list[str]) -> tuple[str, str]:
+    """(status, detail) of one open monthly series: included (station) / excluded (reason) / UNMAPPED (why)."""
+    why = excluded(series, rules)
+    if why:
+        return "excluded", why
+    if kind == "rain":
+        if series not in rain_series:
+            return "UNMAPPED", "tick discovery (winter.rain_series regex) misses this series"
+        sid = W.rain_station(rules)
+        return ("included", sid) if sid else ("UNMAPPED", "no CLIxxx / Central Park in rules")
+    return ("included", SNOW[series]) if series in SNOW else ("UNMAPPED", "snow series not in SNOW station map")
+
+
+def cmd_coverage(month_code: str | None = None) -> int:
+    """Read-only census of every Climate-and-Weather rain/snow series with an open event for `month_code`.
+    Exit 1 if anything is UNMAPPED (open ladder the tick would silently miss)."""
+    month_code = (month_code or pd.Timestamp.today().strftime("%y%b")).upper()
+    rain = W.rain_series()
+    cands = []
+    for x in fetch(f"{wx.API}/series", {"limit": 10000}, cache=False)["series"]:
+        t = x["ticker"]
+        if x.get("category") != "Climate and Weather":
+            continue
+        if t.startswith("KXRAIN"):
+            cands.append((t, "rain"))
+        elif "SNOW" in t and not any(w in t for w in SNOW_NOT_LADDER):
+            cands.append((t, "snow"))
+    rows = []
+    for t, kind in sorted(cands):
+        ms = fetch(f"{wx.API}/markets", {"series_ticker": t, "status": "open", "limit": 1000},
+                   cache=False).get("markets", [])
+        mm = [m for m in ms if m["event_ticker"].split("-")[-1] == month_code]
+        if mm:
+            st, det = classify(t, kind, mm[0].get("rules_primary", ""), rain)
+            rows.append((kind, t, st, det, sum(m.get("strike_type") == "greater" for m in mm), mm[0]["event_ticker"]))
+        elif ms and (t in EXCLUDE or excluded(t, ms[0].get("rules_primary", ""))):
+            # open, but no <month_code> event (seasonal Napa, resort Oct-Dec24, other month): list the refusal anyway
+            rows.append((kind, t, "excluded", excluded(t, ms[0].get("rules_primary", "")), 0,
+                         ms[0]["event_ticker"] + " (other period)"))
+    print(f"L39 coverage for {month_code} (open Climate-and-Weather rain/snow series):")
+    for kind, t, st, det, n, ev in rows:
+        print(f"  {kind:4s} {t:20s} {st:9s} {n:3d} mkts  {ev:34s} {det}")
+    cnt = {k: sum(r[2] == k for r in rows) for k in ("included", "excluded", "UNMAPPED")}
+    inc = {k: sum(r[2] == "included" and r[0] == k for r in rows) for k in ("rain", "snow")}
+    print(f"included {cnt['included']} (rain {inc['rain']}, snow {inc['snow']}), excluded {cnt['excluded']}, "
+          f"UNMAPPED {cnt['UNMAPPED']}")
+    return 1 if cnt["UNMAPPED"] else 0
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
-    fn = {"tick": lambda: cmd_tick("--force" in sys.argv), "settle": cmd_settle, "report": cmd_report}.get(cmd)
+    fn = {"tick": lambda: cmd_tick("--force" in sys.argv), "settle": cmd_settle, "report": cmd_report,
+          "coverage": lambda: cmd_coverage(sys.argv[2] if len(sys.argv) > 2 else None)}.get(cmd)
     raise SystemExit(fn() if fn else (print(__doc__) or 1))

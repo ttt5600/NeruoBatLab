@@ -1,0 +1,46 @@
+L39 coverage for 26NOV (open Climate-and-Weather rain/snow series):
+  snow KXALTASNOW           excluded    0 mkts  KXALTASNOW-26DEC (not monthly)     resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXBEAVERSNOW         excluded    0 mkts  KXBEAVERSNOW-24DEC26 (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXKEYSTONESNOW       excluded    0 mkts  KXKEYSTONESNOW-24DEC26 (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXMAMMOTHSNOW        excluded    0 mkts  KXMAMMOTHSNOW-24DEC26 (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXNORTHSTARSNOW      excluded    0 mkts  KXNORTHSTARSNOW-24DEC26 (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXPARKCSNOW          excluded    0 mkts  KXPARKCSNOW-24DEC26 (not monthly)  resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  rain KXRAINABQM           included    7 mkts  KXRAINABQM-26NOV                   ABQ
+  rain KXRAINATLM           included    7 mkts  KXRAINATLM-26NOV                   ATL
+  rain KXRAINAUSM           included    6 mkts  KXRAINAUSM-26NOV                   AUS
+  rain KXRAINBOSM           included    4 mkts  KXRAINBOSM-26NOV                   BOS
+  rain KXRAINCHIM           included    7 mkts  KXRAINCHIM-26NOV                   ORD
+  rain KXRAINCLLM           included    7 mkts  KXRAINCLLM-26NOV                   CLL
+  rain KXRAINCMHM           included    6 mkts  KXRAINCMHM-26NOV                   CMH
+  rain KXRAINDALM           included    7 mkts  KXRAINDALM-26NOV                   DFW
+  rain KXRAINDCM            included    7 mkts  KXRAINDCM-26NOV                    DCA
+  rain KXRAINDENM           included    7 mkts  KXRAINDENM-26NOV                   DEN
+  rain KXRAINDTWM           included    7 mkts  KXRAINDTWM-26NOV                   DTW
+  rain KXRAINEWRM           included    5 mkts  KXRAINEWRM-26NOV                   EWR
+  rain KXRAINHOUM           included    6 mkts  KXRAINHOUM-26NOV                   HOU
+  rain KXRAININDM           included    7 mkts  KXRAININDM-26NOV                   IND
+  rain KXRAINLAXM           included    7 mkts  KXRAINLAXM-26NOV                   LAX
+  rain KXRAINLEXM           included    5 mkts  KXRAINLEXM-26NOV                   LEX
+  rain KXRAINLVM            included    7 mkts  KXRAINLVM-26NOV                    LAS
+  rain KXRAINMIAM           included    5 mkts  KXRAINMIAM-26NOV                   MIA
+  rain KXRAINMINM           included    6 mkts  KXRAINMINM-26NOV                   MSP
+  rain KXRAINMKEM           included    7 mkts  KXRAINMKEM-26NOV                   MKE
+  rain KXRAINNAPAM          excluded    0 mkts  KXRAINNAPAM-01DEC26-31DEC26 (not monthly) Nov-Mar SEASONAL ladder at KAPC (ASOS, not an NWS CLI / ACIS station); not a monthly ladder
+  rain KXRAINNOLAM          included    7 mkts  KXRAINNOLAM-26NOV                  MSY
+  rain KXRAINNYCM           included    5 mkts  KXRAINNYCM-26NOV                   NYC
+  rain KXRAINOKCM           included    7 mkts  KXRAINOKCM-26NOV                   OKC
+  rain KXRAINPHILM          included    6 mkts  KXRAINPHILM-26NOV                  PHL
+  rain KXRAINPHXM           included    6 mkts  KXRAINPHXM-26NOV                   PHX
+  rain KXRAINPITM           included    7 mkts  KXRAINPITM-26NOV                   PIT
+  rain KXRAINPVDM           included    4 mkts  KXRAINPVDM-26NOV                   PVD
+  rain KXRAINSATXM          included    6 mkts  KXRAINSATXM-26NOV                  SAT
+  rain KXRAINSEAM           included    5 mkts  KXRAINSEAM-26NOV                   SEA
+  rain KXRAINSFOM           included    6 mkts  KXRAINSFOM-26NOV                   SFO
+  rain KXRAINSGFM           included    7 mkts  KXRAINSGFM-26NOV                   SGF
+  rain KXRAINSTLM           included    7 mkts  KXRAINSTLM-26NOV                   STL
+  rain KXRAINTPAM           included    6 mkts  KXRAINTPAM-26NOV                   TPA
+  rain KXRAINTTNM           included    6 mkts  KXRAINTTNM-26NOV                   TTN
+  rain KXRAINWPBM           excluded    4 mkts  KXRAINWPBM-26NOV                   rules cite CLIDJT: no such NWS CLI (WPB = PBI), no ACIS record -> settlement source unverifiable
+  snow KXSTOWESNOW          excluded    0 mkts  KXSTOWESNOW-24DEC26 (not monthly)  resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+  snow KXTSNOWFALLBIGSKYM   excluded    0 mkts  KXTSNOWFALLBIGSKYM-26DEC (not monthly) resort snow: settles on the resort's self-report (OnTheSnow); no independent archive / backtest
+included 34 (rain 34, snow 0), excluded 10, UNMAPPED 0
