@@ -53,8 +53,22 @@ X1_CITIES = {
 PAPER_CITIES = {**wx.CITIES, **X1_CITIES}
 
 
+def _retry(fn, tries: int = 3, wait: float = 5.0, sleep=None):
+    """Call fn up to `tries` times on network/parse errors; re-raise the last one. open-meteo timed out on every
+    decision-hour tick of the nights logged 11-13 and 11-14 UTC (notes/e4_ops_diag.md)."""
+    import time
+    sleep = sleep or time.sleep
+    for i in range(tries):
+        try:
+            return fn()
+        except (requests.RequestException, ValueError, KeyError):
+            if i == tries - 1:
+                raise
+            sleep(wait * (i + 1))
+
+
 def live_forecasts(lat, lon, tz, day):
-    r = requests.get("https://api.open-meteo.com/v1/forecast", headers=H, timeout=60, params={
+    r = requests.get("https://api.open-meteo.com/v1/forecast", headers=H, timeout=(10, 45), params={
         "latitude": lat, "longitude": lon, "models": ",".join(MODELS), "hourly": "temperature_2m",
         "temperature_unit": "fahrenheit", "timezone": tz, "forecast_days": 3}).json()["hourly"]
     times = [datetime.fromisoformat(t) for t in r["time"]]
@@ -99,7 +113,7 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
     now = datetime.now(timezone.utc)
     seen = {json.loads(l)["ticker"] for l in LOG.read_text().splitlines()} if LOG.exists() else set()
     done = set(json.loads(DONE.read_text())) if DONE.exists() else set()
-    picks = []
+    picks, failed = [], []
     for series, (station, tz) in PAPER_CITIES.items():
         local = now.astimezone(ZoneInfo(tz))
         if due_only and local.hour not in (DECISION_HOUR, DECISION_HOUR + 1):
@@ -109,12 +123,17 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
         if due_only and ev in done:
             continue
         late_min = (local.hour - DECISION_HOUR) * 60 + local.minute
-        ms = requests.get(f"{wx.API}/markets", headers=H, timeout=30,
-                          params={"event_ticker": ev, "limit": 100}).json().get("markets", [])
+        try:  # one city's network failure must not abort the other cities (11-13/11-14 UTC: whole nights lost)
+            ms = _retry(lambda: requests.get(f"{wx.API}/markets", headers=H, timeout=30,
+                                             params={"event_ticker": ev, "limit": 100}).json().get("markets", []))
+            fc = _retry(lambda: live_forecasts(*wx.station_coords(station), tz, tomorrow)) if ms else None
+        except Exception as ex:  # noqa: BLE001 -- NOT marked done: the next run in the window retries this city
+            failed.append(series)
+            print(f"FETCH_FAIL {series} {ev}: {type(ex).__name__}: {str(ex)[:160]}")
+            continue
         if not ms:
             print(f"{series}: no open event {ev}")
             continue
-        fc = live_forecasts(*wx.station_coords(station), tz, tomorrow)
         vals = [v for v in fc.values() if v is not None]
         if len(vals) < 3:
             print(f"{series}: only {len(vals)} model forecasts; skipping")
@@ -132,7 +151,11 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
                 continue
             if log and m["ticker"] in seen:  # launchd catch-up after sleep must not double-log
                 continue
-            best, d1, d2 = book_depth(m["ticker"])
+            try:
+                best, d1, d2 = _retry(lambda: book_depth(m["ticker"]))
+            except Exception as ex:  # noqa: BLE001 -- keep the pick (the executor re-reads the live book anyway)
+                print(f"DEPTH_FAIL {m['ticker']}: {type(ex).__name__}")
+                best, d1, d2 = None, 0.0, 0.0
             picks.append({"logged_at": now.isoformat(timespec="seconds"), "city": series, "event": ev,
                           "cohort": "x1" if series in X1_CITIES else "orig7",
                           "ticker": m["ticker"], "strike_type": m.get("strike_type"), "floor": fl, "cap": ca,
@@ -149,6 +172,9 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
         print(f"PICK {p['ticker']}: buy NO @ {p['no_price']:.2f}  depth {p['depth_1c']:.0f} (1c) / "
               f"{p['depth_2c']:.0f} (2c) contracts  forecasts {p['forecasts']}")
     print(f"{len(picks)} picks " + (f"logged to {LOG}" if log else "(validation only, not logged)"))
+    if failed:
+        print(f"FETCH_FAIL {len(failed)} cities: {','.join(failed)} (retried next run while in the 22-23h window)")
+    return failed
 
 
 def cmd_settle():
@@ -180,8 +206,12 @@ def cmd_report():
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "report"
     if cmd == "tick":  # hourly from launchd: pick any city in its decision window, then settle (idempotent)
-        cmd_pick(due_only=True)
-        cmd_settle()
+        failed = cmd_pick(due_only=True)
+        try:
+            cmd_settle()
+        finally:
+            if failed:
+                sys.exit(3)  # run.log shows "exit 3" while any city-night in its window is still unevaluated
     elif cmd == "validate":  # today's open markets: exercises the live path, logs nothing
         cmd_pick(days_ahead=0, log=False)
     else:

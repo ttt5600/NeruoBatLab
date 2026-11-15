@@ -81,6 +81,7 @@ TIER_FRAC = {"orig7": 0.01, "x1": 0.005}            # notes/risk.md: share of ba
 NIGHT_FRAC, DAY_LOSS_FRAC, WEEK_LOSS_FRAC = 0.10, 0.05, 0.10
 RETRY_CODES = {429, 500, 502, 503, 504}
 ZERO_COST = ("no_fill", "rejected", "rejected_post_only", "not_placed")
+WEATHER_SHARD = 0  # exchange_index of every KXHIGH* market (GET /markets/{t}, verified 2026-11-15)
 MAKER_MAX_IMPROVE = 0.05                        # notes/kalshi_temp_maker.md: skip if NO ask - q > 5c
 MAKER_FREE_FEE_TYPES = ("quadratic",)           # General Trading Fees Table: no maker fee
 
@@ -382,8 +383,16 @@ class Kalshi:
         return (out.get("series") or {}).get("fee_type") if code == 200 else None
 
     # authenticated
-    def balance(self) -> float:
-        return float(self._ok(*self.request("GET", "/portfolio/balance"), "balance").get("balance_dollars", 0))
+    def balance(self, shard: int | None = None) -> float:
+        """Cash an order can use. Kalshi keeps cash PER exchange shard (market.exchange_index; weather = 0) and an
+        order only sees its own shard's cash. 2026-11-15: balance_dollars $604 but shard 0 $4.81 -> both orig7 24ct
+        maker orders rejected insufficient_balance (notes/e4_ops_diag.md). With `shard`, return that shard's cash
+        from balance_breakdown (0.0 if the shard is missing from a non-empty breakdown); else the account total."""
+        out = self._ok(*self.request("GET", "/portfolio/balance"), "balance")
+        bd = out.get("balance_breakdown") or []
+        if shard is not None and bd:
+            return next((float(x["balance"]) for x in bd if int(x.get("exchange_index", -1)) == shard), 0.0)
+        return float(out.get("balance_dollars", 0))
 
     def orders(self, ticker: str | None = None, status: str | None = None) -> list[dict]:
         p = {k: v for k, v in (("ticker", ticker), ("status", status)) if v}
@@ -579,6 +588,8 @@ def decide(p: dict, client: Kalshi, mode: str, cfg: dict, now: datetime, spent: 
         return {**rec, "status": "skip_rule_check"}
     if m is None:
         return {**rec, "status": "skip_no_market"}
+    if int(m.get("exchange_index") or WEATHER_SHARD) != WEATHER_SHARD:  # bal below is shard-0 cash only
+        return {**rec, "status": "skip_shard", "exchange_index": m.get("exchange_index")}
     if m.get("status") not in ("active", "open") or mins_left < cfg["min_close_min"]:
         return {**rec, "status": "skip_market_not_active", "market_status": m.get("status")}
     if not (ask == ask) or ask >= 1:
@@ -787,12 +798,15 @@ def cmd_run(argv: list[str] | None = None, client: Kalshi | None = None, now: da
         if not st.get("trading_active", False):
             print("exchange trading not active -> retry next run")
             return 0
-        bal = client.balance()
+        bal = client.balance(shard=WEATHER_SHARD)
     spent, opn = spend_and_open(state, now)
     for p in fresh:
         rec = decide(p, client, mode, cfg, now, spent, opn, bal)
         if rec["status"] != "go":
             append(rec)
+            if rec["status"] == "skip_balance":  # a pick lost to shard cash is never retried: say so once a day
+                notify_once(f"skipbal:{mode}:{now.date()}", f"Kalshi {mode} pick skipped: shard-{WEATHER_SHARD} cash",
+                            f"{p['ticker']}: shard {WEATHER_SHARD} cash ${bal:.2f}; fund shard {WEATHER_SHARD}", cfg)
         elif mode == "dry":
             rec = append({**rec, "status": "dry", "filled": rec["count"]})
         else:

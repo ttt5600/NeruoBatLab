@@ -37,6 +37,7 @@ class FakeExchange:
         self.positions = {}    # ticker -> position_fp (negative = NO)
         self.post_script = []  # queued responses / exceptions for POST create order
         self.balance = 1000.0
+        self.shards = None     # {exchange_index: cash} -> balance_breakdown; None = legacy response
         self.trading = True
         self.no_books = {}     # ticker -> [[no_bid_price, qty], ...]
         self.fee_type = "quadratic"
@@ -56,7 +57,10 @@ class FakeExchange:
             t = path.split("/")[2]
             return (200, {"market": self.markets[t]}) if t in self.markets else (404, {})
         if path == "/portfolio/balance":
-            return 200, {"balance": int(self.balance * 100), "balance_dollars": f"{self.balance:.4f}"}
+            out = {"balance": int(self.balance * 100), "balance_dollars": f"{self.balance:.4f}"}
+            if self.shards is not None:  # per-shard cash, as prod returns it since 2026-10
+                out["balance_breakdown"] = [{"balance": f"{v:.4f}", "exchange_index": k} for k, v in self.shards.items()]
+            return 200, out
         if path == "/portfolio/orders" and method == "GET":
             rows = [o for o in self.orders if (not params.get("ticker") or o["ticker"] == params["ticker"])
                     and (not params.get("status") or o["status"] == params["status"])]
@@ -717,3 +721,32 @@ def test_status_shows_style(root, capsys):
     kx.cmd_status(client=kx.Kalshi(kx.env(), "demo", transport=ex.send, sleep=lambda s: None), now=NOW)
     out = capsys.readouterr().out
     assert "exec style: maker" in out and "maker: 1 placed, 0 filled (0%), 1 resting" in out
+
+
+# ------------------------------------------------------------------------------------------- shard cash (e4_ops_diag)
+def test_sizes_against_shard0_cash_not_account_total(root):
+    """2026-11-15 05:03Z replay: total $604, shard 0 $4.81 -> both 24ct maker orders were POSTed and rejected
+    insufficient_balance. Now: sized to shard-0 cash (5 ct at 0.94 = $4.70), the second pick skip_balance + alert."""
+    T3 = "KXHIGHNY-26OCT22-T81"
+    picks = [_pick(T1, "KXHIGHNY", "orig7"), _pick(T3, "KXHIGHNY", "orig7", floor=81.0)]
+    ex = maker_setup(root, picks, env_lines=["KALSHI_MAX_CONTRACTS=24"])
+    ex.balance, ex.shards = 604.39, {0: 4.81, 1: 0.0, 2: 570.73, 3: 28.84}
+    run(root, ex)
+    st = orders_of(root)
+    assert [float(c[3]["count"]) for c in ex.posts()] == [5]   # floor(4.81 / 0.94)
+    assert st[T3]["status"] == "skip_balance" and not any(c[3]["ticker"] == T3 for c in ex.posts())
+    assert any("shard-0 cash" in t for t, _ in NOTES)
+
+
+def test_legacy_balance_without_breakdown_uses_total(root):
+    ex = maker_setup(root, [_pick(T1, "KXHIGHNY", "orig7")], env_lines=["KALSHI_MAX_CONTRACTS=24"])
+    ex.balance = 50.0
+    run(root, ex)
+    assert float(ex.posts()[0][3]["count"]) > 4
+
+
+def test_market_on_other_shard_is_skipped(root):
+    ex = setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    ex.markets[T1]["exchange_index"] = 2
+    run(root, ex)
+    assert orders_of(root)[T1]["status"] == "skip_shard" and not ex.posts()
