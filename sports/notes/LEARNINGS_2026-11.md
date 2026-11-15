@@ -138,6 +138,14 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### At our volume, statistics cannot certify small edges inside the mandate -- sizing rests on judgment within risk limits
+Bar review + calibration v1/v2 + critic (notes/bar_review.md, bar_calibration*.md): current edgelab rule is mis-specified
+for near-certain contracts (false-passes 96-98c placebos ~5x its bar at 0 losses; Sharpe/30%-share checks block real
+small edges). A calibrated forward SPRT (H1 loss ratio .70, alpha .005 -- month-level loss shocks inflate nominal .05 to
+.08) accepts an E1-sized edge in a median ~21-25 months and kills it 10-17%; a +2% sports edge cannot be accepted within
+12 months; only ~+5% at 200 bets/month does (median 14 mo). Forward-after-sealed-pass gives ~.011 false accepts/yr.
+Amendment text (user's call) in bar_calibration_v2.md.
+
 ### Net CLV cannot be certified as a primary statistic at our scale; keep ROI primary
 Kalshi close calibration vs outcomes: 95% half-width 3.3-8.5c per league (1.34c pooled) vs the 0.25c needed; ~50-70k games
 per league to certify. Kalshi close vs DK de-vigged close at the book line: pooled +0.01c [-0.07,+0.08] n711 (NBA +0.25,

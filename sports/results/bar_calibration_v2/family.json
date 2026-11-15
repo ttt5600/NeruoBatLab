@@ -1,0 +1,42 @@
+{
+ "window": "2026-11-02..(registry end)",
+ "forward_eval_events": 16,
+ "forward_trials": 11,
+ "forward_trials_by_family": {
+  "kalshi_weather_temp": 4,
+  "kalshi_data_ladders": 3,
+  "nba_totals": 1,
+  "nba_sides": 2,
+  "nba_props": 1
+ },
+ "sealed_evals": 7,
+ "sealed_by_family": {
+  "kalshi_weather_temp": 4,
+  "kalshi_data_ladders": 2,
+  "nba_sides": 1
+ },
+ "sealed_passes": [
+  "e1_taker-40389097",
+  "e4_maker_e1-f3f00f4d"
+ ],
+ "ever_forward_paper": [
+  "e4_maker_e1-f3f00f4d"
+ ],
+ "registered_since": 559,
+ "forward_evals_after_11-02_import": [
+  [
+   "e4_maker_e1-f3f00f4d",
+   "2026-11-10"
+  ]
+ ],
+ "note": "Nearly all 11-02 rows are the retroactive import of legacy trials; treat 11 forward starts/yr as the planning rate (upper: the import), not 11 per 13 days.",
+ "E_FA_no_charge": 0.55,
+ "E_FA_per_family_year_budget": 0.25,
+ "sealed_family_FWER_harmonic": {
+  "kalshi_weather_temp": 0.10416666666666669,
+  "kalshi_data_ladders": 0.07500000000000001,
+  "nba_sides": 0.05
+ },
+ "E_FA_sealed_gate": 0.011458333333333334,
+ "E_FA_sealed_gate_bonferroni_k": 0.0075000000000000015
+}
