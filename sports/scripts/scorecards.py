@@ -624,7 +624,7 @@ def opener_card(cid, title, path, settle_kind, clv_key, unit, rules, need_roi_pa
     return c
 
 
-def kx_card(cid: str, title: str, trial: str, rule_src: list, clv_key: str) -> Card:
+def kx_card(cid: str, title: str, trial: str, rule_src: list, clv_key: str, unit: str = " pts", job: str = "") -> Card:
     """Kalshi-execution forward paper (scripts/kx_forward.py -> data/kx_forward/<trial>.jsonl; ops_forward_wiring 11-13).
     P&L per contract at the logged ask + exact taker fee (100-ct fee / 100); risk = cost. Rule: judge at 100 settled
     (ROI > 0 one-sided p < .10 AND CLV > 0); kill ROI CI upper < 0 after 60 or CLV <= 0 after 100."""
@@ -633,7 +633,7 @@ def kx_card(cid: str, title: str, trial: str, rule_src: list, clv_key: str) -> C
         c.rule(r)
     p = SD / "kx_forward" / f"{trial}.jsonl"
     rows = jl(p)
-    key = "key" if trial == "k1" else ("event" if trial == "kcfb" else "bet_key")
+    key = "key" if trial in ("k1", "nhla") else ("event" if trial == "kcfb" else "bet_key")
     picks = {r[key]: r for r in rows if r.get("kind") == "pick"}
     st = {r[key]: r for r in rows if r.get("kind") == "settle"}
     bets = [v for v in picks.values() if v.get("status") == "bet"]
@@ -651,23 +651,23 @@ def kx_card(cid: str, title: str, trial: str, rule_src: list, clv_key: str) -> C
         clv.append(x.get(clv_key))
     disagree = sum(1 for _, x in s if x.get("kalshi_result") and x["kalshi_result"] != x.get("result"))
     c.lines.append(f"`{rel(p)}`: decisions {len(picks)} ({dict(status)}), bets {len(bets)}, settled {len(s)}, pending "
-                   f"{len(bets) - len(s)}; W-L-P {wl(won)}; {f_roi(pnl, risk)} at ask+fee; {f_clv(clv, ' pts')}; "
+                   f"{len(bets) - len(s)}; W-L-P {wl(won)}; {f_roi(pnl, risk)} at ask+fee; {f_clv(clv, unit)}; "
                    f"mean cost {np.mean(risk) if risk else float('nan'):.3f}; exchange result disagrees {disagree}")
     if not p.exists():
-        c.warn.append(f"{rel(p)} missing -- is launchd job kx-{trial if trial != 'k50nfl' else 'knfl'} running?")
+        c.warn.append(f"{rel(p)} missing -- is launchd job {job or 'kx-' + (trial if trial != 'k50nfl' else 'knfl')} running?")
     n = len(s)
     r, lo, hi = boot_roi(pnl, risk)
     m, clo, chi, nc = mean_ci(clv)
     if n >= 60 and np.isfinite(hi) and hi < 0:
         c.set("KILLED-by-rule", f"ROI CI upper {hi:+.1%} < 0 after {n}")
     elif nc >= 100 and m <= 0:
-        c.set("KILLED-by-rule", f"mean CLV {m:+.2f} pts <= 0 after {nc}")
+        c.set("KILLED-by-rule", f"mean CLV {m:+.2f}{unit} <= 0 after {nc}")
     elif n < MIN_N:
         c.set("too-early", f"{n} settled of 100 (judge) / 60 (ROI kill check)")
     elif (np.isfinite(hi) and hi < 0) or (np.isfinite(chi) and chi < 0):
-        c.set("near-kill", f"n {n}: ROI {r:+.1%} [{lo:+.1%}, {hi:+.1%}], CLV {m:+.2f} [{clo:+.2f}, {chi:+.2f}] pts")
+        c.set("near-kill", f"n {n}: ROI {r:+.1%} [{lo:+.1%}, {hi:+.1%}], CLV {m:+.2f} [{clo:+.2f}, {chi:+.2f}]{unit}")
     else:
-        c.set("alive", f"n {n}/100, ROI {r:+.1%}, CLV {m:+.2f} pts")
+        c.set("alive", f"n {n}/100, ROI {r:+.1%}, CLV {m:+.2f}{unit}")
     return c
 
 
@@ -776,6 +776,8 @@ def main(argv=None) -> int:
                      [rule_line(NOTES / "kalshi_openers_xleague.md", "Forward judge per rule")], "clv"),
              kx_card("K50-NFL", "L33 NFL models vs Kalshi's own ~50c strike (taker, forward paper)", "k50nfl",
                      [rule_line(NOTES / "k50_strike.md", "Judge: same as K-NFL")], "clv"),
+             kx_card("NHL-om-A", "xG/GSAx NHL totals model vs Kalshi first-tight 50c rung (taker, forward paper)", "nhla",
+                     [rule_line(NOTES / "nhl_opener_model.md", "Judge at 100 settled")], "clv_c", " c", "nhl-om-a"),
              card_lx1(),
              card_lock(run_sub)]
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")

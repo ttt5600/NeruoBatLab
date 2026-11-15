@@ -25,7 +25,7 @@ from ._common import AdapterError, date_range, empty_bets, qs_or_repo, read_json
 
 OUTCOME = {"kind": "result_side", "key": "bet_id"}
 HIDDEN = ["result", "kalshi_result"]
-KEY = {"k1": "key", "knfl": "bet_key", "kcfb": "event", "k50nfl": "bet_key"}
+KEY = {"k1": "key", "knfl": "bet_key", "kcfb": "event", "k50nfl": "bet_key", "nhla": "key"}
 CONTRACTS = 100.0
 
 

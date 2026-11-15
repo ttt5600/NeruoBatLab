@@ -274,6 +274,15 @@ datasets:
       dev: [2026-05-01, 2026-08-31]        # notes/consensus_reject_census.md before any price/outcome join
       sealed: [2026-09-01, 2026-11-08]
       forward: [2026-11-09, null]
+  kalshi_top_album:
+    loader: kalshi_top_album
+    family: kalshi_data_ladders
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = Thursday tracking-week end (chart date - 9 d); set 2026-11-15 in
+      dev: [2025-01-01, 2026-08-31]        # notes/billboard_top.md before any price/outcome join
+      sealed: [2026-09-01, 2026-11-08]
+      forward: [2026-11-09, null]
   fx_climate:
     loader: fx_climate
     family: kalshi_data_ladders

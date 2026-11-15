@@ -14,6 +14,8 @@
 #   digest      scripts/qs_digest.sh (09:00 / 23:30 PT via StartCalendarInterval)
 #   kx-k1 / kx-knfl / kx-kcfb / kx-openers / lx1   READ-ONLY Kalshi-execution paper trials + scanners (11-13,
 #               notes/ops_forward_wiring.md; installed by scripts/install_kx_forward_agents.sh)
+#   nhl-om-a / nhl-goalie   READ-ONLY NHL opener-model forward paper + goalie-confirmation logger (11-15,
+#               notes/ops_nhl_goalie.md; installed by scripts/install_nhl_agents.sh)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
 # root makes every job a no-op (scripts/qs_stop.sh). Paper only: none of these jobs place orders or read keys.
 # Exception by design (11-07): nhl-ingame and nfl-fade pipe their signals to ~/.claude/quant-kalshi/scripts/
@@ -115,6 +117,21 @@ case "$job" in
     fi
     if [ "$((10#$hm))" -ge 600 ] && ! done_today lx1_daily; then
       run scripts/lx1_arb_scan.py persist --hours 48 && run scripts/lx1_arb_scan.py report && echo "$d" > state/lx1_daily
+    fi ;;
+  # ---- ops_nhl_goalie (11-15, notes/ops_nhl_goalie.md): READ-ONLY; installed by scripts/install_nhl_agents.sh
+  nhl-om-a)     # NHL-om-A forward paper (nhl_om_a_kft-754cfc46): MoneyPuck refresh once a day from 05:00 PT (current
+                # season summaries re-pulled for new goalies), then decide/settle every run (launchd 1800 s, 24 h)
+    if [ "$((10#$hm))" -ge 500 ] && ! done_today nhl_mp; then
+      yr=$(date +%Y); [ "$(date +%m)" -lt 8 ] && yr=$((yr - 1))
+      rm -f results/nhl_opener_model/mp/summary_teams_$yr.csv results/nhl_opener_model/mp/summary_goalies_$yr.csv
+      run results/nhl_opener_model/fetch_mp.py --refresh && echo "$d" > state/nhl_mp
+    fi
+    run scripts/nhl_om_forward.py tick ;;
+  nhl-goalie)   # goalie-confirmation timestamps + Kalshi NHL ladder snapshots every 120 s; idle ticks only heartbeat
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/nhl_goalie_logger.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/nhl_goalie_heartbeat
+    if [ $rc -ne 0 ] || ! printf '%s' "$out" | grep -q ' idle: '; then
+      { echo "=== $(date '+%F %T %Z') $job"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
