@@ -1,0 +1,16 @@
+id: em1_ercot_pinned
+family: kalshi_data_ladders
+dataset: kalshi_ercot_monthly
+rule: edgelab.rules.forward:unwired
+hypothesis: 'EM1 ERCOT hub monthly RT average (KXERCOTHOUM/NORTHM/WESTM): at 10:00 CT with R<=5 days left, A = realized avg days 1..d-1; U = 1.25 x max past R-day rolling hub avg (windows before month start), L = min(past R-day min, 0) - 25; NO on rung K if (nA + nr U)/N <= K, YES if (nA + nr L)/N > K; taker at ask + exact fee, maker variant fill only if tape prints through. Dev certainty check 2012-2023: 0 losses / 5562 flags but only 1.83 flags per hub-month at R=5 (< 3 pre-registered) and certain side has no ask on the 2026-11-15 book (MM bids 94-95c, no sellers).'
+decision_time: 10:00 CT on day d of the month, R = days left in {5,3,2,1}
+price_model: mixed
+split: vault:kalshi_ercot_monthly
+min_n: 132
+kill:
+  kind: losses_in_first
+  n: 132
+  max_losses: 1
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent energy_monthly, notes/energy_monthly.md, results/energy_monthly/pin_backtest.py). Unwired; forward paper only. Economic kill: <= ~5.5 flagged rungs/month across 3 hubs -> < 66/yr even at 100% fill, below the 132 loss-free fills the market-null bar needs.'

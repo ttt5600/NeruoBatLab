@@ -152,6 +152,13 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### New Kalshi data/energy series arrive with a market maker already holding the certain side
+State AAA gas (KXAAAGASCD*, daily change in 1c buckets): ~700-900 ct quoted per level, far buckets NO at .99-1.00.
+ERCOT hub monthly averages (KXERCOT*M): late-month pinned-average rule 0 losses / 5,562 flagged rungs 2012-23, but the
+certain side is bid 94-95c and nobody sells (~0 fills/month). Econ-event ladders (16 KX*EVENT families, Pyth settlement):
+1/1,349 tradable quotes, single maker at 2/99. E4's stale tails were in an OLD neglected book; new series are seeded by
+makers. Re-check new series after makers thin out. Sources: notes/state_gas.md, energy_monthly.md, econ_event_ladders.md.
+
 ### Kalshi politics favourites at 60-85c are priced; edgelab mis-scores scalar settlements
 L22 (Le arXiv 2602.19520): T7 favourites 2026-07..11-15 -0.56% [-6.28,+5.07] n337/154 races (won 75.5% at 74.6c ask);
 T14 -9.26%; paper period -9.09%. Mid-price calibration slope 1.23 [1.08,1.42] (weak) vs paper 1.83 (trade-weighted);
