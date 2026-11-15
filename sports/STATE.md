@@ -1,6 +1,7 @@
-## 2026-11-15 (day summary, read first) -- BLOCKER: Kalshi cash is per shard; shard 0 (weather/NFL) $4.81 of $604 (~$570
-##   on shard 2 after a ~$500 BTC 15-min trade 11-13 not in any bot journal). E4/DUL/NHL skip until user runs
-##   `bet.py allocate 0=95 3=5 --confirm` (asked; no answer yet). Kalshi total $706.05 vs $731 net in.
+## 2026-11-15 12:12 PT RESOLVED (user yes): `bet.py allocate 0=95 3=5 --confirm` -> shard 0 $574.40, 3 $28.84, 2 $1.14
+##   (auto-rebalance ON). The 11-13 ~$500 BTC 15-min trade was the USER's (manual, not a bot). Note: shard 2 target 0% --
+##   user's own crypto trades may lack cash; offered 0=80 2=15 3=5. DUL missed the 1pm ET slate; LA@ARI + SNF still live.
+## 2026-11-15 (day summary) -- Kalshi cash is per shard (weather/NFL = 0). Kalshi total $706.05 vs $731 net in.
 ## FIXES DEPLOYED: pick logger retries/per-city isolation (lost 11-13/14 nights to open-meteo timeouts); executor sizes on
 ##   shard-0 cash; gap_logger whole-word matcher; L39 logger exclusions + coverage. PREPARED (default off, user yes):
 ##   X1 restart 6 ct + sub-cap + kill, E4 price-band caps, TSA yes-only live, edgelab SCORING_VERSION 2 (0 verdicts change).
