@@ -44,6 +44,14 @@ depth and AAA levels are not retroactive. Proposal: (1) no new launchd job now; 
 read-only kx_forward job with one 50-event snapshot/day at 14:00 UTC (top-of-book + depth, 250 GETs, ~90 s through
 kx_throttle) so a maker variant can be judged filled-vs-unfilled later; lead/user call.
 
+## Book logger LIVE (2026-11-15, ops_state_gas_book; notes/ops_state_gas_book.md)
+launchd `com.jonathanwang.quant-sports-state-gas-books` (qs_job.sh `state-gas-books`, scripts/state_gas_books.py, read-only,
+~100 throttled GETs/snapshot) snapshots every open KXAAAGASCD* book (5 buckets, full depth) twice a day: slot `am` = first run
+in [14:00,18:00) UTC, slot `close` = [02:15,03:05) ET -> ~/.claude/quant-sports/data/kx_forward/state_gas_books.jsonl.gz
+(pull: scripts/qs_sync.sh pull). First real snapshot 2026-11-15T16:32Z: 50/50 states, 250 markets, event 26NOV16.
+30-date FIT freeze: if all 50 states settle every day from 26NOV15, the 30th settlement date is **26DEC14** (~2026-12-14
+08:30 UTC); books cover 29 of those 30 FIT dates (26NOV16 on). The maker variant becomes judgeable on logged books from then.
+
 ## PRE-REGISTRATION (written 2026-11-15 before any Kalshi price was joined to any outcome)
 Question: does a state lag model beat the KXAAAGASCD* book on the daily change buckets after fees?
 - Data: all KXAAAGASCD* events. FIT window = first 30 distinct settlement dates on which >= 40 states settled

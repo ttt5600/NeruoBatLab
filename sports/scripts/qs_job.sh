@@ -149,6 +149,17 @@ case "$job" in
     done_today series_watch_done && exit 0
     export SW_NO_MIRROR=1 PYTHONUNBUFFERED=1   # never open ~/Desktop from launchd (TCC open() hangs)
     run scripts/series_watch.py run --date "$d" && echo "$d" > state/series_watch_done ;;
+  # ---- ops_state_gas_book (11-15, notes/ops_state_gas_book.md): READ-ONLY; installed by scripts/install_state_gas_books_agent.sh
+  state-gas-books)  # KXAAAGASCD* order books (all open state events, all 5 buckets, full depth), ~100 GETs/snapshot.
+                    # launchd every 900 s; slot am = first run in [14:00, 18:00) UTC, slot close = first run in
+                    # [02:15, 03:05) ET (events close ~03:15-03:40 ET when AAA prints). Once per slot per day.
+    ud=$(TZ=UTC date +%F); uhm=$(TZ=UTC date +%H%M); ed=$(TZ=America/New_York date +%F); ehm=$(TZ=America/New_York date +%H%M)
+    if [ "$((10#$uhm))" -ge 1400 ] && [ "$((10#$uhm))" -lt 1800 ] && [ "$(cat state/state_gas_am 2>/dev/null)" != "$ud" ]; then
+      run scripts/state_gas_books.py snap --slot am && echo "$ud" > state/state_gas_am
+    fi
+    if [ "$((10#$ehm))" -ge 215 ] && [ "$((10#$ehm))" -lt 305 ] && [ "$(cat state/state_gas_close 2>/dev/null)" != "$ed" ]; then
+      run scripts/state_gas_books.py snap --slot close && echo "$ed" > state/state_gas_close
+    fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;
