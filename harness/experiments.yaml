@@ -1036,6 +1036,10 @@ experiments:
     So the baseline arm is lr 1e-4. lr1e-4 seed 1 (40654079, step 93,635) scores 0.8356 (L7). Interim arm contrasts in
     seed_mean_pairs_cpu[_L3].json "<arm> | vanilla_lr1e4"; all 57 models vs vanilla in seed_pairs_cpu[_L3].json. Seed-2 order
     swapped 2026-11-05 (40654081 lr1e-4 s2 first, then 40654080 stock s2). Finding after 40654081.'
+  result_2026_11_15: 'DONE, finding 090 (critic ACCEPT-WITH-CHANGES). lr1e-4 s2 (40654081, final.ckpt at 93,750) 0.8420 (L5);
+    vanilla arm mean 0.8388. vs vanilla (birds+seeds): run16 -0.0067, run19 +0.0114, e13 +0.0138, e30 -0.0126, all n.d. at best
+    and L3. Not yet contrasted: run20, run29, randproj, DAPT groups. 40654080 (stock s2) still pending; cannot change the
+    baseline decision (stock s1 already failed).'
 - id: E37
   title: Random-label controls -- shuffled labels (negative control) and random-projection labels (BEST-RQ-style)
   roadmap: user request 2026-10-29 ("what if we swap with random labels? ... if we see similar results then that's
@@ -1071,3 +1075,6 @@ experiments:
   result_shuffle_2026_11_05: 'SHUFFLE DONE, finding 088: 0.6334 (L1), -0.2019 [-0.2364, -0.1664] vs run16, below 0.7186 ->
     "the pipeline is using its labels". Scored checkpoint step 72,709 of 93,750. RANDPROJ seed 1 (40654076) 0.8447 (L4);
     interim arm vs run16 +0.0126 [-0.0186, +0.0438] best, +0.0166 [-0.0179, +0.0511] L3; judged after 40654077.'
+  result_randproj_2026_11_15: 'RANDPROJ NOT MET, finding 092 (critic REJECT of first draft, rewritten). s2 (40654077) 0.8444
+    (L3). vs run16 n.d. (best +0.0125, L3 +0.0170); vs run23 best +0.0025 n.d., L3 +0.0186 [+0.0066, +0.0306] RESOLVED (randproj
+    above; df-1 seed term). Lesson: pre-register the seed variance for one-seed arms.'

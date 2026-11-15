@@ -1,0 +1,52 @@
+id: '091'
+title: An unweighted mean of out-of-fold probabilities from Whisper base, Whisper small and BirdAVES bioxn-large beats the best single encoder on 11-class call type (+0.017 board, +0.021 nested); feature concatenation does not resolve
+status: confirmed
+claim: 'On 11-class call type (board probe, leave-birds-out SGKF(5) seed 0, CPU, 48 birds), the pre-committed primary E1, the
+  unweighted mean of out-of-fold probabilities from Whisper base, Whisper small and BirdAVES bioxn-large, scores 0.8816 vs
+  whisper-base 0.8646 (the best of 70 single models on the board): +0.0170, Bonferroni (m=7) [+0.0019, +0.0300]. All five
+  pre-committed mean-ensembles resolve; feature concatenation does not (C1 +0.0067 [-0.0076, +0.0221]). With layers and the
+  comparator chosen inside each training fold (nested, no selection on test birds), E1 is +0.0211, Bonferroni [+0.0085, +0.0349].
+  At a fixed L3, E1 is +0.0106, 95% [+0.0004, +0.0194], and its Bonferroni interval crosses zero. Each ensemble beats its best
+  member on 10/10 fold splits (same birds, no interval). This contrasts with 033 (8-class, run11 + AVES, not distinguishable from
+  AVES), where the partner trailed by about 0.03. Post hoc: BirdAVES is a better partner for whisper-base than whisper-small
+  (+0.0138 [+0.0055, +0.0214]), but whether the gain needs members from different families is open: same-family pairs are
+  unresolved at board layers but resolved under nested selection.'
+evidence: 'zfeval/experiments/ensemble_tet/ensemble_calltype.json "primary": E1 0.8816 vs hf-whisper-base-enc 0.8646, +0.0170,
+  Bonferroni [+0.0019, +0.0300]; E2 (whisper-base + bioxn-large) +0.0164 [+0.0046, +0.0283]; E3 (whisper-base + run19_seed2)
+  +0.0167 [+0.0018, +0.0349]; E4 (all four) +0.0182 [+0.0026, +0.0360]; E5 (whisper-small + bioxn-large + run24_bioxnl12_s2) vs
+  whisper-small +0.0211 [+0.0065, +0.0339]; C1 +0.0067 [-0.0076, +0.0221]; C2 +0.0047 [-0.0134, +0.0210]. "secondary_L3": E1
+  +0.0106, 95% [+0.0004, +0.0194], Bonferroni [-0.0032, +0.0226]. "splits": every E beats its best member on 10/10 splits; E1
+  per-split +0.0144 to +0.0214. Nested layer selection (critic, zfeval/experiments/ensemble_tet/critic/nested_layer_selection.py,
+  inner 4-fold bird-grouped CV inside each outer training fold, comparator chosen the same way): E1 0.8746 vs 0.8535, +0.0211
+  [+0.0121, +0.0308], Bonferroni [+0.0085, +0.0349]; E2 Bonferroni [+0.0032, +0.0212]; E3 Bonferroni [+0.0046, +0.0406];
+  whisper-base + whisper-small +0.0123 [+0.0042, +0.0216]. ensemble_controls.json (post hoc, 95%): run16 3 seeds +0.0079
+  [-0.0030, +0.0187]; run19 2 seeds +0.0015; whisper-base + run16_seed2 +0.0073 [-0.0044, +0.0202]; whisper-base + HuBERT
+  +0.0059; whisper-base + whisper-small +0.0026 [-0.0078, +0.0136]. Error overlap (phi) 0.65 between the Whispers, about 0.50
+  between Whisper and AVES-family / our ZF models.'
+method: 'Candidates E1-E5 and C1-C2 and the kill rule were written in ensemble_tet/README.md and committed (2649db2, 00:30:09)
+  before any ensemble number was computed; results appended below the marker in c12f2aa (00:35:00) with no lines removed. Each
+  member at its CPU best layer reproduces calltype_cpu_rescore.json acc11_cpu exactly (asserted). Same SGKF(5) seed 0 folds for
+  all members (folds depend only on labels and birds); scaler + logistic regression fit inside each training fold; unweighted
+  mean of probabilities, no fitted weights or calibration. Paired bird bootstrap 2,000 resamples seed 0, observed differences.'
+provenance: 'branch zf-2026-11-15 (from worktree-agent-abfbebe41020c5b4e): zfeval/experiments/ensemble_tet/{README.md,
+  common.py, ensemble_calltype.py/.json/.log, ensemble_controls.py/.json/.log, critic/nested_layer_selection.py};
+  ~/zf_labelset/zf_detection_dataset_v1/features/ct11_<tag>_cpuemb.npy; analysis/calltype_cpu_rescore.json.'
+caveats: 'One split and one set of fixed checkpoints over 48 birds. E1 is downloads only, so recipe seed variance (079) does not
+  apply to it; it does to E3 and E5. Whisper-base is the best of 70 models at a layer chosen on this split (inflated about 0.008:
+  0.8646 board vs 0.8564 nested); the nested readout removes that, the fixed-L3 readout does not fully (L3 comparators for E2-E4
+  are handicapped). Controls K1-K5 were chosen after E1-E5 were seen and have 95% intervals only; "not resolved" is not zero.
+  Some nested fits printed sklearn matmul overflow warnings, judged harmless, not investigated. The ensemble costs 2-4 encoder
+  passes; it is a ceiling for frozen readouts, not a better single HuBERT, so it does not by itself meet the project goal.'
+lesson: 'Combining decisions from strong encoders that err differently buys more on call type than any single model change we have
+  tried (031 found the same on detection), while combining features does not. Our run19 is as good a partner for Whisper base as
+  BirdAVES-large (E3 +0.0167 vs E2 +0.0164), so our ZF model carries call-type information Whisper lacks. Before trusting a
+  board-best comparator, re-select its layer inside the training folds.'
+critic: 'ACCEPT-WITH-CHANGES (2026-11-15, fresh critic): must cite 033 and explain the difference; "needs different families" not
+  supported (cross-family K3/K4 unresolved; same-family pair resolves under nested selection) -> rewritten as open; added nested
+  layer-selection result. Checks passed: numbers, observed-vs-resample, pre-commit timing, fold identity, in-fold fitting.'
+tags:
+- ensemble
+- call-type
+- whisper
+- birdaves
+date: '2026-11-15'

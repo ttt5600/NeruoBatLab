@@ -1,0 +1,48 @@
+id: '090'
+title: Vanilla HuBERT (stock recipe, lr 1e-4) on our 116 h of zebra finch audio is not distinguishable from four from-scratch recipe arms (run16, run19, E13, E30) on call type (E36, two seeds); stock lr 5e-4 seed 1 collapsed
+status: confirmed
+claim: 'E36 baseline rule (pre-registered 2026-10-29): the stock arm counts as vanilla HuBERT only if BOTH stock-lr seeds learn.
+  Stock seed 1 (lr 5e-4) collapsed (masked accuracy 0.070 < 0.0849; 0.070 is a running total used as a proxy for "final", and
+  the loss ended at the label entropy, so the final value is plausibly lower), so the lr 1e-4 arm is the baseline; stock seed 2
+  is pending and cannot change that. Vanilla lr 1e-4 scores 0.8356 (L7) and 0.8420 (L5), arm mean 0.8388. Against it, with the
+  birds + seeds interval, none of four from-scratch recipe arms is distinguishable at the best layer or at layer 3: run16 (3
+  seeds) -0.0067 [-0.0321, +0.0187] / L3 -0.0080 [-0.0338, +0.0178]; run19 AVES labels (2) +0.0114 [-0.0048, +0.0277] / +0.0129
+  [-0.0069, +0.0326]; E13 BirdAVES-large labels (2) +0.0138 [-0.0026, +0.0302] / +0.0107 [-0.0073, +0.0287]; E30 log-mel (2)
+  -0.0126 [-0.0361, +0.0108] / -0.0127 [-0.0366, +0.0111]. 10-split arm-mean differences: run16 +0.0004, run19 +0.0119, E13
+  +0.0157, E30 -0.0084 (run16 changes sign vs the board split).'
+evidence: 'calltype_cpu_rescore.json: run31_vanilla_lr1e4 0.8356 (L7), L3 0.8285; run31_vanilla_lr1e4_s2 0.8420 (L5), L3 0.8411;
+  run31_vanilla (stock, seed 1, best-loss save step 23,405) 0.8277 (L1).
+  seed_mean_pairs_cpu.json and _L3.json, keys "run16 | vanilla_lr1e4", "run19 | vanilla_lr1e4", "e13 | vanilla_lr1e4",
+  "e30 | vanilla_lr1e4" (rewritten 2026-11-15 with both vanilla seeds). Crossed seed pairs (2x2, sharing the same two vanilla
+  seeds): run19 - vanilla +0.0103, +0.0038, +0.0191, +0.0126; e13 - vanilla +0.0158, +0.0094, +0.0182, +0.0117.
+  calltype_split_sensitivity_cpu.json 10-split means: vanilla 0.8231 / 0.8336; run16 0.8277 / 0.8248 / 0.8340; run19 0.8368 /
+  0.8438; e13 0.8445 / 0.8436; e30 0.8161 / 0.8238. Seed-1 interim: run19 +0.0147, e13 +0.0170 vs vanilla seed 1 alone.'
+method: 'torchaudio examples/hubert iteration-1 recipe on the 120 ZF files (116.03 h): k=100 k-means on 39-d MFCC
+  (relabel_mfcc_zfonly.sh, job 40631383), hubert_pretrain_base, mask 0.8/10, feature penalty 10, AdamW, warmup 32,000,
+  93,750 updates on 4 A40 (paid fc_birdpow). Jobs 40654078 (stock s1337), 40654079 (lr1e-4 s1337), 40654081 (lr1e-4 s2;
+  `max_steps=93750` reached, final.ckpt). Exported bit-identically, scored with harness/score_run.sh
+  (harness/logs/score_run31_vanilla_lr1e4_s2_20261115-002448.log; detection onward re-run after restoring preds_run11.npz).'
+provenance: '~/zf_labelset/zf_detection_dataset_v1/analysis/{calltype_cpu_rescore.json, seed_mean_pairs_cpu.json,
+  seed_mean_pairs_cpu_L3.json, calltype_split_sensitivity_cpu.json, seed_pairs_cpu.json}; savio_artifacts/logs/train_run31_vanilla_lr1e4_seed2_40654081.log.'
+caveats: 'OPEN, not covered: E36 says every model is compared with the baseline; not yet contrasted at arm level: run20, run29,
+  randproj, DAPT groups e19, bxl, aveso, v3aves, v3m8 (rough arm-mean gaps run20 -0.0085, run29 -0.0100, randproj +0.0057, no
+  intervals). Single-model pairs vs vanilla seed 1 (seed_pairs_cpu.json, birds only, no seed term, likely over-resolving): 9
+  resolve at best layer besides shuffle (bioxn-large +0.0234, whisper-base +0.0290, whisper-small, dapt5e5_step5000 +0.0211,
+  daptshort_5e5_step2500, daptv3aves_2e4s2, daptv3aves_2e4s2m8, run19_seed2 +0.0191, data2vec -0.0270), 13 at L3; so "how
+  much do our models gain over vanilla" is unanswered for the DAPT line. Power: about 0.03 resolves (2 seeds/arm: 43% power for
+  a true 0.02, zfeval/experiments/power). The AVES-family arms are positive in every crossed seed pair, but those pairs share
+  vanilla seeds, the two arms are correlated (089), and the grouping was made after seeing results: direction only, not a sign
+  test. Vanilla uses our hardware-forced batch and 93,750 updates, i.e. "vanilla recipe on our budget". "Does not train" rests on
+  one stock seed.'
+lesson: 'Among from-scratch label, front-end and teacher arms, none moves call type beyond what two seeds resolve; the learning
+  rate mattered for training stability (stock seed 1 collapsed, though its pre-collapse checkpoint still scores 0.8277). Ranking
+  further recipe arms needs a sharper test (more seeds, a pre-registered p(true) statistic) or new labelled birds.'
+critic: 'ACCEPT-WITH-CHANGES (2026-11-15, fresh critic): title scoped to four arms; uncontrasted arms and single-model resolutions
+  listed as open; false "10-split agrees in sign" sentence corrected (run16 flips); 8/8 reworded as direction only; running-total
+  proxy and one-seed basis stated; lesson scoped.'
+tags:
+- e36
+- vanilla
+- baseline
+- call-type
+date: '2026-11-15'

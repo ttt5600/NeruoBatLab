@@ -1,39 +1,39 @@
 # Lead state -- OVERWRITE every wake (<= 40 lines). Volatile facts only; history goes to pi_notes.md.
-Updated: 2026-11-07 (lead session_01EGDWEvYFd6zSmWQfUugJnH; per-call-type heatmap; jobs still queued)
-ON RESUME: read harness/ROADMAP.md and give the user, in under 15 lines: where we are, possible leads, next steps.
-Next: jobs 40654077/40654081 est. start 2026-11-13 (A40 queue, Priority); when done follow
-ROADMAP.md "Next steps" 1-3 (score finished jobs, E36 finding with both vanilla seeds, E37 randproj verdict).
+Updated: 2026-11-15 (lead session; E36/E37 judged, ensemble finding, power/data/design agents; branch zf-2026-11-15)
+ON RESUME: read harness/ROADMAP.md (updated 2026-11-15) and harness/designs_2026-11-15.md; give where we are / leads / next.
 
-## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS (data deleted locally 2026-10-22). Deliver visually.
-Call type is CPU ONLY (076). Model table: `python zfeval/experiments/our_models_table.py`.
-## LOOPS OFF (2026-10-21): no /loop, harness agent, escalation or auto-resume unless the user asks.
+## USER PRIORITY: ZF specialization judged on CALL TYPE; skip BEANS. Deliver visually. User wants A) more data B) other data
+## types C) better embeddings / model class / fine-tuning. Call type is CPU ONLY (076). LOOPS OFF.
 
-## In flight (paid A40, fc_birdpow; pending on a QoS cap shared with other FCA users, est. ~Nov 7)
-- 40654081 E36 lr1e-4 seed 2 (EXP temp_train_run31_vanilla_lr1e4_s2) -> 40654080 E36 stock seed 2 (temp_train_run31_vanilla_s2).
-- 40654077 E37 randproj seed 2 (temp_train_run37_randproj_s2). Exact score commands in ROADMAP.md.
+## Results 2026-11-15 (all in knowledge/findings, index rebuilt)
+- 090 E36: vanilla lr1e-4 2 seeds 0.8388; run16/run19/E13/E30 all n.d. vs vanilla. Scoped to 4 arms (DAPT, run20, run29 open).
+- 092 E37 randproj: NOT MET (L3 vs run23 resolved +0.0186, randproj above, df-1 seed term). Rule: pre-register one-seed sd.
+- 091 ensemble (confirmed): whisper-base+small+bioxn-large prob-mean 0.8816 vs 0.8646, +0.017 Bonf [+0.002,+0.030]; nested
+  +0.021 [+0.009,+0.035]. Code zfeval/experiments/ensemble_tet/. Concat n.d.
+- Power (zfeval/experiments/power, NOT critic-checked): mean p(true) 10-split resolves 14/66 vs acc 4/66; 0.01 unreachable at 48 birds.
+- Data scout: no other-lab ZF call-type labels exist; V33DA / D'Amelio identity sets; Rockefeller library (license unknown).
 
-## Latest results (analysis JSONs in ~/zf_labelset/zf_detection_dataset_v1/analysis)
-- 088 E37 shuffle: 0.6334, -0.2019 [-0.2364,-0.1664] vs run16 -> the pipeline uses its labels (scored at step 72,709).
-- 089 E13 bioxn-large labels vs run19: +0.0023 best / -0.0022 L3, not met, kill not fired; closed.
-- E36 interim (no finding yet): stock lr collapsed to the label prior; vanilla lr1e-4 seed 1 0.8356 = run16 0.8353. Arms vs
-  vanilla (seed_mean_pairs_cpu*.json "<arm> | vanilla_lr1e4"): run16 -0.0035, run19 +0.0147, E13 +0.0170, E30 -0.0094, all n.d.
-  57 models vs vanilla: forest_vs_run31_vanilla_lr1e4.json (zfeval/experiments/forest_vs_ref.py); Doc widget a557a9c6-097f.
-- E37 randproj s1 0.8447: vs run16 arm +0.0126 [-0.0186,+0.0438]; vs run23 +0.0026 [-0.0137,+0.0208].
-- Per call type (calltype_per_class_cpu.json, 34 models, "vs_vanilla"): Tet carries the model gaps; Doc heatmap 160dd46e-e837.
-- Roadmap: harness/ROADMAP.md (canonical) = Doc ba903e67 section "Roadmap" (https://claude.ai/artifact/Q3Bf46TNUyRHh8cZZEdH1M).
-  docs/roadmap.html (artifact K2NJhuv7hqnZj9FVBbwRo7) is frozen at Oct 17 and marked superseded.
+## In flight
+- 40654080 E36 stock seed 2, paid A40 PENDING (Resources), est. start 2026-11-16 23:36, ~860-1,500 SU. Pointless for the
+  E36 verdict -> ASKED USER: cancel / keep / move to lowprio. Do not act without the answer.
+
+## Credits (check_usage.sh, 2026-11-15 00:24)
+- fc_birdpow 7,688 / 300,000 SU used since 2026-06-17 (user is ~sole user). Since 10-28: 7,114 SU; A40 = 3.67 SU/CPU-h
+  (derived); zf A40 ~6,840, compete A40 ~270. savio_lowprio = 0 SU. a40_gpu3_normal QoS GrpTRES cpu=128,gpu=16 (BRC-set).
+- check_usage.sh lives at /global/home/groups/allhands/bin/check_usage.sh (not on PATH).
 
 ## Waiting on the user
-- `sv login`. Yes/no to deleting E13 relabel feat (~165 GB) and the 14 GB BEANS copy on Savio.
-- Next phase after E36: E36b, E31, E35, E32, run23 seed 2 (ROADMAP.md "Decisions"). Which lead session continues.
+- Goal scope: may the shipped model be non-HuBERT or an ensemble? Lock zf goal (sudo install.sh --lock).
+- Approve next steps from ROADMAP (1 prereg sharper test, 2 X1 frozen screen, 3 X2 fine-tune -- all free CPU first).
+- Savio cleanup yes/no (E13 feat ~165 GB, BEANS 14 GB). Merge branch zf-2026-11-15 into UMAP.
 
 ## Authorizations (unchanged)
-- fc_birdpow FCA for E36/E37 only ("as long as we're not chewing through it"); E13/E30-type runs on free savio_lowprio.
+- fc_birdpow FCA for E36/E37 only; anything else free savio_lowprio or Mac CPU unless the user says otherwise.
 
 ## Traps
-- score_run.sh prefers $CKDIR/final.ckpt and WARNS when the newest epoch=*-step=* is short of max_steps (2026-11-05).
-  Runs before pytorchAudio 1bc6d7ec have no final.ckpt; report their scored step. 1bc6d7ec is on Savio and GitHub.
-- Logged masked accuracy is a running total since process start; it cannot show the end state of a collapsed run.
-- Single seed pairs ignore seed noise (sd ~0.011); a one-seed arm's seed term is borrowed (df 1-2), so optimistic.
-- Teacher must be .eval(). calltype_split_sensitivity --only merges. Local tests: my_audio_env python (torch 2.2.2).
-- savio_artifacts/analysis/*.json are scorer copies left uncommitted on purpose; the canonical JSONs live in ~/zf_labelset/.../analysis.
+- 2026-11-10 disk cleanup moved idle detvar files to Savio (same path under /global/scratch/users/jonathanswang);
+  detection_variants.py needs features/detvar/preds_run11.npz (restored 2026-11-15). Restore others with rsync if a scorer dies.
+- Worktrees lack untracked label files: run zfeval scripts from the MAIN checkout path (collect() returns 0 rows otherwise).
+- calltype_split_sensitivity.py parses argv by hand: never pass --help (it starts a full run).
+- score_run.sh prefers final.ckpt; seed_mean_pairs_cpu.py appends to shared JSONs. Teacher must be .eval().
+- Single-seed comparators borrow the other arm's seed sd (df 1): pre-register the sd to use.
