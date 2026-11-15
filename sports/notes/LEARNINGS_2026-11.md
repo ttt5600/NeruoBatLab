@@ -138,6 +138,13 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### Crypto daily tails vs Deribit options: a lead (critic pending); maker and stale-input index versions fail
+OT1 (11:00 ET, Deribit-implied tail <= 10%, Kalshi >= 3c richer after fee, take the other side at ask+fee): dev n387 / 195
+crypto-days +4.60% [+1.07,+7.62] p .0058 (bar 1.04e-3), both halves +, CLV +2.9c, monotone in gap (-6.9 .. +11.5%),
+options Brier .04568 < Kalshi .04617; 2025 Q3-Q4 negative; spreads narrowed 3-5c -> 1c. Maker variants adversely
+selected (filled won 88.4% vs unfilled 99.8%). Index arm failed: model input (10:30) older than the quote (11:00) --
+inputs must be at least as fresh as the market. Deribit history via history.deribit.com. Source: notes/options_implied_tails.md.
+
 ### Kalshi rules differ from books in golf ties and cricket no-results, but prices follow Kalshi's rules
 4,750 open series classified: sports totals/spreads match books (OT counted; NHL shootout = 1 goal). Golf top-N pays every
 tied player $1 (top-10 pays 1.147 [1.105,1.191] x N), yet the field's prices sum to 11.08 vs 11.45 paid (n.s.); buy YES at
