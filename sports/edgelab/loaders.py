@@ -589,3 +589,19 @@ def kalshi_longdated_tail():
 
 
 LOADERS["kalshi_longdated_tail"] = kalshi_longdated_tail
+
+# ------------------------------------------------------------------ KXALBUMEQUIV vs HDD chart vintages (scripts/album_units.py)
+def kalshi_album_units():
+    """scripts/album_units.py selected(): consensus-rejected (market, stage) rows on inputs only + hourly candles."""
+    _imp_scripts()
+    import album_units as A
+    D = DATA / "consensus_reject_census"
+    x = A.selected(pd.read_parquet(D / "au_frame.parquet"))
+    x = x[x.result.isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["wend"])
+    x.attrs["candles"] = json.loads((D / "au_candles.json").read_text())
+    return x.reset_index(drop=True), [str(D / "au_frame.parquet"), str(D / "hdd_charts_all.json"),
+                                      str(D / "au_candles.json")]
+
+
+LOADERS["kalshi_album_units"] = kalshi_album_units

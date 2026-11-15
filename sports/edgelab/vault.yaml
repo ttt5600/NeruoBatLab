@@ -265,6 +265,15 @@ datasets:
       dev: [2026-04-01, 2026-09-02]        # history / quote / tape / outcome pull
       sealed: [2026-09-09, 2026-11-04]
       forward: [2026-11-11, null]
+  kalshi_album_units:
+    loader: kalshi_album_units
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = Thursday tracking-week end; set 2026-11-15 in
+      dev: [2026-05-01, 2026-08-31]        # notes/consensus_reject_census.md before any price/outcome join
+      sealed: [2026-09-01, 2026-11-08]
+      forward: [2026-11-09, null]
   fx_climate:
     loader: fx_climate
     family: kalshi_data_ladders
@@ -381,3 +390,14 @@ datasets:
       forward: [2026-11-12, null]
     forward_adapters:
       kcfb_l36_kalshi_taker: {module: edgelab.adapters.kx_fwd, params: {trial: kcfb}}
+  kalshi_openers_nhl:     # ops_nhl_goalie 11-15: forward only (dev = notes/nhl_opener_model.md, outside the vault)
+    loader: kx_forward_adapter_only
+    family: nhl_lines
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:
+      dev: null
+      sealed: null
+      forward: [2026-11-15, null]
+    forward_adapters:
+      nhl_om_a_kft: {module: edgelab.adapters.kx_fwd, params: {trial: nhla}}

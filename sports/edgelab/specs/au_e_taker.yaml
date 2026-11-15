@@ -1,0 +1,17 @@
+id: au_e_taker
+family: kalshi_data_ladders
+dataset: kalshi_album_units
+rule: edgelab.rules.album_units:early_taker
+hypothesis: 'AU-E-T: Kalshi KXALBUMEQUIV first-week album units. Wednesday 12:00Z inside the Fri..Thu week, F = HitsDailyDouble
+  midweek-20 projection (Sanity doc _updatedAt < T). NO on rungs K >= 1.30 F (or >= 1.30 x the #20 value when the album is
+  absent from the full top 20), YES on K <= F/1.30; taker at ask + fee, ask <= 0.98. Public projection vs retail fan book.'
+decision_time: Wednesday 12:00Z of the tracking week
+price_model: taker
+split: vault:kalshi_album_units
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (notes/consensus_reject_census.md AMENDMENT 1; data gate early PASS 0.963 within 30%)'

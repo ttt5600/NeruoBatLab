@@ -138,6 +138,13 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### A great public forecast is no edge when the book is made from the same forecast
+Census 11-15: only KXALBUMEQUIV (album first-week units, 95 settled) has a public timestamped forecast (HitsDailyDouble
+midweek). Early rule picked 333 dev brackets, 0 losses -- but our side's ask was > .99 on 300/319, so 7 bets (< min 30).
+Box office not listed on Kalshi; app rank / streams have no forecast; air quality / Lake Mead / snow too few events.
+E4 works because weather tails are stale (no one re-prices them); album brackets are priced by forecast readers.
+Source: notes/consensus_reject_census.md.
+
 ### NHL opener model on Kalshi: real CLV, below taker cost; goalie news is priced 6-12 h before puck drop
 nhl_om_a (k .40 goals, Kalshi 50c rung at first tight ~32 h out, 5.6 h before Pinnacle): n38 ROI +5.8% [-25.6,+37.2];
 CLV +1.67c [+0.75,+2.67] vs 2.5c over-mid cost -> ~-0.9c/contract expected. Placebo moves 0.04 of gap vs model 0.34.

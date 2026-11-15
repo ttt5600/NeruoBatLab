@@ -1,0 +1,16 @@
+id: nfl_wxupd_t1_taker
+family: nfl_lines
+dataset: nfl_wx_updates
+rule: edgelab.rules.forward:unwired
+hypothesis: 'Outdoor NFL games: first large as-issued forecast change for the kickoff window between consecutive same-model runs (IEM NBS 01/07/13/19Z public +1.5h, GFS MAV public +4h; |dWind|>=5 mph with max>=12, or |dPoP06|>=30 with max>=40; public time in [KO-72h, KO-20m]). At public+5 min buy KXNFLTOTAL side favoured by the update (wind/precip up -> NO, down -> YES) at the strike whose side ask is nearest 50c, 1-min candle ask + 0.07p(1-p). Metric net CLV = side mid at last valid pre-KO quote - ask - fee; ROI to settlement. Prereg notes/nfl_wx_updates.md (2026-11-15).'
+decision_time: 'forecast public time + 5 min'
+price_model: taker
+split: dev 2025 season + 2026 KO < 2026-11-01 / holdout 2026 KO >= 2026-11-01
+min_n: 20
+kill:
+  kind: clv_negative_significant
+  after_n: 20
+  p: 0.05
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (agent nfl_wx_updates). Dev scored in scripts/nfl_wx_updates.py; PASS = n>=20, mean net CLV 95% game-bootstrap CI lower > 0 AND ROI CI lower > 0; KILL = mean net CLV <= 0 or n < 20.'

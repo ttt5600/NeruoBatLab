@@ -1,0 +1,17 @@
+id: au_l_maker
+family: kalshi_data_ladders
+dataset: kalshi_album_units
+rule: edgelab.rules.album_units:late_taker
+hypothesis: 'AU-L-M: maker variant of AU-L-T (q = floor_cent(min(mid, ask-1c)), fill iff a later trade prints through q, fee 0).
+  Registered only so the family bar counts it: DIED AT THE SAME PRE-REGISTERED DATA GATE as AU-L-T (0.864 < 0.90); the
+  maker pricing was never implemented in edgelab (rule points at the taker selection) -> retire without scoring.'
+decision_time: Saturday 12:00Z after the tracking week
+price_model: maker_tape
+split: vault:kalshi_album_units
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (notes/consensus_reject_census.md AMENDMENT 1); data gate FAIL'

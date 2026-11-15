@@ -1,0 +1,17 @@
+id: au_l_taker
+family: kalshi_data_ladders
+dataset: kalshi_album_units
+rule: edgelab.rules.album_units:late_taker
+hypothesis: 'AU-L-T: KXALBUMEQUIV, Saturday 12:00Z after the tracking week, F = HDD hits-top-50 (Friday), NO K >= 1.15 F / 1.15 U50,
+  YES K <= F/1.15, taker ask <= 0.98. Maker variant AU-L-M counted under this trial. DIED AT PRE-REGISTERED DATA GATE
+  (top-50 within 10% of Luminate on 0.864 < 0.90 of dev albums) -> retire without scoring.'
+decision_time: Saturday 12:00Z after the tracking week
+price_model: taker
+split: vault:kalshi_album_units
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-15 (notes/consensus_reject_census.md AMENDMENT 1); data gate FAIL'
