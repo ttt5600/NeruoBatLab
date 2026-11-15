@@ -138,6 +138,12 @@ K50 (buy at Kalshi's ~50c strike): cost ~0.53, CLV vs the strike bought NBA +0.8
 observed -2.2%. Earlier CLV (+1.37/+1.49) partly measured Kalshi's own move off the book opener, already in its price.
 Ladder-optimal strike picking fails by design (model-as-truth chases cheap far strikes). Source: notes/k50_strike.md.
 
+### NHL opener model on Kalshi: real CLV, below taker cost; goalie news is priced 6-12 h before puck drop
+nhl_om_a (k .40 goals, Kalshi 50c rung at first tight ~32 h out, 5.6 h before Pinnacle): n38 ROI +5.8% [-25.6,+37.2];
+CLV +1.67c [+0.75,+2.67] vs 2.5c over-mid cost -> ~-0.9c/contract expected. Placebo moves 0.04 of gap vs model 0.34.
+Goalie trial at tip-60 min (actual starter): CLV +0.10c n36 -- Kalshi prices the confirmed starter 12-6 h before tip, so
+any goalie edge needs confirmation timestamps (logger being built). Source: notes/nhl_opener_model.md.
+
 ### No free real-time sharp feed from California; cheapest reseller ~$99/mo
 Pinnacle API closed to the public 2025-07-23 and refuses US customers; Betfair bars US residents; The Odds API's Pinnacle
 odds come from the public website with delay (would repeat the stale-feed failure). Cheapest real-time: pinnapi reseller

@@ -1,0 +1,16 @@
+id: nhl_om_a_kft
+family: nhl_lines
+dataset: kalshi_openers_nhl
+hypothesis: 'nhl_opener_model (notes/nhl_opener_model.md, pre-registered 2026-11-15 before any outcome). De-biased MoneyPuck xG + goalie GSAx + b2b NHL totals model, ladder median m; c = trailing mean(m - Kalshi ladder median) over prior 100 test games (>=30); g = m - c - L_K(T); bet |g| >= 0.40 goals, buy S50 rung (mid nearest 50c) on our side at ask + exact taker fee; graded by Kalshi result; CLV = Kalshi close mid of the bought rung - entry mid.'
+decision_time: Kalshi first-tight hour (anchor <=4c), >=2 h pre-tip; projected goalie (last-10 start shares)
+split: vault:kalshi_openers_nhl
+legacy: new 2026-11-15 (agent nhl_opener_model). Test = 2026-27 Kalshi games 10-07..11-14 (nothing tuned on it). PASS only if ROI p < family bar AND CLV > 0; GO forward if ROI>0, CLV>0, n>=30; kill ROI CI upper < 0 or CLV <= 0 with n >= 40.
+rule: edgelab.rules.forward:unwired
+price_model: taker
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
