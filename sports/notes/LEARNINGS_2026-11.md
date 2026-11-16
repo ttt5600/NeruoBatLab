@@ -152,6 +152,12 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### OT1's options-implied rule does not extend to other crypto ladders; Kalshi tails are only 1-2c rich
+Range brackets (KXBTC/KXETH) n206 +0.07% [-4.51,+4.22]; Friday events 1-4 days ahead n73 +0.43% (< min n; since 2025-07
+-1.7%); SOL 0 bets (Deribit SOL smile on 71/465 days). Calibration n867: implied .073 / Kalshi mid .087 / realised .073 --
+the richness is eaten by spread + fee. Monthly max/min ladders are one-touch barriers (different model) -> forward-only
+trial being built. Source: notes/ot1_extension.md.
+
 ### Other E4 decision times add no independent capacity; 06:00 add-size on filled brackets is a forward-only lead
 Daily-high markets list at 10:00 ET on D-1 (D-2 impossible). D-1 10:00 (4F margin fixed from error climatology): pooled
 taker +11.1u p .047 / maker +14.8u p .0125 but brackets not also picked at 22:00 lose (-1.7u/206); orig-7 alone +0.94% p .31

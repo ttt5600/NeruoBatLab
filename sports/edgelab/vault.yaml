@@ -494,6 +494,17 @@ datasets:
     splits:                                # = kalshi_temp_e1 windows; E1 sealed rows never built (builder drops >= 2025-07-01)
       dev: [2021-07-01, 2025-06-30]
       sealed: [2025-07-01, 2026-10-06]     # not built; would need the user's yes
+  kalshi_temp_e4_0600:    # ops_e4_0600 11-16: forward-only paper; 06:00-D add-on maker NO bid on orig-7 E4 brackets whose LIVE
+    loader: kx_forward_adapter_only   # 22:00 order already filled (prereg notes/ops_e4_0600.md; dev = notes/e4_timing.md T06D)
+    family: kalshi_weather_temp
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:                                # date = event day D; in-play decision (event_start = market close)
+      dev: null
+      sealed: null
+      forward: [2026-11-16, null]
+    forward_adapters:
+      e4t_0600_addon_fwd: {module: edgelab.adapters.e4_0600_fwd, params: {}}
   kalshi_temp_prob:       # e4_probabilistic 11-16: E4 + calibrated P(hit) NEW picks at 22:00; prereg notes/e4_probabilistic.md
     loader: kalshi_temp_prob
     family: kalshi_weather_temp

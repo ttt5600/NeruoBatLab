@@ -1,0 +1,22 @@
+id: e4t_0600_addon_fwd
+family: kalshi_weather_temp
+dataset: kalshi_temp_e4_0600
+rule: edgelab.rules.forward:unwired
+hypothesis: 'E4 06:00-D add-on (forward-only paper; lead from notes/e4_timing.md T06D add-on: dev +11.2u [-0.5,+22.4] p .031,
+  FAILED that prereg -> forward lead only). At 06:00-06:40 station-local on event day D, for every orig-7 E4 pick whose LIVE
+  22:00 D-1 maker order shows status filled in the executor journal at decision time, a hypothetical post-only NO bid at
+  q = min(cent_floor(NO mid), NO ask - 1c) (skip if ask - q > 5c), resting to close; filled iff a public print at no_price
+  < q after posting (trade-through). Logged by scripts/e4_0600_paper.py, scored via edgelab/adapters/e4_0600_fwd.py.
+  Forward judge (prereg notes/ops_e4_0600.md): SPRT per bar_calibration_v2 (H1 0.70 x break-even loss, alpha .005,
+  beta .10) + exact Poisson-binomial loss count vs break-even at 60 fills (then 120). Failed dev -> cannot self-promote.'
+decision_time: '06:00-06:40 station-local on D (IN-PLAY: event_start = market close, edgelab in-play convention)'
+price_model: maker_tape
+split: vault:kalshi_temp_e4_0600
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+  contracts_per_order: 1
+legacy: 'new 2026-11-16 (agent ops_e4_0600). Forward only; registered before the first 06:00 decision (11:00Z).'
