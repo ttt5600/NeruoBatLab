@@ -1,0 +1,18 @@
+id: sd2_snowdays_conditional_taker
+family: kalshi_weather_precip
+dataset: kalshi_snow_markets
+rule: edgelab.rules.forward:unwired
+hypothesis: 'SD2 (forward-only paper; prereg notes/snow_markets.md). KXSNOWDAYS in-season L39-like conditional value: on day
+  d (Dec 2..Mar 31) N_obs = qualifying ACIS days Dec1..d-1 (any missing -> skip), FV_d = mean over 1996-97..2025-26 of
+  payout(N_obs + R_s), R_s = qualifying days d..Apr1 in season s. Same taker rule/margin .10 as SD1; first fire per city-side
+  after Dec 1. Sub-rule SD2p logged: N_obs >= cap (payout certain 1).'
+decision_time: 'daily logger run (UTC), 2026-12-02..2027-03-31; in-play'
+price_model: taker
+split: vault:kalshi_snow_markets
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent snow_markets). Registered before the season starts.'

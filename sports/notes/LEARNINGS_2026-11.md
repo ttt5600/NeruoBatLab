@@ -152,6 +152,12 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### Check which climate baseline the market uses: Kalshi's snow-days maker prices the recent low-snow decade
+KXSNOWDAYS (scalar, Dec 1-Apr 1, >= 1.0 in for snowy cities / 0.1 in elsewhere): vs 30-winter climatology our values sit
++.085 above mid (5 YES 'signals'), vs the last 10 winters only +.006 -> the signals are one correlated bet on a snowier
+winter, not mispricing. Thanksgiving snow (trace = YES): ECMWF-ENS 50/50 with trace climatology inside the 3-20c spreads.
+Forward-only trials TG1/SD1/SD2 registered. Source: notes/snow_markets.md.
+
 ### Kalshi NYC hourly temperature settles on a proprietary 8-station index the market sees and we can only approximate
 KXTEMPNYCHS (= HT1's series, not new): index = per-minute average of 8 ASOS airports with weekly station offsets; our rebuild
 misses it by ~0.5F sd, as much as 26 min of temperature change. Dev 488 events: taker n80 +5.1% [-7.8,+18.8] (picks lost 13.8%

@@ -528,6 +528,15 @@ datasets:
       # crypto_barrier_v2 11-16: CB2 smile barrier / CB3 MAX-rung NO, same snapshot (prereg notes/crypto_barrier_v2.md)
       cb2_crypto_barrier_smile_taker: {module: edgelab.adapters.crypto_barrier_v2_fwd, params: {rule: CB2}}
       cb3_crypto_max_no_taker: {module: edgelab.adapters.crypto_barrier_v2_fwd, params: {rule: CB3}}
+  kalshi_snow_markets:    # snow_markets 11-16: KXSNOWTHANKSGIVING (TG1) + KXSNOWDAYS scalar (SD1 pre-season, SD2 in-season)
+    loader: kx_forward_adapter_only   # FORWARD ONLY, no Kalshi history (prereg notes/snow_markets.md); logger scripts/snow_markets.py log
+    family: kalshi_weather_precip
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:                                # date = UTC decision date; rule = edgelab.rules.forward:unwired until an adapter exists
+      dev: null
+      sealed: null
+      forward: [2026-11-16, null]
   kalshi_temp_e4p_fwd:    # ops_e4p_forward 11-16: forward-only paper; E4 probabilistic rule C / C-agree maker NO bids on NEW
     loader: kx_forward_adapter_only   # brackets at 22:00 D-1 (prereg notes/ops_e4p_forward.md; dev = notes/e4_probabilistic.md)
     family: kalshi_weather_temp

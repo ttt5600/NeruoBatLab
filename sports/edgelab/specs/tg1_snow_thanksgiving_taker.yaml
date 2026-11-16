@@ -1,0 +1,19 @@
+id: tg1_snow_thanksgiving_taker
+family: kalshi_weather_precip
+dataset: kalshi_snow_markets
+rule: edgelab.rules.forward:unwired
+hypothesis: 'TG1 (forward-only paper, ONE event; prereg notes/snow_markets.md). KXSNOWTHANKSGIVING-26NOV26, 21 cities, YES iff
+  new snow > 0 incl. TRACE on 2026-11-26 (station LST day). P = w E + (1-w) C; E = share of Open-Meteo GEFS(gfs025)+ECMWF-ENS
+  (ecmwf_ifs025) members with LST-day snowfall > 0 at the ACIS station ll; C = ACIS share of days Nov19..Dec3 1991-2025 with
+  snow >= T; w = .5 lead>=7, .75 lead 3-6, .9 lead<=2. Daily snapshot (scripts/snow_markets.py log). Taker: YES if
+  P - ya - .07ya(1-ya) >= .10; NO if (1-P) - na - fee >= .10, na = 1 - yb. First fire per ticker-side. Not a test.'
+decision_time: 'daily logger run (UTC), 2026-11-16..2026-11-26; pre-event'
+price_model: taker
+split: vault:kalshi_snow_markets
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent snow_markets). Forward only; registered after the first snapshot (0 fires) and before any outcome.'

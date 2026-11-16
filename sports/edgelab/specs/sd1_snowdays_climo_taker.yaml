@@ -1,0 +1,19 @@
+id: sd1_snowdays_climo_taker
+family: kalshi_weather_precip
+dataset: kalshi_snow_markets
+rule: edgelab.rules.forward:unwired
+hypothesis: 'SD1 (forward-only paper, ONE season; prereg notes/snow_markets.md). KXSNOWDAYS-01DEC26-01APR27 scalar markets
+  (22 cities; YES = floor_cent(clip((N - floor)/(cap - floor))), N = days Dec1..Apr1 with ACIS snow >= city threshold 0.1 or
+  1.0 in, EST day). FV = mean payout over ACIS seasons 1996-97..2025-26 (season dropped if > 5 missing days; >= 25 seasons
+  else skip). Taker YES if FV - ya - fee >= .10, NO if (1-FV) - (1-yb) - fee >= .10, fee .07p(1-p); pre-season daily snapshot
+  until Dec 1, first fire per city-side. 22 cities share one winter -> one draw; observation only.'
+decision_time: 'daily logger run (UTC), 2026-11-16..2026-12-01; pre-season'
+price_model: taker
+split: vault:kalshi_snow_markets
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent snow_markets). Registered AFTER the first snapshot was logged (5 YES fires: DTW NASH MSP BOS IND) but before any outcome; season starts 12-01.'
