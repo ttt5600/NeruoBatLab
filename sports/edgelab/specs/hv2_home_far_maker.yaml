@@ -1,0 +1,18 @@
+id: hv2_home_far_maker
+family: kalshi_data_ladders
+dataset: kalshi_home_values
+rule: edgelab.rules.forward:unwired
+hypothesis: 'HV2 (forward-only paper; prereg notes/home_values.md incl. amendment A1). Same N0 side selection as HV1
+  (p >= .95 YES / p <= .05 NO, h <= 2). Post-only bid q = min(floor(side mid), side ask - 1c) in [.50,.97], spread <=
+  15c; filled iff >= 10 contracts print at side price <= q before close; unfilled = no bet; maker fee 0; hold.'
+decision_time: 'logger tick (daily 15:00 UTC) while the target month value is unpublished; pre-event'
+price_model: maker_tape
+split: vault:kalshi_home_values
+min_n: 40
+kill:
+  kind: losses_in_first
+  n: 20
+  max_losses: 2
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent home_values). Forward only; registered before any logger tick; fee_type quadratic (maker 0).'

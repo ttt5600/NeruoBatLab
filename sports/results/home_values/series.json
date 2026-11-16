@@ -1,0 +1,704 @@
+[
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-12T23:48:31.961875Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Austin, TX)",
+    "url": "https://www.zillow.com/home-values/10221/austin-tx/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXAUSHOME",
+  "title": "Austin home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.612789Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Chicago, IL)",
+    "url": "https://www.zillow.com/home-values/17426/chicago-il/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXCHIHOME",
+  "title": "Chicago home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.51196Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   },
+   {
+    "name": "Zillow (New York, NY)",
+    "url": "https://www.zillow.com/home-values/6181/new-york-ny/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXNYCHOME",
+  "title": "NYC home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-13T00:05:40.408916Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Seattle, WA)",
+    "url": "https://www.zillow.com/home-values/16037/seattle-wa/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXSEAHOME",
+  "title": "Seattle home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.499389Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Phoenix, AZ)",
+    "url": "https://www.zillow.com/home-values/40326/phoenix-az/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXPHXHOME",
+  "title": "Phoenix home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.461939Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   },
+   {
+    "name": "Zillow (Venice, Los Angeles, CA)",
+    "url": "https://www.zillow.com/home-values/21056/venice-los-angeles-ca/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXVENICEHOME",
+  "title": "Venice home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.476565Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (San Diego, CA)",
+    "url": "https://www.zillow.com/home-values/54296/san-diego-ca/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXSDHOME",
+  "title": "San Diego home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.487914Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Pacific Palisades, Los Angeles, CA)",
+    "url": "https://www.zillow.com/home-values/19810/pacific-palisades-los-angeles-ca/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXPALISADESHOME",
+  "title": "Pacific Palisades home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.570673Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   },
+   {
+    "name": "Zillow (Santa Monica, CA)",
+    "url": "https://www.zillow.com/home-values/26964/santa-monica-ca/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXSANTAMONICAHOME",
+  "title": "Santa Monica home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-12T23:43:12.542808Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Miami, FL)",
+    "url": "https://www.zillow.com/home-values/12700/miami-fl/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXMIAHOME",
+  "title": "Miami home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-12T23:48:27.325855Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   },
+   {
+    "name": "Zillow (Jersey City, NJ)",
+    "url": "https://www.zillow.com/home-values/25320/jersey-city-nj/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXJCHOME",
+  "title": "Jersey City home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.547054Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Hoboken, NJ)",
+    "url": "https://www.zillow.com/home-values/25146/hoboken-nj/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXHOBHOME",
+  "title": "Hoboken home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.625992Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Philadelphia, PA)",
+    "url": "https://www.zillow.com/home-values/13271/philadelphia-pa/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXPHLHOME",
+  "title": "Philly home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.595899Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Los Angeles, CA)",
+    "url": "https://www.zillow.com/home-values/12447/los-angeles-ca/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXLAHOME",
+  "title": "LA home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:18:22.848299Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Memphis, TN)",
+    "url": "https://www.zillow.com/home-values/32811/memphis-tn/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXMEMHOME",
+  "title": "Memphis home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-12T23:48:20.204335Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Dallas, TX)",
+    "url": "https://www.zillow.com/home-values/38128/dallas-tx/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXDALHOME",
+  "title": "Dallas home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.638318Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow (Houston, TX)",
+    "url": "https://www.zillow.com/home-values/39051/houston-tx/"
+   },
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXHOUHOME",
+  "title": "Houston home values"
+ },
+ {
+  "additional_prohibitions": [
+   "In addition to the general prohibition against trading on material nonpublic information, the Exchange will institute additional prohibitions for trading the contract. Persons under 18 years of age are not permitted to create Kalshi accounts. The following individuals will be prohibited from trading:",
+   "Any employee, officer, contractor, or agent of Zillow Group, Inc. or any of its subsidiaries, including members of Zillow Research and Zillow\u2019s Zestimate and data science teams, with access to the Zillow Home Value Index, the Zestimates or data underlying it, or its calculation prior to publication.",
+   "Any employee, officer, contractor, or agent of a data provider or vendor engaged by Zillow with access to material nonpublic information regarding the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person with access to material nonpublic information regarding the value of the Zillow Home Value Index for <home type> in <geography> prior to its publication.",
+   "Any person who otherwise has the ability to influence, or has advance knowledge of, the value of the Zillow Home Value Index for <home type> in <geography> <in/at> <time period>.",
+   "The immediate family members and members of the same household of any person described above"
+  ],
+  "categories": [
+   "Financials",
+   "Economics"
+  ],
+  "category": "Financials",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HOMEVALUE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HOMEVALUE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "monthly",
+  "last_updated_ts": "2026-11-11T21:15:23.445985Z",
+  "settlement_sources": [
+   {
+    "name": "Zillow",
+    "url": "https://www.zillow.com/research/data/"
+   },
+   {
+    "name": "Zillow (Palo Alto, CA)",
+    "url": "https://www.zillow.com/home-values/26374/palo-alto-ca/"
+   }
+  ],
+  "tags": [
+   "Real Estate",
+   "Industries",
+   "Housing"
+  ],
+  "ticker": "KXPALOHOME",
+  "title": "Palo Alto home values"
+ }
+]

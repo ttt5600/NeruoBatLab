@@ -152,6 +152,13 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### Kalshi city home values settle on Zillow's first-published page value, which leads the public CSVs and re-levels history
+18 *HOME series (98 mkts, none settled; Nov events close 12-17 15:00Z), active (~42.7k ct on 11-16), strikes within +-1 sd.
+Each Zillow release shifted a city's history by a constant % (one vintage pair: p95 2.88% vs ~0.15% monthly moves); real-time
+nowcast p95 error 7.8 sd units vs 2.1 on revised data. The page showed October while research CSVs ended at September, so
+apparent edges vs the CSV vanish. A script call to the page API got the IP 403-blocked -- don't scrape it. Open question:
+does the page show the settling value before trading closes (check by browser ~12-15). Source: notes/home_values.md.
+
 ### Check which climate baseline the market uses: Kalshi's snow-days maker prices the recent low-snow decade
 KXSNOWDAYS (scalar, Dec 1-Apr 1, >= 1.0 in for snowy cities / 0.1 in elsewhere): vs 30-winter climatology our values sit
 +.085 above mid (5 YES 'signals'), vs the last 10 winters only +.006 -> the signals are one correlated bet on a snowier

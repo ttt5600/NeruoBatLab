@@ -562,3 +562,12 @@ datasets:
     splits:                                # dev = the study's TEST window (calibration 2024-03..10 is not scored)
       dev: [2024-11-01, 2025-06-30]
       sealed: [2025-07-01, 2026-10-06]     # not built; would need the user's yes
+  kalshi_home_values:     # home_values 11-16: Kalshi per-city Zillow ZHVI ladders (*HOME, 18 series); FORWARD ONLY
+    loader: kx_forward_adapter_only   # (no settled market exists; prereg notes/home_values.md). No adapter yet -> unwired.
+    family: kalshi_data_ladders
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:                                # date = UTC decision date; pre-event (target month's value unpublished)
+      dev: null
+      sealed: null
+      forward: [2026-11-17, null]

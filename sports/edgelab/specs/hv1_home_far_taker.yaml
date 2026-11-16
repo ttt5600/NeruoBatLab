@@ -1,0 +1,24 @@
+id: hv1_home_far_taker
+family: kalshi_data_ladders
+dataset: kalshi_home_values
+rule: edgelab.rules.forward:unwired
+hypothesis: 'HV1 (forward-only paper; prereg notes/home_values.md incl. amendment A1). Kalshi *HOME ladders settle on the
+  FIRST-published middle-tier smoothed SA Zillow ZHVI (home type, region ID) shown on the Zillow Home Values page.
+  Nowcast N0: log level of the latest published vintage + damped momentum (phi .85) for h months; sigma_h =
+  sqrt((c_h * s_city)^2 + r^2), c_h from the 2,900-city revised panel (calib.json: c1 1.215, c2 3.220, c3 5.786),
+  s_city = sd of 2nd differences over 36 m, r = 1.47% one-release level restatement (q95 |shift| 2.884% / 1.96, Wayback
+  City vintages 2023-04-12 -> 2023-05-15, SizeRank <= 3000; A1 = max(1.47%, Metro-vintage panel value)). Each logger
+  tick with h <= 2: YES if p >= .95, NO if p <= .05; buy side at ask iff side_p - ask - fee >= .05, ask in [.50,.97],
+  spread <= 15c; first firing per market; 1 contract. Cluster = release month.'
+decision_time: 'logger tick (daily 15:00 UTC) while the target month value is unpublished; pre-event'
+price_model: taker
+split: vault:kalshi_home_values
+min_n: 40
+kill:
+  kind: losses_in_first
+  n: 20
+  max_losses: 2
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent home_values). Forward only; registered before any logger tick. Would-fire count on the
+  2026-11-16 snapshot (no outcomes): 0 markets (strikes sit within ~1 sigma of N0). Expect ~0-2 bets/month: years to n.'
