@@ -95,6 +95,12 @@ r, the larger one is used; never a smaller one. Rules HV1/HV2 otherwise unchange
   results/home_values/wb_fetch.py` then `results/home_values/metro_vintages.py` -> metro_vintages.json (r_pct);
   A1 says r = max(1.47, r_pct). Tells us whether the 2023-05 re-level was a one-off (methodology) or every month.
 
+- UPDATE: fetch finished with 27/57 snapshots; metro_vintages.py -> metro_vintages.json: 8 consecutive-release pairs
+  (2022-01..2026-04), metros SizeRank <= 300. EVERY release restates the prior month: per-release q95 |shift| 0.64,
+  0.96, 0.81, 0.71, 3.63, 1.29, 1.46, 2.40%; medians -0.4..+2.0% (common, US-level moves -0.51..+1.69%). Pooled q95
+  2.39% -> r_pct 1.22% < 1.47%, so A1 keeps r = 1.47% (city-level restatements are larger than metro, as expected).
+  => The re-levelling is routine, not a one-off; two of eight releases moved the level ~2% in one go.
+
 ## Verdict (2026-11-16): LEAD, weak. The E4 shape does not apply as written.
 1. No stale certain side: strikes are listed within ~+-1 sigma of the current level and the book is actively traded
    (42.7k contracts on 11-16). HV1/HV2 would fire on 0 of 98 markets today.
