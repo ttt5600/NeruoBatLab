@@ -211,6 +211,15 @@ case "$job" in
     if [[ ! "$ud" < "2026-11-27" ]] && [ "$(cat state/snow_settle_day 2>/dev/null)" != "$ud" ]; then
       run scripts/snow_markets.py settle && echo "$ud" > state/snow_settle_day
     fi ;;
+  # ---- ops_quake_logger (11-16, notes/quake_monthly.md 'Ops'): READ-ONLY; installed by scripts/install_quake_monthly_agent.sh
+  quake-monthly)  # QM1/QM2 KXBIGGESTQUAKEMONTH paper: USGS GET every run; Kalshi snapshot at the first run >= 15:00 UTC
+                  # (decision iff in [15:00, 15:45)), 23:00 UTC on the month's last 5 days, and within 6 h of any USGS
+                  # M>=6.5 (launchd 1800 s -> <= ~30 min lag); settle/fills hourly. Idle runs print nothing -> heartbeat only
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/quake_monthly_logger.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/quake_monthly_heartbeat
+    if [ $rc -ne 0 ] || [ -n "$out" ]; then
+      { echo "=== $(date '+%F %T %Z') $job: quake_monthly_logger.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;

@@ -859,6 +859,57 @@ def card_cb_v2(rule: str) -> Card:
     return c
 
 
+def card_qm(rule: str) -> Card:
+    """QM1 (taker) / QM2 (maker) KXBIGGESTQUAKEMONTH forward paper (scripts/quake_monthly_logger.py ->
+    data/kx_forward/quake_monthly.jsonl, launchd quake-monthly; agent quake_monthly / ops_quake_logger 11-16, prereg
+    notes/quake_monthly.md). Unit of inference = month: no verdict before 12 settled months. Kill (prereg): first 6 months
+    ROI <= 0 on both, or Q2 adverse selection (filled near-certain loss while unfilled all won, in >= 2 of the first 6)."""
+    title = {"QM1": "USGS empirical-window climatology vs Kalshi monthly biggest quake, near-certain side, 15:00 UTC taker",
+             "QM2": "same model, maker bid best+1c on the near-certain side (tape-crossing fill), adverse-selection check"}[rule]
+    c = Card(rule, title)
+    c.rule(rule_line(NOTES / "quake_monthly.md", "KILL: first 6 months ROI <= 0"))
+    p = SD / "kx_forward" / "quake_monthly.jsonl"
+    rows = jl(p)
+    res = {r["ticker"]: r["result"] for r in rows if r.get("kind") == "settle"}
+    days = [r for r in rows if r.get("kind") == "day"]
+    dec = len({d["date"] for d in days if d.get("decision")})
+    if not p.exists():
+        c.warn.append(f"{rel(p)} missing -- is launchd job quake-monthly running? (first decision 2026-11-16 15:00 UTC)")
+    if rule == "QM1":
+        s = [b for b in rows if b.get("kind") == "pick" and b.get("status") == "bet"]
+        done = [b for b in s if res.get(b["ticker"]) in ("yes", "no")]
+        cost = [b["ask"] + b["fee"] for b in done]
+        extra = f"picks {len(s)}"
+    else:
+        fills = {r["post_id"]: r for r in rows if r.get("kind") == "fill"}
+        posts = [b for b in rows if b.get("kind") == "post"]
+        s = [b for b in posts if fills.get(b["post_id"], {}).get("filled")]
+        done = [b for b in s if res.get(b["ticker"]) in ("yes", "no")]
+        cost = [b["q"] for b in done]
+        sp = [b for b in posts if b["post_id"] in fills and res.get(b["ticker"]) in ("yes", "no")]
+        lf = [res[b["ticker"]] != b["side"] for b in sp if fills[b["post_id"]]["filled"]]
+        lu = [res[b["ticker"]] != b["side"] for b in sp if not fills[b["post_id"]]["filled"]]
+        lr = lambda x: f"{sum(x)}/{len(x)}" if x else "n/a"  # noqa: E731
+        extra = (f"posts {len(posts)} (fill window closed {sum(1 for b in posts if b['post_id'] in fills)}), filled {len(s)}; "
+                 f"loss rate filled {lr(lf)} vs unfilled {lr(lu)}")
+    pnl = [(1 / cst - 1) if res[b["ticker"]] == b["side"] else -1.0 for b, cst in zip(done, cost)]
+    won = [res[b["ticker"]] == b["side"] for b in done]
+    cl = len({b["cluster"] for b in done})
+    c.lines.append(f"`{rel(p)}`: snapshot days {len(days)} (decision days {dec}); {extra}; settled {len(done)} in {cl} "
+                   f"month-clusters; W-L {wl(won)}; {f_roi(pnl, [1.0] * len(pnl))} per $ at "
+                   + ("ask+fee" if rule == "QM1" else "q, maker fee 0") + " (per-bet bootstrap; edgelab clusters by month)")
+    r, lo, hi = boot_roi(pnl, [1.0] * len(pnl))
+    first6 = sorted({b["cluster"] for b in done})[:6]
+    p6 = [x for b, x in zip(done, pnl) if b["cluster"] in first6]
+    if cl >= 6 and sum(p6) <= 0:
+        c.set("near-kill", f"first 6 months ROI {sum(p6) / len(p6):+.1%} <= 0 (prereg kill needs BOTH QM1 and QM2 <= 0)")
+    elif cl < 12:
+        c.set("too-early", f"{len(done)} settled bets in {cl} of 12 months (one outcome per month; observation only)")
+    else:
+        c.set("alive", f"{len(done)} bets / {cl} months, ROI {r:+.1%} [{lo:+.1%}, {hi:+.1%}]")
+    return c
+
+
 def card_ot1b() -> Card:
     """OT1b = OT1 with a monotone arbitrage-free implied P(S>K) (trial ot1b_crypto_taker_mono; prereg
     notes/ot1b_monotone.md). Same logger/snapshot as OT1: `pick_b` rows in data/kx_forward/ot1.jsonl. Forward only."""
@@ -1254,6 +1305,8 @@ def main(argv=None) -> int:
              card_cb1(),
              card_cb_v2("CB2"),
              card_cb_v2("CB3"),
+             card_qm("QM1"),
+             card_qm("QM2"),
              card_e4p("C"),
              card_e4p("C_agree"),
              card_snow("TG1"),

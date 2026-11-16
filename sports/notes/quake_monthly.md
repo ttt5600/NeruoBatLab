@@ -83,6 +83,38 @@ Read-only, daily 15:00 UTC (+ 23:00 UTC on the month's last 5 days, descriptive)
 4. Settle from result/expiration_value after the 1st; log USGS value at 1st 15:00Z vs later revisions.
 ~12 GETs/day via kx_throttle; can ride inside an existing daily logger instead of a new launchd job.
 
+## Ops (agent ops_quake_logger, 2026-11-16) -- logger INSTALLED (user approved read-only loggers under launchd)
+- Logger `scripts/quake_monthly_logger.py` (tick | settle | status); launchd `com.jonathanwang.quant-sports-quake-monthly`
+  every 1800 s -> `qs_job.sh quake-monthly` (deployed copy ~/.claude/quant-sports; installer
+  `scripts/install_quake_monthly_agent.sh` copies qs_job.sh, kx_throttle.py, the logger, the FROZEN model.py and the base
+  catalog usgs_m6.parquet to `~/.claude/quant-sports/results/quake_monthly/`). Heartbeat `state/quake_monthly_heartbeat`;
+  log `logs/quake-monthly.log` (idle runs log nothing).
+- Every run: 1 USGS GET (M>=6, last 120 d) merged into the base catalog by event id (current values). Kalshi GETs (via
+  kx_throttle, ~19/snapshot: /events + per rung full /orderbook + /markets/trades since that rung's last snapshot) only on:
+  `daily` = first run >= 15:00 UTC (DECISION iff it starts in [15:00, 15:45); later -> snapshot, status decision_missed);
+  `late` = first run >= 23:00 UTC on the month's last 5 UTC days; `quake:<ids>` = any USGS M>=6.5 with origin <= 6 h old
+  not yet snapshotted (lag <= ~30 min + USGS posting delay).
+- model.p_model is called unchanged with RUNGS = the event's floor strikes and t = run time; QM1 = first fire per
+  ticker-side; QM2 = a post per ticker-side per decision day, valid to next day 15:00 UTC (or close). Fill (settle step,
+  hourly): public print in (decided_at, valid_until] with the opposite taker side at S-price <= q (fill_lt strict also
+  logged). Choice not in the prereg: every daily QM2 post that fills is its own 1-contract bet (a resting re-posted order).
+- Outputs (append-only): `~/.claude/quant-sports/data/kx_forward/quake_monthly.jsonl` (day / pick / post / fill / settle;
+  settle carries USGS month max at settle time; day rows on the 1st-7th carry LAST month's USGS max -> revision track) and
+  `quake_monthly_snaps.jsonl` (full books, trades, p per rung). `--force-now` writes `*_manual.jsonl` only.
+- Edgelab: `edgelab/adapters/quake_month_fwd.py` ({rule: QM1|QM2}), wired in vault.yaml kalshi_quake_monthly
+  forward_adapters. event_start = month end (in-play convention), cluster quake_month|YYYY-MM, QM2 price_source maker_tape.
+  Scorecards: `card_qm("QM1")`, `card_qm("QM2")` in scripts/scorecards.py (too-early until 12 months; near-kill flag
+  when the first 6 months' ROI <= 0; QM2 line shows filled vs unfilled loss rate).
+- Checks: manual snapshot 14:42Z (`--force-now`, `quake_monthly_manual.jsonl`) reproduced R1 exactly (p 6.6 .704 ..
+  8.2 .022, Nov max 6.4 mww, QM1 0 fires, QM2 posts NO 7.6@.82 7.8@.86 8.0@.91 8.2@.92). Fill logic on the real tape:
+  a hypothetical 8.0 NO bid .88 over 11-10 05:00Z..11-12 15:00Z -> filled (6 crossing YES-taker prints, 355 ct); at .80 ->
+  not filled. Launchd run 14:44Z rc=0 (idle, before 15:00Z).
+- **First real launchd decision 2026-11-16 15:14:04Z** (`quake_monthly.jsonl`: 1 day + 4 post rows; 1 snapshot row):
+  T 14.37 d, Nov max 6.4 mww, guard off; book unchanged from 14:42Z; QM1 0 fires; QM2 posts NO 7.6@.82, 7.8@.86,
+  8.0@.91, 8.2@.92 (fills judged after 11-17 15:00Z).
+- Lead TODO: the "Logger proposal (NOT installed)" heading above is superseded by this section.
+- Stop: `launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-quake-monthly` (all jobs: touch ~/.claude/quant-sports/STOP).
+
 ## Learnings
 ### KXBIGGESTQUAKEMONTH bid sits at climatology, premium on the ask (same as daily)
 11-16 15:00Z, 14.4 d left: model p vs YES bid within 0-5c on all 9 rungs; YES ask 4-7c above (8.0: p .039, bid .03,
