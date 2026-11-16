@@ -1,0 +1,25 @@
+id: cb2_crypto_barrier_smile_taker
+family: kalshi_data_ladders
+dataset: kalshi_crypto_barrier
+rule: edgelab.rules.forward:unwired
+hypothesis: 'CB2 (forward-only paper; prereg notes/crypto_barrier_v2.md). Same universe/snapshot as CB1 (KXBTC/ETH MAXMON/MINMON,
+  daily 16:00 UTC, Kalshi GET in [16:00,16:30) UTC). Motivation (DEV, descriptive, already seen): CB1 flat-vol models
+  under-predict MIN touches (put skew). MS = smile-consistent static-replication barrier probability from the Deribit
+  option surface (get_book_summary_by_currency mark_iv, OTM with bid > 0; total variance linear in log-moneyness then in
+  T between bracketing expiries; Black with F = Coinbase spot, r = 0): MAX P = 2 D_call(B) + C(B)/B, MIN P = 2 D_put(B) -
+  Put(B)/B (exact for GBM, equals CB1 M0 on a flat smile), BGK 1-min shift with the barrier vol. Rule = CB1 frozen decide
+  with M1 replaced by MS: P_cons = min(MS, M2 bootstrap); fire iff P_cons - ask - 0.07a(1-a) >= .05, ask in [.05,.95],
+  spread <= 5c, >= 2 d left; first firing per market; 1 contract. Code scripts/crypto_barrier_v2_model.py sha256
+  0db239e9..., logger scripts/crypto_barrier_forward.py (launchd crypto-barrier) -> crypto_barrier_v2.jsonl, scored via
+  edgelab/adapters/crypto_barrier_v2_fwd.py (rule CB2). Cluster = ET month of window end; shares outcomes with CB1/CB3.
+  No verdict before n >= 60 AND >= 12 clusters.'
+decision_time: '16:00 UTC daily (Kalshi GET in [16:00, 16:30) UTC); IN-PLAY: event_start = scheduled window end'
+price_model: taker
+split: vault:kalshi_crypto_barrier
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent crypto_barrier_v2). Forward only; registered before the first 16:00 UTC decision.'

@@ -1,0 +1,22 @@
+id: cb3_crypto_max_no_taker
+family: kalshi_data_ladders
+dataset: kalshi_crypto_barrier
+rule: edgelab.rules.forward:unwired
+hypothesis: 'CB3 (forward-only paper; prereg notes/crypto_barrier_v2.md). Structural longshot rule on Kalshi monthly crypto MAX
+  one-touch rungs (KXBTCMAXMON, KXETHMAXMON, legacy KXBTCMAXM). Motivation (DEV, post hoc, descriptive only): MAX YES mid
+  .093 vs realised .045 on 12 months / one path. Daily 16:00 UTC snapshot shared with CB1: buy NO (taker at 1 - yes_bid)
+  iff YES mid in [0.05, 0.25], spread <= 5c, CB1 M1 (t4 reflection on DVOL, BGK) P(touch) < mid/2, NO ask in [.05,.95],
+  >= 2 d left; first firing per market; 1 contract. Code scripts/crypto_barrier_v2_model.decide_cb3 (sha256 0db239e9...),
+  logger scripts/crypto_barrier_forward.py -> crypto_barrier_v2.jsonl, scored via edgelab/adapters/crypto_barrier_v2_fwd.py
+  (rule CB3). Cluster = ET month of window end; shares outcomes with CB1/CB2. DEV would-fire COUNT (no outcomes): 11
+  markets / 6 events in 12 months -> ~1 bet per month; n >= 60 AND >= 12 clusters is years away (low power, stated).'
+decision_time: '16:00 UTC daily (Kalshi GET in [16:00, 16:30) UTC); IN-PLAY: event_start = scheduled window end'
+price_model: taker
+split: vault:kalshi_crypto_barrier
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent crypto_barrier_v2). Forward only; registered before the first 16:00 UTC decision.'

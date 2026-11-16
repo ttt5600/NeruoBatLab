@@ -516,6 +516,9 @@ datasets:
       forward: [2026-11-16, null]
     forward_adapters:
       cb1_crypto_barrier_taker: {module: edgelab.adapters.crypto_barrier_fwd, params: {}}
+      # crypto_barrier_v2 11-16: CB2 smile barrier / CB3 MAX-rung NO, same snapshot (prereg notes/crypto_barrier_v2.md)
+      cb2_crypto_barrier_smile_taker: {module: edgelab.adapters.crypto_barrier_v2_fwd, params: {rule: CB2}}
+      cb3_crypto_max_no_taker: {module: edgelab.adapters.crypto_barrier_v2_fwd, params: {rule: CB3}}
   kalshi_temp_e4p_fwd:    # ops_e4p_forward 11-16: forward-only paper; E4 probabilistic rule C / C-agree maker NO bids on NEW
     loader: kx_forward_adapter_only   # brackets at 22:00 D-1 (prereg notes/ops_e4p_forward.md; dev = notes/e4_probabilistic.md)
     family: kalshi_weather_temp

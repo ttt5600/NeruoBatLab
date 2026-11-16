@@ -821,6 +821,43 @@ def card_cb1() -> Card:
     return c
 
 
+def card_cb_v2(rule: str) -> Card:
+    """CB2 (Deribit-smile barrier) / CB3 (MAX-rung NO) forward paper, same snapshot as CB1 (scripts/crypto_barrier_forward.py
+    -> data/kx_forward/crypto_barrier_v2.jsonl; agent crypto_barrier_v2 11-16, prereg notes/crypto_barrier_v2.md). Spec kill:
+    ROI CI entirely below 0 after 60 bets; no verdict before 60 bets AND 12 month-clusters."""
+    title = {"CB2": "Deribit-smile barrier P (static replication) + hourly bootstrap vs Kalshi monthly crypto max/min, 16:00 UTC taker",
+             "CB3": "NO on Kalshi monthly crypto MAX rungs, YES mid in [.05,.25] and t4-reflection P < mid/2, 16:00 UTC taker"}[rule]
+    c = Card(rule, title)
+    c.rule(rule_line(NOTES / "crypto_barrier_v2.md", "Judge (both): edgelab forward split"))
+    p = SD / "kx_forward" / "crypto_barrier_v2.jsonl"
+    rows = jl(p)
+    res = {r["ticker"]: r["result"] for r in rows if r.get("kind") == "settle"}
+    days = [r for r in rows if r.get("kind") == "day"]
+    errs = sum(1 for d in days if d.get("cb2_error"))
+    picks = [r for r in rows if r.get("kind") == "pick" and r.get("rule") == rule]
+    bets = [b for b in picks if b.get("status") == "bet"]
+    s = [b for b in bets if res.get(b["ticker"]) in ("yes", "no")]
+    cost = [b["ask"] + b["fee"] for b in s]
+    pnl = [(1 / cst - 1) if res[b["ticker"]] == b["side"] else -1.0 for b, cst in zip(s, cost)]
+    won = [res[b["ticker"]] == b["side"] for b in s]
+    cl = len({b["cluster"] for b in s})
+    c.lines.append(f"`{rel(p)}`: days {len(days)}" + (f" (cb2_error on {errs})" if rule == "CB2" else "")
+                   + f", picks {len(picks)} (off_time {len(picks) - len(bets)}), bets {len(bets)}, settled {len(s)} in "
+                   f"{cl} month-clusters, pending {len(bets) - len(s)}; W-L {wl(won)}; "
+                   f"{f_roi(pnl, [1.0] * len(pnl))} at ask+exact fee")
+    if not p.exists():
+        c.warn.append(f"{rel(p)} missing -- is launchd job crypto-barrier running the v2 logger? (first decision 2026-11-16 16:00 UTC)")
+    n = len(s)
+    r, lo, hi = boot_roi(pnl, [1.0] * n)
+    if n >= 60 and np.isfinite(hi) and hi < 0:
+        c.set("KILLED-by-rule", f"ROI CI upper {hi:+.1%} < 0 after {n}")
+    elif n < 60 or cl < 12:
+        c.set("too-early", f"{n} settled of 60, {cl} of 12 month-clusters")
+    else:
+        c.set("alive", f"n {n} / {cl} months, ROI {r:+.1%} [{lo:+.1%}, {hi:+.1%}]")
+    return c
+
+
 def card_ot1b() -> Card:
     """OT1b = OT1 with a monotone arbitrage-free implied P(S>K) (trial ot1b_crypto_taker_mono; prereg
     notes/ot1b_monotone.md). Same logger/snapshot as OT1: `pick_b` rows in data/kx_forward/ot1.jsonl. Forward only."""
@@ -973,6 +1010,8 @@ def main(argv=None) -> int:
              card_ot1b(),
              card_e4_0600(),
              card_cb1(),
+             card_cb_v2("CB2"),
+             card_cb_v2("CB3"),
              card_e4p("C"),
              card_e4p("C_agree"),
              card_lx1(),
