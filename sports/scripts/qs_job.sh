@@ -20,6 +20,8 @@
 #               installed by scripts/install_ot1_agent.sh)
 #   e4p         READ-ONLY E4 probabilistic rule C / C-agree maker forward paper (11-16, notes/ops_e4p_forward.md;
 #               installed by scripts/install_e4p_agent.sh)
+#   snow-markets READ-ONLY TG1/SD1/SD2 snow paper, daily ~15:30Z (11-16, notes/snow_markets.md;
+#               installed by scripts/install_snow_markets_agent.sh)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
 # root makes every job a no-op (scripts/qs_stop.sh). Paper only: none of these jobs place orders or read keys.
 # Exception by design (11-07): nhl-ingame and nfl-fade pipe their signals to ~/.claude/quant-kalshi/scripts/
@@ -199,6 +201,16 @@ case "$job" in
     fi
     now=$(date +%s); last=$(cat state/crypto_barrier_settle_last 2>/dev/null || echo 0)
     if [ $((now - last)) -ge 3600 ]; then run scripts/crypto_barrier_forward.py settle && echo "$now" > state/crypto_barrier_settle_last; fi ;;
+  # ---- ops_snow_logger (11-16, notes/snow_markets.md 'Ops'): READ-ONLY; installed by scripts/install_snow_markets_agent.sh
+  snow-markets) # TG1/SD1/SD2 snow paper: one `log` snapshot per UTC day at the first run >= 15:30 UTC through 2027-04-01;
+                # `settle` (fired tickers' Kalshi result / scalar value) once per UTC day from 2026-11-27. launchd 1800 s.
+    ud=$(TZ=UTC date +%F); uhm=$(TZ=UTC date +%H%M)
+    if [ "$((10#$uhm))" -ge 1530 ] && [[ "$ud" < "2027-04-02" ]] && [ "$(cat state/snow_log_day 2>/dev/null)" != "$ud" ]; then
+      run scripts/snow_markets.py log && echo "$ud" > state/snow_log_day
+    fi
+    if [[ ! "$ud" < "2026-11-27" ]] && [ "$(cat state/snow_settle_day 2>/dev/null)" != "$ud" ]; then
+      run scripts/snow_markets.py settle && echo "$ud" > state/snow_settle_day
+    fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;

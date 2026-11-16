@@ -533,10 +533,15 @@ datasets:
     family: kalshi_weather_precip
     hidden: [result]
     outcome: {kind: result_side, key: bet_id}
-    splits:                                # date = UTC decision date; rule = edgelab.rules.forward:unwired until an adapter exists
+    splits:                                # date = UTC decision date
       dev: null
       sealed: null
       forward: [2026-11-16, null]
+    forward_adapters:     # ops_snow_logger 11-16: launchd snow-markets (read-only); KXSNOWDAYS scored at the TRUE scalar value
+      # (adapter: hidden result 'scalar' + settle_value -> needs SCORING_VERSION >= 2, else rows() raises; never silently 0)
+      tg1_snow_thanksgiving_taker: {module: edgelab.adapters.snow_fwd, params: {rule: TG1}}
+      sd1_snowdays_climo_taker: {module: edgelab.adapters.snow_fwd, params: {rule: SD1}}
+      sd2_snowdays_conditional_taker: {module: edgelab.adapters.snow_fwd, params: {rule: SD2}}
   kalshi_temp_e4p_fwd:    # ops_e4p_forward 11-16: forward-only paper; E4 probabilistic rule C / C-agree maker NO bids on NEW
     loader: kx_forward_adapter_only   # brackets at 22:00 D-1 (prereg notes/ops_e4p_forward.md; dev = notes/e4_probabilistic.md)
     family: kalshi_weather_temp

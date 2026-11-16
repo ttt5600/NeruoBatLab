@@ -899,6 +899,49 @@ def card_ot1b() -> Card:
     return c
 
 
+def card_snow(rule: str) -> Card:
+    """TG1 / SD1 / SD2 snow paper (scripts/snow_markets.py -> ~/.claude/quant-sports/results/snow_markets/snow_log.jsonl,
+    launchd snow-markets; ops_snow_logger 11-16). Bets and P&L from edgelab/adapters/snow_fwd.py (first fire per
+    rule-ticker-side, pre-event only; KXSNOWDAYS scored at the TRUE scalar settlement value). One weather draw per event:
+    observation only, the kill is units <= 0 at settlement (notes/snow_markets.md)."""
+    title = {"TG1": "Thanksgiving snow (trace counts) ensemble+climatology P vs KXSNOWTHANKSGIVING, daily taker",
+             "SD1": "KXSNOWDAYS scalar, 30-season climatology FV pre-season, daily taker",
+             "SD2": "KXSNOWDAYS scalar, in-season conditional FV (observed count + remaining climatology), daily taker"}[rule]
+    c = Card(rule, title)
+    needle = {"TG1": "Kill: no rule follow-up", "SD1": "Kill: units <= 0 at settlement", "SD2": "Score as SD1 at settlement"}
+    c.rule(rule_line(NOTES / "snow_markets.md", needle[rule]))
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    try:
+        from edgelab.adapters import snow_fwd
+        t = snow_fwd.true_value_pnl(rule)
+    except Exception as e:   # noqa: BLE001 -- a broken source must show on the card, not kill the report
+        c.warn.append(f"snow_fwd failed: {type(e).__name__}: {e}")
+        c.set("too-early", "adapter error (see warning)")
+        return c
+    rep = t.get("report") or {}
+    s = [b for b in t["bets"] if b["pnl"] is not None]
+    pend = [b["ticker"].split("-")[-1] + ":" + b["side"] for b in t["bets"] if b["pnl"] is None]
+    c.lines.append(f"`{rep.get('source', '?')}`: {rep.get('snapshots_rule', 0)} {rule} snapshot rows over "
+                   f"{rep.get('snapshot_days', 0)} day(s); first fires {t['n_fired']} (pending {len(pend)}"
+                   + (f": {' '.join(pend[:12])}" if pend else "") + f"), settled {t['n_settled']}; "
+                   f"dropped at/after event start {rep.get('fire_rows_at_or_after_event_start_dropped', 0)}")
+    if s:
+        c.lines.append(f"settled at true value: P&L {t['pnl']:+.3f} on cost {t['cost']:.3f} per contract-set, units "
+                       f"{t['units']:+.1%}; {f_roi([b['pnl'] for b in s], [b['cost'] for b in s])} (cities share one "
+                       "weather draw -> the CI is not a test)")
+    if rule == "TG1":
+        c.set("too-early" if t["n_settled"] < t["n_fired"] or not t["n_fired"] else "alive",
+              f"{t['n_fired']} fires, {t['n_settled']} settled; one event, observation only (not a test)")
+    elif not t["n_fired"] or t["n_settled"] < t["n_fired"]:
+        c.set("too-early", f"{t['n_fired']} fires, {t['n_settled']} settled; judged at settlement (Apr 2027)")
+    elif t["units"] <= 0:
+        c.set("KILLED-by-rule", f"units {t['units']:+.1%} <= 0 at settlement ({t['n_settled']} bets, one season)")
+    else:
+        c.set("alive", f"units {t['units']:+.1%} at settlement ({t['n_settled']} bets, one season; observation only)")
+    return c
+
+
 def card_lx1() -> Card:
     c = Card("LX1", "Kalshi logical-arb scanner (read-only, launchd lx1; judge 2026-11-19)")
     c.rule(rule_line(NOTES / "lx1_logical_arb.md", "- **Kill**: fewer than"))
@@ -1014,6 +1057,9 @@ def main(argv=None) -> int:
              card_cb_v2("CB3"),
              card_e4p("C"),
              card_e4p("C_agree"),
+             card_snow("TG1"),
+             card_snow("SD1"),
+             card_snow("SD2"),
              card_lx1(),
              card_lock(run_sub)]
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")

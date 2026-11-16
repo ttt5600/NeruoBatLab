@@ -4,6 +4,9 @@ Read-only: Kalshi public GETs via kx_throttle, ACIS StnData (keyless), Open-Mete
 
   ../.venv_quant/bin/python scripts/snow_markets.py clim     # ACIS climatology cache -> results/snow_markets/acis_*.json
   ../.venv_quant/bin/python scripts/snow_markets.py log      # one daily snapshot: TG1 (until 11-26) + SD1/SD2 -> jsonl
+  ../.venv_quant/bin/python scripts/snow_markets.py settle   # read-only: Kalshi result / settlement value of every fired
+                                                             # ticker -> results/snow_markets/snow_settle.jsonl (once each)
+Deployed (launchd, read-only): ~/.claude/quant-sports via scripts/install_snow_markets_agent.sh + qs_job.sh snow-markets.
 
 Rules (frozen in the notes):
   TG1  P = w*E + (1-w)*C ; E = share of GEFS(31)+ECMWF-ENS(51) members with Nov-26 LST-day snowfall > 0 at the station,
@@ -29,6 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results" / "snow_markets"
 OUT.mkdir(parents=True, exist_ok=True)
 LOG = OUT / "snow_log.jsonl"
+SETTLE = OUT / "snow_settle.jsonl"
 MARGIN = 0.10
 TG_EVENT = "KXSNOWTHANKSGIVING-26NOV26"
 TG_DATE = dt.date(2026, 11, 26)
@@ -190,7 +194,9 @@ def cmd_log() -> int:
         for ln in LOG.read_text().splitlines():
             r = json.loads(ln)
             if r.get("fire"):
-                fired.add((r["ticker"], r["fire"]))
+                # first fire per RULE-ticker-side (prereg: SD2 counts its own first fire after Dec 1). Ops 11-16 fix;
+                # informational flag only -- edgelab/adapters/snow_fwd.py recomputes first fires from the raw rows.
+                fired.add((r["rule"], r["ticker"], r["fire"]))
     # TG1
     if today <= TG_DATE:
         lead = (TG_DATE - today).days
@@ -204,7 +210,7 @@ def cmd_log() -> int:
             p = w * e + (1 - w) * c if e is not None else None
             yb, ya = fl(m.get("yes_bid_dollars")), fl(m.get("yes_ask_dollars"))
             f = decide(p, yb, ya) if p is not None else None
-            first = f is not None and (m["ticker"], f) not in fired
+            first = f is not None and ("TG1", m["ticker"], f) not in fired
             rows.append({"ts": now.isoformat(), "rule": "TG1", "ticker": m["ticker"], "stn": stn, "lead": lead, "w": w,
                          "E": e, "n_members": ne, "C": c, "n_clim": nc, "P": p, "yb": yb, "ya": ya,
                          "status": m.get("status"), "vol": fl(m.get("volume_fp")), "fire": f, "first_fire": first,
@@ -234,7 +240,7 @@ def cmd_log() -> int:
             fv = sum(payout(nobs + r, lo, hi) for r in rem) / len(rem) if (ok and len(rem) >= 25) else None
             yb, ya = fl(m.get("yes_bid_dollars")), fl(m.get("yes_ask_dollars"))
             f = decide(fv, yb, ya) if fv is not None else None
-            first = f is not None and (m["ticker"], f) not in fired
+            first = f is not None and (rule, m["ticker"], f) not in fired
             pinned = nobs >= hi
             rows.append({"ts": now.isoformat(), "rule": rule, "ticker": m["ticker"], "stn": stn, "thr": thr, "floor": lo,
                          "cap": hi, "n_obs": nobs, "n_seasons": len(rem), "FV": fv, "yb": yb, "ya": ya,
@@ -250,6 +256,35 @@ def cmd_log() -> int:
     return 0
 
 
+def cmd_settle() -> int:
+    """Read-only: for every ticker that ever fired, record the exchange's final market record once it is settled
+    (one row per ticker). KXSNOWDAYS is scalar: the YES value is settlement_value_dollars, cross-checked by the adapter
+    (edgelab/adapters/snow_fwd.py) against payout(expiration_value)."""
+    rows = [json.loads(l) for l in LOG.read_text().splitlines() if l.strip()] if LOG.exists() else []
+    fired = sorted({r["ticker"] for r in rows if r.get("fire")})
+    done = ({json.loads(l)["ticker"] for l in SETTLE.read_text().splitlines() if l.strip()}
+            if SETTLE.exists() else set())
+    now = dt.datetime.now(dt.timezone.utc).isoformat()
+    new, pending = [], []
+    for t in fired:
+        if t in done:
+            continue
+        m = ((kget(f"/markets/{t}") or {}).get("market")) or {}
+        if m.get("status") not in ("settled", "finalized") or m.get("result") in (None, ""):
+            pending.append(f"{t.split('-')[-1]}:{m.get('status')}")
+            continue
+        new.append({"ts": now, "ticker": t, "status": m.get("status"), "result": m.get("result"),
+                    "settlement_value_dollars": m.get("settlement_value_dollars", m.get("settlement_value")),
+                    "expiration_value": m.get("expiration_value"), "close_time": m.get("close_time"),
+                    "settlement_ts": m.get("settlement_ts"), "custom_strike": m.get("custom_strike")})
+    with SETTLE.open("a") as fh:
+        for r in new:
+            fh.write(json.dumps(r) + "\n")
+    print(f"settle: fired tickers {len(fired)}, settled earlier {len(done)}, new {len(new)}, pending {len(pending)}"
+          + (f" ({' '.join(pending[:8])}{' ...' if len(pending) > 8 else ''})" if pending else ""))
+    return 0
+
+
 def load_fresh(stn: str):
     """Current-season ACIS (not cached) for SD2."""
     d = acis(stn, str(SD_START), str(dt.date.today() - dt.timedelta(days=1)))
@@ -257,4 +292,4 @@ def load_fresh(stn: str):
 
 
 if __name__ == "__main__":
-    sys.exit({"clim": cmd_clim, "log": cmd_log}[sys.argv[1]]())
+    sys.exit({"clim": cmd_clim, "log": cmd_log, "settle": cmd_settle}[sys.argv[1]]())

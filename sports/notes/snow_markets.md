@@ -116,6 +116,43 @@ scripts/install_kalshi_wx_monthly_agent.sh. Scoring: after 11-27 (TG1) and after
 result / settlement value. An adapter (edgelab/adapters/snow_fwd.py) is still to be written; until then the trials sit on
 forward:unwired (n = 0, fail-closed).
 
+## Ops (agent ops_snow_logger, 2026-11-16; user approved read-only paper loggers under launchd 11-13)
+- **Installed** `com.jonathanwang.quant-sports-snow-markets` via `scripts/install_snow_markets_agent.sh` (deployed copy
+  ~/.claude/quant-sports; `scripts/qs_job.sh snow-markets`). launchd every 1800 s; wrapper runs `snow_markets.py log`
+  once per UTC day at the first run >= 15:30Z while UTC date <= 2027-04-01 (state/snow_log_day), and `snow_markets.py
+  settle` once per UTC day from 2026-11-27 (state/snow_settle_day). Kalshi via kx_throttle. No orders/keys/.env.
+  Stop: `launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-snow-markets` (all jobs: touch ~/.claude/quant-sports/STOP).
+- Deployed log = **~/.claude/quant-sports/results/snow_markets/snow_log.jsonl** (source of truth from now on); seeded
+  from the repo copy (43 rows, first snapshot 11:07Z). Inputs copied: census.json + acis_*.json (30 stations).
+- **Verification run** (deployed venv, by hand, 2026-11-16 11:17:47Z, outside the 15:30Z gate so today's scheduled run
+  still happens): +43 rows (21 TG1 + 22 SD1) -> 86 rows. TG1 n_members = 51 for all 21 cities (50 ECMWF perturbed +
+  control; GEFS not yet in horizon). 0 TG1 fires; SD1 re-fires the same 5 YES cities (not first fires). launchd kickstart:
+  runs 1, exit 0 (gated no-op at 11:2xZ). `snow_markets.py settle`: fired 5, pending 5 (all active).
+  NOTE: 11-16 therefore has 3 snapshots (11:07Z agent, 11:17Z ops check, 15:30Z scheduled); only first fires count.
+- **Logger changes** (decision logic untouched): (1) `settle` subcommand -> results/snow_markets/snow_settle.jsonl (one
+  row per fired ticker once Kalshi status settled/finalized: result, settlement_value_dollars, expiration_value,
+  custom_strike). (2) the `first_fire` flag is now keyed per (rule, ticker, side): before, SD2 could never flag a first
+  fire on the 5 cities SD1 already fired, contrary to the prereg ("first fire per city-side after Dec 1"). Informational
+  only -- the adapter recomputes first fires.
+- **Adapter** `edgelab/adapters/snow_fwd.py`, wired in vault.yaml `kalshi_snow_markets.forward_adapters` (params rule
+  TG1|SD1|SD2). Bets = first fire per (rule, ticker, side) among PRE-EVENT snapshots; taker price ya / 1-yb, contracts 1,
+  exact fee; event_start TG1 = Nov-26 00:00 LST at the station, SD1 = Dec-1 05:00Z, SD2 = market close 2027-04-02 04:59Z
+  (in-play count market, spacex_count convention); cluster = event (one weather draw); close = same-side mid of the last
+  logged snapshot before event_start/close. **Disclosure:** the logger also snapshots TG1 on 11-26 (15:30Z, after LST
+  midnight) and SD1 on 12-01 (after 05:00Z); those rows are in-play for a pre-event rule and are DROPPED before first
+  fires are taken (count in adapter_report `fire_rows_at_or_after_event_start_dropped`). SD2p (pinned YES) is logged
+  (`pinned_yes`) but the logger has no fire for it -> not scored.
+- **Scalar scoring:** YES value = Kalshi settlement_value_dollars, cross-checked vs floor_cent(clip((N-floor)/(cap-floor)))
+  with N = expiration_value (mismatch > 0.5c -> AdapterError). v in {0,1} -> result yes/no (exact under any version);
+  0<v<1 -> result 'scalar' + hidden settle_value (OUTCOME value_col), which edgelab scores at the true value only under
+  SCORING_VERSION >= 2 -- under v1 (current) rows() RAISES instead of scoring 0 for both sides. The check reads the
+  global edgelab.SCORING_VERSION, so an explicit `scoring_version=2` sandbox call also needs the global flipped.
+  `snow_fwd.true_value_pnl(rule)` scores the true value independently (used by the scorecard).
+- **Tests** (sandbox registry copies, deleted): real data -> 3 trials evaluate cleanly (n 0; SD1 5 pending). Synthetic
+  settle (DTW scalar .70, BOS 0): v1 -> AdapterError; v2 -> n 2, pnl +0.1376 = (0.70 - 0.283 - 0.0142) + (-0.2652),
+  identical to true_value_pnl; PIT clean. Mismatch check fires on a wrong value (0.47 vs payout(15.5) = 0.70).
+- **Scorecard** cards TG1 / SD1 / SD2 added to scripts/scorecards.py (render: all too-early; SD1 "5 fires, 0 settled").
+
 ## Learnings
 
 ### Kalshi KXSNOWTHANKSGIVING counts a trace as YES
@@ -134,3 +171,15 @@ climatology gap an edge.
 ### Open-Meteo ensemble: ECMWF control key ends `_ecmwf_ifs025_ensemble`; GEFS 0.25 is null beyond 240 h
 Filtering on "member" drops the control; GEFS keys exist but are all null past 10 days (results/snow_markets/ens_probe.json).
 Log the member count per model in every row.
+
+### edgelab forward adapters never see hidden columns in rows()
+vault.load strips `hidden` (result, settle_value) before the adapter's rows() runs; a check on them must be computed in
+load() and passed through frame.attrs['loader_report'] (edgelab/adapters/snow_fwd.py; found by the sandbox evaluate).
+
+### Under SCORING_VERSION 1 a Kalshi 'scalar' settlement scores 0 for both sides
+result_side maps result == side -> 1 else 0, so a KXSNOWDAYS bet settled at e.g. $0.70 would count as a full loss. snow_fwd
+maps v in {0,1} to yes/no and raises on fractional values until the user flips SCORING_VERSION to 2 (edgelab/__init__.py).
+
+### A daily logger keyed on "first fire per ticker" must key on the rule too
+snow_markets.py keyed first_fire on (ticker, side), so SD2 (in-season) could never flag cities SD1 had fired pre-season;
+the prereg says each rule counts its own first fire. Fixed 11-16; the adapter recomputes first fires from raw rows anyway.
