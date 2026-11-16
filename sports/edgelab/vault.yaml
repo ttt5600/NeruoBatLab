@@ -430,6 +430,15 @@ datasets:
       forward: [2026-11-16, null]
     forward_adapters:      # ops_ot1_forward 11-15: OT1 forward = what the launchd paper logger logged (scripts/ot1_forward.py)
       ot1_crypto_taker: {module: edgelab.adapters.ot1_fwd, params: {}}
+  kalshi_opt_tails_ext:   # ot1_extension 11-16: X1-X3 (OT1 rule on KXBTC/KXETH range, weekly-ahead, SOL); split set in
+    loader: kalshi_opt_tails_ext   # notes/ot1_extension.md before any quote/outcome pull (same cut as OT1)
+    family: kalshi_data_ladders
+    hidden: [result, status]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = ET close date of the 17:00 ET event
+      dev: [2024-10-24, 2026-04-10]
+      sealed: [2026-04-11, 2026-10-31]     # never fetched by this agent
+      forward: [2026-11-16, null]
   kalshi_opt_tails_mono:  # ot1b_monotone 11-15: OT1b (monotone implied p) is FORWARD ONLY -- no dev/sealed window, so the
     loader: kalshi_opt_tails   # vault cannot score it on the DEV data OT1 already used (prereg notes/ot1b_monotone.md)
     family: kalshi_data_ladders
@@ -468,3 +477,20 @@ datasets:
       dev: [2026-07-01, 2026-11-15]        # = the task's PRIMARY window (after Le's sample); one-shot, rule fixed from the paper
       sealed: null                         # paper-era 2025-01..2026-06 is scored by the script only (outside the vault)
       forward: [2026-11-16, null]
+  kalshi_hurcat_nhc:      # tropical_nhc 11-16: KXHURCAT per-storm category vs NHC OFCL; prereg notes/tropical_nhc.md
+    loader: kalshi_hurcat_nhc
+    family: kalshi_data_ladders
+    hidden: [result]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = storm's first market open (UTC date); set 2026-11-16 before any candle/result
+      dev: [2021-01-01, 2024-12-31]        # 2025 season deliberately in NO split (LX2's sealed climate lead; never built)
+      sealed: [2026-01-01, 2026-12-31]     # 2026 season, never priced without the user's yes
+      forward: [2027-01-01, null]
+  kalshi_temp_t10:        # e4_timing 11-16: E4 rule decided 10:00 local D-1 (margin 4F); prereg notes/e4_timing.md
+    loader: kalshi_temp_t10
+    family: kalshi_weather_temp
+    hidden: [won]
+    outcome: {kind: won_column, key: ticker}
+    splits:                                # = kalshi_temp_e1 windows; E1 sealed rows never built (builder drops >= 2025-07-01)
+      dev: [2021-07-01, 2025-06-30]
+      sealed: [2025-07-01, 2026-10-06]     # not built; would need the user's yes

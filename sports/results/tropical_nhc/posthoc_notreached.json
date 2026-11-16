@@ -1,0 +1,104 @@
+{
+ "m10_notreached": {
+  "n": 111,
+  "storms": 38,
+  "losses": 18,
+  "mean_price": 0.9075,
+  "roi": -0.08174,
+  "ci_P": [
+   -0.18187,
+   0.00651
+  ],
+  "roi_1ct": -0.08926,
+  "loss_rate_cp95": [
+   0.099,
+   0.2441
+  ],
+  "breakeven_loss_rate": 0.0876
+ },
+ "m10_notreached_fresh24h": {
+  "n": 106,
+  "storms": 38,
+  "losses": 18,
+  "mean_price": 0.9057,
+  "roi": -0.08839,
+  "ci_P": [
+   -0.19499,
+   0.0039
+  ],
+  "roi_1ct": -0.09582,
+  "loss_rate_cp95": [
+   0.1039,
+   0.255
+  ],
+  "breakeven_loss_rate": 0.0893
+ },
+ "m20_notreached": {
+  "n": 98,
+  "storms": 35,
+  "losses": 10,
+  "mean_price": 0.9354,
+  "roi": -0.04373,
+  "ci_P": [
+   -0.13702,
+   0.03379
+  ],
+  "roi_1ct": -0.05151,
+  "loss_rate_cp95": [
+   0.05,
+   0.1797
+  ],
+  "breakeven_loss_rate": 0.061
+ },
+ "m20_notreached_fresh24h": {
+  "n": 92,
+  "storms": 35,
+  "losses": 10,
+  "mean_price": 0.9342,
+  "roi": -0.04969,
+  "ci_P": [
+   -0.14996,
+   0.03222
+  ],
+  "roi_1ct": -0.05737,
+  "loss_rate_cp95": [
+   0.0534,
+   0.1908
+  ],
+  "breakeven_loss_rate": 0.0621
+ },
+ "m30_notreached": {
+  "n": 79,
+  "storms": 33,
+  "losses": 4,
+  "mean_price": 0.9456,
+  "roi": 0.00061,
+  "ci_P": [
+   -0.06947,
+   0.05262
+  ],
+  "roi_1ct": -0.0072,
+  "loss_rate_cp95": [
+   0.014,
+   0.1246
+  ],
+  "breakeven_loss_rate": 0.0512
+ },
+ "m30_notreached_fresh24h": {
+  "n": 72,
+  "storms": 32,
+  "losses": 4,
+  "mean_price": 0.9425,
+  "roi": -0.00152,
+  "ci_P": [
+   -0.07745,
+   0.05497
+  ],
+  "roi_1ct": -0.00925,
+  "loss_rate_cp95": [
+   0.0153,
+   0.1362
+  ],
+  "breakeven_loss_rate": 0.0541
+ }
+}

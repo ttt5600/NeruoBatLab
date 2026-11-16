@@ -152,6 +152,13 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### NHC's intensity forecast is a central estimate, not a ceiling -- Kalshi prices rapid-intensification risk
+KXHURCAT (storm reaches category N; settlement = NHC advisory peak wind, 236/236 matched): NO when NHC 5-day peak forecast
+is >= 20 kt below threshold -> 106 bets / 36 storms, 18 losses (17%, exact CI 10.4-25.5%) vs 13.1% break-even, ROI -4.48%
+[-13.8,+3.3]. Losses = rapid intensification beating NHC by 23-48 kt (Beryl, Milton, Idalia...), which Kalshi priced at
+10-50c correctly. Post-advisory NO: 15 bets 0 losses but ~5/season. Capacity a few hundred $/season. Unlike E4's model
+consensus, a single official forecast's point estimate understates tails. Source: notes/tropical_nhc.md.
+
 ### New Kalshi data/energy series arrive with a market maker already holding the certain side
 State AAA gas (KXAAAGASCD*, daily change in 1c buckets): ~700-900 ct quoted per level, far buckets NO at .99-1.00.
 ERCOT hub monthly averages (KXERCOT*M): late-month pinned-average rule 0 losses / 5,562 flagged rungs 2012-23, but the

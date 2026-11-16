@@ -1,0 +1,2461 @@
+[
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURWIL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURWIL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Wilmington)",
+    "url": "https://forecast.weather.gov/product.php?site=ILM&product=CLI&issuedby=ILM"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURWIL",
+  "title": "Hurricane hits Wilmington"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCAL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCAL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/srh/nwsoffices"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCAL",
+  "title": "Hurricane hits California"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:47:50.284108Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHHOU",
+  "title": "hurricane hits houston"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "HURCLAND",
+  "title": "Hurricanes making landfall"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCAL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCAL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/srh/nwsoffices"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURCAL",
+  "title": "Hurricane hits California"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "annual",
+  "last_updated_ts": "2026-10-25T18:19:28.756132Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "KXHURCTOTMAJ",
+  "title": "Number of major hurricanes"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:47:50.359452Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHHAWAII",
+  "title": "HURRICANE HITS HAWAII"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURRICANENAME.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURRICANENAME.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:48:44.005872Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURRICANENAMES",
+  "title": "Hurricane Names"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "annual",
+  "last_updated_ts": "2026-10-25T18:19:28.814406Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "KXTROPSTORM",
+  "title": "Number of tropical storms"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCHARL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCHARL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Charleston)",
+    "url": "https://forecast.weather.gov/product.php?site=CHS&product=CLI&issuedby=CHS"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCHARL",
+  "title": "Hurricane hits Charleston"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:47:50.345207Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHSCAROLINA",
+  "title": "hurricane hits SOUTH CAROLINA"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:47:50.312933Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHFLA",
+  "title": "hurricane hits florida"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "annual",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "TROPSTORM",
+  "title": "Number of tropical storms"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURRLANDFALL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURRLANDFALL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-11-11T23:49:33.877089Z",
+  "settlement_sources": [
+   {
+    "name": "National Hurricane Center of the National Weather Service of the National Oceanic and Atmospheric Administration",
+    "url": "https://nhc.noaa.gov"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURRLANDNE3",
+  "title": "Northeast Category 3+ hurricane landfall"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/STORMDATE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/STORMDATE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:59:43.252248Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXNEXTCAT5HURDATE",
+  "title": "Next CAT 5 hurricane date"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURMYR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURMYR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (North Myrtle Beach)",
+    "url": "https://forecast.weather.gov/product.php?site=ILM&product=CLI&issuedby=CRE"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURMYR",
+  "title": "Hurricane hits North Myrtle Beach"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURRICANE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURRICANE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:48:24.303235Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURRICANE",
+  "title": "Hurricanes"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCAT.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCAT.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:45:59.179145Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   },
+   {
+    "name": "The Weather Company",
+    "url": "https://www.weathercompany.com/"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCAT",
+  "title": "Hurricane category"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURMYR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURMYR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (North Myrtle Beach)",
+    "url": "https://forecast.weather.gov/product.php?site=ILM&product=CLI&issuedby=CRE"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURMYR",
+  "title": "Hurricane hits North Myrtle Beach"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURORL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURORL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/wrh/climate?wfo=mlb"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURORL",
+  "title": "Hurricane hits Orlando"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURRLANDFALL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURRLANDFALL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-11-11T23:49:33.896226Z",
+  "settlement_sources": [
+   {
+    "name": "National Hurricane Center of the National Weather Service of the National Oceanic and Atmospheric Administration",
+    "url": "https://nhc.noaa.gov"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURRLANDFL4",
+  "title": "Florida Category 4+ hurricane landfall"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCITYLANDFALL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURRLANDFALL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:46:50.599613Z",
+  "settlement_sources": [
+   {
+    "name": "National Hurricane Center of the National Weather Service of the National Oceanic and Atmospheric Administration",
+    "url": "https://nhc.noaa.gov"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCITYTPA",
+  "title": "Tampa hurricane landfall"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURNO.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURNO.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "annual",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/wrh/climate?wfo=lix"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "HURNO",
+  "title": "Hurricane hits New Orleans"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURMIA.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURMIA.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/wrh/climate?wfo=mfl"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "HURMIA",
+  "title": "Hurricane hits Miami"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURMIA.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURMIA.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/wrh/climate?wfo=mfl"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "KXHURMIA",
+  "title": "Hurricane hits Miami"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURTB.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURTB.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product.php?site=TBW&product=CLI&issuedby=TPA"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURTB",
+  "title": "Hurricane hits Tampa"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURJACKFL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURJACKFL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Jacksonville, FL)",
+    "url": "https://forecast.weather.gov/product.php?site=JAX&product=CLI&issuedby=JAX"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURJACKFL",
+  "title": "Hurricane hits Jacksonville"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURNOR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURNOR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Norfolk, VA)",
+    "url": "https://forecast.weather.gov/product.php?site=AKQ&product=CLI&issuedby=ORF"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURNOR",
+  "title": "Hurricane hits Norfolk"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURTB.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURTB.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:00:30.718899Z",
+  "settlement_sources": [
+   {
+    "name": "NWS Climatological Report",
+    "url": "https://forecast.weather.gov/product.php?site=TBW&product=CLI&issuedby=TPA"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURTB",
+  "title": "Hurricane hits Tampa"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCAT.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCAT.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURCAT",
+  "title": "Hurricane category"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "annual",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "KXHURCTOT",
+  "title": "Number of hurricanes"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCOASTTEX.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCOASTTEX.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Corpus Christi area)",
+    "url": "https://www.weather.gov/wrh/climate?wfo=crp"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCOASTTEX",
+  "title": "Hurricane hits coastal Texas"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCHARL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCHARL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Charleston)",
+    "url": "https://forecast.weather.gov/product.php?site=CHS&product=CLI&issuedby=CHS"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURCHARL",
+  "title": "Hurricane hits Charleston"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURNJ.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURNJ.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/wrh/climate?wfo=phi"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURNJ",
+  "title": "Hurricane hitting New Jersey"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURNOR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURNOR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:02:28.792359Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Norfolk, VA)",
+    "url": "https://forecast.weather.gov/product.php?site=AKQ&product=CLI&issuedby=ORF"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURNOR",
+  "title": "Hurricane hits Norfolk"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCROSS.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCROSS.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:07:31.71984Z",
+  "settlement_sources": [
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "the New York Times",
+    "url": "https://nytimes.com"
+   },
+   {
+    "name": "the National Hurricane Center of the National Weather Service of the National Oceanic and Atmospheric Administration",
+    "url": "https://nhc.noaa.gov"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://cnn.com"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "the Associated Press",
+    "url": "https://apnews.com/"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   }
+  ],
+  "tags": null,
+  "ticker": "KXHURCROSSHOU",
+  "title": "Houston hurricane crossing"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURRICANE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURRICANE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:48:24.326652Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXNAMEDSTORM",
+  "title": "Named Storms"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURNJ.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURNJ.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/wrh/climate?wfo=phi"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURNJ",
+  "title": "Hurricane hitting New Jersey"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCOASTTEX.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURCOASTTEX.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Corpus Christi area)",
+    "url": "https://www.weather.gov/wrh/climate?wfo=crp"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURCOASTTEX",
+  "title": "Hurricane hits coastal Texas"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURNYC.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURNYC.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product.php?site=OKX&product=CLI&issuedby=NYC"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURNYC",
+  "title": "Hurricane hits NYC"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURJACKFL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURJACKFL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:02:28.792359Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Jacksonville, FL)",
+    "url": "https://forecast.weather.gov/product.php?site=JAX&product=CLI&issuedby=JAX"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURJACKFL",
+  "title": "Hurricane hits Jacksonville"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-11-11T23:47:50.299164Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHNC",
+  "title": "Hurricane hits north carolina"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURWIL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURWIL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:02:28.792359Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Wilmington)",
+    "url": "https://forecast.weather.gov/product.php?site=ILM&product=CLI&issuedby=ILM"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURWIL",
+  "title": "Hurricane hits Wilmington"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURSZ.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURSZ.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCATH",
+  "title": "Hurricane Henri size"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "KXHURCMAJ",
+  "title": "Number of major hurricanes"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURCITYLANDFALL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURRLANDFALL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:46:50.58294Z",
+  "settlement_sources": [
+   {
+    "name": "National Hurricane Center of the National Weather Service of the National Oceanic and Atmospheric Administration",
+    "url": "https://nhc.noaa.gov"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCITYHOU",
+  "title": "Houston hurricane landfall"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURHAT.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURHAT.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Cape Hatteras)",
+    "url": "https://forecast.weather.gov/product.php?site=MHX&product=CLI&issuedby=HSE"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURHAT",
+  "title": "Hurricane hits Hatteras Island"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURSZ.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURSZ.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURCATH",
+  "title": "Hurricane Henri size"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "annual",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "HURCTOT",
+  "title": "Number of hurricanes"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "KXHURCLAND",
+  "title": "Hurricanes making landfall"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/STORMDATE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/STORMDATE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:59:43.235137Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/archive/2021/SAM.shtml?"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXNEXTHURDATE",
+  "title": "Next hurricane date"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURSZ.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURSZ.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCATI",
+  "title": "Hurricane Ida size"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURNYC.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURNYC.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product.php?site=OKX&product=CLI&issuedby=NYC"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURNYC",
+  "title": "Hurricane hits NYC"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/STORMORDER.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/STORMORDER.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXFIRSTHURRICANE",
+  "title": "First Hurricane"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURFL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURFL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://alerts.weather.gov/cap/wwaatmget.php?x=FLC086&y=1."
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURCATFL",
+  "title": "Hurricane warning FL"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-11-11T23:47:50.328819Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHGENERAL",
+  "title": "HURRICANE GENERAL LANDFALL"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURHAT.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURHAT.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Cape Hatteras)",
+    "url": "https://forecast.weather.gov/product.php?site=MHX&product=CLI&issuedby=HSE"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURHAT",
+  "title": "Hurricane hits Hatteras Island"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "annual",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "HURCTOTMAJ",
+  "title": "Number of major hurricanes"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURNO.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURNO.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "annual",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/wrh/climate?wfo=lix"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "KXHURNO",
+  "title": "Hurricane hits New Orleans"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURORL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURORL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service",
+    "url": "https://forecast.weather.gov/product_sites.php?site=NWS&product=PSH"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/wrh/climate?wfo=mlb"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURORL",
+  "title": "Hurricane hits Orlando"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:47:50.372312Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHGENERALMAJOR",
+  "title": "MAJOR HURRICANE GENERAL LANDFALL"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURSAV.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURSAV.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:02:28.792359Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Savannah)",
+    "url": "https://forecast.weather.gov/product.php?site=CHS&product=CLI&issuedby=SAV"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "KXHURSAV",
+  "title": "Hurricane hits Savannah"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURFL.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURFL.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://alerts.weather.gov/cap/wwaatmget.php?x=FLC086&y=1."
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURCATFL",
+  "title": "Hurricane warning FL"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/LTHUR.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/LTHUR.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes",
+   "Natural disasters"
+  ],
+  "ticker": "HURCMAJ",
+  "title": "Number of major hurricanes"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-11-11T23:47:50.386144Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHAL",
+  "title": "hurricane hits alabama"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURPATH.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURPATH.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-11T23:47:50.265338Z",
+  "settlement_sources": [
+   {
+    "name": "AccuWeather",
+    "url": "https://www.accuweather.com"
+   },
+   {
+    "name": "Associated Press",
+    "url": "https://apnews.com"
+   },
+   {
+    "name": "The Wall Street Journal",
+    "url": "https://www.wsj.com/"
+   },
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.noaa.gov/"
+   },
+   {
+    "name": "the National Hurricane Center",
+    "url": "https://www.nhc.noaa.gov"
+   },
+   {
+    "name": "NBC",
+    "url": "https://www.nbcnews.com/"
+   },
+   {
+    "name": "National Weather Service",
+    "url": "https://www.weather.gov/"
+   },
+   {
+    "name": "The Washington Post",
+    "url": "https://www.washingtonpost.com/"
+   },
+   {
+    "name": "CNN Weather",
+    "url": "https://www.cnn.com/weather"
+   },
+   {
+    "name": "The New York Times",
+    "url": "https://www.nytimes.com/"
+   },
+   {
+    "name": "Bloomberg News",
+    "url": "https://www.bloomberg.com"
+   },
+   {
+    "name": "The Weather Channel",
+    "url": "https://weather.com"
+   },
+   {
+    "name": "Reuters",
+    "url": "https://www.reuters.com"
+   }
+  ],
+  "tags": [
+   "Natural disasters",
+   "Hurricanes"
+  ],
+  "ticker": "KXHURPATHGULFCOAST",
+  "title": "GULF COAST HURRICANE LANDFALL"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURSAV.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURSAV.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Weather Service (Savannah)",
+    "url": "https://forecast.weather.gov/product.php?site=CHS&product=CLI&issuedby=SAV"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURSAV",
+  "title": "Hurricane hits Savannah"
+ },
+ {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Climate and Weather"
+  ],
+  "category": "Climate and Weather",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/HURSZ.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/HURSZ.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-15T08:14:10.229686Z",
+  "settlement_sources": [
+   {
+    "name": "National Oceanic and Atmospheric Administration",
+    "url": "https://www.nhc.noaa.gov/"
+   }
+  ],
+  "tags": [
+   "Hurricanes"
+  ],
+  "ticker": "HURCATI",
+  "title": "Hurricane Ida size"
+ }
+]

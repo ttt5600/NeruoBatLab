@@ -1,0 +1,20 @@
+id: x1_range_daily_taker
+family: kalshi_data_ladders
+dataset: kalshi_opt_tails_ext
+rule: edgelab.rules.opt_tails_ext:taker
+params:
+  arm_set: x1
+hypothesis: 'ot1_extension X1: OT1 rule (edgelab/rules/opt_tails.py:taker unchanged: Deribit smile of first expiry
+  at/after the Kalshi close, sqrt-time moneyness map, no extrapolation; tail side p_T <= .10; buy the other side at ask
+  if (1-p_T) - ask - fee >= .03, ask in [.50,.99], spread <= 5c; amendment-2 candidates) on KXBTC/KXETH 17:00 ET daily RANGE ladders, decision 11:00 ET on the close date.
+  Prereg notes/ot1_extension.md.'
+decision_time: 11:00 ET on the close date (close - 6 h)
+price_model: taker
+split: vault:kalshi_opt_tails_ext
+min_n: 150
+kill:
+  kind: roi_ci_below_zero
+  after_n: 150
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (notes/ot1_extension.md prereg; extension of OT1 ot1_crypto_taker-18d38e5c)'

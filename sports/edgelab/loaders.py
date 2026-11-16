@@ -641,6 +641,19 @@ def kalshi_opt_tails():
 LOADERS["kalshi_opt_tails"] = kalshi_opt_tails
 
 
+def kalshi_opt_tails_ext():
+    """results/ot1_extension/frame.parquet (scripts/ot1_extension.py): one row per (DEV market, decision arm) among the
+    OT1 amendment-2 tail candidates of KXBTC/KXETH range, weekly-listed BTC/ETH events (ahead arms) and KXSOLD/KXSOLE."""
+    f = SPORTS / "results" / "ot1_extension" / "frame.parquet"
+    x = pd.read_parquet(f)
+    x = x[x.result.isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["date"])
+    return x.reset_index(drop=True), [str(f)]
+
+
+LOADERS["kalshi_opt_tails_ext"] = kalshi_opt_tails_ext
+
+
 # ------------------------------------------------------------------ L39 early-window climatology NO (scripts/l39_p1m.py)
 def kalshi_wx_monthly_early():
     """results/l39_expansion/p1m_frame.parquet (DEV ladders only, days_left 7..20) + p1m_tape.parquet (trades after T
@@ -697,3 +710,33 @@ def kalshi_politics_fav():
 
 
 LOADERS["kalshi_politics_fav"] = kalshi_politics_fav
+
+
+# ------------------------------------------------------------------ KXHURCAT vs NHC OFCL (scripts/tropical_nhc.py)
+def kalshi_hurcat_nhc():
+    """data/tropical_nhc/frame.parquet: HC1 rows per (ticker, OFCL advisory), HC2 rows per ticker (post-advisory).
+    date = storm's first market open (UTC date); result hidden."""
+    f = DATA / "tropical_nhc" / "frame.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    return x.reset_index(drop=True), [str(f)]
+
+
+LOADERS["kalshi_hurcat_nhc"] = kalshi_hurcat_nhc
+
+
+# ------------------------------------------------------------------ E4 at other decision times (scripts/e4_timing.py, agent e4_timing 11-16)
+def kalshi_temp_t10():
+    """sports/results/e4_timing/edgelab_T10.parquet: consensus-reject picks decided 10:00 station-local on D-1 (lead-2 peak
+    forecasts, margin 4F fixed from error climatology), E1 orig-7 cohort, tradeable quote at T; T/yes_bid/yes_ask at T10.
+    attrs['tape'] = public trades (T10, close] on those tickers."""
+    D = SPORTS / "results" / "e4_timing"
+    f, ft = D / "edgelab_T10.parquet", D / "trades.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    tr = pd.read_parquet(ft)
+    x.attrs["tape"] = tr[tr.ticker.isin(x.ticker)].reset_index(drop=True)
+    return x.reset_index(drop=True), [str(f), str(ft)]
+
+
+LOADERS["kalshi_temp_t10"] = kalshi_temp_t10

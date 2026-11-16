@@ -1,0 +1,17 @@
+id: hc1_hurcat_nhc_gap
+family: kalshi_data_ladders
+dataset: kalshi_hurcat_nhc
+rule: edgelab.rules.hurcat_nhc:hc1
+params:
+  margin: 20
+hypothesis: 'HC1 (notes/tropical_nhc.md prereg 2026-11-16): Kalshi KXHURCAT/HURCAT per-storm "reaches >= 74/96/111/130/157 mph" (64/83/96/113/137 kt). At each NHC OFCL advisory t0 (released t0+3h), V = max OFCL Vmax over tau 0..120 h; if H_kt - V >= 20 kt and the book at d = t0+5h (last hourly candle ending <= d, <= 7 d old; Kalshi emits candles only on change) has yes_bid >= 1c, yes_ask > yes_bid, buy 1 NO at 1 - yes_bid (taker + fee), first qualifying advisory per ticker, hold. Pass = storm-cluster ROI CI lower > 0, >= 30 bets, >= 15 storms, no storm > 30% of P&L. Gate first: Kalshi result vs max OFCL tau-0 >= H agree on >= 95% of dev markets.'
+decision_time: 'd = t0 + 5 h after each OFCL advisory (t0 = synoptic, released t0+3h); quote = last hourly candle ending <= d'
+price_model: taker
+split: vault:kalshi_hurcat_nhc
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent tropical_nhc); dev 2021-24 seasons, 2025 excluded (LX2 sealed), 2026 sealed'

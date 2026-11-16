@@ -1,0 +1,15 @@
+id: hc2_hurcat_post_advisory
+family: kalshi_data_ladders
+dataset: kalshi_hurcat_nhc
+rule: edgelab.rules.hurcat_nhc:hc2
+hypothesis: 'HC2 (notes/tropical_nhc.md prereg 2026-11-16): KXHURCAT/HURCAT per-storm thresholds not yet reached by any OFCL tau-0 intensity; at r = last OFCL advisory t0 + 27 h (no advisory for 24 h, observable at r), book at d = r+2h (last hourly candle ending <= d, <= 7 d old) with yes_bid >= 1c, yes_ask > yes_bid -> buy 1 NO at 1 - yes_bid (taker + fee), hold. Same pass bar and gate as HC1.'
+decision_time: 'last OFCL advisory t0 + 27 h; d = r + 2 h; quote = last hourly candle ending <= d'
+price_model: taker
+split: vault:kalshi_hurcat_nhc
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent tropical_nhc); dev 2021-24 seasons, 2025 excluded (LX2 sealed), 2026 sealed'
