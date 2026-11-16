@@ -62,6 +62,53 @@ DOMAINS = [
     ("markets/crypto", r"cf benchmarks|coinbase|bitcoin|ethereum|crypto|nasdaq|nyse|s&p|cboe|cme|ice|"
                        r"wti|brent|gold|forex|treasury yield", 2, 2),
 ]
+# Already-tested series (FUND_BOOK 3d + LEARNINGS_2026-11 + EDGES_AND_AGENTS, compiled 11-16 by ops_series_watch_fix).
+# TESTED -> annotated in the digest and NEVER queued; RELATED -> a sibling was tested, queued with the note.
+# Keep in sync when a new series is tested (the deployed job cannot read the worktree notes).
+TESTED = [
+    (r"KXHIGH.*", "E1/E2/E4 daily-high ladders (live/paper; EDGES_AND_AGENTS E1-E4)"),
+    (r"KXLOWT.*", "X2 daily lows dead (STATE closed list)"),
+    (r"KXRAIN.*", "L39 monthly rain / R1 / RD1-RD2 daily rain (l39_expansion.md, raind_daily_rain.md)"),
+    (r"KXTEMP.*", "HT1 hourly temp dead + ND1 nyc_hourly_dir.md (index unobservable)"),
+    (r"KXTSAW?", "TSA weekly maker sealed-weak (e1x_tsa.md)"),
+    (r"KXAAAGAS.*", "Q016 dead + state gas: maker holds certain side (q016_commodities.md, state_gas.md)"),
+    (r"KX(TX)?ERCOT.*", "ERCOT monthly dead (energy_monthly.md) / Q017 peak load (q017_ercot_load.md)"),
+    (r"KX[A-Z0-9]*EVENT", "econ-event ladders: 1/1,349 tradable quotes (econ_event_ladders.md)"),
+    (r"KXHURCAT.*", "NHC hurricane category dead (tropical_nhc.md)"),
+    (r"KXALBUMEQUIV|KXTOPALBUM|KXTOPSONG|KXBBSINGLE", "album/Billboard: priced by forecast readers (billboard_top.md, "
+                                                      "consensus_reject_census.md)"),
+    (r"KXYTVIEWSW?|KXNETFLIXRANK.*", "E1X-M media dead (e1x_media.md)"),
+    (r"KX(BTC|ETH|SOL)(D|E|Y|W)?|KX(BTC|ETH|SOL)(MAX|MIN)[A-Z]*", "crypto OT1 tails / CB1 barrier ladders "
+                                                                 "(options_implied_tails.md, ot1_extension.md, crypto_barrier.md)"),
+    (r"KXINXU?|KXNASDAQ100U?", "OT1 index arm failed (options_implied_tails.md)"),
+    (r"KX(WTI|BRENT|GOLD|NATGAS)(D|W)?|KXTTFMON", "Q016 commodities dead (q016_commodities.md, energy_monthly.md)"),
+    (r"KXBIGGESTQUAKE", "E1X-Q daily quake dead (e1x_quake.md)"),
+    (r"KX(HORMUZ|PANAMA|SUEZ|BABELMANDEB)WEEKLY|KXEIACRUDEW?", "PortWatch / EIA crude dead (data_ladders_far.md)"),
+    (r"KXSPACEXCOUNT|KXSPRLVL|KXTORNADO.*|KXGSTORM|KXSEAICE|KXCO2LEVEL|KXEVMKT|KXMEASLES|KXLAUNCH.*|KXPJM.*|"
+     r"KXMISOIND", "physical-ladder census / SX1 / SP1 dead (phys_ladders.md)"),
+    (r"KX30YMORTW", "mortgage-rate forward logger (EDGES_AND_AGENTS)"),
+    (r"KXALTASNOW|KXMAMMOTHSNOW|KXASPSNOWM", "resort snow: too few settled events (consensus_reject_census.md)"),
+]
+RELATED = [
+    (r"KXBIGGESTQUAKE.+", "daily KXBIGGESTQUAKE dead (e1x_quake.md)"),
+    (r"KX(SILVER|COPPER|PLATINUM|PALLADIUM)(D|W)?", "Q016 metals/commodities dead (q016_commodities.md)"),
+    (r"KX.*ICE(MAX|MIN).*", "KXSEAICE too few events (phys_ladders.md)"),
+    (r"KX[A-Z]*SNOW[A-Z]*", "snow: resort/city monthly snow too few settled events, city monthly snow = L39 (consensus_reject_census.md)"),
+    (r"KX(BTC|ETH|SOL).*", "crypto ladders tested (OT1/CB1)"),
+]
+
+
+def tested_note(t: str) -> tuple[str, str]:
+    """('tested'|'related'|'', note) for a series ticker."""
+    for rx, note in TESTED:
+        if re.fullmatch(rx, t):
+            return "tested", note
+    for rx, note in RELATED:
+        if re.fullmatch(rx, t):
+            return "related", note
+    return "", ""
+
+
 CROWDED_CATS = {"sports", "politics", "elections"}
 MENTION_RE = re.compile(r"\b(say|says|said|mention|mentions|tweet|post on x|truth social)\b", re.I)
 NEWS_SRC_RE = re.compile(r"bloomberg|guardian|cnbc|msnbc|semafor|theinformation|axios|nytimes|apnews|ap\.org|reuters|politico|cnn|foxnews|washingtonpost|wsj|bbc|nbc|cbs|abc", re.I)
@@ -174,6 +221,83 @@ def load_prev(date: str):
         return json.load(f), snaps[-1].name[5:15]
 
 
+# ---------------------------------------------------------------- history (11-16 fix: KXTEMPNYCHS was flagged as
+# newly active although it had traded since 09-10 -- the 10-29 seed simply had no open event for it). A candidate is
+# NEW only if NO market of the series closed (settled/closed/finalized) at or before the previous snapshot day.
+GAP_DAYS = 3                                     # last pre-snapshot close within 3 days of it -> it was trading then
+
+
+def _ts(d: str) -> int:
+    return int(dt.datetime.strptime(d, "%Y-%m-%d").replace(tzinfo=dt.timezone.utc).timestamp())
+
+
+def _last_close_before(t: str, ts: int):
+    """close_time of the most recent market of series t closing <= ts; '' if none; None if the GET failed."""
+    from kx_throttle import kget
+    d = kget("/markets", {"series_ticker": t, "max_close_ts": ts, "limit": 1})
+    if d is None:
+        return None
+    ms = d.get("markets") or []
+    return (ms[0].get("close_time") or "?") if ms else ""
+
+
+def _created_before(t: str, ts: int):
+    """created_time of a market of series t created <= ts (it was listed/open at the prev snapshot even if it closes
+    later -- e.g. KXCOINBASE markets created 08-04, closing after 10-29); '' if none; None if the GET failed."""
+    from kx_throttle import kget
+    d = kget("/markets", {"series_ticker": t, "max_created_ts": ts, "limit": 1})
+    if d is None:
+        return None
+    ms = d.get("markets") or []
+    return (ms[0].get("created_time") or "?") if ms else ""
+
+
+def history(tickers, prev_date: str, date: str) -> dict:
+    """t -> {pre, last_pre_close, since_before}. Cached per (date, prev_date) so rerender needs no network twice."""
+    SNAPS.mkdir(parents=True, exist_ok=True)
+    cf = SNAPS / f"hist_{date}_vs_{prev_date}.json"
+    cache = json.loads(cf.read_text()) if cf.exists() else {}
+    cut = _ts(prev_date)
+    todo = [t for t in tickers if t not in cache or cache[t].get("pre") is None
+            or (cache[t].get("pre") is False and cache[t].get("created_pre") in (None, "?"))]
+    for i, t in enumerate(todo):
+        lc = _last_close_before(t, cut)
+        h = {"pre": None if lc is None else bool(lc), "last_pre_close": lc or "", "since_before": "",
+             "created_pre": ""}
+        if h["pre"] is False:                    # nothing closed yet: was any market already listed back then?
+            cp = _created_before(t, cut)
+            h["created_pre"] = "?" if cp is None else cp
+        if h["pre"]:                             # coarse age: still trading 30 / 365 days before the prev snapshot?
+            for days in (365, 30):
+                if _last_close_before(t, cut - days * 86400):
+                    h["since_before"] = (dt.date.fromisoformat(prev_date) - dt.timedelta(days=days)).isoformat()
+                    break
+        cache[t] = h
+        if i % 50 == 49:
+            cf.write_text(json.dumps(cache))
+            print(f"history {i + 1}/{len(todo)}")
+    cf.write_text(json.dumps(cache))
+    return cache
+
+
+def kind_of(t: str, h: dict, prev: dict, prev_date: str) -> str:
+    """NEW = no market closed before the prev snapshot day and not listed then; 'newly active' = listed before, first
+    events now; 'reactivated' = history ended > GAP_DAYS before the prev snapshot; 'old (snapshot gap)' = it was
+    trading at the prev snapshot, which just had no open event for it (NOT a lead); 'unverified' = history GET failed."""
+    if h is None or h.get("pre") is None or h.get("created_pre") == "?":
+        return "unverified"
+    if not h["pre"]:
+        if h.get("created_pre"):
+            return "old (open at prev snapshot)"
+        return "newly active" if t in prev["series"] else "NEW"
+    lc = h["last_pre_close"][:10]
+    gap = (dt.date.fromisoformat(prev_date) - dt.date.fromisoformat(lc)).days if re.match(r"\d{4}-\d\d-\d\d", lc) else 0
+    return "reactivated" if gap > GAP_DAYS else "old (snapshot gap)"
+
+
+QUEUE_KINDS = {"NEW", "newly active", "reactivated", "unverified"}
+
+
 # ---------------------------------------------------------------- classification + score
 def classify(t: str, meta: dict, act: dict) -> dict:
     srcs = " ".join(f"{n} {u}" for n, u in meta.get("sources") or [])
@@ -223,34 +347,14 @@ def esc(s: str) -> str:
     return (s or "").replace("|", "/").replace("\n", " ").strip()
 
 
-def render(date: str, prev_date: str, prev: dict, cur: dict) -> tuple[str, list[str]]:
-    new_listed, new_active, new_both, gone = diff(prev, cur)
-    cands = []
-    for t in sorted(set(new_both) | set(new_active)):
-        c = classify(t, cur["series"].get(t, {}), cur["active"].get(t, {}))
-        cands.append((t, c))
-    cands.sort(key=lambda x: (-x[1]["score"], -cur["active"][x[0]]["vol24"]))
-    prom = [x for x in cands if x[1]["promising"]]
-    L = [f"# Kalshi series watch -- {date}", "",
-         f"Diff: snapshot {date} ({cur['source']}, {cur['ts']}) vs {prev_date} ({prev['source']}, {prev['ts']}).",
-         f"Series listed: {len(prev['series'])} -> {len(cur['series'])} (+{len(new_listed)} new, -{len(gone)} removed). "
-         f"Series with open events: {len(prev['active'])} -> {len(cur['active'])}.",
-         f"New series with open events: {len(new_both)}. Previously listed, newly active: {len(new_active)}. "
-         f"New but not yet open: {len(set(new_listed) - set(new_both))}.",
-         f"PROMISING (score >= 6, >= 2 markets, no sports/politics/mentions penalty): **{len(prom)}**"
-         + (f" (top {MAX_HEADINGS} get headings)" if len(prom) > MAX_HEADINGS else "") + ".", "",
-         "Score = S1 source verifiable + S2 public forecast + S3 ladder + S4 stale far brackets + S5 events/month "
-         "(each 0-2) - 3 penalty. Read-only snapshot; nothing here is a tested edge.", ""]
-    L.append("## Promising series")
-    L.append("")
-    queue = []
-    # collapse families (e.g. 50 per-state KXAAAGASCD<ST> series) into one heading: same ticker minus the last
-    # 2 chars, >= 3 promising members; the member with the highest 24h volume represents the family
+def collapse(items, cur):
+    """families (e.g. 50 per-state KXAAAGASCD<ST>): same ticker minus the last 2 chars, >= 3 members; the member with
+    the highest 24h volume represents the family. items = [(t, c)] -> [(t, c, members)]"""
     fam: dict[str, list[str]] = {}
-    for t, _ in prom:
+    for t, _ in items:
         fam.setdefault(t[:-2], []).append(t)
     shown, seen_fam = [], set()
-    for t, c in prom:
+    for t, c in items:
         k = t[:-2]
         if len(fam[k]) >= 3:
             if k in seen_fam:
@@ -259,20 +363,57 @@ def render(date: str, prev_date: str, prev: dict, cur: dict) -> tuple[str, list[
             t = max(fam[k], key=lambda x: cur["active"][x]["vol24"])
             c = classify(t, cur["series"].get(t, {}), cur["active"].get(t, {}))
         shown.append((t, c, fam[k] if len(fam[k]) >= 3 else [t]))
-    L.insert(-3, f"Promising families after collapsing per-state/per-item siblings: {len(shown)}.")
+    return shown
+
+
+def render(date: str, prev_date: str, prev: dict, cur: dict) -> tuple[str, list[str]]:
+    new_listed, new_active, new_both, gone = diff(prev, cur)
+    cands = []
+    for t in sorted(set(new_both) | set(new_active)):
+        c = classify(t, cur["series"].get(t, {}), cur["active"].get(t, {}))
+        cands.append((t, c))
+    cands.sort(key=lambda x: (-x[1]["score"], -cur["active"][x[0]]["vol24"]))
+    hist = history([t for t, _ in cands], prev_date, date)
+    kind = {t: kind_of(t, hist.get(t), prev, prev_date) for t, _ in cands}
+    tst = {t: tested_note(t) for t, _ in cands}
+    nk = {k: sum(1 for t in kind if kind[t] == k) for k in
+          ("NEW", "newly active", "reactivated", "old (snapshot gap)", "old (open at prev snapshot)", "unverified")}
+    prom = [x for x in cands if x[1]["promising"]]
+    leads = [x for x in prom if kind[x[0]] in QUEUE_KINDS and tst[x[0]][0] != "tested"]
+    rest = [x for x in prom if x not in leads]
+    shown = collapse(leads, cur)
+    L = [f"# Kalshi series watch -- {date}", "",
+         f"Diff: snapshot {date} ({cur['source']}, {cur['ts']}) vs {prev_date} ({prev['source']}, {prev['ts']}).",
+         f"Series listed: {len(prev['series'])} -> {len(cur['series'])} (+{len(new_listed)} new, -{len(gone)} removed). "
+         f"Series with open events: {len(prev['active'])} -> {len(cur['active'])}.",
+         f"Open now but not open at {prev_date}: {len(cands)}. History check (GET /markets max_close_ts <= {prev_date}): "
+         + ", ".join(f"{k} {v}" for k, v in nk.items()) + ". "
+         f"New but not yet open: {len(set(new_listed) - set(new_both))}.",
+         f"PROMISING (score >= 6, >= 2 markets, no sports/politics/mentions penalty): {len(prom)}; of these "
+         f"**{len(leads)} are leads** (NEW / newly active / reactivated AND not already tested) -> {len(shown)} after "
+         f"collapsing families" + (f" (top {MAX_HEADINGS} get headings)" if len(shown) > MAX_HEADINGS else "") + ".", "",
+         "Score = S1 source verifiable + S2 public forecast + S3 ladder + S4 stale far brackets + S5 events/month "
+         "(each 0-2) - 3 penalty. NEW = no market of the series closed on/before the previous snapshot day. "
+         "Read-only snapshot; nothing here is a tested edge.", "",
+         "## Promising leads (untested, new or newly active)", ""]
+    queue = []
     for t, c, members in shown[:MAX_HEADINGS]:
-        m, a = cur["series"].get(t, {}), cur["active"][t]
-        kind = "NEW" if t in new_both else "newly active"
+        m, a, h = cur["series"].get(t, {}), cur["active"][t], hist.get(t) or {}
         srcs = "; ".join(f"{n} <{u}>" for n, u in m.get("sources") or []) or "(none listed)"
         name = t if len(members) == 1 else f"{t[:-2]}* family ({len(members)} series, e.g. {t})"
-        L += [f"### {name} -- {esc(m.get('title'))} (score {c['score']}/10, {kind})", ""]
+        L += [f"### {name} -- {esc(m.get('title'))} (score {c['score']}/10, {kind[t]})", ""]
         if len(members) > 1:
             L += [f"- members: {', '.join(members)}"]
+        if tst[t][0] == "related":
+            L += [f"- RELATED already tested: {tst[t][1]}"]
+        if kind[t] == "reactivated":
+            L += [f"- history: last market closed {h.get('last_pre_close', '')[:10]} (before {prev_date}); "
+                  f"trading since before {h.get('since_before') or prev_date}"]
         L += [
               f"- category {m.get('category')} / domain {c['domain']} / frequency {m.get('frequency') or '?'} "
               f"(~{c['epm']} events/month) / strike_type {a.get('strike_type') or '?'}",
               f"- open: {a['n_ev']} events, {a['n_mk']} markets (max {a['max_mk']}/event); 24h volume "
-              f"{a['vol24']:.0f}, total volume {a['vol']:.0f}, OI {a['oi']:.0f}; first market created "
+              f"{a['vol24']:.0f}, total volume {a['vol']:.0f}, OI {a['oi']:.0f}; first open market created "
               f"{a['first_created'][:16]}, next close {a['next_close'][:16]}",
               f"- checklist: S1 source {c['S1']}, S2 forecast {c['S2']}, S3 ladder {c['S3']}, S4 stale tails "
               f"{c['S4']} ({a['n_tail_stale']}/{a['n_ladder_mk']} ladder markets quoted 2-15c with 0 volume 24h), "
@@ -280,19 +421,40 @@ def render(date: str, prev_date: str, prev: dict, cur: dict) -> tuple[str, list[
               f"- settlement sources: {esc(srcs)}",
               f"- rules ({a['sample_market']}): {esc(a['rules_primary'])[:500]}", ""]
         qt = t if len(members) == 1 else f"{t[:-2]}*"
-        queue.append(f"- {date} **{qt}** {esc(m.get('title'))}{' (+%d siblings)' % (len(members) - 1) if len(members) > 1 else ''} -- score {c['score']}/10, {c['domain']}, "
-                     f"{m.get('frequency') or '?'}, {a['n_mk']} mkts, vol24 {a['vol24']:.0f} "
-                     f"(notes/series_watch/{date}.md)")
-    if not prom:
+        rel = f" [related tested: {tst[t][1]}]" if tst[t][0] == "related" else ""
+        queue.append(f"- {date} **{qt}** {esc(m.get('title'))}"
+                     f"{' (+%d siblings)' % (len(members) - 1) if len(members) > 1 else ''} -- {kind[t]}, score "
+                     f"{c['score']}/10, {c['domain']}, {m.get('frequency') or '?'}, {a['n_mk']} mkts, vol24 "
+                     f"{a['vol24']:.0f}{rel} (notes/series_watch/{date}.md)")
+    if not shown:
         L += ["(none today)", ""]
-    L += ["## All new / newly-active series", "",
+    if rest:
+        L += ["## Promising score but NOT a lead (already tested, or not actually new)", ""]
+        for t, c, members in collapse(rest, cur):
+            h = hist.get(t) or {}
+            name = t if len(members) == 1 else f"{t[:-2]}* ({len(members)} series)"
+            why = []
+            if tst[t][0] == "tested":
+                why.append(f"TESTED: {tst[t][1]}")
+            if kind[t] == "old (open at prev snapshot)":
+                why.append(f"{kind[t]}: first market created {h.get('created_pre', '')[:10]}")
+            elif kind[t] not in QUEUE_KINDS:
+                why.append(f"{kind[t]}: traded before {prev_date} (last close {h.get('last_pre_close', '')[:10]}, "
+                           f"since before {h.get('since_before') or prev_date})")
+            elif kind[t] == "reactivated":
+                why.append(f"reactivated (last close {h.get('last_pre_close', '')[:10]})")
+            L.append(f"- {name} -- {esc(cur['series'].get(t, {}).get('title'))} (score {c['score']}): "
+                     + "; ".join(why))
+        L.append("")
+    L += ["## All series open now but not at the previous snapshot", "",
           "| series | title | cat | freq | kind | ev | mkts | vol24 | score | flags |", "|---|---|---|---|---|---|---|---|---|---|"]
     for t, c in cands[:200]:
         m, a = cur["series"].get(t, {}), cur["active"][t]
         flags = ",".join(c["pen_why"]) or c["domain"]
+        if tst[t][0]:
+            flags += f",{tst[t][0]}"
         L.append(f"| {t} | {esc(m.get('title'))[:60]} | {m.get('category','')} | {m.get('frequency','')} | "
-                 f"{'new' if t in new_both else 'react'} | {a['n_ev']} | {a['n_mk']} | {a['vol24']:.0f} | "
-                 f"{c['score']} | {flags} |")
+                 f"{kind[t]} | {a['n_ev']} | {a['n_mk']} | {a['vol24']:.0f} | {c['score']} | {flags} |")
     if len(cands) > 200:
         L.append(f"\n({len(cands) - 200} more not shown)")
     pend = sorted(set(new_listed) - set(new_both))

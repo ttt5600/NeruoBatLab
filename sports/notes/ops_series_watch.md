@@ -47,6 +47,38 @@ or "rain" in an unrelated title); S4 is a one-snapshot staleness proxy, not a qu
   Top: metals/FX/crypto/treasury "after economic events" ladders (KX*EVENT, new), KXAAAGASCD* 50 state gas prices
   (AAA, new), ERCOT hub monthly power, Dutch TTF monthly, KXTEMPNYCHS hourly NYC temp, KXBIGGESTQUAKEMONTH,
   KXARCTICICEMAX. Remaining known false positive: KXPERFORMROLE. Span is 17 days (10-29 seed), daily from tomorrow.
+- 11-16 BUG (agent ops_series_watch_fix, reported in notes/nyc_hourly_dir.md): KXTEMPNYCHS was queued as "newly active"
+  although it has traded since 09-10 (1,319 events). Cause: "new / newly active" = "no open event in the previous
+  snapshot", and the 10-29 census seed simply had no open KXTEMPNYCHS event; nothing checked history.
+  FIX (scripts/series_watch.py, deployed to ~/.claude/quant-sports/scripts, plist unchanged): for every candidate,
+  GET /markets?series_ticker=T&max_close_ts=<prev snapshot day 00:00Z>&limit=1 (any settled/closed/finalized market
+  closing before the previous snapshot) and, if none, GET ...&max_created_ts=<same> (market already listed then, closes
+  later -- KXCOINBASE created 08-04). Kinds: NEW (neither, not listed before) / newly active (listed before, neither) /
+  reactivated (last pre-snapshot close > 3 days before it) / old (snapshot gap) (last close within 3 days) / old (open
+  at prev snapshot) / unverified (GET failed). Only NEW, newly active, reactivated, unverified can be queued. Results
+  cached in state/series_watch/hist_<date>_vs_<prev>.json (rerender needs no second crawl). Checked the API first:
+  KXTEMPNYCHS max_close_ts<=10-29 -> KXTEMPNYCHS-26OCT2820 closed 10-29T00:00Z; KXAAAGASCDCA -> none (truly new);
+  max_created_ts on KXCOINBASE -> created 2026-08-04 (results/ops_series_watch_fix/probe2.py, probe3.py).
+  Also: TESTED / RELATED registry in the script (compiled from FUND_BOOK 3d, LEARNINGS_2026-11, EDGES_AND_AGENTS:
+  KXHIGH*, KXLOWT*, KXRAIN*, KXTEMP*, KXTSAW, KXAAAGAS*, KX(TX)ERCOT*, KX*EVENT, KXHURCAT*, album/Billboard,
+  YouTube/Netflix, crypto KXBTC/ETH/SOL D/E/Y/W + MAX/MIN, KXINX/NASDAQ100, Q016 WTI/BRENT/GOLD/NATGAS + KXTTFMON,
+  KXBIGGESTQUAKE, PortWatch/EIA crude, phys-ladder census, KX30YMORTW, resort snow). TESTED = annotated, never queued;
+  RELATED (sibling tested: KXBIGGESTQUAKEMONTH, KXSILVER/COPPER, *ICEMAX, *SNOW*, other KXBTC/ETH/SOL) = queued with
+  the note. The deployed job cannot read worktree notes, so the registry is code: ADD A LINE WHEN A SERIES IS TESTED.
+- 11-16 re-run of the 11-15 digest (rerender, 827 candidates, 1,544 read-only GETs; logs results/ops_series_watch_fix/
+  rerender_1115b.log): NEW 630, newly active 69, reactivated 70, old (snapshot gap) 40, old (open at prev snapshot) 18,
+  unverified 0. Promising 150 -> leads 55 (was 150 before: 95 were tested or not new). KXTEMPNYCHS = old (snapshot
+  gap) + TESTED; KXCOINBASE = old (open since 08-04). RESEARCH_QUEUE "From series watch": 27 of the 30 11-15 lines
+  removed (26 tested + KXCOINBASE), replaced by the top 30 untested leads (backup results/ops_series_watch_fix/
+  RESEARCH_QUEUE.before.md). Digest synced to notes/series_watch/2026-11-15.md.
+- 11-16 03:0x dry run of the NEXT digest with the deployed script into a scratch root (SW_ROOT=results/
+  ops_series_watch_fix/dryroot, so the real 07:00 slot is untouched; log dryrun_1116.log): 16,454 series, 95 pages,
+  71 candidates vs 11-15 -> NEW 5, reactivated 22, old (snapshot gap) 44; 11 promising, 0 leads. The old logic would
+  have queued KX2YRRATEH/KX10YRRATEH/KXGOLDH/KXWTIH/KXTTFD... as "newly active" (hourly markets closed over the weekend
+  at the Sunday snapshot; last close 11-13). The real 07:00 PT 11-16 launchd run had not happened when this agent ended.
+- Remaining known scoring weaknesses (not fixed here): keyword false positives KXTHEVOICE / KXPERFORMROLE /
+  KXROLEINPRODUCTIONLI / KXOSCARS still score 6-8; per-city families with different ticker lengths (KXHOUHOME,
+  KXSEAHOME, ...) are not collapsed by the "ticker minus 2 chars" rule.
 
 ## Ops
 - launchd com.jonathanwang.quant-sports-series-watch: 07:00 PT + hourly retry, once/day (state/series_watch_done).
@@ -66,3 +98,12 @@ data. Notes: notes/ops_series_watch.md log 11-15.
 ### Kalshi listed ~947 new series in 17 days (10-29 -> 11-15), 630 already trading
 Source: digests/series_watch-2026-11-15.md. Manual census cannot keep up; the daily diff is the replacement. New
 untouched data-resolved ladders: KX*EVENT (metals/FX/crypto/yields after econ releases), KXAAAGASCD* (50 states).
+### "Not open in the previous snapshot" is not "new": check the series' market history
+KXTEMPNYCHS (traded since 09-10, 1,319 events) was queued as newly active because the 10-29 seed had no open event for
+it. With a history check (GET /markets max_close_ts / max_created_ts <= prev snapshot), the 11-15 diff's 150 promising
+series shrink to 55 untested leads; the 11-16 dry run shows hourly Treasury/gold/WTI series reappearing every Monday
+as "new" from weekend gaps. Source: notes/ops_series_watch.md log 11-16, results/ops_series_watch_fix/dryrun_1116.log.
+### A lead queue needs the do-not-redo list wired into the generator, not checked by hand
+26 of the first 30 queued series (KX*EVENT, KXAAAGASCD*, KXERCOT*M, Q016 commodities, KXTEMPNYCHS) were already tested
+and dead. The watcher now carries a TESTED registry (scripts/series_watch.py) and never queues those; update it when a
+series is tested.
