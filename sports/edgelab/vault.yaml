@@ -494,3 +494,11 @@ datasets:
     splits:                                # = kalshi_temp_e1 windows; E1 sealed rows never built (builder drops >= 2025-07-01)
       dev: [2021-07-01, 2025-06-30]
       sealed: [2025-07-01, 2026-10-06]     # not built; would need the user's yes
+  kalshi_temp_prob:       # e4_probabilistic 11-16: E4 + calibrated P(hit) NEW picks at 22:00; prereg notes/e4_probabilistic.md
+    loader: kalshi_temp_prob
+    family: kalshi_weather_temp
+    hidden: [won]
+    outcome: {kind: won_column, key: ticker}
+    splits:                                # dev = the study's TEST window (calibration 2024-03..10 is not scored)
+      dev: [2024-11-01, 2025-06-30]
+      sealed: [2025-07-01, 2026-10-06]     # not built; would need the user's yes

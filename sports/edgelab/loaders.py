@@ -740,3 +740,19 @@ def kalshi_temp_t10():
 
 
 LOADERS["kalshi_temp_t10"] = kalshi_temp_t10
+
+
+def kalshi_temp_prob():
+    """sports/results/e4_probabilistic/edgelab_new.parquet: TEST-period (2024-11..2025-06) E1 orig-7 brackets NOT picked by
+    the frozen 5-model E4 rule, tradeable at 22:00, with walk-forward P(hit) `phit` (prereg notes/e4_probabilistic.md).
+    Selection (phit threshold) is done by edgelab/rules/kalshi_wx_prob.py. attrs['tape'] = public trades (T, close]."""
+    D = SPORTS / "results" / "e4_probabilistic"
+    f, ft = D / "edgelab_new.parquet", D / "trades.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    tr = pd.read_parquet(ft)
+    x.attrs["tape"] = tr[tr.ticker.isin(x.ticker)].reset_index(drop=True)
+    return x.reset_index(drop=True), [str(f), str(ft)]
+
+
+LOADERS["kalshi_temp_prob"] = kalshi_temp_prob
