@@ -1,0 +1,18 @@
+id: qm2_quake_month_maker
+family: kalshi_data_ladders
+dataset: kalshi_quake_monthly
+rule: edgelab.rules.forward:unwired
+hypothesis: 'QM2 (forward-only paper; prereg notes/quake_monthly.md). Same model/timing as QM1. Maker on the near-certain side
+  (p_S >= .85): bid q = best bid_S + .01 (< ask_S) iff p_S - q >= .03, fee 0; filled iff a trade prints crossing q before the
+  next decision. Report fill rate and loss rate filled vs unfilled (e1x_quake died on maker adverse selection: filled 25.7%
+  vs unfilled 0%). Kill also if filled-vs-unfilled loss gap >= 10 pts.'
+decision_time: 'daily 15:00 UTC from listing to month end - 1 d'
+price_model: maker_tape
+split: vault:kalshi_quake_monthly
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent quake_monthly). Registered after one live book was seen (11-16: would post NO on 7.6/7.8/8.0/8.2) and before any outcome; no logger installed yet.'

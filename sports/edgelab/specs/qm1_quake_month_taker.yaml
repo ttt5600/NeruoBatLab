@@ -1,0 +1,19 @@
+id: qm1_quake_month_taker
+family: kalshi_data_ladders
+dataset: kalshi_quake_monthly
+rule: edgelab.rules.forward:unwired
+hypothesis: 'QM1 (forward-only paper; prereg notes/quake_monthly.md). KXBIGGESTQUAKEMONTH rungs M6.6..8.2 (>= K, USGS max of
+  the UTC month, value displayed 1st of next month 10:00 ET). p(K,t) = 1 if USGS month-to-date max >= K else empirical share
+  of T-day windows (T = month end - t, daily starts 2000-01-01..t-30d, ComCat M>=6) with max >= K. Skip month-decision if
+  M>=7.5 in prior 30 d. Daily 15:00 UTC, /orderbook quotes. Taker on side S with p_S >= .85 iff p_S - ask - .07ask(1-ask)
+  >= .03; 1 contract; one fire per ticker-side. Inference unit = month (clustered). Not a test until >= 12 months.'
+decision_time: 'daily 15:00 UTC from listing to month end - 1 d'
+price_model: taker
+split: vault:kalshi_quake_monthly
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent quake_monthly). Registered after one live book was seen (11-16, 0 fires) and before any outcome; no logger installed yet.'

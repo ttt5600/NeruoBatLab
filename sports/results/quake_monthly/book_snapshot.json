@@ -1,0 +1,1372 @@
+{
+ "pulled": "2026-11-16T14:36:29Z",
+ "books": {
+  "KXBIGGESTQUAKEMONTH-30NOV26-8.2": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.3500",
+      "5.00"
+     ],
+     [
+      "0.3600",
+      "45.00"
+     ],
+     [
+      "0.3700",
+      "367.00"
+     ],
+     [
+      "0.9100",
+      "201.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0200",
+      "5.00"
+     ]
+    ]
+   }
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-8.0": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.3000",
+      "6.00"
+     ],
+     [
+      "0.3100",
+      "48.00"
+     ],
+     [
+      "0.3200",
+      "446.00"
+     ],
+     [
+      "0.7000",
+      "1.00"
+     ],
+     [
+      "0.8700",
+      "100.00"
+     ],
+     [
+      "0.8800",
+      "100.00"
+     ],
+     [
+      "0.9000",
+      "10.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0200",
+      "200.00"
+     ],
+     [
+      "0.0300",
+      "6.00"
+     ]
+    ]
+   }
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.8": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.1300",
+      "59.00"
+     ],
+     [
+      "0.1500",
+      "13.00"
+     ],
+     [
+      "0.1600",
+      "721.00"
+     ],
+     [
+      "0.8400",
+      "100.00"
+     ],
+     [
+      "0.8500",
+      "100.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0500",
+      "200.00"
+     ],
+     [
+      "0.0600",
+      "5.00"
+     ]
+    ]
+   }
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.6": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.3600",
+      "45.00"
+     ],
+     [
+      "0.3700",
+      "343.00"
+     ],
+     [
+      "0.8000",
+      "100.00"
+     ],
+     [
+      "0.8100",
+      "100.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0100",
+      "100.00"
+     ],
+     [
+      "0.0200",
+      "338.00"
+     ],
+     [
+      "0.0300",
+      "25.00"
+     ],
+     [
+      "0.0900",
+      "200.00"
+     ],
+     [
+      "0.1000",
+      "5.00"
+     ]
+    ]
+   }
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.4": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.3200",
+      "44.00"
+     ],
+     [
+      "0.3300",
+      "6.00"
+     ],
+     [
+      "0.3400",
+      "427.00"
+     ],
+     [
+      "0.5400",
+      "1.00"
+     ],
+     [
+      "0.7300",
+      "200.00"
+     ],
+     [
+      "0.7400",
+      "100.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0100",
+      "100.00"
+     ],
+     [
+      "0.0200",
+      "1075.00"
+     ],
+     [
+      "0.0300",
+      "525.00"
+     ],
+     [
+      "0.0600",
+      "100.00"
+     ],
+     [
+      "0.0700",
+      "47.00"
+     ],
+     [
+      "0.1600",
+      "200.00"
+     ],
+     [
+      "0.1700",
+      "5.00"
+     ]
+    ]
+   }
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.2": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.1300",
+      "43.00"
+     ],
+     [
+      "0.2500",
+      "5.17"
+     ],
+     [
+      "0.2700",
+      "7.00"
+     ],
+     [
+      "0.2800",
+      "284.00"
+     ],
+     [
+      "0.6400",
+      "100.00"
+     ],
+     [
+      "0.6500",
+      "100.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0300",
+      "525.00"
+     ],
+     [
+      "0.0400",
+      "25.00"
+     ],
+     [
+      "0.0500",
+      "489.00"
+     ],
+     [
+      "0.0600",
+      "41.00"
+     ],
+     [
+      "0.0800",
+      "12.50"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.1300",
+      "17.00"
+     ],
+     [
+      "0.2500",
+      "200.00"
+     ],
+     [
+      "0.2600",
+      "10.00"
+     ],
+     [
+      "0.2700",
+      "5.00"
+     ]
+    ]
+   }
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.0": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0100",
+      "0.36"
+     ],
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.0600",
+      "2.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.1400",
+      "14.00"
+     ],
+     [
+      "0.1500",
+      "53.00"
+     ],
+     [
+      "0.1600",
+      "401.00"
+     ],
+     [
+      "0.5200",
+      "100.00"
+     ],
+     [
+      "0.5300",
+      "105.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0300",
+      "526.00"
+     ],
+     [
+      "0.0500",
+      "25.00"
+     ],
+     [
+      "0.0800",
+      "12.50"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.1300",
+      "572.00"
+     ],
+     [
+      "0.2200",
+      "50.00"
+     ],
+     [
+      "0.2300",
+      "30.00"
+     ],
+     [
+      "0.3700",
+      "200.00"
+     ],
+     [
+      "0.3800",
+      "10.00"
+     ],
+     [
+      "0.4000",
+      "5.00"
+     ]
+    ]
+   }
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-6.8": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.0400",
+      "1167.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.1300",
+      "53.00"
+     ],
+     [
+      "0.1400",
+      "14.00"
+     ],
+     [
+      "0.3700",
+      "103.55"
+     ],
+     [
+      "0.3800",
+      "100.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0200",
+      "50.00"
+     ],
+     [
+      "0.0300",
+      "525.00"
+     ],
+     [
+      "0.0600",
+      "25.00"
+     ],
+     [
+      "0.0800",
+      "12.50"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.1300",
+      "695.00"
+     ],
+     [
+      "0.1400",
+      "60.00"
+     ],
+     [
+      "0.2700",
+      "51.00"
+     ],
+     [
+      "0.5200",
+      "200.00"
+     ],
+     [
+      "0.5400",
+      "5.00"
+     ]
+    ]
+   }
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-6.6": {
+   "orderbook_fp": {
+    "no_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.0400",
+      "53.00"
+     ],
+     [
+      "0.0500",
+      "381.00"
+     ],
+     [
+      "0.1100",
+      "100.00"
+     ],
+     [
+      "0.2100",
+      "100.00"
+     ],
+     [
+      "0.2200",
+      "100.00"
+     ]
+    ],
+    "yes_dollars": [
+     [
+      "0.0300",
+      "500.00"
+     ],
+     [
+      "0.1200",
+      "100.00"
+     ],
+     [
+      "0.3100",
+      "51.00"
+     ],
+     [
+      "0.3200",
+      "299.00"
+     ],
+     [
+      "0.6800",
+      "200.00"
+     ],
+     [
+      "0.7000",
+      "5.00"
+     ]
+    ]
+   }
+  }
+ },
+ "trades": {
+  "KXBIGGESTQUAKEMONTH-30NOV26-8.2": [
+   {
+    "count_fp": "10.44",
+    "created_time": "2026-11-10T19:56:17.715705Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.9100",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.2",
+    "trade_id": "0726dafd-1eb9-88dd-2173-f913e88103c2",
+    "yes_price_dollars": "0.0900"
+   }
+  ],
+  "KXBIGGESTQUAKEMONTH-30NOV26-8.0": [
+   {
+    "count_fp": "72.46",
+    "created_time": "2026-11-12T18:43:15.264276Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8700",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.0",
+    "trade_id": "07268b7d-3251-a799-478b-180a9a247b9f",
+    "yes_price_dollars": "0.1300"
+   },
+   {
+    "count_fp": "141.95",
+    "created_time": "2026-11-11T11:15:32.159386Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8600",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.0",
+    "trade_id": "0726ee4f-9ea9-81c9-6334-784909b1d9eb",
+    "yes_price_dollars": "0.1400"
+   },
+   {
+    "count_fp": "100.00",
+    "created_time": "2026-11-11T11:15:32.159386Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8700",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.0",
+    "trade_id": "0726ee26-a051-88a8-7d67-d70b51ab09bd",
+    "yes_price_dollars": "0.1300"
+   },
+   {
+    "count_fp": "1.00",
+    "created_time": "2026-11-11T11:15:32.159386Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8700",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.0",
+    "trade_id": "0726e0f1-4ad1-83ae-72b0-17b0e501a8fa",
+    "yes_price_dollars": "0.1300"
+   },
+   {
+    "count_fp": "7.23",
+    "created_time": "2026-11-10T19:56:25.096815Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8700",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.0",
+    "trade_id": "0726dadd-5271-bc64-67fd-4acfbec5fc35",
+    "yes_price_dollars": "0.1300"
+   },
+   {
+    "count_fp": "7.23",
+    "created_time": "2026-11-10T19:55:52.089527Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8700",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.0",
+    "trade_id": "0726dae3-5fd1-a760-243d-f50b0fe57851",
+    "yes_price_dollars": "0.1300"
+   },
+   {
+    "count_fp": "98.08",
+    "created_time": "2026-11-10T19:43:02.048971Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8800",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.0",
+    "trade_id": "0726dd2c-90d9-acc2-052d-dd135b51aaac",
+    "yes_price_dollars": "0.1200"
+   }
+  ],
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.8": [
+   {
+    "count_fp": "5.52",
+    "created_time": "2026-11-10T19:55:57.499841Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8300",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.8",
+    "trade_id": "0726db21-05a1-b399-772b-81b6fa8b6ef2",
+    "yes_price_dollars": "0.1700"
+   },
+   {
+    "count_fp": "73.75",
+    "created_time": "2026-11-10T19:42:45.621186Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.8400",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.8",
+    "trade_id": "0726dd33-8939-b8a7-876e-73f898d9cdd2",
+    "yes_price_dollars": "0.1600"
+   }
+  ],
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.6": [
+   {
+    "count_fp": "4.08",
+    "created_time": "2026-11-10T19:56:34.443381Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.7700",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.6",
+    "trade_id": "0726dade-2f91-83ef-4870-3ea1e670ac28",
+    "yes_price_dollars": "0.2300"
+   }
+  ],
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.4": [
+   {
+    "count_fp": "3.06",
+    "created_time": "2026-11-10T19:56:09.533072Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.6900",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.4",
+    "trade_id": "0726dadc-5471-bf69-ce81-7a3c6c30de4d",
+    "yes_price_dollars": "0.3100"
+   }
+  ],
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.2": [
+   {
+    "count_fp": "5.17",
+    "created_time": "2026-11-15T09:08:14.30876Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.6300",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.2",
+    "trade_id": "0726a5b6-5da9-8f55-eac9-cf6408995515",
+    "yes_price_dollars": "0.3700"
+   },
+   {
+    "count_fp": "23.42",
+    "created_time": "2026-11-12T22:53:00.901559Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.5900",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.2",
+    "trade_id": "072696f4-2b61-bd49-c0fa-2d502a5d652f",
+    "yes_price_dollars": "0.4100"
+   },
+   {
+    "count_fp": "22.88",
+    "created_time": "2026-11-11T04:07:20.905824Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.5800",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.2",
+    "trade_id": "0726e4da-a679-b600-df47-bafcc6da5c12",
+    "yes_price_dollars": "0.4200"
+   },
+   {
+    "count_fp": "7.29",
+    "created_time": "2026-11-11T00:00:49.021187Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.6700",
+    "taker_book_side": "ask",
+    "taker_outcome_side": "no",
+    "taker_side": "no",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.2",
+    "trade_id": "0726d95c-5771-a330-40a9-86792789c857",
+    "yes_price_dollars": "0.3300"
+   },
+   {
+    "count_fp": "2.23",
+    "created_time": "2026-11-10T19:56:48.641668Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.5700",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.2",
+    "trade_id": "0726dadf-cad1-94eb-dc54-3ac36f1de281",
+    "yes_price_dollars": "0.4300"
+   }
+  ],
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.0": [
+   {
+    "count_fp": "5.00",
+    "created_time": "2026-11-16T04:02:24.036017Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.6000",
+    "taker_book_side": "ask",
+    "taker_outcome_side": "no",
+    "taker_side": "no",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "07266b5c-f701-bb43-6f33-a1e5794cd768",
+    "yes_price_dollars": "0.4000"
+   },
+   {
+    "count_fp": "15.56",
+    "created_time": "2026-11-16T04:02:24.036017Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.6200",
+    "taker_book_side": "ask",
+    "taker_outcome_side": "no",
+    "taker_side": "no",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "0726682c-6d81-b123-4ef7-fde6d8489e92",
+    "yes_price_dollars": "0.3800"
+   },
+   {
+    "count_fp": "1.79",
+    "created_time": "2026-11-13T03:11:53.088733Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.4600",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "07269938-4d81-8b64-6b68-3ede8a2cc33f",
+    "yes_price_dollars": "0.5400"
+   },
+   {
+    "count_fp": "1.79",
+    "created_time": "2026-11-12T22:20:35.845338Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.5600",
+    "taker_book_side": "ask",
+    "taker_outcome_side": "no",
+    "taker_side": "no",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "0726964b-6401-84f0-79c2-c2f475763891",
+    "yes_price_dollars": "0.4400"
+   },
+   {
+    "count_fp": "1.79",
+    "created_time": "2026-11-12T18:07:43.202416Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.4600",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "07268c39-4b31-968b-bb88-2c2b13a3a588",
+    "yes_price_dollars": "0.5400"
+   },
+   {
+    "count_fp": "0.36",
+    "created_time": "2026-11-11T23:34:10.173921Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.4400",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "0726f87d-69d9-aba0-4e68-7694d007200a",
+    "yes_price_dollars": "0.5600"
+   },
+   {
+    "count_fp": "8.51",
+    "created_time": "2026-11-11T04:07:31.046142Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.4300",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "0726e447-4d61-85e1-b0f2-95b5697bdd24",
+    "yes_price_dollars": "0.5700"
+   },
+   {
+    "count_fp": "17.32",
+    "created_time": "2026-11-11T03:26:20.949964Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.4400",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "0726e578-93f1-a68a-0265-e36b2ec219f5",
+    "yes_price_dollars": "0.5600"
+   },
+   {
+    "count_fp": "1.67",
+    "created_time": "2026-11-10T19:56:54.509699Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.4200",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+    "trade_id": "0726db2b-14e1-9726-6aa6-73fa77dec90e",
+    "yes_price_dollars": "0.5800"
+   }
+  ],
+  "KXBIGGESTQUAKEMONTH-30NOV26-6.8": [
+   {
+    "count_fp": "1.45",
+    "created_time": "2026-11-14T05:10:48.404Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.3300",
+    "taker_book_side": "bid",
+    "taker_outcome_side": "yes",
+    "taker_side": "yes",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-6.8",
+    "trade_id": "0726b6f4-0f11-9e44-f4b7-86a3c194c7b2",
+    "yes_price_dollars": "0.6700"
+   },
+   {
+    "count_fp": "46.87",
+    "created_time": "2026-11-11T13:13:52.55258Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.3700",
+    "taker_book_side": "ask",
+    "taker_outcome_side": "no",
+    "taker_side": "no",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-6.8",
+    "trade_id": "0726ec25-5f19-923c-a0cb-f556547a4b9e",
+    "yes_price_dollars": "0.6300"
+   },
+   {
+    "count_fp": "5.00",
+    "created_time": "2026-11-11T13:13:52.55258Z",
+    "is_block_trade": false,
+    "no_price_dollars": "0.3600",
+    "taker_book_side": "ask",
+    "taker_outcome_side": "no",
+    "taker_side": "no",
+    "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-6.8",
+    "trade_id": "0726e376-37b1-9642-84c9-26d5eed4362f",
+    "yes_price_dollars": "0.6400"
+   }
+  ],
+  "KXBIGGESTQUAKEMONTH-30NOV26-6.6": []
+ },
+ "mk": {
+  "KXBIGGESTQUAKEMONTH-30NOV26-8.2": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 8.2,
+   "last_price_dollars": "0.0900",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.9800",
+   "no_bid_dollars": "0.9100",
+   "no_sub_title": "Magnitude of at least 8.2",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "10.44",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.0900",
+   "previous_yes_ask_dollars": "0.0900",
+   "previous_yes_bid_dollars": "0.0200",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 8.2 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.2",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "0.00",
+   "volume_fp": "10.44",
+   "yes_ask_dollars": "0.0900",
+   "yes_ask_size_fp": "201.00",
+   "yes_bid_dollars": "0.0200",
+   "yes_bid_size_fp": "5.00",
+   "yes_sub_title": "Magnitude of at least 8.2"
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-8.0": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 8,
+   "last_price_dollars": "0.1300",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.9700",
+   "no_bid_dollars": "0.9000",
+   "no_sub_title": "Magnitude of at least 8.0",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "427.95",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.1300",
+   "previous_yes_ask_dollars": "0.1000",
+   "previous_yes_bid_dollars": "0.0300",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 8.0 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-8.0",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "0.00",
+   "volume_fp": "427.95",
+   "yes_ask_dollars": "0.1000",
+   "yes_ask_size_fp": "10.00",
+   "yes_bid_dollars": "0.0300",
+   "yes_bid_size_fp": "6.00",
+   "yes_sub_title": "Magnitude of at least 8.0"
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.8": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 7.8,
+   "last_price_dollars": "0.1700",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.9400",
+   "no_bid_dollars": "0.8500",
+   "no_sub_title": "Magnitude of at least 7.8",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "79.27",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.1700",
+   "previous_yes_ask_dollars": "0.1500",
+   "previous_yes_bid_dollars": "0.0600",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 7.8 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.8",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "0.00",
+   "volume_fp": "79.27",
+   "yes_ask_dollars": "0.1500",
+   "yes_ask_size_fp": "100.00",
+   "yes_bid_dollars": "0.0600",
+   "yes_bid_size_fp": "5.00",
+   "yes_sub_title": "Magnitude of at least 7.8"
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.6": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 7.6,
+   "last_price_dollars": "0.2300",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.9000",
+   "no_bid_dollars": "0.8100",
+   "no_sub_title": "Magnitude of at least 7.6",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "4.08",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.2300",
+   "previous_yes_ask_dollars": "0.1800",
+   "previous_yes_bid_dollars": "0.1100",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 7.6 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.6",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "0.00",
+   "volume_fp": "4.08",
+   "yes_ask_dollars": "0.1900",
+   "yes_ask_size_fp": "100.00",
+   "yes_bid_dollars": "0.1000",
+   "yes_bid_size_fp": "5.00",
+   "yes_sub_title": "Magnitude of at least 7.6"
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.4": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 7.4,
+   "last_price_dollars": "0.3100",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.8300",
+   "no_bid_dollars": "0.7400",
+   "no_sub_title": "Magnitude of at least 7.4",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "3.06",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.3100",
+   "previous_yes_ask_dollars": "0.2400",
+   "previous_yes_bid_dollars": "0.1800",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 7.4 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.4",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "0.00",
+   "volume_fp": "3.06",
+   "yes_ask_dollars": "0.2600",
+   "yes_ask_size_fp": "100.00",
+   "yes_bid_dollars": "0.1700",
+   "yes_bid_size_fp": "5.00",
+   "yes_sub_title": "Magnitude of at least 7.4"
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.2": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 7.2,
+   "last_price_dollars": "0.3700",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.7300",
+   "no_bid_dollars": "0.6500",
+   "no_sub_title": "Magnitude of at least 7.2",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "53.70",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.3700",
+   "previous_yes_ask_dollars": "0.3700",
+   "previous_yes_bid_dollars": "0.2900",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 7.2 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.2",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "0.00",
+   "volume_fp": "60.99",
+   "yes_ask_dollars": "0.3500",
+   "yes_ask_size_fp": "100.00",
+   "yes_bid_dollars": "0.2700",
+   "yes_bid_size_fp": "5.00",
+   "yes_sub_title": "Magnitude of at least 7.2"
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-7.0": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 7,
+   "last_price_dollars": "0.3800",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.6000",
+   "no_bid_dollars": "0.5300",
+   "no_sub_title": "Magnitude of at least 7.0",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "34.65",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.5400",
+   "previous_yes_ask_dollars": "0.5000",
+   "previous_yes_bid_dollars": "0.4100",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 7.0 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-7.0",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "20.56",
+   "volume_fp": "53.79",
+   "yes_ask_dollars": "0.4700",
+   "yes_ask_size_fp": "105.00",
+   "yes_bid_dollars": "0.4000",
+   "yes_bid_size_fp": "5.00",
+   "yes_sub_title": "Magnitude of at least 7.0"
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-6.8": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 6.8,
+   "last_price_dollars": "0.6700",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.4600",
+   "no_bid_dollars": "0.3800",
+   "no_sub_title": "Magnitude of at least 6.8",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "51.87",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.6700",
+   "previous_yes_ask_dollars": "0.6300",
+   "previous_yes_bid_dollars": "0.5500",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 6.8 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-6.8",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "0.00",
+   "volume_fp": "53.32",
+   "yes_ask_dollars": "0.6200",
+   "yes_ask_size_fp": "100.00",
+   "yes_bid_dollars": "0.5400",
+   "yes_bid_size_fp": "5.00",
+   "yes_sub_title": "Magnitude of at least 6.8"
+  },
+  "KXBIGGESTQUAKEMONTH-30NOV26-6.6": {
+   "can_close_early": true,
+   "close_time": "2026-11-30T23:59:59Z",
+   "created_time": "2026-11-10T01:59:47.491918Z",
+   "early_close_condition": "This market may close and expire early once USGS has reviewed and finalized all earthquakes from the Period and the highest qualifying magnitude is known.",
+   "event_ticker": "KXBIGGESTQUAKEMONTH-30NOV26",
+   "exchange_index": 0,
+   "expected_expiration_time": "2026-12-01T14:59:59Z",
+   "expiration_time": "2026-12-07T15:00:00Z",
+   "expiration_value": "",
+   "floor_strike": 6.6,
+   "last_price_dollars": "0.0000",
+   "latest_expiration_time": "2026-12-07T15:00:00Z",
+   "market_type": "binary",
+   "no_ask_dollars": "0.3000",
+   "no_bid_dollars": "0.2200",
+   "no_sub_title": "Magnitude of at least 6.6",
+   "notional_value_dollars": "1.0000",
+   "occurrence_datetime": "2026-12-01T14:59:59Z",
+   "open_interest_fp": "0.00",
+   "open_time": "2026-11-10T04:59:00Z",
+   "previous_price_dollars": "0.0000",
+   "previous_yes_ask_dollars": "0.8100",
+   "previous_yes_bid_dollars": "0.7200",
+   "price_level_structure": "linear_cent",
+   "price_ranges": [
+    {
+     "end": "1.0000",
+     "start": "0.0000",
+     "step": "0.0100"
+    }
+   ],
+   "result": "",
+   "rules_primary": "If the highest USGS-reported earthquake magnitude worldwide during 2026-11-01 00:00:00 UTC through 2026-11-30 23:59:59 UTC (inclusive) is 6.6 or higher, then the market resolves to Yes.",
+   "rules_secondary": "The determining value is the USGS-reported magnitude displayed on 2026-12-01 at 10:00:00-0500, preferentially moment magnitude (Mw) and otherwise the primary magnitude type reported by USGS. If USGS ComCat is unavailable at that observation cutoff, use the first data available after the cutoff and by the Expiration Date. If no data is available by the Expiration Date, all contracts resolve to No.",
+   "settlement_bounds_type": "default",
+   "settlement_timer_seconds": 1800,
+   "status": "active",
+   "strike_type": "greater_or_equal",
+   "ticker": "KXBIGGESTQUAKEMONTH-30NOV26-6.6",
+   "title": "What will the strongest earthquake be in November 2026?",
+   "updated_time": "2026-11-10T04:59:00.20242Z",
+   "volume_24h_fp": "0.00",
+   "volume_fp": "0.00",
+   "yes_ask_dollars": "0.7800",
+   "yes_ask_size_fp": "100.00",
+   "yes_bid_dollars": "0.7000",
+   "yes_bid_size_fp": "5.00",
+   "yes_sub_title": "Magnitude of at least 6.6"
+  }
+ }
+}

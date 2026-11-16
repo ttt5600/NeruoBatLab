@@ -152,6 +152,12 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### Monthly biggest-quake ladder: model matches the bid; watch whether the maker's quotes decay with time
+KXBIGGESTQUAKEMONTH (started 11-10; settles on USGS magnitude shown Dec 1 10:00 ET, Mww preferred): empirical-window model
+(USGS since 2000, current-month max pinned) within 0-5c of the YES bid on all 9 rungs; asks 4-7c rich -> taker 0 bets now.
+If quotes don't decay as the month runs down without an M6.6+, the taker rule fires ~11-24 -- the E4-style staleness to watch.
+One event/month -> >= 12 months to test. Source: notes/quake_monthly.md.
+
 ### Kalshi city home values settle on Zillow's first-published page value, which leads the public CSVs and re-levels history
 18 *HOME series (98 mkts, none settled; Nov events close 12-17 15:00Z), active (~42.7k ct on 11-16), strikes within +-1 sd.
 Each Zillow release shifted a city's history by a constant % (one vintage pair: p95 2.88% vs ~0.15% monthly moves); real-time
