@@ -6,11 +6,11 @@ its inbox rows (AGENT_PROTOCOL.md), ingest LEARNINGS into the vault, then launch
 evidence: anything with CLV/ROI signal jumps the queue; game-day prep comes first on game days. Agents never place
 orders; money changes stay with the user.
 
-## Running (2026-11-15)
-- news_lag -- NFL inactives (~90 min pre-kick) / NBA late scratches vs Kalshi repricing speed (Sunday logger)
-- nhl_opener_model -- de-biased NHL totals model vs Kalshi (lists ~70 h before Pinnacle), goalie-confirmation timing
-- sharp_feed_research -- find a real-time (not 15-min cached) sharp odds feed + cost
-
+## Running (2026-11-16, user: "keep looking and churning ... markets we have good modeling and priors on")
+- e4_timing -- E4 rule at other decision times (D-2 22:00, D-1 10:00, D-day 06:00) = more capacity on our proven edge
+- ot1_extension -- OT1 options-implied rule on weekly/monthly/range crypto ladders (Deribit expiries)
+- tropical_nhc -- tropical/hurricane markets vs official NHC outlooks (E4 pattern, official forecaster)
+- forward_review_1115 -- post-slate scoring of all forward/live strategies (after 05:30Z)
 ## Done 11-15: gameday_ticket (shard-0 cash blocker), critic_e4_step2 (keep 24 ct), e4_ops_diag (fixes deployed),
 ## maker_fairfill (maker adversely selected even with model direction -> opener leads capped by execution cost)
 
