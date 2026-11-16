@@ -1,0 +1,16 @@
+id: nd1_nyc_nowcast_maker
+family: kalshi_weather_temp
+dataset: kalshi_nyc_dir
+rule: edgelab.rules.kalshi_nyc_dir:maker
+hypothesis: 'ND1: KXTEMPNYCHS (8-station Kalshi Weather Index NYC). At T = H - 20 min, nowcast index(H) from the reconstructed index at T-6 min + 30-min trend (beta, residuals fit on station data 08-20..09-09); side with p >= .95, maker bid at side ask - 1c (fee 0), filled iff >= 10 contracts print <= bid in (T,H], edge >= 3c, one per event. Prereg sports/notes/nyc_hourly_dir.md.'
+decision_time: H - 20 min
+price_model: maker_tape
+split: vault:kalshi_nyc_dir
+min_n: 100
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+  contracts_per_order: 1

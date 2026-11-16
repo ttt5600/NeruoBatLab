@@ -220,6 +220,15 @@ datasets:
       dev: [2026-04-16, 2026-09-30]        # first KXTEMP*H events .. Sep 30 (old *H series end 09-10; *HS start 09-10)
       sealed: [2026-10-01, 2026-11-05]     # MIAH + NYCHS/CHIHS/LAXHS only
       forward: [2026-11-07, null]
+  kalshi_nyc_dir:
+    loader: kalshi_nyc_dir
+    family: kalshi_weather_temp
+    hidden: [result, expiration_value, volume, settle_ts]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # = kalshi_temp_hourly boundaries; set 2026-11-16 (notes/nyc_hourly_dir.md)
+      dev: [2026-09-10, 2026-09-30]        # KXTEMPNYCHS only; builder pulls dev window only
+      sealed: [2026-10-01, 2026-11-05]     # not built, not opened
+      forward: [2026-11-07, null]
   pm_jumps:
     loader: pm_jumps
     family: overreaction_fade

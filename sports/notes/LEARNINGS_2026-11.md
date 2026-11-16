@@ -152,6 +152,13 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### Kalshi NYC hourly temperature settles on a proprietary 8-station index the market sees and we can only approximate
+KXTEMPNYCHS (= HT1's series, not new): index = per-minute average of 8 ASOS airports with weekly station offsets; our rebuild
+misses it by ~0.5F sd, as much as 26 min of temperature change. Dev 488 events: taker n80 +5.1% [-7.8,+18.8] (picks lost 13.8%
+vs 1.7% claimed); market Brier .0145 vs model .0259; maker filled lost 11/64, unfilled 0/33. Don't trade a settlement index
+you can't observe at the market's resolution. Series watcher flagged it 'new' from first-seen opens -- fixed to use history.
+Source: notes/nyc_hourly_dir.md.
+
 ### Crypto monthly max/min (barrier) ladders: models don't beat Kalshi's mid; MAX YES looked rich (post hoc)
 Per-minute 20/20-trimmed BRTI monitoring (early closes median 0.66 h after first Coinbase crossing). 3,105 market-days /
 21 events / 12 months: Brier M1 (reflection, t4, DVOL) .0605, Kalshi mid .0634, M2 bootstrap .0653 -- n.s. (13/21 events).

@@ -266,6 +266,20 @@ def kalshi_temp_hourly():
 LOADERS["kalshi_temp_hourly"] = kalshi_temp_hourly
 
 
+def kalshi_nyc_dir():
+    """data/nyc_hourly_dir/frame.parquet (scripts/nyc_hourly_dir.py): KXTEMPNYCHS markets with an 8-station 1-min index
+    nowcast at T = H - 20 min + 1-min quotes; attrs['tape'] = prints in (T, H] on the maker-selected tickers."""
+    D = DATA / "nyc_hourly_dir"
+    f, ft = D / "frame.parquet", D / "tape.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["tape"] = pd.read_parquet(ft)
+    return x, [str(f), str(ft)]
+
+
+LOADERS["kalshi_nyc_dir"] = kalshi_nyc_dir
+
+
 # ------------------------------------------------------------------ Polymarket time-to-resolution favourites (scripts/pm_timing.py)
 def pm_timing():
     """data/pm_timing/frame.parquet: one row per (binary market, horizon 7d|30d) with p0 at t = S - h, closed_time,
