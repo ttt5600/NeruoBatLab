@@ -2,7 +2,8 @@
 
     cd sports && ../.venv_quant/bin/python scripts/scorecards.py            # offline: logs + cached exchange fills
     cd sports && ../.venv_quant/bin/python scripts/scorecards.py --kalshi   # also refresh exchange fills (GET only)
-    options: --out PATH (default notes/SCORECARDS.md), --no-subproc (skip the loggers' own report commands)
+    options: --out PATH (default notes/SCORECARDS.md), --no-subproc (skip the loggers' own report commands),
+             --no-tape (SPRT panel: skip public tape GETs for new X1 paper winners)
 
 READ-ONLY. Reads the deployed logs (~/.claude/quant-kalshi/data, ~/.claude/quant-sports/data); never writes there, never
 places or cancels. --kalshi makes authenticated GETs only (/portfolio/fills, /portfolio/positions, /markets/{t}) through
@@ -1008,12 +1009,210 @@ def card_lock(run_sub: bool) -> Card:
     return c
 
 
+# ------------------------------------------------------------------------------------------------ SPRT panel
+# DESCRIPTIVE decision support (notes/ops_sprt_cards.md). Calibrated near-certain forward SPRT from
+# notes/bar_calibration_v2.md (results/bar_calibration_v2/sim2.py): H0 loss prob 1 - c, H1 loss prob 0.70 x (1 - c),
+# alpha .005, beta .10, LLR / (1 + fills-per-night x .031). NOT an edgelab verdict; it sets no card status.
+SPRT_RHO1, SPRT_ALPHA, SPRT_BETA, SPRT_ICC = 0.70, 0.005, 0.10, 0.031
+E4_LIVE_START = "2026-10-29"
+X1_PAUSE = "2026-11-04T03:00:00+00:00"   # first skip_cohort_paused order in kalshi_exec.jsonl (notes/e4_evidence.md T2)
+X1_TAPE_CACHE = ROOT / "results" / "scorecards" / "x1_tape_cache.json"
+
+
+def sprt_nc(fills, rho1: float = SPRT_RHO1, alpha: float = SPRT_ALPHA, beta: float = SPRT_BETA,
+            icc: float = SPRT_ICC) -> dict:
+    """Wald SPRT on near-certain fills. fills = iterable of (cost, lost, night). Returns numbers + a plain-English status.
+    Fills with cost >= .999 (no H0 loss probability) are excluded and counted."""
+    A, B = math.log((1 - beta) / alpha), math.log(beta / (1 - alpha))
+    fills = list(fills)
+    use = [(float(c), bool(l), n) for c, l, n in fills if float(c) < 0.999]
+    n, excl = len(use), len(fills) - len(use)
+    out = {"n": n, "excluded": excl, "A": A, "B": B, "losses": sum(l for _, l, _ in use)}
+    if not n:
+        out.update(llr=0.0, llr_raw=0.0, deff=1.0, exp_losses_H0=0.0, be_rate=float("nan"), obs_rate=float("nan"),
+                   state="none", status="no fills yet")
+        return out
+    L0 = np.array([1 - c for c, _, _ in use])
+    lost = np.array([l for _, l, _ in use])
+    inc_w = np.log((1 - rho1 * L0) / (1 - L0))
+    raw = float(np.where(lost, math.log(rho1), inc_w).sum())
+    nights = len({x for _, _, x in use}) or 1
+    deff = 1 + n / nights * icc
+    llr = raw / deff
+    # expected per-fill increments (deff-adjusted) at the observed price mix
+    e1 = float(np.mean(rho1 * L0 * math.log(rho1) + (1 - rho1 * L0) * inc_w)) / deff
+    e0 = float(np.mean(L0 * math.log(rho1) + (1 - L0) * inc_w)) / deff
+    el, rate = float(L0.sum()), llr / n
+    out.update(llr=llr, llr_raw=raw, deff=deff, exp_losses_H0=el, be_rate=float(L0.mean()),
+               obs_rate=float(lost.mean()), e_inc_H1=e1, e_inc_H0=e0, rate=rate)
+    if llr >= A:
+        out.update(state="H1", status=f"H1 boundary crossed after {n} fills (ask user; no self-promotion)")
+    elif llr <= B:
+        out.update(state="reject", status=f"reject: H0 boundary crossed after {n} fills")
+    else:
+        L = out["losses"]
+        cur = (f"~{math.ceil((A - llr) / rate)} fills from accept at current rate" if rate > 0
+               else f"~{math.ceil((B - llr) / rate)} fills from reject at current rate" if rate < 0 else "flat")
+        edge = (f"consistent with no edge (losses {L} >= break-even {el:.2f})" if L >= el
+                else f"losses {L} below break-even {el:.2f}")
+        out.update(state="continue",
+                   status=f"continue: {cur}; {edge}; if H1 true ~{math.ceil((A - llr) / e1)} more fills to accept, "
+                          f"if no edge ~{math.ceil((B - llr) / e0)} to reject")
+    return out
+
+
+def e4_live_fills(hist: list[dict]) -> tuple[list, list[str]]:
+    """E4 orig7 live maker, one row per ticker (fold as results/e4_live_audit/build.py), settled journal rows
+    (111/111 reconciled with GET /portfolio/settlements in e4_live_audit). cost = avg_no + fee/filled; loss = 'yes'."""
+    o: dict = {}
+    for r in hist:
+        if r.get("mode") != "live" or "ticker" not in r:
+            continue
+        ev, t = r.get("event", "order"), r["ticker"]
+        if ev == "order" and t not in o:
+            o[t] = dict(r, order_ts=r["ts"])
+        elif ev == "update" and t in o:
+            o[t].update({k: v for k, v in r.items() if k not in ("event", "ts", "mode", "ticker", "response")})
+        elif ev == "settle" and t in o:
+            o[t].update(settled=True, result=r["result"])
+    notes, out = [], []
+    rows = [r for r in o.values() if (r.get("cohort") or "orig7") == "orig7" and r.get("exec_style") == "maker"
+            and r["order_ts"] >= E4_LIVE_START and float(r.get("filled") or 0) > 0]
+    for r in sorted(rows, key=lambda r: r["order_ts"]):
+        if not r.get("settled"):
+            continue
+        if r.get("avg_no") is None:
+            notes.append(f"WARNING: {r['ticker']} filled without avg_no -- skipped")
+            continue
+        c = float(r["avg_no"]) + float(r.get("fee") or 0) / float(r["filled"])
+        out.append((c, r["result"] == "yes", r["ticker"].split("-")[1]))
+    unset = sum(1 for r in rows if not r.get("settled"))
+    if unset:
+        notes.append(f"{unset} filled orig7 maker orders not yet settled (excluded until settled)")
+    return out, notes
+
+
+def _x1_tape(tk: str, t0: int) -> dict:
+    """Public GETs (market close + trade tape; disk-cached by sports.http), prints between logged_at and close."""
+    for p in (str(ROOT / "scripts"), str(ROOT)):
+        if p not in sys.path:
+            sys.path.insert(0, p)
+    import kalshi_temp_maker as K
+    from sports import wx
+    from sports.http import fetch
+    m = fetch(f"{wx.API}/markets/{tk}", {}, cache=True).get("market", {})
+    close = int(datetime.fromisoformat(m["close_time"].replace("Z", "+00:00")).timestamp()) if m.get("close_time") \
+        else t0 + 36 * 3600
+    return {"close": close, "prints": [(x["no_price"], x["count"]) for x in K._tape(tk, t0, close)
+                                       if t0 < x["ts"] <= close]}
+
+
+def x1_paper_fills(fetch_tape: bool) -> tuple[list, list[str]]:
+    """X1 paper since the 11-04 pause, e4_evidence T2 conservative tape-through fill: losers always fill; winners fill iff
+    >= 10 ct traded strictly through q (no_price < q) between logged_at and close. cost = q (maker fee 0)."""
+    p = KD / "kalshi_paper.jsonl"
+    rows, seen = [], set()
+    for line in p.read_text().splitlines() if p.exists() else []:
+        try:
+            r = json.loads(line.replace("NaN", "null"))
+        except json.JSONDecodeError:
+            continue
+        if (r.get("cohort") or "orig7") != "x1" or r.get("result") not in ("yes", "no") or r["ticker"] in seen:
+            continue
+        seen.add(r["ticker"])
+        t0 = datetime.fromisoformat(r["logged_at"])
+        if t0 < datetime.fromisoformat(X1_PAUSE):
+            continue
+        yb, ya = float(r["yes_bid"]), float(r["yes_ask"])
+        ask = 1 - yb
+        q = round(min(math.floor(round((1 - (yb + ya) / 2) * 100, 6)) / 100, ask - 0.01), 4)
+        if q <= 0 or ask - q > 0.05:      # executor skip rule
+            continue
+        rows.append((r["ticker"], int(t0.timestamp()), q, r["result"] == "yes", r["event"].split("-")[1]))
+    cache = json.loads(X1_TAPE_CACHE.read_text()) if X1_TAPE_CACHE.exists() else {}
+    notes, out, miss, new = [], [], 0, 0
+    for tk, t0, q, lost, night in rows:
+        if lost:                                       # losers always fill (wx_capacity: all traded through)
+            out.append((q, True, night))
+            continue
+        if tk not in cache and fetch_tape:
+            try:
+                tp = _x1_tape(tk, t0)
+                cache[tk] = {"q": q, "vol_lt_q": sum(cn for px, cn in tp["prints"] if px < q - 1e-9)}
+                new += 1
+            except Exception as e:  # noqa: BLE001 -- a network failure must not kill the scorecard
+                notes.append(f"WARNING: tape fetch failed for {tk}: {type(e).__name__}")
+        if tk not in cache:
+            miss += 1
+            continue
+        if cache[tk]["vol_lt_q"] >= 10:
+            out.append((q, False, night))
+    if new:
+        X1_TAPE_CACHE.parent.mkdir(parents=True, exist_ok=True)
+        X1_TAPE_CACHE.write_text(json.dumps(cache, indent=1))
+    nwin = sum(1 for r in rows if not r[3])
+    notes.insert(0, f"settled x1 picks since pause {len(rows)} ({len(rows) - nwin} losers, all counted filled; "
+                    f"{nwin} winners, {sum(1 for f in out if not f[1])} filled by tape-through)")
+    if miss:
+        notes.append(f"WARNING: {miss} settled X1 winners without tape (excluded; run without --no-tape)")
+    return out, notes
+
+
+def e4_0600_fills() -> list:
+    """Same primary selection as card_e4_0600: cohort filled, bids, settled, tape-through fill; cost = q."""
+    rows = jl(SD / "kx_forward" / "e4_0600.jsonl")
+    st = {r["ticker"]: r for r in rows if r.get("kind") == "settle"}
+    return [(float(r["q"]), st[r["ticker"]]["result"] != "no", r["event_day"]) for r in rows
+            if r.get("kind") == "pick" and r.get("cohort") == "filled" and r.get("status") == "bid"
+            and r["ticker"] in st and st[r["ticker"]].get("tt_fill")]
+
+
+def e4p_fills(key: str) -> list:
+    """Same selection as scripts/e4p_paper.py summary(): selected bids, settled, not E4-live-final, tt_fill; cost = q."""
+    rows = jl(SD / "kx_forward" / "e4p.jsonl")
+    st = {r["ticker"]: r for r in rows if r.get("kind") == "settle"}
+    return [(float(r["q"]), st[r["ticker"]]["result"] != "no", r["event_day"]) for r in rows
+            if r.get("kind") == "bracket" and r.get(key) and r.get("status") == "bid" and r["ticker"] in st
+            and not st[r["ticker"]].get("e4_live_final") and st[r["ticker"]].get("tt_fill")]
+
+
+def sprt_panel(fetch_tape: bool) -> list[str]:
+    e4, n4 = e4_live_fills(jl(KD / "kalshi_exec.jsonl"))       # the E4 executor journal (not lead_exec.jsonl)
+    x1, nx1 = x1_paper_fills(fetch_tape)
+    streams = [("E4 orig7 live maker", f"kalshi_exec.jsonl exchange fills since {E4_LIVE_START}, settled", e4, n4),
+               ("X1 paper", "kalshi_paper.jsonl cohort x1 since 11-04 pause, tape-through (T2 conservative)", x1, nx1),
+               ("E4P-C", "kx_forward/e4p.jsonl sel_c, tt fills", e4p_fills("sel_c"), []),
+               ("E4P-CA", "kx_forward/e4p.jsonl sel_cagree, tt fills", e4p_fills("sel_cagree"), []),
+               ("E4-0600", "kx_forward/e4_0600.jsonl cohort filled, tt fills", e4_0600_fills(), [])]
+    s0 = sprt_nc([])
+    out = ["## Sequential-test panel -- DECISION SUPPORT ONLY (not an edgelab verdict; sets no card status)", "",
+           f"Calibrated near-certain forward SPRT from `sports/notes/bar_calibration_v2.md` (sim2.py): H0 loss prob = "
+           f"1 - c (c = fill price + fee), H1 = {SPRT_RHO1:.2f} x (1 - c), alpha {SPRT_ALPHA}, beta {SPRT_BETA:.2f}; "
+           f"LLR / (1 + fills-per-night x {SPRT_ICC}); accept A {s0['A']:+.2f}, reject B {s0['B']:+.2f}. Under the "
+           "proposed (not adopted) rule-6 amendment only sealed-passed trials may promote on this test; X1 failed dev, "
+           "so its row is descriptive only. Fills at c >= .999 are excluded (no information). 'Current rate' = LLR per "
+           "fill so far (noisy at small n). Notes: `sports/notes/ops_sprt_cards.md`.", "",
+           "| Stream | Source | Fills (excl.) | Losses / break-even expected | Break-even loss rate | Observed loss rate "
+           "| LLR (deff) | Status |", "|---|---|---|---|---|---|---|---|"]
+    for name, src, f, notes in streams:
+        s = sprt_nc(f)
+        if not s["n"]:
+            out.append(f"| {name} | {src} | 0 ({s['excluded']}) | - | - | - | +0.00 | {s['status']} |")
+        else:
+            out.append(f"| {name} | {src} | {s['n']} ({s['excluded']}) | {s['losses']} / {s['exp_losses_H0']:.2f} | "
+                       f"{s['be_rate']:.4f} | {s['obs_rate']:.4f} | {s['llr']:+.2f} ({s['deff']:.2f}) | "
+                       f"{s['status']} |")
+        out += [f"| | {x} | | | | | | |" for x in notes]
+    return out + [""]
+
+
 # ------------------------------------------------------------------------------------------------ main
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--kalshi", action="store_true", help="refresh exchange fills (authenticated GETs only)")
     ap.add_argument("--no-subproc", action="store_true", help="skip the loggers' own report commands")
     ap.add_argument("--out", default=str(NOTES / "SCORECARDS.md"))
+    ap.add_argument("--no-tape", action="store_true", help="SPRT panel: no public tape GETs for new X1 paper winners")
     a = ap.parse_args(argv)
     hist = jl(LEAD)
     folded = fold(hist, "live")
@@ -1075,6 +1274,7 @@ def main(argv=None) -> int:
     out += ["", "## Summary", "| ID | Strategy | Status | Why |", "|---|---|---|---|"]
     out += [f"| {c.cid} | {c.title} | {c.status} | {c.why} |" for c in cards]
     out += ["| E4 | Kalshi weather maker (Tier A) | see notes/e4_live_audit.md | audited by agent e4_live_audit |", ""]
+    out += sprt_panel(not a.no_tape)
     out += ["## Cards", ""] + [c.md() for c in cards]
     out += ["### E4 -- pointer only", "Audited separately: `sports/notes/e4_live_audit.md` (agent e4_live_audit).", ""]
     Path(a.out).write_text("\n".join(out))
