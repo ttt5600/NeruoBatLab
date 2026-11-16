@@ -1,0 +1,24 @@
+id: e4p_c_maker_fwd
+family: kalshi_weather_temp
+dataset: kalshi_temp_e4p_fwd
+rule: edgelab.rules.forward:unwired
+hypothesis: 'E4 probabilistic rule C, forward-only maker paper (dev notes/e4_probabilistic.md: C NEW maker 331 fills +11.58u
+  [+6.0,+16.5] study-bar pass, edgelab family bar FAILED -> forward paper only). At 22:00-22:50 station-local D-1 on 24 KXHIGH
+  series: NO on tradeable brackets the E4 5-model rule does NOT pick (own recompute + live E4 log) when Student-t EMOS P(hit)
+  (NBM NBS 19Z-else-18Z D-1 txn/xnd + mean/var of 5 Open-Meteo models; frozen monthly refit on dev + prior forward
+  station-days) <= 0.02. Hypothetical post-only NO bid q = min(cent_floor(NO mid), NO ask - 1c) (skip if ask - q > 5c), resting
+  to close; filled iff a public print at no_price < q (trade-through). Logged by scripts/e4p_paper.py, scored via
+  edgelab/adapters/e4p_fwd.py (variant C). Forward judge (prereg notes/ops_e4p_forward.md): SPRT per bar_calibration_v2
+  (H1 0.70 x break-even loss, alpha .005, beta .10) + exact Poisson-binomial loss count at 60 fills (Bonferroni p < .025 over
+  the 2 variants; then 120). Failed the dev family bar -> cannot self-promote.'
+decision_time: 22:00-22:50 station-local on D-1
+price_model: maker_tape
+split: vault:kalshi_temp_e4p_fwd
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+  contracts_per_order: 1
+legacy: 'new 2026-11-16 (agent ops_e4p_forward). Forward only; registered before the first 22:00 decision (03:00Z 11-17).'
