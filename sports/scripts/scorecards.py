@@ -715,6 +715,112 @@ def card_ot1() -> Card:
     return c
 
 
+def card_e4_0600() -> Card:
+    """E4 06:00-D add-on maker paper (scripts/e4_0600_paper.py -> data/kx_forward/e4_0600.jsonl; ops_e4_0600 11-16).
+    Primary = cohort 'filled' (live 22:00 order filled by T) bids with a trade-through fill. Judge: SPRT (bar_calibration_v2)
+    continuous + exact Poisson-binomial loss count at 60 fills (notes/ops_e4_0600.md)."""
+    c = Card("E4-0600", "E4 06:00-D add-on maker NO bid on filled orig-7 brackets (forward paper, trade-through fill)")
+    c.rule(rule_line(NOTES / "ops_e4_0600.md", "LLR <= B -> KILL"))
+    c.rule(rule_line(NOTES / "ops_e4_0600.md", "L_obs >= expected L under H0"), "Review rule")
+    p = SD / "kx_forward" / "e4_0600.jsonl"
+    rows = jl(p)
+    picks = [r for r in rows if r.get("kind") == "pick"]
+    st = {r["ticker"]: r for r in rows if r.get("kind") == "settle"}
+    cd = [r for r in rows if r.get("kind") == "city_day"]
+    coh = defaultdict(int)
+    for r in picks:
+        coh[f"{r.get('cohort')}/{r.get('status')}"] += 1
+    prim = [(r, st[r["ticker"]]) for r in picks if r.get("cohort") == "filled" and r.get("status") == "bid"
+            and r["ticker"] in st]
+    f = [(float(r["q"]), s["result"] != "no") for r, s in prim if s.get("tt_fill")]
+    uf = [s["result"] != "no" for r, s in prim if not s.get("tt_fill")]
+    pnl = [(1 - q) / q if not lost else -1.0 for q, lost in f]
+    llr = sum(math.log(0.7) if lost else math.log((1 - 0.7 * (1 - q)) / q) for q, lost in f)
+    nights = len({r["event_day"] for r, s in prim if s.get("tt_fill")}) or 1
+    llr /= 1 + len(f) / nights * 0.031
+    A, B = math.log(0.9 / 0.005), math.log(0.1 / 0.995)
+    L, EL = sum(l for _, l in f), sum(1 - q for q, _ in f)
+    c.lines.append(f"`{rel(p)}`: city-days {len(cd)} (missed {sum(r.get('status') == 'missed' for r in cd)}), picks "
+                   f"{len(picks)} {dict(coh)}; primary settled bids {len(prim)}: tt fills {len(f)} (losses {L}, expected "
+                   f"under break-even {EL:.2f}), unfilled {len(uf)} (losses {sum(uf)}); {f_roi(pnl, [1.0] * len(pnl))}; "
+                   f"SPRT LLR {llr:+.2f} (A {A:+.2f}, B {B:+.2f})")
+    if not p.exists():
+        c.warn.append(f"{rel(p)} missing -- is launchd job e4-0600 running? (forward starts 2026-11-16)")
+    if llr <= B:
+        c.set("KILLED-by-rule", f"SPRT LLR {llr:+.2f} <= B {B:+.2f} after {len(f)} fills")
+    elif len(f) >= 60 and L >= EL:
+        c.set("KILLED-by-rule", f"60-fill review: losses {L} >= expected {EL:.2f} under break-even")
+    elif len(f) < MIN_N:
+        c.set("too-early", f"{len(f)} primary fills of 60 (review); SPRT {llr:+.2f}")
+    else:
+        c.set("alive", f"{len(f)} fills, losses {L} vs {EL:.2f} break-even; SPRT {llr:+.2f}")
+    return c
+
+
+def card_e4p(variant: str) -> Card:
+    """E4 probabilistic rule C / C-agree maker paper (scripts/e4p_paper.py -> data/kx_forward/e4p.jsonl; ops_e4p_forward
+    11-16). Bets = selected NEW brackets, maker bid, trade-through fill, not in the live E4 log by settle. Judge: SPRT
+    (bar_calibration_v2) + exact Poisson-binomial loss count at 60 fills, Bonferroni p < .025 (notes/ops_e4p_forward.md)."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import e4p_paper as EP
+    cid = {"C": "E4P-C", "C_agree": "E4P-CA"}[variant]
+    c = Card(cid, f"E4 probabilistic rule {variant.replace('_', '-')} maker NO on NEW brackets, 22:00 D-1 (forward paper)")
+    c.rule(rule_line(NOTES / "ops_e4p_forward.md", "LLR <= B -> KILL that variant"))
+    c.rule(rule_line(NOTES / "ops_e4p_forward.md", "L_obs >= expected L under H0"), "Review rule")
+    p = SD / "kx_forward" / "e4p.jsonl"
+    s = EP.summary(jl(p))
+    v, j = s[variant], s[variant]["judge"]
+    c.lines.append(f"`{rel(p)}`: city-days {s['city_days']} {s['status']}; selected {v['selected']}, bids {v['bids']}, "
+                   f"settled bids {v['settled_bids']}: tt fills {j['fills']} (losses {j.get('losses', 0)}, expected under "
+                   f"break-even {j.get('exp_losses_H0', 0)}, P(L_H0 <= L) {j.get('p_le')}), unfilled {v['unfilled']} "
+                   f"(losses {v['unfilled_losses']}); units {j.get('units', 0)}; SPRT LLR {j['llr_adj']:+.2f} "
+                   f"(A {j['A']:+.2f}, B {j['B']:+.2f}); taker@24ct descriptive {v['taker24_desc']}")
+    if not p.exists():
+        c.warn.append(f"{rel(p)} missing -- is launchd job e4p running? (first decision 22:00 ET 2026-11-16)")
+    st = j["state"]
+    if st.startswith("KILL"):
+        c.set("KILLED-by-rule", f"{st} after {j['fills']} fills")
+    elif j["fills"] < 60:
+        c.set("too-early", f"{j['fills']} fills of 60 (review); SPRT {j['llr_adj']:+.2f}")
+    else:
+        c.set("alive", f"{j['fills']} fills, losses {j['losses']} vs {j['exp_losses_H0']} break-even; {st}")
+    return c
+
+
+def card_cb1() -> Card:
+    """CB1 crypto barrier taker forward paper (scripts/crypto_barrier_forward.py -> data/kx_forward/crypto_barrier.jsonl;
+    agent crypto_barrier 11-16, prereg notes/crypto_barrier.md). Spec kill: ROI CI entirely below 0 after 60 bets; no
+    verdict before 60 bets AND 12 month-clusters. Bootstrap here is per bet (edgelab clusters by ET month)."""
+    c = Card("CB1", "Barrier models (t4 reflection on DVOL + hourly bootstrap) vs Kalshi monthly crypto max/min, 16:00 UTC taker")
+    c.rule(rule_line(NOTES / "crypto_barrier.md", "- Judge: edgelab forward split"))
+    p = SD / "kx_forward" / "crypto_barrier.jsonl"
+    rows = jl(p)
+    res = {r["ticker"]: r["result"] for r in rows if r.get("kind") == "settle"}
+    days = [r for r in rows if r.get("kind") == "day"]
+    picks = [r for r in rows if r.get("kind") == "pick"]
+    bets = [b for b in picks if b.get("status") == "bet"]
+    s = [b for b in bets if res.get(b["ticker"]) in ("yes", "no")]
+    cost = [b["ask"] + b["fee"] for b in s]
+    pnl = [(1 / cst - 1) if res[b["ticker"]] == b["side"] else -1.0 for b, cst in zip(s, cost)]
+    won = [res[b["ticker"]] == b["side"] for b in s]
+    cl = len({b["cluster"] for b in s})
+    c.lines.append(f"`{rel(p)}`: days {len(days)}, picks {len(picks)} (off_time {len(picks) - len(bets)}), bets "
+                   f"{len(bets)}, settled {len(s)} in {cl} month-clusters, pending {len(bets) - len(s)}; W-L {wl(won)}; "
+                   f"{f_roi(pnl, [1.0] * len(pnl))} at ask+exact fee; sides "
+                   f"{dict(sorted(defaultdict(int, {k: sum(1 for b in s if (b['barrier'], b['side']) == k) for k in {(b['barrier'], b['side']) for b in s}}).items()))}")
+    if not p.exists():
+        c.warn.append(f"{rel(p)} missing -- is launchd job crypto-barrier running? (forward starts 2026-11-16)")
+    n = len(s)
+    r, lo, hi = boot_roi(pnl, [1.0] * n)
+    if n >= 60 and np.isfinite(hi) and hi < 0:
+        c.set("KILLED-by-rule", f"ROI CI upper {hi:+.1%} < 0 after {n}")
+    elif n < 60 or cl < 12:
+        c.set("too-early", f"{n} settled of 60, {cl} of 12 month-clusters")
+    else:
+        c.set("alive", f"n {n} / {cl} months, ROI {r:+.1%} [{lo:+.1%}, {hi:+.1%}]")
+    return c
+
+
 def card_ot1b() -> Card:
     """OT1b = OT1 with a monotone arbitrage-free implied P(S>K) (trial ot1b_crypto_taker_mono; prereg
     notes/ot1b_monotone.md). Same logger/snapshot as OT1: `pick_b` rows in data/kx_forward/ot1.jsonl. Forward only."""
@@ -865,6 +971,10 @@ def main(argv=None) -> int:
                      [rule_line(NOTES / "nhl_opener_model.md", "Judge at 100 settled")], "clv_c", " c", "nhl-om-a"),
              card_ot1(),
              card_ot1b(),
+             card_e4_0600(),
+             card_cb1(),
+             card_e4p("C"),
+             card_e4p("C_agree"),
              card_lx1(),
              card_lock(run_sub)]
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")

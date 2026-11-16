@@ -1,0 +1,23 @@
+id: cb1_crypto_barrier_taker
+family: kalshi_data_ladders
+dataset: kalshi_crypto_barrier
+rule: edgelab.rules.forward:unwired
+hypothesis: 'CB1 (forward-only paper; prereg notes/crypto_barrier.md). Kalshi monthly one-touch crypto ladders KXBTCMAXMON,
+  KXBTCMINMON, KXETHMAXMON, KXETHMINMON (+ legacy KXBTCMAXM if listed): settle YES iff a per-minute 20/20-trimmed mean of CF
+  BRTI / ETHUSD_RTI is ever beyond the strike before month end (CRYPTOMINMAX terms; early close checked on DEV,
+  results/crypto_barrier/mech.csv). Daily at 16:00 UTC: M1 = driftless reflection on a unit-variance Student-t(4) terminal
+  with sigma = Deribit DVOL (flat), BGK 1-min shift; M2 = day-block bootstrap of Coinbase hourly (r, high, low) over the
+  trailing 730 d. Taker rule scripts/crypto_barrier_model.py decide: P_cons = min(M1, M2) for the side; fire iff P_cons -
+  ask - 0.07a(1-a) >= .05, ask in [.05,.95], spread <= 5c, >= 2 days left, spot not through strike; first firing per
+  market only; 1 contract. Logged by scripts/crypto_barrier_forward.py (launchd crypto-barrier), scored via
+  edgelab/adapters/crypto_barrier_fwd.py. Cluster = ET month of window end. No verdict before n >= 60 AND >= 12 clusters.'
+decision_time: '16:00 UTC daily (Kalshi GET in [16:00, 16:30) UTC); IN-PLAY: event_start = scheduled window end'
+price_model: taker
+split: vault:kalshi_crypto_barrier
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: exact
+legacy: 'new 2026-11-16 (agent crypto_barrier). Forward only; registered before the first 16:00 UTC decision.'

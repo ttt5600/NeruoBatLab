@@ -18,6 +18,8 @@
 #               notes/ops_nhl_goalie.md; installed by scripts/install_nhl_agents.sh)
 #   ot1         READ-ONLY OT1 Deribit-vs-Kalshi crypto tails forward paper (11-15, notes/ops_ot1_forward.md;
 #               installed by scripts/install_ot1_agent.sh)
+#   e4p         READ-ONLY E4 probabilistic rule C / C-agree maker forward paper (11-16, notes/ops_e4p_forward.md;
+#               installed by scripts/install_e4p_agent.sh)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
 # root makes every job a no-op (scripts/qs_stop.sh). Paper only: none of these jobs place orders or read keys.
 # Exception by design (11-07): nhl-ingame and nfl-fade pipe their signals to ~/.claude/quant-kalshi/scripts/
@@ -168,6 +170,35 @@ case "$job" in
     if [ $rc -ne 0 ] || [ -n "$out" ]; then
       { echo "=== $(date '+%F %T %Z') $job: econ_event_books.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
+  # ---- ops_e4_0600 (11-16, notes/ops_e4_0600.md): READ-ONLY; installed by scripts/install_e4_0600_agent.sh
+  e4-0600)      # E4 06:00-D add-on maker paper: tick decides per orig-7 city in [06:00, 06:40) station-local (idle runs
+                # log nothing but the heartbeat); settle (tape + result) at most once per hour. launchd 300 s.
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/e4_0600_paper.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/e4_0600_heartbeat
+    if [ $rc -ne 0 ] || ! printf '%s' "$out" | grep -q '^idle:'; then
+      { echo "=== $(date '+%F %T %Z') $job: e4_0600_paper.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi
+    now=$(date +%s); last=$(cat state/e4_0600_settle_last 2>/dev/null || echo 0)
+    if [ $((now - last)) -ge 3600 ]; then run scripts/e4_0600_paper.py settle && echo "$now" > state/e4_0600_settle_last; fi ;;
+  e4p)          # E4 probabilistic rule C / C-agree maker paper (notes/ops_e4p_forward.md): tick decides per city in
+                # [22:00, 22:50) station-local D-1 (idle runs log nothing but the heartbeat); settle at most once per hour.
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/e4p_paper.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/e4p_heartbeat
+    if [ $rc -ne 0 ] || ! printf '%s' "$out" | grep -q '^idle:'; then
+      { echo "=== $(date '+%F %T %Z') $job: e4p_paper.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi
+    now=$(date +%s); last=$(cat state/e4p_settle_last 2>/dev/null || echo 0)
+    if [ $((now - last)) -ge 3600 ]; then run scripts/e4p_paper.py settle && echo "$now" > state/e4p_settle_last; fi ;;
+  # ---- crypto_barrier (11-16, notes/crypto_barrier.md): READ-ONLY; installed by scripts/install_crypto_barrier_agent.sh
+  crypto-barrier)   # CB1 monthly crypto one-touch paper: decide once per UTC day at the first run >= 16:00 UTC (idle runs
+                    # print nothing -> heartbeat only); settle picks at most once per hour. launchd 300 s.
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/crypto_barrier_forward.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/crypto_barrier_heartbeat
+    if [ $rc -ne 0 ] || [ -n "$out" ]; then
+      { echo "=== $(date '+%F %T %Z') $job: crypto_barrier_forward.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi
+    now=$(date +%s); last=$(cat state/crypto_barrier_settle_last 2>/dev/null || echo 0)
+    if [ $((now - last)) -ge 3600 ]; then run scripts/crypto_barrier_forward.py settle && echo "$now" > state/crypto_barrier_settle_last; fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;

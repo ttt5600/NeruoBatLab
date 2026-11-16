@@ -152,6 +152,13 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### Crypto monthly max/min (barrier) ladders: models don't beat Kalshi's mid; MAX YES looked rich (post hoc)
+Per-minute 20/20-trimmed BRTI monitoring (early closes median 0.66 h after first Coinbase crossing). 3,105 market-days /
+21 events / 12 months: Brier M1 (reflection, t4, DVOL) .0605, Kalshi mid .0634, M2 bootstrap .0653 -- n.s. (13/21 events).
+MAX YES mid .093 vs realised .045 (rich); MIN mid .124 vs .123 (right) while both models underpriced MIN (flat vol misses
+downside skew). CB1 forward trial live (verdict needs ~12 months). Untested idea: skew-aware smile model; NO on MAX rungs
+(post hoc, would need its own forward prereg). Source: notes/crypto_barrier.md.
+
 ### A calibrated NBM probability forecast adds ~1/3 more E4 picks -- forward paper, not size (critic: weakened)
 Rule C (NO when calibrated P(hit) <= 2%, NEW brackets only): later dev 544 taker picks, 5 losses (0.92%, CI .30-2.13% vs
 b/e 2.50%); maker 331 fills +11.58u [+6.0,+16.5], 0/213 unfilled lost. Critic: no leak (NBS 19Z D-1, error 1.85F vs 4.97F
