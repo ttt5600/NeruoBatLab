@@ -56,3 +56,13 @@ orders; money changes stay with the user.
 - 2026-11-15 **KXAUSHOME** Austin home values -- NEW, score 6/10, macro, monthly, 5 mkts, vol24 0 (notes/series_watch/2026-11-15.md)
 - 2026-11-15 **KXCHIHOME** Chicago home values -- NEW, score 6/10, macro, monthly, 5 mkts, vol24 0 (notes/series_watch/2026-11-15.md)
 - 2026-11-15 **KXCHILISCC** Chili's Credit Card Spend -- NEW, score 6/10, other, one_off, 9 mkts, vol24 0 (notes/series_watch/2026-11-15.md)
+
+## Dated re-checks (do not lose)
+- 2026-11-24..30  L39 live window (monthly rain); 11-27 TG1 Thanksgiving snow settles.
+- ~2026-12-14     State gas: 30-date freeze -> fit lag model, score GS1 (notes/state_gas.md).
+- ~2026-12-15     Home values: does Zillow's page show the Nov value before Kalshi closes 12-17 15:00Z? Browser check only
+                  (script got 403-blocked) (notes/home_values.md).
+- 2026-12-20     Econ-event ladders: makers arrived? EV1 forward (notes/econ_event_ladders.md).
+- 2026-11-19/20  LX1 logical-arb verdict (scan self-stops 11-20 08:00Z).
+- 2026-12-02     NFL fade F1 one-shot score; 2026-12-06 NHL goalie-lag test eligible (>= 3 wks of logger data).
+- 2027-04-01     Snow days SD1/SD2 settle (needs edgelab SCORING_VERSION 2 for scalar payouts).
