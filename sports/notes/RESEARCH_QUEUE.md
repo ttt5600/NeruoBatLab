@@ -57,6 +57,10 @@ orders; money changes stay with the user.
 - 2026-11-15 **KXCHIHOME** Chicago home values -- NEW, score 6/10, macro, monthly, 5 mkts, vol24 0 (notes/series_watch/2026-11-15.md)
 - 2026-11-15 **KXCHILISCC** Chili's Credit Card Spend -- NEW, score 6/10, other, one_off, 9 mkts, vol24 0 (notes/series_watch/2026-11-15.md)
 
+
+- NEXT (after ops_edgelab_v2_apply finishes): implement GOAL rules 6/7 amendment (user-approved 11-18) WITH the critic's
+  edits a-g (inbox row critic_amendment_v2; notes/bar_calibration_v2.md): code + tests in edgelab, sandbox re-check, user re-lock of fund.yaml sha.
+
 ## Dated re-checks (do not lose)
 - 2026-11-24..30  L39 live window (monthly rain); 11-27 TG1 Thanksgiving snow settles.
 - ~2026-12-14     State gas: 30-date freeze -> fit lag model, score GS1 (notes/state_gas.md).
