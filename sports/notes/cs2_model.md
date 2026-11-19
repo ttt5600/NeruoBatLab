@@ -102,3 +102,24 @@ custom_strike.esports_competitor; start = ticker HHMM ET = expected_expiration_t
 ### Kalshi CS2 mid shows a favourite-longshot shape (post hoc)
 mid .70 -> .79 won, .17 -> .145; buying favourites at mid .65-.80 was +4.0% [+0.8,+7.1] on dev but band was picked after
 seeing calibration; neighbouring .50-.65 band -6.5%. Lead only.
+
+## Pre-registration CS2F (written 2026-11-19 BEFORE any sealed candle is fetched; lead request, user standing
+## authority for sealed tests = FUND_BOOK.md line 40, 10-29)
+Trial CS2F (edgelab id cs2f_fav_65_80_t60, family **kalshi_sports_pregame** -- holds the Kalshi sports longshot/FLB
+trials G1-G4/L1/L2; 20 trials before this one -> 21 after registration -> bar one-sided p < 0.05/21 = 0.00238).
+Origin: post-hoc dev band (n 1034, +4.0% [+0.8,+7.1]) -- this is its one confirmation test.
+- Universe: KXCS2GAME events with a parsed ticker start time, two team markets, settled in the 11-18 market pull,
+  start in SEALED [2026-10-19 13:45Z, 2026-11-16 00:00Z) (end cut 2 days before the pull so postponed/scalar settles
+  are not selectively missing). NO Elo/history filter (the rule does not use Elo).
+- T = scheduled start - 60 min. Quote per team market = last hourly candle with end_period_ts <= T (asserted);
+  mid = (yes_ask + yes_bid)/2. Favourite = team with strictly higher mid. Require favourite ask <= 0.95, bid > 0.
+- Rule: if favourite mid in [0.65, 0.80), buy 1 ct of the favourite's YES at its ask; fee = ceil(100*0.07*10*p(1-p))/1000
+  (10-lot taker, cent-rounded). One bet per event. Hold to settlement; scalar settles pay settlement_value.
+- Primary metric: ROI = sum pnl / sum (ask + fee); 95% CI by bootstrap over ET dates (10k, seed 0);
+  p = one-sided bootstrap share of resampled ROI <= 0.
+- SUCCESS: CI lower > 0 AND p < 0.00238. KILL: anything else. Scored ONCE; nothing tuned after.
+- Descriptive only (no decision weight): favourite mid bands [.50,.65) and [.80,.95); primary rule restricted to the
+  Elo-eligible subset (both teams >= 10 rated series results, as in the dev rows).
+
+### CS2F status at handback (2026-11-19)
+Registered; sealed candle fetch (2,782 markets, fetch_candles.py --sealed, log candles_sealed.log) still running in the background. NOT scored. To finish: when the log says done, run `../.venv_quant/bin/python results/cs2_model/sealed_cs2f.py` ONCE from sports/ -> result_sealed_cs2f.json.

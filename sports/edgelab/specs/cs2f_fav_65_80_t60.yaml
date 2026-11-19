@@ -1,0 +1,18 @@
+id: cs2f_fav_65_80_t60
+family: kalshi_sports_pregame
+dataset: kalshi_cs2_game
+rule: edgelab.rules.forward:unwired
+hypothesis: 'CS2F (prereg notes/cs2_model.md; origin = post-hoc dev band of CS2E, this is its single sealed test). KXCS2GAME,
+  T = scheduled start - 60 min, quotes = last hourly candle ending <= T. Favourite = higher mid; if favourite mid in
+  [0.65,0.80), ask <= .95, bid > 0, buy 1 ct favourite YES at ask, 10-lot quadratic taker fee cent-rounded. One bet per
+  event; scalar settles at value. Sealed starts [2026-10-19 13:45Z, 2026-11-16). ROI CI by ET-date bootstrap.'
+decision_time: 'scheduled start - 60 min (ticker HHMM ET)'
+price_model: taker
+split: vault:kalshi_cs2_game
+min_n: 100
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: cent
+legacy: 'new 2026-11-19 (agent cs2_model, lead request). Scored by results/cs2_model/sealed_cs2f.py.'
