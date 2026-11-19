@@ -23,8 +23,12 @@ import pandas as pd
 
 from ._common import AdapterError, date_range, empty_bets, qs_or_repo, read_jsonl, with_report
 
-OUTCOME = {"kind": "result_side", "key": "bet_id"}
-HIDDEN = ["result", "kalshi_result"]
+# 'void' (final exactly on the line S) is NOT a push on Kalshi: the exchange settles the ticker yes/no, or `scalar` at
+# a value (ties/draws $0.50). ops_edgelab_v2_apply 2026-11-18 (SCORING_VERSION 2): a void defers to kalshi_result --
+# yes/no -> that side; 'scalar' -> result 'scalar' scored at hidden `sv` (settle row's `kalshi_value`; missing -> the
+# vault refuses loudly); kalshi_result missing -> stays 'void' (push), counted in the loader report.
+OUTCOME = {"kind": "result_side", "key": "bet_id", "value_col": "sv"}
+HIDDEN = ["result", "kalshi_result", "sv"]
 KEY = {"k1": "key", "knfl": "bet_key", "kcfb": "event", "k50nfl": "bet_key", "nhla": "key"}
 CONTRACTS = 100.0
 
@@ -54,13 +58,18 @@ def load(params: dict):
     d["result"] = d[k].map(lambda x: sd.get(x, {}).get("result"))
     d["kalshi_result"] = d[k].map(lambda x: sd.get(x, {}).get("kalshi_result"))
     d["close_mid"] = d[k].map(lambda x: sd.get(x, {}).get("close_mid"))
+    d["sv"] = pd.to_numeric(d[k].map(lambda x: sd.get(x, {}).get("kalshi_value")), errors="coerce")
+    fix = (d["result"] == "void") & d["kalshi_result"].isin(["yes", "no", "scalar"])
+    n_void_kept = int(((d["result"] == "void") & ~fix).sum())
+    d.loc[fix, "result"] = d.loc[fix, "kalshi_result"]
     d["settled"] = d["result"].notna()
     sb = d[(d["status"] == "bet") & d["settled"]]
     kr = sb["kalshi_result"]
     d.attrs["loader_report"] = {"source": str(f), "pick_rows": int(len(d)),
                                 "status": d["status"].value_counts().to_dict(), "settle_rows": len(st),
                                 "kalshi_result_missing": int(kr.isna().sum()),
-                                "kalshi_result_disagrees": int((kr.notna() & (kr != sb["result"])).sum())}
+                                "kalshi_result_disagrees": int((kr.notna() & (kr != sb["result"])).sum()),
+                                "void_resolved_by_kalshi": int(fix.sum()), "void_kept_push": n_void_kept}
     return d, [str(f)]
 
 

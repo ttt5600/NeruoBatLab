@@ -40,8 +40,17 @@ def _fee(p):
     return float(F.fee_per_contract("kalshi_taker", np.array([p]), 1, "cent")[0])
 
 
-def test_flag_is_off_by_default():
-    assert edgelab.SCORING_VERSION == 1
+def test_flag_is_v2_after_user_approval():
+    # flipped 1 -> 2 on 2026-11-18 (user approval, GOAL.md rule 5 amendment); v1 stays reachable via scoring_version=1
+    assert edgelab.SCORING_VERSION == 2
+
+
+def test_live_vault_configs_carry_value_cols():
+    from edgelab import vault as V
+    cfg = V.config()
+    for ds, vc in (("kalshi_politics_fav", "scalar_value"), ("kalshi_cricket_nr", "sv")):
+        assert cfg[ds]["outcome"]["kind"] == "result_equals_side"
+        assert cfg[ds]["outcome"]["value_col"] == vc and vc in cfg[ds]["hidden"]
 
 
 def test_v1_legacy_scalar_is_a_loss_for_both_sides():
@@ -143,3 +152,36 @@ def test_schema_rejects_fractional_outcome_without_matching_payout():
     with pytest.raises(schema.SchemaError):
         schema.enforce(b.assign(payout=0.30))
     schema.enforce(b.assign(payout=0.25))
+
+
+def test_kx_fwd_void_defers_to_kalshi_settlement(tmp_path, monkeypatch):
+    # ops_edgelab_v2_apply 2026-11-18: a line-push 'void' is not a Kalshi push; the exchange's own result decides
+    import json
+    from edgelab.adapters import kx_fwd as K
+    rows = []
+    for i, (kr, kv) in enumerate([("no", None), ("scalar", 0.5), (None, None), ("yes", None)]):
+        rows.append({"kind": "pick", "key": f"b{i}", "status": "bet", "side": "yes", "ask": 0.40,
+                     "event_start": "2026-11-20T01:00:00Z", "decided_at": "2026-11-19T20:00:00Z",
+                     "quote_end": "2026-11-19T19:59:00Z"})
+        st = {"kind": "settle", "key": f"b{i}", "result": "void" if i < 3 else "yes", "kalshi_result": kr}
+        if kv is not None:
+            st["kalshi_value"] = kv
+        rows.append(st)
+    f = tmp_path / "k1.jsonl"
+    f.write_text("\n".join(json.dumps(r) for r in rows))
+    monkeypatch.setattr(K, "qs_or_repo", lambda rel: f)
+    d, _ = K.load({"trial": "k1"})
+    assert d["result"].tolist() == ["no", "scalar", "void", "yes"]
+    rep = d.attrs["loader_report"]
+    assert rep["void_resolved_by_kalshi"] == 2 and rep["void_kept_push"] == 1
+    b = K.rows(d, {"trial": "k1"})
+    h = d[["bet_id"] + K.HIDDEN].copy()
+    h.attrs = {"split": "forward", "outcome": K.OUTCOME}
+    r = vault.resolve_outcomes("x", b, h, None, scoring_version=2)
+    assert r["outcome"].tolist() == [0.0, 0.5, 0.5, 1.0]
+    assert np.isnan(r["payout"].iloc[2]) and r["payout"].iloc[1] == 0.5   # [2] = true push (no Kalshi result)
+    # a Kalshi scalar without its value is refused, never silently scored
+    h2 = h.assign(sv=np.nan)
+    h2.attrs = h.attrs
+    with pytest.raises(vault.VaultError):
+        vault.resolve_outcomes("x", b, h2, None, scoring_version=2)

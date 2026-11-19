@@ -92,3 +92,49 @@ other trials bit-identical (results/ops_edgelab_scalar/sandbox_rescore.json).
 ### Many Kalshi builders drop non-yes/no markets (outcome-conditioned exclusion)
 lx2 dev: 26 scalar of 19,216 markets dropped. Tiny here, but a drop by outcome is a selection bias; prefer scoring at
 the settlement value (SCORING_VERSION 2 + value_col) over filtering.
+### A full no-patch sandbox re-score confirms v2 changes 0 of 65 reproducible dev verdicts
+Applied code, every dev-evaluated trial: 65 reproduce v1 exactly, 0 verdict changes; only pol_t7/pol_t3 ROI moves
+(results/ops_edgelab_v2_apply/sandbox_rescore_applied.json). See "Applied 2026-11-18" below.
+### A line-push 'void' is a sportsbook concept; Kalshi never pushes a strike market
+kx_fwd now defers voids to kalshi_result (yes/no/scalar at value). Log the exchange settlement value next to the result.
+### GOAL.md hash pin was already stale before the 11-18 amendment
+fund.yaml pins f4a17a15f067 while GOAL.md was 8f2d97bd0945 (11-05 rule-6 amendment never re-locked); re-lock after
+every GOAL amendment or `hub doctor` FAILs.
+
+## Applied 2026-11-18 (agent ops_edgelab_v2_apply; user approval 2026-11-18: "you have my approval on everything")
+- **GOAL.md rule 5** amended (dated user amendment: a market settling at v pays v / 1 - v; SCORING_VERSION 2 enforces).
+  GOAL.md sha256 now `796004f8606638ed5861e67f62af20af445b0986c9dc645e9ca0c2bffa61ec3b`. fund.yaml NOT edited: it still
+  pins f4a17a15f067 (already stale before today: pre-edit sha was 8f2d97bd0945, from the 11-05 rule-6 amendment).
+  **USER must update the mirror sha in ~/agent-harness/goals/fund.yaml and re-lock (`sudo install.sh --lock`).**
+- Politics: loader `kalshi_politics_fav` adds hidden `scalar_value` from data/pol_favourites/scalar_values.json (file in
+  sources; 96/96 scalar tickers in priced.parquet covered); vault.yaml `hidden: [result, scalar_value]`,
+  `value_col: scalar_value`.
+- Cricket: vault.yaml kalshi_cricket_nr outcome `none` -> `{kind: result_equals_side, key: ticker, value_col: sv}`
+  (cricket_frame: 194 scalar rows, sv = 0.5 on all; yes/no rows sv 1/0). rules/cricket_nr.py untouched.
+- `SCORING_VERSION = 2` in edgelab/__init__.py. tests/test_edgelab_scalar.py: `test_flag_is_off_by_default` ->
+  `test_flag_is_v2_after_user_approval`, + config test (value_cols present and hidden), + kx_fwd void test.
+- Checks: pytest tests/ 537 pass, 2 fail = the pre-existing tests/test_bet.py order-body asserts (no edgelab import);
+  `python -m edgelab selftest` ok; `python -m edgelab verify` ok (first_break null).
+- **Sandbox re-score with the APPLIED code, no monkeypatches** (results/ops_edgelab_v2_apply/sandbox_rescore_applied.py
+  -> sandbox_rescore_applied.json, sandbox.log): all 68 trials with a dev evaluation. 65 ran: v1 reproduces the
+  registry on all 65; **0 verdicts change under v2**; only pol_t7 (-3.00% -> -0.56%) and pol_t3 (-3.74% -> -1.93%) move.
+  3 cannot run under either version (lx2_a_t90, lx2_b_t180, nd1_nyc_nowcast_maker: RegistryError "rule module changed
+  since registration" -- pre-existing, refused by design; none has scalar rows per scan.json). Real registry sha
+  asserted unchanged; lab/ files hashed before/after: identical. **No real-registry re-evaluation done** (none required;
+  step 5 optional; future evaluations record `scoring_version: 2`).
+- **kx_fwd void fix** (edgelab/adapters/kx_fwd.py): scripts/kx_forward.py grades 'void' when the final lands exactly on
+  the line S (a book push; it is a strike-ladder void, not an ML tie), but Kalshi settles the ticker yes/no or `scalar`.
+  A void now defers to `kalshi_result` (yes/no -> that side; 'scalar' -> scored at hidden `sv` = settle row
+  `kalshi_value`, missing -> VaultError); no kalshi_result -> stays 'void' push. Loader report counts
+  `void_resolved_by_kalshi` / `void_kept_push`. Lock: no kx_fwd trial has any registry event (grep = 0) and 0 void settle
+  rows exist in ~/.claude/quant-sports/data/kx_forward/*.jsonl -> lock not engaged, no score changes.
+  PROPOSAL (not done; live launchd paper job): scripts/kx_forward.py market_result() should also log Kalshi's
+  settlement value as `kalshi_value`, so a scalar void scores instead of raising.
+- **Scalar-dropping builders: listed, NOT fixed** (not trivial: a loader edit changes registered trials' data; scan.json
+  shows none of their evaluated windows hold scalar rows). edgelab loaders filtering result in {yes,no}: kalshi_tsaw,
+  kalshi_portwatch, kalshi_ytviews, kalshi_album_units, kalshi_top_album, kalshi_opt_tails, kalshi_opt_tails_ext,
+  kalshi_wx_monthly_early, kalshi_golf_topn. scripts/: cbb_ingame, dl_portwatch, e1x_media, e1x_tsa(+logger),
+  e1x_quake(+maker), econ_reject, kalshi_cpi, kalshi_gas, kalshi_rain, kalshi_hourly_temp, kalshi_longshot,
+  kalshi_soccer(+sharp), kalshi_fav_maker, kalshi_ingame_lowscore, kalshi_wx_winter, kalshi_wx_monthly_logger,
+  kalshi_paper, lx2_tail_no_carry, crypto_barrier_forward, live_edges, fund_stats. New datasets: keep scalar rows and
+  set `value_col` instead.

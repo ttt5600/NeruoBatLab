@@ -701,8 +701,9 @@ LOADERS["kalshi_golf_topn"] = kalshi_golf_topn
 
 def kalshi_cricket_nr():
     """results/rules_quirks/cricket_frame.parquet (scripts/rules_quirks_cricket_px.py score): one row per two-team
-    cricket market with the quote at scheduled start - 1 h. date = scheduled start date. Outcome kind 'none' (NR pays
-    $0.50, which the evaluator cannot settle) -- the script is authoritative. Agent rules_quirks 2026-11-15."""
+    cricket market with the quote at scheduled start - 1 h. date = scheduled start date. NR pays $0.50 (result 'scalar',
+    hidden sv = 0.5): scored at sv under SCORING_VERSION 2 (vault.yaml value_col: sv, user 2026-11-18); before that
+    outcome kind was 'none' and the script was authoritative. Agent rules_quirks 2026-11-15."""
     f = SPORTS / "results" / "rules_quirks" / "cricket_frame.parquet"
     x = pd.read_parquet(f)
     x["date"] = pd.to_datetime(x["start"], utc=True).dt.tz_localize(None).dt.normalize()
@@ -718,9 +719,12 @@ def kalshi_politics_fav():
     (T7/T14/T3: t = expected_expiration_time - d), open at t, last daily candle ending in (t-36h, t]. date = settlement
     date (UTC); result hidden. Agent pol_favourites 2026-11-15 (prereg notes/pol_favourites.md)."""
     f = DATA / "pol_favourites" / "priced.parquet"
+    fv = DATA / "pol_favourites" / "scalar_values.json"   # ticker -> Kalshi settlement value (YES payout), scalar rows
     x = pd.read_parquet(f)
     x["date"] = pd.to_datetime(x["settlement_ts"], utc=True).dt.tz_localize(None).dt.normalize()
-    return x.reset_index(drop=True), [str(f)]
+    # hidden (vault.yaml): settlement value for SCORING_VERSION 2 (user-approved 2026-11-18, GOAL rule 5 amendment)
+    x["scalar_value"] = pd.to_numeric(x["ticker"].map(json.loads(fv.read_text())), errors="coerce")
+    return x.reset_index(drop=True), [str(f), str(fv)]
 
 
 LOADERS["kalshi_politics_fav"] = kalshi_politics_fav
@@ -770,3 +774,26 @@ def kalshi_temp_prob():
 
 
 LOADERS["kalshi_temp_prob"] = kalshi_temp_prob
+
+
+# ------------------------------------------------------------------ skilled-Polymarket-wallet -> Kalshi (scripts/pm_wallet_signal.py)
+def pm_wallet_signal():
+    """data/pm_wallet_signal/frame_{dev,sealed}.parquet: one row per skilled-wallet event (pre-decision columns +
+    Kalshi 1-min candles JSON); hidden `result` = Kalshi settlement of the team ticker (results.parquet); `ticker`
+    = Kalshi team market, so result_equals_side keys on bet_id's first field. Sealed exists only after its pull."""
+    D = DATA / "pm_wallet_signal"
+    xs, srcs = [], []
+    for s in ("dev", "sealed"):
+        f = D / f"frame_{s}.parquet"
+        if f.exists():
+            xs.append(pd.read_parquet(f)); srcs.append(str(f))
+    x = pd.concat(xs, ignore_index=True)
+    fr = D / "results.parquet"
+    r = pd.read_parquet(fr).drop_duplicates("ticker")
+    srcs.append(str(fr))
+    x = x.merge(r[["ticker", "result"]], on="ticker", how="left")
+    x["date"] = pd.to_datetime(x["date"])
+    return x, srcs
+
+
+LOADERS["pm_wallet_signal"] = pm_wallet_signal

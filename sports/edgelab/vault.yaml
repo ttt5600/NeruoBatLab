@@ -256,6 +256,15 @@ datasets:
       dev: [2026-05-01, 2026-08-31]        # key = UTC date of PM US game start; 700 random matched games (seed 20261106)
       sealed: [2026-09-01, 2026-11-04]     # 700 random (seed 20261107), pulled only after a dev pass; 2026-11-05 = probe day
       forward: [2026-11-06, null]          # live logger scripts/pmus_lag_logger.py (not wired to edgelab yet)
+  pm_wallet_signal:
+    loader: pm_wallet_signal
+    family: cross_venue
+    hidden: [result]                       # Kalshi team-ticker settlement; bet_id = kticker|t_pm|side
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # set 2026-11-18 (notes/pm_wallet_signal.md) before any split trade/price was
+      dev: [2026-01-01, 2026-04-30]        # pulled; key = game date (PM slug). Skill window 2025-04-01..2025-12-31
+      sealed: [2026-05-01, 2026-11-05]     # (train, not loadable here); sealed skill = same rule on games < 2026-05-01
+      forward: [2026-11-19, null]          # not built
   kalshi_spacex_count:
     loader: kalshi_spacex_count
     family: kalshi_data_ladders
@@ -468,11 +477,11 @@ datasets:
       dev: [2026-01-01, 2026-06-30]
       sealed: [2026-07-01, 2026-11-14]     # candles fetched for all, but scored only on the user's yes
       forward: [2026-11-15, null]
-  kalshi_cricket_nr:      # rules_quirks 11-15: NR/tie -> $0.50 (books void); evaluator cannot settle 0.5 -> outcome none, script scores
+  kalshi_cricket_nr:      # rules_quirks 11-15: NR/tie -> $0.50 (books void); scored at sv under SCORING_VERSION 2 (user 2026-11-18)
     loader: kalshi_cricket_nr
     family: kalshi_rules_quirks
     hidden: [result, sv]
-    outcome: {kind: none, key: ticker}
+    outcome: {kind: result_equals_side, key: ticker, value_col: sv}
     splits:                                # date = scheduled start (UTC date)
       dev: [2026-01-01, 2026-06-30]
       sealed: [2026-07-01, 2026-11-14]
@@ -480,8 +489,8 @@ datasets:
   kalshi_politics_fav:    # pol_favourites 11-15 (L22, Le arXiv 2602.19520): prereg in notes/pol_favourites.md
     loader: kalshi_politics_fav
     family: kalshi_politics
-    hidden: [result]
-    outcome: {kind: result_equals_side, key: ticker}
+    hidden: [result, scalar_value]         # scalar_value: settlement value, SCORING_VERSION 2 (user 2026-11-18)
+    outcome: {kind: result_equals_side, key: ticker, value_col: scalar_value}
     splits:                                # date = settlement date (UTC)
       dev: [2026-07-01, 2026-11-15]        # = the task's PRIMARY window (after Le's sample); one-shot, rule fixed from the paper
       sealed: null                         # paper-era 2025-01..2026-06 is scored by the script only (outside the vault)

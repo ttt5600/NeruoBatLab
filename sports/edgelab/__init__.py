@@ -19,4 +19,4 @@ ALPHA = 0.05
 #   2 = settlement-value scoring: a bet whose hidden result is 'scalar' pays the venue's settlement value for our side
 #       (YES v, NO 1 - v; v = the dataset's outcome `value_col`, a hidden column), P&L = contracts x (value - price)
 #       - fee. Binary rows are bit-identical to v1. Evaluations under v2 carry `scoring_version: 2` in the registry.
-SCORING_VERSION = 1
+SCORING_VERSION = 2   # flipped 2026-11-18 on the user's approval (GOAL.md rule 5 amendment)
