@@ -1,3 +1,7 @@
+## 2026-11-18 EDGELAB: SCORING_VERSION 2 (scalar payouts at true value; 0/65 verdicts changed) + GOAL rules 5-7 amendment
+##   (BAR_VERSION 2: sealed .05/2^j, drop-top-week/cluster, no Sharpe guard at cost >= .90, forward SPRT after sealed pass
+##   -> needs_audit, SPRT kill additive). USER MUST RE-LOCK: GOAL.md sha f405c49ecec8c6349b08eca9e8f3ba18ed1f7dae50223840b9d1f708e3047db7
+##   into ~/agent-harness/goals/fund.yaml, then `sudo ~/agent-harness/install.sh --lock`. New loggers: esports-pin (ESP1).
 ## 2026-11-18 USER: "keep looking for edges ... you have my approval on everything". APPLIED: E4 price bands, X1 restart
 ##   (6 ct, $30 sub-cap, kill), TSA yes-only, shard target 0=80 2=15 3=5 (notes/SIZING_RULE.md). RUNNING: forum_strategy_scout
 ##   (user: r/Polymarket winning strategies), ops_edgelab_v2_apply (SCORING_VERSION 2), lx2_climate_sealed (one-shot sealed),
