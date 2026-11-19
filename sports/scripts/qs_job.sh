@@ -145,6 +145,14 @@ case "$job" in
       { echo "=== $(date '+%F %T %Z') $job"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
   # ---- ops_ot1_forward (11-15, notes/ops_ot1_forward.md): READ-ONLY; installed by scripts/install_ot1_agent.sh
+  kfg1)         # KFG1 forward paper (notes/kalshi_fg_markets.md s5): READ-ONLY KXNFLFG FG ladders vs frozen M1.
+                # launchd 600 s, 24 h; tick decides games kicking off in [+50,+70] min, settle fills results 3 h after kickoff.
+                # Idle runs print nothing -> only the heartbeat file
+    out=$( { /usr/bin/caffeinate -i "$PY" scripts/kfg1_paper.py tick; r1=$?; /usr/bin/caffeinate -i "$PY" scripts/kfg1_paper.py settle; r2=$?; exit $(( r1 > r2 ? r1 : r2 )); } 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/kfg1_heartbeat
+    if [ $rc -ne 0 ] || [ -n "$out" ]; then
+      { echo "=== $(date '+%F %T %Z') $job: kfg1_paper.py tick+settle"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi ;;
   ot1)          # OT1 forward paper: decide once/day at the first run in [11:00, 12:00) ET (Deribit then Kalshi live book),
                 # settle events after 17:05 ET. launchd 120 s; idle runs print nothing -> only the heartbeat file
     out=$(/usr/bin/caffeinate -i "$PY" scripts/ot1_forward.py tick 2>&1); rc=$?

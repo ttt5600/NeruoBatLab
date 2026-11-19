@@ -85,3 +85,25 @@ distinguishable from the mid. Too few events for the 22-trial family bar. Source
 ### Few date clusters give over-tight bootstrap CIs
 ET-gameday clustering (~20 clusters) gave CI [+8.8%,+41%] while game clustering gave [-0.7%,+47%]; with < ~30 clusters
 the cluster bootstrap understates variance -- report the more conservative one.
+
+## 5. FORWARD PRE-REGISTRATION (lead request 2026-11-19 ~23:45Z; written BEFORE the logger code; paper only, no orders)
+- Logger: scripts/kfg1_paper.py (tick / settle / report), job `kfg1` in scripts/qs_job.sh. Output
+  ~/.claude/quant-sports/data/kfg1/picks.jsonl (one row per team-game, bets AND skips) + settled.jsonl (append-only).
+- Frozen model: scripts/kfg1_m1.json (sha256 37f0d8ea515851c7525714edc4db830a98abff1b91566e38778ec0b9f476f87e), coefficients
+  of M1 exactly as used in dev (reproduces preds_2026.parquet to max abs diff 0.0). Not refit during the forward test.
+- Inputs: nflverse schedule ~/.claude/quant-kalshi/data/nfl_schedule.csv total_line/spread_line as read at tick time
+  (pre-kickoff line, not the close: forward is strictly causal). Tick refuses (exit 2) if the file is older than 36 h.
+  Indoor: schedule roof if present; if missing (retractables pre-game: HOU, DAL...), the modal non-null roof of that
+  stadium_id over 2023-2026 (dev used the post-game roof field -- tiny dev lookahead, noted).
+- Decision: each tick (~10 min), games with kickoff in [T-70, T-50] min (kickoff = schedule gameday+gametime ET);
+  quotes = live KXNFLFG top of book (/markets?event_ticker=). YES cost = yes_ask, NO cost = 1 - yes_bid; valid if cost in
+  [.03,.97] and yes_bid > 0; fee = 10-lot quadratic taker, cent-rounded (same as dev). edge = p - cost - fee. Per team-game the
+  single max-edge (strike, side); bet 1 ct if edge >= 0.04. First tick in the window decides; once per game.
+- Start: week 11 (IND@HOU 2026-11-20 01:15Z counts if the logger is live by its window).
+- Metric: ROI at ask = sum pnl / sum (cost+fee), game-clustered bootstrap CI; CLV = side mid at last 1-min candle ending
+  <= kickoff minus cost (filled by settle).
+- Judge at 100 bets: pass = game-clustered 95% CI lower > 0. Kill: ROI CI upper < 0 after 60 bets.
+- 2026-11-19 23:41Z logger built: scripts/kfg1_paper.py + scripts/kfg1_m1.json + `kfg1)` case in scripts/qs_job.sh (NOT deployed;
+  lead deploys). Test tick (window widened to [0,120] min, out results/kalshi_fg_markets/test_tick/, NOT a forward row): IND@HOU at
+  T-94 min: HOU implied 28.5, roof closed (stadium mode), p 1+..4+ .822/.491/.233/.095, HOU2 yes .63/.64 -> BET NO at .37, edge
+  .122; IND implied 16.0 -> skip (best IND2 NO edge .033). Idle tick/settle exit 0 silently; fetch errors exit 1.
