@@ -1,0 +1,27 @@
+id: rt1_outlet_nowcast_embargo
+family: kalshi_media
+dataset: kxrt_outlet_nowcast
+rule: edgelab.rules.forward:unwired
+hypothesis: >-
+  KXRT (Rotten Tomatoes score, settles Monday after wide release 10:00 ET). At the review embargo E (first 10-min
+  window with >= 3 outlet article:published_time stamps among Metacritic-listed reviews) + 30 min, a nowcast built only
+  from reviews already published at outlets (mean MC score -> RT via a leave-one-film-out logit map on final
+  Metascore) prices the strikes better than the Kalshi tape (trade VWAP +-10 min). Pre-reg M4 in notes/rt_review_lag.md.
+decision_time: E + 30 min (outlet timestamps only; trades in [t*-10, t*+10] min)
+price_model: taker
+split: dev
+min_n: 20
+kill:
+  kind: roi_ci_below_zero
+  after_n: 20
+fee:
+  rounding: cent
+params:
+  metric: film-mean Brier(nowcast) - Brier(tape), film bootstrap 10k seed 4
+  pass: ">= 20 films and CI upper < 0"
+  kill: point estimate >= 0
+legacy: >-
+  New 2026-11-19 (agent rt_review_lag; forum scout idea #4 / Q013 extension). Scored by scripts/rt_m4.py, not an
+  edgelab adapter (a Brier gate, no bets): dev 46 films / 232 strikes, Brier diff +0.1008 [+0.0610, +0.1415]
+  (nowcast 0.236, tape 0.136) -> KILLED per pre-reg. Post-hoc map on the early-review mean: +0.026 [-0.002, +0.056],
+  still not better. Registered so the family bar counts the trial; retired immediately.

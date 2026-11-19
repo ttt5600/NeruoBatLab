@@ -152,6 +152,13 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### Kalshi Rotten Tomatoes markets reprice within minutes of the review embargo -- traders read the outlets too
+KXRT (Tomatometer 'above X', settles Monday after wide release 10:00 ET): volume jumped from 10 to 10,107 contracts within
+4 min of the embargo hour. Outlet-review nowcast 30 min after embargo: Brier .236 vs Kalshi .136, gap +0.1008 [+0.061,
++0.142] n46 films -> killed. First-wave reviews run +5.5 Metacritic points above the final Metascore. RT per-review lists
+return 401 anonymously (recorded, not bypassed). Q013 logger silently broke 11-03 (criticsScore.score -> scorePercent):
+a silent-zero-picks health check is needed on every logger. Source: notes/rt_review_lag.md.
+
 ### 'Skilled' Polymarket wallets don't stay skilled, and Kalshi reprices before you could copy them
 Sports game winners (12,176 matched games): 53/2,681 wallets 'skilled' on 2025 (~17 by chance); their own 2026 PM fills +0.75%
 [-9.2,+11.1], median wallet -6%. Copying on Kalshi (2,276 bets): their trades were contrarian dip buys; Kalshi moved 1.69c
