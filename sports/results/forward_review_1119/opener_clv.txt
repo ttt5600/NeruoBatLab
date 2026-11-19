@@ -1,0 +1,24 @@
+== k1: settled 20, game-dates 7
+  pre-reg CLV (clv_S) mean +0.775 CI (np.float64(0.041666666666666664), np.float64(1.1730769230769231))
+  Kalshi-own CLV (close mid - entry mid, prob) mean -0.0043 CI (np.float64(-0.030000000000000027), np.float64(0.01703819444444444)) n 20
+  Kalshi-own net (close mid - ask - fee) mean -0.0327 CI (np.float64(-0.057683333333333336), np.float64(-0.011715384615384593))
+  ROI +0.187 date-clustered CI (np.float64(-0.09601601343061919), np.float64(0.4884274763712139))
+  sample: [('2026-11-13', 0.525, 0.5700000000000001), ('2026-11-13', 0.51, 0.485), ('2026-11-13', 0.505, 0.56), ('2026-11-14', 0.54, 0.5700000000000001)]
+== kcfb: settled 11, game-dates 3
+  pre-reg CLV (clv) mean +0.727 CI (np.float64(0.5), np.float64(2.0))
+  Kalshi-own CLV (close mid - entry mid, prob) mean -0.0100 CI (np.float64(-0.03416666666666668), np.float64(0.07500000000000007)) n 11
+  Kalshi-own net (close mid - ask - fee) mean -0.0934 CI (np.float64(-0.16), np.float64(0.04750000000000004))
+  ROI -0.404 date-clustered CI (np.float64(-0.5412423158087897), np.float64(1.0100502512562815))
+  sample: [('2026-11-13', 0.47, 0.545), ('2026-11-14', 0.51, 0.45999999999999996), ('2026-11-15', 0.535, 0.565), ('2026-11-14', 0.6, 0.575)]
+== k50nfl: settled 9, game-dates 1
+  pre-reg CLV (clv) mean +0.500 CI (nan, nan)
+  Kalshi-own CLV (close mid - entry mid, prob) mean +0.0039 CI (nan, nan) n 9
+  Kalshi-own net (close mid - ask - fee) mean -0.0203 CI (nan, nan)
+  ROI +0.256 date-clustered CI (nan, nan)
+  sample: [('2026-11-15', 0.485, 0.475), ('2026-11-15', 0.475, 0.505), ('2026-11-15', 0.51, 0.5549999999999999), ('2026-11-15', 0.51, 0.485)]
+== nhla: settled 5, game-dates 2
+  pre-reg CLV (clv_c) mean +1.800 CI (np.float64(0.9999999999999979), np.float64(4.999999999999999))
+  Kalshi-own CLV (close mid - entry mid, prob) mean +0.0180 CI (np.float64(0.009999999999999981), np.float64(0.04999999999999993)) n 5
+  Kalshi-own net (close mid - ask - fee) mean -0.0124 CI (np.float64(-0.019899999999999973), np.float64(0.01759999999999995))
+  ROI -0.640 date-clustered CI (np.float64(-1.0), np.float64(-0.5494683726797621))
+  sample: [('2026-11-16', 0.525, 0.575), ('2026-11-18', 0.505, 0.595), ('2026-11-18', 0.55, 0.535), ('2026-11-18', 0.53, 0.515)]

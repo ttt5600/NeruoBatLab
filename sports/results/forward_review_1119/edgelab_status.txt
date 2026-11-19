@@ -1,0 +1,205 @@
+strategy             family (trials, bar)           state         split       n net ROI [95% CI]                  p     CLV  next gate / why
+--------------------------------------------------------------------------------------------------------------------------------------------
+cbb_t1_kalshi_taker  cbb_totals (4, 1.3e-02)        registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_cbb_totals': user must add its split window to vault.yaml
+mf_cbb_x0            cbb_totals (4, 1.3e-02)        registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_cbb_totals': user must add its split window to vault.yaml
+mf_cbb_x1            cbb_totals (4, 1.3e-02)        registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_cbb_totals': user must add its split window to vault.yaml
+mf_cbb_x2            cbb_totals (4, 1.3e-02)        registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_cbb_totals': user must add its split window to vault.yaml
+k50_cfb_k50_kalshi   cfb_lines (21, 2.4e-03)        registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+k50_cfb_lo_kalshi    cfb_lines (21, 2.4e-03)        registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+kcfb_l36_kalshi_taker cfb_lines (21, 2.4e-03)        registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+mf_cfb_x0            cfb_lines (21, 2.4e-03)        registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_cfb_lines': user must add its split window to vault.yaml
+mf_cfb_x1            cfb_lines (21, 2.4e-03)        registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_cfb_lines': user must add its split window to vault.yaml
+mf_cfb_x2            cfb_lines (21, 2.4e-03)        registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_cfb_lines': user must add its split window to vault.yaml
+esp1_kalshi_esports_pin_fresh cross_venue (12, 4.2e-03)      registered    -           - -                                 -       -  no vault entry for dataset 'xv_kalshi_esports_pin': user must add its split window to vault.yaml
+ks12p_kalshi_soccer_power cross_venue (12, 4.2e-03)      dead          -           - -                                 -       -  no vault entry for dataset 'xv_kalshi_soccer_gap': user must add its split window to vault.yaml
+pmus_lag_t1          cross_venue (12, 4.2e-03)      dead          dev      2341 -3.60% [-8.80%,+1.62%]      9.1e-01 -0.0044  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+pmus_lag_t2          cross_venue (12, 4.2e-03)      dead          dev       481 +1.01% [-15.73%,+20.99%]    4.8e-01 +0.0085  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+pmw_t1_taker         cross_venue (12, 4.2e-03)      dead          dev      2276 -4.42% [-8.21%,-0.61%]      9.9e-01 -0.0332  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+xv_live_lag_t03      cross_venue (12, 4.2e-03)      registered    -           - -                                 -       -  no vault entry for dataset 'xv_live_lag': user must add its split window to vault.yaml
+gr14_release_unders  game_release (3, 1.7e-02)      dead          dev      3560 -3.43% [-6.24%,-0.69%]      9.9e-01 +0.0000  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+gr7_release_unders   game_release (3, 1.7e-02)      dead          dev      1766 -4.97% [-8.63%,-0.95%]      9.9e-01 +0.0000  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+grh7_hyped_unders    game_release (3, 1.7e-02)      dead          dev      1129 -7.90% [-11.37%,-4.01%]     1.0e+00 +0.0000  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+au_e_taker           kalshi_data_ladders (65, 7.7e-04) dead          dev         7 +2.88% [+2.06%,+3.71%]      2.5e-05 +0.0171  dead (dev fail): 5c conc>30%,5d n<min
+au_l_maker           kalshi_data_ladders (65, 7.7e-04) dead          -           - -                                 -       -  dead ( )
+au_l_taker           kalshi_data_ladders (65, 7.7e-04) dead          -           - -                                 -       -  dead ( )
+cb1_crypto_barrier_taker kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+cb2_crypto_barrier_smile_taker kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+cb3_crypto_max_no_taker kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+em1_ercot_pinned     kalshi_data_ladders (65, 7.7e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_ercot_monthly': user must add its split window to vault.yaml
+fc1_gtm_nowcast      kalshi_data_ladders (65, 7.7e-04) dead          dev         2 +1.01% [+1.01%,+1.01%]      2.5e-05 +0.0100  dead (dev fail): 5c conc>30%,5d n<min
+fc2_macd_nowcast     kalshi_data_ladders (65, 7.7e-04) dead          dev         0 -                                 -       -  dead (dev fail): no bets
+fed_ft_tail_no       kalshi_data_ladders (65, 7.7e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_fed_decision': user must add its split window to vault.yaml
+hc1_hurcat_nhc_gap   kalshi_data_ladders (65, 7.7e-04) dead          dev       106 -4.48% [-13.79%,+3.21%]     8.6e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+hc2_hurcat_post_advisory kalshi_data_ladders (65, 7.7e-04) dead          dev        15 +1.32% [+0.94%,+1.71%]      2.5e-05       -  dead (dev fail): 5c conc>30%,5d n<min,5e CLV<0/null
+hv1_home_far_taker   kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+hv2_home_far_maker   kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+mr1_mortgage_far_taker kalshi_data_ladders (65, 7.7e-04) dead          -           - -                                 -       -  dead ( )
+mr2_mortgage_far_maker kalshi_data_ladders (65, 7.7e-04) dead          -           - -                                 -       -  dead ( )
+ot1_crypto_taker     kalshi_data_ladders (65, 7.7e-04) dead          dev       387 +4.60% [+1.07%,+7.62%]      5.8e-03 +0.0294  dead (dev fail): 5a p>=bar
+ot1b_crypto_taker_mono kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+ot2_crypto_maker     kalshi_data_ladders (65, 7.7e-04) dead          dev       830 -1.64% [-5.20%,+1.68%]      8.3e-01 -0.0145  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+ot3_index_taker      kalshi_data_ladders (65, 7.7e-04) dead          dev       541 -4.54% [-10.16%,+0.74%]     9.6e-01 +0.0043  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+ot4_index_maker      kalshi_data_ladders (65, 7.7e-04) dead          dev       621 -9.27% [-14.60%,-4.47%]     1.0e+00 -0.0257  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+pw1_power_week_maker kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+pw_t1_maker          kalshi_data_ladders (65, 7.7e-04) dead          -           - -                                 -       -  dead ( )
+q017_b_far_bracket   kalshi_data_ladders (65, 7.7e-04) registered    forward     0 -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml: no bets
+                       legacy (not a verdict): notes/q017_ercot_load.md: B lead (12/12, 7/7), forward logger built
+qm1_quake_month_taker kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+qm2_quake_month_maker kalshi_data_ladders (65, 7.7e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+sp1_spr_maker        kalshi_data_ladders (65, 7.7e-04) dead          dev         3 +3.45% [+3.45%,+3.45%]      2.5e-05 +0.0333  dead (dev fail): 5c conc>30%,5d n<min
+sx1_spacex_maker     kalshi_data_ladders (65, 7.7e-04) dead          dev        11 +1.58% [+1.11%,+2.27%]      2.5e-05 +0.0155  dead (dev fail): 5c conc>30%,5d n<min
+ta_e_maker           kalshi_data_ladders (65, 7.7e-04) dead          dev        22 +3.00% [+2.47%,+3.72%]      2.5e-05 +0.0223  dead (dev fail): 5d n<min,too-good->audit
+ta_e_taker           kalshi_data_ladders (65, 7.7e-04) dead          dev         7 +2.88% [+1.90%,+4.13%]      2.5e-05 +0.0271  dead (dev fail): 5c conc>30%,5d n<min
+ta_l_taker           kalshi_data_ladders (65, 7.7e-04) dead          dev         7 -10.20% [-52.79%,+5.16%]    6.9e-01 +0.0014  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5d n<min
+tc1_tornado_maker    kalshi_data_ladders (65, 7.7e-04) dead          -           - -                                 -       -  dead ( )
+tsa_t1_taker         kalshi_data_ladders (65, 7.7e-04) dead          dev       178 -0.00% [-1.74%,+1.24%]      5.0e-01 -0.0000  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+                       sealed replay: needs_audit n 163 ROI +0.96% p 2.5e-05
+                       legacy (not a verdict): notes/e1x_tsa.md: T1 dev 0.0% (fail); sealed +0.96%
+tsa_t2_maker         kalshi_data_ladders (65, 7.7e-04) dead          dev        89 +8.36% [+1.10%,+20.07%]     8.6e-03 +0.0872  dead (dev fail): 5a p>=bar,5c conc>30%
+                       sealed replay: fail n 24 ROI +6.10% p 2.5e-05
+                       legacy (not a verdict): FUND_BOOK/EDGES: SEALED weak pass 11-01 (24 fills, 0 losses), forward paper (judge >= 60 fills)
+x1_range_daily_taker kalshi_data_ladders (65, 7.7e-04) dead          dev       206 +0.07% [-4.51%,+4.22%]      4.9e-01 +0.0222  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+x2_weekly_ahead_taker kalshi_data_ladders (65, 7.7e-04) dead          dev        73 +0.43% [-6.47%,+6.45%]      4.4e-01 +0.0407  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5d n<min
+x3_sol_daily_taker   kalshi_data_ladders (65, 7.7e-04) dead          dev         0 -                                 -       -  dead (dev fail): no bets
+cbb_ig_t1_taker      kalshi_ingame (33, 1.5e-03)    dead          dev      2000 -1.40% [-5.47%,+2.52%]      7.5e-01 +0.0115  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+cbb_ig_t2_lowvol     kalshi_ingame (33, 1.5e-03)    dead          dev       611 -4.14% [-11.23%,+4.38%]     8.3e-01 +0.0131  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+cbb_ig_t3_maker      kalshi_ingame (33, 1.5e-03)    dead          dev      2020 +0.34% [-3.88%,+4.77%]      4.4e-01 +0.0113  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+clutch_cm1_top_buy   kalshi_ingame (33, 1.5e-03)    dead          dev       258 -17.56% [-30.97%,-3.91%]    9.9e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+clutch_cm2_top_fade  kalshi_ingame (33, 1.5e-03)    dead          dev       258 +4.16% [-4.26%,+12.91%]     1.6e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+clutch_cm3_low_buy   kalshi_ingame (33, 1.5e-03)    dead          dev       258 -0.85% [-20.38%,+20.59%]    5.4e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+clutch_cm4_low_fade  kalshi_ingame (33, 1.5e-03)    dead          dev       250 -4.55% [-10.93%,+1.46%]     9.2e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+nhl_ig_t1_late_taker kalshi_ingame (33, 1.5e-03)    registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+soc_ig_t1_taker      kalshi_ingame (33, 1.5e-03)    dead          dev      1321 -2.01% [-6.51%,+2.19%]      8.4e-01 +0.0130  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+soc_ig_t2_draw_late  kalshi_ingame (33, 1.5e-03)    dead          dev       721 -3.73% [-8.71%,+0.97%]      9.3e-01 +0.0168  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+lx2_a_t90_tail_no    kalshi_longdated_tail (3, 1.7e-02) dead          dev       768 +0.15% [-0.99%,+1.18%]      3.9e-01       -  dead (dev fail): 5a p>=bar,5c conc>30%,5e CLV<0/null
+lx2_b_t180_tail_no   kalshi_longdated_tail (3, 1.7e-02) dead          dev       294 -1.90% [-4.63%,+0.66%]      9.3e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+lx2c_a_t90_climate_tail_no kalshi_longdated_tail (3, 1.7e-02) dead          dev        70 +3.01% [+2.61%,+3.42%]      2.5e-05       -  dead (dev fail): 5c conc>30%,5e CLV<0/null,too-good->audit
+rt1_outlet_nowcast_embargo kalshi_media (1, 5.0e-02)      dead          -           - -                                 -       -  no vault entry for dataset 'kxrt_outlet_nowcast': user must add its split window to vault.yaml
+ytv_m1_maker         kalshi_media_weekly (1, 5.0e-02) dead          dev        18 +14.50% [+5.51%,+25.17%]    2.5e-05 +0.1161  dead (dev fail): 5c conc>30%,5d n<min
+news_t1_nfl_qb_inactive kalshi_news (6, 8.3e-03)       dead          -           - -                                 -       -  no vault entry for dataset 'news_lag_nfl_qb': user must add its split window to vault.yaml
+news_t2_nfl_qb_against_designation kalshi_news (6, 8.3e-03)       dead          -           - -                                 -       -  no vault entry for dataset 'news_lag_nfl_qb': user must add its split window to vault.yaml
+pol_t14_fav_taker    kalshi_politics (3, 1.7e-02)   dead          dev       273 -9.26% [-16.05%,-1.97%]     9.9e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+pol_t3_fav_taker     kalshi_politics (3, 1.7e-02)   dead          dev       506 -3.74% [-8.99%,+0.96%]      9.4e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+pol_t7_fav_taker     kalshi_politics (3, 1.7e-02)   dead          dev       337 -3.00% [-9.99%,+3.36%]      8.1e-01       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+rq_cricket_c1        kalshi_rules_quirks (6, 8.3e-03) registered    -           - -                                 -       -  run dev
+rq_cricket_c2        kalshi_rules_quirks (6, 8.3e-03) registered    -           - -                                 -       -  run dev
+rq_golf_gt1          kalshi_rules_quirks (6, 8.3e-03) dead          dev         - -                                 -       -  dead ( ): decided_after_event_start,_rows
+rq_golf_gt1b         kalshi_rules_quirks (6, 8.3e-03) dead          dev      2376 -17.97% [-23.84%,-12.09%]   1.0e+00       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+rq_golf_gt2          kalshi_rules_quirks (6, 8.3e-03) dead          -           - -                                 -       -  dead ( )
+rq_golf_gt2b         kalshi_rules_quirks (6, 8.3e-03) dead          dev      1404 -14.47% [-22.13%,-6.55%]    1.0e+00       -  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+l39_p1m_climo_maker  kalshi_weather_precip (14, 3.6e-03) dead          dev        94 +4.28% [+3.61%,+5.00%]      2.5e-05       -  dead (dev fail): 5c conc>30%,5e CLV<0/null,too-good->audit
+rd1_rain_dry_taker   kalshi_weather_precip (14, 3.6e-03) dead          dev       140 +0.07% [-4.53%,+4.28%]      4.8e-01 -0.0069  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+rd2_rain_dry_maker   kalshi_weather_precip (14, 3.6e-03) dead          dev        69 -4.42% [-13.15%,+3.53%]     8.5e-01 +0.0106  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5d n<min
+sd1_snowdays_climo_taker kalshi_weather_precip (14, 3.6e-03) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+sd2_snowdays_conditional_taker kalshi_weather_precip (14, 3.6e-03) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+tg1_snow_thanksgiving_taker kalshi_weather_precip (14, 3.6e-03) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+e1_taker             kalshi_weather_temp (73, 6.8e-04) dead          dev      1269 +1.97% [+0.62%,+3.27%]      2.1e-03 +0.0038  dead (dev fail): 5a p>=bar
+                       sealed replay: pass n 1844 ROI +1.45% p 3.5e-04
+                       legacy (not a verdict): FUND_BOOK 3a E1: sealed pass 10-08, LIVE taker since 10-22 (user yes)
+e2_taker             kalshi_weather_temp (73, 6.8e-04) dead          dev       444 +1.22% [-0.08%,+2.43%]      3.2e-02 +0.0033  dead (dev fail): 5a p>=bar,5c conc>30%,too-good->audit
+                       sealed replay: fail n 2464 ROI +0.78% p 5.3e-03
+                       legacy (not a verdict): FUND_BOOK 3a E2: sealed pass 10-20, LIVE with E1
+e4_maker_e1          kalshi_weather_temp (73, 6.8e-04) forward_paper forward    18 +1.01% [-10.36%,+7.07%]     3.6e-01 +0.0017  forward n 18/100 passing rule 5 -> USER decides live_small; kill losses_in_first+clv_negative_significant (preset)
+                       sealed replay: pass n 1581 ROI +2.87% p 2.5e-05
+                       legacy (not a verdict): FUND_BOOK 3a E4: sealed pass 10-23 (pooled E1+X1), LIVE maker 10-29
+e4_maker_x1          kalshi_weather_temp (73, 6.8e-04) dead          dev       368 +2.29% [+0.70%,+3.84%]      3.4e-03 +0.0127  dead (dev fail): 5a p>=bar,5c conc>30%,too-good->audit
+                       sealed replay: needs_audit n 1875 ROI +1.67% p 2.5e-05
+                       legacy (not a verdict): FUND_BOOK 3a E4 (pooled with E1 cities in the original sealed test)
+e4f_floor90_e1       kalshi_weather_temp (73, 6.8e-04) registered    -           - -                                 -       -  run dev
+e4p_c_maker          kalshi_weather_temp (73, 6.8e-04) dead          dev       244 +3.14% [+1.20%,+4.76%]      1.4e-03 +0.0152  dead (dev fail): 5a p>=bar
+e4p_c_maker_fwd      kalshi_weather_temp (73, 6.8e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+e4p_c_taker          kalshi_weather_temp (73, 6.8e-04) dead          dev       418 +1.31% [+0.21%,+2.23%]      1.1e-02 +0.0004  dead (dev fail): 5a p>=bar
+e4p_cagree_maker_fwd kalshi_weather_temp (73, 6.8e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+e4p_pa_maker         kalshi_weather_temp (73, 6.8e-04) dead          dev       875 +2.88% [-0.64%,+6.37%]      5.9e-02 +0.0366  dead (dev fail): 5a p>=bar,5b half<=0
+e4p_pa_taker         kalshi_weather_temp (73, 6.8e-04) dead          dev       669 -1.36% [-5.17%,+2.26%]      7.7e-01 +0.0257  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+e4t_0600_addon_fwd   kalshi_weather_temp (73, 6.8e-04) registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+e4t_t06d_maker       kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_t06d': user must add its split window to vault.yaml
+e4t_t06d_taker       kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_t06d': user must add its split window to vault.yaml
+e4t_t10_maker        kalshi_weather_temp (73, 6.8e-04) dead          dev       235 +2.23% [-2.85%,+7.55%]      1.8e-01 +0.0147  dead (dev fail): 5a p>=bar,5c conc>30%
+e4t_t10_taker        kalshi_weather_temp (73, 6.8e-04) dead          dev       315 +0.94% [-2.83%,+4.71%]      3.1e-01 -0.0029  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+e5fix_f1_cut00       kalshi_weather_temp (73, 6.8e-04) registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f1_cut06       kalshi_weather_temp (73, 6.8e-04) registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f1_cut09       kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f1_cut12       kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f1_cut15       kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f2_obs_x2      kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f2_obs_x4      kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f2_obs_x6      kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f3_bid_m10     kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f3_bid_m15     kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f3_bid_m2      kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f3_bid_m20     kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+e5fix_f3_bid_m5      kalshi_weather_temp (73, 6.8e-04) dead          -           - -                                 -       -  no vault entry for dataset 'kalshi_temp_maker+forecastex_paper': user must add its split window to vault.yaml
+ht1_hourly_maker     kalshi_weather_temp (73, 6.8e-04) dead          dev       342 +1.16% [-1.08%,+2.96%]      1.3e-01 +0.0158  dead (dev fail): 5a p>=bar,5c conc>30%
+nd1_nyc_nowcast_maker kalshi_weather_temp (73, 6.8e-04) dead          dev        64 +2.82% [-10.38%,+20.15%]    4.0e-01 -0.0055  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5d n<min,5e CLV<0/null
+nd1_nyc_nowcast_taker kalshi_weather_temp (73, 6.8e-04) dead          dev         - -                                 -       -  dead ( )
+nd1b_nyc_nowcast_taker kalshi_weather_temp (73, 6.8e-04) dead          dev        80 +5.08% [-7.80%,+18.80%]     2.5e-01 +0.0112  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5d n<min
+lock_t1_nba_taker    lock_in (2, 2.5e-02)           dead          dev         2 +0.94% [+0.94%,+0.94%]      2.5e-05 +0.0100  dead (dev fail): 5c conc>30%,5d n<min
+lock_t2_nba_maker99  lock_in (2, 2.5e-02)           registered    dev       245 +0.99% [+0.99%,+0.99%]      2.5e-05 +0.0100  dev needs_audit: fix and register a NEW trial: too-good->audit
+kalshi_prop_ladders  nba_props (32, 1.6e-03)        registered    forward     0 -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml: no bets
+                       legacy (not a verdict): notes/kalshi_prop_ladders.md: forward paper since 11-01 (judge >= 150 picks & >= 20 games)
+l5_props_shrunk_unders nba_props (32, 1.6e-03)        dead          -           - -                                 -       -  no vault entry for dataset 'espn_props_graded': user must add its split window to vault.yaml
+b2b_t1_back_b2b_ats  nba_sides (198, 2.5e-04)       dead          dev      1787 -8.06% [-12.58%,-3.42%]     1.0e+00 +0.0000  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+f1_nba_early_form    nba_sides (198, 2.5e-04)       registered    forward     0 -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml: no bets
+                       legacy (not a verdict): LEAD -> forward paper (nba_early_form_logger.py); the dev window was a post-hoc sensitivity
+l2_t1_ml_gap05       nba_sides (198, 2.5e-04)       dead          sealed    789 -13.87% [-24.65%,-3.00%]    9.9e-01 +0.0000  dead (sealed fail): 5a p>=bar,5b half<=0,5c conc>30%
+                       legacy (not a verdict): notes/l2_team_rating_sides.md: DEAD 10-29 (-13.9% on 789)
+l30_paint_pp1        nba_sides (198, 2.5e-04)       dead          dev      2972 -0.01% [-3.43%,+3.35%]      4.8e-01 +0.0000  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+l30_paint_pp2        nba_sides (198, 2.5e-04)       dead          dev      1160 +0.66% [-5.12%,+6.40%]      4.0e-01 +0.0000  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+b2b_t2_b2b_overs     nba_totals (37, 1.4e-03)       dead          dev      2113 -3.78% [-7.68%,+0.08%]      9.7e-01 +0.0000  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+k50_nba_k50_kalshi   nba_totals (37, 1.4e-03)       registered    -           - -                                 -       -  run dev
+k50_nba_lo_kalshi    nba_totals (37, 1.4e-03)       registered    -           - -                                 -       -  run dev
+l32b_k1_kalshi_taker nba_totals (37, 1.4e-03)       registered    -           - -                                 -       -  run dev
+l32b_totals_open     nba_totals (37, 1.4e-03)       registered    dev         - -                                 -       -  dev pit_rejected: fix and register a NEW trial: missing_timestamp,_rows
+                       legacy (not a verdict): notes/l32b_debiased_totals.md: DEV PASS 11-01 at no-vig open (+8.1%, p .006); forward paper
+mf_nba_x0            nba_totals (37, 1.4e-03)       registered    -           - -                                 -       -  run dev
+mf_nba_x1            nba_totals (37, 1.4e-03)       registered    -           - -                                 -       -  run dev
+mf_nba_x2            nba_totals (37, 1.4e-03)       registered    -           - -                                 -       -  run dev
+k50_nfl_k50_kalshi   nfl_lines (136, 3.7e-04)       registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+k50_nfl_lo_kalshi    nfl_lines (136, 3.7e-04)       registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+knfl_l33_kalshi_taker nfl_lines (136, 3.7e-04)       registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+mf_nfl_x0            nfl_lines (136, 3.7e-04)       registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_nfl_lines': user must add its split window to vault.yaml
+mf_nfl_x1            nfl_lines (136, 3.7e-04)       registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_nfl_lines': user must add its split window to vault.yaml
+mf_nfl_x2            nfl_lines (136, 3.7e-04)       registered    -           - -                                 -       -  no vault entry for dataset 'kalshi_nfl_lines': user must add its split window to vault.yaml
+nfl_wxupd_t1_taker   nfl_lines (136, 3.7e-04)       dead          -           - -                                 -       -  no vault entry for dataset 'nfl_wx_updates': user must add its split window to vault.yaml
+nhl_om_a_kft         nhl_lines (28, 1.8e-03)        registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+nhl_om_b_goalie      nhl_lines (28, 1.8e-03)        registered    -           - -                                 -       -  no dev/sealed window: user must pre-register a sealed forward window in vault.yaml
+ovr_t1_down_maker    overreaction_fade (1, 5.0e-02) dead          dev      3780 +26.55% [+7.06%,+49.84%]    2.2e-03 +0.0349  dead ( ): too-good->audit
+pm_h2a_maker_no      polymarket_calibration (8, 6.3e-03) dead          dev       398 +1.11% [-1.54%,+3.21%]      1.8e-01 +0.0025  dead (dev fail): 5a p>=bar,5c conc>30%
+pm_t1_fav7d_maker    polymarket_calibration (8, 6.3e-03) dead          dev      1357 -2.49% [-4.77%,-0.29%]      9.8e-01 -0.0003  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%,5e CLV<0/null
+pm_t2_fav30d_maker   polymarket_calibration (8, 6.3e-03) dead          dev       671 +0.08% [-4.05%,+4.88%]      4.7e-01 +0.0131  dead (dev fail): 5a p>=bar,5b half<=0,5c conc>30%
+registry /Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/lab/edgelab_registry.jsonl lines 1371 hash chain OK
+
+family bars (alpha 0.05 / all-time trials):
+  pattern_mine                2280  p < 2.19e-05
+  nfl_props                    263  p < 1.90e-04
+  nba_sides                    198  p < 2.53e-04
+  nfl_lines                    136  p < 3.68e-04
+  equities_options              79  p < 6.33e-04
+  kalshi_weather_temp           73  p < 6.85e-04
+  kalshi_data_ladders           65  p < 7.69e-04
+  nba_totals                    37  p < 1.35e-03
+  kalshi_ingame                 33  p < 1.52e-03
+  mlb_lines                     32  p < 1.56e-03
+  nba_props                     32  p < 1.56e-03
+  nhl_lines                     28  p < 1.79e-03
+  cfb_lines                     21  p < 2.38e-03
+  kalshi_sports_pregame         20  p < 2.50e-03
+  kalshi_weather_precip         14  p < 3.57e-03
+  kalshi_retail_flb             12  p < 4.17e-03
+  cross_venue                   12  p < 4.17e-03
+  soccer_books                  10  p < 5.00e-03
+  polymarket_calibration         8  p < 6.25e-03
+  kalshi_news                    6  p < 8.33e-03
+  kalshi_rules_quirks            6  p < 8.33e-03
+  cbb_totals                     4  p < 1.25e-02
+  game_release                   3  p < 1.67e-02
+  kalshi_longdated_tail          3  p < 1.67e-02
+  kalshi_politics                3  p < 1.67e-02
+  mlb_props                      2  p < 2.50e-02
+  parlays                        2  p < 2.50e-02
+  lock_in                        2  p < 2.50e-02
+  pickem                         1  p < 5.00e-02
+  kalshi_media_weekly            1  p < 5.00e-02
+  overreaction_fade              1  p < 5.00e-02
+  kalshi_media                   1  p < 5.00e-02

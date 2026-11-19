@@ -7,7 +7,7 @@ evidence: anything with CLV/ROI signal jumps the queue; game-day prep comes firs
 orders; money changes stay with the user.
 
 ## Running (2026-11-19, lead launched)
-- forward_review_1119 -- score every forward/live trial vs its own pre-reg since 11-15 (notes/forward_review_2026-11-19.md)
+- forward_review_1119 -- score every forward/live trial vs its own pre-reg since 11-15 (notes/forward_review_2026-11-19.md)  [DONE 11-19: none promote; LX1 kill pending 11-20]
 - cs2_model -- public-results CS2 rating model vs Kalshi KXCS2GAME after taker fee, time split (notes/cs2_model.md)
 - pm_full_census -- every active Polymarket (global + US) by category, tested vs untested, dev tests on best untested (notes/pm_full_census.md)
 - trading_ways_survey -- all non-PM retail trading strategies ranked for CA + $1-2k, pre-reg top 1-2 (notes/trading_ways_survey.md)
@@ -67,6 +67,6 @@ orders; money changes stay with the user.
 - ~2026-12-15     Home values: does Zillow's page show the Nov value before Kalshi closes 12-17 15:00Z? Browser check only
                   (script got 403-blocked) (notes/home_values.md).
 - 2026-12-20     Econ-event ladders: makers arrived? EV1 forward (notes/econ_event_ladders.md).
-- 2026-11-19/20  LX1 logical-arb verdict (scan self-stops 11-20 08:00Z).
+- 2026-11-20 08:00Z  LX1 confirm kill + retire scan (forward_review_1119: 1 of 5 violations).
 - 2026-12-02     NFL fade F1 one-shot score; 2026-12-06 NHL goalie-lag test eligible (>= 3 wks of logger data).
 - 2027-04-01     Snow days SD1/SD2 settle (needs edgelab SCORING_VERSION 2 for scalar payouts).

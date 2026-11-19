@@ -1,0 +1,130 @@
+decision rows 303, bets 3, events with bets 3
+RT rounding check: displayed != round-half-up(100*liked/n) on 0 of 1393 fetches
+{
+ "T24": {
+  "decision_rows_settled": 145,
+  "bets_settled": 1,
+  "events_with_bets": 1,
+  "roi": 1.8112946574156334,
+  "clv_mean": 0.555,
+  "clv_pos_frac": 1.0,
+  "clv_n": 1,
+  "brier_model": 0.008647205148848322,
+  "brier_mid": 0.011184166666666667,
+  "brier_n": 60,
+  "calibration": [
+   {
+    "bin": "0.0-0.1",
+    "n": 16,
+    "mean_p": 1.6120335621927495e-10,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.1-0.3",
+    "n": 1,
+    "mean_p": 0.12121212121212128,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.3-0.5",
+    "n": 1,
+    "mean_p": 0.4545140938166238,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.5-0.7",
+    "n": 1,
+    "mean_p": 0.5454545454545459,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.9-1.0",
+    "n": 41,
+    "mean_p": 0.9998240052084113,
+    "freq_yes": 1.0
+   }
+  ]
+ },
+ "T6": {
+  "decision_rows_settled": 158,
+  "bets_settled": 2,
+  "events_with_bets": 2,
+  "roi": -0.03652439664749026,
+  "clv_mean": 0.0,
+  "clv_pos_frac": 0.5,
+  "clv_n": 2,
+  "brier_model": 0.006015353643768925,
+  "brier_mid": 0.0034541095890410958,
+  "brier_n": 73,
+  "calibration": [
+   {
+    "bin": "0.0-0.1",
+    "n": 20,
+    "mean_p": 0.0036630803109623357,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.1-0.3",
+    "n": 1,
+    "mean_p": 0.1014492753623191,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.5-0.7",
+    "n": 1,
+    "mean_p": 0.6507384932388616,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.9-1.0",
+    "n": 51,
+    "mean_p": 0.9999722545567579,
+    "freq_yes": 1.0
+   }
+  ]
+ },
+ "ALL": {
+  "decision_rows_settled": 303,
+  "bets_settled": 3,
+  "events_with_bets": 3,
+  "roi": 0.4351145257269394,
+  "clv_mean": 0.18500000000000003,
+  "clv_pos_frac": 0.6666666666666666,
+  "clv_n": 3,
+  "brier_model": 0.007202655074631812,
+  "brier_mid": 0.006941353383458647,
+  "brier_n": 133,
+  "calibration": [
+   {
+    "bin": "0.0-0.1",
+    "n": 36,
+    "mean_p": 0.0020350446888472338,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.1-0.3",
+    "n": 2,
+    "mean_p": 0.1113306982872202,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.3-0.5",
+    "n": 1,
+    "mean_p": 0.4545140938166238,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.5-0.7",
+    "n": 2,
+    "mean_p": 0.5980965193467037,
+    "freq_yes": 0.0
+   },
+   {
+    "bin": "0.9-1.0",
+    "n": 92,
+    "mean_p": 0.999906186912386,
+    "freq_yes": 1.0
+   }
+  ]
+ }
+}
