@@ -387,3 +387,9 @@ confirm home state (CA vs CO) for venue legality.
 - Q013 was BROKEN 11-03..11-19 (fixed 03:38Z); backfill of 170 skipped rows = user call. qs_job.sh syntax error ~01:30-03:58Z
   11-19 (deployed == repo now, bash -n OK); runs in that window may be missing.
 - edgelab cannot score most forward trials: vault.yaml forward windows needed (user step).
+
+### altdata_kpi (merged 2026-11-19, notes/altdata_kpi.md) -- DEAD
+- Carbon Arc family (168 series: foot traffic, card spend, TikTok Shop, app downloads...) settles on a PAID panel subscribers see
+  daily. Free proxy (last settled month) CA1 dev: ROI +2.05% [-10.5,+13.2] n74/28 events, not distinguishable -> retired
+  (ca1_carbonarc_persist_taker-13c39cc2). KXJBLU / Fiscal.ai KPIs (283 series): ~1 event/quarter -> watch only. KXSPRLVLDATE dead.
+- Open: app-download series vs Google Trends YoY (untested, weak power); Carbon Arc free signup = user call.

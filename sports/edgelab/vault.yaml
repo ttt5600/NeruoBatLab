@@ -601,3 +601,21 @@ datasets:
       dev: [2026-09-17, 2026-10-29]
       sealed: [2026-11-05, 2026-11-12]     # untouched
       forward: [2026-11-19, null]
+  kalshi_cs2_game:        # cs2_model 11-18: KXCS2GAME full-match winners; prereg notes/cs2_model.md (dev scored by results/cs2_model/dev.py)
+    loader: kx_forward_adapter_only   # no edgelab loader -> unwired
+    family: esports_model
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:                                # date = scheduled start (UTC); set 2026-11-18 before any quote/outcome join
+      dev: [2026-04-15, 2026-10-19]        # dev end exclusive at 2026-10-19 13:45Z
+      sealed: [2026-10-19, 2026-11-18]     # untouched; from 13:45Z
+      forward: [2026-11-19, null]
+  kalshi_carbonarc:       # altdata_kpi 11-18: Carbon Arc YoY-index monthly ladders (CC/FT/APP/POS/ADS/ARRAY/TTS); prereg notes/altdata_kpi.md
+    loader: kx_forward_adapter_only   # dev scored by results/altdata_kpi/ca1_score.py; no edgelab loader -> unwired
+    family: kalshi_data_ladders
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:                                # date = event close; set 2026-11-18 before any quote/outcome join
+      dev: [2026-11-01, 2026-11-30]
+      sealed: [2026-12-01, 2027-02-28]     # untouched (not yet settled)
+      forward: [2027-03-01, null]

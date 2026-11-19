@@ -1,0 +1,21 @@
+id: ca1_carbonarc_persist_taker
+family: kalshi_data_ladders
+dataset: kalshi_carbonarc
+rule: edgelab.rules.forward:unwired
+hypothesis: 'CA1 (prereg notes/altdata_kpi.md). Carbon Arc monthly YoY-index ladders. Nowcast mu = previous month settled
+  expiration_value (free on Kalshi); s = 1.4826*MAD of ln(v/v_prev) on dev pairs (0.0764, n88). T = max(open, prev close)
+  + 24h; z = ln(K/mu)/s; |z| >= 2 -> buy far side (NO if K above) at side ask (last hourly candle <= T) iff ask in
+  [.50,.97], exact taker fee, 1 ct per rung, cluster = event.'
+decision_time: 'max(event open, previous event close) + 24h'
+price_model: taker
+split: vault:kalshi_carbonarc
+min_n: 30
+kill:
+  kind: losses_in_first
+  n: 20
+  max_losses: 2
+fee:
+  rounding: exact
+legacy: 'new 2026-11-18 (agent altdata_kpi). Dev by results/altdata_kpi/ca1_score.py: 74 bets / 28 events, ROI +2.05%
+  event-bootstrap 95% CI [-10.5%, +13.2%], 8 losses -> not distinguishable, dead at dev. Registered so the family count
+  includes it; retire.'

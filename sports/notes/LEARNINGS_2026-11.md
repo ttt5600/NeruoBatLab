@@ -394,3 +394,7 @@ the only new mechanisms. Brief agents with FUND_BOOK section 3d.
 ### A critic changes the wording, not just the verdict
 E5 "dead" became "no executable channel shown profitable" (both ROI CIs crossed 0); a p-value of 1.5e-14 at strike
 level was 7.4e-6 at station-day level (12 losses = 6 weather events). Cluster at the level where outcomes are shared.
+
+### Paid-panel settlement sources are the opposite of E4 (altdata_kpi, 11-19)
+Kalshi's Carbon Arc series settle on a paywalled daily panel: subscribers ARE the informed side. Persistence nowcast CA1
+dev +2.05% [-10.5,+13.2] n74 (one calendar month). Rule: before modelling a series, check who sees the settlement data first.
