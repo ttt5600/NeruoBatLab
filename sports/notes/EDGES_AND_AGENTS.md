@@ -414,3 +414,10 @@ confirm home state (CA vs CO) for venue legality.
 - PM US fee is 0.095 C p(1-p) on every market (was .0695 in our docs) -> PM US costs ~37% more than modelled.
 - T1 XV-US (buy PM US when ask+fee >= 3c through global PM, non-game markets) dev +1.73% [-12.59,+15.93] n470/96 events;
   stale-price placebo +11.1% did as well -> dead. Trap: untraded global markets print ~0.5 in CLOB history (fake 30c edges).
+
+### kalshi_fg_markets (merged 2026-11-19, notes/kalshi_fg_markets.md, results/kalshi_fg_markets/) -- LEAD (forward paper)
+- Only KXNFLFG (team 1+/2+/3+/4+ FGs) has history: 161 events since 09-10. Others empty or one-off.
+- KFG1 (logit P(FG>=k) on sportsbook implied team points, indoor; buy best side at T-60 ask if edge-fee >= .04):
+  dev wk1-7 n56 ROI +23.0%, game-clustered [-0.7,+47.3] p .028 (date-clustered [+8.8,+41.1], ~20 clusters, too narrow);
+  placebo mean +5.0%, real at 99.5th pct -> part is base-rate shape (3+ priced .218 vs .269 hit; 1+ mid low by spread).
+  Not past bar (2.27e-3). Sealed wk8-10 unopened (too few bets to matter). Next: forward paper log from wk11 (kfg1_points_model_t60-751dc009).

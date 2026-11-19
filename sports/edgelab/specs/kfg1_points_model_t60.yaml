@@ -1,0 +1,19 @@
+id: kfg1_points_model_t60
+family: kalshi_sports_pregame
+dataset: kalshi_nfl_fg
+rule: edgelab.rules.forward:unwired
+hypothesis: 'KFG1 (prereg notes/kalshi_fg_markets.md, written before any quote/outcome join). KXNFLFG team N+ made FGs
+  (N=1..4). Model M1: logistic P(FG>=k) on team implied pts (nflverse total/spread) + implied^2 + indoor, fit nflverse
+  2023-2025, ladder monotone. T = kickoff - 60 min; quote = last 1-min candle ending <= T. YES cost = ask, NO cost =
+  1 - bid, cost in [.03,.97], bid > 0; 10-lot quadratic taker fee cent-rounded; per team-game bet the max-edge
+  (strike, side) if edge >= 0.04, 1 ct, hold. Clusters: game and ET gameday. Placebo: ladders shuffled across team-games x200.'
+decision_time: 'kickoff - 60 min (nflverse gameday+gametime ET)'
+price_model: taker
+split: vault:kalshi_nfl_fg
+min_n: 50
+kill:
+  kind: roi_ci_below_zero
+  after_n: 50
+fee:
+  rounding: cent
+legacy: 'new 2026-11-19 (agent kalshi_fg_markets, user idea "kicker stats"). Dev scored by results/kalshi_fg_markets/dev.py.'
