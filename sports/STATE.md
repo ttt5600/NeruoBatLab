@@ -1,3 +1,6 @@
+## 2026-11-18 USER: withdraw IBKR cash to consolidate (~$65.50, no positions; user does it in Client Portal: Transfer & Pay ->
+##   Withdrawal). Account stays open (no fee); gateway + FX exec remain disabled; ForecastEx PAPER logger (public data) keeps
+##   running. Re-fund only if an IBKR strategy earns it back.
 ## 2026-11-18 EDGELAB: SCORING_VERSION 2 (scalar payouts at true value; 0/65 verdicts changed) + GOAL rules 5-7 amendment
 ##   (BAR_VERSION 2: sealed .05/2^j, drop-top-week/cluster, no Sharpe guard at cost >= .90, forward SPRT after sealed pass
 ##   -> needs_audit, SPRT kill additive). USER MUST RE-LOCK: GOAL.md sha f405c49ecec8c6349b08eca9e8f3ba18ed1f7dae50223840b9d1f708e3047db7
