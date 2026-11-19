@@ -6,13 +6,11 @@ its inbox rows (AGENT_PROTOCOL.md), ingest LEARNINGS into the vault, then launch
 evidence: anything with CLV/ROI signal jumps the queue; game-day prep comes first on game days. Agents never place
 orders; money changes stay with the user.
 
-## Running (2026-11-16, user: "keep looking and churning ... markets we have good modeling and priors on")
-- e4_timing -- E4 rule at other decision times (D-2 22:00, D-1 10:00, D-day 06:00) = more capacity on our proven edge
-- ot1_extension -- OT1 options-implied rule on weekly/monthly/range crypto ladders (Deribit expiries)
-- tropical_nhc -- tropical/hurricane markets vs official NHC outlooks (E4 pattern, official forecaster)
-- forward_review_1115 -- post-slate scoring of all forward/live strategies (after 05:30Z)
-## Done 11-15: gameday_ticket (shard-0 cash blocker), critic_e4_step2 (keep 24 ct), e4_ops_diag (fixes deployed),
-## maker_fairfill (maker adversely selected even with model direction -> opener leads capped by execution cost)
+## Running (2026-11-19, lead launched)
+- forward_review_1119 -- score every forward/live trial vs its own pre-reg since 11-15 (notes/forward_review_2026-11-19.md)
+- cs2_model -- public-results CS2 rating model vs Kalshi KXCS2GAME after taker fee, time split (notes/cs2_model.md)
+- altdata_kpi -- census + pre-reg of JBLU / foot traffic / card spend / TikTok Shop / SPR series (notes/altdata_kpi.md)
+## Done 11-16..19: e4_timing, ot1_extension, tropical_nhc, forward_review_1115, fed_vs_futures, mortgage_rates (see LEARNINGS_2026-11.md)
 
 ## Next up (priority order)
 1. K-NFL/K50-NFL/K1 forward scoring after Sunday's games (judge on CLV vs Kalshi's own strike, not ROI).

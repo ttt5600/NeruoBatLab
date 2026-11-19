@@ -145,7 +145,7 @@
     {"job": "snow-markets (TG1/SD1/SD2)", "label": "quant-sports-snow-markets", "qs": "snow-markets",
      "outputs": [{"path": "$S/results/snow_markets/snow_log.jsonl", "max_gap_h": 26, "ts": "ts", "keys": ["rule", "ticker"], "active": {"until": "2027-04-02T00:00:00+00:00"}}]},
     {"job": "state-gas-books", "label": "quant-sports-state-gas-books", "qs": "state-gas-books",
-     "outputs": [{"path": "$S/data/kx_forward/state_gas_books.jsonl.gz", "max_gap_h": 14, "ts": "ts", "keys": ["state", "ticker"]}]},
+     "outputs": [{"path": "$S/data/kx_forward/state_gas_books.jsonl.gz", "max_gap_h": 20, "ts": "ts", "keys": ["state", "ticker"]}]},
     {"job": "ticket (daily ticket)", "label": "quant-sports-ticket", "qs": "ticket",
      "outputs": [{"glob": "$S/data/tickets/*.md", "max_gap_h": 26}]},
     {"job": "tsa (E1X-T paper)", "label": "quant-sports-tsa", "qs": "tsa",
