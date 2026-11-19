@@ -31,3 +31,9 @@ def a_t90(frame, params=None):
 
 def b_t180(frame, params=None):
     return _rule(frame, "B")
+
+
+def a_t90_climate(frame, params=None):
+    """LX2-climate (notes/lx2_climate_sealed.md, frozen 2026-11-18 before any sealed data): trial A restricted to
+    series category 'Climate and Weather' (lx2's 'climate' bucket)."""
+    return _rule(frame[frame["category"] == "Climate and Weather"], "A")

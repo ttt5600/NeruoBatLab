@@ -152,6 +152,13 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### Season-settled contracts can never pass the dev gate: profit lands in one week by construction
+LX2 climate T-90 tail NO (lx2c_a_t90_climate_tail_no): dev 70 bets / 36 events, 0 losses, +3.01% [+2.61,+3.42] but dead on
+concentration (one week 48% -- all hurricane markets settle ~Nov 30), no close prices for CLV, and Sharpe 6.3 too-good guard;
+exact loss CI [0, 5.13%] vs 2.92% break-even (n.s.). Sealed shot refused by edgelab (needs dev_pass) -- correctly not
+bypassed. Route: forward-only over coming seasons or a gate change for season-settled contracts (user). Source:
+notes/lx2_climate_sealed.md.
+
 ### Monthly biggest-quake ladder: model matches the bid; watch whether the maker's quotes decay with time
 KXBIGGESTQUAKEMONTH (started 11-10; settles on USGS magnitude shown Dec 1 10:00 ET, Mww preferred): empirical-window model
 (USGS since 2000, current-month max pinned) within 0-5c of the YES bid on all 9 rungs; asks 4-7c rich -> taker 0 bets now.

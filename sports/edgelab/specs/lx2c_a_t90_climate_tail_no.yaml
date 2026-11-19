@@ -1,0 +1,15 @@
+id: lx2c_a_t90_climate_tail_no
+family: kalshi_longdated_tail
+dataset: kalshi_longdated_tail
+rule: edgelab.rules.longdated_tail:a_t90_climate
+hypothesis: 'LX2-climate (notes/lx2_climate_sealed.md, frozen 2026-11-18 before any sealed price/outcome; post hoc from LX2-A dev climate +3.0%, 36 events, 0 losses): LX2-A rule (t = expected_expiration_time - 90 d, last daily candle in (t-7d, t], yes_bid >= 1c, yes_ask <= 10c, buy 1 NO at 1 - yes_bid taker + exact fee, hold) restricted to series category Climate and Weather. Evaluator ROI excludes interest (3.5% APY reported separately). User approved the one-shot sealed test 2026-11-18.'
+decision_time: 'S - 90 d (S = expected_expiration_time, scheduled at listing); quote = last daily candle ending in (t-7d, t]'
+price_model: taker
+split: vault:kalshi_longdated_tail
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: exact
+legacy: 'new 2026-11-18 (agent lx2_climate_sealed; post-hoc slice of lx2_a_t90_tail_no)'
