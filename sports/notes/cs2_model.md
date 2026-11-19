@@ -66,3 +66,39 @@ closest existing family is the sports opener-models-vs-Kalshi set; a stricter ba
 kalshi_cs2_game added to edgelab/vault.yaml (dev [04-15, 10-19 13:45Z), sealed after, untouched).
 Candle fetch limited (to save ~3 h of shared-throttle GETs) to dev events with both teams >= 10 rated results = exactly
 the betting-eligible set (fetch_candles.py --dev-eligible; 6,470 markets).
+
+## RESULT (dev, 2026-11-19) -- CS2E DEAD (pre-registered kill: ROI point <= 0 and CI upper < 0)
+results/cs2_model/dev.py -> result_dev_preds.json, rows_dev_preds.parquet. Dev events with quotes at T: 3,370; eligible
+(both >= 10 rated results) 3,218. Mechanics: all quote candle ends <= T (asserted); median quote age 0 h; YES-ask
+sum at T median 1.02 (mean 1.063) -> ~2-6% two-side overround before fee.
+| thr | n | ROI | 95% CI (date cluster) | halves | win / mean ask |
+|---|---|---|---|---|---|
+| .02 | 2258 | -13.3% | [-17.5, -9.1] | -13.3 / -13.4 | .330 / .365 |
+| .03 | 2103 | -15.2% | [-19.8, -10.7] | -14.9 / -15.5 | .318 / .360 |
+| **.05 (primary)** | **1815** | **-15.6%** | **[-20.6, -10.8]** (event CI [-20.9,-10.1]) | -15.2 / -16.0 | .305 / .346 |
+| .08 | 1429 | -15.2% | [-21.5, -9.2] | -15.0 / -15.5 | .292 / .330 |
+- Placebo (random-team ratings, 20 draws, thr .05): mean ROI -13.6%, range [-16.9, -10.8]%, mean n 2,241
+  (result_dev_preds_placebo*.json). The real Elo is no better than random ratings.
+- Log loss on 3,028 binary dev events: Elo .6663 vs Kalshi mid at T .5963; Brier .2369 vs .2054.
+- Stacking y ~ logit(mid) + logit(Elo): coef mid 1.19, coef Elo -0.016, date-bootstrap CI [-0.201, 0.178] -> Elo has
+  no information beyond the Kalshi price. Mechanism: Elo disagrees most on underdogs (mean ask .35); the market is right.
+- Calibration of mid (deciles): .168->.145, .297->.253, .369->.334 ... .700->.790, .824->.862 (favourite-longshot shape;
+  coef on logit(mid) 1.19 > 1 says the same).
+### POST-HOC descriptive only (not a trial; band chosen after seeing calibration)
+Buy the favourite at its T-60 ask (10-lot fee): mid [.50,.65) n 1709 ROI -6.5% [-9.9,-3.0]; [.65,.80) n 1034 +4.0%
+[+0.8,+7.1]; [.80,.95) n 315 -0.8% [-4.9,+3.1]; [.65,.95) n 1349 +2.8% [+0.2,+5.3]. Forking-path selected and the
+adjacent band is strongly negative -> at most a lead for a fresh prereg on data not yet seen (sealed window is the only
+untouched history; lead/user decide whether to spend it on this instead).
+
+## Learnings
+### A public-results Elo has no information beyond the Kalshi CS2 price
+Dev Apr-Oct 2026, 3,028 KXCS2GAME events: Elo log loss .6663 vs Kalshi mid .5963; stacking Elo coef -0.016 [-0.20,0.18]
+(results/cs2_model/result_dev_preds.json). Esports on Kalshi is not "less modelled" in the way that matters.
+### Betting Elo-vs-Kalshi disagreements in CS2 loses ~15% after fee, same as random ratings
+CS2E primary n 1815 ROI -15.6% [-20.6,-10.8]; placebo random ratings mean -13.6%. Disagreement bets land on longshots.
+### Kalshi's own settled markets are a free, legal results database for esports ratings
+KXCS2GAME 8,831 events since 2026-01 and KXCS2MAP 14,129 since 2025-11, with stable team UUIDs in
+custom_strike.esports_competitor; start = ticker HHMM ET = expected_expiration_time - 4 h (results/cs2_model/fetch_markets.py).
+### Kalshi CS2 mid shows a favourite-longshot shape (post hoc)
+mid .70 -> .79 won, .17 -> .145; buying favourites at mid .65-.80 was +4.0% [+0.8,+7.1] on dev but band was picked after
+seeing calibration; neighbouring .50-.65 band -6.5%. Lead only.

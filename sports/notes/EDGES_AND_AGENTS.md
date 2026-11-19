@@ -401,3 +401,9 @@ confirm home state (CA vs CO) for venue legality.
 - Ranked positives (small, one-off): (1) CFTC venue sign-up promos hedged on Kalshi [UNVERIFIED terms; user identity step],
   (2) RSA scaling after first credits ~12-07..12-11, (3) odd-lot tender watcher on EDGAR SC TO-I (buildable), (4) RH IPO Access.
 - Dead: merger arb, SPAC arb at this size, short vol, 0DTE, earnings straddles, PEAD, overnight drift, index adds.
+
+### cs2_model (merged 2026-11-19, notes/cs2_model.md, results/cs2_model/) -- DEAD
+- CS2E Elo vs Kalshi KXCS2GAME T-60 taker: dev n1815 ROI -15.6% [-20.6,-10.8] (date-clustered); placebo random ratings -13.6%;
+  Elo log loss .6663 vs Kalshi mid .5963 -> Kalshi esports is well priced; asks sum to median 1.02. Retired cs2e_elo_vs_kalshi_t60-836708b5.
+- Post-hoc lead (not a trial): favourites at mid .65-.80 bought at ask +4.0% [+0.8,+7.1] n1034, but band picked after seeing
+  calibration and .50-.65 is -6.5% [-9.9,-3.0]. Needs fresh pre-reg (sealed window Oct 19 -> untouched).

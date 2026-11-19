@@ -1,0 +1,19 @@
+id: cs2e_elo_vs_kalshi_t60
+family: esports_model
+dataset: kalshi_cs2_game
+rule: edgelab.rules.forward:unwired
+hypothesis: 'CS2E (prereg notes/cs2_model.md, written before any price join). Online series Elo (K32 picked on warm-up
+  log loss, init 1500, K x1.5 first 10 games) on Kalshi''s own settled KXCS2GAME results, using only results settled
+  before T = scheduled start - 60 min. At T, YES ask of each team (last hourly candle ending <= T), ask in [.05,.95], bid > 0;
+  edge = p_elo - ask - fee (10-lot quadratic taker, cent-rounded); bet the larger-edge side if edge >= 0.05, both teams
+  >= 10 rated results. 1 ct, hold to settlement; scalar settles at value. Cluster = ET date.'
+decision_time: 'scheduled start - 60 min (ticker HHMM ET)'
+price_model: taker
+split: vault:kalshi_cs2_game
+min_n: 200
+kill:
+  kind: roi_ci_below_zero
+  after_n: 200
+fee:
+  rounding: cent
+legacy: 'new 2026-11-18 (agent cs2_model). Dev scored by results/cs2_model/dev.py; placebo = random-team ratings x20.'
