@@ -1,0 +1,992 @@
+[
+ {
+  "ticker": "KXFEDDECISION-25DEC-H26",
+  "event_ticker": "KXFEDDECISION-25DEC",
+  "result": "no",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-12-10T18:59:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25DEC-H25",
+  "event_ticker": "KXFEDDECISION-25DEC",
+  "result": "no",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-12-10T18:59:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25DEC-H0",
+  "event_ticker": "KXFEDDECISION-25DEC",
+  "result": "no",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-12-10T18:59:00Z",
+  "yes_sub_title": "Fed maintains rate",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25DEC-C25",
+  "event_ticker": "KXFEDDECISION-25DEC",
+  "result": "yes",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-12-10T18:59:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25DEC-C26",
+  "event_ticker": "KXFEDDECISION-25DEC",
+  "result": "no",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-12-10T18:59:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25OCT-H26",
+  "event_ticker": "KXFEDDECISION-25OCT",
+  "result": "no",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-10-29T17:59:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25OCT-H25",
+  "event_ticker": "KXFEDDECISION-25OCT",
+  "result": "no",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-10-29T17:59:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25OCT-H0",
+  "event_ticker": "KXFEDDECISION-25OCT",
+  "result": "no",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-10-29T17:59:00Z",
+  "yes_sub_title": "Fed maintains rate",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25OCT-C26",
+  "event_ticker": "KXFEDDECISION-25OCT",
+  "result": "no",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-10-29T17:59:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25OCT-C25",
+  "event_ticker": "KXFEDDECISION-25OCT",
+  "result": "yes",
+  "open_time": "2025-08-05T14:00:00Z",
+  "close_time": "2025-10-29T17:59:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25SEP-H26",
+  "event_ticker": "KXFEDDECISION-25SEP",
+  "result": "no",
+  "open_time": "2025-07-30T14:00:00Z",
+  "close_time": "2025-09-17T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25SEP-H25",
+  "event_ticker": "KXFEDDECISION-25SEP",
+  "result": "no",
+  "open_time": "2025-07-30T14:00:00Z",
+  "close_time": "2025-09-17T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25SEP-H0",
+  "event_ticker": "KXFEDDECISION-25SEP",
+  "result": "no",
+  "open_time": "2025-07-30T14:00:00Z",
+  "close_time": "2025-09-17T17:55:00Z",
+  "yes_sub_title": "Fed maintains rate",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25SEP-C26",
+  "event_ticker": "KXFEDDECISION-25SEP",
+  "result": "no",
+  "open_time": "2025-07-30T14:00:00Z",
+  "close_time": "2025-09-17T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25SEP-C25",
+  "event_ticker": "KXFEDDECISION-25SEP",
+  "result": "yes",
+  "open_time": "2025-07-30T14:00:00Z",
+  "close_time": "2025-09-17T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUL-H26",
+  "event_ticker": "KXFEDDECISION-25JUL",
+  "result": "no",
+  "open_time": "2025-06-18T14:00:00Z",
+  "close_time": "2025-07-30T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUL-H25",
+  "event_ticker": "KXFEDDECISION-25JUL",
+  "result": "no",
+  "open_time": "2025-06-18T14:00:00Z",
+  "close_time": "2025-07-30T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUL-H0",
+  "event_ticker": "KXFEDDECISION-25JUL",
+  "result": "yes",
+  "open_time": "2025-06-18T14:00:00Z",
+  "close_time": "2025-07-30T17:55:00Z",
+  "yes_sub_title": "Fed maintains rate",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUL-C26",
+  "event_ticker": "KXFEDDECISION-25JUL",
+  "result": "no",
+  "open_time": "2025-06-18T14:00:00Z",
+  "close_time": "2025-07-30T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUL-C25",
+  "event_ticker": "KXFEDDECISION-25JUL",
+  "result": "no",
+  "open_time": "2025-06-18T14:00:00Z",
+  "close_time": "2025-07-30T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUN-H26",
+  "event_ticker": "KXFEDDECISION-25JUN",
+  "result": "no",
+  "open_time": "2025-05-07T14:00:00Z",
+  "close_time": "2025-06-18T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUN-H25",
+  "event_ticker": "KXFEDDECISION-25JUN",
+  "result": "no",
+  "open_time": "2025-05-07T14:00:00Z",
+  "close_time": "2025-06-18T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUN-H0",
+  "event_ticker": "KXFEDDECISION-25JUN",
+  "result": "yes",
+  "open_time": "2025-05-07T14:00:00Z",
+  "close_time": "2025-06-18T17:55:00Z",
+  "yes_sub_title": "No change",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUN-C26",
+  "event_ticker": "KXFEDDECISION-25JUN",
+  "result": "no",
+  "open_time": "2025-05-07T14:00:00Z",
+  "close_time": "2025-06-18T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JUN-C25",
+  "event_ticker": "KXFEDDECISION-25JUN",
+  "result": "no",
+  "open_time": "2025-05-07T14:00:00Z",
+  "close_time": "2025-06-18T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAY-H26",
+  "event_ticker": "KXFEDDECISION-25MAY",
+  "result": "no",
+  "open_time": "2025-03-19T14:00:00Z",
+  "close_time": "2025-05-07T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAY-H25",
+  "event_ticker": "KXFEDDECISION-25MAY",
+  "result": "no",
+  "open_time": "2025-03-19T14:00:00Z",
+  "close_time": "2025-05-07T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAY-H0",
+  "event_ticker": "KXFEDDECISION-25MAY",
+  "result": "yes",
+  "open_time": "2025-03-19T14:00:00Z",
+  "close_time": "2025-05-07T17:55:00Z",
+  "yes_sub_title": "No change",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAY-C26",
+  "event_ticker": "KXFEDDECISION-25MAY",
+  "result": "no",
+  "open_time": "2025-03-19T14:00:00Z",
+  "close_time": "2025-05-07T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAY-C25",
+  "event_ticker": "KXFEDDECISION-25MAY",
+  "result": "no",
+  "open_time": "2025-03-19T14:00:00Z",
+  "close_time": "2025-05-07T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAR-H26",
+  "event_ticker": "KXFEDDECISION-25MAR",
+  "result": "no",
+  "open_time": "2025-01-29T15:00:00Z",
+  "close_time": "2025-03-19T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAR-H25",
+  "event_ticker": "KXFEDDECISION-25MAR",
+  "result": "no",
+  "open_time": "2025-01-29T15:00:00Z",
+  "close_time": "2025-03-19T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAR-H0",
+  "event_ticker": "KXFEDDECISION-25MAR",
+  "result": "yes",
+  "open_time": "2025-01-29T15:00:00Z",
+  "close_time": "2025-03-19T17:55:00Z",
+  "yes_sub_title": "No change",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAR-C25",
+  "event_ticker": "KXFEDDECISION-25MAR",
+  "result": "no",
+  "open_time": "2025-01-29T15:00:00Z",
+  "close_time": "2025-03-19T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25MAR-C26",
+  "event_ticker": "KXFEDDECISION-25MAR",
+  "result": "no",
+  "open_time": "2025-01-29T15:00:00Z",
+  "close_time": "2025-03-19T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JAN-H26",
+  "event_ticker": "KXFEDDECISION-25JAN",
+  "result": "no",
+  "open_time": "2024-12-18T15:00:00Z",
+  "close_time": "2025-01-29T18:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JAN-H25",
+  "event_ticker": "KXFEDDECISION-25JAN",
+  "result": "no",
+  "open_time": "2024-12-18T15:00:00Z",
+  "close_time": "2025-01-29T18:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JAN-H0",
+  "event_ticker": "KXFEDDECISION-25JAN",
+  "result": "yes",
+  "open_time": "2024-12-18T15:00:00Z",
+  "close_time": "2025-01-29T18:55:00Z",
+  "yes_sub_title": "No change",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JAN-C26",
+  "event_ticker": "KXFEDDECISION-25JAN",
+  "result": "no",
+  "open_time": "2024-12-18T15:00:00Z",
+  "close_time": "2025-01-29T18:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-25JAN-C25",
+  "event_ticker": "KXFEDDECISION-25JAN",
+  "result": "no",
+  "open_time": "2024-12-18T15:00:00Z",
+  "close_time": "2025-01-29T18:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-24DEC-H26",
+  "event_ticker": "KXFEDDECISION-24DEC",
+  "result": "no",
+  "open_time": "2024-10-30T14:00:00Z",
+  "close_time": "2024-12-18T18:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-24DEC-H25",
+  "event_ticker": "KXFEDDECISION-24DEC",
+  "result": "no",
+  "open_time": "2024-10-30T14:00:00Z",
+  "close_time": "2024-12-18T18:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-24DEC-H0",
+  "event_ticker": "KXFEDDECISION-24DEC",
+  "result": "no",
+  "open_time": "2024-10-30T14:00:00Z",
+  "close_time": "2024-12-18T18:55:00Z",
+  "yes_sub_title": "No cut/hike",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-24DEC-C25",
+  "event_ticker": "KXFEDDECISION-24DEC",
+  "result": "yes",
+  "open_time": "2024-10-30T14:00:00Z",
+  "close_time": "2024-12-18T18:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "KXFEDDECISION-24DEC-C26",
+  "event_ticker": "KXFEDDECISION-24DEC",
+  "result": "no",
+  "open_time": "2024-10-30T14:00:00Z",
+  "close_time": "2024-12-18T18:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24NOV-H26",
+  "event_ticker": "FEDDECISION-24NOV",
+  "result": "no",
+  "open_time": "2024-09-17T14:00:00Z",
+  "close_time": "2024-11-07T18:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24NOV-H25",
+  "event_ticker": "FEDDECISION-24NOV",
+  "result": "no",
+  "open_time": "2024-09-17T14:00:00Z",
+  "close_time": "2024-11-07T18:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24NOV-H0",
+  "event_ticker": "FEDDECISION-24NOV",
+  "result": "no",
+  "open_time": "2024-09-17T14:00:00Z",
+  "close_time": "2024-11-07T18:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24NOV-C26",
+  "event_ticker": "FEDDECISION-24NOV",
+  "result": "no",
+  "open_time": "2024-09-17T14:00:00Z",
+  "close_time": "2024-11-07T18:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24NOV-C25",
+  "event_ticker": "FEDDECISION-24NOV",
+  "result": "yes",
+  "open_time": "2024-09-17T14:00:00Z",
+  "close_time": "2024-11-07T18:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24SEP-H26",
+  "event_ticker": "FEDDECISION-24SEP",
+  "result": "no",
+  "open_time": "2024-07-30T14:00:00Z",
+  "close_time": "2024-09-18T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24SEP-H25",
+  "event_ticker": "FEDDECISION-24SEP",
+  "result": "no",
+  "open_time": "2024-07-30T14:00:00Z",
+  "close_time": "2024-09-18T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24SEP-H0",
+  "event_ticker": "FEDDECISION-24SEP",
+  "result": "no",
+  "open_time": "2024-07-30T14:00:00Z",
+  "close_time": "2024-09-18T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24SEP-C26",
+  "event_ticker": "FEDDECISION-24SEP",
+  "result": "yes",
+  "open_time": "2024-07-30T14:00:00Z",
+  "close_time": "2024-09-18T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24SEP-C25",
+  "event_ticker": "FEDDECISION-24SEP",
+  "result": "no",
+  "open_time": "2024-07-30T14:00:00Z",
+  "close_time": "2024-09-18T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUL-H26",
+  "event_ticker": "FEDDECISION-24JUL",
+  "result": "no",
+  "open_time": "2024-06-11T14:00:00Z",
+  "close_time": "2024-07-31T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUL-H25",
+  "event_ticker": "FEDDECISION-24JUL",
+  "result": "no",
+  "open_time": "2024-06-11T14:00:00Z",
+  "close_time": "2024-07-31T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUL-H0",
+  "event_ticker": "FEDDECISION-24JUL",
+  "result": "yes",
+  "open_time": "2024-06-11T14:00:00Z",
+  "close_time": "2024-07-31T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUL-C25",
+  "event_ticker": "FEDDECISION-24JUL",
+  "result": "no",
+  "open_time": "2024-06-11T14:00:00Z",
+  "close_time": "2024-07-31T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUL-C26",
+  "event_ticker": "FEDDECISION-24JUL",
+  "result": "no",
+  "open_time": "2024-06-11T14:00:00Z",
+  "close_time": "2024-07-31T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUN-H25",
+  "event_ticker": "FEDDECISION-24JUN",
+  "result": "no",
+  "open_time": "2024-05-01T14:00:00Z",
+  "close_time": "2024-06-12T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUN-H0",
+  "event_ticker": "FEDDECISION-24JUN",
+  "result": "yes",
+  "open_time": "2024-05-01T14:00:00Z",
+  "close_time": "2024-06-12T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUN-C25",
+  "event_ticker": "FEDDECISION-24JUN",
+  "result": "no",
+  "open_time": "2024-05-01T14:00:00Z",
+  "close_time": "2024-06-12T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JUN-C26",
+  "event_ticker": "FEDDECISION-24JUN",
+  "result": "no",
+  "open_time": "2024-05-01T14:00:00Z",
+  "close_time": "2024-06-12T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAY-H26",
+  "event_ticker": "FEDDECISION-24MAY",
+  "result": "no",
+  "open_time": "2024-03-20T18:05:00Z",
+  "close_time": "2024-05-01T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAY-H25",
+  "event_ticker": "FEDDECISION-24MAY",
+  "result": "no",
+  "open_time": "2024-03-20T18:05:00Z",
+  "close_time": "2024-05-01T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAY-H0",
+  "event_ticker": "FEDDECISION-24MAY",
+  "result": "yes",
+  "open_time": "2024-03-20T18:05:00Z",
+  "close_time": "2024-05-01T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAY-C25",
+  "event_ticker": "FEDDECISION-24MAY",
+  "result": "no",
+  "open_time": "2024-03-20T18:05:00Z",
+  "close_time": "2024-05-01T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAY-C26",
+  "event_ticker": "FEDDECISION-24MAY",
+  "result": "no",
+  "open_time": "2024-03-20T18:05:00Z",
+  "close_time": "2024-05-01T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAR20-H26",
+  "event_ticker": "FEDDECISION-24MAR20",
+  "result": "no",
+  "open_time": "2024-01-31T19:05:00Z",
+  "close_time": "2024-03-20T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAR20-H25",
+  "event_ticker": "FEDDECISION-24MAR20",
+  "result": "no",
+  "open_time": "2024-01-31T19:05:00Z",
+  "close_time": "2024-03-20T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAR20-H0",
+  "event_ticker": "FEDDECISION-24MAR20",
+  "result": "yes",
+  "open_time": "2024-01-31T19:05:00Z",
+  "close_time": "2024-03-20T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAR20-C25",
+  "event_ticker": "FEDDECISION-24MAR20",
+  "result": "no",
+  "open_time": "2024-01-31T19:05:00Z",
+  "close_time": "2024-03-20T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24MAR20-C26",
+  "event_ticker": "FEDDECISION-24MAR20",
+  "result": "no",
+  "open_time": "2024-01-31T19:05:00Z",
+  "close_time": "2024-03-20T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JAN31-H26",
+  "event_ticker": "FEDDECISION-24JAN31",
+  "result": "no",
+  "open_time": "2023-12-13T19:05:00Z",
+  "close_time": "2024-01-31T18:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JAN31-H25",
+  "event_ticker": "FEDDECISION-24JAN31",
+  "result": "no",
+  "open_time": "2023-12-13T19:05:00Z",
+  "close_time": "2024-01-31T18:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JAN31-H0",
+  "event_ticker": "FEDDECISION-24JAN31",
+  "result": "yes",
+  "open_time": "2023-12-13T19:05:00Z",
+  "close_time": "2024-01-31T18:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JAN31-C25",
+  "event_ticker": "FEDDECISION-24JAN31",
+  "result": "no",
+  "open_time": "2023-12-13T19:05:00Z",
+  "close_time": "2024-01-31T18:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-24JAN31-C26",
+  "event_ticker": "FEDDECISION-24JAN31",
+  "result": "no",
+  "open_time": "2023-12-13T19:05:00Z",
+  "close_time": "2024-01-31T18:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23DEC-H26",
+  "event_ticker": "FEDDECISION-23DEC",
+  "result": "no",
+  "open_time": "2023-11-01T19:00:00Z",
+  "close_time": "2023-12-13T18:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23DEC-H25",
+  "event_ticker": "FEDDECISION-23DEC",
+  "result": "no",
+  "open_time": "2023-11-01T19:00:00Z",
+  "close_time": "2023-12-13T18:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23DEC-H0",
+  "event_ticker": "FEDDECISION-23DEC",
+  "result": "yes",
+  "open_time": "2023-11-01T19:00:00Z",
+  "close_time": "2023-12-13T18:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23DEC-C25",
+  "event_ticker": "FEDDECISION-23DEC",
+  "result": "no",
+  "open_time": "2023-11-01T19:00:00Z",
+  "close_time": "2023-12-13T18:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23DEC-C24",
+  "event_ticker": "FEDDECISION-23DEC",
+  "result": "no",
+  "open_time": "2023-11-01T19:00:00Z",
+  "close_time": "2023-12-13T18:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23NOV-H26",
+  "event_ticker": "FEDDECISION-23NOV",
+  "result": "no",
+  "open_time": "2023-09-22T20:00:00Z",
+  "close_time": "2023-11-01T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23NOV-H25",
+  "event_ticker": "FEDDECISION-23NOV",
+  "result": "no",
+  "open_time": "2023-09-22T20:00:00Z",
+  "close_time": "2023-11-01T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23NOV-H0",
+  "event_ticker": "FEDDECISION-23NOV",
+  "result": "yes",
+  "open_time": "2023-09-22T20:00:00Z",
+  "close_time": "2023-11-01T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23NOV-C26",
+  "event_ticker": "FEDDECISION-23NOV",
+  "result": "no",
+  "open_time": "2023-09-22T20:00:00Z",
+  "close_time": "2023-11-01T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23NOV-C25",
+  "event_ticker": "FEDDECISION-23NOV",
+  "result": "no",
+  "open_time": "2023-09-22T20:00:00Z",
+  "close_time": "2023-11-01T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23SEP-H>25",
+  "event_ticker": "FEDDECISION-23SEP",
+  "result": "no",
+  "open_time": "2023-07-26T18:00:00Z",
+  "close_time": "2023-09-20T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23SEP-H25",
+  "event_ticker": "FEDDECISION-23SEP",
+  "result": "no",
+  "open_time": "2023-07-26T18:00:00Z",
+  "close_time": "2023-09-20T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23SEP-H0",
+  "event_ticker": "FEDDECISION-23SEP",
+  "result": "yes",
+  "open_time": "2023-07-26T18:00:00Z",
+  "close_time": "2023-09-20T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23SEP-C>25",
+  "event_ticker": "FEDDECISION-23SEP",
+  "result": "no",
+  "open_time": "2023-07-26T18:00:00Z",
+  "close_time": "2023-09-20T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23SEP-C25",
+  "event_ticker": "FEDDECISION-23SEP",
+  "result": "no",
+  "open_time": "2023-07-26T18:00:00Z",
+  "close_time": "2023-09-20T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUL-H>25",
+  "event_ticker": "FEDDECISION-23JUL",
+  "result": "no",
+  "open_time": "2023-06-14T16:00:00Z",
+  "close_time": "2023-07-26T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUL-H25",
+  "event_ticker": "FEDDECISION-23JUL",
+  "result": "yes",
+  "open_time": "2023-06-14T16:00:00Z",
+  "close_time": "2023-07-26T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUL-H0",
+  "event_ticker": "FEDDECISION-23JUL",
+  "result": "no",
+  "open_time": "2023-06-14T16:00:00Z",
+  "close_time": "2023-07-26T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUL-C>25",
+  "event_ticker": "FEDDECISION-23JUL",
+  "result": "no",
+  "open_time": "2023-06-14T16:00:00Z",
+  "close_time": "2023-07-26T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUL-C25",
+  "event_ticker": "FEDDECISION-23JUL",
+  "result": "no",
+  "open_time": "2023-06-14T16:00:00Z",
+  "close_time": "2023-07-26T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUN-H>25",
+  "event_ticker": "FEDDECISION-23JUN",
+  "result": "no",
+  "open_time": "2023-05-03T20:00:00Z",
+  "close_time": "2023-06-14T17:55:00Z",
+  "yes_sub_title": "Hike >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUN-H25",
+  "event_ticker": "FEDDECISION-23JUN",
+  "result": "no",
+  "open_time": "2023-05-03T20:00:00Z",
+  "close_time": "2023-06-14T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUN-H0",
+  "event_ticker": "FEDDECISION-23JUN",
+  "result": "yes",
+  "open_time": "2023-05-03T20:00:00Z",
+  "close_time": "2023-06-14T17:55:00Z",
+  "yes_sub_title": "Hike 0bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUN-C25",
+  "event_ticker": "FEDDECISION-23JUN",
+  "result": "no",
+  "open_time": "2023-05-03T20:00:00Z",
+  "close_time": "2023-06-14T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23JUN-C>25",
+  "event_ticker": "FEDDECISION-23JUN",
+  "result": "no",
+  "open_time": "2023-05-03T20:00:00Z",
+  "close_time": "2023-06-14T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23MAY-TH50",
+  "event_ticker": "FEDDECISION-23MAY",
+  "result": "no",
+  "open_time": "2023-04-07T14:00:00Z",
+  "close_time": "2023-05-03T17:55:00Z",
+  "yes_sub_title": "Hike >50bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23MAY-H50",
+  "event_ticker": "FEDDECISION-23MAY",
+  "result": "no",
+  "open_time": "2023-04-07T14:00:00Z",
+  "close_time": "2023-05-03T17:55:00Z",
+  "yes_sub_title": "Hike 50bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23MAY-H25",
+  "event_ticker": "FEDDECISION-23MAY",
+  "result": "yes",
+  "open_time": "2023-04-07T14:00:00Z",
+  "close_time": "2023-05-03T17:55:00Z",
+  "yes_sub_title": "Hike 25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23MAY-H0",
+  "event_ticker": "FEDDECISION-23MAY",
+  "result": "no",
+  "open_time": "2023-04-07T14:00:00Z",
+  "close_time": "2023-05-03T17:55:00Z",
+  "yes_sub_title": "No change",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23MAY-TC25",
+  "event_ticker": "FEDDECISION-23MAY",
+  "result": "no",
+  "open_time": "2023-04-07T14:00:00Z",
+  "close_time": "2023-05-03T17:55:00Z",
+  "yes_sub_title": "Cut >25bps",
+  "volume": null
+ },
+ {
+  "ticker": "FEDDECISION-23MAY-C25",
+  "event_ticker": "FEDDECISION-23MAY",
+  "result": "no",
+  "open_time": "2023-04-07T14:00:00Z",
+  "close_time": "2023-05-03T17:55:00Z",
+  "yes_sub_title": "Cut 25bps",
+  "volume": null
+ }
+]

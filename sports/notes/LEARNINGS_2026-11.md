@@ -48,6 +48,11 @@ Rebuilt from all 655 fills: settled election P&L -$143.34; had every closing fil
 to settlement) it would have been about +$52.74 -> exits cost ~$196. Kalshi would be ~$822 vs $731 net in. Exits fired on
 a stale needle model during the count. Lesson: a pre-committed hold-to-settlement plan beats reacting to a model mid-count.
 
+### Kalshi Fed-decision tails are not richer than fed funds futures imply -- busy book, no E4-style staleness
+22 meetings 2023-05..2025-12 (ZQ=F front month + EFFR; 44/66 cells usable): futures 0% -> Kalshi mid 1.0c (n89, 0 occurred);
+futures 5-20% -> Kalshi cheaper 5.0c vs 8.5% (n14, 0 occurred); near meetings within a few cents. Taker NO rule 7 bets (< min
+20), maker 12 -> dead. Flagged quotes 1c wide, 33k-1.17M contracts/24h. Source: notes/fed_vs_futures.md.
+
 ### Silent failures need an output-based health monitor, not exit codes
 Second and third silent losses this week: Q013 RT logger wrote 0 picks 11-03..11-18 (RT renamed criticsScore.score ->
 scorePercent), and E4 lost NY + DEN on 11-17 (open-meteo TLS handshake stalls on the first cities of a run; read

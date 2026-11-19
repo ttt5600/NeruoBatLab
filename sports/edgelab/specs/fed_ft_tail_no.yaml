@@ -1,0 +1,15 @@
+id: fed_ft_tail_no
+family: kalshi_data_ladders
+dataset: kalshi_fed_decision
+rule: edgelab.rules.forward:unwired
+hypothesis: 'FT (notes/fed_vs_futures.md prereg): KXFEDDECISION/FEDDECISION 5 outcomes. At A-14/7/1 d 15:00 ET, futures P_f from Yahoo ZQ=F front month (valid only inside the meeting month; prior-day close; EFFR <= D-2) by same-month arithmetic + FedWatch 2-bucket interpolation. Buy NO taker at 1-yes_bid when P_f <= .05 and yes_bid >= P_f + .03 (and >= .03); fee .07P(1-P). Maker variant FM judged filled vs unfilled. Dev 2023-05..2025-12, 2026 sealed.'
+decision_time: A-14 / A-7 / A-1 days 15:00 ET
+price_model: taker
+split: vault:kalshi_fed_decision
+min_n: 20
+kill:
+  kind: roi_ci_below_zero
+  after_n: 20
+fee:
+  rounding: exact
+legacy: 'new 2026-11-18 (agent fed_vs_futures). Registered after prereg, before any price/outcome computed. Dev backtest offline in results/fed_vs_futures/.'
