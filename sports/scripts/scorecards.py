@@ -1257,6 +1257,36 @@ def sprt_panel(fetch_tape: bool) -> list[str]:
     return out + [""]
 
 
+def card_health() -> Card:
+    """Ops health of every quant launchd job (scripts/health_monitor.py, hourly launchd quant-sports-health ->
+    ~/.claude/quant-sports/state/health_status.json; notes/ops_health_monitor.md). Ops status, NOT a kill-rule status:
+    rendered in its own section and never counted in KILL RULES / Near kill."""
+    c = Card("OPS-HEALTH", "launchd job health (output freshness, log errors, row sanity, 0-pick streaks)")
+    p = QS / "state" / "health_status.json"
+    if not p.exists():
+        c.status, c.why = "unknown", f"{p} missing -- install scripts/install_health_monitor_agent.sh"
+        return c
+    h = json.loads(p.read_text())
+    sev = {"BROKEN": 5, "STALE": 4, "WARN": 3}
+    jobs = sorted(h["jobs"], key=lambda r: -sev.get(r["status"], 0))
+    cnt = defaultdict(int)
+    for r in jobs:
+        cnt[r["status"]] += 1
+    age = (datetime.now(timezone.utc) - datetime.fromisoformat(h["generated"])).total_seconds() / 3600
+    bad = [r for r in jobs if r["status"] in ("BROKEN", "STALE")]
+    c.status = "BROKEN/STALE jobs" if bad else ("warnings" if cnt.get("WARN") else "all ok")
+    c.why = ", ".join(f"{k} {v}" for k, v in sorted(cnt.items(), key=lambda x: -sev.get(x[0], 0))) + \
+        f" (monitor ran {age:.1f}h ago" + ("; MONITOR ITSELF STALE" if age > 2.5 else "") + ")"
+    c.lines.append(f"digest: `{h.get('digest')}`")
+    for r in jobs:
+        if r["status"] in sev:
+            worst = [x["msg"] for x in r["checks"] if sev.get(x["status"], 0) >= 3]
+            c.lines.append(f"{r['status']} {r['job']}: " + " | ".join(m[:200] for m in worst))
+    if h.get("unconfigured"):
+        c.warn.append("launchd jobs not in health_jobs.json: " + ", ".join(h["unconfigured"]))
+    return c
+
+
 # ------------------------------------------------------------------------------------------------ main
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
@@ -1329,6 +1359,7 @@ def main(argv=None) -> int:
     out += ["| E4 | Kalshi weather maker (Tier A) | see notes/e4_live_audit.md | audited by agent e4_live_audit |", ""]
     out += sprt_panel(not a.no_tape)
     out += ["## Cards", ""] + [c.md() for c in cards]
+    out += ["## Ops health -- job monitor (not a kill-rule card; never counted above)", "", card_health().md()]
     out += ["### E4 -- pointer only", "Audited separately: `sports/notes/e4_live_audit.md` (agent e4_live_audit).", ""]
     Path(a.out).write_text("\n".join(out))
     print(f"wrote {a.out}: " + ", ".join(f"{c.cid}={c.status}" for c in cards))
