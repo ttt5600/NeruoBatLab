@@ -48,6 +48,14 @@ Rebuilt from all 655 fills: settled election P&L -$143.34; had every closing fil
 to settlement) it would have been about +$52.74 -> exits cost ~$196. Kalshi would be ~$822 vs $731 net in. Exits fired on
 a stale needle model during the count. Lesson: a pre-committed hold-to-settlement plan beats reacting to a model mid-count.
 
+### Silent failures need an output-based health monitor, not exit codes
+Second and third silent losses this week: Q013 RT logger wrote 0 picks 11-03..11-18 (RT renamed criticsScore.score ->
+scorePercent), and E4 lost NY + DEN on 11-17 (open-meteo TLS handshake stalls on the first cities of a run; read
+timeout=10 was the connect setting). Fixes: hourly health monitor over 47 jobs (output growth, row sanity, 0-pick streaks;
+scripts/health_monitor.py), E4 fetch with 30 s handshake + in-window retries + LOST alerts (same source/params, rule
+unchanged), atomic installers (overwriting a running bash script crashed nhl-ingame/nfl-fade). Sources:
+notes/ops_health_monitor.md, ops_robustness_1118.md, q013_rt_scores.md.
+
 ### A single API timeout silently cost E4 two whole nights
 11-13/11-14 UTC: every decision-hour tick crashed on an open-meteo ReadTimeout; cmd_pick had no per-city try/except, so
 no city was logged and E4 placed 0 orders. launchd showed exit 0 because run.sh's last command (the executor) exits 0.
