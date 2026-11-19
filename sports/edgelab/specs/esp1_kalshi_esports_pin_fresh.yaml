@@ -1,0 +1,31 @@
+id: esp1_kalshi_esports_pin_fresh
+family: cross_venue
+dataset: xv_kalshi_esports_pin
+rule: edgelab.rules.forward:unwired
+hypothesis: >-
+  Kalshi esports match winners (KXCS2GAME, KXLOLGAME, KXVALORANTGAME, KXDOTA2GAME) vs Pinnacle E Sports full-match
+  moneyline. Every ~2 min (scripts/esports_pin_logger.py), buy the Kalshi YES of a team at the ask when the
+  conservative de-vigged Pinnacle fair (min of multiplicative/power) - ask - taker fee (10-lot, cent-rounded) >= 0.03,
+  ONLY when the Pinnacle quote is fresh (Date - last-modified <= 120 s; guest API is Cloudflare-cached up to 905 s),
+  pregame (>= 2 min before Pinnacle start), match = game + start +-90 min + one-to-one whole-word team match, unique.
+  First qualifying tick per match, 1 contract, hold to Kalshi settlement (scalar fair-price settlements count at value).
+decision_time: esports_pin_logger tick (deployed ~/.claude/quant-sports/data/esports_pin/bets.jsonl)
+price_model: taker
+split: forward
+min_n: 300
+kill:
+  kind: roi_ci_below_zero
+  after_n: 300
+fee:
+  rounding: cent
+params:
+  thresh: 0.03
+  devig: min(multiplicative, power)
+  fresh_s: 120
+  outcome: Kalshi settlement (full match; fair-market-price scalar on pre-play forfeit/cancel/postpone > 48 h)
+  clv: Pinnacle close (last snapshot before start, same de-vig) minus entry ask; also fresh-only close
+  extra_kills: "notes/esports_pinnacle.md -- (a) 0 signals on >= 70% of 28 logger days; (b) ROI <= 0 at n 300; (c) < 5 matched matches/day over first 14 days -> thin"
+legacy: >-
+  New 2026-11-18 (agent esports_pinnacle; lead forum_strategy_scout idea #1). No dev data: no Pinnacle esports history
+  exists locally (gap_logger covers US + soccer only). Forward only; pre-registered in notes/esports_pinnacle.md before
+  the first logger tick.

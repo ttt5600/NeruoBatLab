@@ -1,0 +1,916 @@
+{
+ "KXCS2GAME": {
+  "open_markets": 152,
+  "open_events": 76,
+  "settled_n": 200,
+  "settled_vol_median": 5622.305,
+  "settled_vol_sum": 3596368.71,
+  "settled_results": {
+   "yes": 89,
+   "no": 89,
+   "scalar": 22
+  },
+  "scalar_values": [
+   "0.4200",
+   "0.5800",
+   "0.6100",
+   "0.3900",
+   "0.6300",
+   "0.3700",
+   "0.4300",
+   "0.5700",
+   "0.5000",
+   "0.5000",
+   "0.7800",
+   "0.2200",
+   "0.6700",
+   "0.3300",
+   "0.4800",
+   "0.5200",
+   "0.3000",
+   "0.7000",
+   "0.3200",
+   "0.6800"
+  ],
+  "settled_span": [
+   "2026-11-16T13:09:48Z",
+   "2026-11-19T00:32:49Z"
+  ],
+  "rules_primary": "If Falcons Force wins the ESEA Advanced Europe 2026: Al Ahli vs. Falcons Force CS2 match originally scheduled for Nov 19, 2026 at 12:00 PM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to the full match in the ESEA Advanced Europe 2026: Al Ahli vs. Falcons Force CS2 match originally scheduled for Nov 19, 2026 at 12:00 PM EST\nIf the relevant match is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf the relevant match begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXCS2GAME-26NOV191200ALAFAL-FAL",
+   "event_ticker": "KXCS2GAME-26NOV191200ALAFAL",
+   "title": "Falcons Force wins",
+   "yes_sub_title": "Falcons Force",
+   "open_time": "2026-11-19T01:10:00Z",
+   "close_time": "2026-11-21T17:00:00Z",
+   "expected_expiration_time": "2026-11-19T21:00:00Z",
+   "latest_expiration_time": "2026-11-21T17:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 116
+  },
+  "open_sample": [
+   {
+    "ticker": "KXCS2GAME-26NOV191200ALAFAL-FAL",
+    "yes_sub_title": "Falcons Force",
+    "yes_bid_dollars": "0.6200",
+    "yes_ask_dollars": "0.8200",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T17:00:00Z",
+    "expected_expiration_time": "2026-11-19T21:00:00Z"
+   },
+   {
+    "ticker": "KXCS2GAME-26NOV191200ALAFAL-ALA",
+    "yes_sub_title": "Al Ahli",
+    "yes_bid_dollars": "0.2100",
+    "yes_ask_dollars": "0.3600",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T17:00:00Z",
+    "expected_expiration_time": "2026-11-19T21:00:00Z"
+   },
+   {
+    "ticker": "KXCS2GAME-26NOV191430BANBG-BG",
+    "yes_sub_title": "Banger Gang",
+    "yes_bid_dollars": "0.0800",
+    "yes_ask_dollars": "0.9200",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T19:30:00Z",
+    "expected_expiration_time": "2026-11-19T23:30:00Z"
+   },
+   {
+    "ticker": "KXCS2GAME-26NOV191430BANBG-BAN",
+    "yes_sub_title": "banda chuya",
+    "yes_bid_dollars": "0.0900",
+    "yes_ask_dollars": "0.9300",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T19:30:00Z",
+    "expected_expiration_time": "2026-11-19T23:30:00Z"
+   },
+   {
+    "ticker": "KXCS2GAME-26NOV191430DIAOLD-OLD",
+    "yes_sub_title": "OLDBOYS-",
+    "yes_bid_dollars": "0.0600",
+    "yes_ask_dollars": "0.9100",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T19:30:00Z",
+    "expected_expiration_time": "2026-11-19T23:30:00Z"
+   },
+   {
+    "ticker": "KXCS2GAME-26NOV191430DIAOLD-DIA",
+    "yes_sub_title": "Diamant Esports",
+    "yes_bid_dollars": "0.0800",
+    "yes_ask_dollars": "0.9200",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T19:30:00Z",
+    "expected_expiration_time": "2026-11-19T23:30:00Z"
+   }
+  ]
+ },
+ "KXLOLGAME": {
+  "open_markets": 0,
+  "open_events": 0,
+  "settled_n": 200,
+  "settled_vol_median": 313891.42000000004,
+  "settled_vol_sum": 93411699.98,
+  "settled_results": {
+   "yes": 99,
+   "no": 99,
+   "scalar": 2
+  },
+  "scalar_values": [
+   "0.5000",
+   "0.5000"
+  ],
+  "settled_span": [
+   "2026-10-06T00:55:52Z",
+   "2026-11-15T00:05:19Z"
+  ],
+  "rules_primary": "If Saigon Warriors wins the LCP Promotion 2027: Saigon Warriors vs. DetonatioN FocusMe League of Legends match originally scheduled for Nov 13, 2026 at 4:00 AM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to the full match in the LCP Promotion 2027: Saigon Warriors vs. DetonatioN FocusMe League of Legends match originally scheduled for Nov 13, 2026 at 4:00 AM EST\nIf the relevant match is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf the relevant match begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXLOLGAME-26NOV130400SGWDFM-SGW",
+   "event_ticker": "KXLOLGAME-26NOV130400SGWDFM",
+   "title": "Saigon Warriors wins",
+   "yes_sub_title": "Saigon Warriors",
+   "open_time": "2026-11-12T10:05:00Z",
+   "close_time": "2026-11-13T09:59:21Z",
+   "expected_expiration_time": "2026-11-13T13:00:00Z",
+   "latest_expiration_time": "2026-11-15T09:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 119
+  },
+  "open_sample": []
+ },
+ "KXVALORANTGAME": {
+  "open_markets": 46,
+  "open_events": 23,
+  "settled_n": 200,
+  "settled_vol_median": 2243.5,
+  "settled_vol_sum": 1231674.16,
+  "settled_results": {
+   "yes": 91,
+   "no": 91,
+   "scalar": 18
+  },
+  "scalar_values": [
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.0600",
+   "0.9400",
+   "0.2100",
+   "0.7900",
+   "0.4200",
+   "0.5800",
+   "0.5400",
+   "0.4600",
+   "0.5000",
+   "0.5000",
+   "0.7000",
+   "0.3000",
+   "0.3600",
+   "0.6400"
+  ],
+  "settled_span": [
+   "2026-11-06T10:29:47Z",
+   "2026-11-18T13:09:55Z"
+  ],
+  "rules_primary": "If Oasis Gaming wins the Asia Pacific Predator League Philippines 2027: Oasis Gaming vs. Maxxing Valorant match originally scheduled for Nov 22, 2026 at 1:00 AM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to the full match in the Asia Pacific Predator League Philippines 2027: Oasis Gaming vs. Maxxing Valorant match originally scheduled for Nov 22, 2026 at 1:00 AM EST\nIf the relevant match is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf the relevant match begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXVALORANTGAME-26NOV220100OASMAX-OAS",
+   "event_ticker": "KXVALORANTGAME-26NOV220100OASMAX",
+   "title": "Oasis Gaming wins",
+   "yes_sub_title": "Oasis Gaming",
+   "open_time": "2026-11-19T00:05:00Z",
+   "close_time": "2026-11-24T06:00:00Z",
+   "expected_expiration_time": "2026-11-22T10:00:00Z",
+   "latest_expiration_time": "2026-11-24T06:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 118
+  },
+  "open_sample": [
+   {
+    "ticker": "KXVALORANTGAME-26NOV220100OASMAX-OAS",
+    "yes_sub_title": "Oasis Gaming",
+    "yes_bid_dollars": "0.5600",
+    "yes_ask_dollars": "0.7400",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T06:00:00Z",
+    "expected_expiration_time": "2026-11-22T10:00:00Z"
+   },
+   {
+    "ticker": "KXVALORANTGAME-26NOV220100OASMAX-MAX",
+    "yes_sub_title": "Maxxing",
+    "yes_bid_dollars": "0.2600",
+    "yes_ask_dollars": "0.3700",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T06:00:00Z",
+    "expected_expiration_time": "2026-11-22T10:00:00Z"
+   },
+   {
+    "ticker": "KXVALORANTGAME-26NOV201930XORASR-XORA",
+    "yes_sub_title": "Xora Esports",
+    "yes_bid_dollars": "0.1200",
+    "yes_ask_dollars": "0.2300",
+    "volume_fp": "11.00",
+    "open_interest_fp": "11.00",
+    "close_time": "2026-11-23T00:30:00Z",
+    "expected_expiration_time": "2026-11-21T04:30:00Z"
+   },
+   {
+    "ticker": "KXVALORANTGAME-26NOV201930XORASR-SR",
+    "yes_sub_title": "Shopify Rebellion",
+    "yes_bid_dollars": "0.7700",
+    "yes_ask_dollars": "0.8600",
+    "volume_fp": "129.84",
+    "open_interest_fp": "107.98",
+    "close_time": "2026-11-23T00:30:00Z",
+    "expected_expiration_time": "2026-11-21T04:30:00Z"
+   },
+   {
+    "ticker": "KXVALORANTGAME-26NOV201930MSCFQ-MSC",
+    "yes_sub_title": "Masterclass",
+    "yes_bid_dollars": "0.4300",
+    "yes_ask_dollars": "0.9400",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-23T00:30:00Z",
+    "expected_expiration_time": "2026-11-21T04:30:00Z"
+   },
+   {
+    "ticker": "KXVALORANTGAME-26NOV201930MSCFQ-FQ",
+    "yes_sub_title": "FlyQuest",
+    "yes_bid_dollars": "0.0900",
+    "yes_ask_dollars": "0.5900",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-23T00:30:00Z",
+    "expected_expiration_time": "2026-11-21T04:30:00Z"
+   }
+  ]
+ },
+ "KXDOTA2GAME": {
+  "open_markets": 40,
+  "open_events": 20,
+  "settled_n": 200,
+  "settled_vol_median": 6354.805,
+  "settled_vol_sum": 4200443.459999999,
+  "settled_results": {
+   "yes": 92,
+   "no": 92,
+   "scalar": 16
+  },
+  "scalar_values": [
+   "0.3500",
+   "0.6500",
+   "0.3100",
+   "0.6900",
+   "0.1200",
+   "0.8800",
+   "0.6000",
+   "0.4000",
+   "0.5000",
+   "0.5000",
+   "0.6800",
+   "0.3200",
+   "0.6300",
+   "0.3700",
+   "0.3900",
+   "0.6100"
+  ],
+  "settled_span": [
+   "2026-11-12T12:39:43Z",
+   "2026-11-18T21:09:55Z"
+  ],
+  "rules_primary": "If Spirit Academy wins the European Pro League 2026: Team Allied vs. Spirit Academy Dota 2 match originally scheduled for Nov 22, 2026 at 11:00 AM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to the full match in the European Pro League 2026: Team Allied vs. Spirit Academy Dota 2 match originally scheduled for Nov 22, 2026 at 11:00 AM EST\nIf the relevant match is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf the relevant match begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXDOTA2GAME-26NOV221100ALLSPIRITAC-SPIRITAC",
+   "event_ticker": "KXDOTA2GAME-26NOV221100ALLSPIRITAC",
+   "title": "Spirit Academy wins",
+   "yes_sub_title": "Spirit Academy",
+   "open_time": "2026-11-19T00:05:00Z",
+   "close_time": "2026-11-24T16:00:00Z",
+   "expected_expiration_time": "2026-11-22T20:00:00Z",
+   "latest_expiration_time": "2026-11-24T16:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 300
+  },
+  "open_sample": [
+   {
+    "ticker": "KXDOTA2GAME-26NOV221100ALLSPIRITAC-SPIRITAC",
+    "yes_sub_title": "Spirit Academy",
+    "yes_bid_dollars": "0.3400",
+    "yes_ask_dollars": "0.7300",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T16:00:00Z",
+    "expected_expiration_time": "2026-11-22T20:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2GAME-26NOV221100ALLSPIRITAC-ALL",
+    "yes_sub_title": "Team Allied",
+    "yes_bid_dollars": "0.2900",
+    "yes_ask_dollars": "0.6800",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T16:00:00Z",
+    "expected_expiration_time": "2026-11-22T20:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2GAME-26NOV220500REDPRAN-RED",
+    "yes_sub_title": "Red John",
+    "yes_bid_dollars": "0.3000",
+    "yes_ask_dollars": "0.9200",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T10:00:00Z",
+    "expected_expiration_time": "2026-11-22T14:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2GAME-26NOV220500REDPRAN-PRAN",
+    "yes_sub_title": "Power Rangers",
+    "yes_bid_dollars": "0.3200",
+    "yes_ask_dollars": "0.9300",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T10:00:00Z",
+    "expected_expiration_time": "2026-11-22T14:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2GAME-26NOV190500NEMACLO-NEMA",
+    "yes_sub_title": "Team Nemesis Academy",
+    "yes_bid_dollars": "0.2400",
+    "yes_ask_dollars": "0.4900",
+    "volume_fp": "57.00",
+    "open_interest_fp": "57.00",
+    "close_time": "2026-11-21T10:00:00Z",
+    "expected_expiration_time": "2026-11-19T14:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2GAME-26NOV190500NEMACLO-CLO",
+    "yes_sub_title": "Cloud Rising",
+    "yes_bid_dollars": "0.4900",
+    "yes_ask_dollars": "0.7300",
+    "volume_fp": "968.00",
+    "open_interest_fp": "966.90",
+    "close_time": "2026-11-21T10:00:00Z",
+    "expected_expiration_time": "2026-11-19T14:00:00Z"
+   }
+  ]
+ },
+ "KXCS2MAP": {
+  "open_markets": 202,
+  "open_events": 101,
+  "settled_n": 200,
+  "settled_vol_median": 2176.285,
+  "settled_vol_sum": 1259168.96,
+  "settled_results": {
+   "yes": 88,
+   "no": 88,
+   "scalar": 24
+  },
+  "scalar_values": [
+   "0.4800",
+   "0.5200",
+   "0.4800",
+   "0.5200",
+   "0.4500",
+   "0.5500",
+   "0.4500",
+   "0.5500",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.7000",
+   "0.3000",
+   "0.7000",
+   "0.3000",
+   "0.4000",
+   "0.6000",
+   "0.3600",
+   "0.6400"
+  ],
+  "settled_span": [
+   "2026-11-16T11:30:22Z",
+   "2026-11-19T00:39:31Z"
+  ],
+  "rules_primary": "If underw0rld wins map 2 in the CCT South America Challengers #4 2026: underw0rld vs. Mira CS2 match originally scheduled for Nov 19, 2026 at 4:00 PM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to map 2 in the CCT South America Challengers #4 2026: underw0rld vs. Mira CS2 match originally scheduled for Nov 19, 2026 at 4:00 PM EST\nIf the relevant match or map is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant map is cancelled before play begins, the market will resolve to the fair market price.\nIf a match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf a map is forfeited before any play occurs in the map, the market will resolve to the fair market price.\nIf a map begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXCS2MAP-26NOV191600UNDMIRA-2-UND",
+   "event_ticker": "KXCS2MAP-26NOV191600UNDMIRA-2",
+   "title": "underw0rld wins map 2",
+   "yes_sub_title": "underw0rld",
+   "open_time": "2026-11-19T00:35:00Z",
+   "close_time": "2026-11-21T21:00:00Z",
+   "expected_expiration_time": "2026-11-20T00:00:00Z",
+   "latest_expiration_time": "2026-11-21T21:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 119
+  },
+  "open_sample": [
+   {
+    "ticker": "KXCS2MAP-26NOV191600UNDMIRA-2-UND",
+    "yes_sub_title": "underw0rld",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.9900",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T21:00:00Z",
+    "expected_expiration_time": "2026-11-20T00:00:00Z"
+   },
+   {
+    "ticker": "KXCS2MAP-26NOV191600UNDMIRA-2-MIRA",
+    "yes_sub_title": "Mira",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.9900",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T21:00:00Z",
+    "expected_expiration_time": "2026-11-20T00:00:00Z"
+   },
+   {
+    "ticker": "KXCS2MAP-26NOV191600UNDMIRA-1-UND",
+    "yes_sub_title": "underw0rld",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.9900",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T21:00:00Z",
+    "expected_expiration_time": "2026-11-20T00:00:00Z"
+   },
+   {
+    "ticker": "KXCS2MAP-26NOV191600UNDMIRA-1-MIRA",
+    "yes_sub_title": "Mira",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.9900",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-21T21:00:00Z",
+    "expected_expiration_time": "2026-11-20T00:00:00Z"
+   },
+   {
+    "ticker": "KXCS2MAP-26NOV211300LILMIXILL-2-LILMIX",
+    "yes_sub_title": "Lilmix",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.9900",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-23T18:00:00Z",
+    "expected_expiration_time": "2026-11-21T21:00:00Z"
+   },
+   {
+    "ticker": "KXCS2MAP-26NOV211300LILMIXILL-2-ILL",
+    "yes_sub_title": "ILLYRIANS",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.9900",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-23T18:00:00Z",
+    "expected_expiration_time": "2026-11-21T21:00:00Z"
+   }
+  ]
+ },
+ "KXLOLMAP": {
+  "open_markets": 0,
+  "open_events": 0,
+  "settled_n": 200,
+  "settled_vol_median": 151982.47,
+  "settled_vol_sum": 35976852.20999999,
+  "settled_results": {
+   "yes": 100,
+   "no": 100,
+   "scalar": 0
+  },
+  "scalar_values": [],
+  "settled_span": [
+   "2026-10-15T21:58:23Z",
+   "2026-11-15T00:04:42Z"
+  ],
+  "rules_primary": "If Gen.G wins game 4 in the Worlds 2026: Gen.G vs. Bilibili Gaming League of Legends match originally scheduled for Nov 14, 2026 at 2:40 PM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to game 4 in the Worlds 2026: Gen.G vs. Bilibili Gaming League of Legends match originally scheduled for Nov 14, 2026 at 2:40 PM EST\nIf the relevant match or map is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant map is cancelled before play begins, the market will resolve to the fair market price.\nIf a match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf a map is forfeited before any play occurs in the map, the market will resolve to the fair market price.\nIf a map begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXLOLMAP-26NOV141400GENBLG-4-GEN",
+   "event_ticker": "KXLOLMAP-26NOV141400GENBLG-4",
+   "title": "Gen.G wins game 4",
+   "yes_sub_title": "Gen.G",
+   "open_time": "2026-11-14T21:59:00Z",
+   "close_time": "2026-11-15T00:04:42Z",
+   "expected_expiration_time": "2026-11-14T22:40:00Z",
+   "latest_expiration_time": "2026-11-16T19:40:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 119
+  },
+  "open_sample": []
+ },
+ "KXVALORANTMAP": {
+  "open_markets": 94,
+  "open_events": 47,
+  "settled_n": 200,
+  "settled_vol_median": 446.985,
+  "settled_vol_sum": 217950.78,
+  "settled_results": {
+   "yes": 92,
+   "no": 92,
+   "scalar": 16
+  },
+  "scalar_values": [
+   "0.1500",
+   "0.8500",
+   "0.1500",
+   "0.8500",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.5000",
+   "0.2500",
+   "0.7500",
+   "0.2500",
+   "0.7500"
+  ],
+  "settled_span": [
+   "2026-11-12T12:35:30Z",
+   "2026-11-18T12:30:29Z"
+  ],
+  "rules_primary": "If Oasis Gaming wins map 3 in the Asia Pacific Predator League Philippines 2027: Oasis Gaming vs. Maxxing Valorant match originally scheduled for Nov 22, 2026 at 1:00 AM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to map 3 in the Asia Pacific Predator League Philippines 2027: Oasis Gaming vs. Maxxing Valorant match originally scheduled for Nov 22, 2026 at 1:00 AM EST\nIf the relevant match or map is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant map is cancelled before play begins, the market will resolve to the fair market price.\nIf a match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf a map is forfeited before any play occurs in the map, the market will resolve to the fair market price.\nIf a map begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXVALORANTMAP-26NOV220100OASMAX-3-OAS",
+   "event_ticker": "KXVALORANTMAP-26NOV220100OASMAX-3",
+   "title": "Oasis Gaming wins map 3",
+   "yes_sub_title": "Oasis Gaming",
+   "open_time": "2026-11-19T00:25:00Z",
+   "close_time": "2026-11-24T06:00:00Z",
+   "expected_expiration_time": "2026-11-22T09:00:00Z",
+   "latest_expiration_time": "2026-11-24T06:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 119
+  },
+  "open_sample": [
+   {
+    "ticker": "KXVALORANTMAP-26NOV220100OASMAX-3-OAS",
+    "yes_sub_title": "Oasis Gaming",
+    "yes_bid_dollars": "0.0600",
+    "yes_ask_dollars": "0.9400",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T06:00:00Z",
+    "expected_expiration_time": "2026-11-22T09:00:00Z"
+   },
+   {
+    "ticker": "KXVALORANTMAP-26NOV220100OASMAX-3-MAX",
+    "yes_sub_title": "Maxxing",
+    "yes_bid_dollars": "0.0600",
+    "yes_ask_dollars": "0.9400",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T06:00:00Z",
+    "expected_expiration_time": "2026-11-22T09:00:00Z"
+   },
+   {
+    "ticker": "KXVALORANTMAP-26NOV220100OASMAX-2-OAS",
+    "yes_sub_title": "Oasis Gaming",
+    "yes_bid_dollars": "0.0600",
+    "yes_ask_dollars": "0.9400",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T06:00:00Z",
+    "expected_expiration_time": "2026-11-22T09:00:00Z"
+   },
+   {
+    "ticker": "KXVALORANTMAP-26NOV220100OASMAX-2-MAX",
+    "yes_sub_title": "Maxxing",
+    "yes_bid_dollars": "0.0600",
+    "yes_ask_dollars": "0.9400",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T06:00:00Z",
+    "expected_expiration_time": "2026-11-22T09:00:00Z"
+   },
+   {
+    "ticker": "KXVALORANTMAP-26NOV220100OASMAX-1-OAS",
+    "yes_sub_title": "Oasis Gaming",
+    "yes_bid_dollars": "0.0600",
+    "yes_ask_dollars": "0.9400",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T06:00:00Z",
+    "expected_expiration_time": "2026-11-22T09:00:00Z"
+   },
+   {
+    "ticker": "KXVALORANTMAP-26NOV220100OASMAX-1-MAX",
+    "yes_sub_title": "Maxxing",
+    "yes_bid_dollars": "0.0600",
+    "yes_ask_dollars": "0.9400",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T06:00:00Z",
+    "expected_expiration_time": "2026-11-22T09:00:00Z"
+   }
+  ]
+ },
+ "KXDOTA2MAP": {
+  "open_markets": 80,
+  "open_events": 40,
+  "settled_n": 200,
+  "settled_vol_median": 2963.635,
+  "settled_vol_sum": 1623750.0499999998,
+  "settled_results": {
+   "yes": 96,
+   "no": 96,
+   "scalar": 8
+  },
+  "scalar_values": [
+   "0.4000",
+   "0.6000",
+   "0.4000",
+   "0.6000",
+   "0.3500",
+   "0.6500",
+   "0.4800",
+   "0.5200"
+  ],
+  "settled_span": [
+   "2026-11-15T11:00:47Z",
+   "2026-11-18T20:29:47Z"
+  ],
+  "rules_primary": "If Spirit Academy wins map 2 in the European Pro League 2026: Team Allied vs. Spirit Academy Dota 2 match originally scheduled for Nov 22, 2026 at 11:00 AM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to map 2 in the European Pro League 2026: Team Allied vs. Spirit Academy Dota 2 match originally scheduled for Nov 22, 2026 at 11:00 AM EST\nIf the relevant match or map is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant map is cancelled before play begins, the market will resolve to the fair market price.\nIf a match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf a map is forfeited before any play occurs in the map, the market will resolve to the fair market price.\nIf a map begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXDOTA2MAP-26NOV221100ALLSPIRITAC-2-SPIRITAC",
+   "event_ticker": "KXDOTA2MAP-26NOV221100ALLSPIRITAC-2",
+   "title": "Spirit Academy wins map 2",
+   "yes_sub_title": "Spirit Academy",
+   "open_time": "2026-11-19T00:25:00Z",
+   "close_time": "2026-11-24T16:00:00Z",
+   "expected_expiration_time": "2026-11-22T19:00:00Z",
+   "latest_expiration_time": "2026-11-24T16:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 119
+  },
+  "open_sample": [
+   {
+    "ticker": "KXDOTA2MAP-26NOV221100ALLSPIRITAC-2-SPIRITAC",
+    "yes_sub_title": "Spirit Academy",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.8500",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T16:00:00Z",
+    "expected_expiration_time": "2026-11-22T19:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2MAP-26NOV221100ALLSPIRITAC-2-ALL",
+    "yes_sub_title": "Team Allied",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.8500",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T16:00:00Z",
+    "expected_expiration_time": "2026-11-22T19:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2MAP-26NOV221100ALLSPIRITAC-1-SPIRITAC",
+    "yes_sub_title": "Spirit Academy",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.8500",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T16:00:00Z",
+    "expected_expiration_time": "2026-11-22T19:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2MAP-26NOV221100ALLSPIRITAC-1-ALL",
+    "yes_sub_title": "Team Allied",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.8500",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T16:00:00Z",
+    "expected_expiration_time": "2026-11-22T19:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2MAP-26NOV220500REDPRAN-2-RED",
+    "yes_sub_title": "Red John",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.8500",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T10:00:00Z",
+    "expected_expiration_time": "2026-11-22T13:00:00Z"
+   },
+   {
+    "ticker": "KXDOTA2MAP-26NOV220500REDPRAN-2-PRAN",
+    "yes_sub_title": "Power Rangers",
+    "yes_bid_dollars": "0.0100",
+    "yes_ask_dollars": "0.8500",
+    "volume_fp": "0.00",
+    "open_interest_fp": "0.00",
+    "close_time": "2026-11-24T10:00:00Z",
+    "expected_expiration_time": "2026-11-22T13:00:00Z"
+   }
+  ]
+ },
+ "KXR6GAME": {
+  "open_markets": 0,
+  "open_events": 0,
+  "settled_n": 200,
+  "settled_vol_median": 6240.8099999999995,
+  "settled_vol_sum": 2683954.81,
+  "settled_results": {
+   "yes": 96,
+   "no": 96,
+   "scalar": 8
+  },
+  "scalar_values": [
+   "0.4600",
+   "0.5400",
+   "0.4800",
+   "0.5200",
+   "0.3500",
+   "0.6500",
+   "0.3500",
+   "0.6500"
+  ],
+  "settled_span": [
+   "2026-10-04T22:19:38Z",
+   "2026-11-15T06:49:43Z"
+  ],
+  "rules_primary": "If FaZe Clan wins the BLAST R6 Major Osaka 2026: FaZe Clan vs. DarkZero Esports R6 match originally scheduled for Nov 14, 2026 at 10:30 PM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to the full match in the BLAST R6 Major Osaka 2026: FaZe Clan vs. DarkZero Esports R6 match originally scheduled for Nov 14, 2026 at 10:30 PM EST\nIf the relevant match is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf the relevant match begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXR6GAME-26NOV142230FAZEDZ-FAZE",
+   "event_ticker": "KXR6GAME-26NOV142230FAZEDZ",
+   "title": "Will FaZe Clan win the FaZe Clan vs. DarkZero Esports R6 match?",
+   "yes_sub_title": "FaZe Clan",
+   "open_time": "2026-11-14T07:55:00Z",
+   "close_time": "2026-11-15T06:49:43Z",
+   "expected_expiration_time": "2026-11-15T07:30:00Z",
+   "latest_expiration_time": "2026-11-17T03:30:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 118
+  },
+  "open_sample": []
+ },
+ "KXCODGAME": {
+  "open_markets": 0,
+  "open_events": 0,
+  "settled_n": 62,
+  "settled_vol_median": 22061.614999999998,
+  "settled_vol_sum": 1720416.85,
+  "settled_results": {
+   "yes": 31,
+   "no": 31,
+   "scalar": 0
+  },
+  "scalar_values": [],
+  "settled_span": [
+   "2026-11-06T19:49:44Z",
+   "2026-11-09T01:29:41Z"
+  ],
+  "rules_primary": "If Toronto KOI wins the Monster Launch Invitational 2027: Paris Gentle Mates vs. Toronto KOI Call of Duty match originally scheduled for Nov 8, 2026 at 7:00 PM EST, then the market resolves to Yes.",
+  "rules_secondary": "Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXCODGAME-26NOV081900PARTOR-TOR",
+   "event_ticker": "KXCODGAME-26NOV081900PARTOR",
+   "title": "Will Toronto KOI win the Paris Gentle Mates vs. Toronto KOI match?",
+   "yes_sub_title": "Toronto KOI",
+   "open_time": "2026-11-08T23:15:00Z",
+   "close_time": "2026-11-09T01:29:41Z",
+   "expected_expiration_time": "2026-11-09T04:00:00Z",
+   "latest_expiration_time": "2026-11-11T00:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 300
+  },
+  "open_sample": []
+ },
+ "KXROCKETLEAGUEGAME": {
+  "open_markets": 0,
+  "open_events": 0,
+  "settled_n": 0,
+  "settled_vol_median": null,
+  "settled_vol_sum": 0.0,
+  "settled_results": {
+   "yes": 0,
+   "no": 0,
+   "scalar": 0
+  },
+  "scalar_values": [],
+  "settled_span": [
+   null,
+   null
+  ],
+  "rules_primary": null,
+  "rules_secondary": null,
+  "example": {
+   "ticker": null,
+   "event_ticker": null,
+   "title": null,
+   "yes_sub_title": null,
+   "open_time": null,
+   "close_time": null,
+   "expected_expiration_time": null,
+   "latest_expiration_time": null,
+   "can_close_early": null,
+   "early_close_condition": null,
+   "settlement_timer_seconds": null
+  },
+  "open_sample": []
+ },
+ "KXMLBBGAME": {
+  "open_markets": 0,
+  "open_events": 0,
+  "settled_n": 200,
+  "settled_vol_median": 129.04500000000002,
+  "settled_vol_sum": 62856.82,
+  "settled_results": {
+   "yes": 99,
+   "no": 99,
+   "scalar": 2
+  },
+  "scalar_values": [
+   "0.5000",
+   "0.5000"
+  ],
+  "settled_span": [
+   "2026-10-23T10:29:45Z",
+   "2026-11-15T18:29:46Z"
+  ],
+  "rules_primary": "If Team Yandex wins the BetBoom Rise of Legends 2026: Aurevia Team vs. Team Yandex Mobile Legends: Bang Bang match originally scheduled for Nov 15, 2026 at 11:00 AM EST, then the market resolves to Yes.",
+  "rules_secondary": "The following market refers to the full match in the BetBoom Rise of Legends 2026: Aurevia Team vs. Team Yandex Mobile Legends: Bang Bang match originally scheduled for Nov 15, 2026 at 11:00 AM EST\nIf the relevant match is postponed and not started within 48 hours of its originally scheduled start time, the market will resolve to the fair market price.\nIf the relevant match is cancelled before play begins, the market will resolve to the fair market price.\nIf the relevant match is forfeited before any play occurs, the market will resolve to the fair market price.\nIf the relevant match begins and is subsequently forfeited, the market will resolve according to the official result published by the governing body or tournament organizer.\n\nKalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.",
+  "example": {
+   "ticker": "KXMLBBGAME-26NOV151100AURYNDX-YNDX",
+   "event_ticker": "KXMLBBGAME-26NOV151100AURYNDX",
+   "title": "Team Yandex wins",
+   "yes_sub_title": "Team Yandex",
+   "open_time": "2026-11-15T15:05:00Z",
+   "close_time": "2026-11-15T18:29:46Z",
+   "expected_expiration_time": "2026-11-15T20:00:00Z",
+   "latest_expiration_time": "2026-11-17T16:00:00Z",
+   "can_close_early": true,
+   "early_close_condition": "This market will close and expire after a winner is declared.",
+   "settlement_timer_seconds": 180
+  },
+  "open_sample": []
+ },
+ "KXDOTA2GAME3WAY": {
+  "open_markets": 0,
+  "open_events": 0,
+  "settled_n": 0,
+  "settled_vol_median": null,
+  "settled_vol_sum": 0.0,
+  "settled_results": {
+   "yes": 0,
+   "no": 0,
+   "scalar": 0
+  },
+  "scalar_values": [],
+  "settled_span": [
+   null,
+   null
+  ],
+  "rules_primary": null,
+  "rules_secondary": null,
+  "example": {
+   "ticker": null,
+   "event_ticker": null,
+   "title": null,
+   "yes_sub_title": null,
+   "open_time": null,
+   "close_time": null,
+   "expected_expiration_time": null,
+   "latest_expiration_time": null,
+   "can_close_early": null,
+   "early_close_condition": null,
+   "settlement_timer_seconds": null
+  },
+  "open_sample": []
+ }
+}

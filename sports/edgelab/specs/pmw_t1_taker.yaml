@@ -1,0 +1,18 @@
+id: pmw_t1_taker
+family: cross_venue
+dataset: pm_wallet_signal
+rule: edgelab.rules.pm_wallet:t1
+hypothesis: 'PMW T1: Polymarket wallets that were skilled on taker fills held to resolution in earlier game-winner
+  markets (>= 20 games, >= $5k risk, two-sided share <= .5, ROI > 0, game-level z >= 2.5) carry information Kalshi has
+  not priced. After such a wallet''s single taker fill >= $500 on a matched NBA/NHL/MLB/NFL/CBB/CFB game winner (first
+  per game x direction per 10 min, Kalshi mid .05-.95, >= 120 s before Kalshi close), buying the same side on Kalshi
+  at the ask of the first 1-min candle ending within 60 s + taker fee, held to settlement, earns > 0.'
+decision_time: end of the first Kalshi 1-min candle after the PM block time (0-60 s later)
+price_model: taker
+split: vault:pm_wallet_signal
+min_n: 200
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+legacy: 'new 2026-11-18 (scripts/pm_wallet_signal.py, notes/pm_wallet_signal.md); registered before any split trade or
+  price was pulled. Extra pre-registered kills K1 (Kalshi moved first) / K2 (reprices within 60 s) are in the notes.'

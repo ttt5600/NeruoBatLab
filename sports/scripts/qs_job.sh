@@ -220,6 +220,17 @@ case "$job" in
     if [ $rc -ne 0 ] || [ -n "$out" ]; then
       { echo "=== $(date '+%F %T %Z') $job: quake_monthly_logger.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
+  # ---- esports_pinnacle (11-18, notes/esports_pinnacle.md 'Ops'): READ-ONLY; installed by scripts/install_esports_pin_agent.sh
+  esports-pin)  # ESP1 Kalshi esports books vs Pinnacle esports odds (+ quote age) for matches starting within 6 h.
+                # launchd 120 s, 24 h; every run writes a fetch row (coverage denominator); stdout only on matches/bets.
+                # settle paper bets at most once per hour.
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/esports_pin_logger.py tick 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/esports_pin_heartbeat
+    if [ $rc -ne 0 ] || [ -n "$out" ]; then
+      { echo "=== $(date '+%F %T %Z') $job: esports_pin_logger.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi
+    now=$(date +%s); last=$(cat state/esports_pin_settle_last 2>/dev/null || echo 0)
+    if [ $((now - last)) -ge 3600 ]; then run scripts/esports_pin_logger.py settle && echo "$now" > state/esports_pin_settle_last; fi ;;
   digest)
     /usr/bin/caffeinate -i /bin/bash scripts/qs_digest.sh "${2:-}" >> "$LOG" 2>&1 ;;
   *) echo "unknown job $job" >&2; exit 2 ;;
