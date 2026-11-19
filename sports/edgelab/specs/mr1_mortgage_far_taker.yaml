@@ -1,0 +1,21 @@
+id: mr1_mortgage_far_taker
+family: kalshi_data_ladders
+dataset: kalshi_mortgage30
+rule: edgelab.rules.forward:unwired
+hypothesis: 'MR1 (prereg notes/mortgage_rates.md). KX30YMORTW settles on the first-published Freddie Mac PMMS 30Y FRM.
+  Nowcast N1 at T = release Thursday 14:00Z from ALFRED vintage D-1: mu = P0 + 0.981 * (mean OBMMIC30YF Thu..Wed - prior
+  week mean); margin m = 0.11 (max |resid| 0.085 over 180 calibration weeks 2023-01..2026-09, + 0.02). NO on greater-K if
+  K >= mu + m, YES if K + 0.01 <= mu - m; buy at side ask (last hourly candle <= T) + exact taker fee iff ask in
+  [.50,.98]; 1 ct per rung; cluster = event.'
+decision_time: 'release Thursday 14:00 UTC (pre-release; market closes 15:59/16:59Z)'
+price_model: taker
+split: vault:kalshi_mortgage30
+min_n: 40
+kill:
+  kind: losses_in_first
+  n: 20
+  max_losses: 2
+fee:
+  rounding: exact
+legacy: 'new 2026-11-19 (agent mortgage_rates). Dev (7 events) by results/mortgage_rates/dev.py: 59 far rungs, all side
+  asks 0.99-1.00 at T -> 0 bets. Registered so the family count includes it; retire immediately (no bet possible).'

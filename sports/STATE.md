@@ -1,7 +1,6 @@
 # fund STATE -- Updated: 2026-11-19 (handoff before /clear; full history: notes/STATE_HISTORY_to_2026-11-19.md)
-Next: merge unmerged rows in notes/findings_inbox.jsonl (agents fed_vs_futures + mortgage_rates were running at /clear --
-  rows after the last "kind":"merged" marker), add each to notes/LEARNINGS_2026-11.md (one ### per lesson), run vault ingest,
-  then launch the next 3-4 agents from notes/RESEARCH_QUEUE.md (user: keep agents running; approval on everything).
+Next: launch the next 3-4 research agents from notes/RESEARCH_QUEUE.md (user: keep agents running; approval on everything);
+  fed_vs_futures + mortgage_rates finished and are merged (both dead, LEARNINGS_2026-11.md). Check health digest first.
 
 ## Live money (Kalshi; launchd from ~/.claude/quant-kalshi; .env backups *.bak-2026-11-18-precaps)
 - E4 weather maker orig7: 24 ct >= .97 / 19 ct <= .96 (KALSHI_PRICE_BAND_CAPS). X1 (17 cities) RESTARTED 11-18: 6 ct, $30

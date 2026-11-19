@@ -48,6 +48,13 @@ Rebuilt from all 655 fills: settled election P&L -$143.34; had every closing fil
 to settlement) it would have been about +$52.74 -> exits cost ~$196. Kalshi would be ~$822 vs $731 net in. Exits fired on
 a stale needle model during the count. Lesson: a pre-committed hold-to-settlement plan beats reacting to a model mid-count.
 
+### A public index that tracks the settlement 1:1 gets priced in: Kalshi weekly mortgage rates
+KX30YMORTW (Freddie Mac PMMS, Thursdays; 10 events since 2026-09-17): nowcast = last PMMS + 0.981 x change in weekly-avg
+Optimal Blue OBMMI (ALFRED first-published) -> sd 1.8bp vs 9.3bp no-change, max miss 8.5bp, 0/180 PMMS revisions. Rule
+(NO > 11bp from nowcast): 59/59 strikes settled far side but all already 99-100c -> 0 taker bets; maker 3 posts, 0 fills.
+Market's two-sided strikes within ~+-5bp of the nowcast. ALFRED via python requests times out; curl works. Source:
+notes/mortgage_rates.md.
+
 ### Kalshi Fed-decision tails are not richer than fed funds futures imply -- busy book, no E4-style staleness
 22 meetings 2023-05..2025-12 (ZQ=F front month + EFFR; 44/66 cells usable): futures 0% -> Kalshi mid 1.0c (n89, 0 occurred);
 futures 5-20% -> Kalshi cheaper 5.0c vs 8.5% (n14, 0 occurred); near meetings within a few cents. Taker NO rule 7 bets (< min

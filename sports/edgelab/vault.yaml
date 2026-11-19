@@ -592,3 +592,12 @@ datasets:
       dev: null
       sealed: null
       forward: [2026-11-17, null]
+  kalshi_mortgage30:      # mortgage_rates 11-19: KX30YMORTW weekly PMMS ladders; prereg notes/mortgage_rates.md
+    loader: kx_forward_adapter_only   # dev scored by results/mortgage_rates/dev.py (0 bets); no edgelab loader -> unwired
+    family: kalshi_data_ladders
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:                                # date = PMMS release Thursday D; set 2026-11-19 before any quote/outcome join
+      dev: [2026-09-17, 2026-10-29]
+      sealed: [2026-11-05, 2026-11-12]     # untouched
+      forward: [2026-11-19, null]
