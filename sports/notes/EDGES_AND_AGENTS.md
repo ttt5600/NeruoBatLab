@@ -407,3 +407,10 @@ confirm home state (CA vs CO) for venue legality.
   Elo log loss .6663 vs Kalshi mid .5963 -> Kalshi esports is well priced; asks sum to median 1.02. Retired cs2e_elo_vs_kalshi_t60-836708b5.
 - Post-hoc lead (not a trial): favourites at mid .65-.80 bought at ask +4.0% [+0.8,+7.1] n1034, but band picked after seeing
   calibration and .50-.65 is -6.5% [-9.9,-3.0]. Needs fresh pre-reg (sealed window Oct 19 -> untouched).
+
+### pm_full_census (merged 2026-11-19, notes/pm_full_census.md, results/pm_full_census/) -- T1 DEAD
+- Census: 18,949 active global events ($202M vol/wk), 74,548 open PM US markets. Most volume is in categories already tested dead
+  (sports games, elections, culture, fed/macro). Untested: PM crypto ladders, equities/IPO, AI-leaderboard (LMArena), intl weather (global only).
+- PM US fee is 0.095 C p(1-p) on every market (was .0695 in our docs) -> PM US costs ~37% more than modelled.
+- T1 XV-US (buy PM US when ask+fee >= 3c through global PM, non-game markets) dev +1.73% [-12.59,+15.93] n470/96 events;
+  stale-price placebo +11.1% did as well -> dead. Trap: untraded global markets print ~0.5 in CLOB history (fake 30c edges).

@@ -398,3 +398,7 @@ level was 7.4e-6 at station-day level (12 losses = 6 weather events). Cluster at
 ### Paid-panel settlement sources are the opposite of E4 (altdata_kpi, 11-19)
 Kalshi's Carbon Arc series settle on a paywalled daily panel: subscribers ARE the informed side. Persistence nowcast CA1
 dev +2.05% [-10.5,+13.2] n74 (one calendar month). Rule: before modelling a series, check who sees the settlement data first.
+
+### Polymarket US taker fee is 0.095, not 0.0695 (pm_full_census, 11-19)
+API feeCoefficient = .095 on all 74,548 open PM US markets. Read fees from the API at decision time, never from notes.
+Untraded global PM markets show ~0.5 in CLOB price history -- never use it as a fair price.

@@ -9,7 +9,7 @@ orders; money changes stay with the user.
 ## Running (2026-11-19, lead launched)
 - forward_review_1119 -- score every forward/live trial vs its own pre-reg since 11-15 (notes/forward_review_2026-11-19.md)  [DONE 11-19: none promote; LX1 kill pending 11-20]
 - cs2_model -- public-results CS2 rating model vs Kalshi KXCS2GAME after taker fee, time split (notes/cs2_model.md)  [DONE 11-19: dead; FLB favourite post-hoc lead]
-- pm_full_census -- every active Polymarket (global + US) by category, tested vs untested, dev tests on best untested (notes/pm_full_census.md)
+- pm_full_census -- every active Polymarket (global + US) by category, tested vs untested, dev tests on best untested (notes/pm_full_census.md)  [DONE 11-19: T1 dead; PM US fee .095]
 - trading_ways_survey -- all non-PM retail trading strategies ranked for CA + $1-2k, pre-reg top 1-2 (notes/trading_ways_survey.md)  [DONE 11-19: nothing doubles; promos/RSA/odd-lot = small one-offs]
 - altdata_kpi -- census + pre-reg of JBLU / foot traffic / card spend / TikTok Shop / SPR series (notes/altdata_kpi.md)  [DONE 11-19: dead, Carbon Arc paywalled]
 ## Done 11-16..19: e4_timing, ot1_extension, tropical_nhc, forward_review_1115, fed_vs_futures, mortgage_rates (see LEARNINGS_2026-11.md)

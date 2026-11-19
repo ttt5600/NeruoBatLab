@@ -114,3 +114,64 @@ lags the global book on non-game markets, buying PM US toward the global price i
 | esports | 551 / $0.9M (+644 closed, $197M) | sports ESPORTS 244 | Kalshi ESP1 / cs2_model in flight; PM UNTESTED |
 | mentions | 9 / $0.1M | none | TESTED: H1 (l.207/241), Kalshi M1/M2 mention NO (l.330) |
 | earnings | 7 / ~$0 | none | TESTED: E1p/E2p/E3p (l.361-362) |
+- AMENDMENT A3 (before outcomes): 30-pair eyeball of RESOLVED matches (Jaccard >= 0.6) found ~4/30 wrong contracts
+  (RBC Canadian Open R3 leader -> U.S. Open R3 leader; "European Masters" -> the 2025 edition, 371 d apart; "CeeDee
+  Lamb" -> "traded?"; Women's Open -> CPKC Women's Open, 22 d apart). New filter (scripts/pm_full_census_a3.py):
+  |PM US endDate - global event endDate| <= 14 d AND every non-generic PM US question token appears in the global
+  event title or market question. 8,244 -> 4,992 markets / 293 events (sports futures 4,232 [golf, NASCAR, drafts],
+  culture 487, politics 202, technology 56, macro 15). Re-eyeball of 30 new random pairs: 30/30 same contract.
+  The universe is therefore mostly golf/NASCAR outrights + awards; the T1 verdict speaks for that mix.
+- AMENDMENT A4 (data-shape; found at the timestamp sanity check, before any bet/outcome was tabulated): CLOB
+  prices-history `interval=max, fidelity=60` returns NOTHING for markets resolved before ~2026-10-19 (global g_t
+  range in the first panel = 2026-10-19..11-18), i.e. only the last ~30 days have hourly history. `interval=all,
+  fidelity=720` returns the full life (12-hour points; e.g. SD Gov GOP primary 408 points 2025-12-11..2026-07-28).
+  Global reference switched to 12-hour points (reference age still capped at 3 days). Panel rebuilt for the A3 set only.
+
+## T1 XV-US result (DEV only; sealed = events ending after 2026-09-15 02:37Z, NOT opened)
+Command: `../.venv_quant/bin/python scripts/pm_full_census_xvus_score.py` -> results/pm_full_census/xvus_dev_report.txt;
+bets in results/pm_full_census/xvus_dev_bets.parquet. Panel: 62,878 PM US daily points over the A3 set; 10,592 valid
+after the pre-registered filters (dev 5,042 / sealed 5,550 rows). Dev markets: sports 860, culture 96, politics 65,
+technology 7, macro 3.
+| rule | n bets | events | ROI | 95% CI (event bootstrap) |
+|---|---|---|---|---|
+| T1 main, fee .095 | 470 | 96 | +1.73% | [-12.59, +15.93] |
+| T1, fee .0695 | 476 | 98 | +2.25% | [-11.30, +15.80] |
+| sensitivity: drop 7 d before "decided" | 302 | 80 | +8.88% | [-7.65, +25.27] |
+| P1 placebo: global lagged 7 d | 180 | 73 | +11.12% | [-3.64, +24.79] |
+| P2 placebo: reverse sign | 399 | 113 | -11.25% | [-19.81, -4.09] |
+| POST-HOC (after outcomes): drop global prices in [.49,.51] | 409 | 95 | +6.93% | [-7.97, +20.71] |
+**Verdict: DEAD on dev -- not distinguishable** (CI crosses 0; pre-registered kill). The stale-reference placebo P1
+earns as much as the live rule, so whatever positive drift there is would not be a lag effect anyway. Sealed unused.
+Row inspection (too-good guard): the biggest winners were YES longshots (NASCAR/golf/R3 leader) bought at 5-9c where
+the global "reference" was ~0.495 -- the CLOB history of an untraded global market sits at its 0.5 starting price.
+11.4% of dev rows have a global price in [.49,.51]. Mean claimed entry edge YES 0.308 / NO 0.183 = mostly that
+placeholder, not a real gap. Dropping those rows (post hoc, labelled as such) still crosses 0.
+What P2 does show: when PM US is priced >= 3c ABOVE global, buying it loses -11% [-19.8, -4.1]. The global book is the
+better price where they disagree, but PM US's cheap side is not cheap enough to pay spread + 0.095 fee.
+Not registered in edgelab (needs a dataset adapter); pre-registration is in this file above the result, with A1-A4.
+
+## Tests not run (and why)
+- PM US gas/diesel weekly (AAA): only 2 closed events per series on PM US (pmus_closed_ns.parquet); far rungs YES
+  bid .01 / ask .02 (pmus_bbo) -> nothing to buy, nothing to backtest. Same shape as state_gas.
+- International daily highs (HK, Tokyo, Guangzhou... $35-70k/city-day), PM crypto hit ladders, Elon tweet counts,
+  esports, crypto up/down: global-only (not CA-tradeable), and global history is mid/last, not ask. Leads only.
+- AI-model ranking markets (PM US technology 226 mkts, ~$6.4M): resolve off LMArena, a public leaderboard visible
+  before close -> information-lag lead; LMArena returned 403 in info_gap_census. Untested.
+
+## Learnings
+### Polymarket US now charges 0.095 p(1-p) taker on every market
+All 74,548 open PM US markets carry feeCoefficient 0.095 (results/pm_full_census/pmus_markets.parquet), up from 0.0695
+recorded 10-28 (notes/venues.md). Any PM US model costed at 0.0695 understates the taker fee by ~37%.
+### PM US does not lag global Polymarket on outrights/awards/politics enough to pay
+T1 XV-US dev: +1.73% [-12.6, +15.9] n470/96 events; stale-reference placebo +11.1% [-3.6, +24.8]. Dead.
+(notes/pm_full_census.md, results/pm_full_census/xvus_dev_report.txt)
+### Untraded Polymarket markets report a 0.5 price in CLOB history
+A global market with no trades shows ~0.495-0.5 in prices-history; used as a "fair" reference it fakes 30c+ edges on
+longshots. Filter references by traded volume / quote presence, never trust a 0.5 print.
+### CLOB prices-history: fidelity=60 with interval=max returns nothing for markets resolved > ~30 days ago
+Use interval=all with fidelity=720 (12 h) for full history of resolved markets.
+### Gamma /events offset caps at 2,500; use /events/keyset with next_cursor
+Also the PM US gateway pages past 2,500 fine, but stop on an EMPTY page, not a short one (one page returned 499).
+### Name-based cross-venue matching is ~10-13% wrong without an end-date check
+30-pair eyeball at Jaccard >= 0.6 had ~4 wrong contracts (other tournament, other year); end-date gap <= 14 d plus
+all-distinctive-tokens rule fixed 30/30.

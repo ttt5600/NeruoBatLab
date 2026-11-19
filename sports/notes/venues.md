@@ -26,6 +26,7 @@ not confirmed against the venue; UNVERIFIED = no source.
   also TypeScript `polymarket-us`. Public calls work with `PolymarketUS()` and no keys. We did NOT install it -- our
   read-only module uses plain `requests` against the gateway.
 - Fees [F docs.polymarket.us/fees.md, effective 2026-10-19 1 pm ET]: taker = 0.0695 x C x p x (1-p) (table tennis 0.10);
+- **UPDATE 2026-11-19 (pm_full_census): API feeCoefficient = 0.095 on ALL 74,548 open PM US markets (results/pm_full_census/pmus_markets.parquet). Use 0.095, not 0.0695; re-check old PM US results costed at .0695 (F4, pmus_lag, LX3).**
   maker rebates only from $10M/month maker volume; taker rebates only from $250k/month. Essentially Kalshi's 0.07 formula.
 - KYC / funding [F .../learn/get-started/signup.md, fund-account.md]: sign up with Google/Apple ID in the app; DOB, phone,
   legal name, address, SSN; sometimes ID + selfie. KYC before deposit. Deposits: debit card, ACH, Apple Pay, PayPal,

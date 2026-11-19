@@ -1,0 +1,12 @@
+valid rows 10592 dev/sealed rows {'sealed': 5550, 'dev': 5042} cut 2026-09-15 02:37:02+00:00
+dev categories {'sports': 860, 'culture': 96, 'politics': 65, 'technology': 7, 'macro': 3}
+T1 main (fee .095)                 n=  470 events=  96 ROI=+1.73% CI[-12.59,+15.93] pnl=+2.19 max_event_share=1.93 yes/no=329/141
+T1 fee .0695                       n=  476 events=  98 ROI=+2.25% CI[-11.30,+15.80] pnl=+2.88 max_event_share=1.50 yes/no=332/144
+T1 sens: drop 7d pre-decided       n=  302 events=  80 ROI=+8.88% CI[-7.65,+25.27] pnl=+8.08 max_event_share=0.47 yes/no=196/106
+P1 placebo: global lagged 7d       n=  180 events=  73 ROI=+11.12% CI[-3.64,+24.79] pnl=+9.11 max_event_share=0.36 yes/no=66/114
+P2 placebo: reverse sign           n=  399 events= 113 ROI=-11.25% CI[-19.81,-4.09] pnl=-26.76 max_event_share=0.18 yes/no=207/192
+  by cat culture                   n=   46 events=  14 ROI=+7.87% CI[-30.65,+26.38] pnl=+1.24 max_event_share=1.52 yes/no=26/20
+  by cat macro                     n=    3 events=   3 ROI=+75.79% CI[-100.00,+202.74] pnl=+0.43 max_event_share=1.55 yes/no=1/2
+  by cat politics                  n=   45 events=  23 ROI=+16.28% CI[-14.77,+46.82] pnl=+3.50 max_event_share=0.41 yes/no=21/24
+  by cat sports                    n=  371 events=  53 ROI=-5.18% CI[-22.99,+12.55] pnl=-4.48 max_event_share=0.95 yes/no=279/92
+  by cat technology                n=    5 events=   3 ROI=+60.18% CI[-100.00,+90.93] pnl=+1.50 max_event_share=0.95 yes/no=2/3
