@@ -259,8 +259,8 @@ datasets:
   pm_wallet_signal:
     loader: pm_wallet_signal
     family: cross_venue
-    hidden: [result]                       # Kalshi team-ticker settlement; bet_id = kticker|t_pm|side
-    outcome: {kind: result_equals_side, key: ticker}
+    hidden: [result, sv]                   # Kalshi team-ticker settlement (+ value for scalar); bet_id = kticker|t_pm|side
+    outcome: {kind: result_equals_side, key: ticker, value_col: sv}
     splits:                                # set 2026-11-18 (notes/pm_wallet_signal.md) before any split trade/price was
       dev: [2026-01-01, 2026-04-30]        # pulled; key = game date (PM slug). Skill window 2025-04-01..2025-12-31
       sealed: [2026-05-01, 2026-11-05]     # (train, not loadable here); sealed skill = same rule on games < 2026-05-01

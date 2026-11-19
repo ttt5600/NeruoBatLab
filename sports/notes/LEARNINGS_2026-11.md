@@ -152,6 +152,12 @@ per league to certify. Kalshi close vs DK de-vigged close at the book line: pool
 NFL -0.46, CBB -0.17 differ). ROI on net CLV for our rows: slope 1.25 [0.28,2.31] n398 -- unresolved. Bias under our
 selection undetectable. CLV stays a diagnostic. Source: notes/clv_calibration.md.
 
+### 'Skilled' Polymarket wallets don't stay skilled, and Kalshi reprices before you could copy them
+Sports game winners (12,176 matched games): 53/2,681 wallets 'skilled' on 2025 (~17 by chance); their own 2026 PM fills +0.75%
+[-9.2,+11.1], median wallet -6%. Copying on Kalshi (2,276 bets): their trades were contrarian dip buys; Kalshi moved 1.69c
+against before and bounced 0.64c by our fill (kill K2: repriced < 60 s); ROI -2.36% [-5.19,+0.32], CLV -5.10c. Forum
+survivorship again. PM data-api v2 cursor pages need the original params re-sent. Source: notes/pm_wallet_signal.md.
+
 ### Season-settled contracts can never pass the dev gate: profit lands in one week by construction
 LX2 climate T-90 tail NO (lx2c_a_t90_climate_tail_no): dev 70 bets / 36 events, 0 losses, +3.01% [+2.61,+3.42] but dead on
 concentration (one week 48% -- all hurricane markets settle ~Nov 30), no close prices for CLV, and Sharpe 6.3 too-good guard;

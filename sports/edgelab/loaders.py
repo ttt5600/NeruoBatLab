@@ -791,7 +791,7 @@ def pm_wallet_signal():
     fr = D / "results.parquet"
     r = pd.read_parquet(fr).drop_duplicates("ticker")
     srcs.append(str(fr))
-    x = x.merge(r[["ticker", "result"]], on="ticker", how="left")
+    x = x.merge(r[["ticker", "result", "sv"]], on="ticker", how="left")   # sv = YES settlement value (scalar rows)
     x["date"] = pd.to_datetime(x["date"])
     return x, srcs
 
