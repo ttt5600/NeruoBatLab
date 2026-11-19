@@ -1,3 +1,7 @@
+## 2026-11-18 USER: "keep looking for edges ... you have my approval on everything". APPLIED: E4 price bands, X1 restart
+##   (6 ct, $30 sub-cap, kill), TSA yes-only, shard target 0=80 2=15 3=5 (notes/SIZING_RULE.md). RUNNING: forum_strategy_scout
+##   (user: r/Polymarket winning strategies), ops_edgelab_v2_apply (SCORING_VERSION 2), lx2_climate_sealed (one-shot sealed),
+##   critic_amendment_v2 (rule amendment final check). NOT done without user: paid feed signup, emailing Kalshi support.
 ## 2026-11-15 12:12 PT RESOLVED (user yes): `bet.py allocate 0=95 3=5 --confirm` -> shard 0 $574.40, 3 $28.84, 2 $1.14
 ##   (auto-rebalance ON). The 11-13 ~$500 BTC 15-min trade was the USER's (manual, not a bot). Note: shard 2 target 0% --
 ##   user's own crypto trades may lack cash; offered 0=80 2=15 3=5. DUL missed the 1pm ET slate; LA@ARI + SNF still live.

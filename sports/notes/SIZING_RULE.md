@@ -55,6 +55,14 @@ intended brake.
 .env (backup .env.bak-2026-11-12-preKelly2): MAX_CONTRACTS 24, MAX_ORDER_USD 24.80, ORIG7_FRAC .062, NIGHT_FRAC .30,
 MAX_DAILY_USD 120, MAX_OPEN_USD 120. Revert to step 1 if E4 loses >= 10% of bankroll (~$38) since 11-12 or a kill fires.
 
+## Applied 2026-11-18 (user: "you have my approval on everything"; notes/ops_e4_prep.md)
+- E4 price bands: KALSHI_PRICE_BAND_CAPS=0.97:24,0:19 (19 ct at NO <= .96 per pessimistic-fill 1/4 Kelly, e4_evidence.md).
+- X1 restart: KALSHI_COHORTS=orig7,x1, X1 6 ct / $6 per order, X1 day+open sub-cap $30, kill since 2026-11-18 (2 losses in
+  first 30 fills or ROI < 0 after 60 -> X1 paused, orig7 unaffected); shared caps 150/150, NIGHT_FRAC .375 (orig7 room $120).
+  Lead's own view: X1 paper since the pause is consistent with no edge (SPRT LLR +0.28) -- restart is the user's call, small.
+- TSA live YES-only (LEAD_TSA_SIDES=yes). Shard target 0=80 2=15 3=5 (user's own crypto room).
+- Backups: scripts/*.bak-2026-11-18-precaps, .env.bak-2026-11-18-precaps. Preflight 0 FAIL / 0 WARN.
+
 Critic 11-15 (critic_e4_step2): KEEP 24, no step 3. Corrections: r = 1.57% is the POOLED E1+X1 sealed CI; orig-7 (E1)
 alone sealed 1,844 picks ROI +2.87%, fill .857, no E1-only CI on record (to compute). Live orig-7 fill 30/44 (68%) vs
 sealed .857 -> sealed fill model optimistic. Live 1 loss in 95 paper picks vs ~2 expected = lucky. Bad night 1-in-100
