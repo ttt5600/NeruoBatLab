@@ -1,0 +1,188 @@
+{
+ "T1_dev_cost0.005": {
+  "days": 720,
+  "ann_ret_on_capital": 0.117,
+  "ann_rf": 0.0492,
+  "ann_excess": 0.0678,
+  "monthly_excess_mean": 0.00557,
+  "monthly_excess_ci90": [
+   0.00267,
+   0.00857
+  ],
+  "n_months": 24,
+  "frac_days_on": 1.0,
+  "usd_per_month_on_1500": 14.61
+ },
+ "T1_holdout_cost0.005": {
+  "days": 566,
+  "ann_ret_on_capital": 0.0515,
+  "ann_rf": 0.0383,
+  "ann_excess": 0.0132,
+  "monthly_excess_mean": 0.00108,
+  "monthly_excess_ci90": [
+   0.00015,
+   0.00206
+  ],
+  "n_months": 19,
+  "frac_days_on": 1.0,
+  "usd_per_month_on_1500": 6.43
+ },
+ "T2_dev_cost0.005": {
+  "days": 720,
+  "ann_ret_on_capital": 0.1158,
+  "ann_rf": 0.0492,
+  "ann_excess": 0.0666,
+  "monthly_excess_mean": 0.00547,
+  "monthly_excess_ci90": [
+   0.00246,
+   0.00855
+  ],
+  "n_months": 24,
+  "frac_days_on": 0.917,
+  "usd_per_month_on_1500": 14.46
+ },
+ "T2_holdout_cost0.005": {
+  "days": 566,
+  "ann_ret_on_capital": 0.0423,
+  "ann_rf": 0.0383,
+  "ann_excess": 0.004,
+  "monthly_excess_mean": 0.00032,
+  "monthly_excess_ci90": [
+   -0.00117,
+   0.0017
+  ],
+  "n_months": 19,
+  "frac_days_on": 0.945,
+  "usd_per_month_on_1500": 5.28
+ },
+ "T1_dev_cost0.01": {
+  "days": 720,
+  "ann_ret_on_capital": 0.1119,
+  "ann_rf": 0.0492,
+  "ann_excess": 0.0627,
+  "monthly_excess_mean": 0.00515,
+  "monthly_excess_ci90": [
+   0.00207,
+   0.00826
+  ],
+  "n_months": 24,
+  "frac_days_on": 1.0,
+  "usd_per_month_on_1500": 13.98
+ },
+ "T1_holdout_cost0.01": {
+  "days": 566,
+  "ann_ret_on_capital": 0.0493,
+  "ann_rf": 0.0383,
+  "ann_excess": 0.011,
+  "monthly_excess_mean": 0.0009,
+  "monthly_excess_ci90": [
+   -0.00018,
+   0.00198
+  ],
+  "n_months": 19,
+  "frac_days_on": 1.0,
+  "usd_per_month_on_1500": 6.16
+ },
+ "T2_dev_cost0.01": {
+  "days": 720,
+  "ann_ret_on_capital": 0.1023,
+  "ann_rf": 0.0492,
+  "ann_excess": 0.0531,
+  "monthly_excess_mean": 0.00436,
+  "monthly_excess_ci90": [
+   0.00053,
+   0.00802
+  ],
+  "n_months": 24,
+  "frac_days_on": 0.917,
+  "usd_per_month_on_1500": 12.78
+ },
+ "T2_holdout_cost0.01": {
+  "days": 566,
+  "ann_ret_on_capital": 0.0294,
+  "ann_rf": 0.0383,
+  "ann_excess": -0.0089,
+  "monthly_excess_mean": -0.00073,
+  "monthly_excess_ci90": [
+   -0.00306,
+   0.00132
+  ],
+  "n_months": 19,
+  "frac_days_on": 0.945,
+  "usd_per_month_on_1500": 3.67
+ },
+ "T1_dev_cost0.02": {
+  "days": 720,
+  "ann_ret_on_capital": 0.1018,
+  "ann_rf": 0.0492,
+  "ann_excess": 0.0526,
+  "monthly_excess_mean": 0.00432,
+  "monthly_excess_ci90": [
+   0.00084,
+   0.00774
+  ],
+  "n_months": 24,
+  "frac_days_on": 1.0,
+  "usd_per_month_on_1500": 12.71
+ },
+ "T1_holdout_cost0.02": {
+  "days": 566,
+  "ann_ret_on_capital": 0.045,
+  "ann_rf": 0.0383,
+  "ann_excess": 0.0067,
+  "monthly_excess_mean": 0.00055,
+  "monthly_excess_ci90": [
+   -0.001,
+   0.00191
+  ],
+  "n_months": 19,
+  "frac_days_on": 1.0,
+  "usd_per_month_on_1500": 5.63
+ },
+ "T2_dev_cost0.02": {
+  "days": 720,
+  "ann_ret_on_capital": 0.0752,
+  "ann_rf": 0.0492,
+  "ann_excess": 0.026,
+  "monthly_excess_mean": 0.00214,
+  "monthly_excess_ci90": [
+   -0.00359,
+   0.00721
+  ],
+  "n_months": 24,
+  "frac_days_on": 0.917,
+  "usd_per_month_on_1500": 9.4
+ },
+ "T2_holdout_cost0.02": {
+  "days": 566,
+  "ann_ret_on_capital": 0.0036,
+  "ann_rf": 0.0383,
+  "ann_excess": -0.0347,
+  "monthly_excess_mean": -0.00283,
+  "monthly_excess_ci90": [
+   -0.00691,
+   0.00067
+  ],
+  "n_months": 19,
+  "frac_days_on": 0.945,
+  "usd_per_month_on_1500": 0.45
+ },
+ "gross_funding_ann_by_year": {
+  "2023": 0.1682,
+  "2024": 0.2309,
+  "2025": 0.0958,
+  "2026": 0.0575
+ },
+ "liquidation_check": {
+  "BTC-USD": {
+   "max_1d_rise": 0.1252,
+   "max_7d_rise": 0.3081,
+   "max_30d_rise": 0.5894
+  },
+  "ETH-USD": {
+   "max_1d_rise": 0.218,
+   "max_7d_rise": 0.4766,
+   "max_30d_rise": 0.6962
+  }
+ }
+}

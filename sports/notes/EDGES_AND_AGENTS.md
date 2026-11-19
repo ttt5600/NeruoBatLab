@@ -393,3 +393,11 @@ confirm home state (CA vs CO) for venue legality.
   daily. Free proxy (last settled month) CA1 dev: ROI +2.05% [-10.5,+13.2] n74/28 events, not distinguishable -> retired
   (ca1_carbonarc_persist_taker-13c39cc2). KXJBLU / Fiscal.ai KPIs (283 series): ~1 event/quarter -> watch only. KXSPRLVLDATE dead.
 - Open: app-download series vs Google Trends YoY (untested, weak power); Carbon Arc free signup = user call.
+
+### trading_ways_survey (merged 2026-11-19, notes/trading_ways_survey.md, results/trading_ways_survey/)
+- No strategy plausibly doubles $1-2k in a month with +EV. Base rate of hitting 2x before 0.5x within 1 month, all-in from
+  each month start: MSTR 2.6% [1.2,5.0], COIN 1.5%, SOXL 1.0% [0.1,3.6], SPY/QQQ/TQQQ/BTC/ETH 0 (dbl_baserates.json).
+- FC1 crypto funding carry (Hyperliquid proxy) DEAD: holdout excess vs T-bill 90% CI [-0.018,+0.198]%/mo; T2 variant -0.89%/yr.
+- Ranked positives (small, one-off): (1) CFTC venue sign-up promos hedged on Kalshi [UNVERIFIED terms; user identity step],
+  (2) RSA scaling after first credits ~12-07..12-11, (3) odd-lot tender watcher on EDGAR SC TO-I (buildable), (4) RH IPO Access.
+- Dead: merger arb, SPAC arb at this size, short vol, 0DTE, earnings straddles, PEAD, overnight drift, index adds.
