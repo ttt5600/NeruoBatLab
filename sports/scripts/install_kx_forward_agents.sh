@@ -12,6 +12,7 @@
 # Stop one: launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-<job>   (all quant-sports jobs: touch ~/.claude/quant-sports/STOP)
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-sports"
 LA="$HOME/Library/LaunchAgents"
 [ -x "$DST/.venv/bin/python" ] || { echo "deployed venv missing: run scripts/install_quant_sports_agents.sh first" >&2; exit 1; }
@@ -23,9 +24,9 @@ mkdir -p "$DST/scripts" "$DST/$X" "$DST/results/lx1_logical_arb" "$DST/data/lab"
 
 # code (overwrite = refresh)
 for f in qs_job.sh kx_throttle.py kx_forward.py lx1_arb_scan.py l36_cfb_sealed.py cfb_simple_model.py; do
-  cp "$SRC/scripts/$f" "$DST/scripts/$f"
+  acp "$SRC/scripts/$f" "$DST/scripts/$f"
 done
-for f in kx.py q1_fetch.py q1_timing.py q2_cfb.py q2_cfb_preds.py tonight_logger.py; do cp "$SRC/$X/$f" "$DST/$X/$f"; done
+for f in kx.py q1_fetch.py q1_timing.py q2_cfb.py q2_cfb_preds.py tonight_logger.py; do acp "$SRC/$X/$f" "$DST/$X/$f"; done
 chmod +x "$DST/scripts/qs_job.sh"
 # data the jobs read (never clobber what the deployed jobs wrote)
 "${RS[@]}" --ignore-existing "$SRC/data/sbr_cfb" "$DST/data/"

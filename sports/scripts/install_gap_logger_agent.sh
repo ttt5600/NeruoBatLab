@@ -4,16 +4,17 @@
 # Measurement only: no orders. Logs: ~/.claude/quant-kalshi/data/gap_log.jsonl, gap_ticks.jsonl, gap_logger.log
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-gap-logger
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data"
 rsync -a --delete --exclude __pycache__ "$SRC/sports/" "$DST/sports/"
-cp "$SRC/scripts/gap_logger.py" "$DST/scripts/"
+acp "$SRC/scripts/gap_logger.py" "$DST/scripts/"
 "$DST/.venv/bin/python" -c "import scipy" 2>/dev/null || "$DST/.venv/bin/pip" install -q scipy
 
-cat > "$DST/gap_logger.sh" <<EOF
+awrite "$DST/gap_logger.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/gap_logger.py tick 2>&1 | grep -v Warning); rc=\${PIPESTATUS[0]}

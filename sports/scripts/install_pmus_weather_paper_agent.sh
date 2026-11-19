@@ -9,6 +9,7 @@
 # Report: cd ~/.claude/quant-kalshi && .venv/bin/python scripts/pmus_weather_paper.py report
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-pmus-weather-paper
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
@@ -18,10 +19,10 @@ mkdir -p "$DST/scripts" "$DST/data"
 if ! cmp -s "$SRC/scripts/kalshi_paper.py" "$DST/scripts/kalshi_paper.py"; then
   echo "deployed kalshi_paper.py differs from the worktree's; run install_kalshi_paper_agent.sh first" >&2; exit 1
 fi
-cp "$SRC/scripts/pmus_weather_paper.py" "$SRC/scripts/polymarket_us.py" "$DST/scripts/"
+acp "$SRC/scripts/pmus_weather_paper.py" "$SRC/scripts/polymarket_us.py" "$DST/scripts/"
 "$DST/.venv/bin/python" -c "import requests, numpy" 2>/dev/null || "$DST/.venv/bin/pip" install -q requests numpy
 
-cat > "$DST/pmus_weather_paper.sh" <<EOS
+awrite "$DST/pmus_weather_paper.sh" <<EOS
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/pmus_weather_paper.py tick 2>&1 | grep -v Warning)

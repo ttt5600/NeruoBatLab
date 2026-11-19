@@ -26,6 +26,11 @@
 # root makes every job a no-op (scripts/qs_stop.sh). Paper only: none of these jobs place orders or read keys.
 # Exception by design (11-07): nhl-ingame and nfl-fade pipe their signals to ~/.claude/quant-kalshi/scripts/
 # ingame_exec.py (separate venv + .env); it sends orders only when .env arms EXEC_MODE + LEAD_EXEC_MODE + LEAD_LIVE_<S>.
+# The whole body is ONE brace group ending in `exit` (ops_robustness_1118): bash parses a { ... } group completely
+# before running it, so even an in-place overwrite of this file mid-run cannot make a running job read half-new
+# bytes ('syntax error near unexpected token ;;', nhl-ingame / nfl-fade 11-15..11-18). Installers also deploy it
+# with tmp + mv (scripts/atomic_deploy.sh). Keep new code INSIDE the braces.
+{
 set -u
 QS="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$QS" || exit 1
@@ -236,3 +241,4 @@ case "$job" in
   *) echo "unknown job $job" >&2; exit 2 ;;
 esac
 exit 0
+}

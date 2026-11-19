@@ -11,16 +11,17 @@
 # Stop: launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-snow-markets   (all quant-sports jobs: touch ~/.claude/quant-sports/STOP)
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-sports"
 LA="$HOME/Library/LaunchAgents"
 [ -x "$DST/.venv/bin/python" ] || { echo "deployed venv missing: run scripts/install_quant_sports_agents.sh first" >&2; exit 1; }
 "$DST/.venv/bin/python" -c "import requests" || { echo "deployed venv lacks requests" >&2; exit 1; }
 R=results/snow_markets
 mkdir -p "$DST/scripts" "$DST/$R" "$DST/logs" "$DST/state"
-for f in qs_job.sh kx_throttle.py snow_markets.py; do cp "$SRC/scripts/$f" "$DST/scripts/$f"; done
+for f in qs_job.sh kx_throttle.py snow_markets.py; do acp "$SRC/scripts/$f" "$DST/scripts/$f"; done
 chmod +x "$DST/scripts/qs_job.sh"
-cp "$SRC/$R/census.json" "$SRC"/$R/acis_*.json "$DST/$R/"
-[ -f "$DST/$R/snow_log.jsonl" ] || cp "$SRC/$R/snow_log.jsonl" "$DST/$R/snow_log.jsonl"
+acp "$SRC/$R/census.json" "$SRC"/$R/acis_*.json "$DST/$R/"
+[ -f "$DST/$R/snow_log.jsonl" ] || acp "$SRC/$R/snow_log.jsonl" "$DST/$R/snow_log.jsonl"
 label="com.jonathanwang.quant-sports-snow-markets"
 cat > "$LA/$label.plist" <<PL
 <?xml version="1.0" encoding="UTF-8"?>

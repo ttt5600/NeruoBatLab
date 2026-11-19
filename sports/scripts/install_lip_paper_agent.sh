@@ -7,15 +7,16 @@
 # Report: cd ~/.claude/quant-kalshi && .venv/bin/python scripts/lip_paper.py report
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-lip-paper
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data"
-cp "$SRC/scripts/lip_paper.py" "$DST/scripts/"
+acp "$SRC/scripts/lip_paper.py" "$DST/scripts/"
 "$DST/.venv/bin/python" -c "import requests" 2>/dev/null || "$DST/.venv/bin/pip" install -q requests
 
-cat > "$DST/lip_paper.sh" <<EOF
+awrite "$DST/lip_paper.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/lip_paper.py tick 2>&1 | grep -v Warning)

@@ -8,7 +8,7 @@
   },
   "jobs": [
     {"job": "kalshi-paper (E4 picks + exec)", "label": "quant-kalshi-paper",
-     "logs": ["$K/run.log", "$K/exec.log"], "stderr": ["$K/launchd.err"],
+     "logs": ["$K/run.log", "$K/exec.log"], "stderr": ["$K/launchd.err"], "warn_re": "^LOST ",
      "outputs": [{"path": "$K/data/kalshi_paper.jsonl", "max_gap_h": 26, "ts": "logged_at", "keys": ["ticker", "event", "yes_bid", "forecasts"]},
                  {"path": "$K/data/kalshi_exec.jsonl", "max_gap_h": 30, "ts": "ts", "keys": ["event"]}],
      "picks": {"path": "$K/data/kalshi_paper.jsonl", "ts": "logged_at", "zero_days": 1}},

@@ -13,6 +13,7 @@
 # Stop:   touch ~/.claude/quant-kalshi/KILL   (or launchctl bootout gui/$(id -u)/com.jonathanwang.quant-forecastex-exec)
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-forecastex-exec
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
@@ -25,11 +26,11 @@ for f in bet.py kalshi_exec.py; do
   if ! cmp -s "$SRC/scripts/$f" "$DST/scripts/$f"; then echo "deployed $f differs from the worktree's; sync it first" >&2; exit 1; fi
 done
 mkdir -p "$DST/scripts/venues" "$DST/data"
-cp "$SRC/scripts/forecastex_exec.py" "$DST/scripts/"
-cp "$SRC/scripts/venues/__init__.py" "$SRC/scripts/venues/base.py" "$SRC/scripts/venues/forecastex_client.py" \
+acp "$SRC/scripts/forecastex_exec.py" "$DST/scripts/"
+acp "$SRC/scripts/venues/__init__.py" "$SRC/scripts/venues/base.py" "$SRC/scripts/venues/forecastex_client.py" \
    "$SRC/scripts/venues/forecastex_tws_client.py" "$DST/scripts/venues/"
 
-cat > "$DST/forecastex_exec.sh" <<EOS
+awrite "$DST/forecastex_exec.sh" <<EOS
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" -W ignore scripts/forecastex_exec.py run --live 2>&1)

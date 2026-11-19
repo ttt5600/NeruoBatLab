@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -29,8 +30,14 @@ import requests
 
 from sports import wx
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import om_fetch  # noqa: E402  same open-meteo endpoint + params; adds TLS-stall timeout + in-window shared cache
+
 LOG = Path(__file__).resolve().parents[1] / "data" / "kalshi_paper.jsonl"
 DONE = LOG.with_name("kalshi_paper_done.json")  # city-nights already evaluated
+LOST = LOG.with_name("kalshi_paper_lost.jsonl")  # city-nights whose whole decision window passed without a forecast
+RETRY_GAP_S, RETRY_BUDGET_S = 90, 20 * 60  # `retry`: re-try failed cities every 90 s for up to 20 min after a tick
+FAIL_EV: dict[str, str] = {}  # series -> event of its last FETCH_FAIL in this process (for the LOST alert)
 MODELS = ["gfs_seamless", "ecmwf_ifs025", "icon_seamless", "gem_seamless", "ncep_nbm_conus"]
 MARGIN = 3.0
 DECISION_HOUR = 22  # city-local, the night before (matches lab/strategies + wx.decision_ts)
@@ -67,10 +74,12 @@ def _retry(fn, tries: int = 3, wait: float = 5.0, sleep=None):
             sleep(wait * (i + 1))
 
 
-def live_forecasts(lat, lon, tz, day):
-    r = requests.get("https://api.open-meteo.com/v1/forecast", headers=H, timeout=(10, 45), params={
-        "latitude": lat, "longitude": lon, "models": ",".join(MODELS), "hourly": "temperature_2m",
-        "temperature_unit": "fahrenheit", "timezone": tz, "forecast_days": 3}).json()["hourly"]
+def live_forecasts(lat, lon, tz, day, since=None, src=None):
+    """since: start of this city's decision window. If open-meteo fails, a response for the SAME params fetched at or
+    after `since` (by this job or e4p) is used instead (om_fetch). src: list that receives 'live' / 'cache@..'."""
+    r, s = om_fetch.fetch_hourly(lat, lon, tz, MODELS, headers=H, since=since)
+    if src is not None:
+        src.append(s)
     times = [datetime.fromisoformat(t) for t in r["time"]]
     keep = [i for i, t in enumerate(times) if t.date() == day and t.hour <= 18]
     out = {}
@@ -104,7 +113,7 @@ def book_depth(ticker):
     return best, d1, d2
 
 
-def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
+def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False, only: set | None = None):
     """due_only: evaluate a city only in its DECISION window -- 22:00-23:59 CITY-local, the night before
     (the backtest decides at 22:00 city-local) -- and only once per city-night (DONE file).
     History: a single 22:03-PT run looked up the day AFTER tomorrow for ET/CT cities (10-15); then an
@@ -115,6 +124,8 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
     done = set(json.loads(DONE.read_text())) if DONE.exists() else set()
     picks, failed = [], []
     for series, (station, tz) in PAPER_CITIES.items():
+        if only is not None and series not in only:
+            continue
         local = now.astimezone(ZoneInfo(tz))
         if due_only and local.hour not in (DECISION_HOUR, DECISION_HOUR + 1):
             continue
@@ -123,17 +134,23 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
         if due_only and ev in done:
             continue
         late_min = (local.hour - DECISION_HOUR) * 60 + local.minute
+        since = local.replace(hour=DECISION_HOUR, minute=0, second=0, microsecond=0) if due_only else None
+        src: list[str] = []
         try:  # one city's network failure must not abort the other cities (11-13/11-14 UTC: whole nights lost)
             ms = _retry(lambda: requests.get(f"{wx.API}/markets", headers=H, timeout=30,
                                              params={"event_ticker": ev, "limit": 100}).json().get("markets", []))
-            fc = _retry(lambda: live_forecasts(*wx.station_coords(station), tz, tomorrow)) if ms else None
+            fc = _retry(lambda: live_forecasts(*wx.station_coords(station), tz, tomorrow, since=since, src=src)) \
+                if ms else None
         except Exception as ex:  # noqa: BLE001 -- NOT marked done: the next run in the window retries this city
             failed.append(series)
+            FAIL_EV[series] = ev
             print(f"FETCH_FAIL {series} {ev}: {type(ex).__name__}: {str(ex)[:160]}")
             continue
         if not ms:
             print(f"{series}: no open event {ev}")
             continue
+        if src and src[-1] != "live":
+            print(f"{series}: open-meteo failed; using the same-params response fetched in-window ({src[-1]})")
         vals = [v for v in fc.values() if v is not None]
         if len(vals) < 3:
             print(f"{series}: only {len(vals)} model forecasts; skipping")
@@ -161,7 +178,8 @@ def cmd_pick(days_ahead: int = 1, log: bool = True, due_only: bool = False):
                           "ticker": m["ticker"], "strike_type": m.get("strike_type"), "floor": fl, "cap": ca,
                           "forecasts": fc, "yes_bid": bid, "yes_ask": ask, "no_price": round(1 - bid, 4),
                           "fee_per_contract": round(wx.FEE_RATE * (1 - bid) * bid, 4),
-                          "depth_1c": d1, "depth_2c": d2, "late_min": late_min, "result": None})
+                          "depth_1c": d1, "depth_2c": d2, "late_min": late_min, "result": None,
+                          "fc_source": src[-1] if src else None})
     if log:
         with LOG.open("a") as f:
             for p in picks:
@@ -203,6 +221,59 @@ def cmd_report():
           f"{np.median([r['depth_1c'] for r in rows]) if rows else 0:.0f} contracts")
 
 
+def _local(series: str, now: datetime) -> datetime:
+    return now.astimezone(ZoneInfo(PAPER_CITIES[series][1]))
+
+
+def window_open(series: str, now: datetime | None = None) -> bool:
+    return _local(series, now or datetime.now(timezone.utc)).hour in (DECISION_HOUR, DECISION_HOUR + 1)
+
+
+def pending_due(now: datetime | None = None) -> list[str]:
+    """Cities in their decision window whose city-night is not in DONE yet."""
+    now = now or datetime.now(timezone.utc)
+    done = set(json.loads(DONE.read_text())) if DONE.exists() else set()
+    out = []
+    for s in PAPER_CITIES:
+        if window_open(s, now):
+            ev = f"{s}-{(_local(s, now) + timedelta(days=1)).date().strftime('%y%b%d').upper()}"
+            if ev not in done:
+                out.append(s)
+    return out
+
+
+def cmd_retry(cands: list[str], sleep=time.sleep, clock=time.monotonic) -> list[str]:
+    """Run by run.sh AFTER kalshi_exec has acted on the cities that worked, when the tick exited 3. Re-tries the
+    pending cities every RETRY_GAP_S for up to RETRY_BUDGET_S. 11-17: NY and DEN failed all 3 tries in both window
+    ticks while the other cities fetched fine seconds later, so tries spread over minutes beat 3 tries in ~1 min.
+    A city still unfetched once its window is in its last hour (23:xx local) or shut is LOST: logged to LOST and a
+    macOS alert (once per city-night). Same source and params only -- no fallback forecast."""
+    t0 = clock()
+    left = list(cands)
+    while left and clock() - t0 < RETRY_BUDGET_S:
+        sleep(RETRY_GAP_S)
+        left = [s for s in left if window_open(s)]
+        if not left:
+            break
+        print(f"RETRY {','.join(left)} at +{clock() - t0:.0f}s")
+        cmd_pick(due_only=True, only=set(left))
+        left = [s for s in left if s in pending_due()]   # decided (incl. no-pick nights) -> in DONE
+        left = [s for s in left if s in FAIL_EV]          # no open event / few models -> not a fetch problem
+    now = datetime.now(timezone.utc)
+    done = set(json.loads(DONE.read_text())) if DONE.exists() else set()
+    old = {json.loads(l)["event"] for l in LOST.read_text().splitlines()} if LOST.exists() else set()
+    for s in sorted(FAIL_EV):
+        ev = FAIL_EV[s]
+        if ev in done or (window_open(s, now) and _local(s, now).hour == DECISION_HOUR):
+            continue  # decided, or the 23:xx tick will still try it
+        if ev not in old:
+            with LOST.open("a") as f:
+                f.write(json.dumps({"ts": now.isoformat(timespec="seconds"), "city": s, "event": ev}) + "\n")
+            om_fetch.notify("E4 LOST city-night", f"{ev}: open-meteo failed for the whole 22-23h window; no pick")
+        print(f"LOST {s} {ev}: open-meteo unavailable for the whole decision window (alerted)")
+    return left
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "report"
     if cmd == "tick":  # hourly from launchd: pick any city in its decision window, then settle (idempotent)
@@ -212,6 +283,8 @@ if __name__ == "__main__":
         finally:
             if failed:
                 sys.exit(3)  # run.log shows "exit 3" while any city-night in its window is still unevaluated
+    elif cmd == "retry":  # run.sh: after kalshi_exec, only when tick exited 3
+        sys.exit(3 if cmd_retry(pending_due()) else 0)
     elif cmd == "validate":  # today's open markets: exercises the live path, logs nothing
         cmd_pick(days_ahead=0, log=False)
     else:

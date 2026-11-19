@@ -7,11 +7,12 @@
 # Stop: launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-state-gas-books
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-sports"
 LA="$HOME/Library/LaunchAgents"
 [ -x "$DST/.venv/bin/python" ] || { echo "deployed venv missing: run scripts/install_quant_sports_agents.sh first" >&2; exit 1; }
 mkdir -p "$DST/scripts" "$DST/logs" "$DST/state" "$DST/data/kx_forward"
-for f in qs_job.sh kx_throttle.py state_gas_books.py; do cp "$SRC/scripts/$f" "$DST/scripts/$f"; done
+for f in qs_job.sh kx_throttle.py state_gas_books.py; do acp "$SRC/scripts/$f" "$DST/scripts/$f"; done
 chmod +x "$DST/scripts/qs_job.sh"
 label="com.jonathanwang.quant-sports-state-gas-books"
 cat > "$LA/$label.plist" <<PL

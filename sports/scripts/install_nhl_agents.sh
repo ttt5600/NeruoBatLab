@@ -9,6 +9,7 @@
 # Stop one: launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-<job>   (all quant-sports jobs: touch ~/.claude/quant-sports/STOP)
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-sports"
 LA="$HOME/Library/LaunchAgents"
 [ -x "$DST/.venv/bin/python" ] || { echo "deployed venv missing: run scripts/install_quant_sports_agents.sh first" >&2; exit 1; }
@@ -16,10 +17,10 @@ RS=(rsync -a --exclude __pycache__ --exclude '*.pyc')
 OM=results/nhl_opener_model
 mkdir -p "$DST/scripts" "$DST/$OM" "$DST/results/ops_nhl_goalie" "$DST/results/kalshi_openers_xleague" \
          "$DST/data/kx_forward" "$DST/data/nhl_goalie" "$DST/logs" "$DST/state"
-for f in qs_job.sh kx_throttle.py kx_forward.py nhl_om_forward.py nhl_goalie_logger.py; do cp "$SRC/scripts/$f" "$DST/scripts/$f"; done
-cp "$SRC/results/kalshi_openers_xleague/kx.py" "$DST/results/kalshi_openers_xleague/kx.py"
-for f in model.py fetch_mp.py; do cp "$SRC/$OM/$f" "$DST/$OM/$f"; done
-cp "$SRC/results/ops_nhl_goalie/c_seed_A.csv" "$DST/results/ops_nhl_goalie/c_seed_A.csv"
+for f in qs_job.sh kx_throttle.py kx_forward.py nhl_om_forward.py nhl_goalie_logger.py; do acp "$SRC/scripts/$f" "$DST/scripts/$f"; done
+acp "$SRC/results/kalshi_openers_xleague/kx.py" "$DST/results/kalshi_openers_xleague/kx.py"
+for f in model.py fetch_mp.py; do acp "$SRC/$OM/$f" "$DST/$OM/$f"; done
+acp "$SRC/results/ops_nhl_goalie/c_seed_A.csv" "$DST/results/ops_nhl_goalie/c_seed_A.csv"
 "${RS[@]}" --ignore-existing "$SRC/$OM/mp" "$DST/$OM/"      # seed; the job refreshes it daily
 chmod +x "$DST/scripts/qs_job.sh"
 

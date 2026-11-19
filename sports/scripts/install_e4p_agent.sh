@@ -10,13 +10,14 @@
 # Stop: launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-e4p   (all quant-sports jobs: touch ~/.claude/quant-sports/STOP)
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-sports"
 LA="$HOME/Library/LaunchAgents"
 [ -x "$DST/.venv/bin/python" ] || { echo "deployed venv missing: run scripts/install_quant_sports_agents.sh first" >&2; exit 1; }
 mkdir -p "$DST/scripts" "$DST/data/kx_forward" "$DST/logs" "$DST/state"
-for f in qs_job.sh kx_throttle.py e4p_paper.py; do cp "$SRC/scripts/$f" "$DST/scripts/$f"; done
+for f in qs_job.sh kx_throttle.py e4p_paper.py; do acp "$SRC/scripts/$f" "$DST/scripts/$f"; done
 chmod +x "$DST/scripts/qs_job.sh"
-[ -f "$DST/data/kx_forward/e4p_train_dev.parquet" ] || cp "$SRC/results/ops_e4p_forward/e4p_train_dev.parquet" "$DST/data/kx_forward/e4p_train_dev.parquet"
+[ -f "$DST/data/kx_forward/e4p_train_dev.parquet" ] || acp "$SRC/results/ops_e4p_forward/e4p_train_dev.parquet" "$DST/data/kx_forward/e4p_train_dev.parquet"
 label="com.jonathanwang.quant-sports-e4p"
 cat > "$LA/$label.plist" <<PL
 <?xml version="1.0" encoding="UTF-8"?>

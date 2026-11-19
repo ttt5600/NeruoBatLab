@@ -8,6 +8,7 @@
 # Report: cd ~/.claude/quant-kalshi && .venv/bin/python scripts/forecastex_paper.py report
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-forecastex-paper
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
@@ -16,12 +17,12 @@ mkdir -p "$DST/scripts/venues" "$DST/data" "$DST/results"
 if ! cmp -s "$SRC/scripts/kalshi_paper.py" "$DST/scripts/kalshi_paper.py"; then
   echo "deployed kalshi_paper.py differs from the worktree's; run install_kalshi_paper_agent.sh first" >&2; exit 1
 fi
-cp "$SRC/scripts/forecastex_paper.py" "$SRC/scripts/forecastex_wx.py" "$DST/scripts/"
-cp "$SRC/scripts/venues/__init__.py" "$SRC/scripts/venues/base.py" "$SRC/scripts/venues/forecastex_client.py" "$DST/scripts/venues/"
-cp "$SRC/results/forecastex_wx_sealed.json" "$DST/results/"
+acp "$SRC/scripts/forecastex_paper.py" "$SRC/scripts/forecastex_wx.py" "$DST/scripts/"
+acp "$SRC/scripts/venues/__init__.py" "$SRC/scripts/venues/base.py" "$SRC/scripts/venues/forecastex_client.py" "$DST/scripts/venues/"
+acp "$SRC/results/forecastex_wx_sealed.json" "$DST/results/"
 "$DST/.venv/bin/python" -c "import requests, numpy, pandas" 2>/dev/null || "$DST/.venv/bin/pip" install -q requests numpy pandas
 
-cat > "$DST/forecastex_paper.sh" <<EOS
+awrite "$DST/forecastex_paper.sh" <<EOS
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/forecastex_paper.py tick 2>&1 | grep -v Warning)

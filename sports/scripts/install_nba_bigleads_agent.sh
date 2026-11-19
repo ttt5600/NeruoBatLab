@@ -6,14 +6,15 @@
 # Report: cd ~/.claude/quant-kalshi && .venv/bin/python scripts/nba_bigleads_logger.py report
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-nba-bigleads
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data"
-cp "$SRC/scripts/nba_bigleads_logger.py" "$DST/scripts/"
+acp "$SRC/scripts/nba_bigleads_logger.py" "$DST/scripts/"
 
-cat > "$DST/nba_bigleads.sh" <<EOF
+awrite "$DST/nba_bigleads.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/nba_bigleads_logger.py tick 2>&1 | grep -v Warning)

@@ -7,19 +7,20 @@
 # Log: ~/.claude/quant-kalshi/fund_brief.log. Remove: launchctl bootout gui/$(id -u)/com.jonathanwang.quant-fund-brief
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-fund-brief
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/lab" "$DST/notes/briefs"
-for f in fund_brief.py fund_stats.py; do cp "$SRC/scripts/$f" "$DST/scripts/"; done
-cp "$SRC/lab/ledger.jsonl" "$SRC/lab/lockbox.jsonl" "$DST/lab/"
-cp "$SRC/QUESTIONS.md" "$DST/QUESTIONS.md"   # Q003/Q004 status sections of the brief
+for f in fund_brief.py fund_stats.py; do acp "$SRC/scripts/$f" "$DST/scripts/"; done
+acp "$SRC/lab/ledger.jsonl" "$SRC/lab/lockbox.jsonl" "$DST/lab/"
+acp "$SRC/QUESTIONS.md" "$DST/QUESTIONS.md"   # Q003/Q004 status sections of the brief
 for f in kalshi_exec.py nba_open_totals.py open_lines_logger.py kalshi_wx_monthly_logger.py nba_midgame_scan.py manual_bets.py forecastex_paper.py; do
   [ -f "$DST/scripts/$f" ] || echo "WARNING: $DST/scripts/$f missing (deploy its own agent first); the brief will show it as missing"
 done
 
-cat > "$DST/fund_brief.sh" <<EOS
+awrite "$DST/fund_brief.sh" <<EOS
 #!/bin/bash
 cd "$DST"
 printf '=== %s\n' "\$(date '+%F %T')" >> fund_brief.log

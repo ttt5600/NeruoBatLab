@@ -58,7 +58,7 @@ def env(tmp_path, monkeypatch):
             return Resp({"orderbook_fp": {"yes_dollars": [["0.03", "50"]]}})
         raise AssertionError(url)
 
-    def fake_fc(lat, lon, tz, day):
+    def fake_fc(lat, lon, tz, day, **kw):
         if state["meteo_fail"]:
             raise requests.exceptions.ReadTimeout("HTTPSConnectionPool(host='api.open-meteo.com'): Read timed out")
         return {m: 70.0 for m in kp.MODELS}
@@ -92,7 +92,7 @@ def test_meteo_timeout_does_not_crash_and_city_stays_retryable(env):
 def test_one_city_failing_does_not_block_the_other(env, monkeypatch):
     calls = {"n": 0}
 
-    def flaky(lat, lon, tz, day):  # first city always times out, second works
+    def flaky(lat, lon, tz, day, **kw):  # first city always times out, second works
         calls["n"] += 1
         if calls["n"] <= 3:
             raise requests.exceptions.ReadTimeout("timed out")
@@ -108,7 +108,7 @@ def test_one_city_failing_does_not_block_the_other(env, monkeypatch):
 def test_retry_recovers_from_transient_timeout(env, monkeypatch):
     calls = {"n": 0}
 
-    def once_then_ok(lat, lon, tz, day):
+    def once_then_ok(lat, lon, tz, day, **kw):
         calls["n"] += 1
         if calls["n"] == 1:
             raise requests.exceptions.ConnectTimeout("handshake timed out")

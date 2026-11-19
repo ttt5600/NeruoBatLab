@@ -5,19 +5,20 @@
 # Paper only: no orders are placed. Logs: ~/.claude/quant-kalshi/data/live_signals*.jsonl, live_signals.log
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-live-signals
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data"
 rsync -a --delete --exclude __pycache__ "$SRC/sports/" "$DST/sports/"
-cp "$SRC/scripts/live_signals.py" "$SRC/scripts/nfl_game_weather.py" "$DST/scripts/"
+acp "$SRC/scripts/live_signals.py" "$SRC/scripts/nfl_game_weather.py" "$DST/scripts/"
 if [ ! -x "$DST/.venv/bin/python" ]; then
   /opt/homebrew/opt/python@3.14/bin/python3.14 -m venv "$DST/.venv"
   "$DST/.venv/bin/pip" install -q numpy pandas requests pyarrow
 fi
 
-cat > "$DST/live_signals.sh" <<EOF
+awrite "$DST/live_signals.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/live_signals.py tick 2>&1); rc=\$?

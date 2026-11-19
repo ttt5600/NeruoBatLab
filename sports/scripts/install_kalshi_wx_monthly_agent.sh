@@ -7,16 +7,17 @@
 # kalshi_wx_monthly.log
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-kalshi-wx-monthly
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data"
 rsync -a --delete --exclude __pycache__ "$SRC/sports/" "$DST/sports/"
-for f in kalshi_wx_monthly_logger.py kalshi_wx_winter.py; do cp "$SRC/scripts/$f" "$DST/scripts/"; done
+for f in kalshi_wx_monthly_logger.py kalshi_wx_winter.py; do acp "$SRC/scripts/$f" "$DST/scripts/"; done
 "$DST/.venv/bin/python" -c "import scipy, pandas, pyarrow" 2>/dev/null || "$DST/.venv/bin/pip" install -q scipy pandas pyarrow
 
-cat > "$DST/kalshi_wx_monthly.sh" <<EOF
+awrite "$DST/kalshi_wx_monthly.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/kalshi_wx_monthly_logger.py tick 2>&1 | grep -v Warning)

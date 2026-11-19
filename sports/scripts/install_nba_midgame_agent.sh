@@ -7,17 +7,18 @@
 # Report:     cd ~/.claude/quant-kalshi && .venv/bin/python scripts/nba_midgame_scan.py report
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-nba-midgame
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data" "$DST/results"
-cp "$SRC/scripts/nba_midgame_scan.py" "$DST/scripts/"
-cp "$SRC/results/nba_midgame_fit.json" "$DST/results/"
-cp "$SRC/data/nba_midgame_states.parquet" "$DST/data/"   # dev seasons 2015-16..2024-25 only
+acp "$SRC/scripts/nba_midgame_scan.py" "$DST/scripts/"
+acp "$SRC/results/nba_midgame_fit.json" "$DST/results/"
+acp "$SRC/data/nba_midgame_states.parquet" "$DST/data/"   # dev seasons 2015-16..2024-25 only
 "$DST/.venv/bin/python" -c "import scipy, pyarrow" 2>/dev/null || "$DST/.venv/bin/pip" install -q scipy pyarrow
 
-cat > "$DST/nba_midgame.sh" <<EOF
+awrite "$DST/nba_midgame.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/nba_midgame_scan.py tick 2>&1 | grep -v Warning)

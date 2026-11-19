@@ -36,6 +36,7 @@ from scipy import optimize, stats as sst
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from kx_throttle import kget  # noqa: E402
+import om_fetch  # noqa: E402
 
 QS = Path.home() / ".claude" / "quant-sports" / "data" / "kx_forward"
 LOG = Path(os.environ.get("E4P_LOG", str(QS / "e4p.jsonl")))
@@ -216,11 +217,13 @@ def month_fit(month: str) -> dict:
 
 
 # ------------------------------------------------------------------ inputs
-def live_forecasts(lat, lon, tz, day) -> dict:
-    """= kalshi_paper.live_forecasts: max over hours <= 18 local on `day`, >= 15 hourly values."""
-    r = requests.get(OM, headers=H, timeout=(15, 60), params={
-        "latitude": lat, "longitude": lon, "models": ",".join(MODELS), "hourly": "temperature_2m",
-        "temperature_unit": "fahrenheit", "timezone": tz, "forecast_days": 3}).json()["hourly"]
+def live_forecasts(lat, lon, tz, day, since=None, src=None) -> dict:
+    """= kalshi_paper.live_forecasts: max over hours <= 18 local on `day`, >= 15 hourly values.
+    Same endpoint + params via om_fetch (ops_robustness_1118): 30 s TLS-handshake timeout, and on failure the
+    same-params response fetched at/after `since` (this city's 22:00 window start; E4 fetches it at :03) is used."""
+    r, s = om_fetch.fetch_hourly(lat, lon, tz, MODELS, headers=H, since=since)
+    if src is not None:
+        src.append(s)
     times = [datetime.fromisoformat(t) for t in r["time"]]
     keep = [i for i, t in enumerate(times) if t.date() == day and t.hour <= 18]
     out = {}
@@ -344,9 +347,12 @@ def decide_city(series: str, day, t: datetime, allow_no_nbs: bool, force: bool =
     ms = retry(lambda: (kget("/markets", {"event_ticker": ev, "limit": 100}) or {}).get("markets", []))
     if not ms:
         return [{**base, "status": "no_event"}]
-    fc = retry(lambda: live_forecasts(lat, lon, tz, day))
+    since = None if force else t.astimezone(ZoneInfo(tz)).replace(hour=T_HOUR, minute=0, second=0, microsecond=0)
+    src: list[str] = []
+    fc = retry(lambda: live_forecasts(lat, lon, tz, day, since=since, src=src))
     vals = [v for v in fc.values() if v is not None]
-    cd = {**base, "forecasts": fc, "n_mod": len(vals), **(nb or {"nbs_run": None, "txn": None, "xnd": None})}
+    cd = {**base, "forecasts": fc, "fc_source": src[-1] if src else None, "n_mod": len(vals),
+          **(nb or {"nbs_run": None, "txn": None, "xnd": None})}
     if len(vals) < 3:
         return [{**cd, "status": "few_models"}]
     m, s2 = float(np.mean(vals)), float(np.var(vals))
@@ -427,6 +433,10 @@ def cmd_tick(a) -> int:
             continue
         rows += out
     append(rows, LOG)
+    missed = [r for r in rows if r["kind"] == "city_day" and r["status"] == "missed"]
+    if missed:  # one row per (series, D) ever, so this alerts once per lost city-day
+        om_fetch.notify("e4p MISSED city-day", ", ".join(f"{r['series']} D={r['event_day']}" for r in missed)
+                        + ": no decision in the 22:00-22:50 window")
     for r in rows:
         if r["kind"] == "city_day":
             print(f"{r['series']} D={r['event_day']} {r['status']} nbs={r.get('nbs_run')} tradeable={r.get('n_tradeable')} "

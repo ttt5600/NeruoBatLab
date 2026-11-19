@@ -15,8 +15,11 @@ LABEL=com.jonathanwang.quant-kalshi-paper
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data"
+# atomic deploys (ops_robustness_1118): rsync already writes tmp + rename; single files go tmp-in-same-dir + mv,
+# so a job running at that moment keeps reading the old inode (bash reads scripts lazily; cp over it corrupts it).
+. "$SRC/scripts/atomic_deploy.sh"
 rsync -a --delete --exclude __pycache__ "$SRC/sports/" "$DST/sports/"
-cp "$SRC/scripts/kalshi_paper.py" "$SRC/scripts/kalshi_exec.py" "$DST/scripts/"
+for f in kalshi_paper.py kalshi_exec.py om_fetch.py; do acp "$SRC/scripts/$f" "$DST/scripts/$f"; done
 if [ -f "$DST/.env" ]; then chmod 600 "$DST/.env"; fi
 "$DST/.venv/bin/python" -c "import cryptography" 2>/dev/null || "$DST/.venv/bin/pip" install -q cryptography
 if [ ! -x "$DST/.venv/bin/python" ]; then
@@ -24,18 +27,29 @@ if [ ! -x "$DST/.venv/bin/python" ]; then
   "$DST/.venv/bin/pip" install -q numpy pandas requests pyarrow
 fi
 
-cat > "$DST/run.sh" <<EOF
+RUN_TMP="$(mktemp "$DST/run.sh.tmp.XXXXXX")"
+cat > "$RUN_TMP" <<EOF
 #!/bin/bash
 # \$1 = tick | pick | settle. Appends a timestamped run record to run.log.
 cd "$DST"
 echo "=== \$(date '+%F %T') \$1" >> run.log
 "$DST/.venv/bin/python" scripts/kalshi_paper.py "\$1" >> run.log 2>&1
-echo "exit \$?" >> run.log
+rc=\$?
+echo "exit \$rc" >> run.log
 # shadow execution: size each fresh pick against the live book. DRY unless $DST/.env has EXEC_MODE=live
 # (user-set) -- and even then only with --live, which this line passes; KILL file in $DST stops it.
 if [ "\$1" = tick ]; then "$DST/.venv/bin/python" scripts/kalshi_exec.py run --live >> exec.log 2>&1; fi
+# exit 3 = a city in its window could not be fetched. AFTER exec has acted on the cities that worked, re-try the
+# failed ones every 90 s for up to 20 min (same source + params), then exec again for any new pick; a city still
+# unfetched at the end of its window is logged to data/kalshi_paper_lost.jsonl + macOS alert (ops_robustness_1118).
+if [ "\$1" = tick ] && [ "\$rc" = 3 ]; then
+  echo "=== \$(date '+%F %T') retry" >> run.log
+  "$DST/.venv/bin/python" scripts/kalshi_paper.py retry >> run.log 2>&1
+  echo "exit \$? (retry)" >> run.log
+  "$DST/.venv/bin/python" scripts/kalshi_exec.py run --live >> exec.log 2>&1
+fi
 EOF
-chmod +x "$DST/run.sh"
+chmod +x "$RUN_TMP"; mv -f "$RUN_TMP" "$DST/run.sh"
 
 cat > "$PLIST" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -50,11 +64,12 @@ cat > "$PLIST" <<EOF
 </dict></plist>
 EOF
 
-cat > "$DST/dispatch.sh" <<EOF
+D_TMP="$(mktemp "$DST/dispatch.sh.tmp.XXXXXX")"
+cat > "$D_TMP" <<EOF
 #!/bin/bash
 exec "$DST/run.sh" tick
 EOF
-chmod +x "$DST/dispatch.sh"
+chmod +x "$D_TMP"; mv -f "$D_TMP" "$DST/dispatch.sh"
 
 launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null || true
 launchctl bootstrap "gui/$(id -u)" "$PLIST"

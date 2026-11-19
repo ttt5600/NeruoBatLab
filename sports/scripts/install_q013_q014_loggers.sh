@@ -9,18 +9,19 @@
 # Report: cd ~/.claude/quant-kalshi && .venv/bin/python scripts/q013_logger.py report   (or q014_logger.py report)
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 WHICH="${1:-both}"
 
 mkdir -p "$DST/scripts" "$DST/data"
-cp "$SRC/scripts/q013_logger.py" "$SRC/scripts/q014_logger.py" "$DST/scripts/"
+acp "$SRC/scripts/q013_logger.py" "$SRC/scripts/q014_logger.py" "$DST/scripts/"
 "$DST/.venv/bin/python" -c "import requests, numpy, scipy" 2>/dev/null || "$DST/.venv/bin/pip" install -q requests numpy scipy
 
 install_one() {
   local Q="$1"
   local LABEL="com.jonathanwang.quant-$Q"
   local PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
-  cat > "$DST/${Q}_logger.sh" <<EOF
+  awrite "$DST/${Q}_logger.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/${Q}_logger.py tick 2>&1 | grep -v Warning)

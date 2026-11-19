@@ -5,15 +5,16 @@
 # NOT installed by default -- run this yourself:  bash sports/scripts/install_pickem_logger_agent.sh
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-pickem-logger
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data/pickem"
 rsync -a --delete --exclude __pycache__ "$SRC/sports/" "$DST/sports/"
-cp "$SRC/scripts/pickem.py" "$DST/scripts/"
+acp "$SRC/scripts/pickem.py" "$DST/scripts/"
 
-cat > "$DST/pickem_logger.sh" <<EOF
+awrite "$DST/pickem_logger.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/pickem.py log 2>&1 | grep -v Warning)

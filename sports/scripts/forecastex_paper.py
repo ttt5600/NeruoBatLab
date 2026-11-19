@@ -167,6 +167,17 @@ def cmd_tick(validate: bool = False) -> int:
         now = datetime.now(timezone.utc)
         st, rows, fxc = state(), load(), ForecastEx(env={})
         done, new, msgs = set(st["done"]), [], []
+        # ops_robustness_1118: ForecastEx stopped listing UHBKF (11-17: 23/48 runs ERROR 'not in the public category
+        # tree'). A station absent from the tree is skipped with a reason, logged once per station-day (not marked
+        # done, so it is picked up if it reappears inside the window). A tree fetch failure keeps the old per-station
+        # path (which then logs the real error).
+        try:
+            listed = set(fxc.underlying_conids())
+        except Exception as e:  # noqa: BLE001
+            listed = None
+            msgs.append(f"category tree ERROR {e!r}"[:200])
+        today = now.date()
+        skip_logged = {k for k in st.get("skip_logged", []) if k.split(":")[-1] >= (today - timedelta(days=3)).isoformat()}
         for code in STATIONS:
             try:
                 tz = station_meta(st, code)[2]
@@ -177,6 +188,13 @@ def cmd_tick(validate: bool = False) -> int:
             if not validate and local.hour not in (kp.DECISION_HOUR, kp.DECISION_HOUR + 1):
                 continue
             day = (local + timedelta(days=1)).date()
+            if listed is not None and f"UH{code}" not in listed:
+                key = f"{code}:{day.isoformat()}"
+                if validate or key not in skip_logged:
+                    msgs.append(f"{code} {day}: SKIP UH{code} is not listed in ForecastEx's public category tree "
+                                f"(no market to paper-trade); re-checked each tick, logged once per station-day")
+                    skip_logged.add(key)
+                continue
             if validate and not any(c["day"] == day for c in fxc.strikes(code).values()):
                 day = local.date()  # validate off-hours: tomorrow may not be listed yet, exercise today's book
             key = f"{code}:{day.isoformat()}"
@@ -210,6 +228,7 @@ def cmd_tick(validate: bool = False) -> int:
                 for r in new:
                     f.write(json.dumps(r, default=str) + "\n")
         st["done"] = sorted(done)
+        st["skip_logged"] = sorted(skip_logged)
         last = st.get("last_settle")
         if not last or now - datetime.fromisoformat(last) > timedelta(hours=1):
             settle(now)

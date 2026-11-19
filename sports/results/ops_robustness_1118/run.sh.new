@@ -1,0 +1,19 @@
+#!/bin/bash
+# $1 = tick | pick | settle. Appends a timestamped run record to run.log.
+cd "/Users/jonathanwang/.claude/quant-kalshi"
+echo "=== $(date '+%F %T') $1" >> run.log
+"/Users/jonathanwang/.claude/quant-kalshi/.venv/bin/python" scripts/kalshi_paper.py "$1" >> run.log 2>&1
+rc=$?
+echo "exit $rc" >> run.log
+# shadow execution: size each fresh pick against the live book. DRY unless /Users/jonathanwang/.claude/quant-kalshi/.env has EXEC_MODE=live
+# (user-set) -- and even then only with --live, which this line passes; KILL file in /Users/jonathanwang/.claude/quant-kalshi stops it.
+if [ "$1" = tick ]; then "/Users/jonathanwang/.claude/quant-kalshi/.venv/bin/python" scripts/kalshi_exec.py run --live >> exec.log 2>&1; fi
+# exit 3 = a city in its window could not be fetched. AFTER exec has acted on the cities that worked, re-try the
+# failed ones every 90 s for up to 20 min (same source + params), then exec again for any new pick; a city still
+# unfetched at the end of its window is logged to data/kalshi_paper_lost.jsonl + macOS alert (ops_robustness_1118).
+if [ "$1" = tick ] && [ "$rc" = 3 ]; then
+  echo "=== $(date '+%F %T') retry" >> run.log
+  "/Users/jonathanwang/.claude/quant-kalshi/.venv/bin/python" scripts/kalshi_paper.py retry >> run.log 2>&1
+  echo "exit $? (retry)" >> run.log
+  "/Users/jonathanwang/.claude/quant-kalshi/.venv/bin/python" scripts/kalshi_exec.py run --live >> exec.log 2>&1
+fi

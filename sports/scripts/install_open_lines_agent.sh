@@ -6,14 +6,15 @@
 # Paper only: no orders. Does not touch the NBA open-totals agent or its files.
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-open-lines
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data/pbp" "$DST/data/nhl_simple_model/live" "$DST/results"
 rsync -a --exclude __pycache__ "$SRC/sports/" "$DST/sports/"          # shared package (no --delete)
-for f in open_lines_logger.py kalshi_tight.py nhl_simple_live.py nfl_simple_model.py; do cp "$SRC/scripts/$f" "$DST/scripts/"; done
-cp "$SRC/results/nhl_simple_live_fit.json" "$DST/results/"
+for f in open_lines_logger.py kalshi_tight.py nhl_simple_live.py nfl_simple_model.py; do acp "$SRC/scripts/$f" "$DST/scripts/"; done
+acp "$SRC/results/nhl_simple_live_fit.json" "$DST/results/"
 # NHL: parsed NHL-API history (2024-25 + current season; the live path appends new games in place)
 rsync -a --update "$SRC/data/nhl_simple_model/live/" "$DST/data/nhl_simple_model/live/"
 # NFL: nflverse pbp 2006-2026 + schedule + depth charts + closes (the live path refreshes 2026/schedule/depth in place)
@@ -21,7 +22,7 @@ rsync -a --update --include 'play_by_play_*.parquet' --exclude '*' "$SRC/data/pb
 rsync -a --update "$SRC/data/nfl_schedule.csv" "$SRC/data/nfl_depth_charts_2026.parquet" "$SRC/data/nfl_games.parquet" "$DST/data/"
 "$DST/.venv/bin/python" -c "import statsmodels, scipy, pyarrow" 2>/dev/null || "$DST/.venv/bin/pip" install -q statsmodels scipy pyarrow
 
-cat > "$DST/open_lines.sh" <<EOF
+awrite "$DST/open_lines.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 for lg in nhl nfl; do

@@ -8,23 +8,24 @@
 # Report:     cd ~/.claude/quant-kalshi && .venv/bin/python scripts/live_board.py report
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-kalshi"
 LABEL=com.jonathanwang.quant-live-board
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 mkdir -p "$DST/scripts" "$DST/data/live_board" "$DST/results" "$DST/sports"
-cp "$SRC/scripts/live_board.py" "$SRC/scripts/live_board_models.py" "$SRC/scripts/live_board_view.py" "$DST/scripts/"
+acp "$SRC/scripts/live_board.py" "$SRC/scripts/live_board_models.py" "$SRC/scripts/live_board_view.py" "$DST/scripts/"
 # notify() + read-only orders client come from the LIVE executor copy; never overwrite it from here
-[ -f "$DST/scripts/kalshi_exec.py" ] || cp "$SRC/scripts/kalshi_exec.py" "$DST/scripts/"
+[ -f "$DST/scripts/kalshi_exec.py" ] || acp "$SRC/scripts/kalshi_exec.py" "$DST/scripts/"
 # the L37 module is imported read-only (model + ESPN parser); refresh only if missing so the frozen logger is untouched
-[ -f "$DST/scripts/nba_midgame_scan.py" ] || cp "$SRC/scripts/nba_midgame_scan.py" "$DST/scripts/"
-[ -f "$DST/results/nba_midgame_fit.json" ] || cp "$SRC/results/nba_midgame_fit.json" "$DST/results/"
-[ -f "$DST/data/nba_midgame_states.parquet" ] || cp "$SRC/data/nba_midgame_states.parquet" "$DST/data/"
-cp "$SRC/results/nfl_ingame_fit.json" "$SRC/results/nhl_ingame_fit.json" "$DST/results/"
-cp "$SRC/data/live_board/nfl_dev_states.parquet" "$SRC/data/live_board/nhl_dev_hist.parquet" "$DST/data/live_board/"  # dev only
+[ -f "$DST/scripts/nba_midgame_scan.py" ] || acp "$SRC/scripts/nba_midgame_scan.py" "$DST/scripts/"
+[ -f "$DST/results/nba_midgame_fit.json" ] || acp "$SRC/results/nba_midgame_fit.json" "$DST/results/"
+[ -f "$DST/data/nba_midgame_states.parquet" ] || acp "$SRC/data/nba_midgame_states.parquet" "$DST/data/"
+acp "$SRC/results/nfl_ingame_fit.json" "$SRC/results/nhl_ingame_fit.json" "$DST/results/"
+acp "$SRC/data/live_board/nfl_dev_states.parquet" "$SRC/data/live_board/nhl_dev_hist.parquet" "$DST/data/live_board/"  # dev only
 "$DST/.venv/bin/python" -c "import scipy, pyarrow, pandas" 2>/dev/null || "$DST/.venv/bin/pip" install -q scipy pyarrow pandas
 
-cat > "$DST/live_board.sh" <<EOF
+awrite "$DST/live_board.sh" <<EOF
 #!/bin/bash
 cd "$DST"
 out=\$("$DST/.venv/bin/python" scripts/live_board.py tick 2>&1 | grep -v Warning)

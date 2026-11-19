@@ -11,6 +11,7 @@
 #   scripts/qs_sync.sh diff   show which log files differ between the two copies.
 set -euo pipefail
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+. "$SRC/scripts/atomic_deploy.sh"   # acp / awrite = tmp + mv deploys; never cp onto a live script (ops_robustness_1118)
 DST="$HOME/.claude/quant-sports"
 RS=(rsync -a --exclude __pycache__ --exclude '*.pyc')
 
@@ -27,14 +28,14 @@ push() {
   "${RS[@]}" --delete "$SRC/sports/" "$DST/sports/"
   "${RS[@]}" --include '*.py' --exclude '*' "$SRC/lab/" "$DST/lab/"
   "${RS[@]}" --include '*.json' --exclude '*' "$SRC/results/" "$DST/results/"
-  cp "$SRC/scripts/qs_digest_prompt.md" "$DST/digest_prompt.md"
-  [ -f "$SRC/STATE.md" ] && cp "$SRC/STATE.md" "$DST/notes/STATE.md"
+  acp "$SRC/scripts/qs_digest_prompt.md" "$DST/digest_prompt.md"
+  [ -f "$SRC/STATE.md" ] && acp "$SRC/STATE.md" "$DST/notes/STATE.md"
   [ -f "$SRC/data/user_calls.jsonl" ] && "${RS[@]}" --update "$SRC/data/user_calls.jsonl" "$DST/data/"
   # edgelab: package + a READ-ONLY snapshot of the registry, so the deployed daily_ticket.py can ask the ladder
   # (GOAL.md rule 6). The deployed jobs never write it; re-push after any edgelab evaluate/setkill/approve.
   mkdir -p "$DST/edgelab"
   "${RS[@]}" --delete "$SRC/edgelab/" "$DST/edgelab/"
-  [ -f "$SRC/lab/edgelab_registry.jsonl" ] && cp "$SRC/lab/edgelab_registry.jsonl" "$DST/lab/edgelab_registry.jsonl"
+  [ -f "$SRC/lab/edgelab_registry.jsonl" ] && acp "$SRC/lab/edgelab_registry.jsonl" "$DST/lab/edgelab_registry.jsonl"
   echo "pushed code -> $DST (logs untouched)"
 }
 
