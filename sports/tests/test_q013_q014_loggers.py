@@ -127,3 +127,65 @@ def test_report_rows_pnl_and_clv():
     assert o["roi"] == pytest.approx(((1 - 0.76) + (0 - 0.71)) / (0.76 + 0.71))
     assert o["clv_n"] == 1 and o["clv_mean"] == pytest.approx(0.91 - 0.75)
     assert o["brier_n"] == 3
+
+
+# ---------------------------------------------------------------- 2026-11-18 regression: RT scorecard field rename
+FX = Path(__file__).resolve().parent / "fixtures"
+
+
+def test_rt_page_scorepercent_shape():
+    """RT since 2026-11-03: criticsScore.scorePercent = "88%", no `score` (captured live 2026-11-18)."""
+    sc = A.parse_rt_page((FX / "rt_page_scorepercent_2026-11-18.html").read_text())
+    assert sc["score"] == 88.0 and sc["score_src"] == "scorePercent"
+    assert (sc["n"], sc["liked"], sc["not_liked"]) == (157.0, 138.0, 19.0)
+    assert sc["score_calc"] == 88 and sc["page_title"] == "I Play Rocky"
+
+
+def test_rt_page_legacy_score_shape():
+    sc = A.parse_rt_page((FX / "rt_page_score_legacy.html").read_text())
+    assert sc["score"] == 87.0 and sc["score_src"] == "score" and sc["score_calc"] == 87 and sc["n"] == 62.0
+
+
+def test_rt_page_falls_back_to_liked_counts():
+    h = (FX / "rt_page_scorepercent_2026-11-18.html").read_text()
+    assert '"scorePercent":"88%",' in h
+    sc = A.parse_rt_page(h.replace('"scorePercent":"88%",', ""))
+    assert sc["score"] == 88.0 and sc["score_src"] == "calc"
+
+
+def test_rt_resolver_never_uses_search(monkeypatch):
+    """robots.txt disallows /search for every agent: the resolver may only GET /m/<slug> pages."""
+    page = (FX / "rt_page_scorepercent_2026-11-18.html").read_text()
+    seen = []
+
+    class R:
+        def __init__(self, code, text=""):
+            self.status_code, self.text = code, text
+
+    def fake_web(url, params=None, tries=3):
+        seen.append(url)
+        return R(200, page) if url.endswith("/m/i_play_rocky") else R(404)
+
+    monkeypatch.setattr(A, "web", fake_web)
+    monkeypatch.setattr(A, "RT_GAP_S", 0)
+    assert A.rt_resolve("I Play Rocky", 2026) == {"path": "/m/i_play_rocky", "title": "I Play Rocky", "year": 2026}
+    assert A.rt_resolve("Some Other Film", 2026) is None   # title mismatch -> unresolved, never a wrong page
+    assert seen and all("/search" not in u and "/m/" in u for u in seen)
+
+
+def test_rt_slug_candidates():
+    assert "/m/focker_in_law" in A.rt_slug_candidates("Focker-In-Law", 2026)
+    assert "/m/the_further_mis-adventures_of_cliff_booth" in A.rt_slug_candidates(
+        "The Further Mis-Adventures of Cliff Booth", 2026)
+    assert "/m/hexed_2026" in A.rt_slug_candidates("Hexed", 2026)
+    assert "/m/zero_ad_the_birth_of_christ" in A.rt_slug_candidates("ZERO A.D.: The Birth of Christ", 2026)
+
+
+def test_picks_health_zero_streak():
+    import picks_health as H
+    t0, d = 1794000000, 86400
+    rows = [{"ts": t0 + i * d, "p_yes": None, "reason": "no score"} for i in range(3)]
+    assert H.zero_pick_streak(rows, "p_yes")["alert"]
+    rows[1]["p_yes"] = 0.4
+    assert not H.zero_pick_streak(rows, "p_yes")["alert"]
+    assert not H.zero_pick_streak(rows[:2], "p_yes")["alert"]   # fewer than 3 eligible days: no verdict

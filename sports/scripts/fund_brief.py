@@ -374,6 +374,14 @@ def build(timeout: int = 120) -> tuple[str, str]:
     L += ["## 5. Manual bets (user-authorized, scripts/manual_bets.py orders)", ""] + code(manual, 25) + [""]
 
     L += ["## 6. Logger health", ""] + logger_health() + [""]
+    try:   # silent-skip alarm (0 evaluated picks on 3 consecutive eligible days; source field gone null)
+        import picks_health as PH
+        ph_lines, ph_alerts = PH.check(Path(os.environ["FUND_DATA"]))
+        L += ph_lines + [""] + [f"**ALERT** {a}" for a in ph_alerts] + [""]
+        if ph_alerts:
+            PH.notify(ph_alerts)
+    except Exception as e:  # noqa: BLE001
+        L += [f"picks_health failed: {e}", ""]
 
     L += ["## 7. Asks for the PM", ""]
     pm = []

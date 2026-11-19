@@ -164,34 +164,58 @@ def event_title(m: dict) -> str:
     return re.sub(r"\s+(Rotten Tomatoes|Metacritic) score\?\s*$", "", t).strip()
 
 
-def rt_resolve(title: str, year: int) -> dict | None:
-    """RT site search -> movie row whose title matches and release year is year or year-1."""
-    r = web(f"{RT}/search", {"search": title})
-    if r.status_code != 200:
-        return None
-    h = r.text
-    i = h.find('type="movie"')
-    if i < 0:
-        return None
-    j = h.find("<search-page-result", i + 10)
-    block = h[i: j if j > 0 else len(h)]
-    rows = re.findall(r'<search-page-media-row(.*?)</search-page-media-row>', block, re.S)
-    cands = []
-    for row in rows:
-        y = re.search(r'release-year="(\d*)"', row)
-        u = re.search(r'href="https://www\.rottentomatoes\.com(/m/[^"]+)"', row)
-        a = re.search(r'alt="([^"]*)"', row)
-        if not u:
+RT_GAP_S = 2.0   # politeness: >= 2 s between RT requests
+
+
+def rt_slug_candidates(title: str, year: int) -> list[str]:
+    """RT film slugs follow /m/<lowercase words joined by _>, with _<year> appended when the bare slug is taken.
+    Hyphens are sometimes kept (the_further_mis-adventures_of_cliff_booth) and sometimes not (focker_in_law)."""
+    s = unicodedata.normalize("NFKD", _html.unescape(title)).encode("ascii", "ignore").decode().lower()
+    s = re.sub(r"\s*\((19|20)\d\d\)\s*$", "", s).replace("&", "and")
+    bases = []
+    for keep_hyphen in (True, False):
+        t = s if keep_hyphen else s.replace("-", " ")
+        t = re.sub(r"[^a-z0-9 -]+", "", t)
+        b = re.sub(r"\s+", "_", t.strip()).strip("_")
+        if b and b not in bases:
+            bases.append(b)
+    out = []
+    for b in bases:
+        for suf in ("", f"_{year}", f"_{year - 1}"):
+            p = f"/m/{b}{suf}"
+            if p not in out:
+                out.append(p)
+    return out
+
+
+def rt_page_meta(h: str) -> dict:
+    """Film name + year from the page's ld+json Movie block (dateCreated = release date)."""
+    for blk in re.findall(r'<script type="application/ld\+json">(.*?)</script>', h, re.S):
+        try:
+            d = json.loads(blk)
+        except ValueError:
             continue
-        cands.append({"path": u.group(1), "title": _html.unescape(a.group(1)) if a else "",
-                      "year": int(y.group(1)) if y and y.group(1) else None})
-    nt = norm_title(title)
-    for strict in (True, False):
-        for c in cands:
-            ok_year = c["year"] in (year, year - 1) if c["year"] else not strict
-            ok_title = norm_title(c["title"]) == nt if strict else nt in norm_title(c["title"])
-            if ok_year and ok_title:
-                return c
+        if isinstance(d, dict) and d.get("@type") == "Movie":
+            y = re.match(r"(\d{4})", str(d.get("dateCreated") or d.get("datePublished") or ""))
+            return {"title": d.get("name"), "year": int(y.group(1)) if y else None}
+    return {"title": None, "year": None}
+
+
+def rt_resolve(title: str, year: int) -> dict | None:
+    """Slug guess + verification on the film page itself (robots.txt allows /m/<slug>; it DISALLOWS /search for every
+    user agent, so the old /search resolver was removed 2026-11-18). Accept a page whose ld+json name equals the Kalshi
+    title (normalised) and whose release year is the close year or the year before. Unresolvable films -> pin them
+    in data/q013/overrides.json ({"KXRT-XXX": "rt:/m/slug"})."""
+    nt = norm_title(re.sub(r"\s*\((19|20)\d\d\)\s*$", "", title))
+    for path in rt_slug_candidates(title, year):
+        r = web(f"{RT}{path}")
+        time.sleep(RT_GAP_S)
+        if r.status_code != 200:
+            continue
+        meta = rt_page_meta(r.text)
+        pt = norm_title(re.sub(r"\s*\((19|20)\d\d\)\s*$", "", meta["title"] or ""))   # RT names e.g. "Hexed (2026)"
+        if pt == nt and meta["year"] in (year, year - 1):
+            return {"path": path, "title": meta["title"], "year": meta["year"]}
     return None
 
 
@@ -206,7 +230,14 @@ def rt_score(path: str) -> dict:
     r = web(f"{RT}{path}")
     if r.status_code != 200:
         raise RuntimeError(f"RT {path} -> {r.status_code}")
-    h = r.text
+    return parse_rt_page(r.text)
+
+
+def parse_rt_page(h: str) -> dict:
+    """Displayed Tomatometer. RT renamed criticsScore.score -> scorePercent ("88%") on 2026-11-03 ~22:41Z, which made
+    score None and silently skipped every RT pick until the 2026-11-18 fix. Order: score (legacy) -> scorePercent ->
+    round-half-up(100 liked / (liked + not_liked)) (matched the displayed score on 1,377/1,377 legacy fetches).
+    score_src records which one was used."""
     m = re.search(r'<script[^>]*id="media-scorecard-json"[^>]*>(.*?)</script>', h, re.S)
     if not m:
         raise RuntimeError(f"RT {path}: no media-scorecard-json (page layout changed?)")
@@ -221,9 +252,18 @@ def rt_score(path: str) -> dict:
             pass
     liked, notl = num(c.get("likedCount")), num(c.get("notLikedCount"))
     n = num(c.get("reviewCount"))
-    return {"page_title": nm, "score": num(c.get("score")), "n": n, "liked": liked, "not_liked": notl,
-            "avg_rating": num(c.get("averageRating")), "certified": c.get("certified"),
-            "score_calc": rt_round(liked, (liked or 0) + (notl or 0)) if liked is not None and notl is not None else None}
+    calc = rt_round(liked, (liked or 0) + (notl or 0)) if liked is not None and notl is not None else None
+    sp = c.get("scorePercent")
+    pct = num(str(sp).strip().rstrip("%")) if sp not in (None, "") else None
+    legacy = num(c.get("score"))
+    if legacy is not None:
+        score, src = legacy, "score"
+    elif pct is not None:
+        score, src = pct, "scorePercent"
+    else:
+        score, src = (float(calc) if calc is not None else None), ("calc" if calc is not None else None)
+    return {"page_title": nm, "score": score, "score_src": src, "n": n, "liked": liked, "not_liked": notl,
+            "avg_rating": num(c.get("averageRating")), "certified": c.get("certified"), "score_calc": calc}
 
 
 def rt_round(liked: float, n: float) -> int | None:
@@ -358,7 +398,7 @@ def resolve_event(ev: str, title: str, series: str, close_ts: int, st: dict, ov:
     year = datetime.fromtimestamp(close_ts, timezone.utc).year
     if series == "KXRT":
         c = rt_resolve(title, year)
-        rec = {"source": "rt", "ref": c["path"] if c else None, "page": c, "query": title, "how": "search",
+        rec = {"source": "rt", "ref": c["path"] if c else None, "page": c, "query": title, "how": "slug_verify",
                "resolved_at": now_ts()}
     else:
         slug = mc_slug(title)
@@ -420,7 +460,7 @@ def tick() -> dict:
                 for x in new:
                     review_rows.append({"first_seen": ts, "event": ev, **x})
                     known_mc.add(x["key"])
-            time.sleep(1)
+            time.sleep(RT_GAP_S if rec["source"] == "rt" else 1)
         except Exception as ex:  # noqa: BLE001
             errors.append(f"score {ev}: {ex}")
             continue
@@ -561,7 +601,8 @@ def report() -> int:
     bets = [p for p in picks if p.get("side")]
     print(f"decision rows {len(picks)}, bets {len(bets)}, events with bets {len({b['event'] for b in bets})}")
     sc = read("scores.jsonl")
-    rt = [r for r in sc if r.get("source") == "rt" and r.get("score") is not None and r.get("score_calc") is not None]
+    rt = [r for r in sc if r.get("source") == "rt" and r.get("score") is not None and r.get("score_calc") is not None
+          and r.get("score_src", "score") != "calc"]
     if rt:
         mis = sum(1 for r in rt if int(r["score"]) != int(r["score_calc"]))
         print(f"RT rounding check: displayed != round-half-up(100*liked/n) on {mis} of {len(rt)} fetches")

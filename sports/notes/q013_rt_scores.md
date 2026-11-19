@@ -70,3 +70,58 @@ so the prior is that there is no edge.
 There are about 18 KXRT + 3 KXMC events open now. Close dates run to 2026-12-28, roughly 1-3 films a week. 30 events with
 bets therefore needs months, and only if the rule fires at all. Strikes within an event are correlated, so the event
 count is what binds. This logger can detect a LARGE mispricing only. A 2-3% edge is undetectable at this n.
+
+## Ops 2026-11-18 (agent `ops_q013_fix`; user-approved paper-logger fix; no orders, no git)
+**Bug.** RT renamed `criticsScore.score` -> `criticsScore.scorePercent` ("88%") at ~2026-11-03 22:41Z (last legacy row
+ts 1793735314 = 11-03 19:48Z, IPL 87). `rt_score` stored score=None from then on, and the pick gate (`score is None` ->
+skip) logged 170 KXRT decision rows with no model evaluation: CAT, EBE, GOD, HOWT, WILD x {T24, T6}, 15-19 strikes each
+(deployed `data/q013/picks.jsonl`, rows with ts >= 1793745660, all reason "no score / n < N_MIN / unknown strike").
+MC (KXMC) was unaffected.
+
+**Fix (`scripts/q013_logger.py`, deployed to `~/.claude/quant-kalshi/scripts/`, backup `q013_logger.py.bak-2026-11-18-prescorepct`).**
+- `parse_rt_page`: score = legacy `score` -> `scorePercent` (strip %) -> round-half-up(100 liked/(liked+not_liked)).
+  New field `score_src` says which. The report's rounding check now skips `score_src == "calc"` rows (trivially equal).
+  Semantics unchanged: the frozen rule always meant the displayed Tomatometer; the calc fallback matched it 1,377/1,377.
+- Resolver: RT `/search` removed (robots.txt disallows it for `User-agent: *`, re-fetched 11-18). New `rt_resolve`
+  tries slug candidates `/m/<title_words>[_<year>|_<year-1>]` (hyphen kept / dropped) and accepts a page only if its
+  ld+json Movie name (minus a trailing "(YYYY)") equals the Kalshi title and its dateCreated year is close-year or
+  year-1. 2 s between RT requests (score fetches too). `overrides.json` still wins. Live check 11-18: HUN, IPL, FOC,
+  FUR, HEX (-> /m/hexed_2026 after stripping "(2026)"), ZER, VIO, DUNE all resolved to the same paths the old search
+  found (state.json). No login, no /napi, 401/403 still never retried.
+- Tests: `tests/test_q013_q014_loggers.py` +6 (15 pass): captured page fixture
+  `tests/fixtures/rt_page_scorepercent_2026-11-18.html` (live /m/i_play_rocky, trimmed), legacy-shape fixture
+  `rt_page_score_legacy.html` (same page with criticsScore rewritten to the 11-03 logged values; NOT a raw capture --
+  no legacy page was saved), calc fallback, resolver never GETs /search, slug candidates, health streak.
+  Fixture builder: `results/ops_q013_fix/make_fixtures.py`.
+
+**Health check (`scripts/picks_health.py`, deployed; wired into `fund_brief.py` section 6, daily 07:30, backup
+`fund_brief.py.bak-2026-11-18-prehealth`).** Eligible day = UTC day with >= 1 decision row; ALERT if the 3 most recent
+eligible days all have 0 rows with p_yes (q013, q014). Plus a q013 field-null check: RT fetches in the last 24 h with
+n >= 10 and score None. Alerts go to the brief, `~/.claude/quant-kalshi/ALERTS_picks_health.txt` and a macOS
+notification. Run on deployed data before the fix tick: q013 ALERT (11-09 0/50, 11-15 0/35, 11-16 0/35) and
+184/184 null-score fetches; q014 ok (26/26 each day). The q013 streak alert stays on until the next eligible day
+(HUN/IPL T24 = 2026-11-22 15:00Z) produces evaluated rows -- expected, not a new failure.
+
+**Proposal for lead (not done).** The 170 skipped rows can be reconstructed point-in-time: at each decision tick
+scores.jsonl holds liked/not_liked/n (score_calc) from the same ts and the pick row holds the bid/ask. A backfill
+(`decision` rows tagged `backfill: true`, frozen model unchanged) would recover 5 events for the T24/T6 trials. It
+touches the trial's data, so it is the lead's / user's call. `~/.claude/quant-sports/scripts/q013_logger.py` is a
+stale identical copy of the old code (no launchd job uses it); left untouched.
+
+**Verified (deployed, launchd tick ts 1795059524 = 2026-11-19 03:38Z).** `data/q013/scores.jsonl`: KXRT-HUN score 74
+(score_src scorePercent, n 101, score_calc 74), KXRT-IPL 88 (n 157, calc 88). HOWT/WILD are closed (no open markets),
+so HUN/IPL are the current films. No errors in q013_logger.log/.err. Dry run of the frozen model on those rows
+(not written): P(>70) at T24 = 0.997 (HUN), 1.000 (IPL), i.e. the gate now evaluates. First real picks: 2026-11-22
+15:00Z (T24 for HUN/IPL). Field-null check changed to judge each film's LATEST fetch so it clears on the first good
+tick: now 0/2 films null (ok); the zero-pick streak alert stays until 11-22 as expected.
+
+## Learnings
+### RT renamed criticsScore.score to scorePercent on 2026-11-03 and Q013 skipped every RT pick for 15 days
+170 KXRT decision rows on 5 films (CAT, EBE, GOD, HOWT, WILD) logged "no score" (deployed data/q013/picks.jsonl).
+A logger that logs None instead of failing loudly hides a dead trial; parse with a fallback chain and record the source.
+### A picks-health alarm catches silent skips within 3 eligible days
+scripts/picks_health.py: 0 model-evaluated rows on 3 consecutive eligible days, or a film's latest fetch losing its
+score field. On the pre-fix data it fired on q013 (11-09 0/50, 11-15 0/35, 11-16 0/35) and stayed quiet on q014.
+### RT film slugs can be resolved without /search, which robots.txt forbids
+Guess /m/<words>[_<year>] and verify the page's ld+json Movie name + dateCreated year; RT appends "(YYYY)" to the name
+when it disambiguates (Hexed (2026)). Matched the old search mapping on 8/8 open films (2026-11-18).
