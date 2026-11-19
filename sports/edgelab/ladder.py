@@ -7,9 +7,11 @@ Who may move what:
   * evaluate(): registered->dev_pass|dead, dev_pass->sealed_pass|dead, sealed_pass->forward_paper,
     forward_paper->dead (pre-set kill). Nothing else.
   * the user, through `edgelab approve --user-approved --by <name>`: forward_paper->live_small, live_small->live,
-    and size changes. Requires forward eligibility (>= 100 forward bets passing rule 5 on forward data alone),
-    except ONE early size step <= EARLY_SIZE_MAX for a forward_paper strategy with a pre-set kill (GOAL.md rule 6
-    amendment, user 2026-11-05).
+    and size changes. Requires forward eligibility -- BAR_VERSION 2 (GOAL.md rule 6 amendment, user 2026-11-18): the
+    trial's forward sequential test (forward_test.py) accepted H1 on a trial that reached sealed_pass, plus a recorded
+    user audit (`--audit-note`); BAR_VERSION 1: >= 100 forward bets passing rule 5 on forward data alone -- except ONE
+    early size step <= EARLY_SIZE_MAX for a forward_paper strategy with a pre-set kill (GOAL.md rule 6 amendment, user
+    2026-11-05; its "further steps" criterion is now the same forward eligibility).
   * anyone: -> dead (retire).
 A needs_audit verdict never moves a trial; it is recorded on the evaluation and blocks the next step.
 """
@@ -24,7 +26,7 @@ EVALUATE_EDGES = {("registered", "dev_pass"), ("registered", "dead"), ("dev_pass
                   ("registered", "sealed_pass")}  # last edge: forward-only datasets (dev: null), see vault.py
 USER_EDGES = {("forward_paper", "live_small"), ("live_small", "live")}
 USER_ONLY_TARGETS = {"live_small", "live"}
-FORWARD_MIN_N = 100
+FORWARD_MIN_N = 100   # BAR_VERSION 1 only
 EARLY_SIZE_MAX = 2.0   # GOAL.md rule 6 amendment 2026-11-05: one early size step, at most 2x
 
 

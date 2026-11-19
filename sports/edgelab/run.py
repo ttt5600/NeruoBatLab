@@ -11,6 +11,13 @@ Kill (rule 7): the registry's pre-set forward kill (`edgelab setkill`) if one ex
 list of rules; it triggers when ANY rule triggers.
 
 Every call appends an `evaluate` event (also on a PIT rejection) and writes the bet rows to lab/edgelab_runs/.
+
+BAR_VERSION 2 (GOAL.md rules 5-7 amendment, user 2026-11-18):
+  * stage bars: dev = rule-2 family bar; sealed = .05 / 2^j (registry.sealed_bar); forward rule-5 numbers are reported at
+    the family bar but no longer decide promotion;
+  * forward: forward_test.run_test (sequential test, parameters fixed at registration / at adoption). accept_h1 on a
+    trial that reached sealed_pass -> `forward_eligible_for_user` + needs_audit (the user audits before live_small);
+    reject_h0 -> kill rule `forward_sprt_h0`, ADDED to the pre-set / spec kills (any rule triggers).
 """
 from __future__ import annotations
 
@@ -19,7 +26,7 @@ import importlib
 import numpy as np
 import pandas as pd
 
-from . import evaluator, ladder, paths, schema, vault
+from . import evaluator, forward_test, ladder, paths, schema, vault
 from .registry import Registry, RegistryError, sha256_file
 
 RUNS = paths.LAB / "edgelab_runs"
@@ -55,6 +62,10 @@ def _one_kill(kill: dict, res: dict, rows: pd.DataFrame | None) -> dict:
             return {"kind": kind, "triggered": None, "armed": True, "error": "bet rows needed past the window"}
         return {"kind": kind, "triggered": bool(lf > mx), "armed": True, "losses_in_first": lf,
                 "of_first": int(min(n, w))}
+    if kind == "forward_sprt_h0":
+        ft = res.get("forward_test") or {}
+        return {"kind": kind, "triggered": bool(ft.get("kills")), "armed": ft.get("status") not in (None, "out_of_scope"),
+                "status": ft.get("status"), "llr": ft.get("llr"), "B": ft.get("B")}
     if kind == "none_preset":
         return {"kind": kind, "triggered": None, "armed": False, "missing": True}
     raise ValueError(f"unknown kill kind {kind!r}")
@@ -89,11 +100,18 @@ def _adapter_lock(reg: Registry, trial_id: str, sha: str) -> None:
                             "a changed adapter is a changed rule -> register a NEW trial")
 
 
+def reached_sealed_pass(reg: Registry, trial_id: str) -> bool:
+    return any(e["event"] == "transition" and e["trial_id"] == trial_id and e.get("to") == "sealed_pass"
+               for e in reg.events())
+
+
 def evaluate(trial_id: str, split: str, reg: Registry | None = None, save_rows: bool = True,
-             scoring_version: int | None = None) -> dict:
-    """scoring_version None = edgelab.SCORING_VERSION (the user's switch); an explicit value is for sandboxes."""
-    from . import SCORING_VERSION
+             scoring_version: int | None = None, bar_version: int | None = None) -> dict:
+    """scoring_version / bar_version None = edgelab.SCORING_VERSION / BAR_VERSION (the user's switches); an explicit
+    value is for sandboxes."""
+    from . import BAR_VERSION, SCORING_VERSION
     sv = SCORING_VERSION if scoring_version is None else int(scoring_version)
+    bv = BAR_VERSION if bar_version is None else int(bar_version)
     reg = reg or Registry()
     t = reg.trial(trial_id)
     spec = t["spec"]
@@ -109,12 +127,19 @@ def evaluate(trial_id: str, split: str, reg: Registry | None = None, save_rows: 
     adapter_report = dict(bets.attrs.get("adapter_report") or {}) if ad else None
     bets = vault.resolve_outcomes(spec["dataset"], bets, hidden, frame, scoring_version=sv)
     bar, n_family = reg.family_bar(spec["family"])
+    sealed_j = None
+    if split == "sealed" and bv >= 2:
+        bar, sealed_j = reg.sealed_bar(spec["family"], spec["id"])
     base = {"event": "evaluate", "trial_id": trial_id, "split": split, "family": spec["family"],
             "n_trials_family": n_family, "bar": bar, "replay": access.get("replay", False),
             "access_ts": access["ts"], "sources": access["sources"], "vault_sha256": access["vault_sha256"],
             "rule_sha256": t["rule_sha256"], "spec_sha256": t["spec_sha256"]}
     if sv >= 2:   # v1 events stay byte-identical to the pre-flag format
         base["scoring_version"] = sv
+    if bv >= 2:
+        base["bar_version"] = bv
+        if sealed_j is not None:
+            base["sealed_shot_j"] = sealed_j
     if ad:
         base["forward_adapter"] = ad["record"]
         base["adapter_report"] = adapter_report
@@ -127,7 +152,7 @@ def evaluate(trial_id: str, split: str, reg: Registry | None = None, save_rows: 
     except schema.SchemaError as e:
         ev = reg.append({**base, "verdict": "schema_rejected", "schema_error": str(e)})
         return {**ev, "error": str(e)}
-    res = evaluator.score(rows, bar, int(spec["min_n"]), spec.get("fee") or {})
+    res = evaluator.score(rows, bar, int(spec["min_n"]), spec.get("fee") or {}, version=bv)
     out = {**base, **_slim(res), "pit_violations": {}}
     if save_rows and len(rows):
         RUNS.mkdir(parents=True, exist_ok=True)
@@ -136,10 +161,22 @@ def evaluate(trial_id: str, split: str, reg: Registry | None = None, save_rows: 
         out["rows_file"] = {"path": str(p), "sha256": sha256_file(p)}
     if split == "forward":
         rules, src, pk = active_kill(reg, trial_id, spec)
+        if bv >= 2:
+            cost, _, _ = evaluator.cost_and_pnl(rows, spec.get("fee") or {}) if len(rows) else (np.zeros(0), None, None)
+            ft = forward_test.run_test(rows, cost, spec.get("forward_test"), reached_sealed_pass(reg, trial_id))
+            out["forward_test"] = ft
+            res = {**res, "forward_test": ft}
+            rules = list(rules) + [{"kind": "forward_sprt_h0"}]
         out["kill"] = kill_check(rules, res, rows, source=src)
         if pk:
             out["kill"]["preset_ts"] = pk["ts"]
-        out["forward_eligible_for_user"] = bool(res["verdict"] == "pass" and res["n"] >= ladder.FORWARD_MIN_N)
+        if bv >= 2:
+            out["forward_eligible_for_user"] = bool(out["forward_test"]["promotes"])
+            if out["forward_test"]["status"] == "accept_h1":
+                out["needs_audit"] = True          # GOAL rule 6 (2026-11-18): H1 acceptance -> audit before live_small
+                out["forward_audit_required"] = True
+        else:
+            out["forward_eligible_for_user"] = bool(res["verdict"] == "pass" and res["n"] >= ladder.FORWARD_MIN_N)
     reg.append(out)
     # ---- ladder moves (evaluate may only make EVALUATE_EDGES moves)
     st = reg.state(trial_id)
@@ -181,3 +218,4 @@ def score_only(spec: dict, split: str, bar: float | None, fee: dict | None = Non
                                   scoring_version=scoring_version)
     rows = schema.enforce(bets)
     return {"NOT_A_VERDICT": True, **_slim(evaluator.score(rows, bar, int(spec["min_n"]), fee or spec.get("fee") or {}))}
+

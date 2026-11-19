@@ -59,6 +59,17 @@ def next_gate(reg: Registry, t: dict) -> str:
         pk = reg.preset_kill(t["trial_id"])
         kl = ("kill " + "+".join(r["kind"] for r in pk["rules"]) + " (preset)") if pk else \
             f"kill {t['spec']['kill'].get('kind')} (spec; no setkill yet)"
+        ft = e.get("forward_test")
+        if ft:
+            st_ = ft.get("status")
+            if st_ == "accept_h1":
+                pr = ("H1 ACCEPTED -> needs_audit; USER audits + decides live_small" if ft.get("gate_ok")
+                      else "H1 accepted but no sealed pass: cannot promote")
+            elif st_ in ("continue", "horizon_user_decides"):
+                pr = f"{st_} (LLR {ft.get('llr', 0):+.2f} in [{ft.get('B', 0):.2f}, {ft.get('A', 0):.2f}])"
+            else:
+                pr = str(st_)
+            return f"forward test {ft.get('kind')}: {pr}; n {e.get('n', 0)}; {kl} + forward_sprt_h0"
         return f"forward n {e.get('n', 0)}/100 passing rule 5 -> USER decides live_small; {kl}"
     if st in ("live_small", "live"):
         return "user-sized"
@@ -201,6 +212,7 @@ def evidence(reg: Registry, name: str) -> dict:
             srcs.add(x["rows_file"]["path"])
     if t.get("rule_path"):
         srcs.add(t["rule_path"])
+    ev["_forward_test"] = (fwd or {}).get("forward_test")
     ev["_preset_kill"] = ({"source": "preset", "set_at": pk["ts"], "rules": pk["rules"]} if pk else
                           {"source": "spec", "set_at": t["ts"], "rules": [spec.get("kill")],
                            "note": "no `edgelab setkill` rule; the spec's registration-time kill applies"})

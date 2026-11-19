@@ -14,6 +14,12 @@ Pre-set constants (written 2026-11-02 before any strategy was scored through thi
   CLV: mean(close_price - price) over rows with a close; needs >= 50% coverage, else CLV is null and (e) fails.
   Too-good guard: ROI > +10% with n > 200, OR annualized Sharpe of cluster P&L > 5 -> needs_audit.
     (Disclosed: before fixing 5 I estimated by hand that E1 taker sits near 3 and E4 maker near 7.)
+
+BAR_VERSION 2 (GOAL.md rule 5 amendment, user 2026-11-18; version=2 below):
+  (c) Concentration: observed net ROI must stay > 0 after dropping the top-profit ISO week of the event AND, separately,
+      after dropping the top-profit cluster (critic edit b). The 30% profit share is still reported, never a gate.
+  Too-good guard: ROI > +10% with n > 200 -> needs_audit (unchanged); the Sharpe > 5 trigger applies only when the
+      mean all-in cost is < NEAR_CERTAIN_COST (.90) -- it fired on every real near-certain edge (bar_calibration s1).
 """
 from __future__ import annotations
 
@@ -26,6 +32,7 @@ B_COARSE, B_FINE, SEED = 2_000, 40_000, 0
 CONCENTRATION_MAX = 0.30
 CLV_MIN_COVERAGE = 0.50
 TOO_GOOD_ROI, TOO_GOOD_N, SHARPE_MAX = 0.10, 200, 5.0
+NEAR_CERTAIN_COST = 0.90
 
 
 def cost_and_pnl(df: pd.DataFrame, fee: dict) -> tuple[np.ndarray, np.ndarray]:
@@ -84,16 +91,24 @@ def bootstrap(cluster: np.ndarray, pnl: np.ndarray, stake: np.ndarray, bar: floa
             "B": int(len(bs)), "clusters": int(len(u)), "cluster_pnl": cp}
 
 
-def concentration(df: pd.DataFrame, pnl: np.ndarray) -> dict:
+def concentration(df: pd.DataFrame, pnl: np.ndarray, stake: np.ndarray | None = None) -> dict:
     total = float(pnl.sum())
     by_cl = pd.Series(pnl).groupby(df["cluster"].astype(str).to_numpy()).sum()
     wk = df["event_start"].dt.tz_convert("UTC").dt.strftime("%G-W%V").to_numpy()
     by_wk = pd.Series(pnl).groupby(wk).sum()
+    # v2: ROI after dropping the top-profit week / the top-profit cluster (each separately)
+    ex = {}
+    if stake is not None and len(pnl):
+        st = pd.Series(stake)
+        for name, key, by in (("roi_ex_top_week", wk, by_wk), ("roi_ex_top_cluster", df["cluster"].astype(str).to_numpy(), by_cl)):
+            keep = key != by.idxmax()
+            s_ = float(st[keep].sum())
+            ex[name] = float(pd.Series(pnl)[keep].sum() / s_) if s_ > 0 else None
     if total <= 0:
-        return {"share": None, "cluster_share": None, "week_share": None, "top_cluster": None}
+        return {"share": None, "cluster_share": None, "week_share": None, "top_cluster": None, **ex}
     cs, ws = float(by_cl.max() / total), float(by_wk.max() / total)
     return {"share": max(cs, ws), "cluster_share": cs, "week_share": ws,
-            "top_cluster": str(by_cl.idxmax()), "top_week": str(by_wk.idxmax())}
+            "top_cluster": str(by_cl.idxmax()), "top_week": str(by_wk.idxmax()), **ex}
 
 
 def clv(df: pd.DataFrame) -> dict:
@@ -121,8 +136,11 @@ def sharpe_annualized(df: pd.DataFrame, cluster_pnl: np.ndarray) -> float | None
     return float(cluster_pnl.mean() / cluster_pnl.std(ddof=1) * np.sqrt(per_year))
 
 
-def score(df: pd.DataFrame, bar: float | None, min_n: int, fee: dict | None = None) -> dict:
-    """df = enforced (normalized, PIT-clean) bet rows. bar = alpha / all-time family trials (None = report only)."""
+def score(df: pd.DataFrame, bar: float | None, min_n: int, fee: dict | None = None, version: int | None = None) -> dict:
+    """df = enforced (normalized, PIT-clean) bet rows. bar = the stage bar (None = report only).
+    version = BAR_VERSION (None = edgelab.BAR_VERSION); 1 reproduces the 2026-11-02 checks exactly."""
+    from . import BAR_VERSION
+    version = BAR_VERSION if version is None else int(version)
     fee = fee or {}
     n = int(len(df))
     if n == 0:
@@ -143,17 +161,20 @@ def score(df: pd.DataFrame, bar: float | None, min_n: int, fee: dict | None = No
     i1, i2 = order[:h], order[h:]
     half1 = float(pnl[i1].sum() / stake[i1].sum()) if h else None
     half2 = float(pnl[i2].sum() / stake[i2].sum()) if len(i2) else None
-    conc = concentration(df, pnl)
+    conc = concentration(df, pnl, stake if version >= 2 else None)
     cv = clv(df)
     sh = sharpe_annualized(df, bt["cluster_pnl"])
     checks = {
         "a_p_below_bar": bool(bar is not None and bt["p"] < bar),
         "b_both_halves_positive": bool(half1 is not None and half2 is not None and half1 > 0 and half2 > 0),
-        "c_concentration_ok": bool(conc["share"] is not None and conc["share"] <= CONCENTRATION_MAX),
+        "c_concentration_ok": (bool(conc["share"] is not None and conc["share"] <= CONCENTRATION_MAX) if version < 2
+                               else bool((conc.get("roi_ex_top_week") or 0) > 0 and (conc.get("roi_ex_top_cluster") or 0) > 0)),
         "d_min_n": bool(n >= min_n),
         "e_clv_nonnegative": bool(cv["mean"] is not None and cv["mean"] >= 0),
     }
-    too_good = bool((roi > TOO_GOOD_ROI and n > TOO_GOOD_N) or (sh is not None and sh > SHARPE_MAX))
+    near_certain = bool(float(cost.mean()) >= NEAR_CERTAIN_COST - 1e-9)
+    sharpe_applies = version < 2 or not near_certain
+    too_good = bool((roi > TOO_GOOD_ROI and n > TOO_GOOD_N) or (sharpe_applies and sh is not None and sh > SHARPE_MAX))
     if all(checks.values()):
         verdict = "needs_audit" if too_good else "pass"
     else:
@@ -163,5 +184,7 @@ def score(df: pd.DataFrame, bar: float | None, min_n: int, fee: dict | None = No
             "half1": half1, "half2": half2, "concentration": conc, "clv": cv, "sharpe_ann": sh,
             "mean_cost": float(cost.mean()), "losses": int((df["outcome"] == 0).sum()),
             "needs_audit": too_good, "checks": checks, "verdict": verdict,
+            **({"bar_version": version, "near_certain": near_certain, "sharpe_guard_applies": sharpe_applies}
+               if version >= 2 else {}),
             "reasons": [k for k, v in checks.items() if not v] + (["too_good_guard"] if too_good else []),
             "fee": fee}

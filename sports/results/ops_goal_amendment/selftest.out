@@ -1,0 +1,97 @@
+{
+ "placebo": {
+  "real": {
+   "placebos": 210,
+   "evaluated": 210,
+   "family_trials": 210,
+   "bar": 0.0002380952380952381,
+   "false_pass_corrected": 0.0,
+   "false_pass_uncorrected": 0.004761904761904762,
+   "false_pass_uncorrected_ignoring_clv": 0.004761904761904762,
+   "p_below_alpha_only": 0.004761904761904762,
+   "any_pass_corrected": false,
+   "any_pass_uncorrected": true,
+   "median_roi": -0.03873683453298899,
+   "by_kind": {
+    "nfl_total_lab:random_side": 0,
+    "nfl_total_lab:shuffled_signal": 1,
+    "kalshi_temp_all:coin_flip": 0
+   }
+  },
+  "fair": {
+   "placebos": 210,
+   "evaluated": 210,
+   "family_trials": 210,
+   "bar": 0.0002380952380952381,
+   "false_pass_corrected": 0.0,
+   "false_pass_uncorrected": 0.05238095238095238,
+   "false_pass_uncorrected_ignoring_clv": 0.05238095238095238,
+   "p_below_alpha_only": 0.05238095238095238,
+   "any_pass_corrected": false,
+   "any_pass_uncorrected": true,
+   "median_roi": 0.001109188027173119,
+   "by_kind": {
+    "nfl_total_lab:random_side": 6,
+    "nfl_total_lab:shuffled_signal": 3,
+    "nfl_total_lab:coin_flip": 2
+   }
+  },
+  "false_pass_rate": 0.0,
+  "ok": true
+ },
+ "golden": {
+  "e1_sealed": {
+   "verdict": "pass",
+   "n": 1844,
+   "net_roi": 0.014546997731908394,
+   "ci": [
+    0.006007506463790121,
+    0.022689684227936907
+   ],
+   "p": 0.0003499912502187445,
+   "bar": 0.025,
+   "n_trials_family": 44,
+   "half1": 0.01917261287752358,
+   "half2": 0.009921382586293206,
+   "reasons": []
+  },
+  "l2_t1": {
+   "verdict": "fail",
+   "n": 789,
+   "net_roi": -0.13867662472724165,
+   "ci": [
+    -0.24654496688643623,
+    -0.029957315509710904
+   ],
+   "p": 0.991504247876062,
+   "bar": 0.025,
+   "n_trials_family": 195,
+   "reasons": [
+    "a_p_below_bar",
+    "b_both_halves_positive",
+    "c_concentration_ok"
+   ]
+  },
+  "e1_concentration": 0.12325330258686533,
+  "e1_clv": 0.006151701059676522,
+  "ok": true
+ },
+ "cheaters": {
+  "peek_tape": true,
+  "late_price": true,
+  "read_outcome": true,
+  "set_outcome": true,
+  "amend_after_access": true,
+  "amend_before_access_allowed": true,
+  "sealed_without_dev_pass": true,
+  "rule_edited_after_access": true,
+  "edited_rule_is_new_trial": true,
+  "evaluate_to_live_small": true,
+  "user_without_approval": true,
+  "second_unseal": true,
+  "tampered_registry_detected": true,
+  "ok": true
+ },
+ "ok": true,
+ "written": "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/lab/edgelab_selftest.json"
+}

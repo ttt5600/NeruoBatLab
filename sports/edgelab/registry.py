@@ -83,6 +83,12 @@ def validate_spec(spec: dict, historical: bool = False) -> None:
             raise RegistryError("min_n must be a positive int fixed before data access")
         if not isinstance(spec.get("kill"), dict) or "kind" not in spec["kill"]:
             raise RegistryError("kill must be a dict with a 'kind' (rule 7: kill rules are code too)")
+        if "forward_test" in spec:
+            from .forward_test import ForwardTestError, validate
+            try:
+                validate(spec["forward_test"])
+            except ForwardTestError as e:
+                raise RegistryError(f"forward_test: {e}") from e
 
 
 KILL_KINDS = {"clv_negative_significant": {"after_n": int, "p": float},
@@ -225,6 +231,36 @@ class Registry:
     def family_bar(self, family: str, alpha: float = ALPHA) -> tuple[float, int]:
         n = self.family_counts().get(family, 0)
         return (alpha / n if n else alpha), n
+
+    def sealed_shots(self, family: str) -> list[tuple[str, str]]:
+        """The family's sealed shots in time order: [(when, spec_id)]. A shot = a spec id whose sealed window was read
+        once -- a pre-edgelab unseal listed in vault.yaml spent_unseals (dated by its `when`) or a non-replay sealed
+        access in this registry (dated by its ts). One shot per spec id (its earliest)."""
+        from . import vault
+        fam_specs = {t["spec"]["id"] for t in self.trials().values() if t["family"] == family}
+        first: dict[str, str] = {}
+        for cfg in vault.config().values():
+            for s in (cfg or {}).get("spent_unseals") or []:
+                if s["spec_id"] in fam_specs:
+                    w = str(s["when"])
+                    first[s["spec_id"]] = min(first.get(s["spec_id"], w), w)
+        trials = self.trials()
+        for a in self.accesses():
+            if a.get("split") != "sealed" or a.get("replay"):
+                continue
+            t = trials.get(a["trial_id"])
+            if t and t["family"] == family:
+                sid = t["spec"]["id"]
+                first[sid] = min(first.get(sid, a["ts"]), a["ts"])
+        return sorted(((w, sid) for sid, w in first.items()), key=lambda x: (x[0], x[1]))
+
+    def sealed_bar(self, family: str, spec_id: str, alpha: float = ALPHA) -> tuple[float, int]:
+        """GOAL.md rule 5(a) amendment 2026-11-18: the j-th sealed shot in a family is judged at alpha / 2^j
+        (j = 1 + shots the family took before this one) -> the family's sealed false passes sum to <= alpha.
+        Returns (bar, j)."""
+        shots = [sid for _, sid in self.sealed_shots(family)]
+        j = shots.index(spec_id) + 1 if spec_id in shots else len(shots) + 1
+        return alpha / 2 ** j, j
 
     # ------------------------------------------------------------------ state
     def state(self, trial_id: str) -> str:

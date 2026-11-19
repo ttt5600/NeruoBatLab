@@ -1,0 +1,441 @@
+{
+ "registry_sha256": "3805172bb168fa73d0df1660aa33c097cb3395c63aa703477b784fe3e5774052",
+ "trials": {
+  "e1_taker-40389097": {
+   "v1": {
+    "state_before": "dead",
+    "state_after": "dead",
+    "verdict": "fail",
+    "n": 0,
+    "net_roi": null,
+    "kill": false,
+    "kill_rules": [
+     [
+      "clv_negative_significant",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "no bets"
+    ],
+    "ft": null
+   },
+   "v2": {
+    "state_before": "dead",
+    "state_after": "dead",
+    "verdict": "fail",
+    "n": 0,
+    "net_roi": null,
+    "kill": false,
+    "kill_rules": [
+     [
+      "clv_negative_significant",
+      false
+     ],
+     [
+      "forward_sprt_h0",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "no bets"
+    ],
+    "ft": {
+     "kind": "out_of_scope",
+     "status": "continue",
+     "llr": null,
+     "A": null,
+     "B": null,
+     "n_used": 0,
+     "gate_ok": false,
+     "months_elapsed": null,
+     "mean_cost": null,
+     "why": null
+    }
+   }
+  },
+  "e2_taker-427ca55b": {
+   "v1": {
+    "state_before": "dead",
+    "state_after": "dead",
+    "verdict": "fail",
+    "n": 0,
+    "net_roi": null,
+    "kill": false,
+    "kill_rules": [
+     [
+      "clv_negative_significant",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "no bets"
+    ],
+    "ft": null
+   },
+   "v2": {
+    "state_before": "dead",
+    "state_after": "dead",
+    "verdict": "fail",
+    "n": 0,
+    "net_roi": null,
+    "kill": false,
+    "kill_rules": [
+     [
+      "clv_negative_significant",
+      false
+     ],
+     [
+      "forward_sprt_h0",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "no bets"
+    ],
+    "ft": {
+     "kind": "out_of_scope",
+     "status": "continue",
+     "llr": null,
+     "A": null,
+     "B": null,
+     "n_used": 0,
+     "gate_ok": false,
+     "months_elapsed": null,
+     "mean_cost": null,
+     "why": null
+    }
+   }
+  },
+  "e4_maker_e1-f3f00f4d": {
+   "v1": {
+    "state_before": "forward_paper",
+    "state_after": "forward_paper",
+    "verdict": "fail",
+    "n": 32,
+    "net_roi": 0.07208872458410352,
+    "kill": false,
+    "kill_rules": [
+     [
+      "losses_in_first",
+      false
+     ],
+     [
+      "clv_negative_significant",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": true,
+    "reasons": [
+     "a_p_below_bar",
+     "c_concentration_ok",
+     "d_min_n",
+     "too_good_guard"
+    ],
+    "ft": null
+   },
+   "v2": {
+    "state_before": "forward_paper",
+    "state_after": "forward_paper",
+    "verdict": "fail",
+    "n": 32,
+    "net_roi": 0.07208872458410352,
+    "kill": false,
+    "kill_rules": [
+     [
+      "losses_in_first",
+      false
+     ],
+     [
+      "clv_negative_significant",
+      false
+     ],
+     [
+      "forward_sprt_h0",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "a_p_below_bar",
+     "d_min_n"
+    ],
+    "ft": {
+     "kind": "near_certain",
+     "status": "continue",
+     "llr": 0.24307185854206273,
+     "A": 5.19295685089021,
+     "B": -2.2975725511705014,
+     "n_used": 32,
+     "gate_ok": true,
+     "months_elapsed": 2,
+     "mean_cost": 0.9459374999999999,
+     "why": null
+    }
+   }
+  },
+  "e4_maker_x1-e02827f2": {
+   "v1": {
+    "state_before": "dead",
+    "state_after": "dead",
+    "verdict": "fail",
+    "n": 21,
+    "net_roi": 0.02960102960102962,
+    "kill": false,
+    "kill_rules": [
+     [
+      "clv_negative_significant",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "c_concentration_ok",
+     "d_min_n"
+    ],
+    "ft": null
+   },
+   "v2": {
+    "state_before": "dead",
+    "state_after": "dead",
+    "verdict": "fail",
+    "n": 21,
+    "net_roi": 0.02960102960102962,
+    "kill": false,
+    "kill_rules": [
+     [
+      "clv_negative_significant",
+      false
+     ],
+     [
+      "forward_sprt_h0",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "d_min_n"
+    ],
+    "ft": {
+     "kind": "near_certain",
+     "status": "continue",
+     "llr": 0.21756381213004694,
+     "A": 5.19295685089021,
+     "B": -2.2975725511705014,
+     "n_used": 21,
+     "gate_ok": false,
+     "months_elapsed": 2,
+     "mean_cost": 0.9666666666666667,
+     "why": null
+    }
+   }
+  },
+  "f1_nba_early_form-2a6da301": {
+   "v1": {
+    "state_before": "registered",
+    "state_after": "registered",
+    "verdict": "fail",
+    "n": 29,
+    "net_roi": 0.07601494951875863,
+    "kill": false,
+    "kill_rules": [
+     [
+      "clv_negative_significant",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "a_p_below_bar",
+     "b_both_halves_positive",
+     "c_concentration_ok",
+     "d_min_n",
+     "e_clv_nonnegative"
+    ],
+    "ft": null
+   },
+   "v2": {
+    "state_before": "registered",
+    "state_after": "registered",
+    "verdict": "fail",
+    "n": 29,
+    "net_roi": 0.07601494951875863,
+    "kill": false,
+    "kill_rules": [
+     [
+      "clv_negative_significant",
+      false
+     ],
+     [
+      "forward_sprt_h0",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "a_p_below_bar",
+     "b_both_halves_positive",
+     "d_min_n",
+     "e_clv_nonnegative"
+    ],
+    "ft": {
+     "kind": "out_of_scope",
+     "status": "out_of_scope",
+     "llr": null,
+     "A": null,
+     "B": null,
+     "n_used": 0,
+     "gate_ok": false,
+     "months_elapsed": null,
+     "mean_cost": 0.5447943793103448,
+     "why": "prices outside [0.4, 0.6] (no placebo calibration for this mix)"
+    }
+   }
+  },
+  "kalshi_prop_ladders-1315b2c4": {
+   "v1": {
+    "state_before": "registered",
+    "error": "KeyError: 'result'"
+   },
+   "v2": {
+    "state_before": "registered",
+    "error": "KeyError: 'result'"
+   }
+  },
+  "l2_t1_ml_gap05-402df655": {
+   "v1": {
+    "state_before": "dead",
+    "error": "RegistryError: l2_t1_ml_gap05-402df655: rule module /Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/edgelab/rules/nba.py changed since registration (02fd81921ceb -> 35720eff666b);"
+   },
+   "v2": {
+    "state_before": "dead",
+    "error": "RegistryError: l2_t1_ml_gap05-402df655: rule module /Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/edgelab/rules/nba.py changed since registration (02fd81921ceb -> 35720eff666b);"
+   }
+  },
+  "l32b_totals_open-e55ac937": {
+   "v1": {
+    "state_before": "registered",
+    "error": "RegistryError: l32b_totals_open-e55ac937: rule module /Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/edgelab/rules/nba.py changed since registration (02fd81921ceb -> 35720eff666b"
+   },
+   "v2": {
+    "state_before": "registered",
+    "error": "RegistryError: l32b_totals_open-e55ac937: rule module /Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/edgelab/rules/nba.py changed since registration (02fd81921ceb -> 35720eff666b"
+   }
+  },
+  "q017_b_far_bracket-a237837b": {
+   "v1": {
+    "state_before": "registered",
+    "state_after": "registered",
+    "verdict": "pit_rejected",
+    "n": null,
+    "net_roi": null,
+    "kill": null,
+    "kill_rules": [],
+    "eligible": null,
+    "needs_audit": null,
+    "reasons": null,
+    "ft": null
+   },
+   "v2": {
+    "state_before": "registered",
+    "state_after": "registered",
+    "verdict": "pit_rejected",
+    "n": null,
+    "net_roi": null,
+    "kill": null,
+    "kill_rules": [],
+    "eligible": null,
+    "needs_audit": null,
+    "reasons": null,
+    "ft": null
+   }
+  },
+  "tsa_t1_taker-c7a4fe41": {
+   "v1": {
+    "state_before": "dead",
+    "error": "NotImplementedError: tsa_paper.jsonl now has fill rows: write the forward adapter (new rule = new trial)"
+   },
+   "v2": {
+    "state_before": "dead",
+    "error": "NotImplementedError: tsa_paper.jsonl now has fill rows: write the forward adapter (new rule = new trial)"
+   }
+  },
+  "tsa_t2_maker-38019185": {
+   "v1": {
+    "state_before": "dead",
+    "state_after": "dead",
+    "verdict": "fail",
+    "n": 4,
+    "net_roi": 0.041666666666666706,
+    "kill": false,
+    "kill_rules": [
+     [
+      "losses_in_first",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "c_concentration_ok",
+     "d_min_n",
+     "e_clv_nonnegative"
+    ],
+    "ft": null
+   },
+   "v2": {
+    "state_before": "dead",
+    "state_after": "dead",
+    "verdict": "fail",
+    "n": 4,
+    "net_roi": 0.041666666666666706,
+    "kill": false,
+    "kill_rules": [
+     [
+      "losses_in_first",
+      false
+     ],
+     [
+      "forward_sprt_h0",
+      false
+     ]
+    ],
+    "eligible": false,
+    "needs_audit": false,
+    "reasons": [
+     "c_concentration_ok",
+     "d_min_n",
+     "e_clv_nonnegative"
+    ],
+    "ft": {
+     "kind": "near_certain",
+     "status": "continue",
+     "llr": 0.04701789622541723,
+     "A": 5.19295685089021,
+     "B": -2.2975725511705014,
+     "n_used": 4,
+     "gate_ok": false,
+     "months_elapsed": 1,
+     "mean_cost": 0.96,
+     "why": null
+    }
+   }
+  }
+ },
+ "v1_vs_v2_state_changes": {},
+ "v2_eligible_for_user": []
+}

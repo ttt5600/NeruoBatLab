@@ -5,7 +5,9 @@
   evaluate STRATEGY --split S          dev | sealed | forward (sealed: once, after dev pass)
   selftest [--n-each 70]               placebo + golden + cheater proofs (sandbox registries)
   evidence STRATEGY --out f.json       hub-verifier evidence (null where unknown; never defaulted)
-  approve STRATEGY --to live_small|live --user-approved --by NAME [--size X]   USER ONLY
+  approve STRATEGY --to live_small|live --user-approved --by NAME [--size X] [--audit-note TEXT]   USER ONLY
+                                       live_small (BAR_VERSION 2): the forward test accepted H1 on a sealed-passed
+                                       trial AND the user records the audit (--audit-note)
   retire STRATEGY --reason TEXT        -> dead (anyone may turn a strategy off)
   setkill STRATEGY --kind K [--kind K2] [--n N --max-losses M] [--after-n N --p P] [--roi-after-n N]
                                        pre-set FORWARD kill (rule 7): once, only while 0 forward bets are scored,
@@ -51,9 +53,9 @@ def cmd_register(a, reg):
 def cmd_evaluate(a, reg):
     t = report.resolve(reg, a.strategy)
     out = run.evaluate(t["trial_id"], a.split, reg)
-    keep = ["trial_id", "split", "verdict", "n", "net_roi", "ci", "p", "bar", "n_trials_family", "half1", "half2",
-            "concentration", "clv", "sharpe_ann", "needs_audit", "reasons", "kill", "state", "error", "pit_violations",
-            "adapter_report"]
+    keep = ["trial_id", "split", "verdict", "n", "net_roi", "ci", "p", "bar", "n_trials_family", "sealed_shot_j",
+            "half1", "half2", "concentration", "clv", "sharpe_ann", "needs_audit", "reasons", "forward_test", "kill",
+            "forward_eligible_for_user", "state", "error", "pit_violations", "adapter_report"]
     x = {k: out.get(k) for k in keep if k in out}
     if out.get("forward_adapter"):
         x["forward_adapter"] = {k: out["forward_adapter"][k] for k in ("module", "params", "sha256")}
@@ -101,7 +103,7 @@ def cmd_approve(a, reg):
             if not 0 < a.size <= ladder.EARLY_SIZE_MAX:
                 why.append(f"size {a.size} > early max {ladder.EARLY_SIZE_MAX}")
             if why:
-                print(f"refused: before {ladder.FORWARD_MIN_N} eligible forward bets only one early step "
+                print(f"refused: before forward eligibility ({_elig_text()}) only one early step "
                       f"<= {ladder.EARLY_SIZE_MAX}x is allowed: " + "; ".join(why))
                 return 1
         reg.append({"event": "user_approval", "trial_id": t["trial_id"], "size": a.size,
@@ -111,12 +113,27 @@ def cmd_approve(a, reg):
     if a.to == "live_small":
         f = report.latest(reg, t["trial_id"], "forward") or {}
         if not f.get("forward_eligible_for_user"):
-            print(f"refused: needs >= {ladder.FORWARD_MIN_N} forward bets passing rule 5 on forward data alone "
-                  f"(latest forward: n {f.get('n')}, verdict {f.get('verdict')})")
+            ft = f.get("forward_test") or {}
+            print(f"refused: needs {_elig_text()} (latest forward: n {f.get('n')}, verdict {f.get('verdict')}, "
+                  f"forward test {ft.get('status')}, sealed-pass gate {ft.get('gate_ok')})")
             return 1
+        if f.get("forward_audit_required") and not (a.audit_note or "").strip():
+            print("refused: the forward test accepted H1 -> needs_audit; record the user's audit with --audit-note TEXT "
+                  "(GOAL.md rule 6 amendment 2026-11-18)")
+            return 1
+        if f.get("forward_audit_required"):
+            reg.append({"event": "user_audit", "trial_id": t["trial_id"], "forward_eval_ts": f.get("ts"),
+                        "note": a.audit_note.strip(), "approval": {"by": ap.by, "when": ap.when}})
     ladder.transition(reg, t["trial_id"], a.to, "user", ap, size=a.size)
     print(f"{t['trial_id']} -> {a.to} (by {ap.by} at {ap.when})")
     return 0
+
+
+def _elig_text() -> str:
+    from . import BAR_VERSION
+    if BAR_VERSION >= 2:
+        return "the forward sequential test to accept H1 on a trial that reached sealed_pass"
+    return f">= {ladder.FORWARD_MIN_N} forward bets passing rule 5 on forward data alone"
 
 
 def cmd_retire(a, reg):
@@ -180,7 +197,8 @@ def main(argv=None) -> int:
     p.set_defaults(fn=cmd_evidence)
     p = sub.add_parser("approve"); p.add_argument("strategy"); p.add_argument("--to", choices=["live_small", "live"])
     p.add_argument("--user-approved", action="store_true"); p.add_argument("--by", default="")
-    p.add_argument("--size", type=float); p.add_argument("--note"); p.set_defaults(fn=cmd_approve)
+    p.add_argument("--size", type=float); p.add_argument("--note"); p.add_argument("--audit-note")
+    p.set_defaults(fn=cmd_approve)
     p = sub.add_parser("retire"); p.add_argument("strategy"); p.add_argument("--reason", required=True)
     p.set_defaults(fn=cmd_retire)
     p = sub.add_parser("setkill", help="pre-set the FORWARD kill (once, only before any forward bet is scored)")

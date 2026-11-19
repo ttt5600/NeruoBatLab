@@ -20,3 +20,12 @@ ALPHA = 0.05
 #       (YES v, NO 1 - v; v = the dataset's outcome `value_col`, a hidden column), P&L = contracts x (value - price)
 #       - fee. Binary rows are bit-identical to v1. Evaluations under v2 carry `scoring_version: 2` in the registry.
 SCORING_VERSION = 2   # flipped 2026-11-18 on the user's approval (GOAL.md rule 5 amendment)
+
+# Bar version (ops_goal_amendment 2026-11-18; notes/ops_goal_amendment.md). GOAL-level switch: the USER flips it.
+#   1 = rules 5-7 as written 2026-11-02/05: every stage judged at the rule-2 family bar; concentration = 30% profit-share
+#       cap; Sharpe > 5 audit trigger for all trials; live_small needs >= 100 forward bets passing rule 5.
+#   2 = GOAL.md rules 5/6/7 amendment (user, 2026-11-18): sealed bar .05/2^j; concentration = ROI > 0 after dropping the
+#       top week and, separately, the top cluster; no Sharpe trigger at mean cost >= .90; forward promotion by a
+#       pre-registered sequential test (edgelab/forward_test.py) whose H1 acceptance -> needs_audit; its H0 crossing is
+#       a kill added to the pre-set kills. Evaluations under v2 carry `bar_version: 2` in the registry.
+BAR_VERSION = 2   # adopted 2026-11-18 on the user's approval ("approval on everything")
