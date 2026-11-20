@@ -434,3 +434,5 @@ confirm home state (CA vs CO) for venue legality.
   + whole-ladder level drift over weeks, not shape. Soccer correct score calibrated (.055 vs .052).
 - NFLUP (YES on 2+ rungs of pass TDs / player TDs, ask .05-.30): dev n480 ROI -19.3% [-41.4,+5.0]; 1+ control -17.1% -> KILL,
   retired nflup_upper_rungs_t60-4e8e6ef1. Implication: KFG1's +5% placebo is likely window drift too; its forward paper decides.
+- CS2F sealed (11-20, scored once by lead with the scorer unchanged since prereg commit e67ceac): favourites mid .65-.80 at ask
+  n361 ROI -8.68% [-14.07,-3.35] -> KILL, retired cs2f_fav_65_80_t60-2e024a72. The dev +4.0% band was post-hoc noise.

@@ -16,6 +16,8 @@ if "--dev-eligible" in sys.argv:   # dev window, events where both teams have >=
     q = pd.read_parquet(OUT / "preds.parquet")
     q = q[(q.start >= pd.Timestamp("2026-04-15", tz="UTC")) & (q.start < pd.Timestamp("2026-10-19 13:45", tz="UTC")) & (q.n_series >= 10)]
     d = d[d.ticker.isin(set(q.ta) | set(q.tb))]
+if "--sealed" in sys.argv:         # CS2F sealed window (prereg notes/cs2_model.md), all two-market events
+    d = d[(d.start >= pd.Timestamp("2026-10-19 13:45", tz="UTC")) & (d.start < pd.Timestamp("2026-11-16", tz="UTC"))]
 done = set()
 if CACHE.exists():
     for line in CACHE.open():
