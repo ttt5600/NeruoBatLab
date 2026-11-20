@@ -628,3 +628,12 @@ datasets:
       dev: [2026-11-01, 2026-11-30]
       sealed: [2026-12-01, 2027-02-28]     # untouched (not yet settled)
       forward: [2027-03-01, null]
+  kalshi_ufc_mov:         # ufc_tsa 11-19: KXUFCMOV method-of-victory; prereg notes/ufc_tsa.md U1 (dev scored by results/ufc_tsa/u1_dev.py)
+    loader: kx_forward_adapter_only   # no edgelab loader -> unwired
+    family: kalshi_sports_pregame
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:                                # date = card date (ticker date code); set 2026-11-19 before any quote/outcome join
+      dev: [2026-01-21, 2026-07-31]
+      sealed: [2026-08-01, 2026-11-15]     # untouched
+      forward: [2026-11-20, null]

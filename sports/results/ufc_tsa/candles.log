@@ -1,0 +1,24 @@
+markets to fetch 3916 {'KXUFCFIGHT': 560, 'KXUFCMOV': 1981, 'KXUFCVICROUND': 1375}
+0 2026-01-24 00:00:00 6
+200 2026-04-04 00:00:00 6
+400 2026-05-30 00:00:00 6
+600 2026-01-24 00:00:00 6
+800 2026-02-21 00:00:00 6
+1000 2026-03-14 00:00:00 4
+1200 2026-03-28 00:00:00 3
+1400 2026-04-11 00:00:00 5
+1600 2026-04-25 00:00:00 6
+1800 2026-05-16 00:00:00 5
+2000 2026-05-30 00:00:00 6
+2600 2026-01-31 00:00:00 6
+Traceback (most recent call last):
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/ufc_tsa/fetch_candles.py", line 26, in <module>
+    c = (kget(path, p) or {}).get("candlesticks") or []
+         ~~~~^^^^^^^^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/scripts/kx_throttle.py", line 52, in kget
+    slot()
+    ~~~~^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/scripts/kx_throttle.py", line 32, in slot
+    fcntl.flock(f, fcntl.LOCK_EX)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

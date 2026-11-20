@@ -1,0 +1,20 @@
+id: ufc_mov_m1_t60
+family: kalshi_sports_pregame
+dataset: kalshi_ufc_mov
+rule: edgelab.rules.forward:unwired
+hypothesis: 'U1 (prereg notes/ufc_tsa.md, written before any MOV quote/outcome join). KXUFCMOV fighter x method rungs.
+  q = KXUFCFIGHT de-vigged mid x (1-.0175) x M(method | win), M = multinomial logistic on PIT UFCStats fighter finish
+  history + weight-class base + 5-rd + women, fit 2012-2025. T = first fight end on card - 60 min; quote = last hourly
+  candle ending <= T. YES cost = ask, NO cost = 1 - bid, cost in [.03,.97]; 10-lot quadratic taker fee cent-rounded up;
+  per fight the max-edge (rung, side) if edge >= 0.04, 1 ct, hold. Clusters: card. Placebos: base-rate-shape model P0
+  (paired diff CI > 0 required) and fighter-shuffled model x200 (> 95th pct required).'
+decision_time: 'earliest KXUFCFIGHT close on the card - 60 min'
+price_model: taker
+split: vault:kalshi_ufc_mov
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: cent
+legacy: 'new 2026-11-19 (agent ufc_tsa, STRATEGY_v2 #5). Dev scored by results/ufc_tsa/u1_dev.py.'

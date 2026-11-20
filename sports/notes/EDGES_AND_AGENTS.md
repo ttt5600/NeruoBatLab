@@ -421,3 +421,9 @@ confirm home state (CA vs CO) for venue legality.
   dev wk1-7 n56 ROI +23.0%, game-clustered [-0.7,+47.3] p .028 (date-clustered [+8.8,+41.1], ~20 clusters, too narrow);
   placebo mean +5.0%, real at 99.5th pct -> part is base-rate shape (3+ priced .218 vs .269 hit; 1+ mid low by spread).
   Not past bar (2.27e-3). Sealed wk8-10 unopened (too few bets to matter). Next: forward paper log from wk11 (kfg1_points_model_t60-751dc009).
+
+### ufc_tsa (merged 2026-11-20, notes/ufc_tsa.md, results/ufc_tsa/) -- both DEAD
+- U1 UFC method of victory (de-vigged winner x UFCStats finish model): dev n205 +4.38% [-7.50,+15.91]; base-rate placebo +4.05%;
+  diff +0.33 [-8.68,+9.87]; Brier model - mid +0.00175 -> no fighter info beyond price. Retired ufc_mov_m1_t60-844fbeb5.
+- KXTSAD daily TSA: far rungs one-sided (ask-only .15 avg, settled YES 1.6%) but the cheap side is unquoted -> no taker trade;
+  41 events, ~14 maker fills in 28 dev days -> unpowered; sibling tsa_t2_maker already dead. Not pursued.
