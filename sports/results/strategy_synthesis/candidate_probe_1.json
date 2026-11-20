@@ -1,0 +1,242 @@
+{
+ "KXEPLSCORE": {
+  "open_mkts": 234,
+  "two_sided": 92,
+  "med_spread": 0.02,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 70,
+  "events_per_month": 23.3
+ },
+ "KXLALIGASCORE": {
+  "open_mkts": 135,
+  "two_sided": 61,
+  "med_spread": 0.02,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 79,
+  "events_per_month": 26.3
+ },
+ "KXBUNDESLIGASCORE": {
+  "open_mkts": 210,
+  "two_sided": 87,
+  "med_spread": 0.03,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 62,
+  "events_per_month": 20.7
+ },
+ "KXEPL1HSCORE": {
+  "open_mkts": 100,
+  "two_sided": 41,
+  "med_spread": 0.04,
+  "med_spread_mid15_85": 0.04,
+  "settled_events_90d": 70,
+  "events_per_month": 23.3
+ },
+ "KXBRASILEIROSCORE": {
+  "open_mkts": 120,
+  "two_sided": 47,
+  "med_spread": 0.03,
+  "med_spread_mid15_85": 0.01,
+  "settled_events_90d": 93,
+  "events_per_month": 31.0
+ },
+ "KXNFLWINMARGIN": {
+  "open_mkts": 77,
+  "two_sided": 71,
+  "med_spread": 0.06,
+  "med_spread_mid15_85": 0.07,
+  "settled_events_90d": 148,
+  "events_per_month": 49.3
+ },
+ "KXNBAWINMARGIN": {
+  "open_mkts": 72,
+  "two_sided": 61,
+  "med_spread": 0.09,
+  "med_spread_mid15_85": 0.07,
+  "settled_events_90d": 222,
+  "events_per_month": 74.0
+ },
+ "KXNFL1HFT": {
+  "open_mkts": 117,
+  "two_sided": 73,
+  "med_spread": 0.04,
+  "med_spread_mid15_85": 0.05,
+  "settled_events_90d": 148,
+  "events_per_month": 49.3
+ },
+ "KXNFL1H": {
+  "open_mkts": 39,
+  "two_sided": 39,
+  "med_spread": 0.03,
+  "med_spread_mid15_85": 0.04,
+  "settled_events_90d": 148,
+  "events_per_month": 49.3
+ },
+ "KXNCAAMB1H": {
+  "open_mkts": 135,
+  "two_sided": 109,
+  "med_spread": 0.04,
+  "med_spread_mid15_85": 0.09,
+  "settled_events_90d": 378,
+  "events_per_month": 126.0
+ },
+ "KXNFLBOTH": {
+  "open_mkts": 44,
+  "two_sided": 38,
+  "med_spread": 0.11,
+  "med_spread_mid15_85": 0.12,
+  "settled_events_90d": 148,
+  "events_per_month": 49.3
+ },
+ "KXNFLTEAMFIRSTTD": {
+  "open_mkts": 254,
+  "two_sided": 247,
+  "med_spread": 0.69,
+  "med_spread_mid15_85": 0.69,
+  "settled_events_90d": 296,
+  "events_per_month": 98.7
+ },
+ "KXNFLTIE": {
+  "open_mkts": 13,
+  "two_sided": 9,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 102,
+  "events_per_month": 34.0
+ },
+ "KXNFLOT": {
+  "open_mkts": 13,
+  "two_sided": 13,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 148,
+  "events_per_month": 49.3
+ },
+ "KXNFLRACE": {
+  "open_mkts": 165,
+  "two_sided": 162,
+  "med_spread": 0.09,
+  "med_spread_mid15_85": 0.11,
+  "settled_events_90d": 754,
+  "events_per_month": 251.3
+ },
+ "KXNFLTEAMSACK": {
+  "open_mkts": 110,
+  "two_sided": 9,
+  "med_spread": 0.2,
+  "med_spread_mid15_85": 0.2,
+  "settled_events_90d": 148,
+  "events_per_month": 49.3
+ },
+ "KXUFCMOV": {
+  "open_mkts": 77,
+  "two_sided": 77,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": 0.02,
+  "settled_events_90d": 156,
+  "events_per_month": 52.0
+ },
+ "KXUFCVICROUND": {
+  "open_mkts": 81,
+  "two_sided": 65,
+  "med_spread": 0.05,
+  "med_spread_mid15_85": 0.085,
+  "settled_events_90d": 155,
+  "events_per_month": 51.7
+ },
+ "KXTSAD": {
+  "open_mkts": 15,
+  "two_sided": 6,
+  "med_spread": 0.05,
+  "med_spread_mid15_85": 0.05,
+  "settled_events_90d": 41,
+  "events_per_month": 13.7
+ },
+ "KXCBDCHILE": {
+  "open_mkts": 5,
+  "two_sided": 5,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": 0.01,
+  "settled_events_90d": 1,
+  "events_per_month": 0.3
+ },
+ "KXCBDCOLOMBIA": {
+  "open_mkts": 5,
+  "two_sided": 5,
+  "med_spread": 0.05,
+  "med_spread_mid15_85": 0.06,
+  "settled_events_90d": 2,
+  "events_per_month": 0.7
+ },
+ "KXCBDECISIONMEXICO": {
+  "open_mkts": 7,
+  "two_sided": 2,
+  "med_spread": 0.025,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 2,
+  "events_per_month": 0.7
+ },
+ "KXCHINAAI": {
+  "open_mkts": 19,
+  "two_sided": 5,
+  "med_spread": 0.05,
+  "med_spread_mid15_85": 0.035,
+  "settled_events_90d": 12,
+  "events_per_month": 4.0
+ },
+ "KXTOPUSAGEAI": {
+  "open_mkts": 7,
+  "two_sided": 2,
+  "med_spread": 0.185,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 10,
+  "events_per_month": 3.3
+ },
+ "KXOPENSOURCESHARE": {
+  "open_mkts": 45,
+  "two_sided": 31,
+  "med_spread": 0.11,
+  "med_spread_mid15_85": 0.17,
+  "settled_events_90d": 41,
+  "events_per_month": 13.7
+ },
+ "KXDIESELW": {
+  "open_mkts": 31,
+  "two_sided": 6,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": 0.01,
+  "settled_events_90d": 10,
+  "events_per_month": 3.3
+ },
+ "KXCYCLOCOUNT": {
+  "open_mkts": 6,
+  "two_sided": 3,
+  "med_spread": 0.08,
+  "med_spread_mid15_85": 0.07,
+  "settled_events_90d": 1,
+  "events_per_month": 0.3
+ },
+ "KXNCAAF1H": {
+  "open_mkts": 558,
+  "two_sided": 550,
+  "med_spread": 0.22,
+  "med_spread_mid15_85": 0.27,
+  "settled_events_90d": 1175,
+  "events_per_month": 391.7
+ },
+ "KXNBA1Q": {
+  "open_mkts": 54,
+  "two_sided": 54,
+  "med_spread": 0.12,
+  "med_spread_mid15_85": 0.32,
+  "settled_events_90d": 222,
+  "events_per_month": 74.0
+ },
+ "KXNFLSFTY": {
+  "open_mkts": 11,
+  "two_sided": 11,
+  "med_spread": 0.04,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 148,
+  "events_per_month": 49.3
+ }
+}

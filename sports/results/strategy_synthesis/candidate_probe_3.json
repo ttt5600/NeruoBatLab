@@ -1,0 +1,58 @@
+{
+ "KXEPLTEAMTOTAL": {
+  "open_mkts": 42,
+  "two_sided": 42,
+  "med_spread": 0.05,
+  "med_spread_mid15_85": 0.05,
+  "settled_events_90d": 70,
+  "events_per_month": 23.3
+ },
+ "KXEPL1HTOTAL": {
+  "open_mkts": 21,
+  "two_sided": 21,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": 0.01,
+  "settled_events_90d": 70,
+  "events_per_month": 23.3
+ },
+ "KXLALIGATEAMTOTAL": {
+  "open_mkts": 30,
+  "two_sided": 29,
+  "med_spread": 0.05,
+  "med_spread_mid15_85": 0.05,
+  "settled_events_90d": 79,
+  "events_per_month": 26.3
+ },
+ "KXSERIEATEAMTOTAL": {
+  "open_mkts": 24,
+  "two_sided": 22,
+  "med_spread": 0.05,
+  "med_spread_mid15_85": 0.05,
+  "settled_events_90d": 79,
+  "events_per_month": 26.3
+ },
+ "KXBUNDESLIGA1HTOTAL": {
+  "open_mkts": 21,
+  "two_sided": 21,
+  "med_spread": 0.02,
+  "med_spread_mid15_85": 0.02,
+  "settled_events_90d": 62,
+  "events_per_month": 20.7
+ },
+ "KXEPLTOTAL": {
+  "open_mkts": 60,
+  "two_sided": 60,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": 0.02,
+  "settled_events_90d": 70,
+  "events_per_month": 23.3
+ },
+ "KXEPL2HTOTAL": {
+  "open_mkts": 21,
+  "two_sided": 21,
+  "med_spread": 0.09,
+  "med_spread_mid15_85": 0.09,
+  "settled_events_90d": 70,
+  "events_per_month": 23.3
+ }
+}

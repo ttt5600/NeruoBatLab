@@ -1,0 +1,108 @@
+id,mechanism,venue,outcome,death,ci_pos,cite
+E1,NOWCAST,Kalshi,pass,,sealed,FB l.152
+E2-X1,NOWCAST,Kalshi,pass,,sealed,FB l.153
+E4,NOWCAST,Kalshi,pass,,sealed,FB l.154
+E5,NOWCAST,ForecastEx,dead,adverse_selection,sealed,FB l.156
+E3,CROSSVENUE,UK books,pass,legal_untradeable,sealed,FB l.155
+Q008-FX1,CROSSVENUE,ForecastEx,dead,too_few_events,none,FB l.162; LRN l.374
+L40-LIP,MAKER,Kalshi,dead,program_ended,none,FB l.163
+L32-O1-L36,MODEL,books,dead,fees_spread,clv,FB l.164/183/256
+Q004,MODEL,Kalshi,dead,model_error,none,FB l.165; LRN l.341
+L34,MODEL,Kalshi,dead,priced,none,FB l.166
+L33-KNFL,MODEL,Kalshi,lead,fees_spread,clv,FB l.167; FR l.274
+L39,NOWCAST,Kalshi,lead,too_few_events,dev,FB l.168; LRN l.284
+F4,NOWCAST,PM US,dead,priced,none,FB l.169
+F1-NFLfade,TIMING,Kalshi,lead,,none,FB l.170
+F2-NFLrain,TIMING,books,dead,priced,none,FB l.171
+F3-KS12,CROSSVENUE,Kalshi,dead,leakage_artefact,none,LRN l.149
+Q003,MAKER,Kalshi,dead,adverse_selection,dev,FB l.182
+L35-firstlisting,TIMING,Kalshi,dead,adverse_selection,clv,FB l.184; LRN l.129
+LX1,CROSSVENUE,Kalshi+PM,dead,too_few_events,none,FR l.288; LRN l.136
+LX2,BIAS,Kalshi,dead,priced,none,LRN l.143
+LX2c-climate,BIAS,Kalshi,lead,too_few_events,dev,LRN l.188
+L30-paint,MODEL,books,dead,fees_spread,clv,FB l.188; LRN l.106
+L2-sides,MODEL,books,dead,priced,none,FB l.190
+player-opp-venue,MODEL,books,dead,priced,none,FB l.191
+L5-L7-props,MODEL,books,dead,fees_spread,none,FB l.195-196; LRN l.345
+L22-polfav,BIAS,Kalshi,dead,fees_spread,none,FB l.204; LRN l.262
+H1H2-PMmaker,MAKER,PM,dead,adverse_selection,none,FB l.241
+G1-G4-KXsportsFLB,BIAS,Kalshi,dead,priced,none,FB l.210-211/331
+MKdog,MAKER,Kalshi,dead,adverse_selection,dev,FB l.212/332
+WCN,BIAS,books,dead,decay,dev,FB l.213
+DUL,BIAS,Kalshi,lead,,none,FB l.214; FR l.270
+KICK,BIAS,books,dead,priced,none,FB l.302
+GDELT,TIMING,Kalshi,dead,priced,none,FB l.303
+N0-M4-L37-ingame,MODEL,Kalshi,dead,priced,none,FB l.231-232/236
+T1T2-B1B3-L28,BIAS,Kalshi,dead,adverse_selection,none,FB l.233-235
+L38,BIAS,Kalshi,dead,decay,none,FB l.237
+CBB-SOC-LU-livetot,MODEL,Kalshi,dead,priced,none,FB l.238-240/249
+OVR,BIAS,PM,dead,leakage_artefact,none,FB l.242
+PM-T,MAKER,PM,dead,adverse_selection,none,FB l.243
+MEDIA,NOWCAST,Kalshi,dead,too_few_events,none,FB l.244
+HT1-ND1,NOWCAST,Kalshi,dead,unobservable_settlement,none,FB l.245; LRN l.214
+PW-TC1,ALTDATA,Kalshi,dead,data_revisions,none,FB l.246; EA l.381
+XV-PM-pmus_lag,CROSSVENUE,Kalshi+PM US,dead,fees_spread,none,FB l.247; EA l.363
+L8-nbasim,MODEL,books,dead,model_error,none,FB l.257; EA l.333
+publicmodels-Elo,MODEL,books,dead,priced,none,FB l.258/262
+CM-B2B-angles-refs-luck,BIAS,books,dead,priced,none,FB l.259-265/278
+NFL-angles-12+70tests,BIAS,books,dead,priced,none,FB l.266-272
+NFLwx-oracle,TIMING,books,dead,leakage_artefact,none,FB l.273
+MLB-set,BIAS,books,dead,priced,none,FB l.274-276
+multibook-consensus,CROSSVENUE,books,dead,leakage_artefact,none,FB l.280
+R_REB,MODEL,books,dead,decay,dev,FB l.286
+P1P2-proploops-MLBK,MODEL,books,dead,fees_spread,none,FB l.287-294
+PM10-patternmine,BIAS,books,dead,leakage_artefact,dev,FB l.289
+props-scan-KXvsDK,CROSSVENUE,Kalshi,dead,priced,none,FB l.295
+parlays-pickem,BIAS,books,dead,fees_spread,none,FB l.296-297
+X2-lows,NOWCAST,Kalshi,dead,model_error,none,FB l.311
+R1-RD1-RD2,NOWCAST,Kalshi,dead,adverse_selection,dev,FB l.312-313
+GR7-gaming,BIAS,books,dead,priced,none,FB l.314
+N1-dayof-L26-D1,NOWCAST,Kalshi,dead,priced,none,FB l.316-319
+FX-lows-intl,NOWCAST,ForecastEx,dead,too_few_events,none,FB l.321
+winter-rain-snow,NOWCAST,Kalshi,dead,priced,none,FB l.322
+K-FAV,MAKER,Kalshi,dead,adverse_selection,none,FB l.328
+M3-mentions,BIAS,Kalshi,dead,decay,dev,FB l.329
+soccer-1X2,SHARPLINE,Kalshi,dead,priced,none,FB l.333
+N2-N6-N7-ladders,NOWCAST,Kalshi,dead,priced,none,FB l.334-336
+econ-reject,NOWCAST,Kalshi,dead,leakage_artefact,none,FB l.337
+early-NFL-totals,TIMING,Kalshi,dead,priced,none,FB l.338
+smallmarket-negRisk,BIAS,PM,dead,leakage_artefact,none,FB l.339-340
+M1M2-xvenue-wx-pin,CROSSVENUE,Kalshi+PM,dead,priced,none,FB l.345-349
+Q007-FX,CROSSVENUE,ForecastEx,dead,priced,none,FB l.350
+E1p-E2p-earnings,BIAS,PM,dead,priced,dev,FB l.361-362
+mortgage-KX30YMORTW,NOWCAST,Kalshi,dead,priced,none,LRN l.51
+fed-vs-futures,SHARPLINE,Kalshi,dead,priced,none,LRN l.58
+K1-L32b,MODEL,Kalshi,lead,fees_spread,clv,LRN l.117; FR l.273
+K-CFB-K50-CBB,MODEL,Kalshi,dead,fees_spread,clv,LRN l.123/155/334
+RT-Q013,TIMING,Kalshi,dead,priced,none,LRN l.175
+PM-wallets,TIMING,PM+Kalshi,dead,priced,none,LRN l.182
+quake-monthly,NOWCAST,Kalshi,lead,too_few_events,none,LRN l.195
+home-values,NOWCAST,Kalshi,lead,unobservable_settlement,none,LRN l.201
+snow-days,NOWCAST,Kalshi,lead,priced,none,LRN l.208
+crypto-barrier-CB1,SHARPLINE,Kalshi,lead,priced,none,LRN l.221
+E4P-NBM,NOWCAST,Kalshi,lead,,dev,LRN l.228
+OT1-extension,SHARPLINE,Kalshi,dead,fees_spread,none,LRN l.235
+E4-timing,NOWCAST,Kalshi,lead,,dev,LRN l.241
+HURCAT,NOWCAST,Kalshi,dead,model_error,none,LRN l.248
+stategas-ERCOT-econevents,NOWCAST,Kalshi,dead,priced,none,LRN l.255
+OT1,SHARPLINE,Kalshi,lead,decay,dev,LRN l.268
+golf-cricket-rules,BIAS,Kalshi,dead,priced,none,LRN l.278
+billboard-album,NOWCAST,Kalshi,dead,priced,none,LRN l.291/303
+NFL-wx-updates,TIMING,Kalshi,dead,priced,none,LRN l.297
+NHL-om-goalie,MODEL,Kalshi,lead,fees_spread,clv,LRN l.310
+NFL-inactives-Q011,TIMING,Kalshi,dead,priced,none,LRN l.322; EA l.315
+maker-fairfill-lockin,MAKER,Kalshi,dead,adverse_selection,none,LRN l.328/377
+CA1-carbonarc,ALTDATA,Kalshi,dead,paid_data,none,altdata_kpi.md
+XV-US,CROSSVENUE,PM US,dead,leakage_artefact,none,pm_full_census.md
+CS2E,MODEL,Kalshi,dead,priced,none,cs2_model.md
+CS2F,BIAS,Kalshi,lead,,dev,cs2_model.md (post-hoc; sealed pending)
+KFG1,SHARPLINE,Kalshi,lead,too_few_events,dev,kalshi_fg_markets.md (date-cluster CI only)
+Q014-truthsocial,MODEL,Kalshi,dead,model_error,none,FR l.290
+Q015-approval,MODEL,Kalshi,dead,model_error,none,EA l.305
+Q012-Q016-crypto-commod,SHARPLINE,Kalshi,dead,fees_spread,none,EA l.317/319
+SX1-SP1,NOWCAST,Kalshi,dead,too_few_events,dev,EA l.365
+TSA,NOWCAST,Kalshi,lead,too_few_events,sealed,EA l.339
+needle-2026,TIMING,Kalshi,lead,,none,FB l.463; LRN l.46
+XV-LAG,TIMING,Kalshi,dead,paid_data,none,FB l.248
+FC1-carry,OFFVENUE,crypto,dead,decay,dev,trading_ways_survey.md
+stocks-ETF-pairs-twins-L11-Q009-graph,OFFVENUE,equities,dead,fees_spread,none,FB l.228-229/356-360

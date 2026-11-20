@@ -1,0 +1,114 @@
+{
+ "KXNFLWEEKHIGHSCORE": {
+  "open_mkts": 244,
+  "two_sided": 92,
+  "med_spread": 0.06,
+  "med_spread_mid15_85": 0.27,
+  "settled_events_90d": 9,
+  "events_per_month": 3.0
+ },
+ "KXNFLWEEKGAMEHIGH": {
+  "open_mkts": 122,
+  "two_sided": 8,
+  "med_spread": 0.06,
+  "med_spread_mid15_85": 0.79,
+  "settled_events_90d": 4,
+  "events_per_month": 1.3
+ },
+ "KXHMONTHRANGE": {
+  "open_mkts": 6,
+  "two_sided": 2,
+  "med_spread": 0.02,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 3,
+  "events_per_month": 1.0
+ },
+ "KXCBDCZECH": {
+  "open_mkts": 5,
+  "two_sided": 2,
+  "med_spread": 0.015,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 2,
+  "events_per_month": 0.7
+ },
+ "KXCBDINDONESIA": {
+  "open_mkts": 5,
+  "two_sided": 5,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": 0.01,
+  "settled_events_90d": 3,
+  "events_per_month": 1.0
+ },
+ "KXCBDECISIONNZ": {
+  "open_mkts": 5,
+  "two_sided": 3,
+  "med_spread": 0.04,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 1,
+  "events_per_month": 0.3
+ },
+ "KXCBDSWEDEN": {
+  "open_mkts": 5,
+  "two_sided": 4,
+  "med_spread": 0.135,
+  "med_spread_mid15_85": 0.29,
+  "settled_events_90d": 2,
+  "events_per_month": 0.7
+ },
+ "KXCBDECISIONENGLAND": {
+  "open_mkts": 5,
+  "two_sided": 3,
+  "med_spread": 0.02,
+  "med_spread_mid15_85": 0.02,
+  "settled_events_90d": 2,
+  "events_per_month": 0.7
+ },
+ "KXCBDECISIONJAPAN": {
+  "open_mkts": 5,
+  "two_sided": 2,
+  "med_spread": 0.015,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 2,
+  "events_per_month": 0.7
+ },
+ "KXCBDECISIONBRAZIL": {
+  "open_mkts": 5,
+  "two_sided": 5,
+  "med_spread": 0.04,
+  "med_spread_mid15_85": 0.04,
+  "settled_events_90d": 2,
+  "events_per_month": 0.7
+ },
+ "KXLIGUE1SCORE": {
+  "open_mkts": 180,
+  "two_sided": 82,
+  "med_spread": 0.03,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 62,
+  "events_per_month": 20.7
+ },
+ "KXMLSSCORE": {
+  "open_mkts": 150,
+  "two_sided": 73,
+  "med_spread": 0.03,
+  "med_spread_mid15_85": 0.15,
+  "settled_events_90d": 153,
+  "events_per_month": 51.0
+ },
+ "KXLIGAMXSCORE": {
+  "open_mkts": 180,
+  "two_sided": 86,
+  "med_spread": 0.025,
+  "med_spread_mid15_85": null,
+  "settled_events_90d": 84,
+  "events_per_month": 28.0
+ },
+ "KXUFCFIGHT": {
+  "open_mkts": 22,
+  "two_sided": 22,
+  "med_spread": 0.01,
+  "med_spread_mid15_85": 0.01,
+  "settled_events_90d": 162,
+  "events_per_month": 54.0
+ }
+}
