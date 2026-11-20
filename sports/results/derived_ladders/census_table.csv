@@ -1,0 +1,700 @@
+series,title,fee,n_mk,n_ev,vol_tot,vol_med,mk_per_ev,first,last,capped,sample_title,sample_sub
+KXNFLTD,Pro Football Touchdowns,quadratic 1,7247,156,587941188.37,24092.71,46.455128205128204,2026-08-07,2026-11-17,False,Josh Allen: 4+ touchdowns,Josh Allen: 4+
+KXMLBRFI,Pro Baseball Run in First Inning,quadratic 0.5,2482,2482,533295366.12,151092.655,1.0,2025-10-17,2026-10-29,False,1st inning: Over 0.5 runs,Over 0.5 runs in the 1st inning
+KXNBASERIES,NBA Series Winner,quadratic_with_maker_fees 1,48,24,338314485.55,4014015.0,2.0,2025-04-27,2026-05-18,False,Cleveland vs Detroit 2026 2nd Round series winner?,Detroit
+KXNFLFIRSTTD,Pro Football First Touchdown,quadratic_with_maker_fees 1,9143,435,262023883.55,2962.23,21.0183908045977,2025-09-05,2026-11-17,False,Frank Gore Jr.: 1st Touchdown,Frank Gore Jr.
+KXMLB,World Series,quadratic_with_maker_fees 1,60,2,232042726.17,1572202.145,30.0,2025-11-02,2026-10-29,False,Will Washington win the 2026 Pro Baseball Championship?,Washington
+KXMLBF5,First 5 Innings Winner,quadratic 0.5,7410,2470,213026842.19,14744.935000000001,3.0,2026-03-26,2026-10-29,False,first 5 innings tie,Tie first 5 innings
+KXMLBF5TOTAL,First 5 Innings Total,quadratic 0.5,9092,1299,192279898.23,10582.8,6.999230177059276,2026-06-23,2026-10-29,True,First 5 innings: Over 6.5 runs,Over 6.5 runs in the first 5 innings
+KXNFLRSHYDS,Pro Football Rushing Yards,quadratic 1,13150,355,161119726.93,3293.915,37.04225352112676,2025-10-07,2026-11-17,True,James Cook III: 175+ rushing yards,James Cook III: 175+
+KXMLBHR,Pro Baseball Home Runs,quadratic 0.5,12803,397,149232149.76,2858.83,32.249370277078086,2026-09-02,2026-10-29,True,Samuel Basallo: 2+ home runs?,Samuel Basallo: 2+
+KXNFLANYTD,Pro Football Anytime Touchdown,quadratic_with_maker_fees 1,5335,285,127972718.0,5155.0,18.719298245614034,2025-09-05,2026-02-09,False,George Holani: Anytime Touchdown,George Holani
+KXNFLPASSYDS,Pro Football Passing Yards,quadratic 1,6371,379,124264676.03,4880.0,16.810026385224276,2025-10-07,2026-11-17,False,Jared Goff: 175+ passing yards,Jared Goff: 175+
+KXNFLRECYDS,Pro Football Receiving Yards,quadratic 1,15778,222,118656840.88,1746.895,71.07207207207207,2025-11-16,2026-11-17,True,Jameson Williams: 15+ receiving yards,Jameson Williams: 15+
+KXNCAAF1HSPREAD,College Football 1st Half Spread,quadratic 1,11892,557,109742007.7,1467.525,21.35008976660682,2026-08-29,2026-11-19,True,Wagner wins 1H by over 7.5 points,Wagner wins 1H by over 7.5 points
+KXNFL1HSPREAD,Pro Football 1st Half Spread,quadratic 1,3405,206,108749618.43,5583.86,16.52912621359223,2026-01-18,2026-11-17,False,BUF Bills wins 1H by over 30.5 points?,BUF Bills wins 1H by over 30.5 points
+KXNBA1HSPREAD,NBA 1st Half Spread,quadratic 1,10820,811,96663274.7,685.48,13.341553637484587,2026-02-11,2026-11-19,False,Will San Antonio win the 1H by over 26.5 points?,San Antonio wins the 1H by over 26.5 points
+KXNBA1HTOTAL,NBA 1st Half Total,quadratic 1,9618,808,93129614.84,1669.5,11.903465346534654,2026-02-11,2026-11-19,False,New York vs San Antonio: First Half Total?,Over 124.5 1H points scored
+KXNCAAF1HTOTAL,College Football 1st Half Total,quadratic 1,9831,696,82990502.16,1684.67,14.125,2026-08-29,2026-11-19,True,Over 6.5 1H points scored,Over 6.5 1H points scored
+KXUCLWGAME,Champions League Women's Game,quadratic 1,384,128,80946279.33,48492.245,3.0,2026-02-11,2026-11-19,False,Reg Time: Tie is the result,Reg Time: Tie
+KXNFLREC,Pro Football Player Receptions,quadratic 1,15877,262,79419032.98,782.0,60.599236641221374,2025-11-09,2026-11-20,True,Keon Coleman: 7+ receptions,Keon Coleman: 7+
+KXLALIGA2GAME,LaLiga 2 Game,quadratic 1,1035,345,79006986.73,43623.92,3.0,2026-02-13,2026-11-16,False,Tie is the result,Tie
+KXMLBKS,Pro Baseball Strikeouts,quadratic 0.5,9904,728,78944535.55,3173.635,13.604395604395604,2026-08-07,2026-10-29,True,Brayan Bello: 5+ strikeouts?,Brayan Bello: 5+
+KXMLBTEAMTOTAL,Pro Baseball Team Total,quadratic 0.5,10184,728,75601264.78,4001.3500000000004,13.989010989010989,2026-08-08,2026-10-29,True,Will Tampa Bay score over 7.5 runs?,Tampa Bay over 7.5 runs scored
+KXMLBSERIES,Pro Baseball Series Winner,quadratic_with_maker_fees 1,40,20,70562805.07,296339.29000000004,2.0,2025-10-02,2026-10-29,False,New York Yankees vs Boston Red Sox Series Winner?,Yankees
+KXNFL1HTOTAL,Pro Football 1st  Half Total Points,quadratic 1,2785,206,67147696.4,5425.63,13.519417475728156,2026-01-17,2026-11-17,False,Will there be over 7.5 1H points scored?,Over 7.5 1H points scored
+KXNCAAFTEAMTOTAL,College Football Team Total Points,quadratic 1,12190,527,64242170.79,1752.025,23.13092979127135,2026-08-29,2026-11-19,True,Rutgers scores over 37.5 points,Rutgers over 37.5 points scored
+KXMLBF5SPREAD,First 5 Innings Spread,quadratic 0.5,8584,2146,63252510.12,3007.275,4.0,2026-04-19,2026-10-29,True,Tampa Bay wins first 5 innings by over 2.5 runs?,Tampa Bay -2.5 first 5 innings
+KXMLBSTGAME,Pro Baseball Spring Training game,quadratic 1,859,427,55406854.0,43634.0,2.011709601873536,2026-02-20,2026-03-25,False,Cleveland vs Arizona Winner?,Cleveland
+KXNFLTEAMTOTAL,Pro Football Team Total Points,quadratic 1,4943,195,55260319.87,3252.69,25.348717948717947,2025-12-05,2026-11-17,False,BUF Bills over 54.5 points scored,BUF Bills over 54.5 points scored
+KXNFL1H,Pro Football 1st Half Winner,quadratic 1,597,199,54482832.64,44976.51,3.0,2026-08-07,2026-11-17,False,Will neither team win the 1st Half?,Tie 1st Half
+KXNBA1HWINNER,Pro Baskeball 1st Half Winner,quadratic 1,1569,523,52947801.58,3104.0,3.0,2026-02-11,2026-06-14,False,New York vs San Antonio: First Half Winner?,Tie
+KXNCAAF1H,College Football 1st Half Winner,quadratic 1,4155,1385,50107457.27,1829.31,3.0,2026-08-27,2026-11-19,False,Tie in the 1st half,Tie 1st Half
+KXNBATEAMTOTAL,NBA Team Total,quadratic 1,16000,651,48348529.27,423.91499999999996,24.577572964669738,2026-02-26,2026-11-19,True,Will San Antonio score over 124.5 points?,San Antonio over 124.5 points scored
+KXNBA3PT,NBA Player Threes,quadratic 1,15288,534,46188111.77,965.21,28.629213483146067,2026-02-26,2026-11-19,True,Miles McBride: 5+ threes,Miles McBride: 5+
+KXUCL,UEFA Champions League,quadratic_with_maker_fees 1,36,1,44929403.42,59796.0,36.0,2026-01-28,2026-05-30,False,Will Villarreal win the Champions League Winner?,Villarreal
+KXNHLSERIES,NHL Series Winner,quadratic_with_maker_fees 1,48,24,39804767.71,331763.83999999997,2.0,2025-04-30,2026-05-19,False,Montreal Canadiens vs Buffalo Sabres 2026 2nd Round series winner?,Montreal Canadiens
+KXNFLPASSTDS,Pro Football player Passing Touchdowns,quadratic 1,2068,267,36466900.36,4405.005,7.745318352059925,2025-11-21,2026-11-17,False,Jared Goff: 5+ passing touchdowns,Jared Goff: 5+
+KXBUNDESLIGA2GAME,Bundesliga 2 Game,quadratic 1,648,216,35884507.31,35692.7,3.0,2026-02-13,2026-11-08,False,Tie is the result,Tie
+KXNFL2TD,Pro Football Multiple Touchdowns,quadratic_with_maker_fees 1,2136,279,30407592.0,2241.5,7.655913978494624,2025-09-05,2026-02-09,False,Rashid Shaheed: 2+ Touchdowns,Rashid Shaheed
+KXNCAAF2HSPREAD,College Football 2nd Half Spread,quadratic 1,7343,344,27423836.52,1207.14,21.34593023255814,2026-08-29,2026-11-15,False,Stanford wins 2H by over 7.5 points,Stanford wins 2H by over 7.5 points
+KXNBASERIESSCORE,NBA Series Exact Score,quadratic 1,120,15,26274718.13,41005.825,8.0,2026-04-18,2026-06-14,False,Will San Antonio win 4-3 in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,SAS wins 4-3
+KXNBA1QSPREAD,NBA 1st Quarter Spread,quadratic 1,2926,227,26248115.88,2239.05,12.889867841409691,2026-06-04,2026-11-19,False,New York vs San Antonio: 1st Quarter Spread?,Spurs wins 1Q by over 7.5 points
+KXNBA1H,NBA 1st Half Winner,quadratic 1,864,288,25590478.53,14518.65,3.0,2026-10-04,2026-11-19,False,Tie in the 1st half,Tie
+KXNBA1QTOTAL,NBA 1st Quarter Total,quadratic 1,2963,227,25329018.41,3666.15,13.052863436123348,2026-06-04,2026-11-19,False,New York vs San Antonio: 1st Quarter Total?,Over 81.5 1Q points scored
+KXUCLADVANCE,Champions League Advance,quadratic 1,134,67,24942769.25,62130.28,2.0,2026-02-24,2026-08-26,False,Slovan Bratislava To Advance,Slovan Bratislava advances
+KXMLBHIT,Pro Baseball Hits,quadratic 0.5,15587,291,24850226.53,237.06,53.56357388316151,2026-09-09,2026-10-29,True,Samuel Basallo: 3+ hits?,Samuel Basallo: 3+
+KXWNBA1HTOTAL,WNBA 1st Half Total,quadratic 1,1010,356,24701657.35,13651.78,2.837078651685393,2026-05-09,2026-11-01,False,Over 97.5 1H points scored,Over 97.5 1H points scored
+KXUCLWTOTAL,Point Total,quadratic 1,811,107,24612380.04,7053.23,7.579439252336448,2026-08-04,2026-11-19,False,Will over 6.5 goals be scored?,Reg Time: Over 6.5 goals scored
+KXNFL2HSPREAD,Pro Football 2nd Half Spread,quadratic 1,3270,200,24607136.59,1764.99,16.35,2026-02-09,2026-11-17,False,DET Lions wins 2H by over 14.5 points?,DET Lions wins 2H by over 14.5 points
+KXNHLGOAL,NHL Goalscorer,quadratic 1,15544,266,23350319.61,181.24,58.43609022556391,2026-04-10,2026-11-19,True,Kaedan Korczak: 1+ goals,Kaedan Korczak: 1+
+KXNFL1QSPREAD,Pro Football 1st Quarter Spread,quadratic 1,2187,202,23149945.03,2065.63,10.826732673267326,2026-01-25,2026-11-17,False,BUF Bills wins 1Q by over 17.5 points?,BUF Bills wins 1Q by over 17.5 points
+KXWNBA1HSPREAD,Women's Pro Basketball 1st Half Spread,quadratic 1,1521,356,22989760.95,8549.64,4.272471910112359,2026-05-09,2026-11-01,False,Phoenix wins the 1st half by over 6.5 points?,Phoenix wins the 1H by over 6.5 points
+KXLALIGASCORE,Correct Score,quadratic 1,3336,119,22881683.61,1383.185,28.03361344537815,2026-08-15,2026-11-08,False,Final score Draw 4-4?,Draw 4-4
+KXMLBF3,First 3 Innings Winner,quadratic 0.5,3612,1204,22465123.96,3014.825,3.0,2026-06-30,2026-10-29,False,first 3 innings tie,Tie first 3 innings
+KXNFL1QTOTAL,Pro Football 1st Quarter Total,quadratic 1,2008,202,20581799.33,2361.9449999999997,9.94059405940594,2026-01-25,2026-11-17,False,Will there be over 7.5 1Q points scored?,Over 7.5 1Q points scored
+KXNCAAF1QSPREAD,College Football 1st Quarter Spread,quadratic 1,4093,376,19885513.19,1214.59,10.88563829787234,2026-08-29,2026-11-15,False,UCF wins 1Q by over 7.5 points,UCF wins 1Q by over 7.5 points
+KXWNBAPTS,WNBA Player Points,quadratic 1,7205,356,19785980.08,1242.39,20.23876404494382,2026-05-09,2026-11-01,False,Natasha Mack: 20+ points,Natasha Mack: 20+
+KXEPLBTTS,EPL Both Teams to Score,quadratic 1,381,381,19699206.05,17452.0,1.0,2025-11-08,2026-11-08,False,Both Teams To Score,Both Teams To Score
+KXLALIGABTTS,La Liga BTTS,quadratic 1,377,377,18785422.03,13310.0,1.0,2025-11-21,2026-11-08,False,Both Teams To Score,Both Teams To Score
+KXWNBA1HWINNER,Women's Pro Basketball 1st Half Winner,quadratic 1,1068,356,18115437.76,11289.985,3.0,2026-05-09,2026-11-01,False,Tie wins the 1st half?,Tie
+KXUCLBTTS,Champions League BTTS,quadratic 1,297,297,18078038.5,25304.8,1.0,2025-11-04,2026-11-04,False,Both Teams To Score,Both Teams To Score
+KXNFL3QSPREAD,Pro Football 3rd Quarter Spread,quadratic 1,2246,200,17764310.74,1587.13,11.23,2026-02-09,2026-11-17,False,DET Lions wins 3Q by over 17.5 points?,DET Lions wins 3Q by over 17.5 points
+KXMLBOUTS,Pro Baseball Outs Recorded,quadratic 0.5,2327,1260,17726924.52,4134.41,1.846825396825397,2026-06-23,2026-10-29,False,Brayan Bello: 12+ Outs Recorded?,Brayan Bello: 12+
+KXNFL1Q,Pro Football 1st Quarter Winner,quadratic 1,597,199,17522317.19,12083.72,3.0,2026-08-07,2026-11-17,False,Will neither team win the 1st Quarter?,Tie 1st Quarter
+KXNBA3QTOTAL,NBA 3rd Quarter Total,quadratic 1,2963,227,17384640.8,2050.84,13.052863436123348,2026-06-04,2026-11-19,False,New York vs San Antonio: 3rd Quarter Total?,Over 81.5 3Q points scored
+KXNBA1Q,NBA 1st Quarter Winner,quadratic 1,666,222,17126582.02,14925.465,3.0,2026-10-20,2026-11-19,False,1st quarter tie,Tie
+KXLALIGA1H,La Liga First Half Winner,quadratic 1,720,240,16976172.15,8928.645,3.0,2026-03-04,2026-11-08,False,Tie 1st Half,Tie 1st Half
+KXNCAAMB1HSPREAD,Men's College Basketball 1st Half Spread,quadratic 1,8810,810,16943064.4,0.0,10.876543209876543,2026-02-25,2026-11-19,True,Will Michigan win the 1H by over 7.5 points?,Michigan wins the 1H by over 7.5 points
+KXNCAAF1QTOTAL,College Football 1st Quarter Total,quadratic 1,4136,376,16091223.6,1241.5,11.0,2026-08-29,2026-11-15,False,Over 7.5 1Q points scored,Over 7.5 1Q points scored
+KXNBA3QSPREAD,NBA 3rd Quarter Spread,quadratic 1,2926,227,15867577.69,1437.255,12.889867841409691,2026-06-04,2026-11-19,False,New York vs San Antonio: 3rd Quarter Spread?,Spurs wins 3Q by over 7.5 points
+KXNHLFIRSTGOAL,NHL First Goal,quadratic 1,15483,483,15754836.28,39.02,32.05590062111801,2026-03-25,2026-11-19,True,Kaedan Korczak: First Goalscorer,Kaedan Korczak
+KXNCAAMB1HTOTAL,Men's College Basketball 1st Half Total,quadratic 1,8955,956,15610026.38,0.0,9.367154811715482,2026-02-21,2026-11-19,True,UConn vs Michigan: First Half Total?,Over 80.5 1H points scored
+KXLALIGA2TOTAL,Point Total,quadratic 1,1024,151,15597438.94,6230.255,6.781456953642384,2026-08-14,2026-11-16,False,Will over 6.5 goals be scored?,Over 6.5 goals scored
+KXNHL1PTOTAL,NHL 1st Period Total,quadratic 1,1724,355,14996055.35,1988.8400000000001,4.856338028169014,2026-09-29,2026-11-20,False,1st Period: Over 4.5 goals scored,Over 4.5 goals
+KXNFLOT,Pro Football Overtime,quadratic 1,151,151,14978189.55,36761.21,1.0,2026-02-09,2026-11-17,False,Detroit vs Buffalo goes to overtime?,Detroit vs Buffalo goes to overtime
+KXMLS1HTOTAL,1st Half Total,quadratic 1,873,291,14975578.73,10959.03,3.0,2026-07-17,2026-11-08,False,Over 2.5 1H goals scored,Over 2.5 1H goals scored
+KXUCL1H,Champions League First Hal Winner,quadratic 1,531,177,14856864.99,13828.67,3.0,2026-03-10,2026-11-04,False,Tie 1st Half,Tie 1st Half
+KXNCAAMB1HWINNER,College Basketball 1H Winner,quadratic 1,3477,1159,14650143.0,0.0,3.0,2026-02-18,2026-04-07,False,UConn vs Michigan: First Half Winner?,Tie
+KXNCAAMBBIG10,Big Ten Conference Tournament,quadratic 1,18,1,14509185.0,26421.0,18.0,2026-03-11,2026-03-15,False,Will Wisconsin be the Big 10 tournament champions?,Wisconsin
+KXNBA2HSPREAD,NBA 2nd Half Spread,quadratic 1,5094,304,14466808.07,482.45,16.75657894736842,2026-04-15,2026-11-19,False,Will San Antonio win the 2H by over 8.5 points?,San Antonio wins the 2H by over 8.5 points
+KXLALIGA1HTOTAL,1st Half Total,quadratic 1,414,138,14197858.38,21511.995,3.0,2026-05-17,2026-11-08,False,Over 2.5 1H goals scored,Over 2.5 1H goals scored
+KXMLSBTTS,MLS BTTS,quadratic 1,509,509,14181744.21,15645.29,1.0,2026-02-21,2026-11-08,False,Both Teams To Score,Both Teams To Score
+KXEPL1H,Premier League First Half Winner,quadratic 1,597,199,13969367.36,11955.43,3.0,2026-03-03,2026-11-08,False,Tie 1st Half,Tie 1st Half
+KXNBA2D,NBA Player Double Double,quadratic 1,6526,1201,13728868.79,821.2,5.433805162364696,2025-12-04,2026-11-19,False,Victor Wembanyama: Double Double,Victor Wembanyama
+KXUCL1HTOTAL,UCL 1st Half Total,quadratic 1,453,151,13250290.67,16530.38,3.0,2026-05-05,2026-11-04,False,Over 2.5 1H goals scored,Over 2.5 1H goals scored
+KXNCAAF2HTOTAL,College Football 2nd Half Total,quadratic 1,4863,344,13006049.18,868.0,14.136627906976743,2026-08-29,2026-11-15,False,Over 6.5 2H points scored,Over 6.5 2H points scored
+KXMLBHRR,Pro Baseball Hits Runs RBIs,quadratic 0.5,15601,192,12989958.71,35.49,81.25520833333333,2026-09-12,2026-10-29,True,Samuel Basallo: 5+ hits + runs + RBIs?,Samuel Basallo: 5+
+KXNFL3QTOTAL,Pro Football 3rd Quarter Total,quadratic 1,2000,200,12942424.79,1266.5900000000001,10.0,2026-02-09,2026-11-17,False,Will there be over 7.5 3Q points scored?,Over 7.5 3Q points scored
+KXEPLSCORE,Correct Score,quadratic 1,3112,100,12918504.68,1020.575,31.12,2026-08-21,2026-11-08,False,Final score Nottingham Forest wins 6-1?,Nottingham Forest wins 6-1
+KXNFL2HTOTAL,Pro Football 2nd Half Total,quadratic 1,2733,200,12636517.82,1009.14,13.665,2026-02-09,2026-11-17,False,Will there be over 7.5 2H points scored?,Over 7.5 2H points scored
+KXNBA3D,NBA Player Triple Double,quadratic 1,1781,919,12443076.2,2489.49,1.9379760609357999,2025-12-04,2026-11-19,False,Victor Wembanyama: Triple Double,Victor Wembanyama
+KXNBA2HWINNER,Pro Basketball 2nd Half Winner,quadratic 1,1569,523,11911393.82,111.0,3.0,2026-02-11,2026-06-14,False,New York vs San Antonio: Second Half Winner?,Tie
+KXNBA2QTOTAL,NBA 2nd Quarter Total,quadratic 1,2963,227,11905386.45,1650.55,13.052863436123348,2026-06-04,2026-11-19,False,New York vs San Antonio: 2nd Quarter Total?,Over 81.5 2Q points scored
+KXUCLSCORE,Correct Score,quadratic 1,1991,61,11902091.5,1510.52,32.63934426229508,2026-09-09,2026-11-04,False,Final score Slavia Prague wins 5-3?,Slavia Prague wins 5-3
+KXNCAAF3QSPREAD,College Football 3rd Quarter Spread,quadratic 1,4030,376,11893866.59,945.105,10.71808510638298,2026-08-29,2026-11-15,False,Stanford wins 3Q by over 7.5 points,Stanford wins 3Q by over 7.5 points
+KXEPL1HTOTAL,EPL 1st Half Total,quadratic 1,352,119,11819734.31,22003.18,2.957983193277311,2026-05-17,2026-11-08,False,Over 2.5 1H goals scored,Over 2.5 1H goals scored
+KXNFLRSHATT,Pro Football Rushing Attempts,quadratic 1,1892,150,11371810.37,1784.63,12.613333333333333,2026-09-10,2026-11-17,False,James Cook III: 20+ rushing attempts,James Cook III: 20+
+KXSERIEABTTS,Serie A BTTS,quadratic 1,377,377,11309985.89,9236.0,1.0,2025-11-22,2026-11-08,False,Both Teams To Score,Both Teams To Score
+KXNFL2H,Pro Football 2nd Half,quadratic 1,597,199,11286594.45,8419.77,3.0,2026-08-07,2026-11-17,False,Will neither team win the 2nd Half?,Tie 2nd Half
+KXNFL3Q,Pro Football 3rd Quarter Winner,quadratic 1,597,199,11241237.42,7518.19,3.0,2026-08-07,2026-11-17,False,Will neither team win the 3rd Quarter?,Tie 3rd Quarter
+KXMLS1H,1st Half Winner,quadratic 1,873,291,11220228.31,9416.33,3.0,2026-07-17,2026-11-08,False,Tie 1st Half,Tie 1st Half
+KXNFLWINMARGIN,Pro Football Win Margin,quadratic 1,1057,151,11084503.05,2750.21,7.0,2026-02-09,2026-11-17,False,Will Detroit vs Buffalo end in a tie?,Tie
+KXMLSSCORE,Correct Score,quadratic 1,8730,291,11038341.38,97.505,30.0,2026-07-17,2026-11-08,False,Final score New York City FC wins 5-2?,New York City FC wins 5-2
+KXNCAAF4QSPREAD,College Football 4th Quarter Spread,quadratic 1,4136,376,10768077.57,1004.6,11.0,2026-08-29,2026-11-15,False,Stanford wins 4Q by over 7.5 points,Stanford wins 4Q by over 7.5 points
+KXNBA2QSPREAD,NBA 2nd Quarter Spread,quadratic 1,2926,227,10507709.36,1101.445,12.889867841409691,2026-06-04,2026-11-19,False,New York vs San Antonio: 2nd Quarter Spread?,Spurs wins 2Q by over 7.5 points
+KXNFL2QSPREAD,Pro Football 2nd Quarter Spread,quadratic 1,2224,200,10414475.68,1229.815,11.12,2026-02-09,2026-11-17,False,BUF Bills wins 2Q by over 17.5 points?,BUF Bills wins 2Q by over 17.5 points
+KXNFL4QSPREAD,Pro Football 4th Quarter Spread,quadratic 1,2287,200,10192292.81,1181.93,11.435,2026-02-09,2026-11-17,False,DET Lions wins 4Q by over 17.5 points?,DET Lions wins 4Q by over 17.5 points
+KXNFLTEAMYDS,Pro Football Team Yards,quadratic 1,1578,150,10190699.05,2421.1400000000003,10.52,2026-09-10,2026-11-17,False,Detroit: 450+ Total Yards,Detroit: 450+
+KXWNBA1QTOTAL,Women's Pro Basketball 1st Quarter Total,quadratic 1,1624,232,10023983.18,2279.23,7.0,2026-06-18,2026-11-01,False,Over 51.5 1Q points scored,Over 51.5 1Q points scored
+KXNCAAF3QTOTAL,College Football 3rd Quarter Total,quadratic 1,4136,376,9935907.07,855.015,11.0,2026-08-29,2026-11-15,False,Over 7.5 3Q points scored,Over 7.5 3Q points scored
+KXNFLTDPROT,Pro Football Touchdowns Protected,quadratic 1,3946,86,9847655.49,52.375,45.883720930232556,2026-10-09,2026-11-17,False,David Njoku: 1+ touchdowns (Protected),David Njoku: 1+
+KXNFLRRYDS,Pro Football Rush and Receiving Yards,quadratic 1,1697,150,9717178.4,1116.49,11.313333333333333,2026-09-10,2026-11-17,False,Jahmyr Gibbs: 195+ rushing and receiving yards combined,Jahmyr Gibbs: 195+
+KXNHLPTS,Pro Hockey Points,quadratic 1,15849,423,9598176.92,94.33,37.46808510638298,2026-03-22,2026-11-19,True,Tomas Hertl: 2+ points,Tomas Hertl: 2+
+KXBUNDESLIGA2TOTAL,Point Total,quadratic 1,731,99,9423167.11,5250.77,7.383838383838384,2026-08-07,2026-11-08,False,Will over 7.5 goals be scored?,Over 7.5 goals scored
+KXNFL1HTEAMTOTAL,Pro Football 1st Half Team Total,quadratic 1,3314,150,9286846.09,585.0550000000001,22.093333333333334,2026-09-10,2026-11-17,False,BUF Bills over 35.5 1H points scored,BUF Bills over 35.5 1H points scored
+KXLALIGAGOAL,Goalscorer,quadratic 1,3925,118,9159002.07,4.0,33.26271186440678,2026-08-15,2026-11-08,False,Marc Bernal: 1+ goals,Marc Bernal: 1+
+KXSERIEA1HTOTAL,1st Half Total,quadratic 1,390,130,9080072.12,15490.064999999999,3.0,2026-05-17,2026-11-08,False,Over 2.5 1H goals scored,Over 2.5 1H goals scored
+KXNCAAF2QSPREAD,College Football 2nd Quarter Spread,quadratic 1,4221,376,8804028.61,900.0,11.226063829787234,2026-08-29,2026-11-15,False,South Carolina wins 2Q by over 7.5 points,South Carolina wins 2Q by over 7.5 points
+KXSERIEA1H,Serie A First Half Winner,quadratic 1,660,220,8773984.89,6434.8099999999995,3.0,2026-03-06,2026-11-08,False,Venezia wins 1st Half,Venezia wins 1st Half
+KXMLBF7,First 7 Innings Winner,quadratic 0.5,3609,1203,8731450.68,957.33,3.0,2026-07-01,2026-10-29,False,first 7 innings tie,Tie first 7 innings
+KXUCLGOAL,UCL Goalscorer,quadratic 1,6620,188,8721735.32,0.0,35.212765957446805,2025-11-25,2026-11-04,False,Benjamin Henrichs: 1+ goals,Benjamin Henrichs: 1+
+KXNCAAF1Q,College Football 1st Quarter Winner,quadratic 1,1128,376,8657845.41,3658.105,3.0,2026-08-29,2026-11-15,False,UCF wins the 1st quarter,UCF wins 1st Quarter
+KXNFLTEAMFIRSTTD,Pro Football First Touchdown,quadratic 1,3896,300,8641457.91,208.195,12.986666666666666,2026-09-10,2026-11-17,False,Frank Gore Jr.: 1st Buffalo Touchdown,Frank Gore Jr.
+KXNBA4QSPREAD,NBA 4th Quarter Spread,quadratic 1,2926,227,8504379.83,793.22,12.889867841409691,2026-06-04,2026-11-19,False,New York vs San Antonio: 4th Quarter Spread?,Spurs wins 4Q by over 7.5 points
+KXMLBTB,Pro Baseball Total Bases,quadratic 0.5,15561,242,8319899.85,31.55,64.30165289256199,2026-09-10,2026-10-29,True,Samuel Basallo: 5+ total bases?,Samuel Basallo: 5+
+KXNFLTEAMSACK,Pro Football Team Sacks,quadratic 1,1500,150,8274714.2299999995,2627.675,10.0,2026-09-10,2026-11-17,False,Detroit: 6+ sacks,Detroit: 6+
+KXNBA2HTOTAL,NBA 2nd Half Total,quadratic 1,4965,305,8229507.8,313.14,16.278688524590162,2026-04-15,2026-11-19,False,New York vs San Antonio: Second Half Total?,Over 99.5 2H points scored
+KXNFL1HFT,1st Half Fulltime Result,quadratic 1,1350,150,8067474.21,1718.475,9.0,2026-09-10,2026-11-17,False,Tie in 1st Half / Game ends in a tie,Tie 1H / Game ends in a tie
+KXNFL2Q,Pro Football 2nd Quarter Winner,quadratic 1,597,199,8056911.7,4547.15,3.0,2026-08-07,2026-11-17,False,Will neither team win the 2nd Quarter?,Tie 2nd Quarter
+KXNCAAMBFIRST10,Men's College Basketball Race to 10 Points,quadratic 1,202,101,8028609.0,26154.5,2.0,2026-03-17,2026-04-07,False,Will Michigan be the first to reach 10 points?,Michigan scores 10 points first
+KXNBA3Q,NBA 3rd Quarter Winner,quadratic 1,666,222,7929530.65,6073.549999999999,3.0,2026-10-20,2026-11-19,False,3rd quarter tie,Tie
+KXNFL4Q,Pro Football 4th Quarter Winner,quadratic 1,597,199,7773631.61,4384.33,3.0,2026-08-07,2026-11-17,False,Will neither team win the 4th Quarter?,Tie 4th Quarter
+KXNCAAMB1H,Men's College Basketball 1st Half Winner,quadratic 1,1128,376,7676532.66,733.675,3.0,2026-11-01,2026-11-20,False,Tie in the 1st half,Tie
+KXNBA4QTOTAL,NBA 4th Quarter Total,quadratic 1,2963,227,7486867.82,977.23,13.052863436123348,2026-06-04,2026-11-19,False,New York vs San Antonio: 4th Quarter Total?,Over 81.5 4Q points scored
+KXWNBA3QTOTAL,Women's Pro Basketball 3rd Quarter Total,quadratic 1,1624,232,7413754.59,1746.3049999999998,7.0,2026-06-18,2026-11-01,False,Over 52.5 3Q points scored,Over 52.5 3Q points scored
+KXNCAAF4QTOTAL,College Football 4th Quarter Total,quadratic 1,4136,376,7165739.56,746.625,11.0,2026-08-29,2026-11-15,False,Over 7.5 4Q points scored,Over 7.5 4Q points scored
+KXNFLRACE,Pro Football Race to Points,quadratic 1,2295,765,7136564.74,946.15,3.0,2026-09-10,2026-11-17,False,Will neither team reach 35 points?,Neither team reaches 35 points
+KXNFL1HWINNER,NFL 1st Half Winner,quadratic 1,21,7,7122512.0,128532.0,3.0,2026-01-18,2026-02-09,False,Seattle at New England: First Half Winner,Tie
+KXWNBA2QTOTAL,Women's Pro Basketball 2nd Quarter Total,quadratic 1,1624,232,7110600.17,1651.6,7.0,2026-06-18,2026-11-01,False,Over 52.5 2Q points scored,Over 52.5 2Q points scored
+KXNFL2QTOTAL,Pro Football 2nd Quarter Total,quadratic 1,2007,200,7101675.63,1132.11,10.035,2026-02-09,2026-11-17,False,Will there be over 7.5 2Q points scored?,Over 7.5 2Q points scored
+KXNCAAF2H,College Football 2nd Half Winner,quadratic 1,1032,344,7072430.57,2892.3050000000003,3.0,2026-08-29,2026-11-15,False,Tie in the 2nd half,Tie 2nd Half
+KXUCLWSPREAD,Spread,quadratic 1,581,107,6834444.24,1646.0,5.429906542056075,2026-08-04,2026-11-19,False,Reg Time: Juventus wins by more than 4.5 goals?,Reg Time: Juventus wins by more than 4.5 goals
+KXMLBRBI,Pro Baseball RBIs,quadratic 0.5,13423,370,6822938.32,16.0,36.27837837837838,2026-09-03,2026-10-29,True,Samuel Basallo: 2+ RBIs?,Samuel Basallo: 2+
+KXNCAAF2QTOTAL,College Football 2nd Quarter Total,quadratic 1,4136,376,6719469.49,749.0,11.0,2026-08-29,2026-11-15,False,Over 7.5 2Q points scored,Over 7.5 2Q points scored
+KXNBA2Q,NBA 2nd Quarter Winner,quadratic 1,666,222,6553761.86,5147.205,3.0,2026-10-20,2026-11-19,False,2nd quarter tie,Tie
+KXEPLGOAL,EPL Goalscorer,quadratic 1,9838,309,6544954.84,0.0,31.838187702265373,2025-12-14,2026-11-10,True,Joel Latibeaudiere: 1+ goals,Joel Latibeaudiere: 1+
+KXNFLPASSINT,Pro Football Passing Interceptions,quadratic 1,900,150,6253302.19,1763.25,6.0,2026-09-10,2026-11-17,False,Josh Allen: 3+ passing interceptions,Josh Allen: 3+
+KXSERIEASCORE,Correct Score,quadratic 1,3300,110,6175236.43,240.47,30.0,2026-08-22,2026-11-08,False,Final score Venezia FC wins 5-2?,Venezia FC wins 5-2
+KXNCAAF3Q,College Football 3rd Quarter Winner,quadratic 1,1128,376,6105211.98,2308.185,3.0,2026-08-29,2026-11-15,False,3rd quarter tie,Tie 3rd Quarter
+KXWNBAREB,Women's Pro Basketball Player Rebounds,quadratic 1,5543,350,6046613.52,500.87,15.837142857142856,2026-05-09,2026-11-01,False,Natasha Mack: 10+ rebounds,Natasha Mack: 10+
+KXBUNDESLIGA1HTOTAL,1st Half Total,quadratic 1,249,83,6001445.67,13294.96,3.0,2026-05-21,2026-11-08,False,Over 2.5 1H goals scored,Over 2.5 1H goals scored
+KXEPLTEAMTOTAL,Team Total,quadratic 1,888,119,5910777.37,1422.24,7.46218487394958,2026-05-18,2026-11-08,False,Will Nottingham Forest score over 3.5 goals?,Nottingham Forest over 3.5 goals
+KXNFLFIRSTTDTEAM,Pro Football First Team to Score a Touchdown,quadratic 1,450,150,5908963.85,4642.52,3.0,2026-09-10,2026-11-17,False,No team scores a TD,No team scores a TD
+KXWNBA1QSPREAD,Women's Pro Basketball 1st Quarter Spread,quadratic 1,1649,232,5857652.16,827.81,7.107758620689655,2026-06-18,2026-11-01,False,Chicago wins 1Q by over 6.5 points,Chicago wins 1Q by over 6.5 points
+KXNBA4Q,NBA 4th Quarter Winner,quadratic 1,666,222,5680568.92,4189.85,3.0,2026-10-20,2026-11-19,False,4th quarter tie,Tie
+KXNBAPRA,NBA Player Points + Rebounds + Assists,quadratic 1,6430,222,5671309.26,234.01,28.963963963963963,2026-10-20,2026-11-19,False,"Keegan Murray: 20+ combined points, rebounds, and assists",Keegan Murray: 20+
+KXNBAOVERTIME,NBA Overtime,quadratic 1,87,87,5653987.64,12623.9,1.0,2026-04-18,2026-06-14,False,"Will there be overtime in the New York vs San Antonio professional basketball game originally scheduled for Jun 13, 2026?",Game goes to overtime
+KXMLBINNINGTOTAL,Pro Baseball Inning Total,quadratic 1,9435,4995,5606067.05,33.0,1.8888888888888888,2026-08-22,2026-10-29,False,9th inning: Over 1.5 runs,Over 1.5 runs in the 9th inning
+KXNFL4QTOTAL,Pro Football 4th Quarter Total,quadratic 1,2021,200,5407727.47,972.25,10.105,2026-02-09,2026-11-17,False,Will there be over 7.5 4Q points scored?,Over 7.5 4Q points scored
+KXUCLTEAMTOTAL,UCL Team Total,quadratic 1,651,72,5270063.42,2362.18,9.041666666666666,2026-09-08,2026-11-04,False,Will Bayern Munich score over 6.5 goals?,Bayern Munich over 6.5 goals
+KXWNBA1QWINNER,Women's Pro Basketball 1st Quarter Winner,quadratic 1,696,232,5253399.31,3798.685,3.0,2026-06-18,2026-11-01,False,Tie wins the 1st quarter,Tie
+KXLALIGATEAMTOTAL,Team Total,quadratic 1,947,119,5153390.56,1168.21,7.957983193277311,2026-08-15,2026-11-08,False,Will Sevilla score over 3.5 goals?,Sevilla over 3.5 goals
+KXBUNDESLIGABTTS,Bundesliga BTTS,quadratic 1,299,299,5063043.44,5194.48,1.0,2025-11-21,2026-11-08,False,Both Teams To Score,Both Teams To Score
+KXNCAAF4Q,College Football 4th Quarter Winner,quadratic 1,1128,376,4950325.1,1975.7150000000001,3.0,2026-08-29,2026-11-15,False,4th quarter tie,Tie 4th Quarter
+KXNFLRECYDSPROT,Receiving Yards Protected,quadratic 1,7668,71,4927883.08,2.0,108.0,2026-10-16,2026-11-17,True,David Njoku: 60+ receiving yards (Protected),David Njoku: 60+
+KXNBASTL,NBA Player Steals,quadratic 1,11008,872,4838021.05,166.26999999999998,12.623853211009175,2026-01-14,2026-11-19,False,Victor Wembanyama: 3+ steals,Victor Wembanyama: 3+
+KXLALIGA1HSPREAD,1st Half Spread,quadratic 1,276,138,4797542.21,4432.095,2.0,2026-05-17,2026-11-08,False,Sevilla wins by more than 1.5 goals in the 1st Half,Sevilla wins the 1H by more than 1.5 goals
+KXBUNDESLIGA1H,Bundesliga First Half Winner,quadratic 1,522,174,4791229.85,3170.2650000000003,3.0,2026-03-04,2026-11-08,False,Stuttgart wins 1st Half,Stuttgart wins 1st Half
+KXNHL2PTOTAL,2nd Period Total,quadratic 1,1845,350,4724787.8,830.33,5.271428571428571,2026-09-29,2026-11-20,False,2nd Period: Over 5.5 goals scored,Over 5.5 goals
+KXNCAAMBMAMER,Mid-American Conference Tournament,quadratic 1,8,1,4590163.0,10703.5,8.0,2026-03-12,2026-03-15,False,Will Toledo be the Mid-American tournament champions?,Toledo
+KXNCAAF2Q,College Football 2nd Quarter Winner,quadratic 1,1128,376,4570702.93,1891.285,3.0,2026-08-29,2026-11-15,False,2nd quarter tie,Tie 2nd Quarter
+KXNHLTEAMTOTAL,NHL Team Goals Scored During Game,quadratic 1,3469,350,4545469.25,443.69,9.911428571428571,2026-09-30,2026-11-20,False,Winnipeg over 1.5 goals scored,Winnipeg over 1.5
+KXNBATEAMANNOUNCE,Pro Basketball New Team Announce,quadratic 1,26,1,4430073.2,99661.55,26.0,2026-07-09,2026-07-24,False,"Will any Source Agency announce that LeBron James is joining any NBA team after Issuance and before Aug 6, 2026","Before Aug 6, 2026"
+KXNCAAFCSGAME,College Football FCS Game,quadratic 1,28,14,4416939.0,37221.0,2.0,2025-12-06,2025-12-21,False,Montana at Montana St. Winner?,Montana St.
+KXNBA2H,NBA 2nd Half Winner,quadratic 1,666,222,4407058.35,3320.5699999999997,3.0,2026-10-20,2026-11-19,False,Tie in the 2nd half,Tie
+KXMLBINNINGWIN,Pro Baseball Inning Win,quadratic 1,12245,4082,4256352.95,26.88,2.999755022048016,2026-08-29,2026-10-29,True,Teams tie scoring in the 9th inning?,Tie 9th inning
+KXNCAAF1HFT,College Football 1st Half Fulltime Result,quadratic 1,768,128,4213713.64,375.385,6.0,2026-08-29,2026-11-08,False,Tie in 1st Half / South Carolina wins game,Tie 1H / South Carolina wins game
+KXSERIEAWGAME,Serie A Femminile Game,quadratic 1,126,42,4156882.77,13342.49,3.0,2026-09-26,2026-11-15,False,Tie is the result,Tie
+KXWNBA4QTOTAL,Women's Pro Basketball 4th Quarter Total,quadratic 1,1624,232,4102457.56,1069.405,7.0,2026-06-18,2026-11-01,False,Over 52.5 4Q points scored,Over 52.5 4Q points scored
+KXMLSTEAMTOTAL,Team Total,quadratic 1,2365,291,4029869.13,435.83,8.127147766323024,2026-07-17,2026-11-08,False,Will New York City score over 3.5 goals?,New York City over 3.5 goals
+KXNCAAMBWCC,West Coast Conference Tournament,quadratic 1,12,1,3993898.0,815.0,12.0,2026-03-06,2026-03-11,False,Will Washington St. be the West Coast tournament champions?,Washington St.
+KXNFLPASSATT,Pro Football Passing Attempts,quadratic 1,1156,150,3973238.35,814.1600000000001,7.706666666666667,2026-09-10,2026-11-17,False,Jared Goff: 42+ passing attempts,Jared Goff: 42+
+KXLIGUE11HTOTAL,1st Half Total,quadratic 1,300,100,3958479.33,7096.925,3.0,2026-05-17,2026-11-08,False,Over 2.5 1H goals scored,Over 2.5 1H goals scored
+KXMLBEXTRAS,MLB Extra Innings,quadratic 0.5,1832,1832,3935625.23,790.14,1.0,2026-05-16,2026-10-29,False,"Will there be extra innings in the Detroit vs Chicago WS game originally scheduled for Sep 19, 2026 at 7:10 PM EDT?",Game goes to extra innings
+KXNCAAMBSGP,College Basketball Same Game Parlay,quadratic 1,42,9,3894129.0,41299.0,4.666666666666667,2026-04-05,2026-04-07,False,"Tie is the result at halftime, Michigan wins the game",Tie 1H & Michigan wins game
+KXUCLWBTTS,BTTS,quadratic 1,107,107,3853251.1,7163.46,1.0,2026-08-04,2026-11-19,False,Reg Time: Both Teams To Score,Reg Time: Both Teams To Score
+KXNCAAMBAMER,American Conference Tournament,quadratic 1,10,1,3841375.0,11012.0,10.0,2026-03-13,2026-03-15,False,Will Wichita St. be the American Athletic tournament champions?,Wichita St.
+KXWNBA3QSPREAD,Women's Pro Basketball 3rd Quarter Spread,quadratic 1,1649,232,3834152.71,547.0,7.107758620689655,2026-06-18,2026-11-01,False,Phoenix wins 3Q by over 6.5 points,Phoenix wins 3Q by over 6.5 points
+KXNBABLK,NBA Player Blocks,quadratic 1,5970,799,3801139.24,137.305,7.471839799749687,2026-01-14,2026-11-19,False,Victor Wembanyama: 5+ blocks,Victor Wembanyama: 5+
+KXNFLPASSCOMP,Pro Football Passing Completions,quadratic 1,1157,150,3772804.02,826.21,7.713333333333333,2026-09-10,2026-11-17,False,Jared Goff: 29+ passing completions,Jared Goff: 29+
+KXLIGUE1BTTS,Ligue 1 BTTS,quadratic 1,288,288,3699535.27,3135.0550000000003,1.0,2025-11-21,2026-11-08,False,Both Teams To Score,Both Teams To Score
+KXNCAAMBA10,Atlantic-10 Conference Tournament,quadratic 1,14,1,3464133.0,16747.5,14.0,2026-03-12,2026-03-15,False,Will VCU be the Atlantic 10 tournament champions?,VCU
+KXBUNDESLIGASCORE,Correct Score,quadratic 1,2430,81,3452498.6,93.725,30.0,2026-08-28,2026-11-08,False,Final score VfB Stuttgart wins 5-2?,VfB Stuttgart wins 5-2
+KXWNBATEAMTOTAL,WNBA Team Totals,quadratic 1,2149,111,3446442.21,468.4,19.36036036036036,2026-08-11,2026-11-01,False,Dallas over 106.5 points scored,Dallas over 106.5 points scored
+KXNCAAFOT,College Football Overtime,quadratic 1,498,434,3416663.22,870.5,1.1474654377880185,2026-08-29,2026-11-15,False,6+ overtime periods,6+ overtime periods
+KXUCL1HSPREAD,UCL First Half Spread,quadratic 1,302,151,3390698.75,3001.885,2.0,2026-05-05,2026-11-04,False,Slavia Prague wins by more than 1.5 goals in the 1st Half,Slavia Prague wins the 1H by more than 1.5 goals
+KXWNBA3QWINNER,Women's Pro Basketball 3rd Quarter Winner,quadratic 1,696,232,3350346.77,2275.4750000000004,3.0,2026-06-18,2026-11-01,False,Tie wins the 3rd quarter,Tie
+KXWNBA3PT,Women's Pro Basketball Player Threes,quadratic 1,3458,353,3316331.18,478.815,9.796033994334278,2026-05-09,2026-11-01,False,Paige Bueckers: 3+ threes,Paige Bueckers: 3+
+KXNCAAMBMW,Mountain West Conference Tournament,quadratic 1,12,1,3303253.0,16075.0,12.0,2026-03-12,2026-03-15,False,Will Wyoming be the Mountain West tournament champions?,Wyoming
+KXNCAAF1HWINNER,College Football 1st Half Winner,quadratic 1,3,1,3253337.0,943947.0,3.0,2026-01-20,2026-01-20,False,Miami (FL) at Indiana 1st Half Winner?,Tie
+KXNCAAMBAE,American East Conference Tournament,quadratic 1,8,1,3253252.0,5993.5,8.0,2026-03-08,2026-03-14,False,Will Vermont be the America East tournament champions?,Vermont
+KXNCAAFTEAMRECTD,College Football Team Receiving Touchdowns,quadratic 1,1201,163,3234939.62,652.0,7.368098159509202,2026-08-29,2026-11-15,False,Texas A&M: 1+ receiving touchdowns,Texas A&M: 1+
+KXLALIGA2SPREAD,Spread,quadratic 1,698,151,3094985.89,2080.3050000000003,4.622516556291391,2026-08-14,2026-11-16,False,Girona wins by more than 3.5 goals?,Girona wins by more than 3.5 goals
+KXNFLTRADE,Pro Football Players Traded,quadratic 1,134,3,3090375.2399999998,8439.935000000001,44.666666666666664,2025-11-03,2026-11-12,False,"Will Zach Charbonnet be traded before May 1, 2026?",Zach Charbonnet
+KXNFLMOSTRECYDS,Pro Football Most Receiving Yards,quadratic 1,1533,146,3082186.91,12.0,10.5,2026-02-09,2026-11-17,False,Keon Coleman: most receiving yards in the DET vs BUF game,Keon Coleman
+KXBUNDESLIGAWGAME,German Women's Bundesliga Game,quadratic 1,84,28,3041283.98,13260.39,3.0,2026-10-16,2026-11-16,False,Stuttgart wins,Stuttgart
+KXLIGUE1SCORE,Correct Score,quadratic 1,2700,90,3031081.28,38.5,30.0,2026-08-21,2026-11-08,False,Final score Toulouse FC wins 5-2?,Toulouse FC wins 5-2
+KXNFLDSTTD,Pro Football D/ST Touchdown,quadratic 1,151,151,3011952.49,9414.46,1.0,2026-02-09,2026-11-17,False,D/ST touchdown in the game?,D/ST touchdown
+KXNBAWINMARGIN,NBA Win Margin,quadratic 1,1776,222,2956736.35,588.9300000000001,8.0,2026-10-20,2026-11-19,False,Golden State wins by 6 to 10 points,Golden State wins by 6-10 points
+KXNBA1QWINNER,NBA 1st Quarter Winner,quadratic 1,15,5,2902757.44,140551.87,3.0,2026-06-04,2026-06-14,False,New York vs San Antonio: 1st Quarter Winner?,Tie
+KXNCAAMBCBC,Men's College Basketball Crown Winner,quadratic 1,8,1,2874894.0,8278.0,8.0,2026-04-03,2026-04-05,False,Will West Virginia win the College Basketball Crown?,West Virginia
+KXLIGUE11H,Ligue 1 First Half Winner,quadratic 1,543,181,2821913.31,1825.73,3.0,2026-03-06,2026-11-08,False,Tie 1st Half,Tie 1st Half
+KXNCAAMB2ML,College Basketball 2-Moneyline Combo,quadratic 1,20,2,2817083.0,20040.0,10.0,2026-04-04,2026-04-07,False,Michigan is the 2025-26 Division 1 Men's College Basketball National Champion and UCLA is the 2025-26 Division 1 Women's College Basketball National Champion,"Michigan (M) wins championship, UCLA (W) wins championship"
+KXLALIGAFIRSTGOAL,First Goal,quadratic 1,2571,116,2768606.86,0.0,22.163793103448278,2026-08-15,2026-11-08,False,Youssouf Fofana: First Goalscorer,Youssouf Fofana
+KXNBAPTSPROT,NBA Player Points Protected,quadratic 1,7467,166,2724707.05,5.0,44.98192771084337,2026-10-29,2026-11-19,True,Keegan Murray: 20+ points,Keegan Murray: 20+
+KXWNBAAST,Women's Pro Basketball Player Assists,quadratic 1,1544,348,2714102.58,918.09,4.436781609195402,2026-05-09,2026-11-01,False,Alyssa Thomas: 9+ assists,Alyssa Thomas: 9+
+KXNHL1P,NHL 1st Period Winner,quadratic 1,1059,353,2596678.6,1346.91,3.0,2026-09-29,2026-11-20,False,Winnipeg wins the 1st period,Winnipeg
+KXWNBA2QWINNER,Women's Pro Basketball 2nd Quarter Winner,quadratic 1,696,232,2580628.51,1388.23,3.0,2026-06-18,2026-11-01,False,Tie wins the 2nd quarter,Tie
+KXEPLCORNERS,EPL Corners,quadratic 1,595,119,2572234.72,2321.03,5.0,2026-05-17,2026-11-08,False,9+ total corners,9+ corners
+KXNFLPASSYDSPROT,Passing Yards Protected,quadratic 1,1521,85,2551048.27,20.89,17.894117647058824,2026-10-11,2026-11-17,False,Drew Lock: 325+ passing yards (Protected),Drew Lock: 325+
+KXNFLRSHYDSPROT,Rushing Yards Protected,quadratic 1,4374,85,2537285.37,0.0,51.45882352941177,2026-10-11,2026-11-17,False,Travis Etienne Jr.: 110+ rushing yards (Protected),Travis Etienne Jr.: 110+
+KXSERIEATEAMTOTAL,Team Total,quadratic 1,871,110,2486290.67,503.07,7.918181818181818,2026-08-22,2026-11-08,False,Will Lazio score over 3.5 goals?,Lazio over 3.5 goals
+KXNCAAF1HTEAMTOTAL,College Football 1st Half Team Total Points,quadratic 1,2532,150,2434071.5,163.73000000000002,16.88,2026-09-12,2026-11-15,False,USC scores over 33.5 1H points,USC over 33.5 1H points scored
+KXNCAAMBASUN,Atlantic Sun Conference Tournament,quadratic 1,17,2,2419328.0,2747.0,8.5,2026-03-06,2026-05-01,False,Will West Georgia be the Atlantic Sun tournament champions?,West Georgia
+KXWNBA2QSPREAD,Women's Pro Basketball 2nd Quarter Spread,quadratic 1,1649,232,2393855.43,268.0,7.107758620689655,2026-06-18,2026-11-01,False,Phoenix wins 2Q by over 6.5 points,Phoenix wins 2Q by over 6.5 points
+KXNBATRADE,Pro Basketball Trade,quadratic 1,48,2,2351194.72,19492.285,24.0,2026-01-08,2026-10-14,False,"Will Paul George be traded after Issuance and before Feb 12, 2027?",Paul George
+KXEPL1HSPREAD,EPL 1st Half Spread,quadratic 1,238,119,2331862.35,5267.15,2.0,2026-05-17,2026-11-08,False,Nottingham Forest wins by more than 1.5 goals in the 1st Half,Nottingham Forest wins the 1H by more than 1.5 goals
+KXNHL3PTOTAL,3rd Period Total,quadratic 1,1841,346,2218876.2,508.03,5.320809248554913,2026-09-30,2026-11-19,False,3rd Period: Over 5.5 goals scored,Over 5.5 goals
+KXNCAAMBUSA,Conference USA Conference Tournament,quadratic 1,10,1,2160187.0,17811.0,10.0,2026-03-11,2026-03-15,False,Will Western Kentucky be the Conference USA tournament champions?,Western Kentucky
+KXNBAPTSLEADER,NBA Game Points Leader,quadratic 1,3830,303,2087509.67,0.0,12.64026402640264,2026-04-19,2026-11-19,False,"Will Mitchell Robinson record the most points in the New York vs San Antonio professional basketball game originally scheduled for Jun 13, 2026?",Mitchell Robinson
+KXLALIGA1HSCORE,1st Half Correct Score,quadratic 1,1584,119,2055541.01,93.85,13.3109243697479,2026-08-15,2026-11-08,False,Will the 1st half score be FC Barcelona wins 3-2?,FC Barcelona wins 1H 3-2
+KXWNBA4QWINNER,Women's Pro Basketball 4th Quarter Winner,quadratic 1,696,232,2044251.63,1066.9850000000001,3.0,2026-06-18,2026-11-01,False,Tie wins the 4th quarter,Tie
+KXNHLSERIESSCORE,NHL Series Exact Score,quadratic 1,120,15,2016915.3599999999,8537.045,8.0,2026-04-19,2026-06-15,False,Will Vegas Golden Knights win 4-3 in the Vegas Golden Knights vs Carolina Hurricanes Stanley Cup series in the 2026 NHL Playoffs?,VGK wins 4-3
+KXUCLFIRSTGOAL,UCL First Goalscorer,quadratic 1,3945,189,1976745.77,0.0,20.873015873015873,2025-11-25,2026-11-04,False,Julian Lund: First Goalscorer,Julian Lund
+KXNFL1QWINNER,Pro Football 1st Quarter Winner,quadratic 1,9,3,1959428.0,140679.0,3.0,2026-01-25,2026-02-09,False,Seattle at New England: First Quarter Winner,Tie
+KXNBASERIESGAMES,NBA Series Total Games,quadratic 1,45,15,1952367.72,9585.82,3.0,2026-04-21,2026-06-14,False,Will there be over 6.5 total games in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,Over 6.5 total games
+KXNCAAFTEAMRECYDS,College Football Team Receiving Yards,quadratic 1,1164,77,1946033.51,644.325,15.116883116883116,2026-08-29,2026-11-15,False,Texas Tech: 325+ receiving yards,Texas Tech: 325+
+KXUCLWADVANCE,To Advance,quadratic 1,106,53,1909819.78,7845.865,2.0,2026-08-04,2026-09-02,False,St. Polten To Advance,St. Polten advances
+KXNBA1HTEAMTOTAL,NBA 1st Half Team Total,quadratic 1,4884,222,1878136.23,60.45,22.0,2026-10-20,2026-11-19,False,Golden State over 62.5 1st half points scored,Golden State over 62.5 points
+KXUCLCORNERS,UCL Corners,quadratic 1,360,72,1871916.85,1994.72,5.0,2026-04-08,2026-11-04,False,9+ total corners,9+ corners
+KXLALIGACORNERS,Total Corners,quadratic 1,595,119,1871478.06,1587.22,5.0,2026-08-15,2026-11-08,False,9+ total corners,9+ corners
+KXNBASERIESSPREAD,NBA Series Game Spread,quadratic 1,76,15,1836913.65,7780.34,5.066666666666666,2026-04-18,2026-06-14,False,Will San Antonio cover -2.5 games in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,San Antonio -2.5 games
+KXUCL1HBTTS,UCL Half BTTS,quadratic 1,151,151,1833493.31,5701.9,1.0,2026-05-05,2026-11-04,False,Both teams score in the 1st Half?,1st Half: Both Teams To Score
+KXWNBA2HTOTAL,Women's Pro Basketball 2nd Half Total,quadratic 1,1596,228,1809768.28,410.62,7.0,2026-06-18,2026-11-01,False,Over 97.5 2H points scored,Over 97.5 2H points scored
+KXMLS1HSPREAD,1st Half Spread,quadratic 1,582,291,1771182.59,1490.3049999999998,2.0,2026-07-17,2026-11-08,False,New York RB wins by more than 1.5 goals in the 1st Half,New York RB wins the 1H by more than 1.5 goals
+KXLALIGA2BTTS,BTTS,quadratic 1,151,151,1764434.31,5199.58,1.0,2026-08-14,2026-11-16,False,Both Teams To Score,Both Teams To Score
+KXNCAAMBSLC,Southland Conference Tournament,quadratic 1,8,1,1741725.0,3689.5,8.0,2026-03-09,2026-03-12,False,Will UT Rio Grande Valley be the Southland tournament champions?,UT Rio Grande Valley
+KXNHL3P,NHL 3rd Period Winner,quadratic 1,1038,346,1720596.28,784.3599999999999,3.0,2026-09-30,2026-11-19,False,Utah wins the 3rd period,Utah
+KXLALIGA2H,2nd Half Winner,quadratic 1,357,119,1719794.68,2410.0,3.0,2026-08-15,2026-11-08,False,Tie 2nd Half,Tie 2nd Half
+KXBUNDESLIGAWTOTAL,Total,quadratic 1,214,28,1711094.42,2242.6850000000004,7.642857142857143,2026-10-16,2026-11-16,False,Will over 6.5 goals be scored?,Over 6.5 goals scored
+KXNFLRECPROT,Receptions Protected,quadratic 1,6812,85,1680160.86,0.0,80.14117647058823,2026-10-11,2026-11-17,False,David Njoku: 6+ receptions (Protected),David Njoku: 6+
+KXNHLF10G,NHL Goal in First 10 Minutes,quadratic 1,355,355,1656502.23,3647.5,1.0,2026-09-29,2026-11-20,False,Either team to score in the first 10 minutes,Goal in first 10 min
+KXLALIGATCORNERS,Team Corners,quadratic 1,238,119,1557994.36,3446.255,2.0,2026-08-15,2026-11-08,False,Sevilla: 4+ corners,Sevilla: 4+
+KXNFLMOSTRSHYDS,Pro Football Most Rushing Yards,quadratic 1,970,147,1549632.29,16.33,6.598639455782313,2026-02-09,2026-11-17,False,James Cook III: most rushing yards in the DET vs BUF game,James Cook III
+KXLALIGA1HBTTS,1st Half BTTS,quadratic 1,139,139,1547240.22,7051.18,1.0,2026-05-17,2026-11-08,False,Both teams score in the 1st Half?,1st Half: Both Teams To Score
+KXBUNDESLIGA2SPREAD,Spread,quadratic 1,463,99,1529644.84,1279.3,4.6767676767676765,2026-08-07,2026-11-08,False,Dresden wins by more than 2.5 goals?,Dresden wins by more than 2.5 goals
+KXNBA2QWINNER,NBA 2nd Quarter Winner,quadratic 1,15,5,1502288.81,59443.53,3.0,2026-06-04,2026-06-14,False,New York vs San Antonio: 2nd Quarter Winner?,Tie
+KXNBA3QWINNER,NBA 3rd Quarter Winner,quadratic 1,15,5,1483421.24,60527.26,3.0,2026-06-04,2026-06-14,False,New York vs San Antonio: 3rd Quarter Winner?,Tie
+KXNCAAMBCAA,Coastal Athletic Association Conference Tournament,quadratic 1,13,1,1442742.0,6745.0,13.0,2026-03-08,2026-03-11,False,Will William & Mary be the Coastal Athletic Association tournament champions?,William & Mary
+KXNBARACE,NBA Race to Points,quadratic 1,1328,664,1440575.09,284.635,2.0,2026-10-20,2026-11-19,False,Golden State reaches 30 points first,Golden State
+KXUCL1HSCORE,1st Half Correct Score,quadratic 1,857,60,1384557.58,302.75,14.283333333333333,2026-09-09,2026-11-04,False,Will the 1st half score be Slavia Prague wins 3-2?,Slavia Prague wins 1H 3-2
+KXEPLFIRSTGOAL,EPL 1st Goalscorer,quadratic 1,6888,341,1378847.76,0.0,20.19941348973607,2025-12-02,2026-11-10,False,Loum Tchaouna: First Goalscorer,Loum Tchaouna
+KXMLS1HBTTS,1st Half BTTS,quadratic 1,291,291,1369235.57,2603.71,1.0,2026-07-17,2026-11-08,False,Both teams score in the 1st Half?,1st Half: Both Teams To Score
+KXWNBA2HSPREAD,Women's Pro Basketball 2nd Half Spread,quadratic 1,1708,228,1332598.57,217.35,7.491228070175438,2026-06-18,2026-11-01,False,Phoenix wins the 2nd half by over 6.5 points?,Phoenix wins the 2H by over 6.5 points
+KXSERIEA1HSPREAD,1st Half Spread,quadratic 1,260,130,1325507.93,1971.6799999999998,2.0,2026-05-17,2026-11-08,False,Venezia wins by more than 1.5 goals in the 1st Half,Venezia wins the 1H by more than 1.5 goals
+KXNFLSFTY,Pro Football Safety,quadratic 1,149,149,1314077.34,4767.42,1.0,2026-09-11,2026-11-17,False,Will a safety occur in the game?,Safety
+KXNFLLONGREC,Longest Reception,quadratic 1,1626,150,1309866.85,240.5,10.84,2026-09-10,2026-11-17,False,Isaac TeSlaa: longest reception over 12.5 yards,Isaac TeSlaa: over 12.5 yards
+KXNCAAMBMAA,Metro Atlantic Conference Tournament,quadratic 1,10,1,1284515.0,3544.0,10.0,2026-03-06,2026-03-11,False,Will Saint Peter's be the Metro Atlantic Athletic tournament champions?,Saint Peter's
+KXNCAAMBBSOU,Big South Conference Tournament,quadratic 1,9,1,1269657.0,5167.0,9.0,2026-03-06,2026-03-08,False,Will Winthrop be the Big South tournament champions?,Winthrop
+KXEPL1HSCORE,1st Half Correct Score,quadratic 1,1402,100,1213937.7,108.84,14.02,2026-08-21,2026-11-08,False,Will the 1st half score be Nottingham Forest wins 3-2?,Nottingham Forest wins 1H 3-2
+KXEPLTCORNERS,EPL Team Corners,quadratic 1,238,119,1212024.44,3011.36,2.0,2026-05-17,2026-11-08,False,Nottingham Forest: 6+ corners,Nottingham Forest: 6+
+KXEPL1HBTTS,EPL 1st Half BTTS,quadratic 1,119,119,1207840.56,6666.23,1.0,2026-05-17,2026-11-08,False,Both teams score in the 1st Half?,1st Half: Both Teams To Score
+KXNFLFIRSTTDTIME,Pro Football First Touchdown Time,quadratic 1,14,1,1204164.0,61369.5,14.0,2026-02-09,2026-02-09,False,Will the teams in the game record the first touchdown within OT?,During overtime
+KXNCAAMBMVAL,Missouri Valley Conference Tournament,quadratic 1,11,1,1183693.0,13756.0,11.0,2026-03-06,2026-03-08,False,Will Valparaiso be the Missouri Valley tournament champions?,Valparaiso
+KXUCLTCORNERS,Champions League Team Corners,quadratic 1,148,74,1180334.09,3902.37,2.0,2026-04-07,2026-11-04,False,Slavia Prague: 5+ corners,Slavia Prague: 5+
+KXNHL2P,NHL 2nd Period Winner,quadratic 1,1038,346,1171959.44,525.44,3.0,2026-09-29,2026-11-19,False,Utah wins the 2nd period,Utah
+KXMLBSERIESEXACT,Professional Baseball Series Exact Result,quadratic 1,48,7,1165707.0,3917.0,6.857142857142857,2025-10-09,2025-11-02,False,Will the series result in Toronto win 4-3 in the Los Angeles D vs Toronto Series (Starting Oct 24),Toronto win 4-3
+KXLIGUE1TEAMTOTAL,Team Total,quadratic 1,707,90,1133298.79,229.37,7.855555555555555,2026-08-21,2026-11-08,False,Will Lyon score over 5.5 goals?,Lyon over 5.5 goals
+KXNBA4QWINNER,NBA 4th Quarter Winner,quadratic 1,15,5,1123601.45,38924.3,3.0,2026-06-04,2026-06-14,False,New York vs San Antonio: 4th Quarter Winner?,Tie
+KXWNBA4QSPREAD,Women's Pro Basketball 4th Quarter Spread,quadratic 1,1649,232,1121476.01,200.09,7.107758620689655,2026-06-18,2026-11-01,False,Phoenix wins 4Q by over 6.5 points,Phoenix wins 4Q by over 6.5 points
+KXBUNDESLIGATEAMTOTAL,Team Total,quadratic 1,684,81,1111558.95,311.72,8.444444444444445,2026-08-28,2026-11-08,False,Will Dortmund score over 3.5 goals?,Dortmund over 3.5 goals
+KXNBAOT,NBA Overtime,quadratic 1,246,222,1050985.4,1676.27,1.1081081081081081,2026-10-20,2026-11-19,False,Game goes to overtime,Game goes to overtime
+KXNHL1PSPREAD,1st Period Spread,quadratic 1,874,353,1040625.05,397.28499999999997,2.4759206798866855,2026-09-29,2026-11-20,False,Buffalo wins 1st Period by over 3.5 goals,Buffalo wins by over 3.5 goals
+KXSERIEA1HBTTS,1st Half BTTS,quadratic 1,130,130,987669.98,4508.7,1.0,2026-05-17,2026-11-08,False,Both teams score in the 1st Half?,1st Half: Both Teams To Score
+KXWNBAOT,Women's Pro Basketball Overtime,quadratic 1,289,285,973901.34,1220.64,1.0140350877192983,2026-06-05,2026-11-01,False,1+ overtime periods,1+ overtime periods
+KXUCLMOV,UCL Method of Advancing,quadratic 1,6,1,962049.2,173944.885,6.0,2026-05-30,2026-05-30,False,Will PSG win in Regular Time?,PSG to win in Regular Time
+KXWNBA2HWINNER,Women's Pro Basketball 2nd Half Winner,quadratic 1,684,228,942137.02,531.97,3.0,2026-06-18,2026-11-01,False,Tie wins the 2nd half?,Tie
+KXMLBSERIESSCORE,Pro Baseball Series Exact Score,quadratic 1,64,11,937237.83,4694.57,5.818181818181818,2026-09-29,2026-10-29,False,Tampa Bay vs Milwaukee Championship Series Exact Score: Tampa Bay wins 4-3,TB wins 4-3
+KXBUNDESLIGA1HSPREAD,1st Half Spread,quadratic 1,166,83,915684.83,2306.1,2.0,2026-05-21,2026-11-08,False,Stuttgart wins by more than 1.5 goals in the 1st Half,Stuttgart wins the 1H by more than 1.5 goals
+KXNCAAMBSUM,Summit League Conference Tournament,quadratic 1,10,2,913563.0,6264.5,5.0,2026-03-06,2026-04-30,False,Will Denver be the Summit League tournament champions?,Denver
+KXMLS1HSCORE,1st Half Correct Score,quadratic 1,2925,195,911049.36,0.0,15.0,2026-08-29,2026-11-08,False,Will the 1st half score be New York City FC wins 3-2?,New York City FC wins 1H 3-2
+KXUCL2H,2nd Half Winner,quadratic 1,216,72,900882.0,1472.345,3.0,2026-09-08,2026-11-04,False,Tie 2nd Half,Tie 2nd Half
+KXNBAALLSTARS,NBA All-Stars,quadratic 1,138,3,893531.0,455.0,46.0,2026-01-19,2026-02-16,False,Will Cooper Flagg be selected as a Pro Basketball All Star,Cooper Flagg
+KXMLS2H,2nd Half Winner,quadratic 1,585,195,880966.96,937.72,3.0,2026-08-29,2026-11-08,False,Tie 2nd Half,Tie 2nd Half
+KXNHLSAVE,Goaltender Saves,quadratic 1,766,344,880962.34,648.125,2.2267441860465116,2026-09-30,2026-11-19,False,Sebastian Cossa: 27+ saves,Sebastian Cossa: 27+
+KXNFLLONGRSH,Longest Rush,quadratic 1,703,150,875778.66,359.1,4.6866666666666665,2026-09-10,2026-11-17,False,James Cook III: longest rush over 17.5 yards,James Cook III: over 17.5 yards
+KXLALIGA2HSPREAD,2nd Half Spread,quadratic 1,236,118,855179.95,367.90999999999997,2.0,2026-08-15,2026-11-08,False,Sevilla wins by more than 1.5 goals in the 2nd Half,Sevilla wins the 2H by more than 1.5 goals
+KXNCAAMBTEAMTOTAL,Men's College Basketball Team Total,quadratic 1,799,25,843861.24,58.16,31.96,2026-11-03,2026-11-20,False,Auburn over 91.5 points scored,Auburn over 91.5 points
+KXSERIEAGOAL,Goalscorer,quadratic 1,1968,49,809756.48,0.0,40.16326530612245,2026-10-17,2026-11-08,False,Federico Gatti: 1+ goals,Federico Gatti: 1+
+KXNCAAMBSBELT,Sun Belt Conference Tournament,quadratic 1,14,1,804663.0,7332.0,14.0,2026-03-08,2026-03-10,False,Will Southern Miss be the Sun Belt tournament champions?,Southern Miss
+KXEPL2H,2nd Half Winner,quadratic 1,300,100,751196.05,1429.455,3.0,2026-08-21,2026-11-08,False,Tie 2nd Half,Tie 2nd Half
+KXNFLTEAM1POS,What position will Team select with first pick,quadratic 1,288,32,746585.83,669.0,9.0,2026-04-24,2026-04-25,False,Will Washington draft a Wide Receiver first?,Wide Receiver
+KXNCAAFDSTTD,College Football Defense Special Teams Touchdown,quadratic 1,201,201,745279.07,1928.72,1.0,2026-08-29,2026-11-15,False,1+ defensive or special teams touchdowns,D/ST touchdown
+KXBUNDESLIGA2BTTS,BTTS,quadratic 1,99,99,744189.5,4396.31,1.0,2026-08-07,2026-11-08,False,Both Teams To Score,Both Teams To Score
+KXNBASERIESROADWIN,NBA Series 1st Road Win,quadratic 1,105,14,737185.04,2927.29,7.5,2026-04-21,2026-06-04,False,Will the first road win of the series not happen?,No road wins during series
+KXBUNDESLIGA1HSCORE,1st Half Correct Score,quadratic 1,1215,81,721688.12,0.0,15.0,2026-08-28,2026-11-08,False,Will the 1st half score be VfB Stuttgart wins 3-2?,VfB Stuttgart wins 1H 3-2
+KXLIGUE11HSPREAD,1st Half Spread,quadratic 1,200,100,701445.93,877.45,2.0,2026-05-17,2026-11-08,False,Toulouse wins by more than 1.5 goals in the 1st Half,Toulouse wins the 1H by more than 1.5 goals
+KXNHLOT,NHL Overtime,quadratic 1,346,346,683372.61,848.905,1.0,2026-09-30,2026-11-19,False,Game goes to overtime,Game goes to overtime
+KXMLSASTADVANCE,To Advance,quadratic 1,2,1,683150.31,341575.155,2.0,2026-07-30,2026-07-30,False,MLS All Stars vs Liga MX All Stars: MLS All Stars To Advance,MLS All Stars wins
+KXNHL3PSPREAD,NHL 3rd Period Spread,quadratic 1,1005,346,665156.08,154.23,2.9046242774566475,2026-09-30,2026-11-19,False,Utah wins 3rd Period by over 2.5 goals,Utah wins by over 2.5 goals
+KXNFLPASSTDSPROT,Passing Touchdowns Protected,quadratic 1,694,85,663606.46,50.584999999999994,8.16470588235294,2026-10-11,2026-11-17,False,Drew Lock: 4+ passing touchdowns (Protected),Drew Lock: 4+
+KXNFL1QBTTS,Pro Football Both Teams to Score in 1st Quarter,quadratic 1,150,150,658652.62,859.96,1.0,2026-09-10,2026-11-17,False,Both teams to score in the 1st quarter,Both teams to score in the 1st quarter
+KXBUNDESLIGAGOAL,Goalscorer,quadratic 1,1550,35,646752.16,0.0,44.285714285714285,2026-10-17,2026-11-08,False,Max Moerstedt: 1+ goals,Max Moerstedt: 1+
+KXMLSGOAL,Goalscorer,quadratic 1,2781,71,644240.86,0.0,39.16901408450704,2026-10-17,2026-11-08,False,Jeremy Ebobisse: 1+ goals,Jeremy Ebobisse: 1+
+KXNCAAMBPAT,Patriot League Conference Tournament,quadratic 1,10,1,614769.0,4495.0,10.0,2026-03-06,2026-03-12,False,Will Navy be the Patriot League tournament champions?,Navy
+KXNBAASTPROT,NBA Player Assists Protected,quadratic 1,7504,194,614065.73,0.0,38.68041237113402,2026-10-24,2026-11-19,True,Keegan Murray: 6+ assists,Keegan Murray: 6+
+KXSERIEA1HSCORE,1st Half Correct Score,quadratic 1,1500,100,606960.3,0.0,15.0,2026-08-28,2026-11-08,False,Will the 1st half score be Venezia FC wins 3-2?,Venezia FC wins 1H 3-2
+KXNFLTEAMTD,Pro Football Team Touchdowns,quadratic 1,199,33,606031.22,1964.2,6.03030303030303,2026-09-10,2026-09-25,False,Detroit: 4+ Touchdowns,Detroit: 4+
+KXMLSFTTS,First Team to Score,quadratic 1,651,217,594096.34,444.0,3.0,2026-07-17,2026-10-15,False,Will New York Red Bulls record the first goal of the game?,New York Red Bulls
+KXNCAAMBOV,Ohio Valley Conference Tournament,quadratic 1,10,2,585974.0,19806.5,5.0,2026-03-06,2026-04-30,False,Will Little Rock be the Ohio Valley Conference tournament champions?,Little Rock
+KXNBAREBPROT,NBA Player Rebounds Protected,quadratic 1,7460,141,568489.14,1.0,52.90780141843972,2026-10-31,2026-11-19,True,Keegan Murray: 8+ rebounds,Keegan Murray: 8+
+KXNBA3PTPROT,NBA Player Threes Protected,quadratic 1,7472,134,562687.78,1.0,55.76119402985075,2026-11-01,2026-11-19,True,Keegan Murray: 5+ threes,Keegan Murray: 5+
+KXLALIGA2HTOTAL,2nd Half Total,quadratic 1,354,118,550866.9,492.065,3.0,2026-08-15,2026-11-08,False,Over 2.5 2H goals scored,Over 2.5 2H goals scored
+KXNCAAFTEAMTD,College Football Team Total Touchdowns,quadratic 1,479,81,544429.68,491.48,5.91358024691358,2026-08-29,2026-09-19,False,Vanderbilt: 5+ touchdowns,Vanderbilt: 5+
+KXNFL2HWINNER,NFL 2nd Half Winner,quadratic 1,3,1,539808.0,116992.0,3.0,2026-02-09,2026-02-09,False,Seattle at New England: Second Half Winner,Tie
+KXNHL2PSPREAD,2nd Period Spread,quadratic 1,917,346,531637.05,164.82,2.6502890173410405,2026-09-29,2026-11-19,False,Utah wins 2nd Period by over 2.5 goals,Utah wins by over 2.5 goals
+KXNFLEQBTTS,Pro Football Both Teams to Score in Every Quarter,quadratic 1,150,150,529011.14,641.655,1.0,2026-09-10,2026-11-17,False,Both teams to score in every quarter,Both teams to score in every quarter
+KXNBASHOOTINGSTARS,Pro Basketball Shooting Stars Contest,quadratic 1,4,1,522546.0,113836.5,4.0,2026-02-14,2026-02-14,False,Will Team Knicks win the 2026 Pro Basketball All-Star Shooting Stars contest?,Team Knicks
+KXNFL2PTCONV,Pro Football 2-Point Conversions,quadratic 1,2,1,518138.0,259069.0,2.0,2026-02-09,2026-02-09,False,Will the teams in game have 2+ successful 2-point conversions?,2+ successful 2-point conversions
+KXNHLOVERTIME,NHL Overtime,quadratic 1,49,49,514028.3,5382.19,1.0,2026-04-29,2026-06-15,False,"Will there be overtime in the Carolina vs Vegas NHL game originally scheduled for Jun 14, 2026?",Game goes to overtime
+KXNBAUNBEATEN,NBA Playoffs Team to go Undefeated,quadratic 1,1,1,513907.77,513907.77,1.0,2026-05-19,2026-05-19,False,Will Oklahoma City go undefeated in the 2026 Pro Basketball Playoffs?,Oklahoma City to go undefeated in the playoffs
+KXUCL2HSPREAD,2nd Half Spread,quadratic 1,144,72,510448.49,438.33500000000004,2.0,2026-09-08,2026-11-04,False,Slavia Prague wins by more than 1.5 goals in the 2nd Half,Slavia Prague wins the 2H by more than 1.5 goals
+KXSERIEA2H,2nd Half Winner,quadratic 1,300,100,508960.66,1115.585,3.0,2026-08-28,2026-11-08,False,Venezia wins 2nd Half,Venezia wins 2nd Half
+KXBUNDESLIGA2H,2nd Half Winner,quadratic 1,243,81,488255.16,1023.51,3.0,2026-08-28,2026-11-08,False,Stuttgart wins 2nd Half,Stuttgart wins 2nd Half
+KXMLBTRADE,Pro Baseball Trades,quadratic 1,28,2,475260.48,13122.51,14.0,2025-08-01,2026-08-05,False,"Will Paul Skenes be traded after Issuance and before Aug 5, 2026?",Paul Skenes
+KXLIGUE12H,2nd Half Winner,quadratic 1,243,81,465660.03,942.83,3.0,2026-08-28,2026-11-08,False,Tie 2nd Half,Tie 2nd Half
+KXNBA30COMEBACK,NBA 3-0 Series Comeback,quadratic 1,1,1,460893.09,460893.09,1.0,2026-06-09,2026-06-09,False,Will any team complete a 3-0 series comeback in the 2026 Pro Basketball Playoffs?,3-0 series comeback
+KXNFLCOMEBACK,Pro Football Comeback,quadratic 1,5,1,447935.0,83421.0,5.0,2026-02-09,2026-02-09,False,Will Seattle or New England complete a 24+ point comeback win?,24+ point comeback win
+KXNFLNOSCOREQ,Pro Football Scoreless Quarter,quadratic 1,1,1,424456.0,424456.0,1.0,2026-02-09,2026-02-09,False,Will there be a Scoreless Quarter?,Scoreless Quarter
+KXWNBASERIES,WNBA Playoff Series Winner,quadratic 1,26,13,416144.01,10562.904999999999,2.0,2025-09-18,2026-11-01,False,Phoenix vs Minnesota Series Winner?,Phoenix
+KXLIGUE11HSCORE,1st Half Correct Score,quadratic 1,1215,81,408881.13,0.0,15.0,2026-08-28,2026-11-08,False,Will the 1st half score be Toulouse FC wins 3-2?,Toulouse FC wins 1H 3-2
+KXBUNDESLIGAWSPREAD,Spread,quadratic 1,150,28,406018.88,611.19,5.357142857142857,2026-10-16,2026-11-16,False,Leverkusen wins by more than 3.5 goals?,Leverkusen wins by more than 3.5 goals
+KXNFLFANTASYMOST,Pro Football Most Fantasy Points,quadratic 1,13,1,397732.0,22274.0,13.0,2026-02-09,2026-02-09,False,Who will be the player with the most fantasy points?,TreVeyon Henderson
+KXUCL2HBTTS,2nd Half BTTS,quadratic 1,72,72,393929.89,3367.9049999999997,1.0,2026-09-08,2026-11-04,False,Both teams score in the 2nd Half?,2nd Half: Both Teams To Score
+KXEPL2HTOTAL,2nd Half Total,quadratic 1,291,100,389445.44,383.65,2.91,2026-08-21,2026-11-08,False,Over 2.5 2H goals scored,Over 2.5 2H goals scored
+KXNFL4QWINNER,Pro Football 4th Quarter Winner,quadratic 1,3,1,379027.0,67672.0,3.0,2026-02-09,2026-02-09,False,Seattle at New England: Fourth Quarter Winner,Tie
+KXNFLGAMETD,Pro Football Touchdowns,quadratic 1,11,1,378945.0,28534.0,11.0,2026-02-09,2026-02-09,False,9+ total touchdowns in the game?,9+ total touchdowns
+KXBUNDESLIGA1HBTTS,1st Half BTTS,quadratic 1,83,83,367546.1,2027.51,1.0,2026-05-21,2026-11-08,False,Both teams score in the 1st Half?,1st Half: Both Teams To Score
+KXNFL4DCONV,Pro Football 4th Down Conversions,quadratic 1,5,1,356268.0,51926.0,5.0,2026-02-09,2026-02-09,False,5+ total successful 4th down conversions in the game?,5+ successful 4th down conversions
+KXMLBWSOUTCOME,Pro Baseball World Series Outcome,quadratic 1,8,1,350807.76,12625.57,8.0,2026-10-16,2026-10-29,False,Pro Baseball Championship: Tampa Bay beats Milwaukee,Tampa Bay beats Milwaukee
+KXNFLHIGHSCOREQ,Pro Football Highest Scoring Quarter,quadratic 1,4,1,348538.0,73047.0,4.0,2026-02-09,2026-02-09,False,What will be the highest scoring quarter in the Seattle vs New England professional football game?,4th Quarter
+KXNFL3QWINNER,Pro Football 3rd Quarter Winner,quadratic 1,3,1,346631.0,68566.0,3.0,2026-02-09,2026-02-09,False,Seattle at New England: Third Quarter winner,Tie
+KXUCL2HTOTAL,2nd Half Total,quadratic 1,216,72,337819.26,647.6949999999999,3.0,2026-09-08,2026-11-04,False,Over 2.5 2H goals scored,Over 2.5 2H goals scored
+KXMLBSTATCOUNT,Pro Baseball Season Stat,quadratic 1,66,7,335808.47000000003,2343.79,9.428571428571429,2026-03-31,2026-10-29,False,Will all hitters combined record 14+ inside-the-park home runs?,14+ inside-the-park home runs
+KXLALIGA2HBTTS,2nd Half BTTS,quadratic 1,119,119,334034.9,1156.03,1.0,2026-08-15,2026-11-08,False,Both teams score in the 2nd Half?,2nd Half: Both Teams To Score
+KXLIGUE1GOAL,Goalscorer,quadratic 1,1362,35,331056.27,0.0,38.91428571428571,2026-10-17,2026-11-08,False,Geoffrey Kondogbia: 1+ goals,Geoffrey Kondogbia: 1+
+KXNFLTOTALTD,Pro Football Total Touchdowns,quadratic 1,214,33,321784.57,682.205,6.484848484848484,2026-09-10,2026-09-25,False,11+ total touchdowns in the game?,11+ touchdowns
+KXLALIGAFTTS,First Team to Score,quadratic 1,234,78,315123.23,661.0799999999999,3.0,2026-08-15,2026-10-12,False,Will Sevilla FC record the first goal of the game?,Sevilla FC
+KXLIGUE11HBTTS,1st Half BTTS,quadratic 1,100,100,310558.78,1554.375,1.0,2026-05-17,2026-11-08,False,Both teams score in the 1st Half?,1st Half: Both Teams To Score
+KXNBASERIESPTSLEADER,Pro Basketball Series Points Leader,quadratic 1,99,9,308991.8,51.19,11.0,2026-04-28,2026-06-14,False,Will Victor Wembanyama record the most total points in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,Victor Wembanyama
+KXMLBSTAT,Pro Baseball Season Stat,quadratic 1,11,11,277204.82,11647.42,1.0,2026-06-27,2026-10-29,False,Will any pitcher record a 105+ MPH Pitch?,105+ MPH Pitch
+KXEPLFTTS,First Team to Score,quadratic 1,210,70,267765.48,578.575,3.0,2026-08-21,2026-10-19,False,Will no goal be scored?,No Goal
+KXEPL2HBTTS,2nd Half BTTS,quadratic 1,100,100,258138.29,1204.4050000000002,1.0,2026-08-21,2026-11-08,False,Both teams score in the 2nd Half?,2nd Half: Both Teams To Score
+KXNFLGAMESACK,Pro Football Sacks,quadratic 1,14,1,256176.0,13838.5,14.0,2026-02-09,2026-02-09,False,9+ total sacks in the game?,9+ total sacks
+KXNFLTOTALPRECISE,Total Precise,quadratic 1,6536,43,255755.64,0.0,152.0,2026-10-30,2026-11-17,False,Full Game: over 98.5 points?,Over 98.5 points
+KXMLBALLSTAR,Pro Baseball All-Stars,quadratic 1,95,2,252481.16,1612.73,47.5,2026-07-06,2026-07-15,False,Will Dillon Dingler be selected to the 2026 AL All-Star Team?,Dillon Dingler
+KXUCLSOA,UCL Score or Assist,quadratic 1,998,46,250539.05,0.0,21.695652173913043,2026-05-30,2026-11-04,False,Myles Lewis-Skelly: score or assist?,Myles Lewis-Skelly
+KXNFL3QBTTS,Pro Football Both Teams to Score in 3rd Quarter,quadratic 1,150,150,243450.42,411.66999999999996,1.0,2026-09-10,2026-11-17,False,Both teams to score in the 3rd quarter,Both teams to score in the 3rd quarter
+KXNCAAMBRACE,Men's College Basketball Race to Points,quadratic 1,50,25,233008.15,1094.395,2.0,2026-11-02,2026-11-19,False,Notre Dame reaches 10 points first,Notre Dame
+KXMLBALLSTARHR,Pro Baseball All-Star Game Total Home Runs,quadratic 1,7,1,231929.25,39713.41,7.0,2026-07-15,2026-07-15,False,Will there be 7+ home runs hit in the 2026 Pro Baseball All-Star Game?,7+ home runs
+KXNFL2QBTTS,Pro Football Both Teams to Score in 2nd Quarter,quadratic 1,150,150,222522.19,364.93,1.0,2026-09-10,2026-11-17,False,Both teams to score in the 2nd quarter,Both teams to score in the 2nd quarter
+KXMLSASTTOTAL,Point Total,quadratic 1,11,1,221262.69999999998,5864.29,11.0,2026-07-30,2026-07-30,False,Will over 10.5 goals be scored?,Reg Time: Over 10.5 goals scored
+KXMLS2HTOTAL,2nd Half Total,quadratic 1,585,195,215933.32,106.0,3.0,2026-08-29,2026-11-08,False,Over 2.5 2H goals scored,Over 2.5 2H goals scored
+KXEPL2HSPREAD,2nd Half Spread,quadratic 1,200,100,213742.57,203.875,2.0,2026-08-21,2026-11-08,False,Nottingham Forest wins by more than 1.5 goals in the 2nd Half,Nottingham Forest wins the 2H by more than 1.5 goals
+KXUCLFTTS,First Team to Score,quadratic 1,108,36,213592.53,579.9449999999999,3.0,2026-09-08,2026-10-14,False,Will Slavia Prague record the first goal of the game?,Slavia Prague
+KXMLSASTGAME,MLS All Star Game,quadratic 1,3,1,205988.46000000002,74737.38,3.0,2026-07-30,2026-07-30,False,MLS All Stars vs Liga MX All Stars Winner?,Reg Time: Tie
+KXNBASWEEP,NBA Teams to Have a Series Sweep,quadratic 1,8,2,205836.25999999998,22661.89,4.0,2026-04-26,2026-05-12,False,Will there be at least 3 series sweeps in the 2nd Round of the 2026 Pro Basketball Playoffs?,At least 3 series sweeps
+KXUCLACOACH,UCLA Next Coach,quadratic 1,17,1,205446.0,1446.0,17.0,2025-12-08,2025-12-08,False,Who will be the next Head Coach of the UCLA Football Team?,Mike Gundy
+KXWNBASERIESSPREAD,WNBA Series Game Spread,quadratic 1,14,3,200800.69,548.4649999999999,4.666666666666667,2026-10-04,2026-10-29,False,Atlanta vs Golden State Finals Series Game Spread: Golden State -3.5 games,Golden State -3.5 games
+KXNHLSERIESSPREAD,NHL Series Game Spread,quadratic 1,76,15,199061.12,219.745,5.066666666666666,2026-04-19,2026-06-15,False,Will Vegas Golden Knights cover -2.5 games in the Vegas Golden Knights vs Carolina Hurricanes Stanley Cup series in the 2026 NHL Playoffs?,Vegas Golden Knights -2.5 games
+KXNCAAFWINMARGIN,College Football Winning Margin,quadratic 1,126,21,193467.5,771.085,6.0,2026-11-07,2026-11-15,False,Texas Tech wins by 7 to 14 points,Texas Tech wins by 7-14 points
+KXSERIEA2HBTTS,2nd Half BTTS,quadratic 1,100,100,188435.5,621.6600000000001,1.0,2026-08-28,2026-11-08,False,Both teams score in the 2nd Half?,2nd Half: Both Teams To Score
+KXBUNDESLIGAWBTTS,Both teams to score,quadratic 1,28,28,168843.44,4510.125,1.0,2026-10-16,2026-11-16,False,Both Teams To Score,Both Teams To Score
+KXNCAAMB2HSPREAD,Men's College Basketball 2nd Half Spread,quadratic 1,275,21,166353.4,20.0,13.095238095238095,2026-11-03,2026-11-19,False,UConn wins the 2nd half by over 7.5 points,UConn wins by over 7.5 points
+KXMLBSERIESHR,Series Home Runs,quadratic 1,42,1,164908.21,3161.77,42.0,2026-10-25,2026-10-29,False,Sal Frelick: 2+ home runs?,Sal Frelick: 2+
+KXNFL4QBTTS,Pro Football Both Teams to Score in 4th Quarter,quadratic 1,150,150,164845.17,307.21000000000004,1.0,2026-09-10,2026-11-17,False,Both teams to score in the 4th quarter,Both teams to score in the 4th quarter
+KXMLBSERIESSPREAD,Pro Baseball Series Game Spread,quadratic 1,34,7,162490.42,1623.99,4.857142857142857,2026-10-04,2026-10-29,False,Tampa Bay vs Milwaukee Championship Series Game Spread: Tampa Bay -3.5 games,Tampa Bay -3.5 games
+KXMLBSERIESGAMES,Pro Baseball Series Total Games,quadratic 1,21,11,162335.36,4059.64,1.9090909090909092,2026-09-30,2026-10-29,False,Tampa Bay vs Milwaukee Championship Series total games: Over 6.5 games,Over 6.5 total games
+KXNCAAFTEAMRSHTD,College Football Team Rushing Touchdowns,quadratic 1,216,31,161326.38,151.035,6.967741935483871,2026-08-29,2026-09-13,False,Utah: 5+ rushing touchdowns,Utah: 5+
+KXNFL2QWINNER,Pro Football 2nd Quarter Winner,quadratic 1,3,1,149713.0,41552.0,3.0,2026-02-09,2026-02-09,False,Seattle at New England: Second Quarter Winner,Tie
+KXMLS2HBTTS,2nd Half BTTS,quadratic 1,195,195,144272.34,284.0,1.0,2026-08-29,2026-11-08,False,Both teams score in the 2nd Half?,2nd Half: Both Teams To Score
+KXMLBTEAMSTAT,Pro Baseball Team Stat,quadratic 1,120,4,144064.18,0.0,30.0,2026-09-28,2026-09-28,False,Will Washington record the most strikeouts thrown in the 2026 Pro Baseball regular season?,Washington
+KXNBAGAME7,NBA Series that Go to a Game 7,quadratic 1,8,1,142434.16999999998,7435.855,8.0,2026-05-01,2026-06-14,False,Will there be at least 8 series that go to Game 7 in the 2026 Pro Basketball Playoffs?,8+ series
+KXNBAPIADVANCE,NBA Play-In Team to Advance,quadratic 1,2,2,141416.12,70708.06,1.0,2026-05-03,2026-05-10,False,Will any play-in team advance to the Conference Finals of the 2026 Pro Basketball Playoffs?,Yes
+KXBUNDESLIGA2HTOTAL,2nd Half Total,quadratic 1,243,81,139633.38,136.0,3.0,2026-08-28,2026-11-08,False,Over 2.5 2H goals scored,Over 2.5 2H goals scored
+KXSERIEA2HTOTAL,2nd Half Total,quadratic 1,300,100,132909.5,146.565,3.0,2026-08-28,2026-11-08,False,Over 2.5 2H goals scored,Over 2.5 2H goals scored
+KXNBASERIES3PMLEADER,Pro Basketball Series 3-Pointers Made Leader,quadratic 1,13,1,131716.98,6993.05,13.0,2026-06-14,2026-06-14,False,Will Julian Champagnie record the most made three pointers in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,Julian Champagnie
+KXMLS2HSPREAD,2nd Half Spread,quadratic 1,390,195,131684.16,13.05,2.0,2026-08-29,2026-11-08,False,New York RB wins by more than 1.5 goals in the 2nd Half,New York RB wins the 2H by more than 1.5 goals
+KXEPLSOA,EPL Score or Assist,quadratic 1,821,40,124548.58,0.0,20.525,2026-10-17,2026-11-10,False,Youri Tielemans: score or assist?,Youri Tielemans
+KXNCAAFTEAMYDS,College Football Team Total Yards,quadratic 1,798,39,118040.82,20.0,20.46153846153846,2026-08-29,2026-09-08,False,SMU: 475+ total yards,SMU: 475+
+KXNCAAMB2HTOTAL,Men's College Basketball 2nd Half Total,quadratic 1,320,23,117776.6,52.855000000000004,13.91304347826087,2026-11-03,2026-11-19,False,2nd Half: Over 87.5 points scored,Over 87.5 points
+KXNBAFTM,NBA Player Free Throws Made,quadratic 1,74,7,116762.35,868.73,10.571428571428571,2026-05-29,2026-06-14,False,Dylan Harper: 5+ Free Throws Made,Dylan Harper: 5+ Free Throws Made
+KXNCAAMBFIRST25,Men's College Basketball Race to 25 Points,quadratic 1,2,1,114784.0,57392.0,2.0,2026-04-07,2026-04-07,False,Will Michigan be the first to reach 25 points?,Michigan scores 25 points first
+KXUCL16PSVJUV,Champions League round of 16 - PSV JUV,quadratic 1,2,1,110259.0,55129.5,2.0,2025-02-19,2025-02-19,False,Will PSV Eindhoven make the Round of 16 in the Champions League?,PSV Eindhoven
+KXNBAUPSET,NBA Number of Upsets per Round,quadratic 1,8,2,109328.79,8617.805,4.0,2026-05-01,2026-05-18,False,Will there be at least 3 upsets in the 2nd Round of the 2026 Pro Basketball Playoffs?,At least 3 series upsets
+KXBUNDESLIGA2HBTTS,2nd Half BTTS,quadratic 1,81,81,105469.81,452.92,1.0,2026-08-28,2026-11-08,False,Both teams score in the 2nd Half?,2nd Half: Both Teams To Score
+KXNBAPICKTRADE,Pro Basketball Pick Trade,quadratic 1,3,3,105300.45,24238.17,1.0,2026-06-24,2026-06-25,False,Will any top 10 pick be traded in the 2026 Pro Basketball Draft?,Top 10 pick to be traded
+KXLIGUE12HTOTAL,2nd Half Total,quadratic 1,243,81,101545.03,94.0,3.0,2026-08-28,2026-11-08,False,Over 2.5 2H goals scored,Over 2.5 2H goals scored
+KXMLSFIRSTGOAL,First Goal,quadratic 1,1576,71,100319.65,0.0,22.197183098591548,2026-10-17,2026-11-08,False,Nicholas Markanich: First Goalscorer,Nicholas Markanich
+KXNCAAMBWINMARGIN,Men's College Basketball Winning Margin,quadratic 1,176,22,98555.19,27.19,8.0,2026-11-03,2026-11-20,False,Notre Dame wins by 6 to 10 points,Notre Dame wins by 6-10 points
+KXSERIEAFTTS,First Team to Score,quadratic 1,180,60,97981.55,190.5,3.0,2026-08-22,2026-10-12,False,Will Venezia FC record the first goal of the game?,Venezia FC
+KXMLBDIVWINNER,MLB divisions,quadratic 1,6,1,95893.0,8841.0,6.0,2025-11-02,2025-11-02,False,Which division will win the pro men's baseball championship?,NL West
+KXNBASERIESOT,Pro Basketball Series Overtime,quadratic 1,3,1,94295.15,22959.77,3.0,2026-06-14,2026-06-14,False,Will there be 3+ games that go to overtime in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,3+ games go to overtime
+KXNHL30COMEBACK,NHL 3-0 Series Comeback,quadratic 1,1,1,93749.14,93749.14,1.0,2026-06-05,2026-06-05,False,Will any team complete a 3-0 series comeback in the 2026 NHL Playoffs?,3-0 series comeback
+KXLIGUE12HBTTS,2nd Half BTTS,quadratic 1,81,81,93063.24,425.0,1.0,2026-08-28,2026-11-08,False,Both teams score in the 2nd Half?,2nd Half: Both Teams To Score
+KXSERIEA2HSPREAD,2nd Half Spread,quadratic 1,200,100,90731.57,86.485,2.0,2026-08-28,2026-11-08,False,Venezia wins by more than 1.5 goals in the 2nd Half,Venezia wins the 2H by more than 1.5 goals
+KXMLBBGAME,Mobile Legends Bang Bang Game,quadratic 1,328,164,90571.49,121.255,2.0,2026-10-09,2026-11-15,False,Team Yandex wins,Team Yandex
+KXUCLMOF,UCL Method of Finish,quadratic 1,3,1,89910.20999999999,24467.12,3.0,2026-05-30,2026-05-30,False,Will either team win in Regular Time?,Either team to win in Regular Time
+KXNHLSERIESGAMES,NHL Series Total Games,quadratic 1,45,15,87705.25,643.11,3.0,2026-04-21,2026-06-15,False,Will there be over 6.5 total games in the Vegas Golden Knights vs Carolina Hurricanes Stanley Cup series in the 2026 NHL Playoffs?,Over 6.5 total games
+KXNCAAMBFIRST50,Men's College Basketball Race to 50 Points,quadratic 1,2,1,86850.0,43425.0,2.0,2026-04-07,2026-04-07,False,Will Michigan be the first to reach 50 points?,Michigan scores 50 points first
+KXWNBAGAMESPLAYED,WNBA Games Played in a Season,quadratic 1,7,2,85799.06,4989.32,3.5,2026-05-09,2026-09-25,False,Will at least 1 game be played in the 2026 Women's Pro Basketball regular season?,At least 1 game played
+KXBUNDESLIGAFTTS,First Team to Score,quadratic 1,135,45,82093.3,274.0,3.0,2026-08-28,2026-10-11,False,Will VfB Stuttgart record the first goal of the game?,VfB Stuttgart
+KXNCAAMB2H,Men's College Basketball 2nd Half Winner,quadratic 1,69,23,79545.39,182.31,3.0,2026-11-03,2026-11-19,False,West Virginia wins the 2nd half,West Virginia
+KXNBAH2HBENCHPTS,NBA Head-to-Head Bench Points,quadratic 1,18,9,76470.86,3091.34,2.0,2026-05-26,2026-06-14,False,Will San Antonio record more bench points than New York?,San Antonio records more bench points than New York
+KXSERIEAFIRSTGOAL,First Goal,quadratic 1,1014,49,75374.35,0.0,20.693877551020407,2026-10-17,2026-11-08,False,No Goal: First Goalscorer,No Goal
+KXNCAAWB1H,Women's College Basketball 1st Half Winner,quadratic 1,255,85,74335.39,23.2,3.0,2026-11-01,2026-11-20,False,Virginia wins the 1st half,Virginia
+KXNFLLASTTOWIN,Pro Football last team to win a game,quadratic 1,7,1,73756.29,12924.15,7.0,2026-10-01,2026-10-25,False,Will Washington be the last team to win a game in the 2026-27 Pro Football regular season?,Washington
+KXNBASERIESREBLEADER,Pro Basketball Series Rebounds Leader,quadratic 1,13,1,73579.06,1004.35,13.0,2026-06-14,2026-06-14,False,Will Victor Wembanyama record the most total rebounds in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,Victor Wembanyama
+KXBUNDESLIGA2HSPREAD,2nd Half Spread,quadratic 1,162,81,73362.18,62.315,2.0,2026-08-28,2026-11-08,False,Stuttgart wins by more than 1.5 goals in the 2nd Half,Stuttgart wins the 2H by more than 1.5 goals
+KXWNBASERIESSCORE,WNBA Series Exact Score,quadratic 1,36,7,70886.77,1288.4850000000001,5.142857142857143,2026-09-27,2026-11-01,False,Atlanta vs Golden State Finals series exact score: Golden State wins 4-3,GS wins 4-3
+KXNBA3DPROT,NBA Player Triple Double Protected,quadratic 1,218,51,69697.37,0.0,4.2745098039215685,2026-11-13,2026-11-19,False,Jamal Shead: Triple Double,Jamal Shead
+KXUCL16RMAMCI,Champions League round of 16 - RMA MCI,quadratic 1,2,1,69449.0,34724.5,2.0,2025-02-19,2025-02-19,False,Will Manchester City make the Round of 16 in the Champions League?,Manchester City
+KXLIGUE1FTTS,First Team to Score,quadratic 1,162,54,63490.48,104.31,3.0,2026-08-21,2026-10-11,False,Will Toulouse FC record the first goal of the game?,Toulouse FC
+KXNFLTSPEC,NFL Team Specials,quadratic 1,34,20,63099.12,1371.5900000000001,1.7,2026-09-14,2026-11-16,False,Chris Olave records 175+ receiving yards in a single game?,Chris Olave records 175+ receiving yards in a single game
+KXNCAAFTEAMFG,College Football Team Total Field Goals,quadratic 1,204,33,62730.75,148.19,6.181818181818182,2026-08-29,2026-09-13,False,Ohio St.: 4+ made field goals,Ohio St.: 4+
+KXNCAAMBOT,Men's College Basketball Overtime,quadratic 1,71,67,61580.15,142.98,1.0597014925373134,2026-11-01,2026-11-20,False,Game goes to overtime,Game goes to overtime
+KXNBASOUTHWEST,Pro Basketball Southwest Division Winner,quadratic 1,5,1,58334.0,2962.0,5.0,2026-04-09,2026-04-09,False,Will San Antonio win the Pro Basketball Southwest Division Winner?,San Antonio
+KXNCAAMBTEAMMOSTPTS,College Basketball Team with the Most Points Scored,quadratic 1,48,3,55057.0,25.5,16.0,2026-03-27,2026-04-05,False,Will Texas be the highest scoring team in the Semifinals of the men's college basketball tournament?,Texas
+KXNCAAF2PT,College Football 2-Point Conversion,quadratic 1,33,33,54995.28,294.16,1.0,2026-08-29,2026-09-13,False,1+ successful 2-point conversions during regulation,Successful 2-point conversion
+KXMLBSERIESGAMETOTAL,Professional Baseball Series Total Games,quadratic 1,9,3,54450.0,5256.0,3.0,2025-10-16,2025-11-01,False,Pro Baseball Championship: Total Games Played in Series,"7
+ Total Games"
+KXNBASERIESCOMEBACK,Pro Basketball Series Comeback,quadratic 1,1,1,53417.41,53417.41,1.0,2026-06-14,2026-06-14,False,Will either New York or San Antonio win the series after trailing by 2+ games in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,Either team to win the series after trailing by 2+ games
+KXBUNDESLIGAFIRSTGOAL,First Goal,quadratic 1,787,35,52759.24,0.0,22.485714285714284,2026-10-17,2026-11-08,False,Tim Lemperle: First Goalscorer,Tim Lemperle
+KXWNBAALLROOKIE,Women's Pro Basketball All-Rookie Team,quadratic 1,20,1,52717.7,875.56,20.0,2026-10-15,2026-10-15,False,Will Sydney Taylor be selected to the Women's Pro Basketball All-Rookie team in the 2026 season?,Sydney Taylor
+KXNBATOTALPRECISE,NBA Total Points Range,quadratic 1,8000,31,51609.42,0.0,258.06451612903226,2026-11-16,2026-11-19,True,Full Game: Over 360.5 points scored,Over 360.5 points
+KXLIGUE1FIRSTGOAL,First Goal,quadratic 1,665,35,45522.55,0.0,19.0,2026-10-17,2026-11-08,False,Yassine Titraoui: First Goalscorer,Yassine Titraoui
+KXMLBFODTEAMS,Field of Dreams Teams,quadratic 1,30,1,44696.39,1325.0,30.0,2026-08-14,2026-08-14,False,Will Washington play in the Pro Baseball 2027 Field of Dreams Game?,Washington
+KXNBASERIESASTLEADER,Pro Basketball Series Assists Leader,quadratic 1,11,1,42858.85,810.59,11.0,2026-06-14,2026-06-14,False,Will Victor Wembanyama record the most total assists in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,Victor Wembanyama
+KXNFLRRYDSPROT,Rushing and Receiving Yards Protected,quadratic 1,132,14,39696.86,0.0,9.428571428571429,2026-11-13,2026-11-17,False,Travis Etienne Jr.: 100+ rushing and receiving yards combined (protected),Travis Etienne Jr.: 100+
+KXLIGUE12HSPREAD,2nd Half Spread,quadratic 1,162,81,38975.18,8.5,2.0,2026-08-28,2026-11-08,False,Toulouse wins by more than 1.5 goals in the 2nd Half,Toulouse wins the 2H by more than 1.5 goals
+KXWNBASERIESGAMES,WNBA Series Total Games,quadratic 1,11,7,38372.89,938.19,1.5714285714285714,2026-09-30,2026-10-29,False,Atlanta vs Golden State Finals series total games: Over 6.5 games,Over 6.5 total games
+KXNFLRETIRE,NFL Retirement,quadratic 1,13,8,36411.509999999995,671.16,1.625,2026-06-04,2026-10-06,False,Will Derrick Henry announce his retirement before the 2026-27 NFL season?,Before the 2026-27 season
+KXMLSASTSPREAD,Spread,quadratic 1,6,1,35977.38,1272.73,6.0,2026-07-30,2026-07-30,False,MLS All Stars wins by more than 4.5 goals?,Goal Diff Reg Time: MLS All Stars wins by more than 4.5 goals
+KXNFLCOMBO,NFL COMBO,quadratic 1,6,6,32980.0,4599.0,1.0,2025-09-05,2026-02-11,False,2026 Pro Football Championship Combo,"Drake Maye records at least 225+ passing yards, Cooper Kupp records at least 4+ receptions, Jaxon Smith-Njigba records at least 8+ receptions, Rhamondre Stevenson records at least 1+ touchdowns, Jaxon Smith-Njigba records at least 1+ touchdowns, Rhamondre Stevenson records at least 49+ rushing yards"
+KXNCAAFQHIGHSCORE,College Football Highest Scoring Quarter,quadratic 1,56,15,32639.22,195.775,3.7333333333333334,2026-08-29,2026-09-08,False,Highest Scoring Quarter: 4th Quarter,4th Quarter
+KXNBASERIESGCOMEBACK,Pro Basketball Series Game Comeback,quadratic 1,4,1,32104.420000000002,9359.655,4.0,2026-06-11,2026-06-14,False,Will either team in the series come back and win a game after trailing 30+ points in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,30+ point comeback win
+KXNBA2DPROT,NBA Player Double Double Protected,quadratic 1,593,52,31059.84,0.0,11.403846153846153,2026-11-13,2026-11-19,False,Dillon Brooks: Double Double,Dillon Brooks
+KXUCLW,Champions League Women's,quadratic 1,12,1,28773.17,1139.845,12.0,2026-05-23,2026-05-23,False,Will Wolfsburg win the Women's Champions League?,Wolfsburg
+KXNCAAFCOACHOUT,College Football Coaches Out,quadratic 1,2,1,27350.67,13675.335,2.0,2026-11-02,2026-11-02,False,"Dave Aranda out before Feb 1, 2027",Dave Aranda
+KXNFLPASSINTPROT,Passing Interceptions Protected,quadratic 1,81,14,27305.71,45.33,5.785714285714286,2026-11-13,2026-11-17,False,Justin Herbert: 3+ passing interceptions (Protected),Justin Herbert: 3+
+KXNCAAWBTEAMTOTAL,Women's College Basketball Team Total,quadratic 1,221,10,27136.26,55.0,22.1,2026-11-02,2026-11-19,False,Ohio St. over 85.5 points scored,Ohio St. over 85.5 points
+KXNBASERIESPTS,Pro Basketball Series Player Points,quadratic 1,16,1,26237.75,1405.865,16.0,2026-06-09,2026-06-14,False,Will Victor Wembanyama score 85+ points in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,Victor Wembanyama: 85+ points in the series
+KXNBAH2HPRA,"NBA Head-to-Head Points, Rebounds and Assists",quadratic 1,8,4,26073.65,982.2,2.0,2026-05-22,2026-06-04,False,"Will Victor Wembanyama record more combined points, rebounds, and assists than Jalen Brunson?",Victor Wembanyama records more combined PRA than Brunson
+KXNCAAWB1HTOTAL,Women's College Basketball 1st Half Total,quadratic 1,95,10,25191.37,117.0,9.5,2026-11-02,2026-11-19,False,1st Half: Over 79.5 points scored,Over 79.5 points
+KXNHL2OT,NHL Double Overtime,quadratic 1,3,3,21221.07,3864.48,1.0,2026-06-10,2026-06-15,False,"Will there be double overtime in the Carolina vs Vegas NHL game originally scheduled for Jun 14, 2026?",Game goes to double overtime
+KXWNBAALLSTARS,Women's Pro Basketball All-Star Selections,quadratic 1,40,1,21175.9,335.17499999999995,40.0,2026-07-22,2026-07-26,False,Will Veronica Burton be selected as a Women's Pro Basketball All-Star in the 2026 regular season?,Veronica Burton
+KXMLBPITCH,Pro Baseball Player to Pitch,quadratic 1,1,1,19573.66,19573.66,1.0,2026-09-28,2026-09-28,False,"Will Shohei Ohtani pitch in a Pro Baseball regular season game after Jul 28, 2026 and before Sep 28, 2026?",Shohei Ohtani to pitch in a game
+KXWNBA40PTS,Women's Pro Basketball Player to Score 40 Points,quadratic 1,1,1,18604.47,18604.47,1.0,2026-07-23,2026-07-23,False,Will Caitlin Clark score 40+ points in any individual game in the 2026 Women's Pro Basketball regular season?,Caitlin Clark to score 40+ points in a game
+KXNFLHIRECOACH,NFL hire coach,quadratic 1,6,1,16415.0,1302.5,6.0,2026-01-01,2026-01-01,False,Who will get hired as a men's pro football coach in 2025?,Ron Rivera
+KXNFLROTM,NFL Rookie of the Month,quadratic 1,211,4,15831.560000000001,0.0,52.75,2026-10-01,2026-11-05,False,Offensive Rookie of the Month in October: Omar Cooper Jr.,Omar Cooper Jr.
+KXNBAHOMECLINCH,Pro Basketball Series Winner to Clinch at Home,quadratic 1,1,1,14882.87,14882.87,1.0,2026-06-14,2026-06-14,False,Will the 2026 Pro Basketball champion clinch the series at home?,Pro Basketball champion to clinch series at home
+KXNBAH2HPTSMARGIN,NBA H2H Player Points Bracketed,quadratic 1,7,1,14184.689999999999,2073.72,7.0,2026-11-11,2026-11-11,False,Jaylen Brown scores 5-9 more points than Jayson Tatum,Jaylen Brown by 5-9
+KXMLSADVANCE,MLS To Advance,quadratic 1,2,1,13847.0,6923.5,2.0,2025-11-25,2025-11-25,False,San Diego FC vs Minnesota: To Advance,San Diego FC
+KXNCAAWB1HSPREAD,Women's College Basketball 1st Half Spread,quadratic 1,94,10,13657.42,21.005,9.4,2026-11-02,2026-11-19,False,Ohio St. wins the 1st half by over 8.5 points,Ohio St. wins by over 8.5 points
+KXNCAAFAPANY,College Football AP Rank Anytime in Season,quadratic 1,79,5,13381.43,0.0,15.8,2026-08-17,2026-11-16,False,Will the Washington college football team be ranked top 25 during any week of the 2026-27 season?,Washington
+KXNFLPASSYDSH2H,Pro Football Head-to-Head Passing Yards,quadratic 1,4,2,13038.869999999999,2703.895,2.0,2026-10-13,2026-10-16,False,Sam Darnold records more passing yards than Bo Nix,Sam Darnold
+KXNFLRECYDSH2H,Pro Football Head-to-Head Receiving Yards,quadratic 1,6,3,12989.35,2123.9700000000003,2.0,2026-10-09,2026-10-16,False,Jaylen Waddle records more receiving yards than Jaxon Smith-Njigba,Jaylen Waddle
+KXNCAAWB1QTOTAL,Women's College Basketball 1st Quarter Total,quadratic 1,72,8,12130.71,72.21000000000001,9.0,2026-11-02,2026-11-19,False,1st Quarter: Over 45.5 points scored,Over 45.5 points
+KXNBARETIRE,NBA Retirement,quadratic 1,9,6,11801.2,720.79,1.5,2026-08-12,2026-10-20,False,Will Russell Westbrook announce his retirement before the 2029-30 NBA season?,Before the 2029-30 season
+KXNBASERIESTOTALPTS,Pro Basketball Series Total Points,quadratic 1,9,1,11526.91,1689.34,9.0,2026-06-14,2026-06-14,False,Will at least 900 points be scored in the New York vs San Antonio Pro Basketball Finals series in the 2026 Pro Basketball Playoffs?,900+ total points in the series
+KXNCAAMBTOURNEY,Men's College Basketball Early Season Tournament,quadratic 1,6,1,10222.95,111.25,6.0,2026-11-18,2026-11-19,False,2026 Players Era 8 champion: West Virginia,West Virginia
+KXNCAAWB1QSPREAD,Women's College Basketball 1st Quarter Spread,quadratic 1,72,8,8907.84,20.02,9.0,2026-11-02,2026-11-19,False,Ohio St. wins 1Q by over 7.5 points,Ohio St. wins by over 7.5 points
+KXNBA3PEAT,Pro Basketball Three-Peat Champion,quadratic 1,1,1,7999.36,7999.36,1.0,2026-05-31,2026-05-31,False,"Will Oklahoma City win three consecutive Pro Basketball Championships in the 2024-25, 2025-26, and 2026-27 seasons?",Oklahoma City to three-peat
+KXMLSASTBTTS,BTTS,quadratic 1,1,1,7824.24,7824.24,1.0,2026-07-30,2026-07-30,False,Will both teams score?,Reg Time: Both Teams To Score
+KXMLBFTGAME,Pro Baseball Futures Game,quadratic 1,2,1,7638.86,3819.43,2.0,2026-07-12,2026-07-12,False,Pro Baseball Futures Game Winner?,National League
+KXNBAPRAPROT,Pts + Reb + Ast Protected,quadratic 1,3742,101,7222.42,0.0,37.04950495049505,2026-11-06,2026-11-19,False,"Keegan Murray: 20+ combined points, rebounds, and assists",Keegan Murray: 20+
+KXMLSLEADER,MLS Leader,quadratic 1,17,1,6341.55,0.0,17.0,2026-11-13,2026-11-13,False,Will Tai Baribo lead MLS in goals for the 2026 season?,Tai Baribo
+KXWNBAH2HPRA,Women's Pro Basketball Head to Head Pts + Reb + Ast,quadratic 1,4,2,5975.74,1441.245,2.0,2026-06-19,2026-08-16,False,"Will Caitlin Clark record more combined points, rebounds, and assists than Angel Reese?",Caitlin Clark records more combined PRA than Reese
+KXNFLPASSYDSPRECISE,Pass Yards Precise,quadratic 1,8000,7,5722.36,0.0,1142.857142857143,2026-11-15,2026-11-17,True,Justin Herbert: 99+ passing yards,Justin Herbert: 99+
+KXNBAH2HPTS,NBA Head-to-Head Points,quadratic 1,4,2,5084.55,804.96,2.0,2026-06-04,2026-06-14,False,Will Stephon Castle record more points than OG Anunoby?,Stephon Castle records more points than Anunoby
+KXNBASERIESPTSSPREAD,Pro Basketball Series Points Spread,quadratic 1,11,1,5036.87,285.48,11.0,2026-06-14,2026-06-14,False,Will San Antonio score more than 9.5 more points than New York in the Pro Basketball Finals?,San Antonio scores 9.5 more points than New York in the series
+KXNFLRSHYDSH2H,Pro Football Head-to-Head Rushing Yards,quadratic 1,4,2,4988.32,1182.0349999999999,2.0,2026-10-13,2026-10-16,False,RJ Harvey records more rushing yards than J.K. Dobbins,RJ Harvey
+KXNHLSERIESTOTALGOAL,NHL Series Total Goals,quadratic 1,7,1,4516.46,1025.0,7.0,2026-06-07,2026-06-15,False,Will at least 50 goals be scored in the Vegas Golden Knights vs Carolina Hurricanes NHL Finals series in the 2026 NHL Playoffs,50+ total goals in the series
+KXMLBFASTPITCH,Fastest Pitch of season,quadratic 1,7,1,4429.38,323.03,7.0,2026-10-29,2026-10-29,False,Will Jacob Misiorowski record a 107.0+ MPH fastest pitch?,107.0 MPH+
+KXNCAAFD3GAME,DIII College Football Game,quadratic 1,4,2,4154.0,557.5,2.0,2025-12-20,2025-12-21,False,North Central (IL) vs John Carroll Winner?,North Central (IL)
+KXWNBAH2HPTS,Women's Pro Basketball Head to Head Points,quadratic 1,2,1,3782.04,1891.02,2.0,2026-06-19,2026-06-19,False,Will Caitlin Clark record more points than Angel Reese?,Caitlin Clark records more points than Reese
+KXWNBAFINALLOC,WNBA Finals Location,quadratic 1,1,1,3770.35,3770.35,1.0,2026-10-22,2026-10-22,False,Atlanta hosts Finals Game 3 at Gateway Center Arena,Atlanta hosts Finals Game 3 at Gateway Center Arena
+KXNCAAWBRACE,Women's College Basketball Race to Points,quadratic 1,16,8,3667.41,158.245,2.0,2026-11-02,2026-11-19,False,Ohio St. reaches 10 points first,Ohio St.
+KXNBAH2H3PT,NBA Head-to-Head Three Pointers,quadratic 1,6,3,3222.86,437.91,2.0,2026-05-22,2026-11-11,False,Will OG Anunoby record more made three pointers than Julian Champagnie?,OG Anunoby records more made three pointers than Champagnie
+KXNBAFIRST50PTS,First NBA Player to Score 50 Points,quadratic 1,50,1,3049.84,0.0,50.0,2026-10-26,2026-10-26,False,Zion Williamson to record the first 50+ game,Zion Williamson
+KXNCAAWB1Q,Women's College Basketball 1st Quarter Winner,quadratic 1,27,9,2983.82,59.0,3.0,2026-11-02,2026-11-19,False,1st quarter tie,Tie
+KXWNBAROOKAS,Women's Pro Basketball Rookie to be an All-Star,quadratic 1,1,1,2638.27,2638.27,1.0,2026-07-28,2026-07-28,False,Will a rookie be selected as a Women's Pro Basketball All-Star in the 2026 season?,Yes
+KXNFLGAMESPECIALS,Pro Football Game Specials,quadratic 1,4,1,2506.0,726.5,4.0,2026-10-12,2026-11-02,False,Will any player record 17+ receptions in any individual game during the 2026-27 Pro Football regular season?,Any player to record 17+ receptions in a game
+KXNBASTLPROT,NBA Player Steals Protected,quadratic 1,1080,52,2117.85,0.0,20.76923076923077,2026-11-13,2026-11-19,False,Matisse Thybulle: 3+ steals,Matisse Thybulle: 3+
+KXNHLSERIESOT,NHL Series Overtime,quadratic 1,5,1,1906.12,30.11,5.0,2026-06-05,2026-06-15,False,Will there be 5+ games that go to overtime in the Vegas Golden Knights vs Carolina Hurricanes Stanley Cup® Finals Series in the 2026 NHL Playoffs?,5+ games go to overtime
+KXNCAAFTEAMINT,College Football Team Total Defensive Interceptions,quadratic 1,4,1,1879.47,16.0,4.0,2026-09-07,2026-09-07,False,Wisconsin: 2+ defensive interceptions,Wisconsin: 2+
+KXNBACITYEXPAND,NBA City Franchise Expansion,quadratic 1,2,1,1672.33,836.165,2.0,2026-10-15,2026-11-01,False,"Pro Basketball expansion awarded before Oct 15, 2026?","Before Oct 15, 2026"
+KXNBAPLAYERHIGHSCORE,NBA Highest Scoring Performance in Regular Season,quadratic 1,1,1,1419.86,1419.86,1.0,2026-11-06,2026-11-06,False,Victor Wembanyama highest-scoring performance: 48+ points,Victor Wembanyama: 48+ points
+KXNFLHIGHSCORE,Pro Football Highest Scoring Game,quadratic 1,8,1,1323.17,152.0,8.0,2026-09-22,2026-09-22,False,Will there be a game with over 95.5 total points scored in the 2026-27 Pro Football regular season?,Over 95.5 points scored
+KXNBAONE3PT,NBA Players to Make One Three,quadratic 1,4,1,1197.62,240.20499999999998,4.0,2026-10-26,2026-11-06,False,Neemias Queta to make at least 1 three-pointer,Neemias Queta
+KXLALIGA2PROMO,La Liga 2 Promotion,quadratic 1,3,1,1186.0,150.0,3.0,2026-06-15,2026-06-21,False,Will Malaga be promoted from the La Liga 2 in the 2025-26 season?,Malaga
+KXNCAAFHIGHSCORE,College Football Highest Scoring Game,quadratic 1,5,1,1118.97,322.0,5.0,2026-09-13,2026-10-13,False,Will there be a game with over 99.5 total points scored in the 2026 college football regular season?,Over 99.5 points scored
+KXNCAAFMOSTOT,College Football Most Amount of Overtimes,quadratic 1,1,1,1111.0,1111.0,1.0,2026-10-19,2026-10-19,False,4+ overtime periods in a single Division I game in the 2026 college football regular season,4+ overtime periods
+KXNBABLKPROT,NBA Player Blocks Protected,quadratic 1,489,51,1052.77,0.0,9.588235294117647,2026-11-13,2026-11-19,False,Dylan Cardwell: 2+ blocks,Dylan Cardwell: 2+
+KXNCAAWBOT,Women's College Basketball Overtime,quadratic 1,10,10,723.29,53.195,1.0,2026-11-02,2026-11-19,False,Game goes to overtime,Game goes to overtime
+KXNFLRECYDSPRECISE,Receiving Yards Precise,quadratic 1,1512,5,668.42,0.0,302.4,2026-11-13,2026-11-17,False,Zay Flowers: 99+ receiving yards,Zay Flowers: 99+
+KXNCAAFOCCUR,College Football Games Taking Place,quadratic 1,12,1,589.86,43.0,12.0,2026-11-15,2026-11-15,False,"Will Washington vs Michigan St. start on Nov 14, 2026?",Washington vs Michigan St.
+KXNCAAFCFPEXPAND,College Football Playoff expansion,quadratic 1,1,1,557.93,557.93,1.0,2026-11-09,2026-11-09,False,"Will the CFP approve a 24-team playoff before Dec 2, 2026?",24-team playoff approved
+KXNFLRSHYDSPRECISE,Rushing Yards Precise,quadratic 1,2268,6,393.03,0.0,378.0,2026-11-13,2026-11-17,False,Omarion Hampton: 99+ rushing yards,Omarion Hampton: 99+
+KXUCL16PSGSTB,Champions League round of 16 - PSG STB,quadratic 1,2,1,312.0,156.0,2.0,2025-02-19,2025-02-19,False,Will Stade Brest 29 make the Round of 16 in the Champions League?,Stade Brest 29
+KXNCAAFTEAMTO,College Football Team Total Forced Turnovers,quadratic 1,6,1,295.34000000000003,15.38,6.0,2026-09-07,2026-09-07,False,Wisconsin: 3+ forced turnovers,Wisconsin: 3+
+KXNCAAFTOTALTD,College Football Total Touchdowns,quadratic 1,3,1,200.04,30.0,3.0,2026-09-07,2026-09-07,False,8+ total touchdowns,8+ touchdowns
+KXUCL16BVBSPO,Champions League round of 16 - BVB SPO,quadratic 1,2,1,187.0,93.5,2.0,2025-02-19,2025-02-19,False,Will Sporting Lisbon make the Round of 16 in the Champions League?,Sporting Lisbon
+KXNCAAFTEAMSACK,College Football Team Total Sacks,quadratic 1,8,1,20.1,1.0,8.0,2026-09-07,2026-09-07,False,Wisconsin: 4+ sacks,Wisconsin: 4+
+KXNCAAFTOTALFG,College Football Total Field Goals,quadratic 1,6,1,19.1,1.0,6.0,2026-09-07,2026-09-07,False,6+ total made field goals,6+ field goals
+KXNBAGAMESPECIALS,Pro Basketball Game Specials,quadratic 1,4,1,15.14,0.0,4.0,2026-11-06,2026-11-13,False,Will any player record 20+ rebounds in any individual game during the 2026-27 Pro Basketball regular season?,Any player to record 20+ rebounds in a game
+KXUCL16,Champions League round of 16,quadratic 1,0,0,0,0,0.0,,,False,,
+KXSERIEAADVANCE,To Advance,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLTKL,Pro Football Tackles,quadratic 1,0,0,0,0,0.0,,,False,,
+KXWNBA1H,Women's Pro Basketball 1st Half Winner,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNHLEXPANSION,NHL Expansion,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNHLSAVES,Pro Hockey Saves,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNHLSERIESTOTALGOALS,NHL Series Total Goals,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNHL2PBTTS,NHL Both Teams to Score in 2nd Period,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNHL1PBTTS,NHL Both Teams to Score in 1st Period,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLTEAMTO,Pro Football Forced Turnovers,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLTEAMPTS,Who will most/least points in Regular Season,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNHLANYGOAL,Pro Hockey Goalscorer,quadratic 1,0,0,0,0,0.0,,,False,,
+KXUCLLEADER,Champions League Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXSERIEACORNERS,Total Corners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXUCL8,Champion's League to Round of 8,quadratic 1,0,0,0,0,0.0,,,False,,
+KXUCLSAVE,UCL Goalkeeper Saves,quadratic 1,0,0,0,0,0.0,,,False,,
+KXUCLSHOT,UCL Shots,quadratic 1,0,0,0,0,0.0,,,False,,
+KXSERIEALEADER,Serie A Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXSERIEAMOV,Method of Victory,quadratic 1,0,0,0,0,0.0,,,False,,
+KXSERIEATCORNERS,Team Corners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXSERIEATEAMPOINTS,Team Points,quadratic 1,0,0,0,0,0.0,,,False,,
+KXWNBA2H,Women's Pro Basketball 2nd Half Winner,quadratic 1,0,0,0,0,0.0,,,False,,
+KXUCLSOT,UCL Shots or Target,quadratic 1,0,0,0,0,0.0,,,False,,
+KXUCLTEAMSHOT,UCL Team Shots,quadratic 1,0,0,0,0,0.0,,,False,,
+KXUCLTEAMSOT,UCL Team Shots on Target,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNHLRETIRE,NHL Retire,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNHL3PBTTS,NHL Both Teams to Score in 3rd Period,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFTFUT,Team to Make the College Football Playoffs before 2030,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLTEAMFG,Pro Football Field Goals,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBA4D,Any Player to Record a Quadruple Double,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAPA,Pro Basketball Player Points + Assists,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBALADDERPTS,NBA Player Points Ladder,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBALADDER3PT,NBA Player Threes Ladder,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAHUSTLE,NBA Hustle Award,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAHIGHESTSCORING,NBA Player with the Highest Scoring Game,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAH2HTEAM3PT,NBA H2H Team Three Pointers,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAGAMES,NBA games,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAGAMEHIGHSCORE,NBA Highest Scoring Game of the Season,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAFIRSTBASKET,Pro Basketball First Basket,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAFINALSOUTCOME,NBA Finals Outcome,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAEXTENSION,NBA Player Contract Extension,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAEUROPEANNOUNCE,NBA Europe Inaugural Season Being Announced,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBACOTM,NBA Coach of the Month,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBACOACHOUT,Pro Basketball Coaches Out,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBABENCHPTS,NBA Bench Points,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAPLAYERSPECIALS,Pro Basketball Player Specials,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAPOSTASREC,NBA Best Record by All-Star Break,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAPR,Pro Basketball Player Points + Rebounds,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBATEAMSALE,Pro Basketball Team to be Sold,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFEQBTTS,College Football Both Teams to Score in Every Quarter,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFCOTW,College Football Coach of the Week,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAF4QBTTS,College Football Both Teams to Score in 4th Quarter,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAF3QBTTS,College Football Both Teams to Score in 3rd Quarter,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAF2QBTTS,College Football Both Teams to Score in 2nd Quarter,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAF1QBTTS,College Football Both Teams to Score in 1st Quarter,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBATEAM,NBA team,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAPTSPRECISE,NBA Player Points Range,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBASTATLEADER,NBA Regular Season League Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBASTAKESALE,NBA Team Ownership Stake Sale Agreement,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBASTADIUM,NBA Stadium Completion,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBASJC,NBA Social Justice Champion,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBAROTM,NBA Rookie of the Month,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBARA,Pro Basketball Player Rebounds + Assists,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBA4QTEAMTOTAL,NBA 4th Quarter Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBA3QTEAMTOTAL,NBA 3rd Quarter Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLTEAMDPTS,Who will allow the least/most points this season,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBA2QTEAMTOTAL,NBA 2nd Quarter Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLALIGAADVANCE,To Advance,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLALIGA2ADVANCE,To Advance,quadratic 1,0,0,0,0,0.0,,,False,,
+KXEPLTEAMPOINTS,Team Points,quadratic 1,0,0,0,0,0.0,,,False,,
+KXEPLLEADER,EPL Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXEPLH2H,EPL H2H Results,quadratic 1,0,0,0,0,0.0,,,False,,
+KXEPLANYGOAL,EPL Anytime Goalscorer,quadratic 1,0,0,0,0,0.0,,,False,,
+KXEPLADVANCE,To Advance,quadratic 1,0,0,0,0,0.0,,,False,,
+KXBUNDESLIGAWADVANCE,To Advance,quadratic 1,0,0,0,0,0.0,,,False,,
+KXBUNDESLIGATEAMPOINTS,Team Points,quadratic 1,0,0,0,0,0.0,,,False,,
+KXBUNDESLIGATCORNERS,Team Corners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXBUNDESLIGAMOV,Method of Victory,quadratic 1,0,0,0,0,0.0,,,False,,
+KXBUNDESLIGALEADER,Bundesliga Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXBUNDESLIGACORNERS,Total Corners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXBUNDESLIGAADVANCE,To Advance,quadratic 1,0,0,0,0,0.0,,,False,,
+KXBUNDESLIGA2ADVANCE,To Advance,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLALIGALEADER,La Liga Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLALIGAMOV,Method of Victory,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLALIGATEAMPOINTS,Team Points,quadratic 1,0,0,0,0,0.0,,,False,,
+KXMLBTEAMSALE,Pro Baseball Team Sale,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBA2HTEAMTOTAL,NBA 2nd Half Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNBA1QTEAMTOTAL,NBA 1st Quarter Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXMLSTCORNERS,Team Corners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXMLSMOV,Method of Victory,quadratic 1,0,0,0,0,0.0,,,False,,
+KXMLSCORNERS,Total Corners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXMLBWALK,Pro Baseball Walks,quadratic 1,0,0,0,0,0.0,,,False,,
+KXMLBFOD,Field of Dreams Teams,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLIGUE1ADVANCE,To Advance,quadratic 1,0,0,0,0,0.0,,,False,,
+KXMLBCOACH,Pro Baseball Next Manager,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLIGUE1TEAMPOINTS,Team Points,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLIGUE1TCORNERS,Team Corners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLIGUE1MOV,Method of Victory,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLIGUE1LEADER,Ligue 1 Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXLIGUE1CORNERS,Total Corners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFGO,College football games taking place,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFLEADER,College Football Stats Leaders,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFLSUTEX2X,LSU to Beat Texas in Regular Season and National Championship,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFQF,College Football Playoff Quarterfinals Qualifiers,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLLADDERREC,Receptions Ladder,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLINT,Pro Football Interceptions,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLHOFINDUCTEES,Pro Football Hall of Fame Inductees,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLHKANE,Harry Kane Pro Football signing,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLGPICKENSCONTRACT,Pro Football George Picken's Next Contract Size,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLGAMETO,Pro Football Turnovers,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLGAMEFG,Pro Football Field Goals,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLDROY,NFL Defensive Rookie of the Year,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLDIVISIONORDER,Pro Football Division Exact Order,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLCONTRACTSIZE,Pro Football Next Contract Size,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLCOACHOUTFIRST,First NFL coach out,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLCOACHOUT,NFL Coaches Fired,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFL60YARDFGS,Pro Football 60+ Yard Field Goals,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFL4DOWNCONV,Pro Football 4th Down Conversions,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFL2HTD,2nd Half Touchdowns,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLLADDERRECYDS,Receiving Yards Ladder,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLLADDERRSHYDS,Rushing Yards Ladder,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLLEADERPINT,Pro Football P INT Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLREBOOT,Reboot Rules,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLTEAM1STDOWNS,Pro Football Team 1st Downs,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLSTADIUM,Will NFL Stadium Project be complete by date,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLSFPRACFIELD,Practice Field Relocation,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLSBOUTCOME,NFL Championship Outcome,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLSAFETY,Pro Football Safeties,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLSACK,Pro Football Sacks,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLPRIMETIME,Pro Football Primetime Games,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLLONGESTFG,Pro Football Longest Field Goal,quadratic 1,1,1,0.0,0.0,1.0,2026-10-04,2026-10-04,False,Longest field goal in 2026-27 regular season: 64+ yards,64+ yards
+KXNFLOTWIN,Pro Football Overtime Winner,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLNBA,NFL and NBA Champion Combo,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLLONGFG,Pro Football Team Longest Field Goal,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLLONGESTTD,Pro Football Longest Touchdown,quadratic 1,6,1,0.0,0.0,6.0,2026-02-09,2026-02-09,False,Will the longest touchdown in the game be 51 yards or more?,51 yards or more
+KXNFLLONGESTREC,Longest Reception,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFLLONGESTPLAY,NFL Longest Touchdown,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNFL1HTD,1st Half Touchdown,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWBWINMARGIN,Women's College Basketball Winning Margin,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWBSTATLEADER,Women's College Basketball Stat Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAMB2HTEAMTOTAL,Men's College Basketball 2nd Half Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAMBSTATLEADER,Men's College Basketball Stat Leader,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAMBHTEAMTOTAL,Mens College Basketball 1st Half Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAMBFIRST3PT,Men's College Basketball First Team to Make a Three,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAMBEARLYTOURNEY,NCAAMB Early Season Tournaments,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAMBD3GAME,Men's College Basketball D3 Game,quadratic 1,2,1,0.0,0.0,2.0,2026-04-06,2026-04-06,False,DIII Men's Championship: Emory vs. Mary Washington Winner?,Mary Washington
+KXNCAAMBAPANY,Men's College Basketball AP Rank Anytime in Season,quadratic 1,6,2,0.0,0.0,3.0,2026-11-04,2026-11-04,False,Will the Illinois men's college basketball team be ranked top 5 during any week of the 2026-27 season?,Illinois
+KXNCAAMB1HTEAMTOTAL,Men's College Basketball 1st Half Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAMBUAC,United Athletic Conference Conference Tournament,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFTRANSFER,College Football Player Transfer,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFTEAMRSHYDS,College Football Team Rushing Yards,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFTEAMRSHATT,College Football Team Total Rushing Attempts,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFTEAMREC,College Football Team Total Receptions,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFSTADIUM,College Football Stadiums,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAFSF,College Football Playoff Semifinals Qualifiers,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAMBSUN,Atlantic Sun Conference Tournament,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB1HTEAMTOTAL,Women's College Basketball 1st Half Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWBH,NCAA Women's Basketball Half Winners,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB3QSPREAD,Women's College Basketball 3rd Quarter Spread,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWBFIRST3PT,Women's College Basketball First Team to Make a Three,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWBBBBB,NCAAWB Conference Champions,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB4QTOTAL,Women's College Basketball 4th Quarter Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB4QSPREAD,Women's College Basketball 4th Quarter Spread,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB4Q,Women's College Basketball 4th Quarter Winner,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB3QTOTAL,Women's College Basketball 3rd Quarter Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB3Q,Women's College Basketball 3rd Quarter Winner,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB2H,Women's College Basketball 2nd Half Winner,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB2QTOTAL,Women's College Basketball 2nd Quarter Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB2QSPREAD,Women's College Basketball 2nd Quarter Spread,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB2Q,Women's College Basketball 2nd Quarter Winner,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB2HTOTAL,Women's College Basketball 2nd Half Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB2HTEAMTOTAL,Women's College Basketball 2nd Half Team Total,quadratic 1,0,0,0,0,0.0,,,False,,
+KXNCAAWB2HSPREAD,Women's College Basketball 2nd Half Spread,quadratic 1,0,0,0,0,0.0,,,False,,
+KXWNBATRADE,WNBA Players Traded,quadratic 1,0,0,0,0,0.0,,,False,,

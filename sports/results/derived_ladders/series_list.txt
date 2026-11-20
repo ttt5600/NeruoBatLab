@@ -1,0 +1,1541 @@
+dict_keys(['additional_prohibitions', 'categories', 'category', 'contract_terms_url', 'contract_url', 'exchange_index', 'fee_multiplier', 'fee_type', 'frequency', 'last_updated_ts', 'settlement_sources', 'tags', 'ticker', 'title'])
+KXMLBAWARDCOMBO | Pro Baseball Award Combo | custom | quadratic 1 | None
+KXNCAAFFTTS | College Football First Team to Score | custom | quadratic 1 | None
+KXSERIEA1HSCORE | 1st Half Correct Score | custom | quadratic 1 | None
+KXNFLSEASONRSHTD | Rushing Touchdowns | custom | quadratic 1 | None
+KXMLBWA | Pro Baseball Walks | custom | quadratic 1 | None
+KXLEADERMLBRUNS | MLB Runs Leader | annual | quadratic 1 | None
+KXNFLSEASONRUSHYDS | Rushing Yards | custom | quadratic 1 | None
+KXNFLRETURN | Pro Football Player to Compete | custom | quadratic 1 | None
+KXNFL1QBTTS | Pro Football Both Teams to Score in 1st Quarter | custom | quadratic 1 | None
+KXNFLOT | Pro Football Overtime | custom | quadratic 1 | None
+KXWNBACCUPMVP | WNBA Commissioner's Cup MVP | annual | quadratic 1 | None
+KXNCAAFGO | College football games taking place | daily | quadratic 1 | None
+KXEPLH2HFINISH | EPL H2H Finishing Position | custom | quadratic 1 | None
+KXMLBALMOTY | Pro Baseball American League Manager of the Year | annual | quadratic 1 | None
+KXBUNDESLIGA2SPREAD | Spread | custom | quadratic 1 | None
+KXNFLFG | Pro Football Field Goals | custom | quadratic 1 | None
+KXNBAALLSTAR | NBA All-Star game | annual | quadratic 1 | None
+KXNFLOWNERSTAKE | Next Pro Football Team to Sell Ownership Stake | custom | quadratic 1 | None
+KXWNBAFINALSMVP | WNBA Finals MVP | custom | quadratic 1 | None
+KXMLBNLEAST | National League East Winner | annual | quadratic 1 | None
+KXNFLDELAY | NFL Weather Delay | custom | quadratic 1 | None
+KXNFLGAMETD | Pro Football Touchdowns | one_off | quadratic 1 | None
+KXLIGUE1GOAL | Goalscorer | custom | quadratic 1 | None
+KXNFLESCALATORRECYDS | Receiving Yards Escalator | custom | quadratic 1 | None
+KXNBAFIRSTTIMECHAMP | NBA First Time Champion | custom | quadratic 1 | None
+KXNCAABBIGTEN | Big Ten Men's Basketball Tournament | custom | quadratic 1 | None
+KXNBAGAMEHIGHSCORE | NBA Highest Scoring Game of the Season | custom | quadratic 1 | None
+KXNFLGAMETO | Pro Football Turnovers | one_off | quadratic 1 | None
+KXWNBANEXTTEAM | WNBA Next Team | custom | quadratic 1 | None
+KXNFLEXACTWINSCLE | Pro football exact wins Cleveland | annual | quadratic 1 | None
+KXNCAAFPLAYOFF | College Football Playoff Qualifiers | annual | quadratic_with_maker_fees 1 | None
+KXNBAPLAYOFFHOMEGAMES | NBA Team Home Playoff Games | one_off | quadratic 1 | None
+KXNFLNFCCHAMP | National Football Conference Champion | annual | quadratic_with_maker_fees 1 | None
+KXNFLTEAMFG | Pro Football Field Goals | custom | quadratic 1 | None
+KXMLSSPREAD | MLS Spread | custom | quadratic 1 | None
+KXNCAAFPAC10 | Pac-10 Champion | annual | quadratic 1 | None
+KXNBAREBPROT | NBA Player Rebounds Protected | custom | quadratic 1 | None
+KXNBAWINMARGIN | NBA Win Margin | custom | quadratic 1 | None
+KXNCAAF1H | College Football 1st Half Winner | custom | quadratic 1 | None
+KXNFLEXACTWINSMIA | Pro football exact wins Miami | annual | quadratic 1 | None
+KXNBARETURN | Pro Basketball Player to Return | custom | quadratic 1 | None
+KXMLBNLCENT | National League Central Winner | annual | quadratic 1 | None
+KXNBA3PT | NBA Player Threes | custom | quadratic 1 | None
+KXMLBWINS-CWS | Pro baseball wins Chicago W | annual | quadratic 1 | None
+KXMLSFIRSTGOAL | First Goal | custom | quadratic 1 | None
+KXMLBEOTY | Pro Baseball Executive of the Year | custom | quadratic 1 | None
+KXNBANEXTCONTRACT | Pro Basketball Next Contract Size | custom | quadratic 1 | None
+KXNFLEXACTWINSTB | Pro football exact wins Tampa Bay | annual | quadratic 1 | None
+KXLEADERNFLRTDS | NFL leader receiving TDs | annual | quadratic 1 | None
+KXLALIGA2TOTAL | Point Total | custom | quadratic 1 | None
+KXNBASUMMER | Pro Basketball Summer League Champion | custom | quadratic 1 | None
+KXWNBASERIESGAMES | WNBA Series Total Games | custom | quadratic 1 | None
+KXNCAAF2QBTTS | College Football Both Teams to Score in 2nd Quarter | custom | quadratic 1 | None
+KXNFLWINS-HOU | Pro football wins Houston | annual | quadratic 1 | None
+KXWNBACOMPETE | Women's Pro Basketball Player to Compete | custom | quadratic 1 | None
+KXNFLSEEDOU | NFL Playoffs Seed Over/Unders | custom | quadratic 1 | None
+KXNCAAFSECQ | College Football SEC Championship Qualifiers | annual | quadratic 1 | None
+KXNHLSERIES | NHL Series Winner | custom | quadratic_with_maker_fees 1 | None
+KXMLBNLMOTY | Pro Baseball National League Manager of the Year | annual | quadratic 1 | None
+KXNFL2QBTTS | Pro Football Both Teams to Score in 2nd Quarter | custom | quadratic 1 | None
+KXEPLTOP6 | Top 6 Finishers | annual | quadratic 1 | None
+KXNCAAFCOACHLEAVE | College Football Coach Out By | custom | quadratic 1 | None
+KXLALIGATCORNERS | Team Corners | custom | quadratic 1 | None
+KXNBATEAMSALE | Pro Basketball Team to be Sold | custom | quadratic 1 | None
+KXLEADERWNBAREB | WNBA RPG Leader | annual | quadratic 1 | None
+KXNFLTRADE | Pro Football Players Traded | custom | quadratic 1 | None
+KXNFLLONGREC | Longest Reception | custom | quadratic 1 | None
+KXNFLTEAMPTS | Who will most/least points in Regular Season | custom | quadratic 1 | None
+KXNHLAST | Pro Hockey Assists | custom | quadratic 1 | None
+KXCITYNBAEXPAND | Cities NBA expand | custom | quadratic 1 | None
+KXNHLPACIFIC | NHL Pacific Division Winner | annual | quadratic 1 | None
+KXNFLEXACTWINSHOU | Pro football exact wins Houston | annual | quadratic 1 | None
+KXNHLSERIESTOTALGOAL | NHL Series Total Goals | custom | quadratic 1 | None
+KXLIGUE1SCORE | Correct Score | custom | quadratic 1 | None
+KXNBASTL | NBA Player Steals | custom | quadratic 1 | None
+KXNBACUP | Pro Basketball Cup Champion | annual | quadratic 1 | None
+KXNHLEAST | Eastern Conference Championship | annual | quadratic_with_maker_fees 1 | None
+KXNBASUMMER1HWINNER | Pro Basketball Summer League 1st Half Winner | custom | quadratic 1 | None
+KXNCAAFCONF | NCAAF Championship Conference | annual | quadratic 1 | None
+KXLIGUE1FIRSTGOAL | First Goal | custom | quadratic 1 | None
+KXLIGUE11HSPREAD | 1st Half Spread | custom | quadratic 1 | None
+KXWNBAWORSTREC | Women's Pro Basketball Worst Record | custom | quadratic 1 | None
+KXMLBSISTREAK | Pro Baseball Scoreless Innings Streak | custom | quadratic 1 | None
+KXNCAAF3QTOTAL | College Football 3rd Quarter Total | custom | quadratic 1 | None
+KXNCAABBPLAYOFFS | College Baseball Playoff Qualifiers | custom | quadratic 1 | None
+KXWNBA3QTOTAL | Women's Pro Basketball 3rd Quarter Total | custom | quadratic 1 | None
+KXLIGUE1LEADER | Ligue 1 Leader | custom | quadratic 1 | None
+KXNFLPLAYOFF | Pro Football Playoff Qualifiers | annual | quadratic 1 | None
+KXRECORDNFLWORST | worst football record | custom | quadratic 1 | None
+KXNCAAFBIGTENREGTOP | College Football Big Ten Regular Season Top Finishers | annual | quadratic 1 | None
+KXNFLEXACTWINSNE | Pro football exact wins New England | annual | quadratic 1 | None
+KXUCL16PSGSTB | Champions League round of 16 - PSG STB | one_off | quadratic 1 | None
+KXNFLDIVISIONORDER | Pro Football Division Exact Order | custom | quadratic 1 | None
+KXMLBASGHIT | All Star Game Hits | custom | quadratic 1 | None
+KXNFLSBOUTCOME | NFL Championship Outcome | custom | quadratic 1 | None
+KXNFL1QWINNER | Pro Football 1st Quarter Winner | custom | quadratic 1 | None
+KXMLBSERIESSPREAD | Pro Baseball Series Game Spread | custom | quadratic 1 | None
+KXNBACOTM | NBA Coach of the Month | custom | quadratic 1 | None
+KXNFLPREPACK3ML | MVE NFL Pre Pack | one_off | quadratic 1 | None
+KXMLBWINS-NYM | Pro baseball wins New York M | annual | quadratic 1 | None
+KXBUNDESLIGA2H | 2nd Half Winner | custom | quadratic 1 | None
+KXLEADERMLBTRIPLES | MLB Triples Leader | annual | quadratic 1 | None
+KXNFLSAFETY | Pro Football Safeties | one_off | quadratic 1 | None
+KXNHLCALDER | NHL Calder Memorial Trophy | annual | quadratic 1 | None
+KXNBAMVPCHAMP | MVP to Win the NBA Finals | custom | quadratic 1 | None
+KXNCAAFAPANY | College Football AP Rank Anytime in Season | custom | quadratic 1 | None
+KXNBAREB | NBA Player Rebounds | custom | quadratic 1 | None
+KXNCAAFTOPCFPPOLL | College Football CFP Poll | custom | quadratic 1 | None
+KXNBAPLAYOFFHOST | NBA Team Home Playoff Games | custom | quadratic 1 | None
+KXNBASERIES3PMLEADER | Pro Basketball Series 3-Pointers Made Leader | custom | quadratic 1 | None
+KXLEADERWNBA3PT | WNBA Total 3-Pointers Made Leader | custom | quadratic 1 | None
+KXWNBARAISE | WNBA raise | custom | quadratic 1 | None
+KXNCAABBGAME | College Baseball Game | custom | quadratic 1 | None
+KXNBASERIESSCORE | NBA Series Exact Score | custom | quadratic 1 | None
+KXWNBASERIESSPREAD | WNBA Series Game Spread | custom | quadratic 1 | None
+KXNBASHOOTINGSTARS | Pro Basketball Shooting Stars Contest | one_off | quadratic 1 | None
+KXNFLOROTY | AP Pro Football Offensive Rookie of the Year | annual | quadratic_with_maker_fees 1 | None
+KXNFLDRAFT1 | NFL Draft First Pick | annual | quadratic 1 | None
+KXBUNDESLIGAGOAL | Goalscorer | custom | quadratic 1 | None
+KXMLBGG | Pro Baseball Gold Glove | custom | quadratic 1 | None
+KXNBAPTSPROT | NBA Player Points Protected | custom | quadratic 1 | None
+KXNBACENTRAL | Pro Basketball Central Division Winner | annual | quadratic 1 | None
+KXNFLESCALATORRSHYDS | Rushing Yards Escalator | custom | quadratic 1 | None
+KXNBANEWCHAMPION | Pro Basketball New Champion | custom | quadratic 1 | None
+KXUCL16PSVJUV | Champions League round of 16 - PSV JUV | one_off | quadratic 1 | None
+KXNBASTARTERS | Pro Basketball Starting Lineup | custom | quadratic 1 | None
+KXNCAAFCONFMATCHUP | College Football Conference Championship Matchup | custom | quadratic 1 | None
+KXLIGUE11H | Ligue 1 First Half Winner | custom | quadratic 1 | None
+KXLALIGACORNERS | Total Corners | custom | quadratic 1 | None
+KXMLBWINS-DET | Pro baseball wins Detroit | annual | quadratic 1 | None
+KXNHLSEASONPPTS | Season Player Points | one_off | quadratic 1 | None
+KXWNBA1HTOTAL | WNBA 1st Half Total | custom | quadratic 1 | None
+KXNCAAF2H | College Football 2nd Half Winner | custom | quadratic 1 | None
+KXNFL1HTD | 1st Half Touchdown | custom | quadratic 1 | None
+KXEPLSOA | EPL Score or Assist | custom | quadratic 1 | None
+KXNFLWINSTREAK | Pro Football Win Streak | custom | quadratic 1 | None
+KXMLBWINS-ATH | Pro baseball wins A's | annual | quadratic 1 | None
+KXNBATEAMTOTAL | NBA Team Total | custom | quadratic 1 | None
+KXNFLEXACTWINSDET | Pro football exact wins Detroit | annual | quadratic 1 | None
+KXNFLWINS-LA | Pro football wins Los Angeles R | annual | quadratic 1 | None
+KXWNBAASGAME | WNBA All Star Game | custom | quadratic 1 | None
+KXLALIGA | LA LIGA | annual | quadratic_with_maker_fees 1 | None
+KXNFLGAMESPECIALS | Pro Football Game Specials | custom | quadratic 1 | None
+KXNCAAFPREPACK4ML | MVE NCAAF Pre Pack | custom | quadratic 1 | None
+KXUCLW | Champions League Women's | custom | quadratic 1 | None
+KXNFLTIES | Pro Football Ties | custom | quadratic 1 | None
+KXNBANORTHWEST | Pro Basketball Northwest Division Winner | annual | quadratic 1 | None
+KXCFBDOBRIEN | Davey O'Brien Award | annual | quadratic 1 | None
+KXNBA3PTALLGAMES | Pro Basketball 3-Pointers in Every Game | custom | quadratic 1 | None
+KXUCLTEAMTOTAL | UCL Team Total | custom | quadratic 1 | None
+KXNBAPREPACK2ML | 2 ML Basketball Combo | one_off | quadratic 1 | None
+KXNCAAFEQBTTS | College Football Both Teams to Score in Every Quarter | custom | quadratic 1 | None
+KXMLBWSMVP | Pro Baseball Championship MVP | annual | quadratic 1 | None
+KXSERIEAPOINTMARGIN | Serie A Champion Winning Margin | annual | quadratic 1 | None
+KXNCAAFAPRANK | College Football AP Rank | custom | quadratic 1 | None
+KXSERIEATOTAL | Serie A Total | custom | quadratic 1 | None
+KXMLBALCENT | American League Central Winner | annual | quadratic 1 | None
+KXNFLRRYDSPROT | Rushing and Receiving Yards Protected | custom | quadratic 1 | None
+KXLIGUE1TCORNERS | Team Corners | custom | quadratic 1 | None
+KXUCLLEAGUE | League to Win UEFA Champions League | annual | quadratic 1 | None
+KXNFLWINS-ARI | Pro football wins Arizona | annual | quadratic 1 | None
+KXNBABLK | NBA Player Blocks | custom | quadratic 1 | None
+KXNCAAFACCAWARD | College Football ACC Award Winner | custom | quadratic 1 | None
+KXNHL3P | NHL 3rd Period Winner | custom | quadratic 1 | None
+KXUCL2H | 2nd Half Winner | custom | quadratic 1 | None
+KXNCAAFCS | FCS Football Champion | annual | quadratic 1 | None
+KXNFLDEPTHPOSITIONCLEQB2 | QB2 CLE | custom | quadratic 1 | None
+KXUCLACOACH | UCLA Next Coach | custom | quadratic 1 | None
+KXNFLPASSTDS | Pro Football player Passing Touchdowns | custom | quadratic 1 | None
+KXNBADRAFTTRADE | Pro Basketball Draft Trade | custom | quadratic 1 | None
+KXNFLSEASONRECTD | Receiving Touchdowns | custom | quadratic 1 | None
+KXNFLEXACTWINSNO | Pro football exact wins New Orleans | annual | quadratic 1 | None
+KXMLBHRDERBYSEMI | Pro Baseball Home Run Derby Semifinals Qualifiers | custom | quadratic 1 | None
+KXEPL2HSPREAD | 2nd Half Spread | custom | quadratic 1 | None
+KXWNBA2QWINNER | Women's Pro Basketball 2nd Quarter Winner | custom | quadratic 1 | None
+KXNBACOY | NBA Coach of the Year | annual | quadratic_with_maker_fees 1 | None
+KXNFL4DOWNCONV | Pro Football 4th Down Conversions | custom | quadratic 1 | None
+KXNCAAFMOSTOT | College Football Most Amount of Overtimes | custom | quadratic 1 | None
+KXNFLDPOTY | AP Pro Football Defensive Player Of The Year | annual | quadratic_with_maker_fees 1 | None
+KXNBAUPSET | NBA Number of Upsets per Round | custom | quadratic 1 | None
+KXNFLTEAMSACK | Pro Football Team Sacks | custom | quadratic 1 | None
+KXNCAABACC | ACC Men's Basketball Tournament | custom | quadratic 1 | None
+KXMLSBTTS | MLS BTTS | custom | quadratic 1 | None
+KXNFLDSTTD | Pro Football D/ST Touchdown | custom | quadratic 1 | None
+KXUCLTCORNERS | Champions League Team Corners | custom | quadratic 1 | None
+KXWNBAFINALLOC | WNBA Finals Location | custom | quadratic 1 | None
+KXMLBNLCSQUAL | NLCS Qualifiers | custom | quadratic 1 | None
+KXTEAMSINNBAEF | Teams in NBA Eastern Conference Finals | custom | quadratic 1 | None
+KXNCAAFCSGAME | College Football FCS Game | custom | quadratic 1 | None
+KXNFLANYTD | Pro Football Anytime Touchdown | custom | quadratic_with_maker_fees 1 | None
+KXNHLANYGOAL | Pro Hockey Goalscorer | custom | quadratic 1 | None
+KXAUTBUNDESTOTAL | Total | custom | quadratic 1 | None
+KXNFLSFTY | Pro Football Safety | custom | quadratic 1 | None
+KXNBA2QSPREAD | NBA 2nd Quarter Spread | custom | quadratic 1 | None
+KXMLBDELAY | Pro Baseball Weather Delay | custom | quadratic 1 | None
+KXCOACHOUTMLBDATE | MLB Coach Out Date | custom | quadratic 1 | None
+KXWNBAPORTNOY | WNBA Portnoy ban | custom | quadratic 1 | None
+KXMLBSEEDWIN | Pro Baseball Seed Win | custom | quadratic 1 | None
+KXNBAH2HPRA | NBA Head-to-Head Points, Rebounds and Assists | custom | quadratic 1 | None
+KXNCAAFPREPACK3ML | MVE NCAAF Pre Pack | custom | quadratic 1 | None
+KXNFL1SEED | Will team win conference in regular season | custom | quadratic 1 | None
+KXNFLAFCEAST | American Football Conference East Winner | annual | quadratic_with_maker_fees 1 | None
+KXNFL3QWINNER | Pro Football 3rd Quarter Winner | one_off | quadratic 1 | None
+KXNHLWINS | NHL wins  | annual | quadratic 1 | None
+KXNFLEXACTWINSLA | Pro football exact wins Los Angeles R | annual | quadratic 1 | None
+KXMLS1H | 1st Half Winner | custom | quadratic 1 | None
+KXNHLMVP | NHL Hart Memorial Trophy Winner | annual | quadratic 1 | None
+KXNHLTOTAL | NHL Total Goals | custom | quadratic 1 | None
+KXNBACOMPETE | Pro Basketball Player to Compete | custom | quadratic 1 | None
+KXNEXTMANAGERLALIGA | La Liga Next Manager | custom | quadratic 1 | None
+KXTEAMSINNCAABBWS | Teams in College Baseball Finals | custom | quadratic 1 | None
+KXNFLEXACTWINSSEA | Pro football exact wins Seattle | annual | quadratic 1 | None
+KXMLBSTART | Pro Baseball Starter | custom | quadratic 1 | None
+KXNFLTOTAL | Pro Football Total Points | custom | quadratic_with_maker_fees 1 | None
+KXNCAAFSBELT | Sun Belt Champion | annual | quadratic 1 | None
+KXNBASERIESASTLEADER | Pro Basketball Series Assists Leader | custom | quadratic 1 | None
+KXMLS2HTOTAL | 2nd Half Total | custom | quadratic 1 | None
+KXMLBWINS-TEX | Pro baseball wins Texas | annual | quadratic 1 | None
+KXNBADRAFTCOMP | Pro Basketball Draft Comparison | custom | quadratic 1 | None
+KXEPLLAST | EPL Last Place Finisher | annual | quadratic 1 | None
+KXLIGUE1TOTAL | Ligue 1 Total | custom | quadratic 1 | None
+KXMLSSKILLS | MLS Skills Challenge Winner | custom | quadratic 1 | None
+KXNFLPOTM | NFL Player of the Month | custom | quadratic 1 | None
+KXNFL2QWINNER | Pro Football 2nd Quarter Winner | one_off | quadratic 1 | None
+KXEPLFTTS | First Team to Score | custom | quadratic 1 | None
+KXBUNDESLIGA2HSPREAD | 2nd Half Spread | custom | quadratic 1 | None
+KXMLBDEBUT | Pro Baseball Debut | custom | quadratic 1 | None
+KXNCAAFSPREAD | College Football Spread | custom | quadratic_with_maker_fees 1 | None
+KXNBATOJOINCBA | NBA Players to Join the CBA | custom | quadratic 1 | None
+KXBUNDESLIGA2HBTTS | 2nd Half BTTS | custom | quadratic 1 | None
+KXUAEPLSPREAD | Spread | custom | quadratic 1 | None
+KXNBASOUTHWEST | Pro Basketball Southwest Division Winner | custom | quadratic 1 | None
+KXNCAAFPAC12QUAL | College Football Pac-12 Championship Qualifiers | annual | quadratic 1 | None
+KXNHL2P | NHL 2nd Period Winner | one_off | quadratic 1 | None
+KXNCAAFGAME | College Football Game | custom | quadratic_with_maker_fees 1 | None
+KXNCAAFBACC | ACC Champion | annual | quadratic 1 | None
+KXNFLPASSINTPROT | Passing Interceptions Protected | custom | quadratic 1 | None
+KXLALIGA1H | La Liga First Half Winner | one_off | quadratic 1 | None
+KXAUTBUNDESADVANCE | To Advance | custom | quadratic 1 | None
+KXNFLTKL | Pro Football Tackles | custom | quadratic 1 | None
+KXSOCCERTRANSFER | Soccer Transfer | custom | quadratic 1 | None
+KXMLBTEAMSTAT | Pro Baseball Team Stat | custom | quadratic 1 | None
+KXNBACUP1STTEAM | NBA Cup All-Tournament Team | custom | quadratic 1 | None
+KXNHL2PBTTS | NHL Both Teams to Score in 2nd Period | custom | quadratic 1 | None
+KXLEADERMLBRBI | MLB RBIs Leader | annual | quadratic 1 | None
+KXNHLNEXTGM | Next NHL GM | one_off | quadratic 1 | None
+KXNFLAWARDFIN | Pro Football Award Finalists | custom | quadratic 1 | None
+KXNFLEXACTWINSLAC | Pro football exact wins Los Angeles C | annual | quadratic 1 | None
+KXLEADERMLBHR | MLB Home Runs Leader | annual | quadratic 1 | None
+KXNFLDRAFTQB | Pro Football Quarterback Drafted | annual | quadratic 1 | None
+KXNBAWHATTEND | Pro Basketball White House Attend | custom | quadratic 1 | None
+KXNBAPLAYOFFPTS | NBA Playoffs Player Points | custom | quadratic 1 | None
+KXWNBA2QTOTAL | Women's Pro Basketball 2nd Quarter Total | custom | quadratic 1 | None
+KXNFLGAMELOCATION | NFL Game Location | custom | quadratic 1 | None
+KXNFLWEEKMOSTRECYDS | Weekly Most Receiving Yards | weekly | quadratic 1 | None
+KXNFLAFCNORTH | American Football Conference North Winner | annual | quadratic_with_maker_fees 1 | None
+KXMLSADVANCE | MLS To Advance | custom | quadratic 1 | None
+KXMLBPITCHEROTM | Pro Baseball Pitcher of the Month | custom | quadratic 1 | None
+KXMLBSPREAD | Pro Baseball Spread | custom | quadratic 0.5 | None
+KXNFLLEADCHANGE | Pro Football Lead Changes | one_off | quadratic 1 | None
+KXNBA2HTEAMTOTAL | NBA 2nd Half Team Total | custom | quadratic 1 | None
+KXNBASUMMERTOTAL | Pro Basketball Summer League Total | custom | quadratic 1 | None
+KXNHL2PSPREAD | 2nd Period Spread | custom | quadratic 1 | None
+KXNCAAF1HSPREAD | College Football 1st Half Spread | custom | quadratic 1 | None
+KXNBANEXTTEAM | Pro Basketball Next Team | custom | quadratic 1 | None
+KXNHLOPENERARENA | NHL Arena | one_off | quadratic 1 | None
+KXTEAMSINUCL | Champions League Final Matchup | custom | quadratic 1 | None
+KXMLBWINS-KC | Pro baseball wins Kansas City | annual | quadratic 1 | None
+KXNCAAFBOWLGAME | College Football Teams to Make a Bowl Game | custom | quadratic 1 | None
+KXNCAAF2PT | College Football 2-Point Conversion | custom | quadratic 1 | None
+KXLEADERMLBAVG | MLB Batting Average Leader | annual | quadratic 1 | None
+KXMLBWINS-SD | Pro baseball wins San Diego | annual | quadratic 1 | None
+KXLIGUE1MOV | Method of Victory | custom | quadratic 1 | None
+KXSERIEA1HSPREAD | 1st Half Spread | custom | quadratic 1 | None
+KXNBAPICKTRADE | Pro Basketball Pick Trade | custom | quadratic 1 | None
+KXEPLANYGOAL | EPL Anytime Goalscorer | custom | quadratic 1 | None
+KXNBAPIADVANCE | NBA Play-In Team to Advance | custom | quadratic 1 | None
+KXNCAAFAACQUAL | College Football American Athletic Conference Championship Qualifiers | custom | quadratic 1 | None
+KXMLBWINS-LAA | Pro baseball wins Los Angeles A | annual | quadratic 1 | None
+KXMLBSERIESEXACT | Professional Baseball Series Exact Result | custom | quadratic 1 | None
+KXNFLMATCHUP | Pro Football Matchups | custom | quadratic 1 | None
+KXNFLCELEBRITYGAME | Pro Football Celebrity Flag Football Game | custom | quadratic 1 | None
+KXNFLEXACTWINSCHI | Pro football exact wins Chicago | annual | quadratic 1 | None
+KXNBADRAFTCONF | Pro Basketball Players Drafted by Conference | annual | quadratic 1 | None
+KXLIGUE1LAST | Ligue 1 Last Place Finisher | annual | quadratic 1 | None
+KXBUNDESLIGA1HSCORE | 1st Half Correct Score | custom | quadratic 1 | None
+KXMLBF5TOTAL | First 5 Innings Total | custom | quadratic 0.5 | None
+KXNFLDRAFTCOMPARE | NFL Draft Comparison | custom | quadratic 1 | None
+KXNHLSERIESGAMES | NHL Series Total Games | custom | quadratic 1 | None
+KXNBASTOCKS | NBA Player Steals and Blocks | custom | quadratic 1 | None
+KXNFLWINS-ATL | Pro football wins Atlanta | annual | quadratic 1 | None
+KXNEXTTEAMMLB | MLB Player Next Team | custom | quadratic 1 | None
+KXWNBAALLTEAM | Women's Pro Basketball Teams | custom | quadratic 1 | None
+KXWNBASSTARS | Women's Pro Basketball Shooting Stars Contest | custom | quadratic 1 | None
+KXUCL8 | Champion's League to Round of 8 | custom | quadratic 1 | None
+KXMLBNEXTHR | Pro Baseball Next Homerun | custom | quadratic 1 | None
+KXNFLAFCSOUTH | American Football Conference South Winner | annual | quadratic_with_maker_fees 1 | None
+KXEPLH2H | EPL H2H Results | custom | quadratic 1 | None
+KXSOCCERLEAVE | Soccer Leave Role | custom | quadratic 1 | None
+KXNFL2Q | Pro Football 2nd Quarter Winner | custom | quadratic 1 | None
+KXMLBHRDERBYLONGEST | Pro Baseball Home Run Derby Player to Hit Longest | annual | quadratic 1 | None
+KXNBATOPPICK | Pro Basketball Draft Lottery Winner | annual | quadratic 1 | None
+KXMLBWALKOFFS | Pro Baseball Walk-Off Home Runs | custom | quadratic 1 | None
+KXMLSCUP | MLS Cup champion | custom | quadratic 1 | None
+KXSERIEATCORNERS | Team Corners | custom | quadratic 1 | None
+KXNCAAMBCONFLEADER | Men's College Basketball Conference Stat Leader | custom | quadratic 1 | None
+KXMLBAL | MLB American League Championship | annual | quadratic_with_maker_fees 1 | None
+KXNBA2D | NBA Player Double Double | custom | quadratic 1 | None
+KXLALIGA2HTOTAL | 2nd Half Total | custom | quadratic 1 | None
+KXUCLBOTTOM | UCL League Phase Bottom of Table | annual | quadratic 1 | None
+KXNFLCOACHOUTFIRST | First NFL coach out | custom | quadratic 1 | None
+KXNFLWEEKHIGH | NFL Week Highest Scoring Game | custom | quadratic 1 | None
+KXWINSTREAKHOUMLB10 | Houston winning 10 games | custom | quadratic 1 | None
+KXNHLSERIESTOTALGOALS | NHL Series Total Goals | custom | quadratic 1 | None
+KXWNBAOT | Women's Pro Basketball Overtime | custom | quadratic 1 | None
+KXNFL2TD | Pro Football Multiple Touchdowns | custom | quadratic_with_maker_fees 1 | None
+KXBUNDESLIGASPREAD | Bundesliga Spread | custom | quadratic 1 | None
+KXNFLROLE | Pro Football Role at Event | custom | quadratic 1 | None
+KXCOACHOUTMLB | Baseball Managers Out | custom | quadratic 1 | None
+KXSERIEAADVANCE | To Advance | custom | quadratic 1 | None
+KXNFLH2HWINS | Pro Football Head-to-Head Win Totals | custom | quadratic 1 | None
+KXNFLEXACTWINSBUF | Pro football exact wins Buffalo | annual | quadratic 1 | None
+KXWNBA1QSPREAD | Women's Pro Basketball 1st Quarter Spread | custom | quadratic 1 | None
+KXMLBSERIESGAMETOTAL | Professional Baseball Series Total Games | custom | quadratic 1 | None
+KXNBADRAFT6 | NBA Draft Sixth Pick | annual | quadratic 1 | None
+KXBUNDESLIGATEAMPOINTS | Team Points | custom | quadratic 1 | None
+KXNCAAMSOCCERGAME | College Soccer Game | custom | quadratic 1 | None
+KXMLBOUTS | Pro Baseball Outs Recorded | custom | quadratic 0.5 | None
+KXSERIEA1H | Serie A First Half Winner | custom | quadratic 1 | None
+KXNCAAFSECAWARD | College Football SEC Award Winner | custom | quadratic 1 | None
+KXNBADRAFTPICK | Pro Basketball Draft Pick | annual | quadratic 1 | None
+KXMLBWINS-TOR | Pro baseball wins Toronto | annual | quadratic 1 | None
+KXWNBA4QTOTAL | Women's Pro Basketball 4th Quarter Total | custom | quadratic 1 | None
+KXTRADEOFFNFL | Pro football trades offseason | one_off | quadratic 1 | None
+KXNBAWFINMVP | NBA Western Conference Finals MVP | annual | quadratic 1 | None
+KXWNBAAST | Women's Pro Basketball Player Assists | custom | quadratic 1 | None
+KXUCLCORNERS | UCL Corners | custom | quadratic 1 | None
+KXNHL1P | NHL 1st Period Winner | custom | quadratic 1 | None
+KXNCAAFPREPACKSGP | MVE NCAAF Pre Pack | custom | quadratic 1 | None
+KXNBASPORTSMANSHIP | NBA Sportsmanship Award | annual | quadratic 1 | None
+KXEPLBTTS | EPL Both Teams to Score | custom | quadratic 1 | None
+KXMLBWINS-CIN | Pro baseball wins Cincinnati | annual | quadratic 1 | None
+KXNCAAFSECWINS | College Football SEC Teams to Win | annual | quadratic 1 | None
+KXNBAHUSTLE | NBA Hustle Award | custom | quadratic 1 | None
+KXNFLFF40PTS | Fantasy Football 40 Point Performances | custom | quadratic 1 | None
+KXUCLBTTS | Champions League BTTS | custom | quadratic 1 | None
+KXUCLWSPREAD | Spread | custom | quadratic 1 | None
+KXUAEPLADVANCE | To Advance | custom | quadratic 1 | None
+KXMLBALRELOTY | Pro Baseball American League Reliever of the Year | annual | quadratic 1 | None
+KXMLS1HTOTAL | 1st Half Total | custom | quadratic 1 | None
+KXNFLTEAM1POS | What position will Team select with first pick | custom | quadratic 1 | None
+KXEPLTEAMTOTAL | Team Total | custom | quadratic 1 | None
+KXNFLPROBOWL | Pro Football Pro Bowl | custom | quadratic 1 | None
+KXEPL2HTOTAL | 2nd Half Total | custom | quadratic 1 | None
+KXMLBHRR | Pro Baseball Hits Runs RBIs | custom | quadratic 0.5 | None
+KXNBARA | Pro Basketball Player Rebounds + Assists | custom | quadratic 1 | None
+KXNFLGAMEFG | Pro Football Field Goals | one_off | quadratic 1 | None
+KXNFLCOACH | NFL Coach of the Year | annual | quadratic 1 | None
+KXNFLSTAGEOFELIM | Pro Football Stage of Elimination | custom | quadratic 1 | None
+KXWNBA4QSPREAD | Women's Pro Basketball 4th Quarter Spread | custom | quadratic 1 | None
+KXEPL2H | 2nd Half Winner | custom | quadratic 1 | None
+KXNBAFINALSVIEWERGAME7 | NBA finals viewership | custom | quadratic 1 | None
+KXNBACELEBRITY3PT | NBA Celebrity 3PT Contest | one_off | quadratic 1 | None
+KXNBARECORD | Pro Basketball Best/Worst Regular Season Record | custom | quadratic 1 | None
+KXNHLGAME | NHL Game | custom | quadratic_with_maker_fees 1 | None
+KXMLBEXTRAS | MLB Extra Innings | custom | quadratic 0.5 | None
+KXMLBWINS-CLE | Pro baseball wins Cleveland | annual | quadratic 1 | None
+KXNCAAFMWCQUAL | College Football Mountain West Conference Championship Qualifiers | annual | quadratic 1 | None
+KXNFLHKANE | Harry Kane Pro Football signing | custom | quadratic 1 | None
+KXNFLPREPACKSGP | MVE NFL Pre Pack | one_off | quadratic 1 | None
+KXMLBNLCSMVP | Pro Baseball National League Championship Series MVP | annual | quadratic 1 | None
+KXWNBADRAFT2 | WNBA Draft 2nd Pick | annual | quadratic 1 | None
+KXLALIGATOP4 | La Liga Top 4 Finishers | annual | quadratic 1 | None
+KXLALIGAADVANCE | To Advance | custom | quadratic 1 | None
+KXBUNDESLIGACORNERS | Total Corners | custom | quadratic 1 | None
+KXMLS2HSPREAD | 2nd Half Spread | custom | quadratic 1 | None
+KXLIGUE1TEAMPOINTS | Team Points | custom | quadratic 1 | None
+KXNHLPLAYOFF | Playoff Qualifier | annual | quadratic 1 | None
+KXNFLPASSINT | Pro Football Passing Interceptions | custom | quadratic 1 | None
+KXMLBWINS-ATL | Pro baseball wins Atlanta | annual | quadratic 1 | None
+KXNBASTATLEADER | NBA Regular Season League Leader | custom | quadratic 1 | None
+KXNFLSEASONPASSTDS | Passing Touchdowns | custom | quadratic 1 | None
+KXLEADERMLBHITS | MLB Hits Leader | annual | quadratic 1 | None
+KXNBAONE3PT | NBA Players to Make One Three | custom | quadratic 1 | None
+KXNFLSTADIUM | Will NFL Stadium Project be complete by date | custom | quadratic 1 | None
+KXNFL2H | Pro Football 2nd Half | custom | quadratic 1 | None
+KXNFLOTWIN | Pro Football Overtime Winner | custom | quadratic 1 | None
+KXLEADERMLBERA | MLB ERA Leader | annual | quadratic 1 | None
+KXWNBADRAFT5 | WNBA Draft 5th Pick | custom | quadratic 1 | None
+KXMLSGOAL | Goalscorer | custom | quadratic 1 | None
+KXMLBHRDERBYR1LEAD | Round 1 Leader | custom | quadratic 1 | None
+KXNFLLARGESTLEAD | Pro Football Largest Lead | one_off | quadratic 1 | None
+KXLALIGALEADER | La Liga Leader | custom | quadratic 1 | None
+KXNFLNOSCOREQ | Pro Football Scoreless Quarter | custom | quadratic 1 | None
+KXBUNDESLIGATOP4 | Bundesliga Top 4 Finishers | annual | quadratic 1 | None
+KXMLBSB | Pro Baseball Stolen Bases | custom | quadratic 0.5 | None
+KXMLBHA | Pro Baseball Hits Allowed | custom | quadratic 1 | None
+KXNBAWCFQUAL | NBA Western Conference Finals Qualifiers | annual | quadratic 1 | None
+KXNBA2HTOTAL | NBA 2nd Half Total | custom | quadratic 1 | None
+KXNBAPOSTASREC | NBA Best Record by All-Star Break | custom | quadratic 1 | None
+KXLIGUE2GAME | Ligue 2 Game | one_off | quadratic 1 | None
+KXNFLEQBTTS | Pro Football Both Teams to Score in Every Quarter | custom | quadratic 1 | None
+KXNCAAF3QSPREAD | College Football 3rd Quarter Spread | custom | quadratic 1 | None
+KXNCAAFB10QUAL | College Football Big Ten Championship Qualifiers | annual | quadratic 1 | None
+KXNCAABBIG12 | Big 12 Men's Basketball Tournament | custom | quadratic 1 | None
+KXNFLOPOYSPECIALS | NFL Offensive Player of the Year Specials | custom | quadratic 1 | None
+KXMLBF3 | First 3 Innings Winner | custom | quadratic 0.5 | None
+KXMLBALCSMVP | Pro Baseball American League Championship Series MVP | annual | quadratic 1 | None
+KXNBAROOKIE2NDTEAM | NBA All-Rookie 2nd Team | custom | quadratic 1 | None
+KXMLBSERIESSCORE | Pro Baseball Series Exact Score | custom | quadratic 1 | None
+KXNFLCOMBO | NFL COMBO | one_off | quadratic 1 | None
+KXNFLDPOY | NFL Defensive Player of the Year | annual | quadratic 1 | None
+KXNFLWINS-IND | Pro football wins Indianapolis | annual | quadratic 1 | None
+KXNFLWINS-CHI | Pro football wins Chicago | annual | quadratic 1 | None
+KXNBASERIESPTSLEADER | Pro Basketball Series Points Leader | custom | quadratic 1 | None
+KXNFLSHORTESTTD | Pro Football Shortest Touchdown | custom | quadratic 1 | None
+KXMLB | World Series | custom | quadratic_with_maker_fees 1 | None
+KXNFLRECYDS | Pro Football Receiving Yards | custom | quadratic 1 | None
+KXMLBSTGAME | Pro Baseball Spring Training game | custom | quadratic 1 | None
+KXBBWSERIEAGAME | Italy Serie A (W) Game | custom | quadratic 1 | None
+KXNCAABBSPREAD | College Baseball Spread | custom | quadratic 1 | None
+KXNBASEED | NBA Playoff Seed | custom | quadratic 1 | None
+KXNFLDRAFTDB | Pro Football Defensive Back Drafted | annual | quadratic 1 | None
+KXNFLEXECOTY | Pro Football Executive of the Year | custom | quadratic 1 | None
+KXNFLWINS-DEN | Pro football wins Denver | annual | quadratic 1 | None
+KXNBAXMASOPPONENT | Pro Basketball Christmas Day Opponent | custom | quadratic 1 | None
+KXNCAABBFINAL | College Baseball Final Qualifiers | custom | quadratic 1 | None
+KXNFLTDPROT | Pro Football Touchdowns Protected | custom | quadratic 1 | None
+KXNBAGAMESPECIALS | Pro Basketball Game Specials | custom | quadratic 1 | None
+KXNFLMOSTRECYDS | Pro Football Most Receiving Yards | custom | quadratic 1 | None
+KXTEAMSINNBAWF | Teams in NBA Western Conference Finals | custom | quadratic 1 | None
+KXNFLWEEKMOSTPASSYDS | Weekly Most Passing Yards | weekly | quadratic 1 | None
+KXNCAAMBSOCON | Southern Conference Tournament | custom | quadratic 1 | None
+KXUCLWBTTS | BTTS | custom | quadratic 1 | None
+KXWNBA1QWINNER | Women's Pro Basketball 1st Quarter Winner | custom | quadratic 1 | None
+KXLALIGASCORE | Correct Score | custom | quadratic 1 | None
+KXWNBADRAFT3 | WNBA Draft 3rd Pick | custom | quadratic 1 | None
+KXMLBBGAME | Mobile Legends Bang Bang Game | one_off | quadratic 1 | None
+KXNBALADDERPTS | NBA Player Points Ladder | custom | quadratic 1 | None
+KXNFLOROY | NFL Offensive Rookie of the Y ear | annual | quadratic 1 | None
+KXMLBHRDERBYFIN | Pro Baseball Home Run Derby Finals Qualifiers | custom | quadratic 1 | None
+KXNBASERIESGCOMEBACK | Pro Basketball Series Game Comeback | custom | quadratic 1 | None
+KXNBADPOTM | NBA Defensive Player of the Month | custom | quadratic 1 | None
+KXNBASUMMERGAME | Pro Basketball Summer League Game | custom | quadratic 1 | None
+KXEPLTESTIMAGE | test | one_off | quadratic 1 | None
+KXNBAH2HWINS | NBA Head to Head Win Total | custom | quadratic 1 | None
+KXNBACITYEXPAND | NBA City Franchise Expansion | custom | quadratic 1 | None
+KXNCAAFTEAMSACK | College Football Team Total Sacks | custom | quadratic 1 | None
+KXLALIGA2HBTTS | 2nd Half BTTS | custom | quadratic 1 | None
+KXEPL1HSPREAD | EPL 1st Half Spread | custom | quadratic 1 | None
+KXMLBWINS-NYY | Pro baseball wins New York Y | annual | quadratic 1 | None
+KXNBARULE | Pro Basketball Rule | custom | quadratic 1 | None
+KXLIGUE1SPREAD | Ligue 1 Spread | custom | quadratic 1 | None
+KXWNBAWEST | Women's Pro Basketball Western Conference Champion | annual | quadratic 1 | None
+KXNBADRAFTTOP20 | NBA Draft Top 20 Pick | annual | quadratic 1 | None
+KXNFLWINS-KC | Pro football wins Kansas City | annual | quadratic 1 | None
+KXNBA2HWINNER | Pro Basketball 2nd Half Winner | custom | quadratic 1 | None
+KXWNBAGAME | Women's Pro Basketball Game | custom | quadratic_with_maker_fees 1 | None
+KXNBA3Q | NBA 3rd Quarter Winner | custom | quadratic 1 | None
+KXLALIGA1HSPREAD | 1st Half Spread | custom | quadratic 1 | None
+KXNFLRSHYDSH2H | Pro Football Head-to-Head Rushing Yards | custom | quadratic 1 | None
+KXNFL1HWINNER | NFL 1st Half Winner | custom | quadratic 1 | None
+KXUCL1HBTTS | UCL Half BTTS | custom | quadratic 1 | None
+KXNFLWINS-DET | Pro football wins Detroit | annual | quadratic 1 | None
+KXNFLDRAFTTE | Pro Football Tight End Drafted | annual | quadratic 1 | None
+KXMLBHRDERBYMATCHUP | Pro Baseball Home Run Derby Final Matchup | custom | quadratic 1 | None
+KXLEADERNFLAPYDS | Pro Football All-Purpose Yards Leader | custom | quadratic 1 | None
+KXWNBAREB | Women's Pro Basketball Player Rebounds | custom | quadratic 1 | None
+KXBUNDESLIGAFIRSTGOAL | First Goal | custom | quadratic 1 | None
+KXSERIEA1HTOTAL | 1st Half Total | custom | quadratic 1 | None
+KXNFLFFHIGHSCORE | Fantasy Football Highest Scoring Performance | custom | quadratic 1 | None
+KXNCAAFSBELTQUAL | College Football Sun Belt Championship Qualifiers | annual | quadratic 1 | None
+KXNFLWORSTTOFIRST | Pro Football Worst in Division to First | custom | quadratic 1 | None
+KXNFLPREPACK2ML | MVE NFL Pre Pack | one_off | quadratic 1 | None
+KXNFLEXACTWINSMIN | Pro football exact wins Minnesota | annual | quadratic 1 | None
+KXEPLRELEGATION | English Premier League Relegation | annual | quadratic 1 | None
+KXNFLFIRSTTDTIME | Pro Football First Touchdown Time | custom | quadratic 1 | None
+KXNFLASSCOACH | NFL Assistant Coach of the Year | annual | quadratic 1 | None
+KXNFL4QBTTS | Pro Football Both Teams to Score in 4th Quarter | custom | quadratic 1 | None
+KXNFL4QWINNER | Pro Football 4th Quarter Winner | custom | quadratic 1 | None
+KXSERIEAFTTS | First Team to Score | custom | quadratic 1 | None
+KXUCLWADVANCE | To Advance | custom | quadratic 1 | None
+KXUAEPLBTTS | BTTS | custom | quadratic 1 | None
+KXNCAAFCONFLEAVE | College Football Conference Leave | custom | quadratic 1 | None
+KXMLBTRADE | Pro Baseball Trades | custom | quadratic 1 | None
+KXNFLSEASONRECYDS | Receiving Yards | custom | quadratic 1 | None
+KXNFLRECYDSPRECISE | Receiving Yards Precise | custom | quadratic 1 | None
+KXNCAAFB12REGTOP | College Football Big 12 Regular Season Top Finishers | annual | quadratic 1 | None
+KXNHLNORRIS | NHL James Norris Memorial Trophy | annual | quadratic 1 | None
+KXWNBAALLROOKIE | Women's Pro Basketball All-Rookie Team | custom | quadratic 1 | None
+KXNFL2PTCONV | Pro Football 2-Point Conversions | one_off | quadratic 1 | None
+KXNBA3PTPROT | NBA Player Threes Protected | custom | quadratic 1 | None
+KXLIGUE1 | LIGUE 1 | annual | quadratic_with_maker_fees 1 | None
+KXNCAAFSTADIUM | College Football Stadiums | custom | quadratic 1 | None
+KXNBASIXTH | NBA Sixth Man of the Year | annual | quadratic 1 | None
+KXAUTBUNDESGAME | Austrian Bundesliga Game | custom | quadratic 1 | None
+KXNBAFINBLOWOUT | Pro Basketball Finals Blowout | one_off | quadratic 1 | None
+KXNHLEXPANSION | NHL Expansion | custom | quadratic 1 | None
+KXWNBAPTSRECORD | Women's Pro Basketball Single-Game Scoring Record | custom | quadratic 1 | None
+KXNFLLONGESTTD | Pro Football Longest Touchdown | custom | quadratic 1 | None
+KXNCAABGAME | College Basketball Game | custom | quadratic 1 | None
+KXWNBA1SEED | Women's Pro Basketball #1 Seed | annual | quadratic 1 | None
+KXLIGUE1TOP | Ligue 1 Top Finishers | custom | quadratic 1 | None
+KXNFLWINS-CIN | Pro football wins Cincinnati | annual | quadratic 1 | None
+KXNBAWINS | Pro Basketball Win Totals | custom | quadratic 1 | None
+KXNFLALLPRO | Pro Football All-Pro Teams | custom | quadratic 1 | None
+KXNEXTMANAGEREPL | Next Manager | custom | quadratic 1 | None
+KXNFLENDSTREAK | When will team end streak | custom | quadratic 1 | None
+KXNFLWINS-SEA | Pro football wins Seattle | annual | quadratic 1 | None
+KXUCLSOA | UCL Score or Assist | custom | quadratic 1 | None
+KXWNBA3QWINNER | Women's Pro Basketball 3rd Quarter Winner | one_off | quadratic 1 | None
+KXNFLWINSWEEK | NFL wins by week | custom | quadratic 1 | None
+KXMLBWORSTRECORD | Pro Baseball Best Record | annual | quadratic 1 | None
+KXSERIEA2HTOTAL | 2nd Half Total | custom | quadratic 1 | None
+KXNFLHOFINDUCTEES | Pro Football Hall of Fame Inductees | custom | quadratic 1 | None
+KXMLBDRAFTTOP | Pro Baseball Top Pick | custom | quadratic 1 | None
+KXMLBWINS-LAD | Pro baseball wins Los Angeles D | annual | quadratic 1 | None
+KXNFLFFLEADER | Best in Fantasy By Position | custom | quadratic 1 | None
+KXNBATOTALPRECISE | NBA Total Points Range | custom | quadratic 1 | None
+KXNBAOVERTIME | NBA Overtime | custom | quadratic 1 | None
+KXNBA1STTEAMDEF | NBA All-Defensive 1st Team | annual | quadratic 1 | None
+KXNFLPLAYOFFHOST | Team to host a playoff game | custom | quadratic 1 | None
+KXUCLFINALIST | UCL Advance to the Finals | annual | quadratic 1 | None
+KXNBAH2HPTS | NBA Head-to-Head Points | custom | quadratic 1 | None
+KXNFLEXACTWINSCIN | Pro football exact wins Cincinnati | annual | quadratic 1 | None
+KXNBALASVEGAS | Las Vegas NBA team | custom | quadratic 1 | None
+KXNBA2NDTEAMDEF | NBA All-Defensive 2nd Team | annual | quadratic 1 | None
+KXNBACUPGROUPWIN | NBA Cup Group to Win | custom | quadratic 1 | None
+KXLEADERNBASTL | NBA SPG Leader | annual | quadratic 1 | None
+KXMLBSEASONHR | Pro Baseball Season Home Runs | custom | quadratic 1 | None
+KXNFLDRAFTWR | Pro Football Wide Receiver Drafted  | annual | quadratic 1 | None
+KXNFLGPICKENSCONTRACT | Pro Football George Picken's Next Contract Size | custom | quadratic 1 | None
+KXNHLPSEASONPOINTS | Player Season Points | one_off | quadratic 1 | None
+KXNFLDRAFTTEAMPOS | Which team will draft a quarterback in specific round? | custom | quadratic 1 | None
+KXMLSCORNERS | Total Corners | custom | quadratic 1 | None
+KXNFLTEAMTOTAL | Pro Football Team Total Points | custom | quadratic 1 | None
+KXNCAAFDSTTD | College Football Defense Special Teams Touchdown | custom | quadratic 1 | None
+KXWNBAEAST | Women's Pro Basketball Eastern Conference Champion | annual | quadratic 1 | None
+KXLALIGATEAMTOTAL | Team Total | custom | quadratic 1 | None
+KXNFLPASSYDSH2H | Pro Football Head-to-Head Passing Yards | custom | quadratic 1 | None
+KXNBAMOSTWINS | Pro Basketball Highest Win Total | custom | quadratic 1 | None
+KXNHLFINALSEXACT | NHL Championship Series Score | annual | quadratic 1 | None
+KXNBA3QTOTAL | NBA 3rd Quarter Total | custom | quadratic 1 | None
+KXNBAFINALSMVP | Finals MVP | custom | quadratic_with_maker_fees 1 | None
+KXNCAAFBIG12AWARD | College Football Big 12 Award Winner | custom | quadratic 1 | None
+KXNBANEXTGOVERNOR | Pro Basketball Next Governor | custom | quadratic 1 | None
+KXNBA3QSPREAD | NBA 3rd Quarter Spread | custom | quadratic 1 | None
+KXWNBA2HTOTAL | Women's Pro Basketball 2nd Half Total | custom | quadratic 1 | None
+KXNEXTNFLCOACH | Next Pro Football Coach | custom | quadratic 1 | None
+KXNFLCAREERPASSYDS | NFL Career Passing Yards | custom | quadratic 1 | None
+KXMLSLEADER | MLS Leader | custom | quadratic 1 | None
+KXNFLWINS-WAS | Pro football wins Washington | annual | quadratic 1 | None
+KXNFLMVP | AP Pro Football Regular Season MVP | annual | quadratic_with_maker_fees 1 | None
+KXNBARELOCATION | Pro Basketball Team Relocation | custom | quadratic 1 | None
+KXNBAGAME7 | NBA Series that Go to a Game 7 | one_off | quadratic 1 | None
+KXNFLWINS-GB | Pro football wins Green Bay | annual | quadratic 1 | None
+KXWNBAH2HPTS | Women's Pro Basketball Head to Head Points | custom | quadratic 1 | None
+KXNCAAF1HWINNER | College Football 1st Half Winner | custom | quadratic 1 | None
+KXMLBPLAYEROTM | Pro Baseball Player of the Month | custom | quadratic 1 | None
+KXWNBAFIRSTTEAM | Women's Pro Basketball First Team | custom | quadratic 1 | None
+KXNBA1HTOTAL | NBA 1st Half Total | custom | quadratic 1 | None
+KXNBAPLAYTOGETHER | Pro Basketball Players to Play Together | custom | quadratic 1 | None
+KXNFLLASTTOWIN | Pro Football last team to win a game | custom | quadratic 1 | None
+KXMLBF5SPREAD | First 5 Innings Spread | custom | quadratic 0.5 | None
+KXNFLRECYDSRECORD | NFL Regular Season Receiving Yards Record | one_off | quadratic 1 | None
+KXNBAPLAYERHIGHSCORE | NBA Highest Scoring Performance in Regular Season | custom | quadratic 1 | None
+KXNCAAF2QSPREAD | College Football 2nd Quarter Spread | custom | quadratic 1 | None
+KXLEADERNFLPTDS | NFL leader passing TDs | annual | quadratic 1 | None
+KXNFLCHAMPDIVISION | Division of NFL Champion | custom | quadratic 1 | None
+KXEPLTOTAL | English Premier League Total Goals | custom | quadratic 1 | None
+KXMLBWALK | Pro Baseball Walks | custom | quadratic 1 | None
+KXNCAABBCONF | College Baseball Conference Tournament | custom | quadratic 1 | None
+KXNCAAFFIRSTTDTEAM | College Football First Team to Score a Touchdown | custom | quadratic 1 | None
+KXBUNDESLIGAWTOTAL | Total | custom | quadratic 1 | None
+KXEPLGAME | English Premier League Game | custom | quadratic_with_maker_fees 1 | None
+KXUCLROUND | Round Qualifiers | custom | quadratic 1 | None
+KXNCAAMBUNDEFEATED | Undefeated in College Basketball Regular Season | annual | quadratic 1 | None
+KXMLBTB | Pro Baseball Total Bases | custom | quadratic 0.5 | None
+KXNFLEXACTWINSTEN | Pro football exact wins Tennessee | annual | quadratic 1 | None
+KXNFLFFWEEKTOP | Weekly Fantasy Football Top Players | weekly | quadratic 1 | None
+KXNCAAFD3 | D3 College Football Champion | annual | quadratic 1 | None
+KXNFLEXACTWINSDAL | Pro football exact wins Dallas | annual | quadratic 1 | None
+KXWNBAWINS | WNBA Win Totals | custom | quadratic 1 | None
+KXMLSFTTS | First Team to Score | custom | quadratic 1 | None
+KXNBADRAFT8 | NBA Draft Eighth Pick | annual | quadratic 1 | None
+KXLALIGA1HBTTS | 1st Half BTTS | custom | quadratic 1 | None
+KXNCAAFNEXTCOACH | College Football Next Coach | custom | quadratic 1 | None
+KXNCAAFACC | ACC Champion | annual | quadratic_with_maker_fees 1 | None
+KXBUNDESLIGA2ADVANCE | To Advance | custom | quadratic 1 | None
+KXNCAAFACCQUAL | College Football ACC Championship Qualifiers | annual | quadratic 1 | None
+KXNFLAFCCHAMP | American Football Conference Champion | annual | quadratic_with_maker_fees 1 | None
+KXNBAALLSTARS | NBA All-Stars | custom | quadratic 1 | None
+KXMLBSERIESGAMES | Pro Baseball Series Total Games | custom | quadratic 1 | None
+KXNBACLUTCH | NBA Clutch Player of the Year | annual | quadratic 1 | None
+KXNFLWINS-NYJ | Pro football wins New York J | annual | quadratic 1 | None
+KXNFLWINNINGSTREAK | NFL Team Winning Streak | custom | quadratic 1 | None
+KXCFBUNRANKEDUPSET | College Football Unranked Upsets | custom | quadratic 1 | None
+KXNCAAFTFUT | Team to Make the College Football Playoffs before 2030 | custom | quadratic 1 | None
+KXMLBSTARTER | MLB Starting Pitcher | one_off | quadratic 1 | None
+KXSOCCERBTTS | Soccer Both Team to Score | custom | quadratic 1 | None
+KXLIGUE2BTTS | BTTS | one_off | quadratic 1 | None
+KXMLBOPENINGDAY | Pro Baseball Opening Day | annual | quadratic 1 | None
+KXNEXTNBACOACH | Who is the Next NBA Coach of Team | custom | quadratic 1 | None
+KXBUNDESLIGAWSPREAD | Spread | custom | quadratic 1 | None
+KXEPLAST | EPL Assists | custom | quadratic 1 | None
+KXWNBAROY | WNBA Rookie of the Year | annual | quadratic 1 | None
+KXWNBAPLAYOFFHOST | Women's Pro Basketball Playoff Home Games | custom | quadratic 1 | None
+KXWNBA1QTOTAL | Women's Pro Basketball 1st Quarter Total | custom | quadratic 1 | None
+KXNFLEXACTWINSARI | Pro football exact wins Arizona | annual | quadratic 1 | None
+KXLALIGAFIRSTGOAL | First Goal | custom | quadratic 1 | None
+KXNCAAFBIGTENWINS | College Football Big Ten Teams to Win | annual | quadratic 1 | None
+KXNHLFIRSTGOAL | NHL First Goal | custom | quadratic 1 | None
+KXWNBACCUP | WNBA Commissioner's Cup Winner | annual | quadratic 1 | None
+KXNBAHALLOFFAME | Pro Basketball Hall of Fame | custom | quadratic 1 | None
+KXNCAAF1HFT | College Football 1st Half Fulltime Result | custom | quadratic 1 | None
+KXNBA2DPROT | NBA Player Double Double Protected | custom | quadratic 1 | None
+KXWNBANEXTCOMMISH | Women's Pro Basketball Next Commissioner | custom | quadratic 1 | None
+KXNCAAFUNDEFEATEDHOME | College Football Teams to go Undefeated at Home | custom | quadratic 1 | None
+KXNFLWEEKGAMEHIGH | NFL Week Highest Scoring Game | custom | quadratic 1 | None
+KXNCAAF4QSPREAD | College Football 4th Quarter Spread | custom | quadratic 1 | None
+KXNCAAFH2HWINS | College Football Head-to-Head Regular Season Wins | custom | quadratic 1 | None
+KXNFLCPOTY | AP Pro Football Comeback Player of the Year | annual | quadratic_with_maker_fees 1 | None
+KXNFLSEASONRSHYDS | Rushing Yards | custom | quadratic 1 | None
+KXNHLSEASONPTS | NHL Season Point Totals | custom | quadratic 1 | None
+KXBUNDESLIGAWGAME | German Women's Bundesliga Game | custom | quadratic 1 | None
+KXWNBAALLSTARS | Women's Pro Basketball All-Star Selections | custom | quadratic 1 | None
+KXBUNDESLIGAWBTTS | Both teams to score | custom | quadratic 1 | None
+KXNCAABIVY | Ivy League Men's Basketball Tournament | custom | quadratic 1 | None
+KXNCAAFFINALIST | College Football Finalist | annual | quadratic 1 | None
+KXEPLFIRSTGOAL | EPL 1st Goalscorer | custom | quadratic 1 | None
+KXNFL3Q | Pro Football 3rd Quarter Winner | custom | quadratic 1 | None
+KXEPLTEAMPOINTS | Team Points | custom | quadratic 1 | None
+KXMLS1HSCORE | 1st Half Correct Score | custom | quadratic 1 | None
+KXUCLADVANCE | Champions League Advance | custom | quadratic 1 | None
+KXNBADRAFT9 | NBA Draft Ninth Pick | annual | quadratic 1 | None
+KXMLBSERIES | Pro Baseball Series Winner | custom | quadratic_with_maker_fees 1 | None
+KXLEADERMLBWINS | MLB Wins Leader | annual | quadratic 1 | None
+KXNFLCAREERPASSTDS | NFL Career Passing Touchdowns | custom | quadratic 1 | None
+KXNFLFFTOP | Top Fantasy Rank | custom | quadratic 1 | None
+KXMLSSCORE | Correct Score | custom | quadratic 1 | None
+KXEPLSCORE | Correct Score | custom | quadratic 1 | None
+KXLIGUE11HTOTAL | 1st Half Total | custom | quadratic 1 | None
+KXLEADERNFLRUSHYDS | NFL leader rushing yards | annual | quadratic 1 | None
+KXNFL1Q | Pro Football 1st Quarter Winner | custom | quadratic 1 | None
+KXEPLLEADER | EPL Leader | custom | quadratic 1 | None
+KXNFLNEXTINT | Pro Football Next Interception | custom | quadratic 1 | None
+KXNBADRAFTCAT | Pro Basketball Draft Category | custom | quadratic 1 | None
+KXNFLEXACTWINSIND | Pro football exact wins Indianapolis | annual | quadratic 1 | None
+KXNBASUMMERPTS | Pro Basketball Summer Player Points | custom | quadratic 1 | None
+KXNCAAFWINMARGIN | College Football Winning Margin | custom | quadratic 1 | None
+KXEPLTOP | EPL Top Finishers | custom | quadratic 1 | None
+KXNBAEXTENSION | NBA Player Contract Extension | custom | quadratic 1 | None
+KXWNBA3QSPREAD | Women's Pro Basketball 3rd Quarter Spread | custom | quadratic 1 | None
+KXNFLFF50PTS | Fantasy Football 50 Point Performances | custom | quadratic 1 | None
+KXNFLREBOOT | Reboot Rules | one_off | quadratic 1 | None
+KXNBA2QTOTAL | NBA 2nd Quarter Total | custom | quadratic 1 | None
+KXNBAFIRSTOPPONENT | Pro Basketball First Opponent of the Season | custom | quadratic 1 | None
+KXLALIGA2GAME | LaLiga 2 Game | custom | quadratic 1 | None
+KXNFLDROTY | AP Pro Football Defensive Rookie of the Year | annual | quadratic_with_maker_fees 1 | None
+KXMLBALLSTARHR | Pro Baseball All-Star Game Total Home Runs | custom | quadratic 1 | None
+KXSERIEA2HSPREAD | 2nd Half Spread | custom | quadratic 1 | None
+KXNHLRICHARD | NHL Maurice "Rocket" Richard Trophy | annual | quadratic 1 | None
+KXMLBHRDERBYVELO | Highest Exit Velocity Home run | custom | quadratic 1 | None
+KXNFL3QSPREAD | Pro Football 3rd Quarter Spread | one_off | quadratic 1 | None
+KXUCLSHOT | UCL Shots | custom | quadratic 1 | None
+KXNHLPRES | NHL President's Trophy Winner | annual | quadratic 1 | None
+KXNCAAFLEADER | College Football Stats Leaders | custom | quadratic 1 | None
+KXWNBAPLAYOFF | WNBA Playoff Qualifiers | annual | quadratic 1 | None
+KXNFLWINS-NE | Pro football wins New England | annual | quadratic 1 | None
+KXNHLVEZINA | NHL Vezina Trophy | annual | quadratic 1 | None
+KXNBA3QWINNER | NBA 3rd Quarter Winner | custom | quadratic 1 | None
+KXNFL1YDPASS | Seattle 1 Yard Pass | one_off | quadratic 1 | None
+KXLIGUE1RELEGATION | Ligue 1 Relegation | annual | quadratic 1 | None
+KXLEADERMLBSTRIKEOUTS | MLB Strikeouts Leader | annual | quadratic 1 | None
+KXNBACELEBRITYGAME | Pro Basketball All-Star Celebrity Game | custom | quadratic 1 | None
+KXNBATOP3 | Pro Basketball Draft Lottery Top 3 | annual | quadratic 1 | None
+KXSERIEATOP4 | Serie A Top 4 Finishers | annual | quadratic 1 | None
+KXMLBALWEST | American League West Winner | annual | quadratic 1 | None
+KXNCAABBIGEAST | Big East Men's Basketball Tournament | custom | quadratic 1 | None
+KXNFLREDZONEADS | NFL Redzone ads | one_off | quadratic 1 | None
+KXUCL2HBTTS | 2nd Half BTTS | custom | quadratic 1 | None
+KXNFLWPMOTY | Walter Payton Man of the Year | custom | quadratic 1 | None
+KXEPLGOAL | EPL Goalscorer | custom | quadratic 1 | None
+KXNFL2QTOTAL | Pro Football 2nd Quarter Total | one_off | quadratic 1 | None
+KXNFLWINS-NYG | Pro football wins New York G | annual | quadratic 1 | None
+KXNFL4Q | Pro Football 4th Quarter Winner | custom | quadratic 1 | None
+KXWNBAFINAL | WNBA Finals Qualifiers | annual | quadratic 1 | None
+KXNFLWINS-LAC | Pro football wins Los Angeles C | annual | quadratic 1 | None
+KXLEADERNBA3PT | NBA 3PG Leader | annual | quadratic 1 | None
+KXMLBSTARTINGLINEUP | Player to be in Starting Lineup | one_off | quadratic 1 | None
+KXSERIEATEAMPOINTS | Team Points | custom | quadratic 1 | None
+KXMLBFASTPITCH | Fastest Pitch of season | custom | quadratic 1 | None
+KXNCAAF3Q | College Football 3rd Quarter Winner | custom | quadratic 1 | None
+KXBUNDESLIGAWADVANCE | To Advance | custom | quadratic 1 | None
+KXNBAUNBEATEN | NBA Playoffs Team to go Undefeated | custom | quadratic 1 | None
+KXNFLESCALATORREC | Receptions Escalator | custom | quadratic 1 | None
+KXNFLEXACTWINSDEN | Pro football exact wins Denver | annual | quadratic 1 | None
+KXWNBALAWSUIT | Women's Pro Basketball Lawsuit | custom | quadratic 1 | None
+KXMLBPLAYEROTW | Pro Baseball Player of the Week | custom | quadratic 1 | None
+KXMLBBESTRECORD | Pro Baseball Best Record | annual | quadratic 1 | None
+KXLIGUE1TOP4 | Ligue 1 Top 4 Finishers | annual | quadratic 1 | None
+KXMLSTOTAL | MLS Total | custom | quadratic 1 | None
+KXNBADRAFT5 | NBA Draft Fifth Pick | annual | quadratic 1 | None
+KXNBAPREPACK3ML | 3ML Basketball Combo | one_off | quadratic 1 | None
+KXMLBWINS-SEA | Pro baseball wins Seattle | annual | quadratic 1 | None
+KXLEADERNFLRUSHTDS | NFL leader rushing TDs | annual | quadratic 1 | None
+KXLIGUE1POINTMARGIN | Ligue 1 Champion Winning Margin | annual | quadratic 1 | None
+KXNBAAPOLOGY | Pro Basketball Apology | custom | quadratic 1 | None
+KXLALIGAFTTS | First Team to Score | custom | quadratic 1 | None
+KXNBAEAST1SEED | NBA Eastern Conference 1 Seed | annual | quadratic 1 | None
+KXNHL1PBTTS | NHL Both Teams to Score in 1st Period | custom | quadratic 1 | None
+KXMLBWINS-PIT | Pro baseball wins Pittsburgh | annual | quadratic 1 | None
+KXEWCMLBB | Mobile Legends: Bang Bang Mid Season Cup at 2025 Esports World Cup | one_off | quadratic 1 | None
+KXNFLWINS-BUF | Pro football wins Buffalo | annual | quadratic 1 | None
+KXLALIGAMOV | Method of Victory | custom | quadratic 1 | None
+KXNBAPA | Pro Basketball Player Points + Assists | custom | quadratic 1 | None
+KXNBASERIESPTSSPREAD | Pro Basketball Series Points Spread | custom | quadratic 1 | None
+KXNFLSACK | Pro Football Sacks | custom | quadratic 1 | None
+KXNFLNEXTTEAM | Player Next Team | custom | quadratic 1 | None
+KXNBAMATCHUP | NBA Matchup | custom | quadratic 1 | None
+KXEPL1HSCORE | 1st Half Correct Score | custom | quadratic 1 | None
+KXMLBNLROTY | Pro Baseball National League Rookie of the Year | annual | quadratic 1 | None
+KXWNBASECONDTEAM | Women's Pro Basketball Second Team | custom | quadratic 1 | None
+KXUCL1HTOTAL | UCL 1st Half Total | custom | quadratic 1 | None
+KXBUNDESLIGATCORNERS | Team Corners | custom | quadratic 1 | None
+KXNFLCAREERRSHTDS | NFL Career Rushing Touchdowns | custom | quadratic 1 | None
+KXSERIEAMOV | Method of Victory | custom | quadratic 1 | None
+KXNFLFFH2H | Weekly Fantasy Football Head-to-Head | weekly | quadratic 1 | None
+KXPLAYEROPTIONNBA | player option nba | custom | quadratic 1 | None
+KXNBADRAFT4 | NBA Draft Fourth Pick | annual | quadratic 1 | None
+KXSERIEALAST | Serie A Last Place Finisher | annual | quadratic 1 | None
+KXBUNDESLIGARELEGATION | Bundesliga Relegation | annual | quadratic 1 | None
+KXMLBHRDERBY | Pro Baseball Homerun Derby | annual | quadratic_with_maker_fees 1 | None
+KXNCAABBIG10 | Big Ten Men's Basketball Tournament | custom | quadratic 1 | None
+KXNFLEXACTWINSCAR | Pro football exact wins Carolina | annual | quadratic 1 | None
+KXBUNDESLIGA2BTTS | BTTS | custom | quadratic 1 | None
+KXWNBASERIES | WNBA Playoff Series Winner | custom | quadratic 1 | None
+KXSOCRICKETQUAL | Summer Olympics Cricket Qualifiers | custom | quadratic 1 | None
+KXNBADRAFTINT | Pro Basketball International Players Drafted | custom | quadratic 1 | None
+KXNBALADDER3PT | NBA Player Threes Ladder | custom | quadratic 1 | None
+KXNFLLADDERRECYDS | Receiving Yards Ladder | custom | quadratic 1 | None
+KXNBA2NDTEAM | All-NBA 2nd Team | annual | quadratic 1 | None
+KXBUNDESLIGA1H | Bundesliga First Half Winner | custom | quadratic 1 | None
+KXNFLRSHYDS | Pro Football Rushing Yards | custom | quadratic 1 | None
+KXNBASTOCKPROT | NBA Player Steals + Blocks Protected | custom | quadratic 1 | None
+KXNCAAFPREPACK2ML | MVE NCAAF Pre Pack | custom | quadratic 1 | None
+KXNCAAFCOTW | College Football Coach of the Week | custom | quadratic 1 | None
+KXNFLEXACTWINSWAS | Pro football exact wins Washington | annual | quadratic 1 | None
+KXNFLFFPTSSEASON | Pro Football Player Fantasy Points | custom | quadratic 1 | None
+KXTOP3NBADRAFT | NBA Draft Top 3 | custom | quadratic 1 | None
+KXNFLPASSTDSPROT | Passing Touchdowns Protected | custom | quadratic 1 | None
+KXNFLEXACTWINSJAC | Pro football exact wins Jacksonville | annual | quadratic 1 | None
+KXNBA1H | NBA 1st Half Winner | custom | quadratic 1 | None
+KXNCAAFTEAMTOTAL | College Football Team Total Points | custom | quadratic 1 | None
+KXNBAPLAYERDEAL | Next Pro Basketball Brand Deal | custom | quadratic 1 | None
+KXLALIGAPOINTMARGIN | La Liga Champion Winning Margin | annual | quadratic 1 | None
+KXNBADRAFT10 | NBA Draft Tenth Pick | annual | quadratic 1 | None
+KXCOACHOUTNCAAFB | NCAAFB Coaches Out | custom | quadratic 1 | None
+KXSOCCERTOTAL | Soccer Goal Total | custom | quadratic 1 | None
+KXNCAAFB10 | Big Ten Champion | annual | quadratic_with_maker_fees 1 | None
+KXNFLDRAFTSELECT | NFL Draft Exact Selection | custom | quadratic 1 | None
+KXWNBA | WNBA Champion | annual | quadratic_with_maker_fees 1 | None
+KXNFLTEAMDPTS | Who will allow the least/most points this season | custom | quadratic 1 | None
+KXNCAAF1HTEAMTOTAL | College Football 1st Half Team Total Points | custom | quadratic 1 | None
+KXSOCCERPLAYCRON | Cristiano Ronaldo world cup | custom | quadratic 1 | None
+KXUCL1H | Champions League First Hal Winner | custom | quadratic 1 | None
+KXNBA2H | NBA 2nd Half Winner | custom | quadratic 1 | None
+KXLIGUE1BTTS | Ligue 1 BTTS | custom | quadratic 1 | None
+KXNCAAFAWARD | College Football Award Winner | custom | quadratic 1 | None
+KXNHLSERIESSCORE | NHL Series Exact Score | custom | quadratic 1 | None
+KXMLBWINS-WSH | Pro baseball wins Washington | annual | quadratic 1 | None
+KXNFLHIGHSCORE | Pro Football Highest Scoring Game | custom | quadratic 1 | None
+KXNFLWINS-CAR | Pro football wins Carolina | annual | quadratic 1 | None
+KXNFLDRAFTCAT | Pro Football Draft Category | custom | quadratic 1 | None
+KXNCAAFCONFAWARD | College Football Conference Awards | custom | quadratic 1 | None
+KXESOCCERGAME | eSoccer Game | custom | quadratic 1 | None
+KXMLBNLMVP | Pro Baseball National League MVP | annual | quadratic 1 | None
+KXMLBHIT | Pro Baseball Hits | custom | quadratic 0.5 | None
+KXNBA3PEAT | Pro Basketball Three-Peat Champion | custom | quadratic 1 | None
+KXNBA1QTOTAL | NBA 1st Quarter Total | custom | quadratic 1 | None
+KXNFLCOMPETE | Will an NFL Player Compete in game | custom | quadratic 1 | None
+KXWNBATEAMTOTAL | WNBA Team Totals | custom | quadratic 1 | None
+KXSOCCERTREBLE | Soccer Treble Winners | annual | quadratic 1 | None
+KXNBAALLSTARGAME | NBA All-Star Game Winner | annual | quadratic 1 | None
+KXNCAAFPAC12 | Pac-12 Champion | annual | quadratic 1 | None
+KXMLBLEADERPLAYOFF | Pro Baseball Playoff Leader | custom | quadratic 1 | None
+KXNCAAFCUSA | Conference USA Champion | annual | quadratic 1 | None
+KXNFLWINS-JAC | Pro football wins Jacksonville | annual | quadratic 1 | None
+KXNFLWEEKSTART | NFL Week Starter | custom | quadratic 1 | None
+KXNFLTEAMFIRSTTD | Pro Football First Touchdown | custom | quadratic 1 | None
+KXNFLSFPRACFIELD | Practice Field Relocation | custom | quadratic 1 | None
+KXNFLLONGESTREC | Longest Reception | custom | quadratic 1 | None
+KXNCAAFQHIGHSCORE | College Football Highest Scoring Quarter | custom | quadratic 1 | None
+KXNBAFINALSVIEWER | NBA finals viewership | custom | quadratic 1 | None
+KXNFLLASTPICKPOS | NFL Last Pick of the Draft Position | annual | quadratic 1 | None
+KXNFLSPREAD | Pro Football Spread | custom | quadratic_with_maker_fees 1 | None
+KXNBAROOKIE1STTEAM | NBA All-Rookie 1st Team | custom | quadratic 1 | None
+KXNCAAFFFFF | NFL Draft Declare | custom | quadratic 1 | None
+KXNFL2HWINNER | NFL 2nd Half Winner | custom | quadratic 1 | None
+KXNFLDRAFTPICK | NFL Draft Pick | annual | quadratic 1 | None
+KXNCAAFCFPCONF | College Football Playoff Conference Representation | custom | quadratic 1 | None
+KXNFLWINS | Pro Football Wins | custom | quadratic 1 | None
+KXUCL16RMAMCI | Champions League round of 16 - RMA MCI | one_off | quadratic 1 | None
+KXNFLEXACTWINSPIT | Pro football exact wins Pittsburgh | annual | quadratic 1 | None
+KXMLBRFI | Pro Baseball Run in First Inning | custom | quadratic 0.5 | None
+KXMLBALCSQUAL | ALCS Qualifiers | custom | quadratic 1 | None
+KXNBAFINALSOUTCOME | NBA Finals Outcome | custom | quadratic 1 | None
+KXNFLTEAMYDS | Pro Football Team Yards | custom | quadratic 1 | None
+KXWNBAWEST1 | Women's Pro Basketball Western Conference #1 Seed | annual | quadratic 1 | None
+KXNBA2QTEAMTOTAL | NBA 2nd Quarter Team Total | custom | quadratic 1 | None
+KXCOACHOUTNFL | NFL Coach Out | custom | quadratic 1 | None
+KXNBAPTSPRECISE | NBA Player Points Range | custom | quadratic 1 | None
+KXNHLHART | NHL Hart Memorial Trophy | annual | quadratic 1 | None
+KXNHL3PBTTS | NHL Both Teams to Score in 3rd Period | custom | quadratic 1 | None
+KXLEADERWNBAAST | WNBA APG Leader | annual | quadratic 1 | None
+KXNBASTOCK | NBA Player Steals + Blocks | custom | quadratic 1 | None
+KXSERIEALEADER | Serie A Leader | custom | quadratic 1 | None
+KXNFLWEEKCOMPETE | NFL Player to Play in Week | weekly | quadratic 1 | None
+KXUCLTOP | UCL League Phase Top of Table | annual | quadratic 1 | None
+KXNFLTEAMTO | Pro Football Forced Turnovers | custom | quadratic 1 | None
+KXMLBWINS-MIL | Pro baseball wins Milwaukee | annual | quadratic 1 | None
+KXNBAMVPDPOY | Pro Basketball Player to Win MVP and DPOY | custom | quadratic 1 | None
+KXNBASTADIUM | NBA Stadium Completion | custom | quadratic 1 | None
+KXMLSASTBTTS | BTTS | custom | quadratic 1 | None
+KXLEADERNFLINT | NFL leader interceptions | annual | quadratic 1 | None
+KXNBAFINALSEXACT | Pro Basketball Championship Series Score | annual | quadratic 1 | None
+KXBUNDESLIGABTTS | Bundesliga BTTS | custom | quadratic 1 | None
+KXNFLHIRECOACH | NFL hire coach | custom | quadratic 1 | None
+KXCOACHOUTNBA | NBA Coach Out | custom | quadratic 1 | None
+KXNFLDRAFTEDGE | Pro Football Edge Drafted | annual | quadratic 1 | None
+KXNFLPLAYOFFC | Will both teams make the NFL Playoffs | custom | quadratic 1 | None
+KXNCAAFJOINCONF | College Football Join Conference | custom | quadratic 1 | None
+KXSOCCERJOIN | Soccer Next Team | custom | quadratic 1 | None
+KXMLBASGHR | All Star Game Home Runs | custom | quadratic 1 | None
+KXNBATEAMANNOUNCE | Pro Basketball New Team Announce | custom | quadratic 1 | None
+KXNFLFFPTSLADDER | Fantasy Ladder | custom | quadratic 1 | None
+KXKXNCAAFTOPCFPPOLL | College Football CFP Poll | custom | quadratic 1 | None
+KXMLSGAME | Major League Soccer Game | custom | quadratic 1 | None
+KXNHL2PTOTAL | 2nd Period Total | custom | quadratic 1 | None
+KXNFLLADDERRSHYDS | Rushing Yards Ladder | custom | quadratic 1 | None
+KXNFLDEBUT | Pro Football Player to Make Debut | custom | quadratic 1 | None
+KXRECORDNFLBEST | best football record | custom | quadratic 1 | None
+KXNBAASSTARTERS | NBA All-Star Starters | custom | quadratic 1 | None
+KXNFLWINS-SF | Pro football wins San Francisco | annual | quadratic 1 | None
+KXLIGUE12HBTTS | 2nd Half BTTS | custom | quadratic 1 | None
+KXLIGUE1TEAMTOTAL | Team Total | custom | quadratic 1 | None
+KXNFLPREPACK1HFT | MVE NFL Pre Pack | custom | quadratic 1 | None
+KXWNBA40PTS | Women's Pro Basketball Player to Score 40 Points | custom | quadratic 1 | None
+KXRECORDNBABEST | Best Pro Basketball Record | annual | quadratic 1 | None
+KXBBSERIEASPREAD | Italy Serie A Spread | custom | quadratic 1 | None
+KXEPL1H | Premier League First Half Winner | custom | quadratic 1 | None
+KXNFLNFCWEST | National Football Conference West Winner | annual | quadratic_with_maker_fees 1 | None
+KXNCAAF1QTOTAL | College Football 1st Quarter Total | custom | quadratic 1 | None
+KXSOCCERINTLRETIRE | Soccer International Play Retirement | custom | quadratic 1 | None
+KXNBAPTS | NBA Player Points | custom | quadratic 1 | None
+KXWNBA3PTCONTEST | Women's Pro Basketball 3-Point Contest | custom | quadratic 1 | None
+KXLIGUE1FTTS | First Team to Score | custom | quadratic 1 | None
+KXUCLMOV | UCL Method of Advancing | custom | quadratic 1 | None
+KXNBA30PTSTREAK | NBA 30 Point Streak | custom | quadratic 1 | None
+KXLEADERMLBSAVES | MLB Saves Leader | annual | quadratic 1 | None
+KXNBA4QWINNER | NBA 4th Quarter Winner | custom | quadratic 1 | None
+KXNBADRAFTTOP30 | NBA Draft Top 30 Pick | annual | quadratic 1 | None
+KXMLBWSOUTCOME | Pro Baseball World Series Outcome | custom | quadratic 1 | None
+KXNBASWEEP | NBA Teams to Have a Series Sweep | custom | quadratic 1 | None
+KXNFL3QTOTAL | Pro Football 3rd Quarter Total | one_off | quadratic 1 | None
+KXMLBALMVP | Pro Baseball American League MVP | annual | quadratic 1 | None
+KXNFLCOACHOUT | NFL Coaches Fired | custom | quadratic 1 | None
+KXMLBDIVWINNER | MLB divisions | custom | quadratic 1 | None
+KXMLBASGAME | Professional Baseball All-Star Game | annual | quadratic_with_maker_fees 1 | None
+KXNBAFRANCHISECOST | NBA Franchise Cost | custom | quadratic 1 | None
+KXCFBUNDEFEATEDHOME | College Football Teams to go Undefeated at Home | custom | quadratic 1 | None
+KXMLBRETURN | Pro Baseball Player Return | custom | quadratic 1 | None
+KXNHL3PTOTAL | 3rd Period Total | custom | quadratic 1 | None
+KXNFLDRAFTOL | Pro Football Offensive Line Drafted  | annual | quadratic 1 | None
+KXNFLWINS-BAL | Pro football wins Baltimore | annual | quadratic 1 | None
+KXNFLNBA | NFL and NBA Champion Combo | custom | quadratic 1 | None
+KXNFL2HTOTAL | Pro Football 2nd Half Total | custom | quadratic 1 | None
+KXNCAAFAPCHURN | College Football AP Poll Churn | custom | quadratic 1 | None
+KXNHL4NATIONS | 4 nations face off | custom | quadratic 1 | None
+KXBBSERIEA2GAME | Italy Serie A2 Game | custom | quadratic 1 | None
+KXNCAAFMACQUAL | College Football Mid-American Conference Championship Qualifiers | annual | quadratic 1 | None
+KXNBAEFINMVP | NBA Eastern Conference Finals MVP | annual | quadratic 1 | None
+KXWNBADPOY | WNBA Defensive Player of the Year | annual | quadratic 1 | None
+KXNHLF10G | NHL Goal in First 10 Minutes | custom | quadratic 1 | None
+KXNBAHOMECLINCH | Pro Basketball Series Winner to Clinch at Home | custom | quadratic 1 | None
+KXNCAAFTEAMREC | College Football Team Total Receptions | custom | quadratic 1 | None
+KXNCAABASEBALL | College Baseball Champion | custom | quadratic 1 | None
+KXNBAPLAYOFF | Pro Basketball Playoff Qualifier | annual | quadratic 1 | None
+KXNBA30COMEBACK | NBA 3-0 Series Comeback | custom | quadratic 1 | None
+KXSOCCERTROPHIES | Soccer Trophies | custom | quadratic 1 | None
+KXNBADRAFTTEAM | Pro Basketball Team to Draft | custom | quadratic 1 | None
+KXNFLDRAFTLB | Pro Football Linebacker Drafted | annual | quadratic 1 | None
+KXNBAPTSALLGAMES | Pro Basketball Points in Every Game | custom | quadratic 1 | None
+KXWNBA6POY | WNBA Sixth Player of the Year | annual | quadratic 1 | None
+KXMLBSTATCOUNT | Pro Baseball Season Stat | custom | quadratic 1 | None
+KXNBAROOKIEAS | NBA Rookies to Be an All-Star | annual | quadratic 1 | None
+KXMLBHR | Pro Baseball Home Runs | custom | quadratic 0.5 | None
+KXNFLSBMVPQB | Non QB Championship MVP | annual | quadratic 1 | None
+KXNBACUPGROUP | NBA Cup Group Winner | custom | quadratic 1 | None
+KXUCLFIRSTGOAL | UCL First Goalscorer | custom | quadratic 1 | None
+KXNCAAFTRANSFER | College Football Player Transfer | custom | quadratic 1 | None
+KXWNBASERIESSCORE | WNBA Series Exact Score | custom | quadratic 1 | None
+KXNFLPROOTY | Pro Football Protector of the Year | custom | quadratic 1 | None
+KXNFLPREPACK | MVE NFL Pre Pack | one_off | quadratic 1 | None
+KXBUNDESLIGATOP | Bundesliga Top Finishers | custom | quadratic 1 | None
+KXNCAAFDRAFTDECLARE | Players to Declare for the NFL Draft | custom | quadratic 1 | None
+KXNBAPOLOSE | Pro Basketball Playoff Losses | custom | quadratic 1 | None
+KXMLSWEST | MLS Western Conference winner? | annual | quadratic 1 | None
+KXUCL | UEFA Champions League | custom | quadratic_with_maker_fees 1 | None
+KXSERIEARELEGATION | Serie A Relegation | annual | quadratic 1 | None
+KXNFLEXACTWINSSF | Pro football exact wins San Francisco | annual | quadratic 1 | None
+KXUCLSCORE | Correct Score | custom | quadratic 1 | None
+KXMLBWINS-PHI | Pro baseball wins Philadelphia | annual | quadratic 1 | None
+KXNBAPR | Pro Basketball Player Points + Rebounds | custom | quadratic 1 | None
+KXNBAROY | NBA Rookie of the Year | annual | quadratic_with_maker_fees 1 | None
+KXNBAH2HPTSMARGIN | NBA H2H Player Points Bracketed | custom | quadratic 1 | None
+KXNFLMOSTRSHYDS | Pro Football Most Rushing Yards | custom | quadratic 1 | None
+KXSERIEAWGAME | Serie A Femminile Game | one_off | quadratic 1 | None
+KXNBAH2HBENCHPTS | NBA Head-to-Head Bench Points | custom | quadratic 1 | None
+KXSERIEA2HBTTS | 2nd Half BTTS | custom | quadratic 1 | None
+KXSERIEACORNERS | Total Corners | custom | quadratic 1 | None
+KXLALIGAGAME | La Liga Game | custom | quadratic_with_maker_fees 1 | None
+KXNBAPLAYIN | Which Team Will Make the Play-In Tournament | annual | quadratic 1 | None
+KXNCAAFSECREGTOP | College Football SEC Regular Season Top Finishers | annual | quadratic 1 | None
+KXNCAAFBIG12WINS | College Football Big 12 Teams to Win | annual | quadratic 1 | None
+KXNBA4QSPREAD | NBA 4th Quarter Spread | custom | quadratic 1 | None
+KXNFLSELLOUT | Pro Football Sellouts | custom | quadratic 1 | None
+KXNBAESCALATORPTS | NBA Player Points Escalator | custom | quadratic 1 | None
+KXMLSMOV | Method of Victory | custom | quadratic 1 | None
+KXNEXTTEAMNBA | Next NBA Team | custom | quadratic 1 | None
+KXNHLSAVE | Goaltender Saves | one_off | quadratic 1 | None
+KXLEADERNBABLK | NBA BPG Leader | annual | quadratic 1 | None
+KXNFLFFPLAYERHIGH | Pro Football Player's Highest Scoring Fantasy Performance | custom | quadratic 1 | None
+KXNBANEXTTEAMCONF | Pro Basketball Next Team Conference | custom | quadratic 1 | None
+KXMLBF5 | First 5 Innings Winner | custom | quadratic 0.5 | None
+KXNFLDRAFTDT | Pro Football Defensive Tackle Drafted | annual | quadratic 1 | None
+KXUCLSPREAD | Champions League Spread | custom | quadratic 1 | None
+KXMLBSEASONGAMES | Pro Baseball Games Played in a Season | custom | quadratic 1 | None
+KXNCAAFSEC | SEC Champion | annual | quadratic_with_maker_fees 1 | None
+KXNHLDRAFTTOP | Pro Hockey Top Pick | custom | quadratic 1 | None
+KXNBAAWARDFIN | NBA Award Finalists | custom | quadratic 1 | None
+KXNFLTEAM1STDOWNS | Pro Football Team 1st Downs | custom | quadratic 1 | None
+KXNCAAFIVY | Ivy League Champion | annual | quadratic 1 | None
+KXNBAWINSTREAK | NBA Longest Win Streak | custom | quadratic 1 | None
+KXNBAGAMES | NBA games | daily | quadratic 1 | None
+KXMLBWINS-HOU | Pro baseball wins Houston | annual | quadratic 1 | None
+KXNBASUMMER1HTOTAL | Pro Basketball Summer League 1st Half Total | custom | quadratic 1 | None
+KXNFLFFPTS | Pro Football Player Fantasy Points | custom | quadratic 1 | None
+KXWNBAMVP | WNBA Most Valuable Player | annual | quadratic 1 | None
+KXAUTBUNDESSPREAD | Spread | custom | quadratic 1 | None
+KXMLBHRDERBY500 | 500+ Foot HRs at the Home Run Derby | annual | quadratic 1 | None
+KXNFLNFCSOUTH | National Football Conference South Winner | annual | quadratic_with_maker_fees 1 | None
+KXCFBCOTY | College Football Coach of the Year | annual | quadratic 1 | None
+KXBUNDESLIGATOTAL | Bundesliga Total | one_off | quadratic 1 | None
+KXNFLRSHYDSPROT | Rushing Yards Protected | custom | quadratic 1 | None
+KXWNBADUNK | Women's Pro Basketball Player to Dunk | custom | quadratic 1 | None
+KXNCAAMBUNDEFEATEDHOME | Men's College Basketball Teams to go Undefeated at Home | custom | quadratic 1 | None
+KXMLBMATCHUP | Pro Baseball Playoff Matchups | custom | quadratic 1 | None
+KXLEADERNFLPINT | Pro Football Pass INT  | annual | quadratic 1 | None
+KXNEXTTEAMNHL | Next Team NHL | custom | quadratic 1 | None
+KXNBASERIESSPREAD | NBA Series Game Spread | custom | quadratic 1 | None
+KXNFLNFCNORTH | National Football Conference North Winner | annual | quadratic_with_maker_fees 1 | None
+KXNBAFRANCHISEOWNER | NBA Franchise Owner | custom | quadratic 1 | None
+KXMLBNLHAARON | Pro Baseball American League Hank Aaron | annual | quadratic 1 | None
+KXNHLROSS | NHL Art Ross Trophy | annual | quadratic 1 | None
+KXNFLSACKRECORD | NFL Regular Season Sack Record | custom | quadratic 1 | None
+KXNBAPRA | NBA Player Points + Rebounds + Assists | custom | quadratic 1 | None
+KXNHLSEASONGOALS | Player to score X Goals in Season | custom | quadratic 1 | None
+KXNCAAFHIGHSCORE | College Football Highest Scoring Game | custom | quadratic 1 | None
+KXNBAMVP | NBA MVP | annual | quadratic_with_maker_fees 1 | None
+KXUCLRO4 | UCL Advance to Round of 4 | annual | quadratic 1 | None
+KXUCLAST | UCL Assists | custom | quadratic 1 | None
+KXNFLSEASONREC | Receptions | custom | quadratic 1 | None
+KXNBA1QWINNER | NBA 1st Quarter Winner | custom | quadratic 1 | None
+KXWNBA2HWINNER | Women's Pro Basketball 2nd Half Winner | custom | quadratic 1 | None
+KXNFLTOTALTD | Pro Football Total Touchdowns | custom | quadratic 1 | None
+KXNFLDRAFTEAMPOS | Will team draft a position across round | one_off | quadratic 1 | None
+KXUCLRO16 | UCL Advance to Round of 16 | annual | quadratic 1 | None
+KXSERIEAGOAL | Goalscorer | custom | quadratic 1 | None
+KXWNBASEMIFINAL | WNBA Semifinals Qualifiers | annual | quadratic 1 | None
+KXEPL1HTOTAL | EPL 1st Half Total | custom | quadratic 1 | None
+KXBUNDESLIGASCORE | Correct Score | custom | quadratic 1 | None
+KXNCAAFOCCUR | College Football Games Taking Place | custom | quadratic 1 | None
+KXNBASERIESROADWIN | NBA Series 1st Road Win | custom | quadratic 1 | None
+KXNFLPREPACKSGPSPREAD | MVE NFL Pre Pack | custom | quadratic 1 | None
+KXNBAPOTM | NBA Player of the Month | custom | quadratic 1 | None
+KXNFLCOMEBACK | Pro Football Comeback | custom | quadratic 1 | None
+KXNCAAF | NCAAF Championship | annual | quadratic_with_maker_fees 1 | None
+KXNCAAFSECLEADER | College Football SEC Stats Leaders | annual | quadratic 1 | None
+KXNFLCOMBINE40 | Pro Football Combine Fastest 40 Time | custom | quadratic 1 | None
+KXNFLCOTY | AP Pro Football Coach Of The Year | annual | quadratic_with_maker_fees 1 | None
+KXEPLADVANCE | To Advance | custom | quadratic 1 | None
+KXNFL2HTD | 2nd Half Touchdowns | custom | quadratic 1 | None
+KXNBARETIRE | NBA Retirement | custom | quadratic 1 | None
+KXNBA2QWINNER | NBA 2nd Quarter Winner | custom | quadratic 1 | None
+KXNCAAFTOPAPRANK | College Football AP Poll Top Rank | custom | quadratic 1 | None
+KXNFL4QSPREAD | Pro Football 4th Quarter Spread | one_off | quadratic 1 | None
+KXNFLROTM | NFL Rookie of the Month | custom | quadratic 1 | None
+KXNFLDIVUNDEFEATED | Team to go undefeated in division | one_off | quadratic 1 | None
+KXMLBNL | MLB National League Championship | annual | quadratic_with_maker_fees 1 | None
+KXNBA1QSPREAD | NBA 1st Quarter Spread | custom | quadratic 1 | None
+KXNBALOTTERY | NBA Draft Lottery Picks | custom | quadratic 1 | None
+KXNFLDIVISIONWINS | Pro Football Division Total Wins | custom | quadratic 1 | None
+KXCOACHOUTNFLFIRST | First NFL Coach Out | annual | quadratic 1 | None
+KXLEADERMLBKS | Pro Baseball Strikeouts Leader | custom | quadratic 1 | None
+KXNFLSZNRECORD | Will single season record be broken? | custom | quadratic 1 | None
+KXNFLOPOTY | AP Pro Football Offensive Player Of The Year | annual | quadratic_with_maker_fees 1 | None
+KXNFLEVERYWEEKCOMPETE | Pro Football Players to Play in Every Week of the Season | custom | quadratic 1 | None
+KXNBAAST | NBA Player Assists | custom | quadratic 1 | None
+KXNHL | Stanley Cup | annual | quadratic_with_maker_fees 1 | None
+KXMLBPLAYOFFHOST | MLB Playoff Games Hosted | custom | quadratic 1 | None
+KXBUNDESLIGA2TOTAL | Point Total | custom | quadratic 1 | None
+KXEPLCORNERS | EPL Corners | custom | quadratic 1 | None
+KXNFLGAME | NFL Game | custom | quadratic_with_maker_fees 1 | None
+KXMLBTEAMTOTAL | Pro Baseball Team Total | custom | quadratic 0.5 | None
+KXNCAAF4QBTTS | College Football Both Teams to Score in 4th Quarter | custom | quadratic 1 | None
+KXSERIEATEAMTOTAL | Team Total | custom | quadratic 1 | None
+KXNFLVIEWERSHIP | Pro Football Game Viewership | custom | quadratic 1 | None
+KXNCAAFTOTALTD | College Football Total Touchdowns | custom | quadratic 1 | None
+KXNFLLEADERPINT | Pro Football P INT Leader | one_off | quadratic 1 | None
+KXNBA3DPROT | NBA Player Triple Double Protected | custom | quadratic 1 | None
+KXNBAPARTNERSHIP | NBA Player Partnership Deal | custom | quadratic 1 | None
+KXLIGUE2SPREAD | Spread | one_off | quadratic 1 | None
+KXBUNDESLIGALAST | Bundesliga Last Place Finisher | annual | quadratic 1 | None
+KXNBASPREAD | NBA Spread | custom | quadratic_with_maker_fees 1 | None
+KXNBA1STTEAM | All-NBA 1st Team | annual | quadratic 1 | None
+KXNFL2QSPREAD | Pro Football 2nd Quarter Spread | one_off | quadratic 1 | None
+KXMLBALLSTAR | Pro Baseball All-Stars | custom | quadratic 1 | None
+KXUCLSOT | UCL Shots or Target | custom | quadratic 1 | None
+KXLALIGA2SPREAD | Spread | custom | quadratic 1 | None
+KXNBA4Q | NBA 4th Quarter Winner | custom | quadratic 1 | None
+KXSOCCERPLAYMESSI | Messi World Cup | custom | quadratic 1 | None
+KXNFLDIVLEASTWINS | Pro Football Division with the Most Wins | custom | quadratic 1 | None
+KXBUNDESLIGA1HTOTAL | 1st Half Total | custom | quadratic 1 | None
+KXSERIEA | Serie A  | annual | quadratic_with_maker_fees 1 | None
+KXNCAAFAWARDFIN | College Football Award Finalists | custom | quadratic 1 | None
+KXMLBNLCPOTY | National League Comeback Player of the Year | annual | quadratic 1 | None
+KXNFLWINS-PHI | Pro football wins Philadelphia | annual | quadratic 1 | None
+KXSERIEABTTS | Serie A BTTS | custom | quadratic 1 | None
+KXNFLDRAFTMATCHUP | Pro Football Draft Matchup | custom | quadratic 1 | None
+KXNBADRAFT2 | NBA Draft Second Pick | annual | quadratic 1 | None
+KXBBSERIEATOTAL | Italy Serie A Total | custom | quadratic 1 | None
+KXNCAAFBB12 | Big 12 Champion | annual | quadratic 1 | None
+KXNFLFFSEASONTOTAL | Pro Football Player's Fantasy Season Total | custom | quadratic 1 | None
+KXMLBHRDERBYFORECAST | Home Run Derby Finals Forecast | custom | quadratic 1 | None
+KXNBASTATAVG | NBA Player Stat Average | custom | quadratic 1 | None
+KXWNBAEAST1 | Women's Pro Basketball Eastern Conference #1 Seed | annual | quadratic 1 | None
+KXFIRSTPICKNBA | NBA first pick | annual | quadratic 1 | None
+KXNFLEXACTWINSKC | Pro football exact wins Kansas City | annual | quadratic 1 | None
+KXNBALASTTOLOSE | NBA Last Undefeated Team | custom | quadratic 1 | None
+KXMLBKS | Pro Baseball Strikeouts | custom | quadratic 0.5 | None
+KXNBATEAMMATE | NBA Teammate of the Year | custom | quadratic 1 | None
+KXNBAFTM | NBA Player Free Throws Made | custom | quadratic 1 | None
+KXNFLDPOYSPECIALS | NFL Defensive Player of the Year Specials | custom | quadratic 1 | None
+KXNHLPLAYOFFGOALS | NHL Playoffs Goal Leader (by Round) | custom | quadratic 1 | None
+KXNBASEEDCHAMP | NBA Seed of Champion | custom | quadratic 1 | None
+KXNBADPOY | NBA Defensive Player of the Year | annual | quadratic 1 | None
+KXNBASERIES | NBA Series Winner | custom | quadratic_with_maker_fees 1 | None
+KXMLB500 | MLB teams at .500 | custom | quadratic 1 | None
+KXEPL2HBTTS | 2nd Half BTTS | custom | quadratic 1 | None
+KXMLSASTGAME | MLS All Star Game | custom | quadratic 1 | None
+KXMLBCOACH | Pro Baseball Next Manager | custom | quadratic 1 | None
+KXNFLRECYDSPROT | Receiving Yards Protected | custom | quadratic 1 | None
+KXWNBADRAFT1 | WNBA Draft 1st Pick | annual | quadratic 1 | None
+KXNCAAFUNDEFEATED | Undefeated in College Football Regular Season | annual | quadratic 1 | None
+KXNFLLONGESTFG | Pro Football Longest Field Goal | custom | quadratic 1 | None
+KXMLS2H | 2nd Half Winner | custom | quadratic 1 | None
+KXNFLWINMARGIN | Pro Football Win Margin | custom | quadratic 1 | None
+KXMLBALCY | Pro Baseball American League Cy Young | annual | quadratic 1 | None
+KXNCAAFCUSAQUAL | College Football Conference USA Championship Qualifiers | annual | quadratic 1 | None
+KXNBA1QTEAMTOTAL | NBA 1st Quarter Team Total | custom | quadratic 1 | None
+KXWNBAASGMVP | WNBA All-Star Game MVP | annual | quadratic 1 | None
+KXNFLMVPSPECIALS | NFL MVP Award Specials | custom | quadratic 1 | None
+KXWNBATOTAL | Women's Pro Basketball Total | custom | quadratic 1 | None
+KXNBAFIRSTBASKET | Pro Basketball First Basket | custom | quadratic 1 | None
+KXLEADERMLBOPS | MLB OPS Leader | annual | quadratic 1 | None
+KXNBA2Q | NBA 2nd Quarter Winner | custom | quadratic 1 | None
+KXLIGUE11HSCORE | 1st Half Correct Score | custom | quadratic 1 | None
+KXNFLEXACTWINSATL | Pro football exact wins Atlanta | annual | quadratic 1 | None
+KXMLSJOIN | MLS Transfers | custom | quadratic 1 | None
+KXNFL1HTOTAL | Pro Football 1st  Half Total Points | custom | quadratic 1 | None
+KXLIGUE11HBTTS | 1st Half BTTS | custom | quadratic 1 | None
+KXWNBA1HWINNER | Women's Pro Basketball 1st Half Winner | custom | quadratic 1 | None
+KXNBACOACHOUT | Pro Basketball Coaches Out | custom | quadratic 1 | None
+KXNBAPLAYERSPECIALS | Pro Basketball Player Specials | custom | quadratic 1 | None
+KXNHLOT | NHL Overtime | custom | quadratic 1 | None
+KXNFLT100 | Will player be ranked on Pro Football T100 List | custom | quadratic 1 | None
+KXNCAAF2QTOTAL | College Football 2nd Quarter Total | custom | quadratic 1 | None
+KXBUNDESLIGA1HBTTS | 1st Half BTTS | custom | quadratic 1 | None
+KXNBAECFQUAL | NBA Eastern Conference Finals Qualifiers | annual | quadratic 1 | None
+KXMLBALROTY | Pro Baseball American League Rookie of the Year | annual | quadratic 1 | None
+KXNFLRRYDS | Pro Football Rush and Receiving Yards | custom | quadratic 1 | None
+KXUCL16BVBSPO | Champions League round of 16 - BVB SPO | one_off | quadratic 1 | None
+KXWNBA4QWINNER | Women's Pro Basketball 4th Quarter Winner | custom | quadratic 1 | None
+KXNFLRACE | Pro Football Race to Points | custom | quadratic 1 | None
+KXNBABLKPROT | NBA Player Blocks Protected | custom | quadratic 1 | None
+KXNFLTEAMFIRSTWIN | NFL Team First Win | custom | quadratic 1 | None
+KXNFL3QBTTS | Pro Football Both Teams to Score in 3rd Quarter | custom | quadratic 1 | None
+KXNBA4D | Any Player to Record a Quadruple Double | custom | quadratic 1 | None
+KXNHLCENTRAL | NHL Central Division Winner | annual | quadratic 1 | None
+KXLEADERMLBWAR | MLB WAR Leader | annual | quadratic 1 | None
+KXMLBPITCH | Pro Baseball Player to Pitch | custom | quadratic 1 | None
+KXUCLRO8 | UCL Advance to Round of 8 | annual | quadratic 1 | None
+KXNCAAFTEAMTD | College Football Team Total Touchdowns | custom | quadratic 1 | None
+KXNFLDRAFTRB | Pro Football Running Back Drafted | annual | quadratic 1 | None
+KXNFLPASSYDSPROT | Passing Yards Protected | custom | quadratic 1 | None
+KXNFLTOTALPRECISE | Total Precise | custom | quadratic 1 | None
+KXNFLFFPLAYOFFLEADER | Fantasy Football Playoffs Leader | custom | quadratic 1 | None
+KXNFLLARGELEAD | Pro Football Largest Lead | custom | quadratic 1 | None
+KXLALIGA2BTTS | BTTS | custom | quadratic 1 | None
+KXMLBALCPOTY | Pro Baseball American League Comeback Player of the Year | annual | quadratic 1 | None
+KXNBAHIGHESTSCORING | NBA Player with the Highest Scoring Game | custom | quadratic 1 | None
+KXMLBALEAST | American League East Winner | annual | quadratic 1 | None
+KXNCAAFTOTALFG | College Football Total Field Goals | custom | quadratic 1 | None
+KXNFLLASTTOLOSE | Pro Football Last Undefeated Team | custom | quadratic 1 | None
+KXNFLRECYDSH2H | Pro Football Head-to-Head Receiving Yards | custom | quadratic 1 | None
+KXNCAAFCFPEXPAND | College Football Playoff expansion | custom | quadratic 1 | None
+KXNCAAFTEAMINT | College Football Team Total Defensive Interceptions | custom | quadratic 1 | None
+KXLIGUE12HTOTAL | 2nd Half Total | custom | quadratic 1 | None
+KXNBAPLAYOFF3D | NBA Playoff Triple-Double | custom | quadratic 1 | None
+KXMLBFODTEAMS | Field of Dreams Teams | custom | quadratic 1 | None
+KXNBAH2HTEAM3PT | NBA H2H Team Three Pointers | custom | quadratic 1 | None
+KXNBASEEDOU | NBA Playoff Seed Over/Unders | custom | quadratic 1 | None
+KXNFLEXACTWINSGB | Pro football exact wins Green Bay | annual | quadratic 1 | None
+KXNBADRAFTTOP | Pro Basketball Top Draft | annual | quadratic 1 | None
+KXNBANHL | NBA + NHL Champion Combo | custom | quadratic 1 | None
+KXNBADRAFTTOP15 | NBA Draft Top 15 Pick | annual | quadratic 1 | None
+KXNFLRETIRE | NFL Retirement | custom | quadratic 1 | None
+KXNFLTSPEC | NFL Team Specials | custom | quadratic 1 | None
+KXNFLLEASTPENALIZED | Pro Football Least Penalized Team | custom | quadratic 1 | None
+KXUCLLEADER | Champions League Leader | custom | quadratic 1 | None
+KXMLBASGKS | All Star Game Strikesouts | custom | quadratic 1 | None
+KXNBASUMMERSPREAD | Pro Basketball Summer League Spread | custom | quadratic 1 | None
+KXNBACUPMVP | NBA Cup Tournament MVP | annual | quadratic 1 | None
+KXMLS1HSPREAD | 1st Half Spread | custom | quadratic 1 | None
+KXEPL1HBTTS | EPL 1st Half BTTS | custom | quadratic 1 | None
+KXWNBA3PTCONTESTOU | Women's Pro Basketball 3-Point Contest Threes Made | custom | quadratic 1 | None
+KXUCLTOP8 | UCL League Phase Top 8 Finishers | annual | quadratic 1 | None
+KXNBACUPQUAL | Pro Basketball Cup Qualifiers | custom | quadratic 1 | None
+KXNFLFIRSTTDTEAM | Pro Football First Team to Score a Touchdown | custom | quadratic 1 | None
+KXMLBTEAMSALE | Pro Baseball Team Sale | custom | quadratic 1 | None
+KXWNBA7FIGS | 7 Figure WNBA salary | custom | quadratic 1 | None
+KXMLBWINS-COL | Pro baseball wins Colorado | annual | quadratic 1 | None
+KXNBASERIESTOTALPTS | Pro Basketball Series Total Points | custom | quadratic 1 | None
+KXMLBF7 | First 7 Innings Winner | custom | quadratic 0.5 | None
+KXWNBAPTS | WNBA Player Points | custom | quadratic 1 | None
+KXLALIGATOTAL | La Liga Total | custom | quadratic 1 | None
+KXUCLTOTAL | Champions League Total Goals | custom | quadratic 1 | None
+KXSERIEASCORE | Correct Score | custom | quadratic 1 | None
+KXBBSERIEAGAME | Italy Serie A Game | custom | quadratic 1 | None
+KXNFLINT | Pro Football Interceptions | custom | quadratic 1 | None
+KXLEADERNFLPYDS | NFL leader passing yards | annual | quadratic 1 | None
+KXMLBLSTREAK | Longest Losing Streak | custom | quadratic 1 | None
+KXLIGUE1ADVANCE | To Advance | custom | quadratic 1 | None
+KXNFL1HTEAMTOTAL | Pro Football 1st Half Team Total | custom | quadratic 1 | None
+KXNBAALLSTARMVP | NBA All-Star Game MVP | annual | quadratic 1 | None
+KXAUTBUNDESBTTS | Both teams to score | custom | quadratic 1 | None
+KXNFLLADDERREC | Receptions Ladder | custom | quadratic 1 | None
+KXNCAABBREG | Regional Winner | custom | quadratic 1 | None
+KXMLBWINS-SF | Pro baseball wins San Francisco | annual | quadratic 1 | None
+KXNBAASTPROT | NBA Player Assists Protected | custom | quadratic 1 | None
+KXLIGUE1CORNERS | Total Corners | custom | quadratic 1 | None
+KXNFLFFLEADERTOP | Top Fantasy | custom | quadratic 1 | None
+KXNCAAFBIGTENAWARD | College Football Big Ten Award Winner | custom | quadratic 1 | None
+KXMLSEAST | MLS Western Conference winner? | annual | quadratic 1 | None
+KXNFLEXACTWINSNYJ | Pro football exact wins New York J | annual | quadratic 1 | None
+KXUAEPLTOTAL | Point Total | custom | quadratic 1 | None
+KXNBABENCHPTS | NBA Bench Points | custom | quadratic 1 | None
+KXNHLNEXTTEAM | NHL Next Team | custom | quadratic 1 | None
+KXNBANEWCHAMP | NBA First-Time Champion | custom | quadratic 1 | None
+KXNFL4DCONV | Pro Football 4th Down Conversions | one_off | quadratic 1 | None
+KXNBASERIESOT | Pro Basketball Series Overtime | custom | quadratic 1 | None
+KXLALIGATOP | La Liga Top Finishers | custom | quadratic 1 | None
+KXNFLLONGFG | Pro Football Team Longest Field Goal | custom | quadratic 1 | None
+KXBUNDESLIGAMOV | Method of Victory | custom | quadratic 1 | None
+KXNFLSBMVP | Pro Football Championship MVP | annual | quadratic 1 | None
+KXNCAAFB12QUAL | College Football Big 12 Championship Qualifiers | annual | quadratic 1 | None
+KXNFLFIRSTTD | Pro Football First Touchdown | custom | quadratic_with_maker_fees 1 | None
+KXNHL3PSPREAD | NHL 3rd Period Spread | custom | quadratic 1 | None
+KXNFLALLROOK | NFL All Rookie Team | annual | quadratic 1 | None
+KXNFLWEEKMOSTRSHYDS | Weekly Most Rushing Yards | weekly | quadratic 1 | None
+KXMLBWINS-AZ | Pro baseball wins Arizona | annual | quadratic 1 | None
+KXNFLCOMBINE | NFL Combine | custom | quadratic 1 | None
+KXMLBAWARDFIN | Pro Baseball Award Finalists | custom | quadratic 1 | None
+KXNFLROUNDQUAL | Pro Football Round Qualifier | custom | quadratic 1 | None
+KXNFL4QTOTAL | Pro Football 4th Quarter Total | one_off | quadratic 1 | None
+KXNCAAFFCS | College Football FCS Champion | custom | quadratic 1 | None
+KXMLBCHAMPLEAGUE | Pro Baseball Championship League | custom | quadratic 1 | None
+KXNBAPRAPROT | Pts + Reb + Ast Protected | custom | quadratic 1 | None
+KXNBADRAFTOU | Pro Basketball Players Draft Position | custom | quadratic 1 | None
+KXNFLWINS-CLE | Pro football wins Cleveland | annual | quadratic 1 | None
+KXMLSASTSPREAD | Spread | custom | quadratic 1 | None
+KXNBADRAFT1 | NBA Draft First Pick | annual | quadratic 1 | None
+KXNFLBOTH | Pro Football Both Teams to Score Points | custom | quadratic 1 | None
+KXBUNDESLIGAFTTS | First Team to Score | custom | quadratic 1 | None
+KXNFLLONGESTPLAY | NFL Longest Touchdown | custom | quadratic 1 | None
+KXNFLSBMVPPOS | Pro Football Championship MVP Position | custom | quadratic 1 | None
+KXNCAABSEC | SEC Men's Basketball Tournament | custom | quadratic 1 | None
+KXNBA3QTEAMTOTAL | NBA 3rd Quarter Team Total | custom | quadratic 1 | None
+KXNFLWINS-ANY | Pro football wins any team | custom | quadratic 1 | None
+KXWNBAMATCHUP | WNBA Finals Matchup | annual | quadratic 1 | None
+KXNFLWINS-DAL | Pro football wins Dallas | annual | quadratic 1 | None
+KXMLSASTTOTAL | Point Total | custom | quadratic 1 | None
+KXNHLGOAL | NHL Goalscorer | custom | quadratic 1 | None
+KXNFLFFH2HSEASON | Season Fantasy Football Head-to-Head | annual | quadratic 1 | None
+KXNBASUMMER1HSPREAD | Pro Basketball Summer League 1st Half Spread | custom | quadratic 1 | None
+KXNFLREC | Pro Football Player Receptions | custom | quadratic 1 | None
+KXNHLGAMELOCATION | NHL Game to take place | one_off | quadratic 1 | None
+KXNEXTMANAGERMLB | Next Manager | custom | quadratic 1 | None
+KXMLBNLRELOTY | Pro Baseball National League Reliever of the Year | annual | quadratic 1 | None
+KXUCLSAVE | UCL Goalkeeper Saves | custom | quadratic 1 | None
+KXMLBWS | MLB World Series | annual | quadratic 1 | None
+KXMLBHRDERBYQUAL | Pro Baseball Home Run Derby Selections | custom | quadratic 1 | None
+KXMLBPLAYOFFHRS | Pro Baseball Playoff Home Runs | custom | quadratic 1 | None
+KXNFLOPOY | NFL Offensive Player of the Year | annual | quadratic 1 | None
+KXLALIGA2HSPREAD | 2nd Half Spread | custom | quadratic 1 | None
+KXNBADRAFT7 | NBA Draft Seventh Pick | annual | quadratic 1 | None
+KXEPLPOINTMARGIN | English Premier League Champion Winning Margin | annual | quadratic 1 | None
+KXBUNDESLIGAPOINTMARGIN | Bundesliga Champion Winning Margin | annual | quadratic 1 | None
+KXNFLSUPDRAFTPICK | Will Player declare for supplemental draft | custom | quadratic 1 | None
+KXNFLPASSATT | Pro Football Passing Attempts | custom | quadratic 1 | None
+KXNFLFANTASYMOST | Pro Football Most Fantasy Points | custom | quadratic 1 | None
+KXNFLPASSYDS | Pro Football Passing Yards | custom | quadratic 1 | None
+KXUCL16 | Champions League round of 16 | custom | quadratic 1 | None
+KXWNBAH2HPRA | Women's Pro Basketball Head to Head Pts + Reb + Ast | custom | quadratic 1 | None
+KXNFL2HSPREAD | Pro Football 2nd Half Spread | custom | quadratic 1 | None
+KXNFLTEAMTD | Pro Football Team Touchdowns | custom | quadratic 1 | None
+KXNFLFIRSTSTART | Pro Football First Start | custom | quadratic 1 | None
+KXWNBA3PTROUND | Women's Pro Basketball 3-Point Contest Round Qualifiers | custom | quadratic 1 | None
+KXWNBA3PT | Women's Pro Basketball Player Threes | custom | quadratic 1 | None
+KXNBATEAMWINSTREAK | NBA Team with the Longest Winning Streak | one_off | quadratic 1 | None
+KXMLBWINS-CHC | Pro baseball wins Chicago C | annual | quadratic 1 | None
+KXNBASTLPROT | NBA Player Steals Protected | custom | quadratic 1 | None
+KXNFLWINS-PIT | Pro football wins Pittsburgh | annual | quadratic 1 | None
+KXNHLSAVES | Pro Hockey Saves | custom | quadratic 1 | None
+KXUAEPLGAME | UAE Pro League | custom | quadratic 1 | None
+KXNCAAFQF | College Football Playoff Quarterfinals Qualifiers | custom | quadratic 1 | None
+KXMLBHRDERBYDISTANCE | Pro Baseball Home Run Derby Longest Distance | annual | quadratic 1 | None
+KXMLS2HBTTS | 2nd Half BTTS | custom | quadratic 1 | None
+KXPHILIPRIVERSNFL | Philips Rivers Play This Year | one_off | quadratic 1 | None
+KXCOACHOUTNBADATE | NBA Coach Out Date | custom | quadratic 1 | None
+KXLEADERNFLRYDS | NFL leader receiving yards | annual | quadratic 1 | None
+KXNBAH2H3PT | NBA Head-to-Head Three Pointers | custom | quadratic 1 | None
+KXNBASTAKESALE | NBA Team Ownership Stake Sale Agreement | custom | quadratic 1 | None
+KXMLBINNINGWIN | Pro Baseball Inning Win | custom | quadratic 1 | None
+KXNBA3RDTEAM | All-NBA 3rd Team | annual | quadratic 1 | None
+KXNBAATLANTIC | Pro Basketball Atlantic Division Winner | annual | quadratic 1 | None
+KXBUNDESLIGALEADER | Bundesliga Leader | custom | quadratic 1 | None
+KXMLBWINS-TB | Pro baseball wins Tampa Bay | annual | quadratic 1 | None
+KXBUNDESLIGA2GAME | Bundesliga 2 Game | custom | quadratic 1 | None
+KXLALIGATEAMPOINTS | Team Points | custom | quadratic 1 | None
+KXLALIGARELEGATION | La Liga Relegation | annual | quadratic 1 | None
+KXNCAAFLSUTEX2X | LSU to Beat Texas in Regular Season and National Championship | custom | quadratic 1 | None
+KXNBASERIESROADWINS | Pro Basketball Series Total Road Wins | custom | quadratic 1 | None
+KXTEAMSINNBAF | Teams in NBA Finals | custom | quadratic 1 | None
+KXNHLPSEASONGOALS | Player Goals Scored in Season | custom | quadratic 1 | None
+KXNHL1PTOTAL | NHL 1st Period Total | custom | quadratic 1 | None
+KXLEADERNFLSACKS | NFL Sacks Leader | annual | quadratic 1 | None
+KXNFLNEXTCOACHOUT | Next NFL Coach Out | custom | quadratic 1 | None
+KXNCAAFCFPPOLL | College Football CFP Poll | custom | quadratic 1 | None
+KXMLBCHAMPDIVISION | Pro Baseball Champion Division | custom | quadratic 1 | None
+KXNHLPTS | Pro Hockey Points | one_off | quadratic 1 | None
+KXLEADERNBAPTS | NBA PPG Leader | annual | quadratic 1 | None
+KXNFLNFCEAST | National Football Conference East Winner | annual | quadratic_with_maker_fees 1 | None
+KXNHLRECORDWORST | Worst NHL Record | custom | quadratic 1 | None
+KXNBAMIMP | NBA Most Improved Player | annual | quadratic 1 | None
+KXNFLDRAFTOU | Will Player be drafted before or after pick? | custom | quadratic 1 | None
+KXWNBATRADE | WNBA Players Traded | custom | quadratic 1 | None
+KXMLBWINS-BOS | Pro baseball wins Boston | annual | quadratic 1 | None
+KXSERIEAGAME | Serie A Game | custom | quadratic_with_maker_fees 1 | None
+KXNBASJC | NBA Social Justice Champion | custom | quadratic 1 | None
+KXNFL60YARDFGS | Pro Football 60+ Yard Field Goals | custom | quadratic 1 | None
+KXMLBPLAYOFFS | Pro Baseball Playoff Qualifiers | annual | quadratic 1 | None
+KXLALIGALAST | La Liga Last Place Finisher | annual | quadratic 1 | None
+KXUCLWGAME | Champions League Women's Game | custom | quadratic 1 | None
+KXNBAFIRST50PTS | First NBA Player to Score 50 Points | custom | quadratic 1 | None
+KXNCAAFMAC | MAC Champion | annual | quadratic 1 | None
+KXTRADEOFFNBA | Pro basketball trades offseason | custom | quadratic 1 | None
+KXMLBCBA | CBA | custom | quadratic 1 | None
+KXMLBNLWEST | National League West Winner | annual | quadratic 1 | None
+KXNFLPASSCOMP | Pro Football Passing Completions | custom | quadratic 1 | None
+KXNEXTTEAMNFL | Player Next Team | custom | quadratic 1 | None
+KXNFLCAREERRECYDS | NFL Career Receiving Yards | custom | quadratic 1 | None
+KXLALIGA2ADVANCE | To Advance | custom | quadratic 1 | None
+KXMLBHRDERBYOU | Pro Baseball Home Run Derby Over/Under Home Runs | annual | quadratic 1 | None
+KXMLBWSTREAK | Longest Winning Streak | custom | quadratic 1 | None
+KXNBACONF | NBA Conference to Win the Championship | custom | quadratic 1 | None
+KXNCAAFCOACHOUT | College Football Coaches Out | custom | quadratic 1 | None
+KXNBAPLAYOFFWINS | NBA Playoff Wins by Team | custom | quadratic 1 | None
+KXNBAROTM | NBA Rookie of the Month | custom | quadratic 1 | None
+KXNCAAFTEAMRSHTD | College Football Team Rushing Touchdowns | custom | quadratic 1 | None
+KXNFLWEEKTIE | NFL Weekly Tie | custom | quadratic 1 | None
+KXWNBAROOKAS | Women's Pro Basketball Rookie to be an All-Star | custom | quadratic 1 | None
+KXNCAAFTOPSEED | College Football Playoff Top Seed | custom | quadratic 1 | None
+KXUCL2HSPREAD | 2nd Half Spread | custom | quadratic 1 | None
+KXWNBAMIMP | WNBA Most Improved Player of the Year | custom | quadratic 1 | None
+KXNFLSDRAFTTOP | Will player be drafted Top X in Supplemental Draft | custom | quadratic 1 | None
+KXNFLPASSYDSPRECISE | Pass Yards Precise | custom | quadratic 1 | None
+KXMLBHRDERBYTOT | Home Run Derby Total Home Runs | custom | quadratic 1 | None
+KXNBASOUTHEAST | Pro Basketball Southeast Division Winner | annual | quadratic 1 | None
+KXMLBTRIPLECROWN | Pro Baseball Triple Crown | annual | quadratic 1 | None
+KXNHLRETIRE | NHL Retire | custom | quadratic 1 | None
+KXEPLTOP4 | EPL top 4 teams | annual | quadratic_with_maker_fees 1 | None
+KXNFLWINS-MIA | Pro football wins Miami | annual | quadratic 1 | None
+KXWNBA2H | Women's Pro Basketball 2nd Half Winner | custom | quadratic 1 | None
+KXLALIGABTTS | La Liga BTTS | custom | quadratic 1 | None
+KXNBAESCALATOR3PT | NBA Player Threes Escalator | custom | quadratic 1 | None
+KXLEADERNBAREB | NBA RPG Leader | annual | quadratic 1 | None
+KXMLBFTGAME | Pro Baseball Futures Game | custom | quadratic 1 | None
+KXWNBAGAMESPLAYED | WNBA Games Played in a Season | one_off | quadratic 1 | None
+KXBUNDESLIGATEAMTOTAL | Team Total | custom | quadratic 1 | None
+KXNCAAFTOTAL | College Football Total Points | custom | quadratic_with_maker_fees 1 | None
+KXNBAOT | NBA Overtime | custom | quadratic 1 | None
+KXNCAAFSF | College Football Playoff Semifinals Qualifiers | custom | quadratic 1 | None
+KXNFLWEEKQBSTART | NFL Week QB Starter | custom | quadratic 1 | None
+KXLALIGA1HTOTAL | 1st Half Total | custom | quadratic 1 | None
+KXUCLWTOTAL | Point Total | custom | quadratic 1 | None
+KXNHLSERIESOT | NHL Series Overtime | custom | quadratic 1 | None
+KXNFLEXACTWINSPHI | Pro football exact wins Philadephia | annual | quadratic 1 | None
+KXNBASERIESGAMES | NBA Series Total Games | custom | quadratic 1 | None
+KXNBA1HWINNER | Pro Baskeball 1st Half Winner | custom | quadratic 1 | None
+KXMLBNLCY | Pro Baseball National League Cy Young | annual | quadratic 1 | None
+KXBUNDESLIGAADVANCE | To Advance | custom | quadratic 1 | None
+KXNCAABBGS | College Baseball Golden Spikes Award | custom | quadratic 1 | None
+KXLALIGAGOAL | Goalscorer | custom | quadratic 1 | None
+KXLEADERMLBDOUBLES | MLB Doubles Leader | annual | quadratic 1 | None
+KXMLBWORLD | World Baseball Classic | annual | quadratic 1 | None
+KXNCAAF2HTOTAL | College Football 2nd Half Total | custom | quadratic 1 | None
+KXLALIGASPREAD | La Liga Spread | custom | quadratic 1 | None
+KXMLS1HBTTS | 1st Half BTTS | custom | quadratic 1 | None
+KXWNBA2HSPREAD | Women's Pro Basketball 2nd Half Spread | custom | quadratic 1 | None
+KXEPLTCORNERS | EPL Team Corners | custom | quadratic 1 | None
+KXUCLTEAMSOT | UCL Team Shots on Target | custom | quadratic 1 | None
+KXNBAPACIFIC | Pro Basketball Pacific Division Winner | annual | quadratic 1 | None
+KXNFLSBMVPDEF | Defensive Player Championship MVP | annual | quadratic 1 | None
+KXLIGUE12HSPREAD | 2nd Half Spread | custom | quadratic 1 | None
+KXLEADERUCLGOALS | UCL Top Goalscorer | annual | quadratic 1 | None
+KXSERIEAFIRSTGOAL | First Goal | custom | quadratic 1 | None
+KXMLBFOD | Field of Dreams Teams | custom | quadratic 1 | None
+KXWNBADRAFTTOP3 | WNBA Draft Top 3 | annual | quadratic 1 | None
+KXNEXTMANAGERSERIEA | Next Manager | custom | quadratic 1 | None
+KXLIGUE1GAME | Ligue 1 Game | custom | quadratic_with_maker_fees 1 | None
+KXUCL1HSPREAD | UCL First Half Spread | custom | quadratic 1 | None
+KXSERIEA1HBTTS | 1st Half BTTS | custom | quadratic 1 | None
+KXNHL30COMEBACK | NHL 3-0 Series Comeback | one_off | quadratic 1 | None
+KXWNBADELAY | WNBA Season Delay | one_off | quadratic 1 | None
+KXWNBASPREAD | Women's Pro Basketball Spread | custom | quadratic 1 | None
+KXMLSTCORNERS | Team Corners | custom | quadratic 1 | None
+KXEPLTOP2 | Top 2 Finishers | annual | quadratic 1 | None
+KXNFLDIVMOSTWINS | Pro Football Division with the Least Wins | custom | quadratic 1 | None
+KXLALIGA1HSCORE | 1st Half Correct Score | custom | quadratic 1 | None
+KXNHLSERIESSPREAD | NHL Series Game Spread | custom | quadratic 1 | None
+KXNBASERIESREBLEADER | Pro Basketball Series Rebounds Leader | custom | quadratic 1 | None
+KXNBAEAST | Pro Basketball Eastern Conference Champion | annual | quadratic_with_maker_fees 1 | None
+KXMLBSERIESHR | Series Home Runs | custom | quadratic 1 | None
+KXNHLMETROPOLITAN | NHL Metropolitan Division Winner | annual | quadratic 1 | None
+KXNBA | Pro Basketball Champion | annual | quadratic_with_maker_fees 1 | None
+KXMLSASTADVANCE | To Advance | custom | quadratic 1 | None
+KXNFLLONGRSH | Longest Rush | custom | quadratic 1 | None
+KXNCAAFDELAY | College Football Weather Delay | custom | quadratic 1 | None
+KXNBARACE | NBA Race to Points | custom | quadratic 1 | None
+KXMLBRBI | Pro Baseball RBIs | custom | quadratic 0.5 | None
+KXNFLEXACTWINSBAL | Pro football exact wins Baltimore | annual | quadratic 1 | None
+KXMLSTEAMTOTAL | Team Total | custom | quadratic 1 | None
+KXBUNDESLIGAGAME | Bundesliga Game | custom | quadratic_with_maker_fees 1 | None
+KXNFLEXACTWINSLV | Pro football exact wins Las Vegas | annual | quadratic 1 | None
+KXNCAAFACCLEADER | College Football ACC Stats Leaders | annual | quadratic 1 | None
+KXUCL1HSCORE | 1st Half Correct Score | custom | quadratic 1 | None
+KXNBAWINRECORD | OKC NBA Win Record | custom | quadratic 1 | None
+KXNFLDRAFTTOP | Pro Football Top Draft | annual | quadratic 1 | None
+KXNFL1QTOTAL | Pro Football 1st Quarter Total | custom | quadratic 1 | None
+KXNBA1HSPREAD | NBA 1st Half Spread | custom | quadratic 1 | None
+KXUCLGOAL | UCL Goalscorer | custom | quadratic 1 | None
+KXNCAAFAAC | American Athletic Conference Champion | annual | quadratic 1 | None
+KXNFL53MAN | Pro Football 53 Man Roster | custom | quadratic 1 | None
+KXNFLNONQBPASS | Pro Football Non-QB Passes | custom | quadratic 1 | None
+KXWNBAALLDEFENSE | Women's Pro Basketball All-Defensive Teams | custom | quadratic 1 | None
+KXNBAGAME | NBA Game | custom | quadratic_with_maker_fees 1 | None
+KXSERIEASPREAD | Serie A Spread | custom | quadratic 1 | None
+KXNFLCONTRACTSIZE | Pro Football Next Contract Size | custom | quadratic 1 | None
+KXNFLCAREERRSHYDS | NFL Career Rushing Yards | custom | quadratic 1 | None
+KXNFL1H | Pro Football 1st Half Winner | one_off | quadratic 1 | None
+KXNBA3PTCONTEST | NBA 3-Point Contest Winner | annual | quadratic 1 | None
+KXNFLWINS-MIN | Pro football wins Minnesota | annual | quadratic 1 | None
+KXNFLWINS-TB | Pro football wins Tampa Bay | annual | quadratic 1 | None
+KXNFL1HFT | 1st Half Fulltime Result | custom | quadratic 1 | None
+KXNCAAF1QSPREAD | College Football 1st Quarter Spread | custom | quadratic 1 | None
+KXNBADRAFTTOP5 | NBA Draft Top 5 Pick | annual | quadratic 1 | None
+KXUCLGAME | UEFA Champions League Game | custom | quadratic_with_maker_fees 1 | None
+KXNFLWEEKHIGHSCORE | NFL Highest Scoring Team of the Week | custom | quadratic 1 | None
+KXWNBA1HSPREAD | Women's Pro Basketball 1st Half Spread | custom | quadratic 1 | None
+KXNCAABBTOTAL | College Baseball Total Runs | custom | quadratic 1 | None
+KXNBAJOINCONF | Pro Basketball Join Conference | custom | quadratic 1 | None
+KXNCAAFB12 | Big 12 Champion | annual | quadratic_with_maker_fees 1 | None
+KXNBASERIESCOMEBACK | Pro Basketball Series Comeback | custom | quadratic 1 | None
+KXBUNDESLIGA1HSPREAD | 1st Half Spread | custom | quadratic 1 | None
+KXSERIEA2H | 2nd Half Winner | custom | quadratic 1 | None
+KXNFLBLOWOUT | Pro Football Biggest Blowout | custom | quadratic 1 | None
+KXNEXTCOACHOUTNFL | Next Coach Out Pro Football | custom | quadratic 1 | None
+KXNBAPTSLEADER | NBA Game Points Leader | custom | quadratic 1 | None
+KXWNBAROTY | Pro Women's Basketball Rookie of the Year | annual | quadratic 1 | None
+KXNFLDROY | NFL Defensive Rookie of the Year | custom | quadratic 1 | None
+KXNCAAF4Q | College Football 4th Quarter Winner | custom | quadratic 1 | None
+KXMLBWINS-MIN | Pro baseball wins Minnesota | annual | quadratic 1 | None
+KXNCAAFTEAMRSHYDS | College Football Team Rushing Yards | custom | quadratic 1 | None
+KXNCAAWBUNDEFEATED | Undefeated in Women's College Basketball Regular Season | annual | quadratic 1 | None
+KXMLBALHAARON | Pro Baseball American League Hank Aaron | annual | quadratic 1 | None
+KXNFLEXACTWINSNYG | Pro football exact wins New York G | annual | quadratic 1 | None
+KXBUNDESLIGA2HTOTAL | 2nd Half Total | custom | quadratic 1 | None
+KXWNBADRAFTTOP5 | WNBA Draft Top 5 | one_off | quadratic 1 | None
+KXNCAAFTEAMYDS | College Football Team Total Yards | custom | quadratic 1 | None
+KXNFLDRAFT1ST | Make the 1st pick in NFL Draft | annual | quadratic 1 | None
+KXNBA4QTEAMTOTAL | NBA 4th Quarter Team Total | custom | quadratic 1 | None
+KXLEADERMLBSTEALS | MLB Steals Leader | annual | quadratic 1 | None
+KXNBADRAFTMATCHUP | Pro Basketball Draft Matchup | custom | quadratic 1 | None
+KXMLBWINS-MIA | Pro baseball wins Miami | annual | quadratic 1 | None
+KXLIGUE12H | 2nd Half Winner | custom | quadratic 1 | None
+KXNBARISINGSTARS | Pro Basketball Rising Stars Tournament | annual | quadratic 1 | None
+KXNFLT100TOP | Will player be ranked Top X on NFL 100 | custom | quadratic 1 | None
+KXNHLLINDSAY | NHL Ted Lindsay Winner | custom | quadratic 1 | None
+KXNEXTCOACHOUTNBA | Next coach out NBA | custom | quadratic 1 | None
+KXNCAAFSEED | College Football Playoff Seed | custom | quadratic 1 | None
+KXNFLREDZONEBRANDADS | Redzone week 1 brand ads | one_off | quadratic 1 | None
+KXMLBWINS-BAL | Pro baseball wins Baltimore | annual | quadratic 1 | None
+KXNCAAFMWC | Mountain West Champion | annual | quadratic 1 | None
+KXNBADRAFTTOP25 | NBA Draft Top 25 Pick | annual | quadratic 1 | None
+KXNFLPROBOWLWIN | Pro Football Pro Bowl Game | custom | quadratic 1 | None
+KXNFLSEED | NFL Playoff Seed | custom | quadratic 1 | None
+KXNBA3D | NBA Player Triple Double | custom | quadratic 1 | None
+KXNCAAFBIG12LEADER | College Football Big 12 Stats Leaders | annual | quadratic 1 | None
+KXNCAAFTEAMFG | College Football Team Total Field Goals | custom | quadratic 1 | None
+KXNHL1PSPREAD | 1st Period Spread | custom | quadratic 1 | None
+KXNBATRADE | Pro Basketball Trade | custom | quadratic 1 | None
+KXNBAFINMVP | NBA Finals MVP | annual | quadratic 1 | None
+KXNCAAFOT | College Football Overtime | custom | quadratic 1 | None
+KXNCAAFBIGTENLEADER | College Football Big Ten Stats Leaders | annual | quadratic 1 | None
+KXNBA2HSPREAD | NBA 2nd Half Spread | custom | quadratic 1 | None
+KXSOCCERSPREAD | Soccer Spread | custom | quadratic 1 | None
+KXMLBGAME | Professional Baseball Game | custom | quadratic_with_maker_fees 0.5 | None
+KXUCLTEAMSHOT | UCL Team Shots | custom | quadratic 1 | None
+KXNCAAF2Q | College Football 2nd Quarter Winner | custom | quadratic 1 | None
+KXNFLRSHYDSPRECISE | Rushing Yards Precise | custom | quadratic 1 | None
+KXMLB100LOSS | Pro Baseball 100 losses | custom | quadratic 1 | None
+KXNFLRECPROT | Receptions Protected | custom | quadratic 1 | None
+KXNFLFFWEEKLEAD | Weekly Fantasy Football Leader | weekly | quadratic 1 | None
+KXNHLTEAMTOTAL | NHL Team Goals Scored During Game | one_off | quadratic 1 | None
+KXNCAAWBUNDEFEATEDHOME | Women's College Basketball Teams to go Undefeated at Home | custom | quadratic 1 | None
+KXNHLSPREAD | NHL Spread | custom | quadratic 1 | None
+KXWNBACOY | WNBA Coach of the Year | annual | quadratic 1 | None
+KXWNBADRAFT4 | WNBA Draft 4th Pick | annual | quadratic 1 | None
+KXNBA4QTOTAL | NBA 4th Quarter Total | custom | quadratic 1 | None
+KXNCAAFBSEC | SEC Champion | annual | quadratic 1 | None
+KXNBASLAMDUNK | NBA Slam Dunk Contest Winner | annual | quadratic 1 | None
+KXUCL2HTOTAL | 2nd Half Total | custom | quadratic 1 | None
+KXNBA1HTEAMTOTAL | NBA 1st Half Team Total | custom | quadratic 1 | None
+KXNBADRAFTTOP10 | NBA Draft Top 10 Pick | annual | quadratic 1 | None
+KXNBAWEST1SEED | NBA Western Conference 1 Seed | annual | quadratic 1 | None
+KXNFLPRIMETIME | Pro Football Primetime Games | custom | quadratic 1 | None
+KXNHLWSTREAK | Longest NHL win streak in regular season | custom | quadratic 1 | None
+KXNFLWINS-LV | Pro football wins Las Vegas | annual | quadratic 1 | None
+KXNCAAFCOTY | College Football Coach of the Year | annual | quadratic 1 | None
+KXNFLGAMESACK | Pro Football Sacks | custom | quadratic 1 | None
+KXNFLSEASONPASSYDS | Passing Yards | custom | quadratic 1 | None
+KXNCAAF2HSPREAD | College Football 2nd Half Spread | custom | quadratic 1 | None
+KXEPLSEASONSTAT | EPL Season Stats | custom | quadratic 1 | None
+KXNBATOTAL | NBA Total | custom | quadratic_with_maker_fees 1 | None
+KXNFL1QSPREAD | Pro Football 1st Quarter Spread | custom | quadratic 1 | None
+KXNHLOVERTIME | NHL Overtime | custom | quadratic 1 | None
+KXNFL1HSPREAD | Pro Football 1st Half Spread | custom | quadratic 1 | None
+KXNFLAFCWEST | American Football Conference West Winner | annual | quadratic_with_maker_fees 1 | None
+KXMLBWINS-STL | Pro baseball wins St. Louis | annual | quadratic 1 | None
+KXNCAAF1HTOTAL | College Football 1st Half Total | custom | quadratic 1 | None
+KXNBASEATTLE | Seattle NBA team | custom | quadratic 1 | None
+KXLIGUE2TOTAL | Point Total | one_off | quadratic 1 | None
+KXNBAEUROPEANNOUNCE | NBA Europe Inaugural Season Being Announced | custom | quadratic 1 | None
+KXNCAAFTEAMRSHATT | College Football Team Total Rushing Attempts | custom | quadratic 1 | None
+KXNFLDRAFTTEAM | Pro Football Team Draft | custom | quadratic 1 | None
+KXMLBDRAFTPICK | Pro Baseball Draft Pick | custom | quadratic 1 | None
+KXNFLTD | Pro Football Touchdowns | custom | quadratic 1 | None
+KXNCAAF4QTOTAL | College Football 4th Quarter Total | custom | quadratic 1 | None
+KXSERIEATOP | Serie A Top Finishers | custom | quadratic 1 | None
+KXNCAAFTEAMRECTD | College Football Team Receiving Touchdowns | custom | quadratic 1 | None
+KXCITYMLBEXPAND | MLB expansion | custom | quadratic 1 | None
+KXMLBINNINGTOTAL | Pro Baseball Inning Total | custom | quadratic 1 | None
+KXNFLWINS-TEN | Pro football wins Tennessee | annual | quadratic 1 | None
+KXUCLMOF | UCL Method of Finish | custom | quadratic 1 | None
+KXMLBSTAT | Pro Baseball Season Stat | custom | quadratic 1 | None
+KXNFLNEXTTD | Pro Football Next TD scorer | one_off | quadratic 1 | None
+KXWNBA2QSPREAD | Women's Pro Basketball 2nd Quarter Spread | custom | quadratic 1 | None
+KXNFLHIGHSCOREQ | Pro Football Highest Scoring Quarter | custom | quadratic 1 | None
+KXNCAAF3QBTTS | College Football Both Teams to Score in 3rd Quarter | custom | quadratic 1 | None
+KXNBA1Q | NBA 1st Quarter Winner | custom | quadratic 1 | None
+KXMLBASGMVP | Pro Baseball All-Star Game MVP | custom | quadratic 1 | None
+KXLEADERNBAAST | NBA APG Leader | annual | quadratic 1 | None
+KXNCAAFTEAMRECYDS | College Football Team Receiving Yards | custom | quadratic 1 | None
+KXNCAAFBB10 | Big Ten Champion | annual | quadratic 1 | None
+KXNCAAFACCWINS | College Football ACC Teams to Win | annual | quadratic 1 | None
+KXUCLQUAL | Champions League Qualifiers | custom | quadratic 1 | None
+KXNCAABBHR | College Baseball Homeruns | custom | quadratic 1 | None
+KXMLBSS | Pro Baseball Silver Slugger | annual | quadratic 1 | None
+KXNHLDRAFTPICK | Pro Hockey Draft Pick | one_off | quadratic 1 | None
+KXNBATEAM | NBA team | custom | quadratic 1 | None
+KXSOCCERRETIRE | Soccer Retire | custom | quadratic 1 | None
+KXNBASUMMERMVP | Pro Basketball Summer League MVP | custom | quadratic 1 | None
+KXNFLHALLOFFAME | Pro Football Hall of Fame | custom | quadratic 1 | None
+KXLALIGA2H | 2nd Half Winner | custom | quadratic 1 | None
+KXLEADERWNBAPTS | WNBA PPG Leader | annual | quadratic 1 | None
+KXNBASERIESPTS | Pro Basketball Series Player Points | custom | quadratic 1 | None
+KXMLBERA | Pro Baseball Earned Runs | custom | quadratic 1 | None
+KXNBADRAFT3 | NBA Draft Third Pick | annual | quadratic 1 | None
+KXNFLWINS-NO | Pro football wins New Orleans | annual | quadratic 1 | None
+KXWNBA1H | Women's Pro Basketball 1st Half Winner | custom | quadratic 1 | None
+KXNBAWEST | Pro Basketball Western Conference Champion | annual | quadratic_with_maker_fees 1 | None
+KXBUNDESLIGA | BUNDESLIGA | annual | quadratic_with_maker_fees 1 | None
+KXNCAAFWINS | College Football Win Total | annual | quadratic 1 | None
+KXNCAAF1Q | College Football 1st Quarter Winner | custom | quadratic 1 | None
+KXNCAAFACCREGTOP | College Football ACC Regular Season Top Finishers | annual | quadratic 1 | None
+KXNHLWEST | Western Conference Champion | annual | quadratic_with_maker_fees 1 | None
+KXNHL1STTEAM | All NHL First Team | annual | quadratic 1 | None
+KXEPLSPREAD | English Premier League Spread | custom | quadratic 1 | None
+KXUCLFTTS | First Team to Score | custom | quadratic 1 | None
+KXNBATOP5ROTY | Top 5 NBA draft ROTY | custom | quadratic 1 | None
+KXNFLTIE | NFL Game to Tie | custom | quadratic 1 | None
+KXNBALOTTERYODDS | NBA Lottery Winner Odds | custom | quadratic 1 | None
+KXLALIGA2PROMO | La Liga 2 Promotion | custom | quadratic 1 | None
+KXMLBTOTAL | Pro Baseball Total Points | custom | quadratic 0.5 | None
+KXEPLPOY | EPL Player Of The Year  | one_off | quadratic 1 | None
+KXNCAAF1QBTTS | College Football Both Teams to Score in 1st Quarter | custom | quadratic 1 | None
+KXNCAAFTEAMTO | College Football Team Total Forced Turnovers | custom | quadratic 1 | None
+KXMLBNEXTTEAM | Pro Baseball Next Team | custom | quadratic 1 | None
+KXNHL2OT | NHL Double Overtime | custom | quadratic 1 | None
+KXARGNACBBTTS | BTTS | custom | quadratic 1 | None
+KXNHLADAMS | NHL Jack Adams Award | annual | quadratic 1 | None
+KXNHLATLANTIC | NHL Atlantic Division Winner | annual | quadratic 1 | None
+KXNFLFIRSTPICK | First Pick in NFL Draft | annual | quadratic 1 | None
+KXNBAEXEC | NBA Executive of the Year | custom | quadratic 1 | None
+KXNBANEXTTEAMOUTLET | Pro Basketball Outlet to Announce Next Team | custom | quadratic 1 | None
+KXNFLPREPACK1Q1H | MVE NFL Pre Pack | custom | quadratic 1 | None
+KXNFLRSHATT | Pro Football Rushing Attempts | custom | quadratic 1 | None
+KXNCAAFD3GAME | DIII College Football Game | custom | quadratic 1 | None

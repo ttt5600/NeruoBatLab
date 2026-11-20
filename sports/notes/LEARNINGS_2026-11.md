@@ -402,3 +402,7 @@ dev +2.05% [-10.5,+13.2] n74 (one calendar month). Rule: before modelling a seri
 ### Polymarket US taker fee is 0.095, not 0.0695 (pm_full_census, 11-19)
 API feeCoefficient = .095 on all 74,548 open PM US markets. Read fees from the API at decision time, never from notes.
 Untraded global PM markets show ~0.5 in CLOB price history -- never use it as a fair price.
+
+### Kalshi derived sports ladders are calibrated at T-60 (derived_ladders, 11-20)
+339 shape cells across 32 series: excess over chance came from wide-spread series and multi-week level drift, not rung shape.
+A "shape" seen in a few weeks of one season is window noise until a later window repeats it (NFLUP dev -19.3%).

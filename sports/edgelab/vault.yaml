@@ -619,6 +619,15 @@ datasets:
       dev: [2026-09-09, 2026-10-27]        # weeks 1-7
       sealed: [2026-10-29, 2026-11-17]     # weeks 8-10, untouched
       forward: [2026-11-19, null]
+  kalshi_nfl_count_ladders:  # derived_ladders 11-19: KXNFLPASSTDS + KXNFLTD upper rungs; prereg notes/derived_ladders.md
+    loader: kx_forward_adapter_only   # dev scored by results/derived_ladders/nflup_dev.py; no edgelab loader -> unwired
+    family: kalshi_sports_pregame
+    hidden: [result]
+    outcome: {kind: result_side, key: bet_id}
+    splits:                                # date = game start (UTC); set 2026-11-19 before devB/sealed outcome join
+      dev: [2026-10-04, 2026-10-26]        # devB (devA 09-13..10-04 = discovery)
+      sealed: [2026-10-27, 2026-11-17]     # untouched
+      forward: [2026-11-19, null]
   kalshi_carbonarc:       # altdata_kpi 11-18: Carbon Arc YoY-index monthly ladders (CC/FT/APP/POS/ADS/ARRAY/TTS); prereg notes/altdata_kpi.md
     loader: kx_forward_adapter_only   # dev scored by results/altdata_kpi/ca1_score.py; no edgelab loader -> unwired
     family: kalshi_data_ladders

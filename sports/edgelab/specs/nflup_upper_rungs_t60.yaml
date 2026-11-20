@@ -1,0 +1,19 @@
+id: nflup_upper_rungs_t60
+family: kalshi_sports_pregame
+dataset: kalshi_nfl_count_ladders
+rule: edgelab.rules.forward:unwired
+hypothesis: 'NFLUP (prereg notes/derived_ladders.md, written before devB/sealed outcomes joined). KXNFLPASSTDS + KXNFLTD:
+  buy 1 YES on every rung with floor_strike >= 1.5 and YES ask in [0.05,0.30] at T = start - 60 min (last 1-min candle
+  <= T; open_time <= T, bid > 0, ask < 1). 10-lot quadratic taker fee cent-rounded. Hold. Game-clustered bootstrap.
+  Control C1 = same rule on 1+ rungs (shape vs level). Pass needs CI lower > 0 and rule - C1 CI lower > 0.'
+decision_time: 'start - 60 min (ESPN start, else Kalshi occurrence_datetime - 3h)'
+price_model: taker
+split: vault:kalshi_nfl_count_ladders
+min_n: 60
+kill:
+  kind: roi_ci_below_zero
+  after_n: 60
+fee:
+  rounding: cent
+legacy: 'new 2026-11-19 (agent derived_ladders). devA (start < 2026-10-04 17:00Z) used for discovery; devB scored by
+  results/derived_ladders/nflup_dev.py.'

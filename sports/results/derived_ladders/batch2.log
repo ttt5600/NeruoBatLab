@@ -1,0 +1,213 @@
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 181, 'occ-3h': 14}
+KXNFLTEAMTOTAL events 195 with start 189 | occ-3h minus start (min): {'count': 136.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 195
+0 KXNFLTEAMTOTAL-26SEP13BALIND 30
+50 KXNFLTEAMTOTAL-26OCT04JACCIN 27
+100 KXNFLTEAMTOTAL-26OCT25DENARI 28
+done KXNFLTEAMTOTAL
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 187, 'occ-3h': 19}
+KXNFL1HTOTAL events 206 with start 206 | occ-3h minus start (min): {'count': 180.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 206
+0 KXNFL1HTOTAL-26SEP13BALIND 15
+50 KXNFL1HTOTAL-26OCT04JACCIN 13
+100 KXNFL1HTOTAL-26OCT25DENARI 13
+done KXNFL1HTOTAL
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 136, 'occ-3h': 14}
+KXNFL1HFT events 150 with start 150 | occ-3h minus start (min): {'count': 136.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 150
+0 KXNFL1HFT-26SEP13BALIND 9
+50 KXNFL1HFT-26OCT04JACCIN 9
+100 KXNFL1HFT-26OCT25DENARI 9
+done KXNFL1HFT
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 137, 'occ-3h': 14}
+KXNFLWINMARGIN events 151 with start 151 | occ-3h minus start (min): {'count': 136.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 151
+0 KXNFLWINMARGIN-26SEP13BALIND 7
+50 KXNFLWINMARGIN-26OCT04JACCIN 7
+100 KXNFLWINMARGIN-26OCT25DENARI 7
+done KXNFLWINMARGIN
+ESPN agreement |occ-3h - start| <= 5 min: 0.993 | how: {'espn': 137, 'occ-3h': 14}
+KXNFLOT events 151 with start 151 | occ-3h minus start (min): {'count': 136.0, 'mean': 0.2, 'std': 2.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 23.7}
+live-src events 148 of 151
+0 KXNFLOT-26SEP13BALIND 1
+50 KXNFLOT-26OCT04JACCIN 1
+100 KXNFLOT-26OCT25DENARI 1
+done KXNFLOT
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 136, 'occ-3h': 14}
+KXNFLTEAMYDS events 150 with start 150 | occ-3h minus start (min): {'count': 136.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 150
+0 KXNFLTEAMYDS-26SEP13BALIND 18
+50 KXNFLTEAMYDS-26OCT04JACCIN 10
+100 KXNFLTEAMYDS-26OCT25DENARI 10
+done KXNFLTEAMYDS
+ESPN agreement |occ-3h - start| <= 5 min: 0.993 | how: {'espn': 136, 'occ-3h': 14}
+KXNFLTEAMSACK events 150 with start 150 | occ-3h minus start (min): {'count': 136.0, 'mean': 1.7, 'std': 19.7, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 229.7}
+live-src events 148 of 150
+0 KXNFLTEAMSACK-26SEP13BALIND 10
+50 KXNFLTEAMSACK-26OCT04JACCIN 10
+100 KXNFLTEAMSACK-26OCT25DENARI 10
+done KXNFLTEAMSACK
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 341, 'occ-3h': 14}
+KXNFLRSHYDS events 355 with start 332 | occ-3h minus start (min): {'count': 142.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 355
+0 KXNFLRSHYDS-26SEP13BALIND 47
+50 KXNFLRSHYDS-26OCT04JACCIN 53
+100 KXNFLRSHYDS-26OCT25DENARI 74
+done KXNFLRSHYDS
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 363, 'occ-3h': 16}
+KXNFLPASSYDS events 379 with start 354 | occ-3h minus start (min): {'count': 160.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 379
+0 KXNFLPASSYDS-26SEP13BALIND 18
+50 KXNFLPASSYDS-26OCT04JACCIN 20
+100 KXNFLPASSYDS-26OCT25DENARI 19
+done KXNFLPASSYDS
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 346, 'occ-3h': 14}
+KXNFLRECYDS events 360 with start 336 | occ-3h minus start (min): {'count': 142.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 360
+0 KXNFLRECYDS-26SEP13BALIND 85
+50 KXNFLRECYDS-26OCT04JACCIN 123
+100 KXNFLRECYDS-26OCT25DENARI 115
+done KXNFLRECYDS
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 298, 'occ-3h': 14}
+KXNFLREC events 312 with start 293 | occ-3h minus start (min): {'count': 137.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 149 of 312
+0 KXNFLREC-26SEP13BALIND 76
+50 KXNFLREC-26OCT04JACCIN 93
+100 KXNFLREC-26OCT25DENARI 93
+done KXNFLREC
+ESPN agreement |occ-3h - start| <= 5 min: 0.993 | how: {'espn': 143, 'occ-3h': 14}
+KXNFLTD events 157 with start 157 | occ-3h minus start (min): {'count': 143.0, 'mean': 0.1, 'std': 1.3, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 15.0}
+live-src events 149 of 157
+0 KXNFLTD-26SEP13BALIND 49
+50 KXNFLTD-26OCT04JACCIN 60
+100 KXNFLTD-26OCT25DENARI 50
+done KXNFLTD
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 254, 'occ-3h': 14}
+KXNFLPASSTDS events 268 with start 256 | occ-3h minus start (min): {'count': 141.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 149 of 268
+0 KXNFLPASSTDS-26SEP13BALIND 8
+50 KXNFLPASSTDS-26OCT04JACCIN 10
+100 KXNFLPASSTDS-26OCT25DENARI 8
+done KXNFLPASSTDS
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 187, 'occ-3h': 19}
+KXNFL1HSPREAD events 206 with start 206 | occ-3h minus start (min): {'count': 180.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 206
+0 KXNFL1HSPREAD-26SEP13BALIND 19
+50 KXNFL1HSPREAD-26OCT04JACCIN 14
+100 KXNFL1HSPREAD-26OCT25DENARI 15
+done KXNFL1HSPREAD
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 136, 'occ-3h': 14}
+KXNFLRRYDS events 150 with start 150 | occ-3h minus start (min): {'count': 136.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 150
+0 KXNFLRRYDS-26SEP13BALIND 9
+50 KXNFLRRYDS-26OCT04JACCIN 11
+100 KXNFLRRYDS-26OCT25DENARI 11
+done KXNFLRRYDS
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 136, 'occ-3h': 14}
+KXNFLRSHATT events 150 with start 150 | occ-3h minus start (min): {'count': 136.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 148 of 150
+0 KXNFLRSHATT-26SEP13BALIND 23
+50 KXNFLRSHATT-26OCT04JACCIN 11
+100 KXNFLRSHATT-26OCT25DENARI 9
+done KXNFLRSHATT
+ESPN agreement |occ-3h - start| <= 5 min: 0.986 | how: {'espn': 355}
+KXNHL1PTOTAL events 355 with start 355 | occ-3h minus start (min): {'count': 355.0, 'mean': -0.2, 'std': 1.9, 'min': -20.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 355 of 355
+0 KXNHL1PTOTAL-26SEP29FLACAR 3
+50 KXNHL1PTOTAL-26OCT06VGKSEA 5
+100 KXNHL1PTOTAL-26OCT13VGKNSH 6
+150 KXNHL1PTOTAL-26OCT20TBVGK 6
+200 KXNHL1PTOTAL-26OCT28NJCOL 5
+250 KXNHL1PTOTAL-26NOV05BOSPIT 6
+300 KXNHL1PTOTAL-26NOV12WSHNJ 5
+350 KXNHL1PTOTAL-26NOV19STLPIT 5
+done KXNHL1PTOTAL
+ESPN agreement |occ-3h - start| <= 5 min: 0.935 | how: {'espn': 1143}
+KXNCAAMB1HTOTAL events 1143 with start 917 | occ-3h minus start (min): {'count': 62.0, 'mean': -1.6, 'std': 6.1, 'min': -30.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 68 of 1143
+0 KXNCAAMB1HTOTAL-26NOV01NDVILL 13
+50 KXNCAAMB1HTOTAL-26NOV17VILLPITT 13
+done KXNCAAMB1HTOTAL
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 695, 'occ-3h': 72}
+KXNFLRACE events 767 with start 767 | occ-3h minus start (min): {'count': 695.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 756 of 767
+0 KXNFLRACE-26SEP13CLEJAC-28 3
+50 KXNFLRACE-26SEP13WASPHI-28 3
+100 KXNFLRACE-26SEP20CLETB-28 3
+150 KXNFLRACE-26SEP20WASDAL-28 3
+200 KXNFLRACE-26SEP27CARCLE-28 3
+250 KXNFLRACE-26OCT04INDWAS-28 3
+300 KXNFLRACE-26OCT04DENSF-10 3
+350 KXNFLRACE-26OCT11CLENYJ-14 3
+400 KXNFLRACE-26OCT15SEADEN-14 3
+450 KXNFLRACE-26OCT18BUFLV-28 3
+500 KXNFLRACE-26OCT25INDMIN-10 3
+550 KXNFLRACE-26NOV01LVNYJ-35 3
+600 KXNFLRACE-26NOV01PHIWAS-14 3
+650 KXNFLRACE-26NOV08NYJKC-35 3
+700 KXNFLRACE-26NOV15MINGB-14 3
+750 KXNFLRACE-26NOV16LACBAL-14 3
+done KXNFLRACE
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 77, 'occ-3h': 33}
+KXSERIEASCORE events 110 with start 110 | occ-3h minus start (min): {'count': 77.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 79 of 110
+0 KXSERIEASCORE-26SEP12GENFRO 30
+50 KXSERIEASCORE-26OCT27ROMCAG 30
+done KXSERIEASCORE
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'occ-3h': 37, 'espn': 24}
+KXUCLSCORE events 61 with start 61 | occ-3h minus start (min): {'count': 24.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 54 of 61
+0 KXUCLSCORE-26OCT13SBHSLA 29
+50 KXUCLSCORE-26NOV04RBLMCI 34
+done KXUCLSCORE
+Traceback (most recent call last):
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/derived_ladders/fetch_ev.py", line 43, in <module>
+    m = markets(s)
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/derived_ladders/fetch_ev.py", line 31, in markets
+    d["custom_strike"] = d.custom_strike.astype(str)
+                         ^^^^^^^^^^^^^^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/.venv_quant/lib/python3.14/site-packages/pandas/core/generic.py", line 6194, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AttributeError: 'DataFrame' object has no attribute 'custom_strike'
+FAIL KXSERIEACORNERS
+Traceback (most recent call last):
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/derived_ladders/fetch_ev.py", line 43, in <module>
+    m = markets(s)
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/derived_ladders/fetch_ev.py", line 31, in markets
+    d["custom_strike"] = d.custom_strike.astype(str)
+                         ^^^^^^^^^^^^^^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/.venv_quant/lib/python3.14/site-packages/pandas/core/generic.py", line 6194, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AttributeError: 'DataFrame' object has no attribute 'custom_strike'
+FAIL KXBUNDESLIGACORNERS
+Traceback (most recent call last):
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/derived_ladders/fetch_ev.py", line 43, in <module>
+    m = markets(s)
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/derived_ladders/fetch_ev.py", line 31, in markets
+    d["custom_strike"] = d.custom_strike.astype(str)
+                         ^^^^^^^^^^^^^^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/.venv_quant/lib/python3.14/site-packages/pandas/core/generic.py", line 6194, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AttributeError: 'DataFrame' object has no attribute 'custom_strike'
+FAIL KXLIGUE1CORNERS
+Traceback (most recent call last):
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/derived_ladders/fetch_ev.py", line 43, in <module>
+    m = markets(s)
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/derived_ladders/fetch_ev.py", line 31, in markets
+    d["custom_strike"] = d.custom_strike.astype(str)
+                         ^^^^^^^^^^^^^^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/.venv_quant/lib/python3.14/site-packages/pandas/core/generic.py", line 6194, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AttributeError: 'DataFrame' object has no attribute 'custom_strike'
+FAIL KXMLSCORNERS
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'occ-3h': 39, 'espn': 33}
+KXUCLCORNERS events 72 with start 68 | occ-3h minus start (min): {'count': 27.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 54 of 72
+0 KXUCLCORNERS-26OCT13SBHSLA 5
+50 KXUCLCORNERS-26NOV04RBLMCI 5
+done KXUCLCORNERS
+BATCHDONE

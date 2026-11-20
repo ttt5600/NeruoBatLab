@@ -12,7 +12,7 @@ orders; money changes stay with the user.
 - pm_full_census -- every active Polymarket (global + US) by category, tested vs untested, dev tests on best untested (notes/pm_full_census.md)  [DONE 11-19: T1 dead; PM US fee .095]
 - kalshi_fg_markets -- user idea "kicker stats": KXNFLFG ladders vs points model  [DONE 11-19: lead, dev +23% n56 n.d.; forward paper next]
 - strategy_synthesis -- taxonomy of ~100 tests -> model-building lessons, candidate rubric, top-15 untested, 30-day plan (notes/STRATEGY_v2.md)  [DONE 11-20: notes/STRATEGY_v2.md; nowcast-of-free-official-source = 5/6 sealed passes, models/bias/maker 0/12]
-- derived_ladders -- generalise KFG1: census + shape-calibration of all Kalshi secondary sports ladders, dev test best 1-2 (notes/derived_ladders.md)
+- derived_ladders -- generalise KFG1: census + shape-calibration of all Kalshi secondary sports ladders, dev test best 1-2 (notes/derived_ladders.md)  [DONE 11-20: dead; ladders calibrated]
 - ufc_tsa -- UFC method of victory + daily TSA  [DONE 11-20: both dead]
 - trading_ways_survey -- all non-PM retail trading strategies ranked for CA + $1-2k, pre-reg top 1-2 (notes/trading_ways_survey.md)  [DONE 11-19: nothing doubles; promos/RSA/odd-lot = small one-offs]
 - altdata_kpi -- census + pre-reg of JBLU / foot traffic / card spend / TikTok Shop / SPR series (notes/altdata_kpi.md)  [DONE 11-19: dead, Carbon Arc paywalled]

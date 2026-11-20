@@ -427,3 +427,10 @@ confirm home state (CA vs CO) for venue legality.
   diff +0.33 [-8.68,+9.87]; Brier model - mid +0.00175 -> no fighter info beyond price. Retired ufc_mov_m1_t60-844fbeb5.
 - KXTSAD daily TSA: far rungs one-sided (ask-only .15 avg, settled YES 1.6%) but the cheap side is unquoted -> no taker trade;
   41 events, ~14 maker fills in 28 dev days -> unpowered; sibling tsa_t2_maker already dead. Not pursued.
+
+### derived_ladders (merged 2026-11-20, notes/derived_ladders.md, results/derived_ladders/) -- DEAD
+- 698 Kalshi secondary sports series censused; 41 quoted. T-60 spreads mostly .01-.03. Only ~2 months of pre-game quotes
+  exist (historical cutoff 2026-09-19). 339 shape cells examined: 32 CI-excl-0 vs ~17 by chance; excess = wide-spread series
+  + whole-ladder level drift over weeks, not shape. Soccer correct score calibrated (.055 vs .052).
+- NFLUP (YES on 2+ rungs of pass TDs / player TDs, ask .05-.30): dev n480 ROI -19.3% [-41.4,+5.0]; 1+ control -17.1% -> KILL,
+  retired nflup_upper_rungs_t60-4e8e6ef1. Implication: KFG1's +5% placebo is likely window drift too; its forward paper decides.

@@ -1,0 +1,173 @@
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 67, 'occ-3h': 52}
+KXEPLCORNERS events 119 with start 119 | occ-3h minus start (min): {'count': 67.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 70 of 119
+done KXEPLCORNERS
+ESPN agreement |occ-3h - start| <= 5 min: 0.982 | how: {'espn': 718, 'occ-3h': 90}
+KXNBA1HTOTAL events 808 with start 713 | occ-3h minus start (min): {'count': 282.0, 'mean': -1.1, 'std': 31.3, 'min': -510.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 88.1}
+live-src events 285 of 808
+0 KXNBA1HTOTAL-26OCT03MIATOR 11
+50 KXNBA1HTOTAL-26OCT15OKCHOU 11
+100 KXNBA1HTOTAL-26OCT25INDBKN 19
+150 KXNBA1HTOTAL-26OCT31OKCHOU 19
+200 KXNBA1HTOTAL-26NOV07HOUPHX 19
+250 KXNBA1HTOTAL-26NOV14CHIMIN 19
+done KXNBA1HTOTAL
+ESPN agreement |occ-3h - start| <= 5 min: 0.983 | how: {'espn': 673, 'occ-3h': 78}
+KXNBATEAMTOTAL events 751 with start 655 | occ-3h minus start (min): {'count': 229.0, 'mean': -7.6, 'std': 57.4, 'min': -510.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 222 of 751
+0 KXNBATEAMTOTAL-26OCT20BOSDET 38
+50 KXNBATEAMTOTAL-26OCT26MEMUTA 40
+100 KXNBATEAMTOTAL-26NOV02SACDAL 43
+150 KXNBATEAMTOTAL-26NOV09INDDAL 42
+200 KXNBATEAMTOTAL-26NOV16HOUMIA 41
+done KXNBATEAMTOTAL
+ESPN agreement |occ-3h - start| <= 5 min: 0.996 | how: {'espn': 1156, 'occ-3h': 78}
+KXNBA3PT events 1234 with start 1033 | occ-3h minus start (min): {'count': 230.0, 'mean': -2.2, 'std': 33.6, 'min': -510.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 222 of 1234
+0 KXNBA3PT-26OCT20BOSDET 41
+50 KXNBA3PT-26OCT26MEMUTA 51
+100 KXNBA3PT-26NOV02SACDAL 54
+150 KXNBA3PT-26NOV09INDDAL 49
+200 KXNBA3PT-26NOV16HOUMIA 59
+done KXNBA3PT
+ESPN agreement |occ-3h - start| <= 5 min: 0.959 | how: {'occ-3h': 376, 'espn': 320}
+KXNCAAF1HTOTAL events 696 with start 696 | occ-3h minus start (min): {'count': 320.0, 'mean': -1.4, 'std': 23.1, 'min': -210.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 180.0}
+live-src events 621 of 696
+0 KXNCAAF1HTOTAL-26SEP11NORFUVA 15
+50 KXNCAAF1HTOTAL-26SEP12NAVYFAU 15
+100 KXNCAAF1HTOTAL-26SEP19FSUALA 14
+150 KXNCAAF1HTOTAL-26SEP26BALLKENT 14
+200 KXNCAAF1HTOTAL-26OCT02PITTVT 13
+250 KXNCAAF1HTOTAL-26OCT03BAYASU 14
+300 KXNCAAF1HTOTAL-26OCT10CCARMRSH 15
+350 KXNCAAF1HTOTAL-26OCT17TLSARICE 13
+400 KXNCAAF1HTOTAL-26OCT24BGSUBUFF 14
+450 KXNCAAF1HTOTAL-26OCT31MRSHODU 13
+500 KXNCAAF1HTOTAL-26NOV07UCLAMINN 13
+550 KXNCAAF1HTOTAL-26NOV10WMUAKR 14
+600 KXNCAAF1HTOTAL-26NOV14LOUUNC 15
+done KXNCAAF1HTOTAL
+ESPN agreement |occ-3h - start| <= 5 min: 0.982 | how: {'espn': 719, 'occ-3h': 92}
+KXNBA1HSPREAD events 811 with start 716 | occ-3h minus start (min): {'count': 283.0, 'mean': -1.1, 'std': 31.2, 'min': -510.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 87.8}
+live-src events 288 of 811
+0 KXNBA1HSPREAD-26OCT03MIATOR 11
+50 KXNBA1HSPREAD-26OCT14PHXSAS 12
+100 KXNBA1HSPREAD-26OCT24NOPDEN 19
+150 KXNBA1HSPREAD-26OCT31CLEMIL 19
+200 KXNBA1HSPREAD-26NOV07NYKCLE 19
+250 KXNBA1HSPREAD-26NOV14DALCLE 19
+done KXNBA1HSPREAD
+ESPN agreement |occ-3h - start| <= 5 min: 0.96 | how: {'occ-3h': 376, 'espn': 321}
+KXNCAAF1HSPREAD events 697 with start 697 | occ-3h minus start (min): {'count': 321.0, 'mean': -1.4, 'std': 23.0, 'min': -210.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 180.0}
+live-src events 622 of 697
+0 KXNCAAF1HSPREAD-26SEP11NORFUVA 23
+50 KXNCAAF1HSPREAD-26SEP12NAVYFAU 21
+100 KXNCAAF1HSPREAD-26SEP19FSUALA 22
+150 KXNCAAF1HSPREAD-26SEP26BALLKENT 21
+200 KXNCAAF1HSPREAD-26OCT02PITTVT 21
+250 KXNCAAF1HSPREAD-26OCT03BAYASU 21
+300 KXNCAAF1HSPREAD-26OCT10UABMEM 23
+350 KXNCAAF1HSPREAD-26OCT17TLSARICE 21
+400 KXNCAAF1HSPREAD-26OCT24OKLAMSST 21
+450 KXNCAAF1HSPREAD-26OCT31MRSHODU 21
+500 KXNCAAF1HSPREAD-26NOV07BYUUTAH 21
+550 KXNCAAF1HSPREAD-26NOV10WMUAKR 21
+600 KXNCAAF1HSPREAD-26NOV14MINNPSU 22
+done KXNCAAF1HSPREAD
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 165, 'occ-3h': 57}
+KXNBAWINMARGIN events 222 with start 222 | occ-3h minus start (min): {'count': 165.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 222 of 222
+0 KXNBAWINMARGIN-26OCT20BOSDET 8
+50 KXNBAWINMARGIN-26OCT26MEMUTA 8
+100 KXNBAWINMARGIN-26NOV02SACDAL 8
+150 KXNBAWINMARGIN-26NOV09INDDAL 8
+200 KXNBAWINMARGIN-26NOV16HOUMIA 8
+done KXNBAWINMARGIN
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 56, 'occ-3h': 44}
+KXEPLSCORE events 100 with start 100 | occ-3h minus start (min): {'count': 56.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 70 of 100
+0 KXEPLSCORE-26SEP12AVLNFO 27
+50 KXEPLSCORE-26OCT31CFCMUN 34
+done KXEPLSCORE
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 67, 'occ-3h': 52}
+KXLALIGASCORE events 119 with start 119 | occ-3h minus start (min): {'count': 67.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 77 of 119
+0 KXLALIGASCORE-26SEP12SANALA 30
+50 KXLALIGASCORE-26OCT24VCFVIL 29
+done KXLALIGASCORE
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'occ-3h': 51, 'espn': 30}
+KXBUNDESLIGASCORE events 81 with start 81 | occ-3h minus start (min): {'count': 30.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 62 of 81
+0 KXBUNDESLIGASCORE-26SEP12BVBPAD 30
+50 KXBUNDESLIGASCORE-26OCT31BMUBVB 30
+done KXBUNDESLIGASCORE
+ESPN agreement |occ-3h - start| <= 5 min: 0.952 | how: {'occ-3h': 69, 'espn': 21}
+KXLIGUE1SCORE events 90 with start 90 | occ-3h minus start (min): {'count': 21.0, 'mean': -0.7, 'std': 3.3, 'min': -15.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 62 of 90
+0 KXLIGUE1SCORE-26SEP12RCSASM 30
+50 KXLIGUE1SCORE-26NOV01OLANG 30
+done KXLIGUE1SCORE
+ESPN agreement |occ-3h - start| <= 5 min: 0.969 | how: {'espn': 255, 'occ-3h': 37}
+KXMLSSCORE events 292 with start 292 | occ-3h minus start (min): {'count': 255.0, 'mean': -1.8, 'std': 12.4, 'min': -136.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 153 of 292
+0 KXMLSSCORE-26SEP12CINCLT 30
+50 KXMLSSCORE-26OCT10NESEA 30
+100 KXMLSSCORE-26OCT24SKCATX 30
+150 KXMLSSCORE-26NOV07SDSKC 30
+done KXMLSSCORE
+ESPN agreement |occ-3h - start| <= 5 min: 0.987 | how: {'espn': 1124, 'occ-3h': 78}
+KXNBA2D events 1202 with start 1012 | occ-3h minus start (min): {'count': 231.0, 'mean': -5.7, 'std': 50.3, 'min': -510.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 222 of 1202
+0 KXNBA2D-26OCT20BOSDET 4
+50 KXNBA2D-26OCT26GSWDEN 2
+100 KXNBA2D-26NOV02UTASAS 13
+150 KXNBA2D-26NOV09DENHOU 14
+200 KXNBA2D-26NOV16PHIBKN 12
+done KXNBA2D
+ESPN agreement |occ-3h - start| <= 5 min: 0.996 | how: {'espn': 795, 'occ-3h': 78}
+KXNBASTL events 873 with start 755 | occ-3h minus start (min): {'count': 230.0, 'mean': 0.3, 'std': 5.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 76.4}
+live-src events 221 of 873
+0 KXNBASTL-26OCT20BOSDET 20
+50 KXNBASTL-26OCT27BKNBOS 25
+100 KXNBASTL-26NOV02BOSHOU 15
+150 KXNBASTL-26NOV09SASPHX 23
+200 KXNBASTL-26NOV16GSWNOP 30
+done KXNBASTL
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 721, 'occ-3h': 78}
+KXNBABLK events 799 with start 694 | occ-3h minus start (min): {'count': 224.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 215 of 799
+0 KXNBABLK-26OCT20BOSDET 17
+50 KXNBABLK-26OCT27BKNBOS 10
+100 KXNBABLK-26NOV02PHXGSW 7
+150 KXNBABLK-26NOV10BOSPHI 11
+200 KXNBABLK-26NOV17PORMIN 10
+done KXNBABLK
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 168, 'occ-3h': 58}
+KXNBAPRA events 226 with start 226 | occ-3h minus start (min): {'count': 168.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 226 of 226
+0 KXNBAPRA-26OCT20BOSDET 19
+50 KXNBAPRA-26OCT26MEMUTA 20
+100 KXNBAPRA-26NOV02NOPMEM 47
+150 KXNBAPRA-26NOV09INDDAL 26
+200 KXNBAPRA-26NOV16PHIBKN 39
+done KXNBAPRA
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 168, 'occ-3h': 63}
+KXNBA1QTOTAL events 231 with start 231 | occ-3h minus start (min): {'count': 168.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 226 of 231
+0 KXNBA1QTOTAL-26OCT20BOSDET 13
+50 KXNBA1QTOTAL-26OCT26MEMUTA 13
+100 KXNBA1QTOTAL-26NOV02NOPMEM 13
+150 KXNBA1QTOTAL-26NOV09INDDAL 13
+200 KXNBA1QTOTAL-26NOV16PHIBKN 13
+done KXNBA1QTOTAL
+ESPN agreement |occ-3h - start| <= 5 min: 0.0 | how: {'espn': 1159}
+KXNCAAMB1HWINNER events 1159 with start 916 | occ-3h minus start (min): {'count': 0.0, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}
+live-src events 0 of 1159
+done KXNCAAMB1HWINNER
+ESPN agreement |occ-3h - start| <= 5 min: 1.0 | how: {'espn': 67, 'occ-3h': 52}
+KXLALIGACORNERS events 119 with start 119 | occ-3h minus start (min): {'count': 67.0, 'mean': 0.0, 'std': 0.0, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.0, 'max': 0.0}
+live-src events 77 of 119
+0 KXLALIGACORNERS-26SEP12SANALA 5
+50 KXLALIGACORNERS-26OCT24VCFVIL 5
+done KXLALIGACORNERS
+BATCHDONE
