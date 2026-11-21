@@ -148,6 +148,10 @@
      "outputs": [{"glob": "$S/data/tickets/*.md", "max_gap_h": 26}]},
     {"job": "tsa (E1X-T paper)", "label": "quant-sports-tsa", "qs": "tsa",
      "outputs": [{"path": "$S/data/e1x/tsa_paper.jsonl", "max_gap_h": 192}]},
+    {"job": "kfg1 (KFG1 FG paper + exp_exec live $2)", "label": "quant-sports-kfg1", "qs": "kfg1", "logs": ["$S/logs/kfg1.log"], "stderr": ["$S/logs/launchd-kfg1.err"],
+     "outputs": [{"path": "$S/state/kfg1_heartbeat", "max_gap_h": 1}]},
+    {"job": "source-shift (settlement-source watcher)", "label": "quant-sports-source-shift", "qs": "source-shift", "logs": ["$S/logs/source-shift.log"], "stderr": ["$S/logs/launchd-source-shift.err"],
+     "outputs": [{"path": "$S/data/source_shift/snapshots.jsonl", "max_gap_h": 3, "ts": "ts"}]},
     {"job": "health-monitor (this job)", "label": "quant-sports-health", "logs": ["$S/logs/health.log"], "stderr": ["$S/logs/launchd-health.out"]}
   ]
 }

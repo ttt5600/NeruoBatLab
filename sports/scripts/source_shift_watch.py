@@ -279,6 +279,12 @@ def aaa(state: dict) -> dict:
     dec = len(rows["Current"][0].split(".")[1])
     fmt_change(state, "aaa", {"decimals": dec, "grades": head, "rows": sorted(rows)}, "precision / grades / rows")
     reg = {k: float(v[0]) for k, v in rows.items()}
+    # Rollover guard (2026-11-21 08:30Z false REVISION): around AAA's ~03:16-03:30 ET update the page can show the NEW
+    # "Price as of" date with the PREVIOUS day's numbers. Same rows under a newer date = stale page: record nothing.
+    last = state.get("aaa_last") or {}
+    if last.get("rows") == rows and last.get("asof") and asof.isoformat() > last["asof"]:
+        return {"asof": asof.isoformat(), "stale_rollover": True, "decimals": dec, "grades": head, "rows": rows}
+    state["aaa_last"] = {"asof": asof.isoformat(), "rows": rows}
     revised(state, "aaa_regular", asof.isoformat(), reg["Current"], tol=0.00005)
     if "Yesterday" in reg:  # yesterday's print as shown today vs what we logged yesterday as Current
         revised(state, "aaa_regular", (asof - timedelta(days=1)).isoformat(), reg["Yesterday"], tol=0.00005)
