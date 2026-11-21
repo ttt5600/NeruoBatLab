@@ -1,0 +1,94 @@
+series traded in week 1565 markets 221540
+KXBTC15M bound 1796460048 tail30 199740576 calls 27 total 27 sampled False 43 s
+KXATPCHALLENGERMATCH bound 269518834 tail30 33060276 calls 30 total 57 sampled True 24 s
+KXNBAGAME bound 268915123 tail30 35849469 calls 12 total 69 sampled False 16 s
+KXNCAAFGAME bound 236889003 tail30 31089705 calls 18 total 87 sampled False 27 s
+KXNFLGAME bound 236094617 tail30 33420155 calls 5 total 92 sampled False 3 s
+KXBTCD bound 196967950 tail30 32874732 calls 32 total 124 sampled True 74 s
+KXNCAAMBGAME bound 162667259 tail30 26500059 calls 31 total 155 sampled True 62 s
+KXGOLD15M bound 142912830 tail30 16652134 calls 19 total 174 sampled False 24 s
+KXITFMATCH bound 118999725 tail30 17885436 calls 30 total 204 sampled True 35 s
+KXETH15M bound 107569708 tail30 13130505 calls 27 total 231 sampled False 20 s
+KXITFWMATCH bound 100138937 tail30 16151040 calls 31 total 262 sampled True 21 s
+KXNCAAFSPREAD bound 83111483 tail30 3086443 calls 31 total 293 sampled True 39 s
+series traded in week 1565 markets 221540
+KXNFLSPREAD bound 72971286 tail30 4582072 calls 19 total 312 sampled False 60 s
+KXXRP15M bound 72555064 tail30 9261322 calls 20 total 332 sampled True 31 s
+KXUEFANLGAME bound 69584169 tail30 11847400 calls 10 total 342 sampled False 15 s
+KXSOL15M bound 52647082 tail30 6301923 calls 20 total 362 sampled True 48 s
+KXUFCFIGHT bound 52073509 tail30 3856641 calls 3 total 365 sampled False 4 s
+KXNCAAMBSPREAD bound 51088205 tail30 3080706 calls 20 total 385 sampled True 42 s
+KXNBASPREAD bound 48212829 tail30 3694916 calls 21 total 406 sampled True 37 s
+KXNCAAFTOTAL bound 47938659 tail30 2694727 calls 20 total 426 sampled True 54 s
+KXNCAAMBTOTAL bound 47505183 tail30 2289201 calls 19 total 445 sampled True 38 s
+WARN KXNFLTD no rest sampled; rest events 4
+KXNFLTD bound 42466372 tail30 7238918 calls 25 total 470 sampled True 51 s
+SENATEAK bound 38360415 tail30 462519 calls 1 total 471 sampled False 3 s
+KXNBATOTAL bound 36974105 tail30 3101052 calls 21 total 492 sampled True 68 s
+KXNHLGAME bound 36727264 tail30 3060988 calls 12 total 504 sampled False 22 s
+KXWTI15M bound 35571591 tail30 4470276 calls 21 total 525 sampled True 38 s
+KXATPMATCH bound 31477727 tail30 7017173 calls 7 total 532 sampled False 21 s
+KXDOGE15M bound 30482007 tail30 3595696 calls 20 total 552 sampled True 48 s
+series traded in week 1565 markets 221540
+KXNFLTOTAL bound 28789434 tail30 2042926 calls 7 total 559 sampled True 26 s
+WARN KXNBAPTS no rest sampled; rest events 49
+KXNBAPTS bound 27401102 tail30 338926 calls 8 total 567 sampled True 12 s
+KXNCAAWBGAME bound 26106894 tail30 7806596 calls 7 total 574 sampled True 7 s
+KXHYPE15M bound 25894544 tail30 2824807 calls 8 total 582 sampled True 33 s
+KXINTLFRIENDLYGAME bound 24155461 tail30 5130087 calls 8 total 590 sampled True 16 s
+KXPGATOUR bound 24096187 tail30 3901700 calls 9 total 599 sampled True 17 s
+series traded in week 1565 markets 221540
+KXSILVER15M bound 23967524 tail30 2669737 calls 8 total 607 sampled True 16 s
+KXZEC15M bound 23008314 tail30 2822484 calls 8 total 615 sampled True 12 s
+KXCONCACAFNLGAME bound 22958050 tail30 5101872 calls 8 total 623 sampled False 10 s
+KXNEAR15M bound 19469441 tail30 2448975 calls 8 total 631 sampled True 34 s
+KXWTACHALLENGERMATCH bound 18946218 tail30 2647831 calls 8 total 639 sampled True 14 s
+KXBNB15M bound 18163187 tail30 1970842 calls 8 total 647 sampled True 18 s
+KXUFCMOV bound 17360642 tail30 3968430 calls 5 total 652 sampled False 13 s
+WARN KXNFLRECYDS no rest sampled; rest events 11
+KXNFLRECYDS bound 13428948 tail30 534302 calls 21 total 673 sampled True 39 s
+KXCS2GAME bound 12655543 tail30 1004707 calls 8 total 681 sampled True 7 s
+KXUEFANLTOTAL bound 12134662 tail30 1711176 calls 8 total 689 sampled True 6 s
+KXNFLFIRSTTD bound 11436599 tail30 3225131 calls 8 total 697 sampled True 29 s
+KXODIMATCH bound 11275437 tail30 1556341 calls 6 total 703 sampled False 11 s
+WARN KXNFLRSHYDS no rest sampled; rest events 11
+KXNFLRSHYDS bound 10757777 tail30 447055 calls 10 total 713 sampled True 26 s
+KXNFLPASSYDS bound 10488696 tail30 853268 calls 8 total 721 sampled True 15 s
+KXUCLWGAME bound 10417100 tail30 2519142 calls 3 total 724 sampled False 8 s
+KXCONCACAFNLADVANCE bound 10338197 tail30 2685520 calls 4 total 728 sampled False 2 s
+WARN KXNBAREB no rest sampled; rest events 49
+KXNBAREB bound 9546527 tail30 110085 calls 8 total 736 sampled True 10 s
+KXNATGAS15M bound 9526619 tail30 1426991 calls 8 total 744 sampled True 7 s
+KXWT20MATCH bound 9207339 tail30 1448376 calls 8 total 752 sampled True 7 s
+KXNHLTOTAL bound 8941418 tail30 758860 calls 8 total 760 sampled True 7 s
+KXNCAAF1HSPREAD bound 8869355 tail30 769050 calls 8 total 768 sampled True 5 s
+KXBRASILEIROGAME bound 8571517 tail30 1657848 calls 4 total 772 sampled False 9 s
+KXESOCCERGAME bound 7970344 tail30 1073123 calls 8 total 780 sampled True 5 s
+KXNFL1HSPREAD bound 7836577 tail30 395545 calls 8 total 788 sampled True 8 s
+WARN KXNBA3PT no rest sampled; rest events 49
+KXNBA3PT bound 7701372 tail30 105033 calls 10 total 798 sampled True 10 s
+WARN KXNBAAST no rest sampled; rest events 49
+KXNBAAST bound 7350048 tail30 92677 calls 8 total 806 sampled True 9 s
+KXT20MATCH bound 7014825 tail30 1143992 calls 8 total 814 sampled True 7 s
+KXAFCONGAME bound 6963371 tail30 1293492 calls 7 total 821 sampled False 5 s
+KXWTAMATCH bound 6947766 tail30 1056154 calls 4 total 825 sampled False 2 s
+KXFEATURE bound 6885107 tail30 1083775 calls 3 total 828 sampled False 4 s
+KXMIDTERMMOV bound 6829763 tail30 7491 calls 9 total 837 sampled True 8 s
+KXBUNDESLIGAGAME bound 6485132 tail30 1137136 calls 2 total 839 sampled False 1 s
+KXNCAAWBTOTAL bound 6401121 tail30 339635 calls 8 total 847 sampled True 6 s
+KXNBA1HSPREAD bound 6102578 tail30 435510 calls 8 total 855 sampled True 5 s
+WARN KXNFLREC no rest sampled; rest events 11
+KXNFLREC bound 6085544 tail30 233749 calls 14 total 869 sampled True 13 s
+KXINTLFRIENDLYTOTAL bound 6061793 tail30 945573 calls 8 total 877 sampled True 7 s
+KXCONCACAFNLTOTAL bound 6012199 tail30 677910 calls 8 total 885 sampled True 4 s
+KXNCAAF1HTOTAL bound 5592218 tail30 486001 calls 8 total 893 sampled True 6 s
+KXETHD bound 5583115 tail30 982563 calls 8 total 901 sampled True 6 s
+KXATPSETWINNER bound 5563764 tail30 774630 calls 8 total 909 sampled False 14 s
+KXEBASKETBALLGAME bound 5484027 tail30 649581 calls 8 total 917 sampled True 7 s
+KXCOPPER15M bound 5431915 tail30 1020013 calls 8 total 925 sampled True 8 s
+KXNBA1HTOTAL bound 5212800 tail30 505549 calls 8 total 933 sampled True 7 s
+KXCS2MAP bound 5182283 tail30 422564 calls 8 total 941 sampled True 9 s
+KXLOLGAME bound 5124491 tail30 299296 calls 2 total 943 sampled False 2 s
+KXLALIGA2GAME bound 5100987 tail30 884777 calls 5 total 948 sampled False 5 s
+STOP: bound 4981357 < MINB 5000000.0 at KXBTC
+done; calls 948

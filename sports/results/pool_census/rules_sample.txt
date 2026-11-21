@@ -1,0 +1,45 @@
+== KXATPCHALLENGERMATCH KXATPCHALLENGERMATCH-26NOV20HASWAT-WAT 2026-11-20T15:21:00Z 2026-11-21T04:54:43Z 2026-11-21T06:10:00Z 2026-11-21T04:56:44.20281Z
+P: If Yosuke Watanuki wins the Hassan vs Watanuki professional tennis match in the 2026 ATP Challenger Kobe Semifinal after a ball has been played, then the market resolves to Yes.
+S: The following market refers to the Hassan vs Watanuki professional tennis match in the 2026 ATP Challenger Kobe Semifinal after a ball has been played. If the match does not occur (signaled by a ball being played) due to a player injury, walkover, forfeiture, or any other cancellation (all before the match starts), the market will resolve to a fair price in accordance with the rules. If this match is postponed or delayed, the market will remain open and close after the rescheduled match has finished (within two weeks).
+
+Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.
+early: This market will close and expire after a winner is declared. 60
+== KXITFMATCH KXITFMATCH-26NOV20PLUMAL-PLU 2026-11-20T12:42:00Z 2026-11-21T06:20:08Z 2026-11-21T10:30:00Z 2026-11-21T06:22:09.262371Z
+P: If Manuel Plunger wins the Plunger vs Malaszszak professional tennis match in the 2026 M15 Hua Hin Semifinal after a ball has been played, then the market resolves to Yes.
+S: The following market refers to the Plunger vs Malaszszak professional tennis match in the 2026 M15 Hua Hin Semifinal after a ball has been played. If the match does not occur (signaled by a ball being played) due to a player injury, walkover, forfeiture, or any other cancellation (all before the match starts), all markets will resolve to $0.50. If a player withdraws or forfeits after a match has started, that player will resolve to No. If this match is postponed or delayed, the market will remain open and close after the rescheduled match has finished (within two weeks).
+
+Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.
+early: This market will close and expire after a winner is declared. 60
+== KXESOCCERGAME KXESOCCERGAME-26NOV210056LUCYQUIN-TIE 2026-11-21T03:13:00Z 2026-11-21T06:10:22Z 2026-11-21T08:56:00Z 2026-11-21T06:14:24.195688Z
+P: If Manchester City (Quinnie) and Spurs (Lucy) tie in the Spurs (Lucy) vs Manchester City (Quinnie) professional Valkyrie Cup 2026 Week #47 eSoccer match originally scheduled for Nov 21, 2026 at 12:56 AM EST, then the market resolves to Yes.
+S: This market is based on the outcome after 90 minutes plus stoppage time. This does not include extra time or penalties. If the match is cancelled or postponed more than 2 weeks from its originally scheduled start, all markets will resolve to $0.33. If the match is postponed but begins within 2 weeks of its originally scheduled start time, the market will remain open and resolve based on the official final result.
+
+Kalshi is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Governing League. All trademarks, logos, and brand names are the property of their respective owners.
+early: This market will close and expire after a winner is declared. 180
+== KXGBPUSD15M KXGBPUSD15M-26NOV201700-30 2026-11-20T21:45:00Z 2026-11-20T22:00:00Z 2026-11-20T22:00:14.395484Z greater_or_equal 1.30781 1.30850
+P: If the value of the GBP/USD exchange rate is at least the value of the GBP/USD exchange rate as published by Pyth Network at 4:45 PM EST on November 20, 2026 At 5:00 PM EST on Nov 20, 2026, then the market resolves to Yes.
+S: The market resolves based on the Close price of the GBP/USD exchange rate as published by Pyth Network At 5:00 PM EST on Nov 20, 2026. The Target Price of the value of the GBP/USD exchange rate as published by Pyth Network at 4:45 PM EST on November 20, 2026 equals the value of the GBP/USD exchange rate as published by Pyth Network at the opening of the 15-minute window. "Above" means strictly greater than (>). Revisions to the Underlying made after Expiration will not be accounted for in determining the Expiration Value.
+
+Rounding to 5 decimal places shall be assumed unless otherwise specified.
+
+If an Expiration Value cannot be determined at the specified time, the market may be resolved pursuant to the Market Outcome Review Process under Rule 7.1, including by reference to a substantially equivalent replacement feed published by the Source Agency.
+== KXINX15M KXINX15M-26NOV201600-00 2026-11-20T20:45:00Z 2026-11-20T21:00:00Z 2026-11-20T21:00:24.144497Z greater_or_equal 6915.14 6918.45
+P: If the value of the S&P 500 index, as calculated by S&P Dow Jones Indices, on Nov 20, 2026 at 4:00 PM EST is at least the close price of the 1-minute candlestick for the S&P 500 at 3:45 PM EST on November 20, 2026, then the market resolves to Yes.
+S: Source Agencies (in priority order): S&P Dow Jones Indices, Pyth Network (official S&P 500 feeds), Bloomberg, WSJ, TradingView, Yahoo Finance, CNBC. If sources conflict, this order governs; any remaining dispute is resolved by Kalshi under Rule 7.1.
+
+What counts as the S&P 500 value:
+Only the index level calculated by S&P Dow Jones Indices, to two decimal places.
+ETFs, futures, options, perpetuals, and constituent stock prices do not count.
+If no time of day is specified, the official closing value for each trading day is used. Intraday, open, high/low, and pre-/after-hours values do not count.
+
+Trading days:
+Only days with an official S&P 500 close count (Eastern Time). Weekends and market holidays are ignored.
+On early closes or halts (including circuit breakers), the official close designated by S&P Dow Jones Indices governs.
+
+Index changes:
+Changes to constituents, weightings, diviso
+== KXUFCFIGHT KXUFCFIGHT-26NOV14COSGOR-GOR 2026-11-11T16:35:00Z 2026-11-15T00:04:43Z 2026-11-15T00:10:44.652345Z structured None Melquizael Costa
+P: If Jared Gordon  wins the Melquizael Costa vs Jared Gordon professional MMA fight originally scheduled for Nov 14, 2026, then the market resolves to Yes.
+S: If the fight ends in a draw/no contest, both markets will resolve to $0.50. Note that any revisions after Expiration will not be considered. Therefore, if a fighter is disqualified, removed, or the official result of the fight is reversed or changed in any way after the Contract expires, that will not impact resolution. If the fight is postponed but begins within 48 hours of its originally scheduled start time, the market will remain open and resolve based on the official final result. If the fight is cancelled or not started within 48 hours of its originally scheduled start, both markets will resolve to a fair price.
+
+This market and these products have not been endorsed by Zuffa LLC, d/b/a Ultimate Fighting Championship, UFC. Any references to the “UFC,” or any other associated marks are descriptive only, and do not indicate an endorsement of this product or any affiliation between Zuf

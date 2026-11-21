@@ -1,0 +1,57 @@
+done 10 calls 10 s
+KXTSAW 210
+done 29 calls 41 s
+KXHIGHNY 174
+done 30 calls 38 s
+KXHIGHCHI 180
+done 29 calls 25 s
+KXHIGHMIA 174
+done 30 calls 53 s
+KXHIGHAUS 180
+done 30 calls 25 s
+KXHIGHDEN 180
+done 30 calls 37 s
+KXHIGHLAX 180
+done 29 calls 28 s
+KXHIGHPHIL 174
+done 29 calls 21 s
+KXHIGHTATL 174
+done 29 calls 44 s
+KXHIGHTBOS 174
+done 29 calls 35 s
+KXTSAD 453
+done 11 calls 7 s
+KXTOKENUSE 141
+done 10 calls 15 s
+KXANTHSHARE 90
+done 10 calls 9 s
+KXGOOGSHARE 90
+done 1 calls 0 s
+KXCBDECISIONCANADA 5
+done 10 calls 11 s
+KXNETFLIXTOPVIEWSMOVIE 110
+done 10 calls 15 s
+KXNETFLIXRANKSHOW 122
+done 12 calls 12 s
+KXEOWEEK 32
+done 10 calls 24 s
+KXTRUMPNOMNUM 37
+50 calls 72 s
+100 calls 155 s
+150 calls 224 s
+200 calls 290 s
+Traceback (most recent call last):
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/pool_census/validate_p2.py", line 25, in <module>
+    cp.run(mk, str(out))
+    ~~~~~~^^^^^^^^^^^^^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/pool_census/candle_pool.py", line 85, in run
+    for per, lst in by_per.items():
+                    ^^^^^^^^^^^^^^^
+        lst.sort(key=lambda x: (x[0], x[1]))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/scripts/kx_throttle.py", line 62, in kget
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/.venv_quant/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 429 Client Error: Too Many Requests for url: https://api.elections.kalshi.com/trade-api/v2/markets/candlesticks?market_tickers=KXNFLFG-26OCT04DALHOU-HOU2&start_ts=1790533260&end_ts=1791138060&period_interval=60

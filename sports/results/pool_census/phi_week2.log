@@ -1,0 +1,14 @@
+KXUSDCAD15M 5 7 trunc 0 phi_tail 0.484 phi_mirror 0.546 n 4360
+KXGBPUSD15M 5 7 trunc 0 phi_tail 0.673 phi_mirror 0.434 n 4265
+KXINX15M 5 7 trunc 0 phi_tail 0.564 phi_mirror 0.544 n 4861
+KXAAAGASD 5 8 trunc 0 phi_tail 0.452 phi_mirror 0.741 n 5881
+KXRT 4 9 trunc 0 phi_tail 0.484 phi_mirror 0.683 n 7538
+KXTEMPNYCHS 5 5 trunc 0 phi_tail 0.186 phi_mirror 0.882 n 3564
+KXHIGHNY 5 14 trunc 4 phi_tail 0.4 phi_mirror 0.383 n 13777
+KXHIGHLAX 5 12 trunc 0 phi_tail 0.414 phi_mirror 0.573 n 9232
+KX30YRRATE15M 5 5 trunc 0 phi_tail 0.543 phi_mirror 0.004 n 1689
+KXDWTSELIMINATION 4 12 trunc 4 phi_tail 0.424 phi_mirror 0.893 n 12000
+KXGOLDH 5 5 trunc 0 phi_tail 0.184 phi_mirror 0.752 n 767
+KXAUDUSD15M 5 5 trunc 0 phi_tail 0.42 phi_mirror 0.507 n 2683
+KXHIGHMIA 4 6 trunc 0 phi_tail 0.213 phi_mirror 0.722 n 3888
+KXHIGHCHI 3 4 trunc 0 phi_tail 0.432 phi_mirror None n 2987

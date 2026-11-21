@@ -22,7 +22,7 @@ orders; money changes stay with the user.
 - winners_transfer -- compete-winner lessons (C1-C26, DGP, headroom) + profitable-trader prior art -> 10 ideas, run 1-2 probes (notes/winners_transfer.md)  [DONE 11-21: P1-P4; top idea daily gas]
 - e4_data_v2 -- E4 headroom, CLI data-generating process, multi-year forecast backfill + calibrated distribution (notes/e4_data_v2.md)
 - gas_daily_v2 -- KXAAAGASD sharper nowcast (largest untested pool) (notes/gas_daily_v2.md)  [DONE 11-21: G2 dead; book reads intraday source]
-- pool_census -- loser-paid pool for every Kalshi series, top-40 map + 3 untested DGP write-ups (notes/pool_census.md)
+- pool_census -- loser-paid pool for every Kalshi series, top-40 map + 3 untested DGP write-ups (notes/pool_census.md)  [DONE 11-21: money = in-play sports + 15m crypto; next eSoccer calib + tennis pre-match]
 - vercel_share -- Vercel AI Gateway / OpenRouter share series nowcast (notes/vercel_share.md)
 - source_shift -- base rate of exchange following old vs new settlement definitions + source_shift_watch.py (notes/source_shift.md)
 - trading_ways_survey -- all non-PM retail trading strategies ranked for CA + $1-2k, pre-reg top 1-2 (notes/trading_ways_survey.md)  [DONE 11-19: nothing doubles; promos/RSA/odd-lot = small one-offs]

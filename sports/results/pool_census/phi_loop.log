@@ -1,0 +1,96 @@
+KXBTC15M 3 14 trunc 3 phi_tail 0.366 phi_mirror None n 14000
+KXATPCHALLENGERMATCH 3 14 trunc 3 phi_tail 0.506 phi_mirror None n 14000
+KXNBAGAME 3 14 trunc 3 phi_tail 0.421 phi_mirror None n 14000
+KXNCAAFGAME 3 14 trunc 3 phi_tail 0.406 phi_mirror None n 14000
+KXNFLGAME 3 14 trunc 3 phi_tail 0.163 phi_mirror None n 14000
+KXBTCD 3 14 trunc 2 phi_tail 0.369 phi_mirror None n 13188
+KXNCAAMBGAME 3 14 trunc 3 phi_tail 0.476 phi_mirror None n 14000
+KXGOLD15M 3 14 trunc 3 phi_tail 0.573 phi_mirror None n 14000
+KXETH15M 3 14 trunc 3 phi_tail 0.546 phi_mirror None n 14000
+KXITFMATCH 3 14 trunc 2 phi_tail 0.341 phi_mirror None n 13134
+KXITFWMATCH 5 15 trunc 4 phi_tail 0.321 phi_mirror None n 14605
+KXNCAAFSPREAD 5 12 trunc 3 phi_tail 0.54 phi_mirror 0.191 n 10730
+KXNFLSPREAD 5 11 trunc 3 phi_tail 0.193 phi_mirror 0.983 n 9636
+KXUEFANLGAME 5 15 trunc 5 phi_tail 0.511 phi_mirror None n 15000
+KXXRP15M 5 15 trunc 5 phi_tail 0.502 phi_mirror 0.492 n 15000
+KXUFCFIGHT 4 12 trunc 4 phi_tail 0.523 phi_mirror 0.0 n 12000
+KXSOL15M 5 15 trunc 5 phi_tail 0.514 phi_mirror 0.501 n 15000
+KXNBASPREAD 5 13 trunc 3 phi_tail 0.428 phi_mirror 0.52 n 12621
+KXNCAAMBSPREAD 5 14 trunc 4 phi_tail 0.422 phi_mirror 0.363 n 13539
+KXNCAAFTOTAL 4 8 trunc 2 phi_tail 0.369 phi_mirror 0.72 n 6979
+KXNCAAMBTOTAL 5 15 trunc 3 phi_tail 0.498 phi_mirror 0.519 n 13884
+KXNFLTD 5 10 trunc 2 phi_tail 0.143 phi_mirror 0.983 n 8216
+SENATEAK 2 6 trunc 2 phi_tail 0.188 phi_mirror None n 6000
+KXNHLGAME 5 15 trunc 5 phi_tail 0.522 phi_mirror 0.264 n 15000
+KXNBATOTAL 5 12 trunc 2 phi_tail 0.588 phi_mirror 0.529 n 10072
+KXATPMATCH 3 9 trunc 3 phi_tail 0.68 phi_mirror None n 9000
+KXWTI15M 5 15 trunc 5 phi_tail 0.663 phi_mirror 0.54 n 15000
+Traceback (most recent call last):
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/pool_census/tape_phi.py", line 74, in <module>
+    main()
+    ~~~~^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/pool_census/tape_phi.py", line 62, in main
+    o, pg, tr = tape(x["ticker"], x["ws"], x["we"], x["result"], min(PPM, PPS - used))
+                ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/pool_census/tape_phi.py", line 24, in tape
+    d = kget("/markets/trades", p); pages += 1
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/scripts/kx_throttle.py", line 62, in kget
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/.venv_quant/lib/python3.14/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 429 Client Error: Too Many Requests for url: https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXDOGE15M-26NOV160900-00&min_ts=1794836700&max_ts=1794837600&limit=1000
+KXDOGE15M 5 15 trunc 4 phi_tail 0.347 phi_mirror 0.554 n 14783
+KXNCAAWBGAME 5 15 trunc 5 phi_tail 0.388 phi_mirror None n 15000
+KXNFLTOTAL 4 10 trunc 3 phi_tail 0.362 phi_mirror 0.161 n 9771
+KXNBAPTS 5 12 trunc 1 phi_tail 0.688 phi_mirror 0.183 n 9842
+KXCONCACAFNLGAME 5 15 trunc 5 phi_tail 0.496 phi_mirror None n 15000
+KXINTLFRIENDLYGAME 4 12 trunc 4 phi_tail 0.473 phi_mirror None n 12000
+KXPGATOUR 4 12 trunc 4 phi_tail 0.222 phi_mirror None n 12000
+KXSILVER15M 5 15 trunc 5 phi_tail 0.517 phi_mirror 0.409 n 15000
+KXHYPE15M 5 15 trunc 5 phi_tail 0.436 phi_mirror 0.576 n 15000
+KXUFCMOV 5 15 trunc 5 phi_tail 0.285 phi_mirror 0.0 n 15000
+KXWTACHALLENGERMATCH 5 15 trunc 5 phi_tail 0.509 phi_mirror 0.912 n 15000
+KXNFLRECYDS 5 5 trunc 0 phi_tail 0.394 phi_mirror 0.073 n 1271
+KXBNB15M 5 15 trunc 3 phi_tail 0.347 phi_mirror 0.496 n 13541
+KXZEC15M 5 15 trunc 5 phi_tail 0.568 phi_mirror 0.502 n 15000
+KXNFLFIRSTTD 5 13 trunc 2 phi_tail 0.04 phi_mirror 0.982 n 12749
+KXODIMATCH 4 12 trunc 3 phi_tail 0.461 phi_mirror None n 11103
+KXUEFANLTOTAL 5 11 trunc 0 phi_tail 0.657 phi_mirror 0.292 n 8196
+KXNFLRSHYDS 5 9 trunc 0 phi_tail 0.69 phi_mirror 0.011 n 7551
+KXNEAR15M 5 15 trunc 4 phi_tail 0.489 phi_mirror 0.504 n 14621
+KXWT20MATCH 3 9 trunc 1 phi_tail 0.449 phi_mirror 0.529 n 7985
+KXUCLWGAME 5 15 trunc 5 phi_tail 0.335 phi_mirror 0.438 n 15000
+KXCONCACAFNLADVANCE 5 15 trunc 5 phi_tail 0.262 phi_mirror None n 15000
+KXBRASILEIROGAME 5 15 trunc 5 phi_tail 0.504 phi_mirror None n 15000
+KXNFLPASSYDS 5 12 trunc 2 phi_tail 0.551 phi_mirror 0.073 n 10526
+KXAFCONGAME 5 15 trunc 2 phi_tail 0.387 phi_mirror 0.372 n 13081
+KXT20MATCH 5 15 trunc 5 phi_tail 0.5 phi_mirror 0.153 n 15000
+KXFEATURE 3 9 trunc 3 phi_tail 0.178 phi_mirror None n 9000
+KXWTAMATCH 3 9 trunc 3 phi_tail 0.462 phi_mirror None n 9000
+KXNHLTOTAL 5 12 trunc 2 phi_tail 0.616 phi_mirror 0.334 n 11028
+KXBUNDESLIGAGAME 3 9 trunc 3 phi_tail 0.37 phi_mirror 0.0 n 9000
+KXCONCACAFNLTOTAL 5 10 trunc 0 phi_tail 0.753 phi_mirror 0.198 n 7343
+KXINTLFRIENDLYTOTAL 5 12 trunc 1 phi_tail 0.662 phi_mirror 0.526 n 9685
+KXNCAAF1HSPREAD 5 9 trunc 0 phi_tail 0.788 phi_mirror 0.463 n 5910
+KXNFLREC 5 5 trunc 0 phi_tail 0.589 phi_mirror 0.026 n 1069
+KXATPSETWINNER 5 12 trunc 0 phi_tail 0.649 phi_mirror 0.096 n 10140
+KXETHD 5 6 trunc 0 phi_tail 0.37 phi_mirror 0.705 n 3788
+KXNFL1HSPREAD 5 8 trunc 0 phi_tail 0.321 phi_mirror 0.084 n 5852
+KXNATGAS15M 5 13 trunc 3 phi_tail 0.594 phi_mirror 0.607 n 12138
+KXCS2GAME 5 14 trunc 4 phi_tail 0.633 phi_mirror 0.041 n 13368
+KXLALIGA2GAME 5 15 trunc 4 phi_tail 0.605 phi_mirror 0.274 n 14894
+KXCOPPER15M 5 15 trunc 5 phi_tail 0.591 phi_mirror 0.542 n 15000
+KXLOLGAME 2 6 trunc 2 phi_tail 0.396 phi_mirror None n 6000
+KXNBA1HSPREAD 5 6 trunc 0 phi_tail 0.303 phi_mirror 0.39 n 3447
+KXNBAREB 5 5 trunc 0 phi_tail 0.917 phi_mirror 0.712 n 704
+KXNBA3PT 5 6 trunc 0 phi_tail 0.684 phi_mirror 0.997 n 2752
+KXNCAAF1HTOTAL 5 5 trunc 0 phi_tail 0.649 phi_mirror 0.463 n 2638
+KXNCAAWBTOTAL 5 12 trunc 1 phi_tail 0.589 phi_mirror 0.086 n 10916
+KXCS2MAP 5 13 trunc 0 phi_tail 0.748 phi_mirror 0.535 n 11205
+KXNBAAST 4 5 trunc 0 phi_tail 0.527 phi_mirror 0.042 n 1894
+KXEBASKETBALLGAME 5 8 trunc 0 phi_tail 0.542 phi_mirror 0.409 n 5612
+KXNBA1HTOTAL 5 5 trunc 0 phi_tail 0.669 phi_mirror 0.068 n 2105
+KXESOCCERGAME 4 4 trunc 0 phi_tail 0.695 phi_mirror 0.821 n 407
+KXMIDTERMMOV 4 4 trunc 0 phi_tail 0.235 phi_mirror 0.0 n 103
+phi_loop finished

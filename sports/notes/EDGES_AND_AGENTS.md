@@ -498,3 +498,12 @@ confirm home state (CA vs CO) for venue legality.
   official/revised/preliminary) -> forward-only settlement-error watcher for E4.
 - scripts/source_shift_watch.py built + tested (5 runs, 0 alerts; forced-state test fired all 6 alert kinds); not installed (hourly suggested).
 - Tulsa DK promo credit: user chose NOT to hedge (11-21).
+
+### pool_census (merged 2026-11-21, notes/pool_census.md, results/pool_census/)
+- Kalshi loser-paid pool (<=15c) ~$659M/30d over 391 series: sports $335M (tennis $78.6M), 15-min crypto $242M; ALL weather
+  $1.49M (KXAAAGASD #95, KXHIGHNY #125). The money is in in-play sports + 15-min crypto, i.e. where paid fast feeds win.
+- Taker-reachable (raw x phi, phi median .484, a ceiling). Top untested: tennis Challenger/ITF ($35.1M family reach) -- in-play
+  gated by paid umpire-device feeds; book tight; blind cheap-side sellers lost -> only pre-match vs Pinnacle is testable.
+  UFC winner decision-gap (low-moderate). eSoccer/eBasketball (drafted.gg, oddin.gg feed): thinner book (58% two-sided, 2c),
+  ONLY untested family where cheap-side buyers overpaid (net +$1.06M; eSoccer measured on 18/3,182 events -> noisy).
+- Method traps: hourly candles miss in-play pools (NBA $150,564 exact vs $0 hourly) -> 1-min candles; live API ~69 days back.
