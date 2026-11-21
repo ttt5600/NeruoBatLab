@@ -146,3 +146,20 @@ Public $50 (official schedules read 2026-11-20).
 ### EDGAR efts forms filter: pass root forms only
 forms=SC TO-I,SC TO-T returns originals + amendments (root_forms); adding SC TO-I/A returned ONLY amendments and hid the
 MYPS original. Encoded in oddlot_watch.py.
+
+## Credit policy (lead, 2026-11-21; user: 'up to you'). Model: S=$50, DK all-in = price + 1.5c, Kalshi opposite = 1-c+.01 + fee
+```
+price | SR unhedged EV | SR hedged lock | SNR unhedged EV | SNR hedged lock   (credit $50; Kalshi opposite at 1-c+.01)
+0.10 | $ 43.48 | $ 36.64 | $ 38.48 | $ 32.42
+0.20 | $ 46.51 | $ 41.68 | $ 36.51 | $ 32.72
+0.30 | $ 47.62 | $ 43.74 | $ 32.62 | $ 29.96
+0.50 | $ 48.54 | $ 45.87 | $ 23.54 | $ 22.25
+0.80 | $ 49.08 | $ 47.75 | $  9.08 | $  8.83
+0.92 | $ 49.20 | $ 48.36 | $  3.20 | $  3.14
+```
+- SR (win pays full contract value): use the credit on a heavy favourite (.80-.95). Hedged lock is ~$48; unhedged EV is ~$49.
+  Default: unhedged (user is risk-tolerant and chose not to hedge Tulsa). Hedge only if DK is priced above Kalshi.
+- SNR (stake excluded): use a .10-.25 underdog. Hedged lock is ~$32-33; unhedged EV is ~$36-38 with ~80-90% of getting $0.
+  Default: hedge (the variance is large for a $4 EV gain).
+- Always: pick the side where DK's all-in price is at or below Kalshi's ask for the same side (cross-venue check), never both sides on DK.
+- Decide SR vs SNR from the Tulsa settlement (52 ct credit-funded): $52 cash = SR, ~$2 = SNR.
