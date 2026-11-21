@@ -56,3 +56,36 @@ Kill: ROI point <= 0, or R-TOK1 <= P0, or < 5 qualifying weeks (then forward log
 
 ## 4. Log
 (see below)
+
+### 4a. Results so far (2026-11-21 ~05:00Z)
+- Wayback panel: 71 parseable captures of the default chart 2026-08-01..11-19 (results/ai_nowcast/wayback/, wayback_panel_raw.csv;
+  files are gzip). Data is near-real-time: Monday 03:00Z captures already show 1.1-3.0T for the new week (rows 8, 41, 48, 65).
+  Up to the 11-19T21:07Z capture the default chart had NO `significantByokSeries` field and its completed weeks equal the settled
+  values (e.g. capture 11-17: prev week 211.280 vs settled 211.2812) -> historically default == BYOK-inclusive == settlement, so the
+  prereg BYOK ratio is 1 for every historical capture (deviation from s3 text, decided before prices).
+- Pace nowcast error log(final/N) by days observed d (nowcast_acc.py -> nowcast_panel.csv, 69 captures, all weeks 07-27..11-09):
+  d[2,3) n13 mean -.031 sd .060 | d[3,4) n8 -.009 sd .039 | d[4,5) n11 -.033 sd .036 | d[5,6) n8 -.030 sd .015 | d[6,7) n9 -.012
+  sd .009. Pace OVERestimates by ~3% (weekend usage lower); within-week sd 1.5-4% from day 3.
+- Week-boundary: Monday 03:00Z captures show the prior week already equal to the final within 0.01% (11-09 cap prev 209.5173 vs
+  settled 209.5175; 09-21 cap 128.895 vs final 128.888) while the market closes 04:59Z (EST) / 03:59Z (EDT).
+- **R-TOK1 prereg result** (backtest_tok1.py prereg -> tok1_trades_prereg.csv): rule all n 12 trades / 4 weeks, ROI +22.7%
+  [-9.7, +45.7] (week bootstrap) -> not distinguishable from 0; dev +42.0% [+7.0,+54.6] on 2 weeks (CI from 2 clusters is not
+  meaningful); hold +5.0% [-21.9,+18.5]. Placebo P0 (prior week's value) all n 15 / 6 weeks +1.1% [-42.0,+39.3]. Pre-set kill
+  clause "< 5 qualifying weeks" triggered -> no dev verdict; forward logger decides. Exploratory variants (NOT prereg): s=RMSE
+  +32.1% [-14.8,+54.6] n9/3wk; bias-corrected +23.2% [-14.8,+35.8] n8/3wk. Losses (3/12) are all YES rungs just above the pace
+  nowcast late in the week (T210 11-08, T215 11-12, T218 11-14) = the +3% pace bias; wins include T168/T170 bought at .38/.36 at
+  d=5.1 with nowcast 174.9 (final 171.84).
+- Coverage limit: Wayback has 0-5 captures per week inside the market window; most of the market's life is unobserved.
+
+### 3b. Pre-registration R-TOK2 (written BEFORE looking at any end-of-week price): post-period, pre-close window
+Question: after the 7 UTC days end (Mon 00:00Z) and before close (Mon 03:59Z EDT / 04:59Z EST), the full-week value is already on
+the free endpoint. Are rungs still offered at prices that ignore it?
+Value V = final week total (byok=all endpoint as fetched 2026-11-21; proxy for what Mon 01:00Z showed -- justified by the
+Mon-03:00Z captures above matching final within 0.01%; flagged as a mild proxy lookahead).
+Decision T = close of each hourly candle ending in [Mon 01:00Z, close - 0h]; first qualifying hour per rung.
+Rule: buy YES at yes_ask if K <= V x 0.995 and ask + fee <= 0.97; buy NO at 1 - yes_bid if K >= V x 1.005 and that + fee <= 0.97.
+Fee 10-lot ceil_cent as R-TOK1. Placeholder filter: yes_bid > 0 and yes_ask < 0.99 (a real two-sided quote); report how many rungs
+fail it. Metric ROI per $ staked, week-cluster bootstrap. Placebo: same thresholds with V := previous week's final (no info).
+Success: n >= 20 trades over >= 5 weeks, ROI CI lower bound > 0 and > placebo -> forward logger at the week boundary.
+Kill: < 5 rungs qualifying across all weeks (the book clears itself before 01:00Z) or ROI <= placebo.
+Also report descriptively: the yes_bid/yes_ask of every rung at the Mon 00:00Z and 01:00Z candles vs its result.

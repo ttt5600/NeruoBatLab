@@ -1,0 +1,155 @@
+{
+ "KXEOWEEK": {
+  "n_open": 15,
+  "med_spread": 0.01,
+  "n_twosided": 3,
+  "far": 2,
+  "far_no24h": 0,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXTRUMPNOMNUM": {
+  "n_open": 12,
+  "med_spread": 0.03,
+  "n_twosided": 4,
+  "far": 10,
+  "far_no24h": 6,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXTRUMPENDORSEMENTS": {
+  "n_open": 5,
+  "med_spread": null,
+  "n_twosided": 0,
+  "far": 1,
+  "far_no24h": 0,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXTGAW": {
+  "n_open": 11,
+  "med_spread": 0.295,
+  "n_twosided": 2,
+  "far": 2,
+  "far_no24h": 2,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXKEVCOUNT": {
+  "n_open": 7,
+  "med_spread": 0.02,
+  "n_twosided": 6,
+  "far": 4,
+  "far_no24h": 2,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXJUDGECOUNT": {
+  "n_open": 4,
+  "med_spread": 0.08,
+  "n_twosided": 3,
+  "far": 2,
+  "far_no24h": 1,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXBILLSSIGNED": {
+  "n_open": 9,
+  "med_spread": 0.07,
+  "n_twosided": 6,
+  "far": 6,
+  "far_no24h": 4,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXPARDONSTRUMP": {
+  "n_open": 7,
+  "med_spread": 0.09,
+  "n_twosided": 5,
+  "far": 5,
+  "far_no24h": 4,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXPRESSBRIEFINGCOUNT": {
+  "n_open": 2,
+  "med_spread": 0.075,
+  "n_twosided": 2,
+  "far": 1,
+  "far_no24h": 1,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXNETFLIXRANKSHOW": {
+  "n_open": 12,
+  "med_spread": null,
+  "n_twosided": 0,
+  "far": 0,
+  "far_no24h": 0,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXNETFLIXRANKMOVIE": {
+  "n_open": 14,
+  "med_spread": 0.02,
+  "n_twosided": 3,
+  "far": 2,
+  "far_no24h": 0,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXSOFRD": {
+  "n_open": 8,
+  "med_spread": 0.64,
+  "n_twosided": 1,
+  "far": 6,
+  "far_no24h": 6,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXAMSAVO": {
+  "n_open": 11,
+  "med_spread": 0.1,
+  "n_twosided": 10,
+  "far": 4,
+  "far_no24h": 3,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXTRUMPNUMSTATES": {
+  "n_open": 6,
+  "med_spread": 0.02,
+  "n_twosided": 4,
+  "far": 3,
+  "far_no24h": 2,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXDCGOLFVISITCOUNT": {
+  "n_open": 6,
+  "med_spread": 0.065,
+  "n_twosided": 4,
+  "far": 1,
+  "far_no24h": 0,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXTRUMPDELETE": {
+  "n_open": 5,
+  "med_spread": 0.05,
+  "n_twosided": 5,
+  "far": 4,
+  "far_no24h": 3,
+  "fee": "quadratic",
+  "fee_mult": 1
+ },
+ "KXYTVIEWSHIGH": {
+  "n_open": 112,
+  "med_spread": 0.335,
+  "n_twosided": 88,
+  "far": 7,
+  "far_no24h": 2,
+  "fee": "quadratic",
+  "fee_mult": 1
+ }
+}

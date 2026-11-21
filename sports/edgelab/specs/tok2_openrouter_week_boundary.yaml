@@ -1,0 +1,15 @@
+id: tok2_openrouter_week_boundary
+family: kalshi_data_ladders
+dataset: kalshi_tokenuse_wayback
+rule: edgelab.rules.forward:unwired
+hypothesis: 'R-TOK2 (notes/ai_nowcast.md s3b prereg): KXTOKENUSE between the end of the 7 UTC days (Mon 00:00Z) and market close (03:59/04:59Z) the full-week OpenRouter total is on the free endpoint. Buy YES if K <= V*.995 and ask+fee <= .97; NO if K >= V*1.005 and no_ask+fee <= .97, hourly candles ending >= Mon 01:00Z, first qualifying hour per rung; placebo V := prior week. Week bootstrap.'
+decision_time: Mon 01:00Z .. close (post-period)
+price_model: taker
+split: vault:kalshi_tokenuse_wayback
+min_n: 20
+kill:
+  kind: roi_ci_below_zero
+  after_n: 20
+fee:
+  rounding: up
+legacy: 'new 2026-11-21 (agent ai_nowcast). Registered after prereg, before any end-of-week price computed.'

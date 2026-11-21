@@ -664,3 +664,12 @@ datasets:
       dev: [2025-09-01, 2026-08-31]
       sealed: [2026-09-01, 2026-11-14]     # candles not fetched; user yes only
       forward: [2026-11-15, null]
+  kalshi_nom_week:         # count_nowcast 11-21: KXTRUMPNOMNUM congress.gov receivedDate nowcast; prereg notes/count_nowcast.md
+    loader: kalshi_nom_week
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = week end (Sat); set 2026-11-21 before any candle look; 16 weeks only
+      dev: [2026-07-01, 2026-11-14]
+      sealed: [2026-11-15, 2026-11-15]     # none (series too young)
+      forward: [2026-11-16, null]

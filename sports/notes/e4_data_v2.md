@@ -54,3 +54,38 @@ Triggered levers + thresholds (fixed now):
  - LOSS-VETO lever: R1 - R0 is the most any veto filter can add; quoted, no threshold.
 </content>
 </invoke>
+
+## Log
+### 2026-11-21 step 1 HEADROOM (scripts/e4_data_v2.py headroom -> results/e4_data_v2/headroom.json; dev 529 dates, 10,454+ tradeable brackets)
+Reproduction: R0 = 1,713 taker bets, 70 losses, +30.46u [+11.87,+48.06]; maker TT 1,163 fills +38.40u = e4_timing reference exactly.
+| row (lever) | bets | losses | taker units [95% date-cluster] | note |
+|---|---|---|---|---|
+| R0 E4 frozen | 1713 | 70 | +30.46 [+11.87,+48.06] | maker TT 1163 fills +38.40 |
+| R1 loss-veto oracle (E4 minus losers) | 1643 | 0 | +100.46 [+90.1,+111.9] | max any veto filter can add: +70u |
+| R2 perfect forecast, margin 3 | 4131 | 0 | +391.05 [+359,+424] | 7.8 picks/night vs 3.2 |
+| R3 perfect forecast, margin 0 (NO-only ceiling) | 10454 | 0 | +2207.65 | unreachable; check: margin-0 set == result 'no' (0 mismatches) |
+| R4 skill s=.9, M3 | 1844 | 57 | +40.66 [+24.1,+56.3] | |
+| R4 skill s=.8, M3 (NBM-level MAE gain) | 1939 | 32 | +67.22 [+52.4,+82.0] | +121% vs R0; retuned M2.5: 2548 bets 61 L +98.70 |
+| R4 skill s=.5, M3 | 2571 | 1 | +139.30 | |
+| R5 in-sample EMOS p*=.02 (optimistic) | 1414 | 14 | +21.78 [+12.4,+30.4] | NEW-only 695 bets 8 L +10.31 [+3.4,+16.3]; union w/ E4 2408 +40.78 (+34%) |
+| R5 p*=.05 | 2805 | 55 | +52.80 | NEW 1638 38 L +29.25; union 3351 +59.72 |
+Maker numbers for oracle sets are under-covered (tapes exist for only 29-44% of R2/R3 brackets) -> taker is the comparison.
+R6 capacity (E4 dev maker picks, winners AND losers fill min(S, contracts printed NO < q after T)): $/night S=1 0.06, S=6 0.35,
+S=24 1.22 (staked $44.7/night), S=96 3.58 (staked $159/night); "unlimited" = -$2,232/night (losers trade through by ~10^3-10^4
+contracts, so at unbounded size losers dominate; not a capacity number). S 24->96 multiplies $/night by 2.9x.
+Per-station headroom (perfect-forecast M3 minus E4, taker units) ranks KAUS +67.6, KNYC +62.9, KMDW +52.0, KDEN +42.1, KPHL +33.8 (all orig-7).
+Lever verdicts vs pre-reg thresholds:
+- BUILD-FORECAST: TRIGGERED (R4 s=.8 +121% fixed margin, R5 NEW +34% >= 25%). Caveat: uniform shrinkage also removes errors the
+  models SHARE; R5 (a real calibrated model, in-sample) adds only +34% (union) -> realistic headroom is far below R4.
+- SIZE: NOT triggered as pre-registered (unlimited row negative); S=96 gives 2.9x S=24 $/night (just under 3x), a size lever of
+  similar order to the realistic forecast lever. Live orig7 is at 24 ct; wx_capacity found the same concavity.
+- LOSS-VETO: +70u (taker) is the ceiling for any filter on E4's existing picks.
+
+### 2026-11-21 E4 loser anatomy (descriptive, dev outcomes of E4 picks -> any rule it motivates is POST HOC, disclosed)
+66 of 70 dev E4 losers are HOT misses (CLI max above EVERY model), 4 cold. Miss beyond the extreme model: median 4.25F
+(3.1-7.9). Losers by month: Dec 15, Feb 15, Jan 5, Nov 5, Mar 7, Apr 7, May 6 -> cold-season heavy (40/70 Nov-Feb).
+All five models are biased COLD vs the CLI max on dev (y - model, 2,949 station-days >= 3 models): GFS +1.43F, ECMWF +1.74,
+ICON +1.39, GEM +0.66, NBM(OM) +1.52; 5-model mean +1.35F (MAE 2.30). By station x season the mean-model bias ranges -1.80
+(KLAX JJA) to +3.20 (KATL DJF). The frozen rule uses raw models with a SYMMETRIC 3F margin -> the hot-side margin is
+effectively ~1.6F and the cold side ~4.4F. Mechanism to test in step 2: CLI max = sub-hourly ASOS peak (hourly model values
+and hourly METARs both miss it) + daytime 2m cold bias + hours<=18 window missing late/midnight maxima.

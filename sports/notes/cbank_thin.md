@@ -44,3 +44,20 @@ Expected failure mode stated up front: small n (Kalshi history ~1 year, ~29 seri
 
 ## Log
 - 2026-11-20: series + events census (above). Prereg written before prices/outcomes.
+- Amendments (all before any outcome was read; outcomes sit unprinted in results/cbank_thin/outcomes_HIDDEN.json):
+  (a) KXBOE (2023-24, cumulative "Above X%" ladder, 24h volume 0) excluded: "minority bucket" undefined on a cumulative ladder.
+  (b) T anchor: close_time is sometimes AFTER the announcement (KXCBDPOLAND-26SEP02 closes 09-09, 7 days late;
+      AUSTRALIA-26FEB03 closes 02-04). Anchor A = min(close, ticker date 00:00 UTC) (Canada tickers have no day -> close);
+      T = A - 7 d / A - 1 d. Without this, D-1 on POLAND-26SEP02 would have been after the decision (lookahead).
+  (c) Price units: /historical candles carry "close" in DOLLARS (MEXICO-26FEB05-HOLD bid .97/ask .98), live candles
+      "close_dollars". First frame divided by 100 -> favourite mids 0.009; fixed in results/cbank_thin/frame.py.
+  (d) Consensus collection scope: every dev event where any non-favourite bucket has yes_bid >= .04 at D-7 or D-1
+      (27 events; these are the only events where CB1 can bet unless consensus disagrees with Kalshi's favourite) plus a
+      seeded random sample of 7 other dev events (seed 20261120) to measure consensus-vs-favourite agreement.
+      Targets: results/cbank_thin/consensus_targets.json (34 events).
+- Census (results/cbank_thin/frame.py output): 613 closed markets, 115 events, 27 series; Kalshi history starts 2025-10
+  (Canada) / 2025-11..12 (Asia/EU/LatAm majors); most small KXCBD* banks only from 2026-07..09. Events by month:
+  2026-09 20, 2026-10 16, 2026-11 11 (to 11-20); earlier months 3-9. Dev (anchor <= 2026-08-31, ex-BOE) 62 events;
+  sealed 47. Spread (ask-bid) at T: median .02-.03, 75th pct .04-.05 (quotes_q.csv).
+  Minority (non-favourite) buckets with yes_bid >= .04: dev D1 28 cells/23 events, D7 19/16; sealed D1 22/20, D7 20/17.
+  Median favourite mid at D-1: dev .965, sealed .8275.

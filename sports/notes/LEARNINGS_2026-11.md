@@ -410,3 +410,7 @@ A "shape" seen in a few weeks of one season is window noise until a later window
 ### Settle-on-first-print series need first-print history (climate_nowcast, 11-20)
 NOAA revises monthly global temps; Kalshi settles on the first print. Fitting to today's archive fits a different series
 (8/16 dev months land in a different bracket). Archive every vintage from day 1 of any logger.
+
+### The fastest official page sets the price, not the named settlement source (count_nowcast, 11-21)
+KXEOWEEK settles on the Federal Register but prices off the White House posting 5 days earlier. Before testing a
+"stale bracket" idea, find the fastest public page that reveals the outcome and time the book against THAT.

@@ -1,0 +1,18 @@
+id: nm1_nowcast
+family: kalshi_data_ladders
+dataset: kalshi_nom_week
+rule: edgelab.rules.nom_week:nm1_nowcast
+params: {}
+hypothesis: 'NM1: KXTRUMPNOMNUM counts nominations sent to the Senate per whitehouse.gov. At Thursday 15:00Z, C = civilian
+  nominations received Sun..Wed (congress.gov). If C == 0, the rest of the week rarely brings any (1/22 fit weeks): buy NO
+  on rungs k >= 1 when (1 - 0.065) - NO ask - fee >= 0.02; if C >= k buy YES at ask <= 0.98. Prereg notes/count_nowcast.md.'
+decision_time: 15:00 UTC Thursday of the Sun..Sat week
+price_model: taker
+split: vault:kalshi_nom_week
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: cent
+legacy: 'new 2026-11-21 (agent count_nowcast). 16 settled weeks; expected to fail min_n.'

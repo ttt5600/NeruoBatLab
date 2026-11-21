@@ -829,3 +829,18 @@ def kalshi_eo_week():
 
 
 LOADERS["kalshi_eo_week"] = kalshi_eo_week
+
+
+# ------------------------------------------------------------------ Kalshi weekly nominations (results/count_nowcast/nm1.py)
+def kalshi_nom_week():
+    """data/count_nowcast/nm_frame.parquet: one row per settled KXTRUMPNOMNUM rung + hidden result; attrs['candles']."""
+    D = DATA / "count_nowcast"
+    f, fc = D / "nm_frame.parquet", D / "nm_candles.json"
+    x = pd.read_parquet(f)
+    x = x[x["result"].isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["candles"] = json.loads(fc.read_text())
+    return x, [str(f), str(fc), str(D / "congress_noms_119.json")]
+
+
+LOADERS["kalshi_nom_week"] = kalshi_nom_week

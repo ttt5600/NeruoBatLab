@@ -443,3 +443,9 @@ confirm home state (CA vs CO) for venue legality.
 - CN1 ERA5 -> NOAA bracket taker: dev n23 +17.47% [-60,+106], fails min_n/halves/concentration; retired. Two model errors:
   Kalshi settles on NOAA FIRST PRINT (archive differs on 8/16 dev months) and the ERA5->NOAA offset drifted (-0.060 C).
   CLV +0.080 day4->day8 (prices move to ERA5 side). CN2 forward logger written (scripts/climate_nowcast.py), NOT installed: ~2 decisions/month.
+
+### count_nowcast (merged 2026-11-21, notes/count_nowcast.md) -- EO1 + NM1 DEAD
+- Swept 16,768 series: Spotify family dormant since 2026-07-02, flights/App Store since 2025-11; no box office/Wiki/Trends series.
+- EO1 KXEOWEEK locked-YES off Federal Register: 0 bets; market reprices off the White House posting (~13 h) vs FR ~5 days later.
+- NM1 KXTRUMPNOMNUM congress.gov nowcast (accurate 14/16 weeks): n10 -7.04% [-74,+31], YES side priced. Retired both.
+- Lesson: books reprice off the FASTEST official page, not the named settlement source. Watch: Spotify relist (kworb nowcast), KXKEVCOUNT >= 6 events.
