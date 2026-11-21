@@ -120,3 +120,13 @@ read ~/Desktop): a launchd job at Minute=7 running
 $/month at risk.md stakes (B = $1,000, ~1% of B = $10 per pick): Polymarket weather ~80 bets/mo x $10 = $800/mo turnover.
 At the dev point estimate (-0.14%) that is about -$1/mo; even at Kalshi's sealed +1.45% it would be about +$12/mo, and
 those bets are correlated with picks we already make on Kalshi. Nothing in this pass adds evidence-backed $/month.
+
+## DraftKings Predictions (added 2026-11-21 from the side-hustle session; UNVERIFIED unless marked)
+- Gus III LLC d/b/a DraftKings Predictions, CFTC-registered event-contract venue, live in CA. https://predictions.draftkings.com/en/
+- Markets: CFB/NFL/NBA/CBB/NHL/soccer/tennis/MMA/F1 game lines (spread/total/winner as % prices) + crypto/politics/econ/culture/climate.
+- Trade slip: input = $ to spend; contracts = floor(spend / all-in price); all-in ~ quoted + 1-2c/ct (6 @95% = $5.77; 52 @94% = $49.92).
+  Pull the official Fee Disclosure before modelling. No public API known; read-only price collection via web UI is OK.
+- User account funded 11-21 ($10). Promo: $50 Predictions Dollars now + 3 more ~11-28, 12-05, 12-12 (claim within 168 h,
+  single-use, non-withdrawable, payouts to cash). OPEN: does a credit-funded win pay full contract value (stake returned)?
+  First credit used on Tulsa ML 52 ct @94% (settles 11-21) -> its payout answers it.
+- Rule: no DK trades or Kalshi hedges without the user's explicit OK; fund session computes/places Kalshi hedges.
