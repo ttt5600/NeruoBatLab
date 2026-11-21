@@ -130,3 +130,11 @@ those bets are correlated with picks we already make on Kalshi. Nothing in this 
   single-use, non-withdrawable, payouts to cash). OPEN: does a credit-funded win pay full contract value (stake returned)?
   First credit used on Tulsa ML 52 ct @94% (settles 11-21) -> its payout answers it.
 - Rule: no DK trades or Kalshi hedges without the user's explicit OK; fund session computes/places Kalshi hedges.
+- FEES (VERIFIED by side-hustle session from myaccount.draftkings.com/documents/fee-disclosure?product=predict, read 2026-11-20 23:00 PT;
+  matches fills 52 @.94 -> $49.92, 6 @.95 -> $5.77). CDNA/DKeX markets, per contract: $0.30-0.94 = $0.0200; .941-.968 = $0.0105;
+  .969-.991 = $0.0045; .992-.999 = $0.0005; below .30 scales down (.27-.299 .01837, .23-.269 .01607, .20-.229 .01425,
+  .17-.199 .01235, .15-.169 .01103, .12-.149 .00899, .091-.119 .00694, .072-.09 .00556, .053-.071 .00414, .039-.052 .00307,
+  ... .001-.002 .00008). Total = fee x contracts, rounded UP to the cent on buys (down on sells). CME-sourced markets: flat
+  $0.01 (price .01-.19), $0.02 (.20-.94), $0.01 (.95-.99) per transaction.
+  vs Kalshi taker 0.07*p*(1-p): DK is 2c at .30-.94 (Kalshi .5c at .92, 1.75c at .50) -> DK is expensive on favourites;
+  cross-venue checks must use these all-in prices.
