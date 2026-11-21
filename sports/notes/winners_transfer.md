@@ -92,3 +92,30 @@ separate them). Reading:
 - Planning rule derived (proposal): before asking for a NOWCAST sealed shot, require dev ROI x 0.42 >= the effect the
   sealed window can detect at its expected n (EDGE_MATH power table); for any other class, skip the sealed shot unless
   the mechanism is moved into NOWCAST/SHARPLINE form.
+
+### P3 E4CANCEL -- headroom of a cancel lever on E4 resting orders (C22 + O8 "negate rest-to-close"), DESCRIPTIVE
+(written 2026-11-21 ~05:40Z before computing; dev rows only, results/e4_timing/picks_T22.parquet = e4_timing's dev
+E4 picks at 22:00 with tape fill time fill_tt and the 06:00 D quote yes_bid_T06D/yes_ask_T06D; no sealed rows read.)
+- Why: E4 losers are ALL filled (sealed loss_rate_filled .0307 vs unfilled 0, lab/lockbox.jsonl 2026-10-23;
+  kalshi_temp_maker.md l.41). E4 rests to close with no cancel. A cancel that avoids part of the losing fills is the
+  only lever with that much headroom; it is untested on Kalshi (E5 tried obs-cancel on ForecastEx: too late).
+- Questions: (i) what share of LOSING fills happen after 06:00 local D (i.e. a 06:00 recheck could still act)?
+  (ii) among picks still unfilled at 06:00, does a quote flag at 06:00 (YES bid at 06:00 >= 2x the 22:00 YES mid, or
+  YES ask >= 0.10) separate later-losing from later-winning picks?
+- Promising (pre-set): >= 30% of losing fills occur after 06:00 AND the flag catches >= 50% of those losers while
+  flagging <= 15% of the post-06:00 winning fills. Then: propose an edgelab-registered cancel trial (lead/e4_data_v2),
+  never a live change from here. Otherwise: "cancel lever has no 06:00 headroom" -> drop.
+- Descriptive only: counts + loss/win shares, no ROI claim, no edgelab trial.
+
+## RESULT P3 E4CANCEL (2026-11-21; dev picks_T22.parquet, 1,713 picks 2024-03-05..2026-02-28, 1,163 tape fills)
+- Losing picks: 70, ALL filled (dev repeats the sealed pattern). 21/70 = 30.0% of losing fills happen after 06:00 D
+  (49 before), i.e. most informed selling hits E4 overnight, before any 06:00 recheck.
+- Of picks still unfilled at 06:00 (913): the pre-set 06:00 quote flag catches 18/21 later-losing fills (86%) but also
+  159/342 later-winning fills (46%; pre-set ceiling 15%). Verdict vs prereg: NOT PROMISING (flag too broad).
+- POST HOC economics (not pre-registered, reported to close the question): cancelling flagged post-06:00 fills changes
+  dev units 32.65 -> 27.31, delta -5.34, date-clustered 90% CI [-10.71, +0.55] (355 dates); a random cancel at the same
+  48.8% rate gives -4.79 on average -> the 06:00 quote adds nothing beyond chance. The flagged winners are the
+  cheap-NO (high-payout) picks, so cancelling them throws away as much as the saved losers return.
+- Lesson: the market's 06:00 move is fair pricing of risk, not a leak we can step aside from; E4's losers are bought
+  overnight by informed flow (00Z runs) that a resting order cannot see coming. Cancel lever: DROP (both halves
+  negative: H1 -2.63, H2 -2.71).

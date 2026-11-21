@@ -74,3 +74,75 @@ Broker voluntary-corporate-action fees (official, read 2026-11-20):
   manual read for MYPS ($4.3-5.5, DECEMBER 10, 2026), INVE ($2.85-3.4, NOVEMBER 19, 2026), GPUS (DECEMBER 18, 2026,
   UNDER100-EXCLUDED). Second run (default lookback 4) -> 5 matched, 0 new (dedupe works). Exit 0 both.
 - Not installed (no launchd per brief). Suggested: daily 07:15 PT, `python3 sports/scripts/oddlot_watch.py`.
+
+## A. Hedge math (results/money_now/hedge_calc.py; Kalshi quotes GET 2026-11-21 ~04:50Z)
+Kalshi series KXNFLGAME/KXNBAGAME/KXNCAAFGAME: fee_type quadratic_with_maker_fees, multiplier 1 -> taker
+ceil(0.07*C*p*(1-p)). NFL Sun 11-22 quotes (yes bid/ask): BUF .91/.92 MIA .08/.09; KC .91/.92 ARI .08/.09; CHI .84/.85
+NO .15/.16; DEN .82/.83 LV .17/.18; CAR .58/.59 BAL .41/.42; SF .61/.62 MIN .38/.39 (SNF, vol 1.08M); 1c spreads,
+books 10^5-10^6 contracts. NFL = Kalshi shard 0 cash; NBA = shard 3 (kalshi.shards.rebalance).
+Mechanism (why stake-returned matters): a stake-returned (SR) credit B at venue price q buys B/q contracts paying $1
+each, so hedging N=B/q opposite contracts on Kalshi at a=1-q' locks B*q'/q - fees ~ B. A stake-not-returned (SNR)
+credit only pays the winnings B/q - B, so the lock is ~B*(1-q) - fees: buy a longshot with it. Best SR play = venue
+favourite + Kalshi longshot (tiny Kalshi capital); best SNR play = venue longshot + Kalshi favourite (big capital).
+Venue price assumed = Kalshi ask for the same side (+0/+1/+2c sensitivity); venue quotes not observable without accounts.
+- FanDuel $20 SNR tranche, 2c/contract fee: NO@.16/CHI@.85 -> +$12.83 (+1c: 11.99, +2c: 11.28), Kalshi capital ~$77;
+  BAL@.42/CAR@.59 -> +$9.82 with $15 capital. => 5 tranches ~ $49-64 IF the offer is still live.
+- DraftKings $50 credit if SR (unconfirmed): BUF@.92/MIA@.09 -> +$47.92 (+1c 47.02), Kalshi capital $4.77;
+  CAR@.59/BAL@.42 -> +$45.59. If SNR: NO/CHI -> +$30.04 (capital $181). => 4 x $50: ~$180-192 SR, ~$110-120 SNR.
+
+## A. Promo terms (subagents A1/A2, raw quotes: results/money_now/promos_A1.md, promos_A2.md; all read 2026-11-20)
+Official-source method: most venue pages are JS/403; A2 used each exchange's CFTC Rule 40.6 promo filings (cftc.gov PDFs)
+and docs sites; A1 used official pages and, where 403, search snippets of the official domain (marked "snippet").
+The affiliate leads were stale on all three venues they covered: Gemini is $40, not "up to $100" (the 50% football match was replaced 10-23); ProphetX is $40, not $75 (changed 10-29);
+Polymarket US taker is now tiered (0.0695 days 1-7 for new accounts, then 0.095 below $10k/30d; eff. 11-14).
+
+Hedge locks (hedge_calc.py + inline variants; venue price assumed = Kalshi ask for same side; Kalshi quotes 04:50Z):
+| # | venue | offer (official?) | reward type / stake | locked $ (worst case) | Kalshi capital | notes |
+|---|---|---|---|---|---|---|
+| 1 | DraftKings Predictions | spend $5 -> $50 now + 3x$50 claim d7/14/21 (snippets of draftkings.com; end 11-29 per SportsLine UNVERIFIED) | Predictions Dollars, 1-yr, pay fees; SR "probably" (payouts->cash, no deduction clause) | SR: 4x47.92-0.48 = ~$191 (BUF .92 / MIA .09); if SNR: 4x30.04-0.48 = ~$120 | $4.77/credit (SR) | T&C bans "trading both sides of a market" ON DK + "non-bona fide" sole discretion -> unclaimed $150 at risk |
+| 2 | Gemini Predictions | $40 Predict Cash after ONE >=$20 buy at 0.20-0.80 held to settlement (CFTC rules10162634421.pdf) | SR explicit; 30-day expiry | credit 38.88; qualifier must stay UNHEDGED (explicit ban) -> net +18.24..+52.24, EV ~+38 | $3.87 | maker fee 0 to 12/31 -> post qualifier as maker |
+| 3 | ProphetX | trade $40 own funds -> $10 d1, $10 d8, $20 d15 (own filing 10-15) | SR implied ("withdrawn upon settlement"); 2% of net winnings | 9.69+9.69+19.39-2.29 = ~$36.5 | ~$2-4/credit | monitors "contracts priced near $1.00" -> use .80-.85 favs, not .95 |
+| 4 | Novig (Ludlow) | deposit $10 -> 5x$10 credits, 1/trade, price <=0.60 (CFTC rules09162626976.pdf) | SR explicit | 5x9.00 = $45 | $6.72/credit | LIVE STATUS + CA UNVERIFIED |
+| 5 | OG.com (Crypto.com DNA exch.) | trade $25 (<0.80, settle <=7d) -> $25 coupon + 100% boost cap $25 (og.com page; filing shows only $10) | coupon SR NOT STATED | coupon ~19-24 + boost 11.4-13.5 - qual 1.4-1.9 = ~$29-36 | $11-36 | CA UNVERIFIED |
+| 6 | FanDuel Predicts | $20/day x5 for $1 real trade daily (homepage) BUT terms page says period ended 2026-10-20 | SNR explicit, 24h expiry, 2c/contract fee | 5x12.83 = $64 (NO .16/CHI .85) or 5x9.82 = $49 (BAL/CAR, $15 capital) | $77 or $15 | CONFIRM IN APP first |
+| 7 | Webull | "$20 Voucher" for new event-contract users (banner official; T&C JS-unreadable) | UNVERIFIED (cash vs stock vs credit) | ~20-1.26 = ~$18.7 if $20 cash-equivalent | $1.89 | Webull trades ARE Kalshi contracts |
+| 8 | Polymarket US | deposit >=$10 within 7d -> $25 Bonus, no trade needed (docs.polymarket.us) | SNR; Bonus absorbs first $25 of losses on any trade, survives a win | $15.30 (NO .16 on PM / CHI .85 Kalshi, S=$35) + bonus survives if PM leg wins | $164 | expiry not posted (7/10/30d) |
+Dropped: Robinhood (targeted, first Derivatives account only; user already holds RH event contracts per
+notes/robinhood_snapshot.md -> ineligible); Underdog (bonus "cannot be used for prediction picks"); Crypto.com app (no US
+promo found); Coinbase (routes to Kalshi, no promo); PrizePicks/tastytrade/Sporttrade (none/not live); Fanatics
+(affiliate-only); Kalshi referral (amount not published; credits withdrawal-restricted).
+Process flag: A1 briefly fetched fanduel.com via curl with a browser UA after WebFetch 403s; the permission classifier
+blocked further such fetches as circumvention and A1 switched to WebFetch/WebSearch only (temp files deleted).
+
+### Steps (proposal only; the user places every order; recompute with results/money_now/hedge_calc.py at execution)
+Rule: SR credit -> spend it on the heavy favourite at the venue and buy the SAME count of the underdog on Kalshi; go only if
+venue ask + Kalshi ask <= 1.02. SNR credit -> spend it on a ~.15-.20 underdog at the venue, hedge the favourite on Kalshi
+with N = winnings-only contracts. NFL hedges need Kalshi shard-0 cash; NBA shard 3. Promo income is taxable.
+- DK: sign up (no code) -> $5 cash on a heavy favourite + 5 underdog on Kalshi (-$0.48) -> $50 credit: BUF 53 @<=.92 on DK,
+  MIA 53 @<=.09 on Kalshi (Sun 11-22 1pm ET) -> claim each later $50 within 168h, repeat. Never take both sides on DK.
+- Gemini: sign up DIRECT (not via FCM/IB) -> ONE maker buy >=$20 at .20-.80, do NOT hedge, hold to settlement -> $40 Predict
+  Cash ~7d later -> favourite on Gemini + underdog on Kalshi.
+- ProphetX: >=$40 of opening trades within 30d (hedge on Kalshi) -> use each installment fully as collateral on .80-.85
+  favourites, hedge underdog on Kalshi; d8/d15 installments follow.
+- Polymarket US: deposit $10 -> $25 Bonus -> $35 on a .15-.20 underdog, Kalshi favourite N~193 (NO/CHI example).
+
+## B/C result summary: see sections above.
+
+## Learnings
+### Prediction-venue promo terms live in CFTC Rule 40.6 filings, not on the JS-rendered promo pages
+Gemini, ProphetX, Polymarket US, Novig and OG.com all self-certify promo terms at cftc.gov/filings/orgrules/*.pdf with
+verbatim reward, stake and abuse clauses (results/money_now/promos_A2.md). Affiliate pages were stale on all three venues
+whose terms we checked (Gemini $100 vs $40, ProphetX $75 vs $40, PM US fee). Read the filing, not the review site.
+### Stake-returned vs not decides a promo's hedged value
+SR credit converts ~95-98% (DK $50 -> $47.92 with Kalshi underdog hedge); SNR converts ~B*(1-q) minus fees (FanDuel $20
+-> $12.83 best, 2c/contract fee hurts longshots). Source results/money_now/hedge_calc.py; notes/money_now.md section A.
+### Gemini's new-user terms explicitly ban hedging the qualifying purchase on other venues
+"Hedging or offsetting a Qualifying Purchase through other accounts or related positions" voids the $40 (CFTC
+rules10162634421.pdf). The qualifier must ride unhedged; only the Predict Cash leg is hedgeable.
+### Odd-lot tenders are rare: 0 qualifying on 2026-11-20 out of 5 public odd-lot offers in 60 days
+EDGAR full-text 09-21..11-20: MDT, UTMD, ABUS, INVE odd-lot offers all expired; MYPS (Dutch $4.30-5.50, exp 12-10) open but
+stock $4.94 > floor. Watcher: sports/scripts/oddlot_watch.py. Voluntary tender fees: Robinhood/Schwab/Fidelity $0,
+Public $50 (official schedules read 2026-11-20).
+### EDGAR efts forms filter: pass root forms only
+forms=SC TO-I,SC TO-T returns originals + amendments (root_forms); adding SC TO-I/A returned ONLY amendments and hid the
+MYPS original. Encoded in oddlot_watch.py.

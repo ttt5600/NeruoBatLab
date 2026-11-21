@@ -457,3 +457,11 @@ confirm home state (CA vs CO) for venue legality.
   (Tencent BYOK spike). Book now prices the BYOK-excluded number (T238 .80 -> .05). Rules: "token usage included in OpenRouter's
   AI Model Rankings ... as observed at 10:00 AM ET Nov 23". Which view settles = open question (judgment bet offered to user).
 - Free LMArena history: HF dataset lmarena-ai/leaderboard-dataset (259 dates). Logger scripts/tokenuse_logger.py, not installed.
+
+### money_now (merged 2026-11-21, notes/money_now.md, results/money_now/) -- promo action list for the user
+- CA prediction-venue promos hedged on Kalshi (not critic-checked; venue price assumed = Kalshi ask): DraftKings Predictions
+  ~$120-191 (terms via search snippets, end 11-29 from affiliate), Gemini ~$38 expected (qualifier must stay UNHEDGED per terms),
+  ProphetX ~$36.5, Polymarket US $15.30, Novig $45 (CA UNVERIFIED), OG.com $29-36 (CA UNVERIFIED), FanDuel $49-64 (terms say
+  ENDED 10-20; check app), Webull ~$18.7 (UNVERIFIED). Robinhood/Underdog dropped.
+- Odd-lot tenders: none riskless now (MYPS Dutch auction -$63/+$55 per 99 sh, expires 12-10). scripts/oddlot_watch.py built +
+  tested (19 filings backfilled to ~/.claude/quant-sports/data/oddlot/filings.jsonl); not installed.
