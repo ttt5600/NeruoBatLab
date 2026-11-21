@@ -106,3 +106,107 @@ Trial TB1 (forward; edgelab family cross_venue). Logger scripts/tennis_pin_logge
   singles parents with a moneyline, Kalshi 79 open events, 52 matched (all exact token sets); unmatched audit: Pinnacle
   "Alejandro Garcia" vs Kalshi "Garcia Carbajal" rejected by the surname check (conservative, as intended); BJK Cup was
   unmapped -> mapped to KXWTAMATCH (Davis Cup -> KXATPMATCH) before the loop; 61 matched after.
+
+## RESULT Part A -- DISC descriptive pass (2026-11-21 ~07:09Z; results/esoccer_tennis/analyze_a.py DISC -> analyze_DISC.log,
+## a_DISC_calib.csv, a_DISC_cells.csv, a_DISC_blind.json, a_DISC_frame.parquet)
+- Numbers below are from the FINAL run (analyze_DISC.log / a_DISC_*.csv/json; bootstrap draws shift by <= 0.5 pt vs the
+  first run because the bug fix changed the RNG order). Bug caught before reading the tight table: `~tight` on a Python bool is -1/-2 (truthy), so the first run's "spread <= .05"
+  calibration rows equalled the all-quote rows; fixed to `(spread <= .05) if tight else True` and rerun.
+- Book at T-5 (S - 5 min): 7,659 markets quoted, 98.5% two-sided, median spread 3c, 72% with spread <= 5c (eSoccer team 74%,
+  TIE 73%, eBasketball 59%). Volume: 99.8% of market volume trades inside S - 30 min .. close; IN-PLAY = 83% of eSoccer and 90%
+  of eBasketball contracts (5.70M of 6.82M; 2.55M of 2.82M) -> these are in-play products.
+- Calibration (mid, spread <= 5c, event-clustered 95% CI): no bucket with n >= 100 misses by more than ~3c. eSoccer team
+  [.25,.40) gap -0.001 [-0.031,+0.027] n1,014; [.40,.60) -0.014 [-0.038,+0.009] n1,403; TIE [.15,.25) +0.028 [+0.004,+0.051]
+  n1,073 (ties slightly cheap at mid) but TIE [.10,.15) -0.016 [-0.044,+0.013] n495; small longshot cells noisy (team [.05,.10)
+  +0.103 [+0.013,+0.211] n56). eBasketball [.40,.60) -0.004 [-0.025,+0.018] n312.
+- Taker cells (48 non-empty of K = 66, a_DISC_cells.csv): ROBUST cells = 0. Every cell with >= 200 events has ROI < 0 after
+  fee: e.g. eSoccer team YES [.40,.60) -13.1% [-16.7,-9.4] n1,889; TIE YES [.15,.25) -8.3% [-17.9,+1.2] n1,658; TIE NO
+  [.85,.90) -3.5% [-6.0,-1.1] n1,075; eBasketball YES [.40,.60) -6.7% [-10.2,-3.1]. The TIE mid gap (+2.8c) does not survive
+  the 3c spread + fee (YES at ask -8.3%).
+- Blind cheap-side seller, TAKER (buy NO at 1 - yes_bid when yes_ask <= .15 and yes_bid >= .01; 1 ct per market):
+  eSoccer PRE -4.19% [-6.80,-1.66] n651/472 ev, 0/5 days > 0 (cheap side won 11.5% vs mean bid .082 / ask .124);
+  eSoccer IN-PLAY first touch -2.78% [-3.66,-1.87] n4,184/2,169 ev, 0/5 days; +60 s delayed -3.06% [-4.09,-2.08];
+  eBasketball PRE -3.4% [-22.3,+9.4] n17 (too few); eBasketball IN-PLAY +2.25% [-0.31,+4.65] n402/390 ev, 4/5 days, Bonferroni
+  CI [-2.1,+6.6] -> not distinguishable (fails rule ii); +60 s delayed +1.67% [-1.10,+4.27].
+- Blind seller at TRADE prices (pool_census TAIL - MIRROR form, S-30 min .. close): eSoccer TAIL $155,321 - MIRROR $128,130 =
+  +$27,190 per 5 d = +$163k/30 d (pre-start -$13.6k/30 d, in-play +$176.7k/30 d); eBasketball +$11,801 per 5 d = +$70.8k/30 d.
+  pool_census's +$1.06M / +$0.50M (18 sampled events x212) overstated the net ~6.5x / ~7x: TAIL roughly agrees ($0.93M/30 d here
+  vs $1.07M) but MIRROR (comebacks) was nearly missing from the 18-event sample.
+- Reading: the trade-price "longshot buyers overpay" money is the half-spread. Longshot YES buyers lift the ask (~.12) and the
+  cheap side wins ~10-12%: the PASSIVE seller (the provider-style MM quoting both sides) earns it; a taker who sells at the bid
+  (~.08) loses 3-4%. Same mechanism as amendment 6 (gas_daily_v2) and the TSA/E5 maker lessons.
+- VERDICT Part A (per pre-registration): no taker-robust miscalibration in DISC, pre-start or in-play -> no rule registered, TEST
+  not pulled, SEALED untouched. Not an edgelab trial (descriptive only, no rule).
+- Untested follow-up (maker class, low prior: MAKER 0/7, fills = losers): a resting seller of the cheap side at the ask in-play.
+  Needs the trade tape (taker_side) to measure filled-vs-unfilled and queue position vs the provider; not run here.
+- Row check (4 random eSoccer in-play first touches, raw candles): paths are coherent (e.g. Hoffenheim (Krocs) .18/.21 at S+2
+  -> .07/.09 at S+3 -> .01/.02, result no); in-play quotes blink wide (0.01/0.74) when the MM pulls around goals, so candle-close
+  executions are approximate. First touch median S+4 min [p10 1, p90 8]; 61% of eSoccer markets hit ask <= .15 in-play.
+
+### Part A add-on: who earns the cheap-side money? exact trade tape (DISC only; descriptive, outside the K cells)
+- results/esoccer_tennis/tape_maker.py: random 500 eSoccer + 200 eBasketball DISC markets, every trade (GET /markets/trades,
+  taker_side) -> tape_DISC.jsonl (700 markets), tape_DISC_summary.json. TRAP CAUGHT: pandas parsed created_time to
+  datetime64[us, UTC]; `astype(int64) // 10**9` gave 1,794,152 instead of 1,794,152,693 (1000x off, the datetime64[us] trap).
+  The script's range assert fired; fixed to `(ts - epoch) // pd.Timedelta(seconds=1)`.
+- In-play, trades with the cheap side c = min(yes, no) <= .15 (contract-weighted, event-clustered 95% CI):
+  eBasketball, taker BOUGHT cheap: 120,143 ct, mean c .042, cheap side won 1.27% -> passive seller +2.97c/ct [+1.93,+3.90]
+  (173 ev), taker -3.28c [-4.22,-2.19]; positive 5/5 days (1.08..4.79c). eBasketball taker SOLD cheap: passive -1.85c [-4.65,+1.73].
+  eSoccer, taker bought cheap: 97,556 ct, mean c .046, won 3.63% -> passive +0.92c [-1.99,+3.09] (361 ev); one comeback event
+  (OLIVMIA) cost the passive side $970 on 11-08 (-16c/ct that day). eSoccer taker sold cheap: passive +4.32c [-2.49,+12.41].
+- Base-rate-shape placebo (maker_band.py -> maker_band_DISC_eb.json / _es.json): ROI on capital at risk of the passive seller
+  of whatever the taker bought in-play. eBasketball: rule band c <= .15 ROI +3.10% [+2.00,+4.08] (181 ev) vs placebo band
+  (.15,.30] +11.44%; diff -8.34% [-16.61,+1.57]. eSoccer: rule +0.96% [-2.17,+3.25] vs placebo +4.21%.
+  -> the passive side earns MORE on mid-priced sides than on longshots: in-play takers lose at every price (spread + speed),
+  so this is generic market-making P&L, not a longshot pricing error. Fails the placebo already in DISC -> no rule, TEST not
+  pulled. Capturing it needs queue priority and quote-pulling at feed speed (rubric R6 = 0).
+
+## Part B log
+- 07:10Z TB1 registered in edgelab: tb1_kalshi_tennis_pin_fresh-0ac23199 (spec edgelab/specs/tb1_kalshi_tennis_pin_fresh.yaml;
+  cross_venue now 13 trials, bar p < 3.85e-03; "no vault entry" like ESP1 -> forward only). Pinnacle history: none (see prereg).
+- 07:10Z descriptive snapshot, ALL matched matches at any lead time (results/esoccer_tennis/gap_snapshot.py ->
+  gap_snapshots.jsonl; not the pre-registered T-90..T-10 sample): 61 matched pre-match matches (all two-sided); Pinnacle quote
+  age 784 s (stale-ish); gap = Kalshi home mid - Pinnacle multiplicative no-vig: median -0.0003, median |gap| 0.0093, p90
+  0.0209, max 0.0494; Kalshi spread median 2c; side edge (conservative fair - ask - fee) median -0.0315, sides >= +1c: 0 of 122.
+  By series median |gap|: ITF M .007 (27), ITF W .0107 (16), WTA/BJK .0135 (9), ATP Ch .0086 (7), ATP .019 (2).
+  Snapshot loop every 30 min x 20 (gap_snapshot_loop.log) + the logger (10 h) keep collecting.
+- Rules caveat for any Kalshi-vs-Pinnacle gap: Kalshi ITF = retiring player loses / ATP Ch "after a ball has been played";
+  Pinnacle voids or settles retirements by its own set rule -> Pinnacle no-vig is not exactly Kalshi fair (retirements ~2-3%,
+  rules_quirks l.74). Matters only for gaps of ~1c.
+
+- STATUS at handback (2026-11-21T07:29Z; results/esoccer_tennis/score_b.py -> b_summary.json): 14 ticks, fresh-tick share
+  0.143; pre-registered sample (first fresh tick in [start-90, start-10]) n = 4 matches: median gap
+  -0.0032, median |gap| 0.0108, max 0.0225, Kalshi spread median 0.015, side edge
+  median -0.0317, sides with edge >= 0: 0 of 8; TB1 bets 0. Too few to judge; the logger
+  keeps running by hand until ~17:05Z (loop 600 min) and the snapshot loop for 10 h. Lead: rerun score_b.py, then
+  `TENNIS_PIN_OUT=results/esoccer_tennis/tennis_pin python scripts/tennis_pin_logger.py settle`. TB1's kill needs 7 logger days ->
+  deployment (qs_job.sh case + installer, like esports-pin) is the lead's/user's call; nothing installed.
+- READING so far: Kalshi tennis sits on Pinnacle's no-vig line (|gap| ~1c, inside its 2c spread; 0/122 snapshot sides and 0/8
+  in-window sides with positive edge after fee). Expect TB1 to die on kill (b) ("< 1 signal/day") rather than produce bets.
+
+## Learnings
+### Kalshi tennis match winners sit on Pinnacle's no-vig line pre-match
+61 matched matches (07:10Z snapshot): median |Kalshi mid - Pinnacle no-vig| 0.93c, p90 2.1c, max 4.9c, spread 2c; 0 of 122 sides
+had conservative fair - ask - fee >= +1c. Source: results/esoccer_tennis/gap_snapshots.jsonl. Forward TB1 logger checks it in-window.
+### A positive TAIL - MIRROR at trade prices is the half-spread, not a taker edge
+eSoccer trade-price net +$163k/30 d (S-30 min..close, DISC 11-07..11-11), but the taker who sells the cheap side at the bid loses:
+pre-start -4.19% [-6.80,-1.66] n651, in-play -2.78% [-3.66,-1.87] n4,184, 0/5 days positive. Longshot buyers lift a ~.12 ask, the
+cheap side wins ~10-12%, a seller at the ~.08 bid loses. Re-price any loser pool at the bid before calling it harvestable.
+Source: results/esoccer_tennis/a_DISC_blind.json, analyze_a.py.
+### Small Horvitz-Thompson event samples miss the MIRROR (comebacks) and overstate a pool's net
+pool_census put eSoccer at +$1.06M/30 d net from 18 sampled events (x212); the full DISC window gives TAIL $0.93M/30 d (close to
+pool_census's $1.07M) but MIRROR $0.77M/30 d, net +$163k (~6.5x lower); eBasketball +$70.8k vs +$0.50M. Comebacks are rare,
+large events: sample them fully. Source: a_DISC_blind.json vs notes/pool_census.md write-up C.
+### Kalshi eSoccer / eBasketball are in-play products with a calibrated pre-start book
+83% of eSoccer and 90% of eBasketball contracts trade after kickoff (5.70M of 6.82M; 2.55M of 2.82M, DISC). At S-5 min the book
+is 98.5% two-sided, median spread 3c; mid calibration within ~3c in every bucket with n >= 100 (eSoccer team [.40,.60) -0.014
+[-0.038,+0.009] n1,403). 0 of 48 taker cells robust. Source: a_DISC_calib.csv, a_DISC_cells.csv.
+### In-play takers lose at every price; a maker profit in one band is not a band-specific mispricing
+Exact tape (700 DISC markets): passive sellers of in-play eBasketball longshots earned +2.97c/ct [+1.93,+3.90], 5/5 days, but
+the placebo band (.15,.30] earned more (ROI +11.4% vs +3.1%, diff -8.3% [-16.6,+1.6]). Run the adjacent-band placebo before
+spending a TEST window. Source: results/esoccer_tennis/maker_band_DISC_eb.json, tape_DISC_summary.json.
+### pandas to_datetime of ISO strings gives datetime64[us]; astype(int64) // 1e9 is 1000x off
+tape_maker.py first produced t = 1,794,152 for 2026-11-08 (should be 1,794,152,693): the [us] trap again (memory:
+datetime64[us] epoch trap). A one-line range assert on epoch seconds caught it; use (ts - epoch) // pd.Timedelta(seconds=1).
+### Kalshi 1-min candles exist only for minutes where something changed
+0.49 of the minutes in a window have a candle; 66% of candles have 0 volume (quote-change candles). The quote at T = the latest
+candle <= T carried forward; a "stale if > 10 min" guard would drop unchanged quotes. Source: fetch_DISC.log, notes A1.

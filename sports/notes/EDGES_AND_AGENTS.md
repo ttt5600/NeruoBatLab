@@ -532,3 +532,10 @@ confirm home state (CA vs CO) for venue legality.
   low + too narrow -> 84% NO picks. Losses on stars' LOWER rungs (-20.4%). Retired; edgelab adapter void bug fixed (line 69).
   Props launchd job still running: user to stop (`launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-props`).
   Harness bug: traps.check_pick_side_balance overflows at n 1,562 (not edited).
+
+### esoccer_tennis (merged 2026-11-21, notes/esoccer_tennis.md) -- both DEAD
+- eSoccer/eBasketball (2,718 events, discovery window only): pre-start book calibrated (98.5% two-sided, 3c); taker cheap-side
+  selling loses (eSoccer pre -4.19% [-6.80,-1.66], in-play -2.78%); the seller's money at trade prices is the half-spread.
+  CORRECTION to pool_census: eSoccer/eBasketball "+$1.06M/+$0.50M" were ~6.5x/7x too high (18-event sample missed comebacks).
+- Tennis pre-match vs Pinnacle: median |Kalshi mid - Pinnacle no-vig| 0.93c (n61), 0/122 sides positive after fee -> TB1 retired
+  undeployed. scripts/tennis_pin_logger.py kept (one-to-one name matching, 52/63 matched, 0 mismatches).

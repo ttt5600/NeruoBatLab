@@ -1,0 +1,34 @@
+id: tb1_kalshi_tennis_pin_fresh
+family: cross_venue
+dataset: xv_kalshi_tennis_pin
+rule: edgelab.rules.forward:unwired
+hypothesis: >-
+  Kalshi tennis match winners (KXATPCHALLENGERMATCH, KXITFMATCH, KXITFWMATCH, KXWTACHALLENGERMATCH, KXATPMATCH,
+  KXWTAMATCH) vs Pinnacle Tennis (sport 33) full-match moneyline, pre-match. Every ~2 min (scripts/tennis_pin_logger.py),
+  inside [Pinnacle start - 90 min, start - 10 min] with the Pinnacle matchup not live, buy the Kalshi YES of a player at
+  the ask when the conservative de-vigged Pinnacle fair (min of multiplicative/power) - ask - taker fee (10-lot,
+  cent-rounded) >= 0.03, ONLY when the Pinnacle quote is fresh (Date - last-modified <= 120 s), ask in [0.03, 0.97] with
+  size >= 1; match = series<->league prefix + both players one-to-one by whole-word token sets + Kalshi rules surnames
+  inside the Pinnacle names + Pinnacle start within [ticker date 00:00 ET - 12 h, + 36 h], unique both ways. First
+  qualifying tick per match, 1 contract, hold to Kalshi settlement (scalar settlements count at value).
+decision_time: tennis_pin_logger tick, [Pinnacle start - 90 min, start - 10 min]
+price_model: taker
+split: forward
+min_n: 300
+kill:
+  kind: roi_ci_below_zero
+  after_n: 300
+fee:
+  rounding: cent
+params:
+  thresh: 0.03
+  devig: min(multiplicative, power)
+  fresh_s: 120
+  outcome: Kalshi settlement (no ball played -> fair price ATP Ch / $0.50 ITF; ITF retirement after start -> retiring player No)
+  clv: Pinnacle close (last snapshot before start, same de-vig) minus entry ask
+  extra_kills: "notes/esoccer_tennis.md Part B -- ROI <= 0 at n 300; or first 7 logger days median |gap| <= 1c and < 1 signal/day -> park"
+legacy: >-
+  New 2026-11-21 (agent esoccer_tennis; pool_census write-up A: tennis = biggest untested pools, in-play gated by paid feeds,
+  only pre-match vs Pinnacle testable). No dev data: no Pinnacle tennis history exists locally or free for Challenger/ITF.
+  Forward only; pre-registered in notes/esoccer_tennis.md before any Kalshi-vs-Pinnacle number was computed. Logger NOT in
+  launchd (lead decides deployment).
