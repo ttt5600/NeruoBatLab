@@ -1,38 +1,36 @@
-# fund STATE -- Updated: 2026-11-19 (handoff before /clear; full history: notes/STATE_HISTORY_to_2026-11-19.md)
-Next: launch the next 3-4 research agents from notes/RESEARCH_QUEUE.md (user: keep agents running; approval on everything);
-  fed_vs_futures + mortgage_rates finished and are merged (both dead, LEARNINGS_2026-11.md). Check health digest first.
+# fund STATE -- Updated: 2026-11-21 ~12:00Z (session 11-19..21; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
+Next: merge the 4 running agents (below) from notes/findings_inbox.jsonl; score settlements: Tulsa DK credit (11-21, decides
+  SR vs SNR credit policy, notes/money_now.md), KFG1 first live $2 picks (Sun 11-22), OpenRouter T238 (11-23 10:00 ET).
 
-## Live money (Kalshi; launchd from ~/.claude/quant-kalshi; .env backups *.bak-2026-11-18-precaps)
-- E4 weather maker orig7: 24 ct >= .97 / 19 ct <= .96 (KALSHI_PRICE_BAND_CAPS). X1 (17 cities) RESTARTED 11-18: 6 ct, $30
-  sub-cap, kill since 11-18 (2 losses/first 30 or ROI<0 after 60). Caps day/open $150, NIGHT_FRAC .375. notes/SIZING_RULE.md
-- lead_exec: DUL NFL div unders $2 (KXNFLTOTAL), L39 monthly rain NO (live Nov 24-30), TSA YES-only. NHL late $1 (ingame_exec).
-- OFF: NFLF (data/LEAD_DISABLE_NFLF; needs order_guard fix cec89a0 re-check before re-arm), IBKR gateway + ForecastEx exec
-  (disabled; user withdrawing ~$65.50 IBKR cash, account stays open).
-- Kalshi 11-19: cash $514.64, shard target 0=80 2=15 3=5. USER's own positions (not bots): KXNVDACEO-29JAN-TCOO 651 ct,
-  KXNBAGAME-26NOV18BOSDEN-DEN 35 ct. Status: `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/kalshi_exec.py status`.
+## Live money (Kalshi; launchd from ~/.claude/quant-kalshi)
+- E4 orig7 maker + X1 ($30 sub-cap): live 133 settled / 130 wins, P&L +$19.52, 7d +$14.44 (`kalshi_exec.py status`, 11-21).
+  orig7 not cap-bound since 11-03; X1 picks hit its $30 cap 6-9/day by design. DUL/TSA/NHL-late as before; DUL took U45 IND@HOU.
+- EXPERIMENT BUDGET $50 (user 11-21, "be aggressive"; notes/EXPERIMENT_BUDGET.md; journal ~/.claude/quant-kalshi/data/exp_budget.jsonl):
+  OpenRouter KXTOKENUSE-26NOV23-T238 YES 180 @ .0735 = $14.08 (likely loses: Kalshi followed NEW definition 4/5, source_shift);
+  KFG1 $2 IOC per pick via scripts/exp_exec.py inside the kfg1 launchd job (cap = $50 total spend). Stop: touch data/EXP_STOP.
+- DraftKings Predictions (user's own account, side-hustle session operates it): $50 credit on Tulsa 52 ct, UNHEDGED by user choice;
+  3 more $50 credits ~11-28/12-05/12-12. Policy: SR -> favourite unhedged; SNR -> .10-.25 dog hedged on Kalshi (money_now.md).
 
-## Monitoring
-- Health monitor hourly (com.jonathanwang.quant-sports-health) -> ~/.claude/quant-sports/digests/health-<date>.md; 47 jobs.
-- Scorecards: `cd sports && ../.venv_quant/bin/python scripts/scorecards.py [--kalshi]` (SPRT decision-support panel incl.).
-- Stop one job: launchctl bootout gui/$(id -u)/com.jonathanwang.<label>; stop all quant-sports: touch ~/.claude/quant-sports/STOP.
+## Monitoring / jobs added this session
+- kfg1 (KFG1 forward paper + exp_exec live), installed by user. source-shift watcher: job case deployed; launchd NOT installed
+  (user: `bash sports/scripts/install_source_shift_agent.sh`). health: gas-books max_gap 14->20h.
+- odd-lot tender watcher scripts/oddlot_watch.py built, not scheduled.
 
-## Forward paper trials logging (read-only launchd; rules + kills pre-registered in each notes file)
-K1/K-NFL/K50-NFL/K-CFB (Kalshi openers), NHL-om-A + nhl-goalie, OT1/OT1b (crypto tails), CB1-3 (crypto barriers), E4P-C/CA
-(NBM rule C, best lead: +1/3 E4 picks), E4-0600 add-on, ESP1 esports vs Pinnacle, QM1/2 quake, TG1/SD1/SD2 snow, state-gas
-books, econ-events books, LX1 (self-stops 11-20), Q013/Q014 RT, series-watch (daily 07:00 PT -> RESEARCH_QUEUE).
+## Running agents (notes/RESEARCH_QUEUE.md)
+e4_data_v2 (E4 headroom, CLI DGP, forecast backfill, above-forecast losers 66/70), esoccer_tennis, props_forward_1121, ufc_decision_gap.
 
-## Latest results (detail + numbers: notes/LEARNINGS_2026-11.md, notes/EDGES_AND_AGENTS.md)
-- Only proven edge: E4 (sealed E1 +2.87% [+1.98,+3.71]); live maker SPRT LLR ~0 -> years to certify; sizing = judgment.
-- Kalshi sports efficient after cost (models ~0.85 pt CLV vs 1.2-1.4 needed); maker fills adversely selected (6 markets).
-- 11-18 dead: tropical/NHC, NYC hourly dir, snow (maker prices recent decade), RT review lag, PM skilled wallets, OT1 ext.
-- Q004-NHL + L34 killed by rule. K1 n20 +18.7% early. edgelab SCORING v2 + BAR v2 amendment adopted 11-18 (GOAL.md).
+## Session results (EDGES_AND_AGENTS.md, LEARNINGS_2026-11.md, STRATEGY_v2.md, IDEA_PATTERNS.md)
+- ~25 ideas tested, all dead except KFG1 (dev +23% [-0.7,+47.3] n56, forward). Only free-official-source nowcasts survive sealed
+  (sealed/dev 0.664 vs 0.162 for models; winners_transfer). Fastest public page sets price. Pool census: Kalshi loser money is
+  in in-play sports + 15m crypto ($659M/30d); weather $1.49M; wide far rungs -> pool goes to the quoting maker.
+- PM US taker fee is .095 (docs corrected). DK Predictions fee schedule in notes/venues.md.
 
 ## Waiting on user
-1. Re-lock GOAL.md: sha f405c49ecec8c6349b08eca9e8f3ba18ed1f7dae50223840b9d1f708e3047db7 into ~/agent-harness/goals/fund.yaml,
-   then `sudo ~/agent-harness/install.sh --lock`.  2. Withdraw IBKR cash.  3. Optional: real-time odds feed ($99-198/mo),
-   ask Kalshi if retail can quote parlays (identity-acting steps not covered by blanket approval).
+1. Re-lock GOAL.md (hub doctor FAIL; sha in notes/STATE_HISTORY). User asked for 2x in 1 month: explained ~1-3% base rate;
+   12-month goal unchanged until they re-lock. 2. Install source-shift watcher. 3. vault.yaml windows for forward trials.
+4. Branch not pushed (push blocked by permission classifier): `! git push origin worktree-quant-trader`.
 
-## Standing authorizations + traps
-User 11-18 "approval on everything" (memory feedback_quant_approval_everything): apply prepared/tested/reversible changes,
-log + back up; never identity-acting outward steps. Traps: Kalshi cash is per shard; fills `side` = outcome acquired;
-order list lags 1-2 s (trust POST response); journals record intent not fills; check output growth not exit codes.
+## Standing authorizations + rules
+"Approval on everything" (prepared/tested/reversible) + $50 experiment budget; never identity-acting steps; never bring
+browser windows forward (memory feedback_no_tab_focus_during_user_activity). Traps: Kalshi cash per shard; close_time != event
+time; /historical `close` dollars vs live `close_dollars`; first-print settlements; robots.txt (Vercel /api/ disallowed).
