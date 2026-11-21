@@ -1,0 +1,501 @@
+{
+ "KXOPENSOURCESHARE": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/ECONSTAT.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/ECONSTAT.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-11-14T21:06:10.775759Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards",
+    "url": "https://vercel.com/ai-gateway/leaderboards/models?weights=open&range=2m&group=weights#open-vs-closed"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXOPENSOURCESHARE",
+  "title": "Open weights AI market share"
+ },
+ "KXOPENVREQ": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-27T21:15:54.074677Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXOPENVREQ",
+  "title": "OpenAI Vercel requests share"
+ },
+ "KXOPENVSPEND": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-27T21:15:54.115317Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXOPENVSPEND",
+  "title": "OpenAI Vercel spend share"
+ },
+ "KXMOONVSPEND": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-27T21:15:54.108826Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXMOONVSPEND",
+  "title": "Moonshot AI Vercel spend share"
+ },
+ "KXANTHVSPEND": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-27T21:15:54.124635Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXANTHVSPEND",
+  "title": "Anthropic Vercel spend share"
+ },
+ "KXANTHVREQ": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-27T21:15:54.147012Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXANTHVREQ",
+  "title": "Anthropic Vercel requests share"
+ },
+ "KXGOOGVREQ": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-18T21:15:11.475935Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share",
+   "Google"
+  ],
+  "ticker": "KXGOOGVREQ",
+  "title": "Google Vercel requests share"
+ },
+ "KXDEEPVREQ": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-27T21:15:54.094294Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXDEEPVREQ",
+  "title": "DeepSeek Vercel requests share"
+ },
+ "KXGOOGVSPEND": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-18T21:15:11.608197Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share",
+   "Google"
+  ],
+  "ticker": "KXGOOGVSPEND",
+  "title": "Google Vercel spend share"
+ },
+ "KXZAIVSPEND": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-18T21:15:12.53947Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXZAIVSPEND",
+  "title": "Z.AI Vercel spend share"
+ },
+ "KXZAIVREQ": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-11-18T21:15:12.405301Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards - Labs",
+    "url": "https://vercel.com/ai-gateway/leaderboards/labs"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXZAIVREQ",
+  "title": "Z.AI Vercel requests share"
+ },
+ "KXOSSPEND": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/VAIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/VAIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "custom",
+  "last_updated_ts": "2026-10-27T21:15:54.10124Z",
+  "settlement_sources": [
+   {
+    "name": "Vercel AI Gateway Leaderboards",
+    "url": "https://vercel.com/ai-gateway/leaderboards/models?weights=open&range=2m&group=weights#spend"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXOSSPEND",
+  "title": "Open source share of spend"
+ },
+ "KXANTHSHARE": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/AIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/AIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-10-23T16:50:34.27799Z",
+  "settlement_sources": [
+   {
+    "name": "OpenRouter - AI Market Share",
+    "url": "https://openrouter.ai/rankings#market-share"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXANTHSHARE",
+  "title": "Anthropic Market Share"
+ },
+ "KXGOOGSHARE": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/AIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/AIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-11-05T15:04:23.594583Z",
+  "settlement_sources": [
+   {
+    "name": "OpenRouter - AI Market Share",
+    "url": "https://openrouter.ai/rankings#market-share"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share",
+   "Google"
+  ],
+  "ticker": "KXGOOGSHARE",
+  "title": "Google AI Market Share"
+ },
+ "KXDEEPSHARE": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/AIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/AIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-10-23T16:50:34.214854Z",
+  "settlement_sources": [
+   {
+    "name": "OpenRouter - AI Market Share",
+    "url": "https://openrouter.ai/rankings#market-share"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXDEEPSHARE",
+  "title": "DeepSeek market share"
+ },
+ "KXOPENSHARE": {
+  "additional_prohibitions": [
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/AIMARKETSHARE.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/AIMARKETSHARE.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-10-23T16:50:34.203187Z",
+  "settlement_sources": [
+   {
+    "name": "OpenRouter - AI Market Share",
+    "url": "https://openrouter.ai/rankings#market-share"
+   }
+  ],
+  "tags": [
+   "AI",
+   "Market Share"
+  ],
+  "ticker": "KXOPENSHARE",
+  "title": "OpenAI Market Share"
+ },
+ "KXTOPUSAGEAI": {
+  "additional_prohibitions": [
+   "Current players, coaches, and staff of the league, association, or organization(s) governing the event. For college leagues/associations specifically, or where otherwise appropriate (as identified by the Exchange), this applies to current players/coaches/staff of the specific sport in <event> rather than the league/association as a whole (e.g., if the Division I Gonzaga Men\u2019s Basketball Team is playing in <event>, this prohibition will restrict trades by current players/coaches/staff on NCAA Basketball, rather than all current players/coaches/staff in any NCAA sport).",
+   "Paid employees of the league and league participants",
+   "Owners of teams and the league",
+   "and household members and immediate family of all above",
+   "Persons who are employed by any of the Source Agencies are not permitted to trade on the Contract.",
+   "Persons who hold any material, non-public information on the Underlying are not permitted to trade on the Contract."
+  ],
+  "categories": [
+   "Science and Technology"
+  ],
+  "category": "Science and Technology",
+  "contract_terms_url": "https://assets.kalshi.com/contract_terms/RANKLIST.pdf",
+  "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/RANKLIST.pdf",
+  "exchange_index": 0,
+  "fee_multiplier": 1,
+  "fee_type": "quadratic",
+  "frequency": "one_off",
+  "last_updated_ts": "2026-11-19T18:15:41.42095Z",
+  "settlement_sources": [
+   {
+    "name": "OpenRouter - AI Model Rankings",
+    "url": "https://openrouter.ai/rankings#top-models"
+   }
+  ],
+  "tags": [
+   "AI"
+  ],
+  "ticker": "KXTOPUSAGEAI",
+  "title": "Top AI by usage"
+ }
+}

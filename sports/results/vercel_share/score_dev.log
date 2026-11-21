@@ -1,0 +1,62 @@
+          arm   n  days  losses  mean_price    roi      lo     hi  yes
+        VS1 M  85    15      17       0.761   2.86   -9.09  15.12   56
+VS1 P-persist  58    15      20       0.749 -14.45  -30.85   5.58   41
+   VS1 P-clim 133    16      48       0.708 -11.83  -28.04   5.24  105
+        VS2 V  10     2       2       0.706  11.42 -100.00  13.31    7
+     VS2 P-V1 141    19     132       0.354 -82.58 -100.00 -55.54   85
+
+VS1 M by series:
+                    n   pnl   cost  losses
+series                                    
+KXANTHVREQ         11  2.15   7.85       1
+KXANTHVSPEND       13 -2.79   9.79       6
+KXDEEPVREQ          9  1.75   7.25       0
+KXGOOGVREQ          7  0.25   4.75       2
+KXMOONVSPEND        5 -1.07   4.07       2
+KXOPENSOURCESHARE  18 -0.12  15.12       3
+KXOPENVREQ          5  1.04   3.96       0
+KXOPENVSPEND       17  0.68  13.32       3
+VS1 M top-5 days by pnl: {'2026-10-08': 1.32, '2026-10-20': 1.11, '2026-10-22': 1.0, '2026-10-18': 0.99, '2026-10-06': 0.77} total 1.89 ex-top-day ROI 0.93
+VS1 M worst-5 days: {'2026-10-16': -0.3, '2026-09-28': -0.34, '2026-10-10': -0.53, '2026-09-22': -2.07, '2026-10-24': -2.16}
+                         bet_id side  price  p_model   win   pnl
+     KXOPENVSPEND-22SEP26-T25P5  yes   0.84 0.975000 False -0.85
+       KXMOONVSPEND-22SEP26-T20   no   0.83 0.925000 False -0.84
+       KXMOONVSPEND-22SEP26-T18   no   0.81 0.908333 False -0.83
+       KXGOOGVREQ-16OCT26-T11P5  yes   0.76 0.908333 False -0.78
+  KXOPENSOURCESHARE-26SEP29-T70  yes   0.76 0.925000 False -0.78
+     KXANTHVSPEND-24OCT26-T30P7  yes   0.75 0.958333 False -0.77
+KXOPENSOURCESHARE-26SEP29-T67.5  yes   0.74 0.958333 False -0.76
+     KXOPENVSPEND-24OCT26-T13P0  yes   0.73 0.975000 False -0.75
+
+VS2 V by series:
+                    n   pnl  cost  losses
+series                                   
+KXOPENSOURCESHARE  10  0.82  7.18       2
+VS2 V top-5 days by pnl: {'2026-09-20': 0.94, '2026-10-18': -0.12} total 0.82 ex-top-day ROI -100.0
+VS2 V worst-5 days: {'2026-09-20': 0.94, '2026-10-18': -0.12}
+                         bet_id side  price  p_model   win   pnl
+KXOPENSOURCESHARE-26OCT19-T64.1  yes   0.07      NaN False -0.08
+KXOPENSOURCESHARE-26OCT19-T65.9  yes   0.03      NaN False -0.04
+KXOPENSOURCESHARE-26SEP21-T87.5   no   0.96      NaN  True  0.03
+  KXOPENSOURCESHARE-26SEP21-T70  yes   0.96      NaN  True  0.03
+  KXOPENSOURCESHARE-26SEP21-T85   no   0.91      NaN  True  0.08
+  KXOPENSOURCESHARE-26SEP21-T75  yes   0.91      NaN  True  0.08
+KXOPENSOURCESHARE-26SEP21-T72.5  yes   0.91      NaN  True  0.08
+KXOPENSOURCESHARE-26SEP21-T77.5  yes   0.84      NaN  True  0.15
+
+Brier on 158 two-sided rungs (spread<=.10) at T1, 17 days: model 0.0612, P-persist 0.0854, P-clim 0.1700, Kalshi mid 0.0482
+ Brier(model)-Brier(mid) (np.float64(0.013), np.float64(-0.0235), np.float64(0.0582))  Brier(model)-Brier(P-persist) (np.float64(-0.0242), np.float64(-0.0472), np.float64(0.0026))
+ far rungs (model p>=.85/<=.15) n 120: mean model p_side 0.958, mean mid_side 0.921, realised 0.983
+
+Quotes at T1:
+               n  two_sided  med_spread_two
+fam                                        
+lab         1031      0.967            0.56
+open_share   152      0.914            0.23
+
+VS2 clearing (rungs with candles after D+1 00:00Z):
+                              n  window_h  cleared_any  cleared_by_1h  med_h
+fam                                                                         
+lab(close 23:59ET D)        844     3.983        0.382          0.282    1.0
+open_share(close 10ET D+1)  175    14.000        0.897          0.526    1.0
+ rungs within 1.0 pt of V: 205 cleared any 0.351

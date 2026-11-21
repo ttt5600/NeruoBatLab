@@ -114,6 +114,55 @@ Descriptive: per rung, hours after D+1 00:00Z until the outcome side's quote is 
 - OpenRouter share books track the free endpoint: KXDEEPSHARE-26NOV23 (week 11-16) every rung >= 28.5 at 0/.01 while the partial
   week text-request share was 25.18% (or/authreq_text_*.json, both byok variants 25.18/25.19).
 
+## 5. RESULTS (dev scored once, 2026-11-21 ~06:52Z; sealed 10-26..11-20 never fetched)
+Frame: build_frame.py -> data/vercel_share/vs_frame.parquet (1,230 dev rungs: KXOPENSOURCESHARE 180 + 7 lab series 148-151 each;
+KXGOOGVSPEND/ZAI*/OSSPEND start after the dev window), vs_candles.json (1,230/1,230 with hourly candles, 0 failed fetches).
+**edgelab vs1_vercel_far_taker-9bc1ed8f evaluate dev -> DEAD (5a p >= bar):** n 85 bets / 15 days, net ROI **+2.86% [-8.78,
++15.56]**, p .293 vs bar 6.67e-04 (75 trials); halves +0.7% / +5.0%; top day 2026-10-08 = 70% of profit, ROI ex top day +0.93%;
+CLV mean +0.085. Prereg kill (LCB <= 0) triggered.
+**edgelab vs2_vercel_post_taker-8acc4032 evaluate dev -> DEAD (5a, 5c, 5d):** n 10 < 20, 2 days, ROI +11.42% [-100, +13.31].
+score.py (score_dev.log, score_dev.json, bets_*.csv; day-cluster bootstrap 10k):
+| arm | n | days | losses | mean price | ROI [95% CI] |
+|---|---|---|---|---|---|
+| VS1 M (x_{D-1}) | 85 | 15 | 17 | .761 | +2.86% [-9.09, +15.12] |
+| VS1 P-persist (x_{D-2}) | 58 | 15 | 20 | .749 | -14.45% [-30.85, +5.58] |
+| VS1 P-clim (60-d levels) | 133 | 16 | 48 | .708 | -11.83% [-28.04, +5.24] |
+| VS2 V (day-D value) | 10 | 2 | 2 | .706 | +11.42% [-100, +13.31] |
+| VS2 P-V1 (day D-1 value) | 141 | 19 | 132 | .354 | -82.58% [-100, -55.54] |
+- VS1 beats both placebos on the point estimate (by ~14-17 pts) but its own CI spans 0 -> not distinguishable from 0. The D-1
+  value carries real information vs D-2 (Brier on 158 two-sided rungs, spread <= .10, 17 days: model .0612, P-persist .0854,
+  P-clim .1700; model - persist -.0242 [-.0472, +.0026] n.d.), but **the Kalshi mid is better calibrated than the model**: mid
+  .0482, model - mid +.0130 [-.0235, +.0582] n.d. Far rungs (model p >= .85 / <= .15, n 120): model p_side .958, mid_side .921,
+  realised .983 -> the certain side is slightly cheap at MID, but the bets the rule could actually take were wide-spread rungs at
+  mean ask .761 with 80% realised (68/85) -- model overconfident exactly where it disagrees with the book (rule PA again).
+- Top-5 VS1 days by pnl: 10-08 +1.32, 10-20 +1.11, 10-22 +1.00, 10-18 +0.99, 10-06 +0.77 (total +1.89 on 85 bets); worst 10-24
+  -2.16, 09-22 -2.07. By series: ANTHVREQ +2.15, DEEPVREQ +1.75, OPENVREQ +1.04, OPENVSPEND +0.68, GOOGVREQ +0.25, OPENSOURCESHARE
+  -0.12, MOONVSPEND -1.07, ANTHVSPEND -2.79 (6 losses of 13).
+- VS2's 10 bets are all KXOPENSOURCESHARE: 8 wins on day 09-20 (series' first week, event volume 9.6k) and 2 losses on day 10-18 =
+  the revised day: today's data says 67.7, Kalshi settled 62.9; the book priced T64.1 YES at .07 because the page then showed ~62.9.
+  My "V" (current data) was the stale number, not the book -> revision trap.
+- **Spreads at T1 (05:00Z):** two-sided share lab .967 / open share .914, but median spread on two-sided rungs **.56 (lab)** and
+  **.23 (open share)** -> R5 = 0.
+- **Book clearing after the day ends (VS2 descriptive, vs2_clearing.csv, vs2_lab_quotes.log):** open share (14 h window): 89.7% of
+  rungs reach >= .95 on the outcome side, 52.6% within 1 h, median 1 h. Lab (4 h window): only 38.2% reach .95, but the outcome-side
+  buy price at the first candle >= D+1 01:00Z is 1.00 (no offer) on 83.8% of lab rungs and .97-.99 on 16.0%; <= .90 on 0.2%. The
+  "uncleared" lab rungs are EMPTY books, not stale offers. Open share: <= .96 offers on 4.0% of rungs (6 rungs >= 1 pt from V).
+Verdict: **VS1 dead (not distinguishable; market better calibrated; R5 spreads .23-.56); VS2 dead (book clears within ~1 h or
+offers nothing).** No sealed ask. Mechanism = "watched number on a live free endpoint" (as TOK1/TOK2), not an unwatched tail.
+- **Tail pools (tailpool.py, 30 d to 2026-11-21, tailpool_30d.json):** loser-paid <= 15c per 30 d: KXOPENSOURCESHARE $20,156 (full
+  pool $64,044; tail risk $6,956); KXANTHVSPEND $4,166; KXOPENVREQ $2,731; KXANTHVREQ $2,637; KXMOONVSPEND $2,523; KXOPENVSPEND
+  $2,405; KXDEEPVREQ $2,379; KXGOOGVREQ $1,934; KXOSSPEND $810; KXZAIVSPEND $395; KXZAIVREQ $237; KXGOOGVSPEND $165. OpenRouter:
+  KXDEEPSHARE $21,619, KXGOOGSHARE $18,942 (tail risk $114,145 = cheap side won big), KXOPENSHARE $13,596, KXANTHSHARE $8,574,
+  KXTOPUSAGEAI $133. All Vercel lab series except GOOGVSPEND/ZAI* clear the $500 amendment-1 bar.
+- **OpenRouter boundary-settlement risk:** KXGOOGSHARE-26OCT12 "above 17.8" settled NO at 17.8; today's endpoint says 17.858 (would
+  round to 17.9 = YES); that rung traded 183,200 contracts, last .22. All 3 GOOG mismatches are Kalshi 0.06-0.08 BELOW today's
+  endpoint (15.1 vs 15.156, 13.6 vs 13.679, 17.8 vs 17.858) -> either late-data revisions after the Monday 10:00 ET snapshot or a
+  pre-final snapshot. Rungs within 0.1 of the live value carry settlement risk the endpoint cannot resolve (for source_shift).
+- **Forward poller caveat (found 07:05Z):** the documented export is CDN-cached per URL ("cached for 24 hours"): my same-day
+  polls with fixed from/to were HITs (Age 3,511 s) and froze the 11-21 lab partial at 32.47 while a nonce-param MISS gave 31.85.
+  The v5 weightClass endpoint (max-age=0) was live in every snapshot (11-21 open tokens 71.58 -> 71.47 -> 71.58 over 06:05-06:55Z).
+  poll.py now adds a nonce. Poller stopped at ~07:05Z (8 snapshots; loops stay off) -- intraday lock-in remains unmeasured.
+
 ## 6. Forward logger (proposal; NOT installed -- no launchd)
 results/vercel_share/poll.py = one read-only snapshot per run -> fwd/snapshots.jsonl: Vercel labs export + weightClass for the
 last 3 UTC days (cache-busted by explicit from/to) + every open Kalshi market of the 12 Vercel series (bid/ask/size/last/vol/OI).
@@ -123,4 +172,35 @@ the UTC day; post-midnight drift of the completed day). Proposed cadence if the 
 (b) whether the book's far rungs track the live partial share during day D, (c) post-midnight drift of day D before 10:00 ET D+1.
 
 ## Learnings
-(to be written)
+### Vercel publishes its AI Gateway leaderboard data as an official CC-BY JSON export
+`https://vercel.com/api/ai/leaderboard-export?dataset=labs|models&from=YYYY-MM-DD&to=..` (documented at
+vercel.com/docs/ai-gateway/leaderboards, CC BY 4.0, back to 2025-10-01) reproduces the Kalshi Vercel lab-share settlements: 224/285
+exact over all settled values, Nov 115/118. Open-weights share needs the page-JS endpoint
+`/api/ai/v5/gateway-model-leaderboard?groupBy=weightClass`. Source: results/vercel_share/rebuild.csv, rebuild.py.
+### Free live sources include the current partial UTC day; the book clears about an hour after the day ends
+Both Vercel endpoints serve the running partial day (cache-missed fetches differ minute to minute). The /labs page showed the
+completed day 43 min after 00:00Z (Wayback 2026-10-21 00:43Z). KXOPENSOURCESHARE rungs reached >= .95 on the outcome side
+within 1 h on 52.6% of rungs (median 1 h). On lab rungs after the day ends, the outcome side has no offer 83.8% of the time.
+Source: results/vercel_share/vs2_clearing.csv, vs2_lab_quotes.log, wayback/labs_panel.csv.
+### Daily AI usage shares are not slow-moving
+The sd of the 1-day change is 0.9-6.5 pts in the 10-26..11-20 window, lag-1 autocorrelation 0.13-0.67, and level shifts are large
+(open-weights token share 20% -> 66% within a year). A D-1 persistence model beat a D-2 one (Brier .0612 vs .0854) but lost to the
+Kalshi mid (.0482). Source: results/vercel_share/source_stats.csv, score_dev.log.
+### VS1 far-rung rule on Vercel share ladders is dead: CI spans zero, market better calibrated, spreads .23-.56
+n 85 over 15 days, ROI +2.86% [-8.78, +15.56], p .29 (edgelab vs1_vercel_far_taker-9bc1ed8f). Placebos scored -14.5% / -11.8%.
+70% of profit came from one day. Median two-sided spread at 05:00Z was .56 (lab) and .23 (open share). Source: score_dev.log.
+### Current source data is not a point-in-time proxy on revised days
+Day 10-18 open-weights share settled 62.9 but reads 67.7 today. The book priced T64.1 YES at .07 (correct). A post-period rule
+keyed to today's 67.7 lost both of its bets that day. Lab values for Sep-Oct were restated +0.08 on average after settlement.
+Source: rebuild.csv, bets_VS2_V.csv.
+### OpenRouter market-share series settle on TEXT REQUESTS by author, not tokens
+`author-market-share?metric=requests&modality=text` matches 30/34 settled ANTH/GOOG/DEEP/OPENSHARE values; the token default gives
+GOOG 3.4 vs Kalshi 15.1. byok=all leaves request shares unchanged, so the BYOK switch hits token series only.
+Source: results/vercel_share/rebuild_or.csv.
+### KXTOPUSAGEAI carries the BYOK definitional hazard for the week of 11-16
+byok=all top model = Tencent hy4-flash 96.77T; default (BYOK-excluded) = DeepSeek 49.19T. The book has DeepSeek at .86/.99 and
+Tencent at 0/.14, so it prices the BYOK-excluded chart, as KXTOKENUSE does. Treat this as a rules question, not a trade.
+Source: results/vercel_share/live/or_books_*.json, or/models_*.json.
+### Shared Kalshi rate limits can silently empty a candle cache
+/historical candlesticks cost 50 of a 600-token budget. A fetcher that returned [] after 6 straight 429s and cached it would have
+dropped markets without a trace. Retry on x-ratelimit-reset and never cache a failed fetch. Source: build_frame.py.

@@ -1,0 +1,10 @@
+outcome-side buy price at the first candle >= D+1 01:00Z (descriptive; uses result):
+bucket      <=.90  .91-.96  .97-.99  1.00 (no offer)
+fam                                                 
+lab         0.002    0.000    0.160            0.838
+open_share  0.017    0.023    0.194            0.766
+fam
+lab           844
+open_share    175
+dtype: int64
+rungs with outcome-side price <= .96 and |K-V| >= 1.0: {'open_share': 6}

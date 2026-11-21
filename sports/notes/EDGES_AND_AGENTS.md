@@ -507,3 +507,12 @@ confirm home state (CA vs CO) for venue legality.
   UFC winner decision-gap (low-moderate). eSoccer/eBasketball (drafted.gg, oddin.gg feed): thinner book (58% two-sided, 2c),
   ONLY untested family where cheap-side buyers overpaid (net +$1.06M; eSoccer measured on 18/3,182 events -> noisy).
 - Method traps: hourly candles miss in-play pools (NBA $150,564 exact vs $0 hourly) -> 1-min candles; live API ~69 days back.
+
+### vercel_share (merged 2026-11-21, notes/vercel_share.md) -- VS1/VS2 DEAD
+- Vercel AI Gateway share series rebuild exactly 224/285 from the official CC-BY export (/api/ai/leaderboard-export); books
+  track the live free source and clear ~1 h after the UTC day ends; spreads .56 (labs) / .23 (open-weights) at 05:00Z.
+- VS1 far-rung AR(1) taker: n85 +2.86% [-8.78,+15.56] (top day 70% of profit; mid Brier .0482 beats model .0612). VS2 post-day:
+  n10 < min 20. Both retired. Pools: KXOPENSOURCESHARE $20,156/30d; labs $165-4,166; OpenRouter shares $8.6k-21.6k.
+- OpenRouter share series settle on TEXT REQUEST share (30/34), unaffected by BYOK. KXGOOGSHARE settles 0.06-0.08 below endpoint (3/3).
+- COMPLIANCE NOTE: the open-weights value came from /api/ai/v5/gateway-model-leaderboard, under a robots.txt-disallowed /api/
+  path (low-rate reads). Any forward logger must use ONLY the officially published CC-BY export, not disallowed paths.

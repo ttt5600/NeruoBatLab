@@ -23,7 +23,7 @@ orders; money changes stay with the user.
 - e4_data_v2 -- E4 headroom, CLI data-generating process, multi-year forecast backfill + calibrated distribution (notes/e4_data_v2.md)
 - gas_daily_v2 -- KXAAAGASD sharper nowcast (largest untested pool) (notes/gas_daily_v2.md)  [DONE 11-21: G2 dead; book reads intraday source]
 - pool_census -- loser-paid pool for every Kalshi series, top-40 map + 3 untested DGP write-ups (notes/pool_census.md)  [DONE 11-21: money = in-play sports + 15m crypto; next eSoccer calib + tennis pre-match]
-- vercel_share -- Vercel AI Gateway / OpenRouter share series nowcast (notes/vercel_share.md)
+- vercel_share -- Vercel AI Gateway / OpenRouter share series nowcast (notes/vercel_share.md)  [DONE 11-21: dead]
 - source_shift -- base rate of exchange following old vs new settlement definitions + source_shift_watch.py (notes/source_shift.md)
 - esoccer_tennis -- eSoccer/eBasketball calibration + tennis pre-match vs Pinnacle (notes/esoccer_tennis.md)
 - props_forward_1121 -- score NBA prop-ladder forward trial vs its 11-01 prereg (notes/props_forward_1121.md)
