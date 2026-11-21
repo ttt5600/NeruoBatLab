@@ -1,5 +1,5 @@
 # fund STATE -- Updated: 2026-11-21 ~12:00Z (session 11-19..21; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
-Next: merge the 4 running agents (below) from notes/findings_inbox.jsonl; score settlements: Tulsa DK credit (11-21, decides
+Next: all agents merged (11-21 15:30Z); launch next from STRATEGY_v2 top list / IDEA_PATTERNS; score settlements: Tulsa DK credit (11-21, decides
   SR vs SNR credit policy, notes/money_now.md), KFG1 first live $2 picks (Sun 11-22), OpenRouter T238 (11-23 10:00 ET).
   Also: UFC JSON-latency logger result (results/ufc_decision_gap/fwd/1348.jsonl, notes/ufc_decision_gap.md kill rule).
 
