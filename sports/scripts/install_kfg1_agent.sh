@@ -13,6 +13,7 @@ LA="$HOME/Library/LaunchAgents"
 [ -x "$DST/.venv/bin/python" ] || { echo "deployed venv missing: run scripts/install_quant_sports_agents.sh first" >&2; exit 1; }
 mkdir -p "$DST/scripts" "$DST/logs" "$DST/state" "$DST/data/kfg1"
 for f in qs_job.sh kx_throttle.py kfg1_paper.py kfg1_m1.json; do acp "$SRC/scripts/$f" "$DST/scripts/$f"; done
+acp "$SRC/scripts/exp_exec.py" "$HOME/.claude/quant-kalshi/scripts/exp_exec.py"   # $50 experiment executor (user 11-21)
 chmod +x "$DST/scripts/qs_job.sh"
 label="com.jonathanwang.quant-sports-kfg1"
 cat > "$LA/$label.plist" <<PL

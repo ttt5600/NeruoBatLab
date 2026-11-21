@@ -148,7 +148,10 @@ case "$job" in
   kfg1)         # KFG1 forward paper (notes/kalshi_fg_markets.md s5): READ-ONLY KXNFLFG FG ladders vs frozen M1.
                 # launchd 600 s, 24 h; tick decides games kicking off in [+50,+70] min, settle fills results 3 h after kickoff.
                 # Idle runs print nothing -> only the heartbeat file
-    out=$( { /usr/bin/caffeinate -i "$PY" scripts/kfg1_paper.py tick; r1=$?; /usr/bin/caffeinate -i "$PY" scripts/kfg1_paper.py settle; r2=$?; exit $(( r1 > r2 ? r1 : r2 )); } 2>&1); rc=$?
+    # + exp_exec.py (user 11-21 $50 experiment budget): $2 IOC live orders on fresh KFG1 'bet' rows, hard cap $50 total.
+    out=$( { /usr/bin/caffeinate -i "$PY" scripts/kfg1_paper.py tick; r1=$?; /usr/bin/caffeinate -i "$PY" scripts/kfg1_paper.py settle; r2=$?;
+             ( cd "$HOME/.claude/quant-kalshi" && /usr/bin/caffeinate -i .venv/bin/python scripts/exp_exec.py kfg1 ); r3=$?;
+             m=$(( r1 > r2 ? r1 : r2 )); exit $(( m > r3 ? m : r3 )); } 2>&1); rc=$?
     echo "$(date '+%F %T %Z') rc=$rc" > state/kfg1_heartbeat
     if [ $rc -ne 0 ] || [ -n "$out" ]; then
       { echo "=== $(date '+%F %T %Z') $job: kfg1_paper.py tick+settle"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
