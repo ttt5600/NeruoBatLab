@@ -530,7 +530,7 @@ confirm home state (CA vs CO) for venue legality.
 ### props_forward_1121 (merged 2026-11-21) -- Kalshi NBA prop ladders KILLED per 11-01 prereg
 - n1562 picks / 131 games: ROI -8.97% [-14.83,-2.97], CLV -0.70c [-0.95,-0.46]; sim Brier .1640 worse than mid .1568; sim 3.1pp
   low + too narrow -> 84% NO picks. Losses on stars' LOWER rungs (-20.4%). Retired; edgelab adapter void bug fixed (line 69).
-  Props launchd job still running: user to stop (`launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-props`).
+  Props launchd job STOPPED by user 2026-11-21 (bootout).
   Harness bug: traps.check_pick_side_balance overflows at n 1,562 (not edited).
 
 ### esoccer_tennis (merged 2026-11-21, notes/esoccer_tennis.md) -- both DEAD
