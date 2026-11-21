@@ -861,3 +861,36 @@ def kalshi_temp_mos():
 
 
 LOADERS["kalshi_temp_mos"] = kalshi_temp_mos
+
+
+# ------------------------------------------------------------------ Kalshi daily AAA gas (results/gas_daily_v2/build_frame.py, agent gas_daily_v2)
+def kalshi_gas_daily():
+    """data/gas_daily_v2/gd_frame.parquet: one row per settled KXAAAGASD rung (dev events fetched only) with model /
+    placebo probabilities at T = 10:00 ET D-1 + hidden result; attrs['candles'] = lifetime hourly candles."""
+    D = DATA / "gas_daily_v2"
+    f, fc = D / "gd_frame.parquet", D / "gd_candles.json"
+    x = pd.read_parquet(f)
+    x = x[x["result"].isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["candles"] = json.loads(fc.read_text())
+    return x, [str(f), str(fc), str(D / "aaa_inputs.parquet")]
+
+
+LOADERS["kalshi_gas_daily"] = kalshi_gas_daily
+
+
+# ------------------------------------------------------------------ Kalshi Vercel AI Gateway share ladders (results/vercel_share/build_frame.py, agent vercel_share)
+def kalshi_vercel_share():
+    """data/vercel_share/vs_frame.parquet: one row per settled rung of the 11 Vercel daily-share series (dev days fetched only)
+    with VS1 model / placebo probabilities at T1 = 05:00Z on value day D, the day-D source value V (VS2 signal, usable only after
+    D+1 00:00Z) + hidden result; attrs['candles'] = lifetime hourly candles. Prereg notes/vercel_share.md."""
+    D = DATA / "vercel_share"
+    f, fc = D / "vs_frame.parquet", D / "vs_candles.json"
+    x = pd.read_parquet(f)
+    x = x[x["result"].isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["candles"] = json.loads(fc.read_text())
+    return x, [str(f), str(fc), str(D / "panel.parquet")]
+
+
+LOADERS["kalshi_vercel_share"] = kalshi_vercel_share

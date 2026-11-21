@@ -1,0 +1,32 @@
+rows 2813 eligible rows 2242 events 126 2026-04-28 2026-08-31
+G2: n 65 dates 29 losses 5 mean cost 0.876 ROI +0.0543 [-0.0288, +0.1145] p 0.0815  ex-top-date +0.0326  sides {'no': 43, 'yes': 22}
+P-RW: n 55 dates 14 losses 17 mean cost 0.789 ROI -0.1240 [-0.4928, +0.0995] p 0.8386  ex-top-date -0.2149  sides {'no': 54, 'yes': 1}
+P-MOM: n 61 dates 17 losses 8 mean cost 0.854 ROI +0.0171 [-0.1456, +0.1362] p 0.3838  ex-top-date -0.0314  sides {'no': 38, 'yes': 23}
+P-BASE: n 820 dates 125 losses 66 mean cost 0.979 ROI -0.0610 [-0.0958, -0.0305] p 1.0000  ex-top-date -0.0628  sides {'no': 410, 'yes': 410}
+D4 top-5 dates by pnl:
+              n   pnl  losses
+cluster                     
+2026-07-22  10  1.51       0
+2026-06-03   2  0.55       0
+2026-07-23   8  0.45       0
+2026-06-16   3  0.39       0
+2026-07-14   3  0.31       0
+D4 bottom-5 dates:
+             n   pnl  losses
+cluster                    
+2026-07-09  2 -1.42       2
+2026-07-28  3 -0.50       1
+2026-07-15  5 -0.14       2
+2026-04-30  1  0.03       0
+2026-06-01  1  0.05       0
+G2 bets by NO-ask band:                n   roi
+price                 
+(0.0, 0.9]    30  2.45
+(0.9, 0.95]   25  0.34
+(0.95, 0.97]  10  0.30
+D3: rungs with quote at T 2171 of 2242
+D3: p<=.03 rungs 579, with a quote 540, YES bid >= .01 177; p>=.97 rungs 599, YES ask <= .99 185
+D3: realized YES rate on p<=.03 rungs 0.0259 mean p 0.0092 | NO rate on p>=.97 rungs 0.0067 mean 1-p 0.0091
+D3: yes_bid distribution on p<=.03 quoted rungs {'count': 540.0, 'mean': 0.017, 'std': 0.065, 'min': 0.0, '25%': 0.0, '50%': 0.0, '75%': 0.01, 'max': 0.66}
+D2 Benter: n 1056 rungs / 125 dates; coef logit(mid) 1.007, coef logit(p_M) 0.271 date-boot 95% [0.136, 0.419]
+D2 Brier mid 0.1244 model 0.1562 diff(model-mid) +0.0318 [+0.0111, +0.0531]

@@ -1,0 +1,21 @@
+id: vs1_vercel_far_taker
+family: kalshi_data_ladders
+dataset: kalshi_vercel_share
+rule: edgelab.rules.vercel_share:vs1_far
+params: {pcol: p_m}
+hypothesis: 'VS1: Vercel AI Gateway daily share ladders (KXOPENSOURCESHARE, KXOSSPEND, 9 lab spend/request series; settle on
+  the chart value for UTC day D at 10:00 ET D+1; free CC-BY export + page endpoint, D-1 complete before T). At T = 05:00Z on D an
+  AR(1)-on-logit model (trailing 60 d, input x_{D-1}) prices every rung; buy the far side (p >= .85 YES at ask / p <= .15 NO at
+  1 - yes_bid) when model edge after ceil-cent fee >= .05. Lab events are every other day, so D-1 is never a Kalshi-settled value
+  (the unwatched-input hypothesis). Placebos P-persist (x_{D-2}) and P-clim (60-day level distribution) must score below.
+  Prereg notes/vercel_share.md.'
+decision_time: 05:00 UTC on value day D (last hourly candle in (T-6h, T])
+price_model: taker
+split: vault:kalshi_vercel_share
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: cent
+legacy: 'new 2026-11-21 (agent vercel_share). Sibling of ai_nowcast TOK1 (OpenRouter weekly tokens, dead/priced).'

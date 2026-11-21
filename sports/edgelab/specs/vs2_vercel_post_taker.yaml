@@ -1,0 +1,19 @@
+id: vs2_vercel_post_taker
+family: kalshi_data_ladders
+dataset: kalshi_vercel_share
+rule: edgelab.rules.vercel_share:vs2_post
+params: {vcol: V}
+hypothesis: 'VS2: after UTC day D ends, its share is complete on the free live Vercel endpoint while Kalshi rungs stay open until
+  23:59 ET D (lab series, 4-5 h) or 10:00 ET D+1 (KXOPENSOURCESHARE, 14-15 h). Buy the determined side (X <= V - 0.3 YES, X >= V +
+  0.3 NO) at the first hourly candle in [D+1 01:00Z, close] with ask + ceil-cent fee <= .97. Placebo V := V_{D-1}. Sibling of TOK2
+  (dead: book cleared before the boundary). Prereg notes/vercel_share.md.'
+decision_time: each hourly candle end in [D+1 01:00Z, close]; first qualifying
+price_model: taker
+split: vault:kalshi_vercel_share
+min_n: 20
+kill:
+  kind: roi_ci_below_zero
+  after_n: 20
+fee:
+  rounding: cent
+legacy: 'new 2026-11-21 (agent vercel_share).'

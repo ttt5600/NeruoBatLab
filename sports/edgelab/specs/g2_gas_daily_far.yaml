@@ -1,0 +1,19 @@
+id: g2_gas_daily_far
+family: kalshi_data_ladders
+dataset: kalshi_gas_daily
+rule: edgelab.rules.gas_daily:g2_far
+params: {}
+hypothesis: 'G2: KXAAAGASD (AAA US daily regular average, "strictly greater than X", closes 23:59 ET D-1, AAA prints
+  ~03:30 ET D). At 10:00 ET D-1 an expanding AR(2) + RB=F t4 nowcast of the daily change (strictly-past inputs) prices
+  every rung; buy the certain side of far rungs (p <= .03 -> NO at 1 - yes_bid; p >= .97 -> YES at ask) when model
+  edge after ceil-cent fee >= .02. Placebos P-RW, P-MOM, P-BASE must score below. Prereg notes/gas_daily_v2.md.'
+decision_time: 10:00 America/New_York on D-1 (last hourly candle in (T-6h, T])
+price_model: taker
+split: vault:kalshi_gas_daily
+min_n: 100
+kill:
+  kind: roi_ci_below_zero
+  after_n: 100
+fee:
+  rounding: cent
+legacy: 'new 2026-11-21 (agent gas_daily_v2). Re-test of N6 (random-walk band, 0 bets) with a sharper nowcast; winners_transfer I2.'

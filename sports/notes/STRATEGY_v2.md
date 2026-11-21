@@ -143,3 +143,5 @@ No PM US candidate scored above 5/10. Source: pm_full_census.md, pmus_bbo.parque
 3. Plan nowcast sealed tests at dev ROI x 0.66; non-nowcast dev "passes" get no sealed test without a stacking coefficient over the market price.
 4. Report the top-5 contributors behind any pooled sum.
 5. Every brief lists >= 3 candidates from settlement/quote mechanics, reformulation, and negating one fund default.
+6. (gas_daily_v2, 11-21) A big loser pool on far rungs that are quoted wide goes to the quoting market maker: report far-rung
+   spread and YES-bid presence next to every pool figure; a taker edge needs a two-sided far book.

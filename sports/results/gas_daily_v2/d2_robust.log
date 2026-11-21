@@ -1,0 +1,9 @@
+fit H1 -> test H2: coef p_M +0.401; test Brier mid 0.1188 blend 0.1229 n 435
+fit H2 -> test H1: coef p_M +0.064; test Brier mid 0.1284 blend 0.1182 n 621
+     month    n  brier_mid  brier_blend  coef_pM
+0  2026-04   46     0.1272       0.1943   0.2975
+1  2026-05  319     0.1457       0.1164   0.1614
+2  2026-06  260     0.1081       0.0938   0.2280
+3  2026-07  294     0.1096       0.1059   0.3223
+4  2026-08  137     0.1368       0.1486   0.3145
+LOMO pooled: mid 0.1244 blend 0.1155

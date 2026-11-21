@@ -481,3 +481,10 @@ confirm home state (CA vs CO) for venue legality.
   KXHMONTHRANGE $191; small CBs $26-62.
 - P3 E4 06:00 cancel dead; P4 settlement-error watcher (hourly obs) dead: 2 flips / 158 flags.
 - Top idea: re-test daily gas with a sharper nowcast (N6 placed 0 bets). E4: 66/70 dev losers are brackets ABOVE forecast (p .30).
+
+### gas_daily_v2 (merged 2026-11-21, notes/gas_daily_v2.md) -- G2 DEAD
+- Settlement audit 235/235: Kalshi = AAA first-published display (3 dp to 08-04, 4 dp after); ties settle NO; AAA posts 03:16-03:30 ET.
+- AR(2)+RBOB nowcast RMSE 1.12c vs random walk 1.78c, but the book is sharper (0.72c at 10:00 ET, 0.34c by 23:00 ET with no
+  new print -> reads an intraday source, likely GasBuddy; scraping barred by its ToS). G2 dev n65 +5.4% [-2.9,+11.5]; retired.
+- The $488k loser pool: cheap-side buyers pay ~11c for ~4% events (-65%), but far rungs are ~8c wide -> the pool goes to the
+  quoting maker, not reachable by a taker. Pool size is necessary, not sufficient.
