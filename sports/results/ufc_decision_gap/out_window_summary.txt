@@ -1,0 +1,21 @@
+/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/ufc_decision_gap/window_summary.py:6: RuntimeWarning: Mean of empty slice
+  w["pK_h30"] = np.nanmean(np.c_[w.pxA_h30, 1 - w.pxB_h30], axis=1)
+fights 220 | any trade in window 0.964 | both books two-sided at t_dec 0.614
+== 2025 n 96: window contracts (both tickers) p10..p90 [93.0, 730.25, 2678.0, 12992.0, 33684.5]; trades [2.5, 11.0, 28.5, 84.25, 203.0]
+   tighter-book spread at t_dec [0.01, 0.025, 0.07, 0.12, 0.356] (n 59); favourite price at horn+30 [0.668, 0.875, 0.955, 0.99, 0.99]
+   share fav >= .95: 0.500; .80-.95: 0.240; < .80: 0.188
+== 2026H1 n 124: window contracts (both tickers) p10..p90 [13840.3, 28609.0, 60617.5, 109275.822, 166133.562]; trades [81.4, 173.25, 554.0, 1135.0, 1854.2]
+   tighter-book spread at t_dec [0.01, 0.01, 0.01, 0.02, 0.02] (n 83); favourite price at horn+30 [0.737, 0.885, 0.965, 0.99, 0.99]
+   share fav >= .95: 0.573; .80-.95: 0.242; < .80: 0.177
+contested (fav < .90 at horn+30, traded in window) n 60
+       t_jump-t_horn  t_jump-t_results  t_jump-t_uw
+count           59.0              59.0         59.0
+mean           126.9              19.6          0.1
+std             32.7              26.4         25.4
+min             -7.1            -121.1       -138.1
+10%            105.7              14.4         -3.9
+25%            115.1              16.4         -1.5
+50%            126.9              20.0          0.9
+75%            135.8              26.9          5.7
+90%            151.4              35.1         13.2
+max            251.2              98.2         82.2

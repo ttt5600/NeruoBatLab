@@ -1,6 +1,7 @@
 # fund STATE -- Updated: 2026-11-21 ~12:00Z (session 11-19..21; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
 Next: merge the 4 running agents (below) from notes/findings_inbox.jsonl; score settlements: Tulsa DK credit (11-21, decides
   SR vs SNR credit policy, notes/money_now.md), KFG1 first live $2 picks (Sun 11-22), OpenRouter T238 (11-23 10:00 ET).
+  Also: UFC JSON-latency logger result (results/ufc_decision_gap/fwd/1348.jsonl, notes/ufc_decision_gap.md kill rule).
 
 ## Live money (Kalshi; launchd from ~/.claude/quant-kalshi)
 - E4 orig7 maker + X1 ($30 sub-cap): live 133 settled / 130 wins, P&L +$19.52, 7d +$14.44 (`kalshi_exec.py status`, 11-21).
@@ -17,7 +18,7 @@ Next: merge the 4 running agents (below) from notes/findings_inbox.jsonl; score 
 - odd-lot tender watcher scripts/oddlot_watch.py built, not scheduled.
 
 ## Running agents (notes/RESEARCH_QUEUE.md)
-e4_data_v2 (E4 headroom, CLI DGP, forecast backfill, above-forecast losers 66/70), esoccer_tennis, props_forward_1121, ufc_decision_gap.
+ALL agents finished 11-21 (last: ufc_decision_gap). E4 edge = longshot-YES overpricing (e4_data_v2); props KILLED.
 
 ## Session results (EDGES_AND_AGENTS.md, LEARNINGS_2026-11.md, STRATEGY_v2.md, IDEA_PATTERNS.md)
 - ~25 ideas tested, all dead except KFG1 (dev +23% [-0.7,+47.3] n56, forward). Only free-official-source nowcasts survive sealed

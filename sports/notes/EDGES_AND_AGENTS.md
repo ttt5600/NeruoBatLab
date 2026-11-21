@@ -539,3 +539,11 @@ confirm home state (CA vs CO) for venue legality.
   CORRECTION to pool_census: eSoccer/eBasketball "+$1.06M/+$0.50M" were ~6.5x/7x too high (18-event sample missed comebacks).
 - Tennis pre-match vs Pinnacle: median |Kalshi mid - Pinnacle no-vig| 0.93c (n61), 0/122 sides positive after fee -> TB1 retired
   undeployed. scripts/tennis_pin_logger.py kept (one-to-one name matching, 52/63 matched, 0 mismatches).
+
+### ufc_decision_gap (merged 2026-11-21, notes/ufc_decision_gap.md; critic passed with wording change) -- D1 DEAD; latency check open
+- Free ufc.com live JSON (cloudfront /api/v3/event/live/{fmid}.json) gives wall-clock horn/results/winner stamps (horn matches
+  Kalshi KXUFCDISTANCE signature to -1.0 s median). Window horn -> winner named median 122 s; book jumps to .95 ~0.9 s after the
+  UFC winner stamp. Judges model 84.1% on 2025-26, but window price Brier .0609 vs model .1192 (+.0583 [+.0267,+.0898]) -> dead.
+- OPEN: does the JSON show the winner at its `results` stamp ~20 s before the spoken name / book jump? Read-only self-stopping
+  logger for UFC FN 11-21 (fmid 1348, 14:45Z-23:30Z, results/ufc_decision_gap/fwd/1348.jsonl); kill: JSON not earlier than
+  Kalshi jump - 3 s on >= 5 decisions. Check 11-22.

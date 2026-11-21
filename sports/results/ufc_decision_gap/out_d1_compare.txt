@@ -1,0 +1,29 @@
+/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/ufc_decision_gap/compare.py:19: RuntimeWarning: Mean of empty slice
+  d["pK"] = np.nanmean(np.c_[mA, mB], axis=1)
+/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/ufc_decision_gap/compare.py:20: RuntimeWarning: Mean of empty slice
+  fb = np.nanmean(np.c_[d.pxA_h30, 1 - d.pxB_h30], axis=1)
+/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/ufc_decision_gap/compare.py:22: RuntimeWarning: Mean of empty slice
+  d["pK_late"] = np.nanmean(np.c_[d.pxA_late, 1 - d.pxB_late], axis=1)
+/Users/jonathanwang/Desktop/vocalizations_lab/.claude/worktrees/quant-trader/sports/results/ufc_decision_gap/compare.py:23: RuntimeWarning: Mean of empty slice
+  d["pK_pre"] = np.nanmean(np.c_[d.pxA_pre, 1 - d.pxB_pre], axis=1)
+DEV decision fights with live timing 220 | y missing (draw/scalar) 4 | pM missing 5 | pK missing 8
+Kalshi result vs UFCStats winner agree: 1.0
+analysis n 209 cards 47 pK source {'quote': 139, 'trade': 70}
+pK       Brier (np.float64(0.0609), [0.0421, 0.0804])  logloss (np.float64(0.2053), [0.155, 0.2586])  acc 0.923
+pK_late  Brier (np.float64(0.0631), [0.0436, 0.0844])  logloss (np.float64(0.2148), [0.1568, 0.2779])  acc 0.919
+pK_pre   Brier (np.float64(0.0672), [0.0477, 0.0872])  logloss (np.float64(0.2266), [0.1736, 0.2801])  acc 0.914
+pM       Brier (np.float64(0.1192), [0.093, 0.1476])  logloss (np.float64(0.3576), [0.2929, 0.4319])  acc 0.809
+Brier(pM)-Brier(pK) (np.float64(0.0583), [0.0267, 0.0898])  logloss diff (np.float64(0.1523), [0.0734, 0.234])
+Brier(pM)-Brier(pK_late) (np.float64(0.0561), [0.0266, 0.0869])
+stack a(pK), b(pM): [1.093 0.387] b CI [-0.058  0.863] a CI [0.812 1.666]
+LOCO blend Brier (np.float64(0.061), [0.042, 0.0829])  Brier(blend)-Brier(pK) (np.float64(0.0002), [-0.0067, 0.0073])
+pM-pK in (-1,-0.3] n 26 mean pK 0.880 mean pM 0.374 y 0.885
+pM-pK in (-0.3,-0.1] n 29 mean pK 0.707 mean pM 0.510 y 0.586
+pM-pK in (-0.1,0.1] n 116 mean pK 0.457 mean pM 0.457 y 0.466
+pM-pK in (0.1,0.3] n 20 mean pK 0.196 mean pM 0.362 y 0.200
+pM-pK in (0.3,1] n 18 mean pK 0.171 mean pM 0.660 y 0.167
+pK bin [0,0.1) n 78 mean pK 0.031 y 0.013 pM 0.136
+pK bin [0.1,0.3) n 13 mean pK 0.199 y 0.231 pM 0.345
+pK bin [0.3,0.7) n 24 mean pK 0.463 y 0.375 pM 0.471
+pK bin [0.7,0.9) n 22 mean pK 0.812 y 0.773 pM 0.555
+pK bin [0.9,1.01) n 72 mean pK 0.964 y 0.986 pM 0.806
