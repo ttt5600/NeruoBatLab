@@ -1,0 +1,14 @@
+settled picks 1562; with a pre-tip candle quote 1562; candle_end <= tip violations 0; median minutes before tip of last quote 0.0
+FULL
+  clv_re         mean -0.0070 [-0.0095, -0.0046] n 1562  p(>=0) 0.0000
+  clv_mid_vs_px  mean -0.0020 [-0.0046, +0.0006] n 1562  p(>=0) 0.0691
+  drift          mean +0.0060 [+0.0035, +0.0085] n 1562  p(>=0) 1.0000
+  hs             mean +0.0080 [+0.0074, +0.0086] n 1562  p(>=0) 1.0000
+FIRST LOOK
+  clv_re         mean -0.0142 [-0.0194, -0.0090] n 283  p(>=0) 0.0000
+  clv_mid_vs_px  mean -0.0067 [-0.0111, -0.0022] n 283  p(>=0) 0.0021
+  drift          mean +0.0058 [+0.0019, +0.0097] n 283  p(>=0) 0.9974
+  hs             mean +0.0125 [+0.0108, +0.0143] n 283  p(>=0) 1.0000
+  drift YES: -0.0019 [-0.0059, +0.0026] n 247
+  drift NO: +0.0075 [+0.0045, +0.0104] n 1315
+  share of sim-mid gap closed by tip (median): 0.0

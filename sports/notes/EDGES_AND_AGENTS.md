@@ -516,3 +516,19 @@ confirm home state (CA vs CO) for venue legality.
 - OpenRouter share series settle on TEXT REQUEST share (30/34), unaffected by BYOK. KXGOOGSHARE settles 0.06-0.08 below endpoint (3/3).
 - COMPLIANCE NOTE: the open-weights value came from /api/ai/v5/gateway-model-leaderboard, under a robots.txt-disallowed /api/
   path (low-rate reads). Any forward logger must use ONLY the officially published CC-BY export, not disallowed paths.
+
+### e4_data_v2 (merged 2026-11-21, notes/e4_data_v2.md, results/e4_data_v2/; critic accepted with changes)
+- Better data does NOT improve E4: the edge is the market overpricing low-price YES (E4 picks: YES mid .076, hit .041); station
+  forecast information is already priced. Headroom: E4 dev +30.46u n1713; no-losers +100.46u; perfect forecast +391.05u;
+  20% error shrink +67.22u (overstated). $1.22/night at 24 ct, $3.58 at 96 ct.
+- DGP: settlement = ASOS 24-h max remark at LST midnight (99.46% of 5,324 station-days). Hourly METAR misses peak +0.71F; raw
+  models +1.35F cold; NBM txn +0.13F. 66/70 losers warmer than every model (warm misses 6.0% vs cold 1.09% at 3F) but widening
+  the warm margin LOSES units (market already prices those brackets cheaper). Lead: cold margin 1F +21.3u in-sample -> needs a
+  fresh forward prereg.
+- T1 MOS veto -28.09u KILL; T2 MOS-only consensus KILL; T3 EMOS <=2% new picks: 2024-25 +18.39u but 2021-24 replication fails
+  -> retired e4m_cl_new_maker (edgelab had it dev_pass pooled; the prereg rule governs). Open-Meteo "historical forecast" = analysis.
+### props_forward_1121 (merged 2026-11-21) -- Kalshi NBA prop ladders KILLED per 11-01 prereg
+- n1562 picks / 131 games: ROI -8.97% [-14.83,-2.97], CLV -0.70c [-0.95,-0.46]; sim Brier .1640 worse than mid .1568; sim 3.1pp
+  low + too narrow -> 84% NO picks. Losses on stars' LOWER rungs (-20.4%). Retired; edgelab adapter void bug fixed (line 69).
+  Props launchd job still running: user to stop (`launchctl bootout gui/$(id -u)/com.jonathanwang.quant-sports-props`).
+  Harness bug: traps.check_pick_side_balance overflows at n 1,562 (not edited).

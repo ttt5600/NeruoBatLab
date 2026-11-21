@@ -1,0 +1,17 @@
+kalshi markets fetched 23089 unique 23089 status {'finalized': 23089}
+graded rungs 18341 missing in kalshi 0
+non-void: kalshi result {'no': 10141, 'yes': 7475}
+non-void binary-settled agree with ESPN y: 17609/17616; disagreements 7
+                                        ticker stat   k  stat_value  minutes    y result expiration_value pick
+2774       KXNBAREB-26NOV04INDMEM-MEMJWELLS0-2  reb   2         1.0     21.0  0.0    yes                2  NaN
+6035      KXNBAAST-26NOV07SASPOR-SASDHARPER2-4  ast   4         3.0     28.0  0.0    yes                4  NaN
+9058   KXNBAREB-26NOV11WASIND-WASBCOULIBALY0-6  reb   6         6.0     25.0  1.0     no                5  NaN
+11543   KXNBAREB-26NOV13MEMNOP-MEMCBOOZER27-10  reb  10        10.0     25.0  1.0     no                9  NaN
+13414   KXNBAREB-26NOV15SASUTA-SASDVASSELL24-6  reb   6         6.0     32.0  1.0     no                5  NaN
+14470    KXNBAREB-26NOV16MEMWAS-MEMCCOWARD23-8  reb   8         8.0     27.0  1.0     no               No  YES
+16086   KXNBAPTS-26NOV18MEMCLE-MEMCCOWARD23-20  pts  20        20.0     33.0  1.0     no               18  NaN
+non-void with non-binary kalshi result: 0
+void rungs 725 kalshi result {'scalar': 725}
+void settle values {'count': 725.0, 'mean': 0.478, 'std': 0.298, 'min': 0.03, '25%': 0.2, '50%': 0.45, '75%': 0.75, 'max': 0.99}
+void per ESPN but Kalshi settled yes/no: 0 picks among them 0
+ALL graded picks settled at Kalshi's own settlement value (voids at fair price): n 1609 units -76.71 ROI -0.0905 [-0.1477, -0.0322]

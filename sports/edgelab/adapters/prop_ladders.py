@@ -66,6 +66,6 @@ def rows(frame: pd.DataFrame, params: dict) -> pd.DataFrame:
                       "stake": np.round(price, 4), "close_price": np.where(yes, cy, 1 - cy)})
     rep.update({"rows_in_window": int(len(f)), "dates": date_range(f["date"]), "picks": int(pk.sum()),
                 "picks_unsettled_pending": int((pk & ~f["settled"]).sum()),
-                "voids_scored_as_push": int((ok & (f["result"] == "void")).sum()), "bets": int(ok.sum()),
+                "voids_scored_as_push": int((ok & f["void"].fillna(False).astype(bool)).sum()), "bets": int(ok.sum()),
                 "bet_dates": date_range(g["date"])})
     return with_report(b, rep)

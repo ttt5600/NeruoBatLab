@@ -1,0 +1,92 @@
+{
+ "trial_id": "kalshi_prop_ladders-1315b2c4",
+ "split": "forward",
+ "verdict": "fail",
+ "n": 1609,
+ "net_roi": -0.08719505221525577,
+ "ci": [
+  -0.1540012896086479,
+  -0.018051863616162973
+ ],
+ "p": 0.9920039980009995,
+ "bar": 0.0015625,
+ "n_trials_family": 32,
+ "half1": -0.0658473420438158,
+ "half2": -0.10872161310592411,
+ "concentration": {
+  "share": null,
+  "cluster_share": null,
+  "week_share": null,
+  "top_cluster": null,
+  "roi_ex_top_week": -0.11400821426727092,
+  "roi_ex_top_cluster": -0.11175707058523636
+ },
+ "clv": {
+  "mean": -0.007003841229193337,
+  "coverage": 0.9707893101305158,
+  "n": 1562,
+  "p_negative": 0.0004997501249375312
+ },
+ "needs_audit": false,
+ "reasons": [
+  "a_p_below_bar",
+  "b_both_halves_positive",
+  "c_concentration_ok",
+  "e_clv_nonnegative"
+ ],
+ "forward_test": {
+  "kind": "out_of_scope",
+  "params_source": "adoption_default",
+  "adopted": "2026-11-18",
+  "gate_ok": false,
+  "mean_cost": 0.5268224039776258,
+  "price_range": [
+   0.08,
+   0.9
+  ],
+  "status": "out_of_scope",
+  "why": "prices outside [0.4, 0.6] (no placebo calibration for this mix)",
+  "n_used": 0,
+  "looks": 0,
+  "promotes": false,
+  "kills": false
+ },
+ "kill": {
+  "source": "spec",
+  "kind": "clv_negative_significant+forward_sprt_h0",
+  "triggered": true,
+  "armed": true,
+  "rules": [
+   {
+    "kind": "clv_negative_significant",
+    "triggered": true,
+    "armed": true,
+    "p_clv_negative": 0.0004997501249375312
+   },
+   {
+    "kind": "forward_sprt_h0",
+    "triggered": false,
+    "armed": false,
+    "status": "out_of_scope",
+    "llr": null,
+    "B": null
+   }
+  ]
+ },
+ "forward_eligible_for_user": false,
+ "state": "registered",
+ "pit_violations": {},
+ "adapter_report": {
+  "source": "/Users/jonathanwang/.claude/quant-sports/data/kalshi_prop_log.jsonl",
+  "rungs_logged": 19474,
+  "picks": 1721,
+  "rows_in_window": 19474,
+  "picks_unsettled_pending": 112,
+  "voids_scored_as_push": 47,
+  "bets": 1609,
+  "bet_dates": [
+   "2026-11-02",
+   "2026-11-19"
+  ]
+ }
+}

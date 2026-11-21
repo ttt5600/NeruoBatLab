@@ -418,3 +418,10 @@ KXEOWEEK settles on the Federal Register but prices off the White House posting 
 ### Kalshi close_time is not the event time; historical vs live candle fields differ (cbank_thin, 11-21)
 KXCBDPOLAND-26SEP02 closes 7 days after the decision -> "close - 1d" is post-event. /historical candles: `close` (dollars);
 live: `close_dollars`. Anchor decision times on the real event date; assert candle units.
+
+### E4's edge is longshot-YES overpricing, not forecast skill (e4_data_v2, 11-21)
+Better station forecasts (MOS/NBM/EMOS) add nothing the price lacks; E4 picks' YES mid .076 vs hit .041. Improve E4 through
+execution and coverage, not forecasting. The warm tail is 5x heavier (hourly obs miss the peak) but the book already prices it.
+### A sim that is biased low and too narrow loses on every side (props_forward_1121, 11-21)
+NBA prop sim ran 3.1pp below the mids with narrow distributions -> 84% NO picks, -8.97%. Check a model's mean bias and spread
+vs the market's BEFORE a forward trial; one-sided pick shares are a red flag (traps fired at the first look).

@@ -1,0 +1,64 @@
+[E] by stat x side (exact fee)
+  pts YES                            n    65 g  28 W-L 24-41    ROI -0.167 [-0.393,+0.094]  CLV -0.0054 [-0.0116,+0.0014]  mean px 0.429 hit 0.369
+  pts NO                             n   612 g 124 W-L 275-337   ROI -0.084 [-0.179,+0.013]  CLV -0.0083 [-0.0123,-0.0044]  mean px 0.475 hit 0.449
+  pts both                           n   677 g 127 W-L 299-378   ROI -0.091 [-0.185,+0.003]  CLV -0.0080 [-0.0117,-0.0045]  mean px 0.470 hit 0.442
+  reb YES                            n    82 g  35 W-L 36-46    ROI -0.069 [-0.319,+0.165]  CLV -0.0054 [-0.0093,-0.0003]  mean px 0.457 hit 0.439
+  reb NO                             n   357 g 111 W-L 174-183   ROI -0.095 [-0.206,+0.014]  CLV -0.0082 [-0.0116,-0.0048]  mean px 0.522 hit 0.487
+  reb both                           n   439 g 120 W-L 210-229   ROI -0.091 [-0.191,+0.007]  CLV -0.0077 [-0.0105,-0.0048]  mean px 0.510 hit 0.478
+  ast YES                            n   100 g  54 W-L 52-48    ROI -0.156 [-0.290,-0.020]  CLV +0.0030 [-0.0021,+0.0082]  mean px 0.601 hit 0.520
+  ast NO                             n   346 g 110 W-L 189-157   ROI -0.066 [-0.162,+0.024]  CLV -0.0070 [-0.0117,-0.0025]  mean px 0.569 hit 0.546
+  ast both                           n   446 g 124 W-L 241-205   ROI -0.087 [-0.167,-0.008]  CLV -0.0048 [-0.0087,-0.0012]  mean px 0.576 hit 0.540
+  all YES                            n   247 g  70 W-L 112-135   ROI -0.133 [-0.256,-0.007]  CLV -0.0020 [-0.0053,+0.0016]  mean px 0.508 hit 0.453
+  all NO                             n  1315 g 131 W-L 638-677   ROI -0.082 [-0.147,-0.015]  CLV -0.0079 [-0.0109,-0.0050]  mean px 0.513 hit 0.485
+  all both                           n  1562 g 131 W-L 750-812   ROI -0.090 [-0.148,-0.030]  CLV -0.0070 [-0.0095,-0.0046]  mean px 0.512 hit 0.480
+
+[F] stars: 352 player-games of 1917 with a pts ladder
+  calib star=True  upper=True  n  2093: mean sim 0.194 mid 0.232 hit 0.212  sim-mid -0.037; Brier sim 0.1568 mid 0.1523
+     picks star=True upper=True YES  n    17 g  14 W-L 3-14    ROI -0.485 [-1.000,+0.103]  CLV +0.0006 [-0.0094,+0.0113]  mean px 0.328 hit 0.176
+     picks star=True upper=True NO   n   233 g  99 W-L 154-79    ROI +0.016 [-0.095,+0.121]  CLV -0.0128 [-0.0174,-0.0082]  mean px 0.635 hit 0.661
+  calib star=True  upper=False n  1986: mean sim 0.722 mid 0.748 hit 0.783  sim-mid -0.026; Brier sim 0.1623 mid 0.1532
+     picks star=True upper=False YES n    15 g  13 W-L 11-4     ROI +0.022 [-0.280,+0.298]  CLV -0.0107 [-0.0192,-0.0040]  mean px 0.704 hit 0.733
+     picks star=True upper=False NO  n   324 g 103 W-L 94-230   ROI -0.204 [-0.365,-0.031]  CLV -0.0095 [-0.0130,-0.0062]  mean px 0.349 hit 0.290
+  calib star=False upper=True  n  8396: mean sim 0.170 mid 0.209 hit 0.207  sim-mid -0.040; Brier sim 0.1506 mid 0.1442
+     picks star=False upper=True YES n   105 g  42 W-L 29-76    ROI -0.245 [-0.473,+0.017]  CLV -0.0024 [-0.0073,+0.0032]  mean px 0.351 hit 0.276
+     picks star=False upper=True NO  n   464 g 121 W-L 284-180   ROI -0.055 [-0.127,+0.017]  CLV -0.0067 [-0.0105,-0.0031]  mean px 0.632 hit 0.612
+  calib star=False upper=False n  5102: mean sim 0.712 mid 0.728 hit 0.730  sim-mid -0.016; Brier sim 0.1897 mid 0.1809
+     picks star=False upper=False YES n   110 g  60 W-L 69-41    ROI -0.069 [-0.204,+0.065]  CLV -0.0008 [-0.0051,+0.0041]  mean px 0.659 hit 0.627
+     picks star=False upper=False NO n   294 g 112 W-L 106-188   ROI -0.149 [-0.270,-0.021]  CLV -0.0043 [-0.0099,+0.0009]  mean px 0.407 hit 0.361
+  share of NO picks that are star upper rungs: 233/1315
+
+[G] top-5 games by units (best) and worst-5:
+ event_id    game  n  units  staked   tip
+401909289 PHI@CLE 19   5.63    9.37 11-06
+401909962 LAC@PHX 17   4.66    9.34 11-10
+401909961 BOS@PHI 25   4.55   13.45 11-10
+401909913 SAC@DAL 16   4.08    8.92 11-02
+401910011 CHI@BKN 19   3.35   10.65 11-18
+ event_id    game  n  units  staked   tip
+401909299 ATL@CHI 23  -5.67   11.67 11-13
+401909928 UTAH@NO 16  -5.41    9.41 11-04
+401909977 DET@WSH 30  -5.26   16.26 11-12
+401910005 CHA@LAL 17  -5.16   10.16 11-17
+401909997 PHI@BKN 13  -4.37    7.37 11-16
+  ROI excluding the best game: -0.0977 [-0.1561, -0.0397]
+  ROI excluding the worst game: -0.0840 [-0.1435, -0.0245]
+  most-picked players: {'Jayson Tatum': {'n': 41, 'units': 5.48}, 'Victor Wembanyama': {'n': 40, 'units': -3.71}, 'Cooper Flagg': {'n': 38, 'units': 2.09}, 'Giannis Antetokounmpo': {'n': 35, 'units': -5.03}, 'Nikola Jokić': {'n': 31, 'units': 0.8}, 'Jalen Brunson': {'n': 29, 'units': -2.31}, 'Isaiah Hartenstein': {'n': 28, 'units': -8.58}, 'Domantas Sabonis': {'n': 27, 'units': 2.41}}
+
+[H] POST-HOC minutes errors (ESPN minutes - min_proj), settled picks
+  merr all: mean +1.76, sd 6.09; |merr|>=10: 151/1562
+  winners: n 750 mean merr +0.59; share |merr|>=10 0.069; share merr<=-10 0.027; share merr>=+10 0.043
+  losers: n 812 mean merr +2.84; share |merr|>=10 0.122; share merr<=-10 0.025; share merr>=+10 0.097
+  YES |merr|<5                       n   145 g  59 W-L 72-73    ROI -0.070 [-0.208,+0.073]  CLV +0.0007 [-0.0038,+0.0054]  mean px 0.519 hit 0.497
+  YES 5<=|merr|<10                   n    80 g  31 W-L 37-43    ROI -0.093 [-0.293,+0.159]  CLV -0.0057 [-0.0116,+0.0008]  mean px 0.495 hit 0.463
+  YES |merr|>=10                     n    22 g   9 W-L 3-19    ROI -0.725 [-1.000,-0.197]  CLV -0.0059 [-0.0112,+0.0020]  mean px 0.481 hit 0.136
+  NO |merr|<5                        n   778 g 118 W-L 400-378   ROI -0.023 [-0.094,+0.047]  CLV -0.0058 [-0.0085,-0.0031]  mean px 0.511 hit 0.514
+  NO 5<=|merr|<10                    n   408 g  91 W-L 189-219   ROI -0.117 [-0.233,+0.001]  CLV -0.0094 [-0.0149,-0.0042]  mean px 0.509 hit 0.463
+  NO |merr|>=10                      n   129 g  31 W-L 49-80    ROI -0.314 [-0.499,-0.060]  CLV -0.0159 [-0.0300,-0.0069]  mean px 0.538 hit 0.380
+  blowouts (final margin >= 20):
+  margin>=20                         n   402 g  31 W-L 220-182   ROI +0.035 [-0.090,+0.155]  CLV -0.0054 [-0.0081,-0.0020]  mean px 0.513 hit 0.547
+  margin<20                          n  1160 g 100 W-L 530-630   ROI -0.133 [-0.196,-0.069]  CLV -0.0076 [-0.0108,-0.0045]  mean px 0.511 hit 0.457
+  (kalshi_settle not ready: [Errno 2] No such file or directory: 'results/props_forward_1121/kalshi_settle.parquet' )
+
+[I] POST-HOC questionable: 205 questionable player-games listed; picks on them 49
+  questionable players               n    49 g  27 W-L 17-32    ROI -0.313 [-0.545,-0.078]  CLV +0.0024 [-0.0061,+0.0106]  mean px 0.489 hit 0.347
+  excluding questionable (post-hoc)  n  1513 g 130 W-L 733-780   ROI -0.083 [-0.143,-0.022]  CLV -0.0073 [-0.0099,-0.0048]  mean px 0.513 hit 0.484

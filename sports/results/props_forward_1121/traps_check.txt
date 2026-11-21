@@ -1,0 +1,19 @@
+lookahead rung ts < tip: OK
+epoch seconds tip: OK
+player-name normalizer injective per game: OK
+one-to-one join: max athlete_ids per (game, player) 1; max players per (game, athlete_id) 1
+Traceback (most recent call last):
+  File "<stdin>", line 20, in <module>
+  File "<stdin>", line 7, in run
+  File "<stdin>", line 20, in <lambda>
+  File "/Users/jonathanwang/agent-harness/lib/traps.py", line 292, in check_pick_side_balance
+    pval = _binom_two_sided_p(k, n, base_rate)
+  File "/Users/jonathanwang/agent-harness/lib/traps.py", line 277, in _binom_two_sided_p
+    pk = [comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(n + 1)]
+          ~~~~~~~~~~~^~~~~~~~
+OverflowError: int too large to convert to float
+pick side balance (all settled): traps.py overflows at n 1562 -> scipy binomtest: 1315 / 1562 p 5.893699375327504e-176
+pick side balance (first look): TRAP -> [side-imbalance] 239/283 first-look picks are 'no' (binomial p=1.3e-33 vs base 0.5): model bias?
+residual bias sim - mid (all calib rungs, max .01): TRAP -> [model-bias] mean sim-minus-mid = -0.03 over 17577 rows (> 0.01); de-bias before picking
+CI reportable (full): OK
+CLV not degenerate: OK

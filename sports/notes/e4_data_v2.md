@@ -299,3 +299,78 @@ Disclosures added:
   CLI-reported time of max at or after 18:00 LST on 10.8% of 2021-2024 days (Dec 14.5%, Jan 15.0%, Jun-Aug ~5%; KNYC 14.7%, KAUS 2.8%),
   before 01:00 LST 3.3%. (Different definition from the METAR-based 3.2% "after 18:30 local clock" on dev days; in DST the fcsafe
   window hour 18 local is 17:00 LST, so it can end an hour before an LST-18:00 max.)
+
+### 2026-11-21 PRE-REGISTERED RESULTS (maker trade-through primary; scripts/e4_data_v2.py score -> results/e4_data_v2/score.json)
+Tapes: 2,422 pulled read-only (results/e4_data_v2/trades_extra.parquet, 83 tickers with no prints); coverage 100% for every
+trial set (only the taker-scored T2 placebo is partial). W1 = 529 dates, halves split 2024-11-24; W2 split 2022-11-26.
+| trial | window | n (fills) | losses | units [95% date-cluster] | p | halves | placebo | verdict |
+|---|---|---|---|---|---|---|---|---|
+| E4 ref | W1 | 1,163 | 70 | +38.40 | | | | reference |
+| **T1 MOS voters: delta vs E4** | W1 | vetoes 761 fills (1,019 picks, 60 losers) | | **-28.09 [-45.24,-10.91]** | .9995 | -0.14 / -27.95 | random veto mean -27.24 (actual at 40th pct); wrong-day -29.95 | **KILL** |
+| T2 MOS consensus | W2 (primary) | 55 | 10 | -2.37 [-9.03,+3.97] | .76 | 0 / -2.37 | wrong-day taker -84.95u | **KILL** |
+| T2 | W1 | 1,019 | 50 | +13.20 [-1.26,+27.04]; delta vs E4 -25.21 [-46.48,-4.95] | .0375 | | | |
+| T3 EMOS-L NEW | W1 | 514 | 14 (unfilled 0) | **+18.39 [+9.74,+26.56]** | <.00025 | +1.05 / +17.33 | random same-cell mean +9.09, p95 17.70 (actual > 95.9%) | W1 ok |
+| T3 | W2 (replication) | 41 | 5 | -0.78 [-5.73,+2.96] | .62 | | random p95 1.25 (actual > 82.8%) | **fails** |
+Taker (descriptive): T1 delta -21.99 [-38.77,-4.68]; T2 W2 +1.25 (p .34); T3 W1 +12.10 [+3.78,+19.61] p .0015, W2 +3.40 [-1.66,+7.47] p .080.
+T3 by cohort W1 maker: E1 414 fills 10 L +15.82u; X1 100 fills 4 L +2.56u. Model expected 8.2 losses on the 821 W1 T3 picks, saw 14.
+Pre-registered verdicts: T1 KILL (delta < 0; no better than a random veto of the same size). T2 KILL (W2 units < 0). T3 FAIL (W1
+passes, W2 replication fails: needs W2 units > 0 with p < .05; random-selection placebo on W1 only just beaten, 95.9th pct).
+edgelab dev (E1 only, 2021-07..2025-06; family 76 trials, bar 6.58e-4):
+- e4m_mosvote_maker-6618b84d: n 259, p .0295 -> DEAD (a_p_below_bar) [standalone T1 picks; the study primary was the delta].
+- e4m_mosconsensus_maker-92d2f343: n 814, p .378 -> DEAD (a, c concentration).
+- **e4m_cl_new_maker-bfb71381: n 455, p .000525 < bar -> state dev_pass** (halves ROI +0.9% / +5.7%, CLV +1.85c on 77% coverage).
+  CONFLICT, flagged for the lead: the mechanical pooled gate passes, the stricter pre-registered study rule fails (the 2021-24 W2
+  window does not replicate under maker: 41 fills, 5/5 losers filled, -0.78u). I did NOT retire it (registry state is the lead's
+  call). Recommendation: do not spend a sealed shot on T3 as is; it overlaps e4p rule C (354 of e4p's 544 TEST NEW picks are also
+  T3 picks), which is already in forward paper (E4P-C), and the random-selection placebo shows maker execution alone earns +9.1u on
+  the same cells, so T3's selection adds about +9.3u over random on W1, not +18.4u.
+Mechanism of the W2 failure: early markets (2021-24) are thinner; maker fills are 25-34% of picks and every loser fills (adverse
+selection), the same regime kalshi_temp_maker saw (2024Q1-Q3 maker negative).
+
+## VERDICT (2026-11-21)
+- Headroom: large on paper (perfect forecast at margin 3 +391u vs E4 +30.5u taker; loss-veto ceiling +100.5u), but realistic better
+  data does not reach it: every forecast-based change that vetoes E4 picks loses money (T1 -28.1u maker, warm-margin widening, T2),
+  because the E4 edge is the market's low-price YES overpricing (E4 picks: YES mid .076 vs realised .041), and the information in
+  better station forecasts is already in the price. Better data is NOT the binding constraint for E4; size/fill and the longshot
+  premium are. Additive NEW picks from a calibrated distribution (e4p C / T3) are the only data lever that showed money, and T3 did
+  not replicate on the 2021-24 window under maker.
+- Proposals (lead/user): (1) no change to the live E4 rule; (2) keep E4P-C forward paper as the probabilistic-capacity test, no
+  separate T3 deployment, no sealed shot for T3 now; (3) lead to test later: a narrower COLD-side margin (Mc 1F, warm 3F; in-sample
+  +21.3u taker on W1) as a forward-paper variant, since the DGP makes the cold tail light (P(CLI < coldest model - 1F) 2.6%).
+  It must be pre-registered fresh; W1 is spent.
+
+## Learnings
+### Kalshi daily-high settlement equals the ASOS 24-hour max METAR group
+round(F) of the midnight-LST `4snTxTxTx` remark group equals the Kalshi/CLI value on 99.46% of 5,324 dev station-days
+(results/e4_data_v2/dgp.json). The settlement is the continuous-sensor max over the LST day, issued at 23:5x LST.
+### Hourly forecasts target the hourly max, which sits 0.7-0.8F below the CLI max
+CLI minus max hourly METAR +0.71F mean (0F 2,221 days, +1F 2,578, +2F 487); raw models are +1.35F cold vs the CLI
+(= +0.76F sampling + 0.59F model by accounting); NBM's max-T element (NBS txn) is +0.13F (results/e4_data_v2/dgp.json, bias_decomp.csv).
+Any rule on raw hourly model maxima carries a warm-side handicap the max-T elements (MOS/NBS) do not.
+### E4's dev losers are warm misses, half of them caused only by the sub-hourly peak
+66 of 70 dev E4 losers had the CLI above every model; 34 of those 66 would not have lost on the hourly METAR max
+(results/e4_data_v2/loser_anatomy.json). The warm tail at 3F is 6.0% vs 1.09% cold (side_asym.json).
+### A better forecast veto removes E4's losers but loses money, no better than a random veto
+Adding station max-T MOS voters vetoed 60 of 70 losers yet changed maker units by -28.09u [-45.24,-10.91]; a random veto of the same
+size per price bucket averages -27.24u (results/e4_data_v2/score.json). The vetoed cheap NOs carry the longshot premium.
+### The E4 edge is the low-price YES overpricing, not forecast error
+W1 YES mid (.02,.05] realised .024 vs mid .035; (.05,.10] .050 vs .074; E4 picks mid .076 vs realised .041
+(results/e4_data_v2/market_calibration.json). Headroom must be measured against the market's probabilities, not against our inputs.
+### A uniform error-shrink oracle overstates forecast headroom in a market
+s=.8 shrink promised +121% (+67.2u) but real better data gave -28u (veto) or ~+9u over random (additive). The oracle shrinks shared
+errors and the MAE gain was mostly bias the market already prices (results/e4_data_v2/headroom.json vs score.json).
+### Open-Meteo's historical-forecast API is near-analysis, not a day-ahead forecast
+KNYC JJA 2024: GFS MAE 1.32F vs previous_day1 2.37F, errors uncorrelated (results/e4_data_v2/openmeteo_histfc_check.json). Use
+previous-runs or runtime-stamped MOS/NBS archives for point-in-time backtests.
+### Raw-model biases drift year to year; MOS does not
+GFS-OM warm-season bias at KNYC -3.00F (2021) -> +0.65F (2025); NBS and MAV max-T stay within 0.11-0.41F of the CLI on W1 and
+W2 (MET is +1.26/+1.38F) (results/e4_data_v2/emos_diag.json).
+A bias table fitted on past years would mis-correct raw models.
+### A pooled edgelab pass can hide a window that does not replicate
+T3 passed the family bar on pooled E1 dev (n 455, p .000525) while its 2021-24 window lost under maker (41 fills, 5/5 losers filled,
+-0.78u). Score early thin-market windows separately; maker fills there are adversely selected.
+### Kalshi settles on the first-issued CLI; later corrections affect ~0.1-0.3% of days
+Kalshi == as-issued IEM CLI 99.89%, == ACIS final 99.87% on 3,708 orig-7 events 2021-24 (results/e4_data_v2/cli_sources.json).
+### Free point-in-time MOS archives: IEM NBS from 2020-11, MAV/MET from 2018+, rate-limited
+IEM mos.py serves runtime-stamped NBS/MAV/MET; ~1 request per 5-10 s before "Too many requests"; NBS cycles 01/07/13/19Z until
+2026-04 (results/e4_data_v2/mos_*.parquet). A long station EMOS on them is calibrated but not sharper than e4p's model (compare_e4p.json).
