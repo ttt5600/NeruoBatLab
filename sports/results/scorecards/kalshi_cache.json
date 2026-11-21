@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-11-10T04:23:21+00:00",
+ "fetched_at": "2026-11-19T05:40:52+00:00",
  "tickers": {
   "KXNFLGAME-26NOV08DALIND-DAL": {
    "fills": [
@@ -2195,23 +2195,13 @@
      "yes_price_dollars": "0.6100"
     }
    ],
-   "position": {
-    "exchange_index": 0,
-    "fees_paid_dollars": "1.048000",
-    "last_updated_ts": "2026-11-10T02:38:06.557717Z",
-    "market_exposure_dollars": "22.560000",
-    "netting_enabled": false,
-    "position_fp": "-60.00",
-    "realized_pnl_dollars": "0.030000",
-    "ticker": "KXNFLGAME-26NOV09BUFMIN-BUF",
-    "total_traded_dollars": "25.530000"
-   },
+   "position": null,
    "market": {
-    "status": "active",
-    "result": "",
-    "close_time": "2026-11-12T01:15:00Z",
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-10T04:27:25Z",
     "last_price_dollars": "0.9900",
-    "yes_bid_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
     "yes_ask_dollars": "1.0000"
    }
   },
@@ -2878,24 +2868,14 @@
      "yes_price_dollars": "0.2300"
     }
    ],
-   "position": {
-    "exchange_index": 0,
-    "fees_paid_dollars": "3.678000",
-    "last_updated_ts": "2026-11-10T03:45:46.979931Z",
-    "market_exposure_dollars": "266.341538",
-    "netting_enabled": false,
-    "position_fp": "-325.00",
-    "realized_pnl_dollars": "3.301538",
-    "ticker": "KXNFLGAME-26NOV09BUFMIN-MIN",
-    "total_traded_dollars": "288.040000"
-   },
+   "position": null,
    "market": {
-    "status": "active",
-    "result": "",
-    "close_time": "2026-11-12T01:15:00Z",
+    "status": "finalized",
+    "result": "no",
+    "close_time": "2026-11-10T04:27:25Z",
     "last_price_dollars": "0.0100",
     "yes_bid_dollars": "0.0000",
-    "yes_ask_dollars": "0.0100"
+    "yes_ask_dollars": "1.0000"
    }
   },
   "KXNHLGAME-26NOV07NJNYI-NYI": {
@@ -3078,6 +3058,468 @@
     "status": "finalized",
     "result": "yes",
     "close_time": "2026-11-10T03:45:16Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV09PHIVAN-PHI": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-10T04:59:52.182832Z",
+     "exchange_index": 0,
+     "fee_cost": "0.008000",
+     "fill_id": "0726cc9d-28a1-8e10-5bc1-7e097d6673c2",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV09PHIVAN-PHI",
+     "no_price_dollars": "0.1300",
+     "order_id": "01a1c3d3-ad40-7da7-b9d3-0a52f175977e",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV09PHIVAN-PHI",
+     "trade_id": "0726cc9d-28a1-8e10-5bc1-7e097d6673c2",
+     "ts": 1794286792,
+     "yes_price_dollars": "0.8700"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-10T05:11:26Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV10COLTOR-COL": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-11T02:14:32.496481Z",
+     "exchange_index": 0,
+     "fee_cost": "0.009900",
+     "fill_id": "0726e9d5-00a1-97de-35e7-a425e00867f6",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV10COLTOR-COL",
+     "no_price_dollars": "0.1700",
+     "order_id": "01a1c862-ab40-788d-a495-02323991e317",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV10COLTOR-COL",
+     "trade_id": "0726e9d5-00a1-97de-35e7-a425e00867f6",
+     "ts": 1794363272,
+     "yes_price_dollars": "0.8300"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-11T02:40:57Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV10WSHOTT-OTT": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-11T02:19:01.937498Z",
+     "exchange_index": 0,
+     "fee_cost": "0.012100",
+     "fill_id": "0726e9fd-7411-ab08-3e99-e1d0b0b207b1",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV10WSHOTT-OTT",
+     "no_price_dollars": "0.2200",
+     "order_id": "01a1c866-c608-7435-a1cc-10237f241409",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV10WSHOTT-OTT",
+     "trade_id": "0726e9fd-7411-ab08-3e99-e1d0b0b207b1",
+     "ts": 1794363541,
+     "yes_price_dollars": "0.7800"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "no",
+    "close_time": "2026-11-11T02:45:18Z",
+    "last_price_dollars": "0.0100",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV10WSHOTT-WSH": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "2.00",
+     "created_time": "2026-11-11T02:25:54.524385Z",
+     "exchange_index": 0,
+     "fee_cost": "0.034500",
+     "fill_id": "0726e9d8-adc9-acac-5a44-7c277940d9f5",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV10WSHOTT-WSH",
+     "no_price_dollars": "0.5600",
+     "order_id": "01a1c86d-1350-77bd-bbb5-0b2cfcb3329a",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV10WSHOTT-WSH",
+     "trade_id": "0726e9d8-adc9-acac-5a44-7c277940d9f5",
+     "ts": 1794363954,
+     "yes_price_dollars": "0.4400"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-11T02:45:18Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV10DETSTL-STL": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-11T03:21:19.308013Z",
+     "exchange_index": 0,
+     "fee_cost": "0.011700",
+     "fill_id": "0726eae0-3ef1-b1dd-87f7-f51ff4627ddb",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV10DETSTL-STL",
+     "no_price_dollars": "0.2100",
+     "order_id": "01a1c89f-cf98-70ce-8bd7-08107c52f398",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV10DETSTL-STL",
+     "trade_id": "0726eae0-3ef1-b1dd-87f7-f51ff4627ddb",
+     "ts": 1794367279,
+     "yes_price_dollars": "0.7900"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-11T03:50:17Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV10FLACBJ-FLA": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-11T02:45:56.92729Z",
+     "exchange_index": 0,
+     "fee_cost": "0.013200",
+     "fill_id": "0726e983-c639-b896-d774-754a322ef56f",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV10FLACBJ-FLA",
+     "no_price_dollars": "0.2500",
+     "order_id": "01a1c87f-6aa0-709a-9490-5245afa44bb1",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV10FLACBJ-FLA",
+     "trade_id": "0726e983-c639-b896-d774-754a322ef56f",
+     "ts": 1794365156,
+     "yes_price_dollars": "0.7500"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-11T03:13:27Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV11PITSJ-SJ": {
+   "fills": [
+    {
+     "action": "sell",
+     "book_side": "ask",
+     "count_fp": "1.00",
+     "created_time": "2026-11-12T05:35:27.729518Z",
+     "exchange_index": 0,
+     "fee_cost": "0.008000",
+     "fill_id": "0726f743-1529-90f9-5491-f07b00ee27e0",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV11PITSJ-SJ",
+     "no_price_dollars": "0.8700",
+     "order_id": "01a1ce40-f918-7a65-b7d2-d86ec391febf",
+     "outcome_side": "no",
+     "side": "no",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV11PITSJ-SJ",
+     "trade_id": "0726f743-1529-90f9-5491-f07b00ee27e0",
+     "ts": 1794461727,
+     "yes_price_dollars": "0.1300"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "no",
+    "close_time": "2026-11-12T06:01:41Z",
+    "last_price_dollars": "0.0100",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV12BUFCHI-BUF": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-13T03:36:15.738501Z",
+     "exchange_index": 0,
+     "fee_cost": "0.017500",
+     "fill_id": "07269912-fdf9-87cc-d2df-da743f28f46d",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV12BUFCHI-BUF",
+     "no_price_dollars": "0.5100",
+     "order_id": "01a1d2fa-3398-7f03-9ad1-a4bf01025bb0",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV12BUFCHI-BUF",
+     "trade_id": "07269912-fdf9-87cc-d2df-da743f28f46d",
+     "ts": 1794540975,
+     "yes_price_dollars": "0.4900"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "no",
+    "close_time": "2026-11-13T03:45:19Z",
+    "last_price_dollars": "0.0100",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV12COLOTT-COL": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "2.00",
+     "created_time": "2026-11-13T02:19:38.240815Z",
+     "exchange_index": 0,
+     "fee_cost": "0.033900",
+     "fill_id": "07269863-bf99-b59f-63fe-77ac74636055",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV12COLOTT-COL",
+     "no_price_dollars": "0.5900",
+     "order_id": "01a1d2b4-0e90-704a-b988-7458975e5ac3",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV12COLOTT-COL",
+     "trade_id": "07269863-bf99-b59f-63fe-77ac74636055",
+     "ts": 1794536378,
+     "yes_price_dollars": "0.4100"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "no",
+    "close_time": "2026-11-13T02:51:18Z",
+    "last_price_dollars": "0.0100",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV12DETFLA-FLA": {
+   "fills": [
+    {
+     "action": "sell",
+     "book_side": "ask",
+     "count_fp": "1.00",
+     "created_time": "2026-11-13T02:55:19.917417Z",
+     "exchange_index": 0,
+     "fee_cost": "0.010800",
+     "fill_id": "07269986-4941-b990-409c-e31251c17fe0",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV12DETFLA-FLA",
+     "no_price_dollars": "0.8100",
+     "order_id": "01a1d2d4-b9d8-7058-b98c-9edc94a39cfe",
+     "outcome_side": "no",
+     "side": "no",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV12DETFLA-FLA",
+     "trade_id": "07269986-4941-b990-409c-e31251c17fe0",
+     "ts": 1794538519,
+     "yes_price_dollars": "0.1900"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-13T03:08:04Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV15VANVGK-VAN": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-16T04:16:51.306371Z",
+     "exchange_index": 0,
+     "fee_cost": "0.010400",
+     "fill_id": "072668d9-19c9-af9a-bf65-b271f34265aa",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV15VANVGK-VAN",
+     "no_price_dollars": "0.1800",
+     "order_id": "01a1e292-7338-754c-826f-bfaa1379ece2",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV15VANVGK-VAN",
+     "trade_id": "072668d9-19c9-af9a-bf65-b271f34265aa",
+     "ts": 1794802611,
+     "yes_price_dollars": "0.8200"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-16T04:53:20Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV17BUFPHI-PHI": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-18T02:12:20.850925Z",
+     "exchange_index": 0,
+     "fee_cost": "0.012100",
+     "fill_id": "07265dd9-8939-8ff3-ad53-745570d15b26",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV17BUFPHI-PHI",
+     "no_price_dollars": "0.2200",
+     "order_id": "01a1ec6d-2ba0-7c1d-80a4-b11bd680d6bb",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV17BUFPHI-PHI",
+     "trade_id": "07265dd9-8939-8ff3-ad53-745570d15b26",
+     "ts": 1794967940,
+     "yes_price_dollars": "0.7800"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-18T02:32:23Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV17LABOS-LA": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-18T02:22:00.035225Z",
+     "exchange_index": 0,
+     "fee_cost": "0.005200",
+     "fill_id": "07265dac-fae9-bdcb-e45d-f96df22a928e",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV17LABOS-LA",
+     "no_price_dollars": "0.0800",
+     "order_id": "01a1ec76-0540-733e-9aaf-0742f1e2038c",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV17LABOS-LA",
+     "trade_id": "07265dac-fae9-bdcb-e45d-f96df22a928e",
+     "ts": 1794968520,
+     "yes_price_dollars": "0.9200"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-18T02:40:30Z",
+    "last_price_dollars": "0.9900",
+    "yes_bid_dollars": "0.0000",
+    "yes_ask_dollars": "1.0000"
+   }
+  },
+  "KXNHLGAME-26NOV18MTLNJ-MTL": {
+   "fills": [
+    {
+     "action": "buy",
+     "book_side": "bid",
+     "count_fp": "1.00",
+     "created_time": "2026-11-19T02:51:31.158344Z",
+     "exchange_index": 0,
+     "fee_cost": "0.015000",
+     "fill_id": "0726376a-d8f1-95a1-a72f-88bffb790a56",
+     "is_taker": true,
+     "market_ticker": "KXNHLGAME-26NOV18MTLNJ-MTL",
+     "no_price_dollars": "0.3100",
+     "order_id": "01a1f1b7-6738-798f-838c-51cfcde22d88",
+     "outcome_side": "yes",
+     "side": "yes",
+     "subaccount_number": 0,
+     "ticker": "KXNHLGAME-26NOV18MTLNJ-MTL",
+     "trade_id": "0726376a-d8f1-95a1-a72f-88bffb790a56",
+     "ts": 1795056691,
+     "yes_price_dollars": "0.6900"
+    }
+   ],
+   "position": null,
+   "market": {
+    "status": "finalized",
+    "result": "yes",
+    "close_time": "2026-11-19T03:15:23Z",
     "last_price_dollars": "0.9900",
     "yes_bid_dollars": "0.0000",
     "yes_ask_dollars": "1.0000"

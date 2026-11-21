@@ -1,0 +1,16 @@
+
+# large raw data (>20 MB) kept on disk, not in git (2026-11-21: GitHub 100 MB limit; code-only push rule)
+results/ai_nowcast/series_all.json
+results/altdata_kpi/series_all.json
+results/cbank_thin/candles.json
+results/count_nowcast/series_live.json
+results/cs2_model/candles_raw.jsonl
+results/forum_strategy_scout/kalshi_series.json
+results/pm_full_census/gamma_events_active.json
+results/pm_full_census/gamma_markets.parquet
+results/pm_full_census/pmus_markets_open.json
+results/pm_literature_scout/series.json
+results/pool_census/series_all.json
+results/pool_census/settled_90d.jsonl
+results/source_shift/census_markets.jsonl
+results/ufc_tsa/census_raw.json
