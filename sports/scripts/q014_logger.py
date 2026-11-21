@@ -7,9 +7,12 @@ vs the running count. NO ORDERS ARE EVER SENT. Public GET endpoints only, no API
 
 Pre-registration: notes/q014_truth_social.md (frozen 2026-10-29 before the first tick).
 
-Count source = the settlement source itself: Roll Call Factba.se's public JSON
-(rollcall.com/wp-json/factbase/v1/twitter?platform=truth social, the endpoint its own archive page calls). Cross-check:
-trumpstruth.org RSS (same post ids). truthsocial.com's own API is Cloudflare-blocked (403) and is NOT used or bypassed.
+Count source = the settlement source itself: Roll Call Factba.se's public JSON, i.e. the endpoint its own archive page
+(rollcall.com/factbase/trump/topic/social/) calls: rollcall.com/api/factbase/social?platform=Truth Social. The old
+WordPress endpoint (rollcall.com/wp-json/factbase/v1/twitter) returns 404 since the site rebuild (first failing tick
+2026-11-18T00:22:55Z; notes/ops_q013_q014.md). Same post ids, timestamps and deleted_flag. Cross-check: trumpstruth.org
+RSS (same post ids). truthsocial.com's own API is Cloudflare-blocked (403) and is NOT used or bypassed.
+Both sources are read with an honest User-Agent (robots.txt allows /api/ and /feed; checked 2026-11-21).
 
 CALIBRATION (said plainly): the per-hour rate model is fitted ONCE on the posts dated in the logger's own first 7 days
 [first_tick, first_tick + 7 d), then frozen in data/q014/model.json and never refitted. No picks are made during
@@ -43,8 +46,10 @@ import q013_logger as C  # noqa: E402  (shared: kalshi GET with backoff, jsonl i
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "q014"
 C.OUT = OUT          # route the shared jsonl helpers to data/q014
-RC = "https://rollcall.com/wp-json/factbase/v1/twitter"
+RC = "https://rollcall.com/api/factbase/social"     # was wp-json/factbase/v1/twitter (404 since 2026-11-18)
+RC_PLATFORM = "Truth Social"
 TT_RSS = "https://www.trumpstruth.org/feed"
+UA = "quant-research-logger/1.0 (read-only personal research; <=1 request/s)"
 SERIES = {"KXTRUTHSOCIAL": "W", "KXTRUTHSOCIALD": "D"}
 NY = ZoneInfo("America/New_York")
 
@@ -57,11 +62,38 @@ FULL_SWEEP_S = 3600                 # re-read the whole needed range hourly (del
 MAX_PAGES = 20                      # 50 posts per page
 
 
+def web(url: str, params=None, tries: int = 3) -> requests.Response:
+    """GET with an honest UA (C.web sends a browser UA for RT/MC). 401/403 = blocked: stop, never bypass."""
+    last = None
+    for i in range(tries):
+        try:
+            r = requests.get(url, params=params, timeout=30, headers={"User-Agent": UA, "Accept": "application/json, */*"})
+            if r.status_code in (200, 404):
+                return r
+            last = f"{r.status_code}"
+            if r.status_code in (401, 403):
+                break
+        except requests.RequestException as e:
+            last = str(e)
+        time.sleep(3 * (i + 1))
+    raise RuntimeError(f"GET {url} failed: {last}")
+
+
 def rc_page(page: int) -> dict:
-    r = C.web(RC, {"platform": "truth social", "sort": "date", "sort_order": "desc", "page": page, "format": "json"})
+    r = web(RC, {"platform": RC_PLATFORM, "sort": "date", "sort_order": "desc", "page": page, "size": 50})
     if r.status_code != 200:
-        raise RuntimeError(f"rollcall page {page} -> {r.status_code}")
-    return r.json()
+        raise RuntimeError(f"rollcall page {page} -> {r.status_code} ({r.url}; source moved? see notes/ops_q013_q014.md)")
+    try:
+        d = r.json()
+    except ValueError:
+        raise RuntimeError(f"rollcall page {page}: not JSON ({r.headers.get('content-type')})") from None
+    data = d.get("data") if isinstance(d, dict) else None
+    if not isinstance(data, list) or not isinstance(d.get("meta"), dict):
+        raise RuntimeError(f"rollcall page {page}: schema changed (keys {sorted(d)[:8] if isinstance(d, dict) else type(d)})")
+    bad = [x for x in data if not x.get("id") or not x.get("date") or x.get("platform", RC_PLATFORM) != RC_PLATFORM]
+    if bad:
+        raise RuntimeError(f"rollcall page {page}: {len(bad)} rows without id/date or not {RC_PLATFORM}")
+    return d
 
 
 def post_ts(s: str) -> int:
@@ -95,7 +127,9 @@ def sweep(since_ts: int, known: dict, full: bool) -> tuple[list[dict], set, int]
 
 
 def rss_ids() -> dict[str, int]:
-    r = C.web(TT_RSS)
+    r = web(TT_RSS)
+    if r.status_code != 200:
+        raise RuntimeError(f"rss -> {r.status_code}")
     root = ET.fromstring(r.content)
     ns = {"truth": "https://truthsocial.com/ns"}
     out = {}

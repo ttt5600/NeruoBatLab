@@ -1,0 +1,16 @@
+ticks since 11-12: 738 first 11-11 16:02 PT last 11-21 00:42 PT
+KXRT-HOWT KXRT close 11-16 07:00 PT markets 16 | T24@11-15 07:00 PT ticks_in_window=4 picked=Y | T6@11-16 01:00 PT ticks_in_window=4 picked=Y
+KXRT-EBE KXRT close 11-16 07:00 PT markets 19 | T24@11-15 07:00 PT ticks_in_window=4 picked=Y | T6@11-16 01:00 PT ticks_in_window=4 picked=Y
+KXRT-IPL KXRT close 11-23 07:00 PT markets 14 | T24@11-22 07:00 PT ticks_in_window=0 picked=n | T6@11-23 01:00 PT ticks_in_window=0 picked=n
+KXRT-HUN KXRT close 11-23 07:00 PT markets 17 | T24@11-22 07:00 PT ticks_in_window=0 picked=n | T6@11-23 01:00 PT ticks_in_window=0 picked=n
+KXMC-GTA6 KXMC close 11-26 07:00 PT markets 17 | T24@11-25 07:00 PT ticks_in_window=0 picked=n | T6@11-26 01:00 PT ticks_in_window=0 picked=n
+KXRT-FUR KXRT close 11-30 07:00 PT markets 16 | T24@11-29 07:00 PT ticks_in_window=0 picked=n | T6@11-30 01:00 PT ticks_in_window=0 picked=n
+KXRT-FOC KXRT close 11-30 07:00 PT markets 15 | T24@11-29 07:00 PT ticks_in_window=0 picked=n | T6@11-30 01:00 PT ticks_in_window=0 picked=n
+KXRT-HEX KXRT close 11-30 07:00 PT markets 14 | T24@11-29 07:00 PT ticks_in_window=0 picked=n | T6@11-30 01:00 PT ticks_in_window=0 picked=n
+KXRT-VIO KXRT close 12-07 07:00 PT markets 10 | T24@12-06 07:00 PT ticks_in_window=0 picked=n | T6@12-07 01:00 PT ticks_in_window=0 picked=n
+KXRT-ZER KXRT close 12-14 07:00 PT markets 10 | T24@12-13 07:00 PT ticks_in_window=0 picked=n | T6@12-14 01:00 PT ticks_in_window=0 picked=n
+KXRT-AVE KXRT close 12-21 07:00 PT markets 11 | T24@12-20 07:00 PT ticks_in_window=0 picked=n | T6@12-21 01:00 PT ticks_in_window=0 picked=n
+KXRT-DUNE KXRT close 12-21 07:00 PT markets 14 | T24@12-20 07:00 PT ticks_in_window=0 picked=n | T6@12-21 01:00 PT ticks_in_window=0 picked=n
+KXRT-JUM KXRT close 12-28 07:00 PT markets 10 | T24@12-27 07:00 PT ticks_in_window=0 picked=n | T6@12-28 01:00 PT ticks_in_window=0 picked=n
+KXRT-WER KXRT close 12-28 07:00 PT markets 10 | T24@12-27 07:00 PT ticks_in_window=0 picked=n | T6@12-28 01:00 PT ticks_in_window=0 picked=n
+KXRT-ANG KXRT close 12-28 07:00 PT markets 10 | T24@12-27 07:00 PT ticks_in_window=0 picked=n | T6@12-28 01:00 PT ticks_in_window=0 picked=n

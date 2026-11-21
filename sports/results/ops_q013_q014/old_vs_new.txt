@@ -1,0 +1,5 @@
+overlap 2026-10-22T22:41:59+00:00 .. 2026-11-17T22:09:46+00:00
+old-endpoint archive posts in overlap 952 ; new-endpoint posts in overlap 952
+in old not new 0 ; in new not old 0
+timestamp mismatches on common ids 0
+deleted flag differs (old archive flag is as first seen + updates not applied here) 8

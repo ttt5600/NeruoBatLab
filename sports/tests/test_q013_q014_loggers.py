@@ -189,3 +189,40 @@ def test_picks_health_zero_streak():
     rows[1]["p_yes"] = 0.4
     assert not H.zero_pick_streak(rows, "p_yes")["alert"]
     assert not H.zero_pick_streak(rows[:2], "p_yes")["alert"]   # fewer than 3 eligible days: no verdict
+
+
+def test_rc_page_new_endpoint_honest_ua_and_schema(monkeypatch):
+    """Roll Call moved Factbase to /api/factbase/social on 2026-11-18 (old wp-json -> 404). rc_page must call the
+    endpoint the archive page itself calls, with an honest UA, and fail loudly (not silently count 0) on a schema change."""
+    seen = []
+
+    class R:
+        def __init__(self, code, js, url="u"):
+            self.status_code, self._js, self.url, self.headers = code, js, url, {"content-type": "application/json"}
+
+        def json(self):
+            return self._js
+
+    good = {"meta": {"total_hits": 1, "page_count": 1},
+            "data": [{"id": "1", "date": "2026-11-20T08:03:07-05:00", "platform": "Truth Social", "deleted_flag": False}]}
+    resp = {"r": R(200, good)}
+
+    def fake_get(url, params=None, timeout=None, headers=None):
+        seen.append((url, params, headers))
+        return resp["r"]
+
+    monkeypatch.setattr(B.requests, "get", fake_get)
+    assert B.rc_page(1)["data"][0]["id"] == "1"
+    url, params, headers = seen[-1]
+    assert url == "https://rollcall.com/api/factbase/social"
+    assert params["platform"] == "Truth Social" and params["sort"] == "date" and params["sort_order"] == "desc"
+    assert "Mozilla" not in headers["User-Agent"]
+    resp["r"] = R(404, {})
+    with pytest.raises(RuntimeError, match="404"):
+        B.rc_page(1)
+    resp["r"] = R(200, {"results": []})
+    with pytest.raises(RuntimeError, match="schema changed"):
+        B.rc_page(1)
+    resp["r"] = R(200, {"meta": {}, "data": [{"id": "2", "date": "2026-11-20T08:03:07-05:00", "platform": "Twitter"}]})
+    with pytest.raises(RuntimeError, match="not Truth Social"):
+        B.rc_page(1)

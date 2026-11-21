@@ -547,3 +547,12 @@ confirm home state (CA vs CO) for venue legality.
 - OPEN: does the JSON show the winner at its `results` stamp ~20 s before the spoken name / book jump? Read-only self-stopping
   logger for UFC FN 11-21 (fmid 1348, 14:45Z-23:30Z, results/ufc_decision_gap/fwd/1348.jsonl); kill: JSON not earlier than
   Kalshi jump - 3 s on >= 5 decisions. Check 11-22.
+
+### ops_q013_q014 (merged 2026-11-21, notes/ops_q013_q014.md) -- Q014 FIXED + deployed; Q013 idle
+- Q014: Roll Call moved its Truth Social archive (old wp-json endpoint 404 from 11-18 00:22Z) to /api/factbase/social (robots
+  allows /api/). Fixed q014_logger.py (fails loudly on schema change); deployed 11-21 08:48Z; weekly KXTRUTHSOCIAL-26NOV21 count
+  58 = RSS 58, rc_ok. 9 decision slots missed (6 by the 404, 3 Mac asleep); not backfilled; outage independent of prices ->
+  only delays the Q014-D kill (~3 days). Rebuild check: 61/61 settled events bracket-correct, 41/41 exact incl. post-close deletes.
+- Q013 idle (picks only at close-24h/-6h; KXRT closes Mon 07:00 PT); health rule -> active Sun+Mon, zero_days 2; err_re added
+  for both (would have flagged Q014 at 11-18 06:00Z instead of 11-21). IDEA_PATTERNS P-8 = source plumbing change.
+- Correction: forward_review_1119's "13/13" was 12 exact + 1 skipped (float(" <5") error counted as pass).

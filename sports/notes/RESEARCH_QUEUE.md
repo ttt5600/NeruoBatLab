@@ -28,6 +28,7 @@ orders; money changes stay with the user.
 - esoccer_tennis -- eSoccer/eBasketball calibration + tennis pre-match vs Pinnacle (notes/esoccer_tennis.md)  [DONE 11-21: dead]
 - props_forward_1121 -- score NBA prop-ladder forward trial vs its 11-01 prereg (notes/props_forward_1121.md)  [DONE 11-21: KILLED]
 - ufc_decision_gap -- horn-to-scorecard window on decision fights (notes/ufc_decision_gap.md)  [DONE 11-21: D1 dead; JSON-latency logger running for 11-21 card]
+- ops_q013_q014 -- Q014 Roll Call 404 fix + Q013 idle check  [DONE 11-21: fixed + deployed]
 - trading_ways_survey -- all non-PM retail trading strategies ranked for CA + $1-2k, pre-reg top 1-2 (notes/trading_ways_survey.md)  [DONE 11-19: nothing doubles; promos/RSA/odd-lot = small one-offs]
 - altdata_kpi -- census + pre-reg of JBLU / foot traffic / card spend / TikTok Shop / SPR series (notes/altdata_kpi.md)  [DONE 11-19: dead, Carbon Arc paywalled]
 ## Done 11-16..19: e4_timing, ot1_extension, tropical_nhc, forward_review_1115, fed_vs_futures, mortgage_rates (see LEARNINGS_2026-11.md)
