@@ -673,3 +673,11 @@ datasets:
       dev: [2026-07-01, 2026-11-14]
       sealed: [2026-11-15, 2026-11-15]     # none (series too young)
       forward: [2026-11-16, null]
+  kalshi_temp_mos:         # e4_data_v2 11-21: E4 + point-in-time station max-T MOS (NBS/MAV/MET); prereg notes/e4_data_v2.md
+    loader: kalshi_temp_mos
+    family: kalshi_weather_temp
+    hidden: [won]
+    outcome: {kind: won_column, key: ticker}
+    splits:                                # E1 orig-7 dev quarters; builder drops >= 2025-07-01 (sealed never built)
+      dev: [2021-07-01, 2025-06-30]
+      sealed: [2025-07-01, 2026-10-06]     # not built; would need the user's yes

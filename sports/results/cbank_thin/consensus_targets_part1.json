@@ -1,0 +1,177 @@
+[
+ {
+  "event": "KXCBDECISIONBRAZIL-26APR29",
+  "anchor_utc": "2026-04-29 00:00:00+00:00",
+  "T_D7_utc": "2026-04-22 00:00:00+00:00",
+  "T_D1_utc": "2026-04-28 00:00:00+00:00",
+  "buckets": [
+   "Cut 25 basis points",
+   "Cut 50 basis points",
+   "Cut more than 50bp",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDECISIONBRAZIL-26AUG05",
+  "anchor_utc": "2026-08-05 00:00:00+00:00",
+  "T_D7_utc": "2026-07-29 00:00:00+00:00",
+  "T_D1_utc": "2026-08-04 00:00:00+00:00",
+  "buckets": [
+   "Cut 25bps",
+   "Cut more than 50bp",
+   "Hike 25bps",
+   "Hike 50bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDECISIONBRAZIL-26JUN17",
+  "anchor_utc": "2026-06-17 00:00:00+00:00",
+  "T_D7_utc": "2026-06-10 00:00:00+00:00",
+  "T_D1_utc": "2026-06-16 00:00:00+00:00",
+  "buckets": [
+   "Cut 25bps",
+   "Cut 50bps",
+   "Cut more than 50bp",
+   "Hike 25bps",
+   "Hike 50bps",
+   "Hike more than 50bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDECISIONBRAZIL-26MAR18",
+  "anchor_utc": "2026-03-18 00:00:00+00:00",
+  "T_D7_utc": "2026-03-11 00:00:00+00:00",
+  "T_D1_utc": "2026-03-17 00:00:00+00:00",
+  "buckets": [
+   "Cut 25 basis points",
+   "Cut 50 basis points",
+   "Cut more than 50bp",
+   "Hike 25 basis points",
+   "Hike 50 basis points",
+   "Hike more than 50bp",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDECISIONRUSSIA-26APR24",
+  "anchor_utc": "2026-04-24 00:00:00+00:00",
+  "T_D7_utc": "2026-04-17 00:00:00+00:00",
+  "T_D1_utc": "2026-04-23 00:00:00+00:00",
+  "buckets": [
+   "Cut 25bps",
+   "Cut 50bps",
+   "Cut more than 50bps",
+   "Hike 25bps",
+   "Hike 50bps",
+   "Hike more than 50bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDECISIONRUSSIA-26FEB13",
+  "anchor_utc": "2026-02-13 00:00:00+00:00",
+  "T_D7_utc": "2026-02-06 00:00:00+00:00",
+  "T_D1_utc": "2026-02-12 00:00:00+00:00",
+  "buckets": [
+   "Cut 25 basis points",
+   "Cut 50 basis points",
+   "Cut more than 50bp",
+   "Hike 25 basis points",
+   "Hike 50 basis points",
+   "Hike more than 50bp",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDECISIONRUSSIA-26JUL24",
+  "anchor_utc": "2026-07-24 00:00:00+00:00",
+  "T_D7_utc": "2026-07-17 00:00:00+00:00",
+  "T_D1_utc": "2026-07-23 00:00:00+00:00",
+  "buckets": [
+   "Cut 25bps",
+   "Cut 50bps",
+   "Cut more than 50bps",
+   "Hike 25bps",
+   "Hike 50bps",
+   "Hike more than 50bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDECISIONRUSSIA-26JUN19",
+  "anchor_utc": "2026-06-19 00:00:00+00:00",
+  "T_D7_utc": "2026-06-12 00:00:00+00:00",
+  "T_D1_utc": "2026-06-18 00:00:00+00:00",
+  "buckets": [
+   "Cut 25bps",
+   "Cut 50bps",
+   "Cut more than 50bps",
+   "Hike 25bps",
+   "Hike 50bps",
+   "Hike more than 50bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDECISIONRUSSIA-26MAR20",
+  "anchor_utc": "2026-03-20 00:00:00+00:00",
+  "T_D7_utc": "2026-03-13 00:00:00+00:00",
+  "T_D1_utc": "2026-03-19 00:00:00+00:00",
+  "buckets": [
+   "Cut 25bps",
+   "Cut 50bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDISRAEL-26AUG31",
+  "anchor_utc": "2026-08-31 00:00:00+00:00",
+  "T_D7_utc": "2026-08-24 00:00:00+00:00",
+  "T_D1_utc": "2026-08-30 00:00:00+00:00",
+  "buckets": [
+   "Cut 1-25bps",
+   "Cut more than 25bps",
+   "Hike 1-25bps",
+   "Hike more than 25bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDISRAEL-26JUL06",
+  "anchor_utc": "2026-07-06 00:00:00+00:00",
+  "T_D7_utc": "2026-06-29 00:00:00+00:00",
+  "T_D1_utc": "2026-07-05 00:00:00+00:00",
+  "buckets": [
+   "Cut 1-25bps",
+   "Hike more than 25bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ },
+ {
+  "event": "KXCBDSA-26JUL23",
+  "anchor_utc": "2026-07-23 00:00:00+00:00",
+  "T_D7_utc": "2026-07-16 00:00:00+00:00",
+  "T_D1_utc": "2026-07-22 00:00:00+00:00",
+  "buckets": [
+   "Cut 1-25bps",
+   "Cut more than 25bps",
+   "Hike 1-25bps",
+   "Hike more than 25bps",
+   "Maintain current rate"
+  ],
+  "flagged": true
+ }
+]

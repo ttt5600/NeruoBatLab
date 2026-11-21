@@ -176,3 +176,8 @@ Registered (family kalshi_weather_temp -> 76 trials, bar 6.58e-4): e4m_mosvote_m
 (T2), e4m_cl_new_maker-bfb71381 (T3). Rule edgelab/rules/kalshi_wx_mos.py (selection inside the rule); specs
 edgelab/specs/e4m_*_maker.yaml; loader edgelab/loaders.py kalshi_temp_mos; vault.yaml dataset kalshi_temp_mos (dev 2021-07-01..
 2025-06-30 E1 orig-7; X1 W1 rows scored only in scripts/e4_data_v2.py).
+- **Bias decomposition** (results/e4_data_v2/bias_decomp.csv, bias_model_station.csv; 2,948 dev station-days with METARs):
+  CLI - 5-model mean (+1.35F) = sampling premium [CLI - hourly obs max over the same local 00:00-18:30 window] +0.76F
+  + model 2m bias at hourly resolution [hourly obs max - model mean] +0.59F. The sampling premium is stable (station x season
+  0.24..1.17F, mostly 0.6-0.9F): it is the DGP (continuous sensor max vs hourly values). The model part is what varies: KLAX
+  JJA -2.60F / MAM -2.50F (marine layer; ECMWF at KLAX -5.67F), KATL DJF +2.44F, KMDW DJF +1.94F, KNYC JJA -1.54F vs MAM +1.57F.

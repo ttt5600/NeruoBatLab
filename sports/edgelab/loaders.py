@@ -844,3 +844,20 @@ def kalshi_nom_week():
 
 
 LOADERS["kalshi_nom_week"] = kalshi_nom_week
+
+
+# ------------------------------------------------------------------ E4 + station max-T MOS (scripts/e4_data_v2.py, agent e4_data_v2)
+def kalshi_temp_mos():
+    """sports/results/e4_data_v2/edgelab_frame.parquet: E1 orig-7 dev brackets (2021-08..2025-06) tradeable at 22:00 with the
+    5 fcsafe members, point-in-time MOS members (nbs/mav/met), walk-forward margin m_wf and EMOS-L phit_l (prereg
+    notes/e4_data_v2.md). Selection is in edgelab/rules/kalshi_wx_mos.py. attrs['tape'] = public trades (T, close]."""
+    D = SPORTS / "results" / "e4_data_v2"
+    f, ft = D / "edgelab_frame.parquet", D / "edgelab_tape.parquet"
+    x = pd.read_parquet(f)
+    x["date"] = pd.to_datetime(x["date"])
+    tr = pd.read_parquet(ft)
+    x.attrs["tape"] = tr[tr.ticker.isin(x.ticker)].reset_index(drop=True)
+    return x.reset_index(drop=True), [str(f), str(ft)]
+
+
+LOADERS["kalshi_temp_mos"] = kalshi_temp_mos

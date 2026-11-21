@@ -16,7 +16,7 @@ orders; money changes stay with the user.
 - ufc_tsa -- UFC method of victory + daily TSA  [DONE 11-20: both dead]
 - ai_nowcast -- OpenRouter / LMArena series vs intra-week public data (notes/ai_nowcast.md)  [DONE 11-21: dead; BYOK definition question live]
 - climate_nowcast -- NOAA global temp via ERA5, sea ice via NSIDC, CO2 (notes/climate_nowcast.md)  [DONE 11-20: CN1 dead; CN2 logger optional]
-- cbank_thin -- small central-bank decisions vs free consensus (notes/cbank_thin.md)
+- cbank_thin -- small central-bank decisions vs free consensus (notes/cbank_thin.md)  [DONE 11-21: CB1 dead, n=6]
 - count_nowcast -- public charts/counts (Spotify, Netflix, box office, grid load...) sweep + top 2 (notes/count_nowcast.md)  [DONE 11-21: EO1/NM1 dead]
 - money_now -- CA-legal prediction-venue promos + hedge math, open odd-lot tenders, EDGAR watcher (notes/money_now.md)  [DONE 11-21: promo list ~$300-450 face; no tender now; watcher built]
 - winners_transfer -- compete-winner lessons (C1-C26, DGP, headroom) + profitable-trader prior art -> 10 ideas, run 1-2 probes (notes/winners_transfer.md)

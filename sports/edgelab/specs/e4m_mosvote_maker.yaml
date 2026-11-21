@@ -1,0 +1,16 @@
+id: e4m_mosvote_maker
+family: kalshi_weather_temp
+dataset: kalshi_temp_mos
+rule: edgelab.rules.kalshi_wx_mos:maker_t1
+hypothesis: 'frozen E4 (5 fcsafe models, margin 3F, >= 3 models) plus 3 extra voters = point-in-time station max-T MOS (NBM NBS 19Z txn, GFS MOS 12Z n_x, NAM MOS 12Z n_x, all issued D-1); reject iff every available member misses by > 3F. A veto on E4 picks; the MOS members are trained on the observed (ASOS continuous) max, which hourly model values under-state by ~0.7-1.4F. Prereg sports/notes/e4_data_v2.md (agent e4_data_v2).'
+decision_time: 22:00 station-local on D-1
+price_model: maker_tape
+split: vault:kalshi_temp_mos
+min_n: 200
+kill:
+  kind: clv_negative_significant
+  after_n: 100
+  p: 0.05
+fee:
+  rounding: exact
+  contracts_per_order: 1

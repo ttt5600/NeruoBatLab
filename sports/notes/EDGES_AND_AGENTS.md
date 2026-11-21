@@ -465,3 +465,9 @@ confirm home state (CA vs CO) for venue legality.
   ENDED 10-20; check app), Webull ~$18.7 (UNVERIFIED). Robinhood/Underdog dropped.
 - Odd-lot tenders: none riskless now (MYPS Dutch auction -$63/+$55 per 99 sh, expires 12-10). scripts/oddlot_watch.py built +
   tested (19 filings backfilled to ~/.claude/quant-sports/data/oddlot/filings.jsonl); not installed.
+
+### cbank_thin (merged 2026-11-21, notes/cbank_thin.md) -- CB1 DEAD (too few bets)
+- 27 Kalshi central-bank series; most small banks only since 2026-07..09. CB1 (fade non-consensus buckets when pre-decision poll
+  >= 90%, bid >= 4c): dev 6 bets / 62 meetings, 6-0, +6.8% but < min_n 20 -> kill; retired. Placebo (no poll) -8.0% [-22.9,+4.6].
+- Kalshi tails calibrated (2-5c settled 2.9%, n35; <=2c 0/171). Polls vs Kalshi favourite disagreed 7x: Kalshi 4, poll 3.
+- Traps: Kalshi close_time can be days AFTER the decision (anchor on meeting date); /historical candles `close` is dollars vs live `close_dollars`.

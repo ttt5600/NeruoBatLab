@@ -414,3 +414,7 @@ NOAA revises monthly global temps; Kalshi settles on the first print. Fitting to
 ### The fastest official page sets the price, not the named settlement source (count_nowcast, 11-21)
 KXEOWEEK settles on the Federal Register but prices off the White House posting 5 days earlier. Before testing a
 "stale bracket" idea, find the fastest public page that reveals the outcome and time the book against THAT.
+
+### Kalshi close_time is not the event time; historical vs live candle fields differ (cbank_thin, 11-21)
+KXCBDPOLAND-26SEP02 closes 7 days after the decision -> "close - 1d" is post-event. /historical candles: `close` (dollars);
+live: `close_dollars`. Anchor decision times on the real event date; assert candle units.

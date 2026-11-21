@@ -1,0 +1,4384 @@
+{
+ "KXCBDECISIONAUSTRALIA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-26DEC07",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:00:51.271824Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "Reserve Bank of Australia",
+     "url": "https://www.rba.gov.au/monetary-policy/int-rate-decisions/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/australia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 7, 2026 meeting",
+   "title": "Reserve Bank of Australia rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-26NOV02",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T15:19:44.869148Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "Reserve Bank of Australia",
+     "url": "https://www.rba.gov.au/monetary-policy/int-rate-decisions/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/australia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 2, 2026 meeting",
+   "title": "Reserve Bank of Australia rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-26SEP28",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T15:11:08.815191Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "Reserve Bank of Australia",
+     "url": "https://www.rba.gov.au/monetary-policy/int-rate-decisions/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/australia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 28, 2026 meeting",
+   "title": "Reserve Bank of Australia rate decision in September"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-26AUG11",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:04:49.951686Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/australia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Aug 11, 2026 meeting",
+   "title": "Reserve Bank of Australia rate decision in August"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-26JUN16",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:27:45.996562Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/australia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jun 16, 2026 meeting",
+   "title": "Reserve Bank of Australia rate decision in June"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-26MAY05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:29:16.363793Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/australia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "May 5, 2026 meeting",
+   "title": "Reserve Bank of Australia rate decision in May"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-26MAR16",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/australia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Mar 16, 2026 meeting",
+   "title": "Reserve Bank of Australia Rate Decision in March"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-26FEB03",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "Reserve Bank of Australia",
+     "url": "https://www.rba.gov.au/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Feb 3, 2026 meeting",
+   "title": "What will the Reserve Bank of Australia do at the February  RBA meeting?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONAUSTRALIA-25DEC08",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.921196Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONAUSTRALIA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reserve Bank of Australia",
+     "url": "https://www.rba.gov.au/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 8, 2025 meeting",
+   "title": "What will the Reserve Bank of Australia do at the Dec 2025 RBA meeting?"
+  }
+ ],
+ "KXCBDSWEDEN": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSWEDEN-26DEC16",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:14:44.333878Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSWEDEN",
+   "settlement_sources": [
+    {
+     "name": "Sveriges Riksbank",
+     "url": "https://www.riksbank.se/en-gb/monetary-policy/monetary-policy-report/monetary-policy-decision-documents/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/sweden/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 16, 2026 meeting",
+   "title": "Sweden rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSWEDEN-26NOV04",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:52.127692Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSWEDEN",
+   "settlement_sources": [
+    {
+     "name": "Sveriges Riksbank",
+     "url": "https://www.riksbank.se/en-gb/monetary-policy/monetary-policy-report/monetary-policy-decision-documents/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/sweden/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 4, 2026 meeting",
+   "title": "Sweden rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSWEDEN-26SEP24",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T00:52:26.612838Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSWEDEN",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/sweden/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 24, 2026 meeting",
+   "title": "Sweden rate decision in September"
+  }
+ ],
+ "KXCBDECISIONENGLAND": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-26DEC17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T01:01:43.651677Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/united-kingdom/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 17, 2026 meeting",
+   "title": "Bank of England rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-26NOV05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T16:48:14.737072Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/monetary-policy"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/united-kingdom/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 5, 2026 meeting",
+   "title": "Bank of England rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-26SEP17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-08-27T21:03:05.970514Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/united-kingdom/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 17, 2026 meeting",
+   "title": "Bank of England rate decision in September"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-26JUL30",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:04:49.951686Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/united-kingdom/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jul 30, 2026 meeting",
+   "title": "Bank of England rate decision in July"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-26JUN18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:27:45.996562Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/united-kingdom/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jun 18, 2026 meeting",
+   "title": "Bank of England rate decision in June"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-26APR30",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:49:48.085325Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/united-kingdom/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Apr 30, 2026 meeting",
+   "title": "Bank of England rate decision in April"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-26MAR19",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/united-kingdom/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Mar 19, 2026 meeting",
+   "title": "Bank of England Rate Decision in March"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-26FEB05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Feb 2026 meeting",
+   "title": "What will the Bank of England do at the February meeting?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONENGLAND-25DEC18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.958546Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONENGLAND",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 18, 2025 meeting",
+   "title": "What will the Bank of England do at the Dec 2025 BOE meeting?"
+  }
+ ],
+ "KXCBDECISIONCHINA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCHINA-26MAR19",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.955263Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCHINA",
+   "settlement_sources": [
+    {
+     "name": " People's Bank of China",
+     "url": "https://www.pbc.gov.cn/en/3688247/index.html"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Mar 19, 2026 meeting",
+   "title": "People's Bank of China Rate Decision in March"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCHINA-26FEB23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.94925Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCHINA",
+   "settlement_sources": [
+    {
+     "name": " People's Bank of China",
+     "url": "https://www.pbc.gov.cn/en/3688006/index.html"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Feb 2026 meeting",
+   "title": "What will the People's Bank of China do at the February 2026 meeting?"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCHINA-26JAN19",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.952305Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCHINA",
+   "settlement_sources": [
+    {
+     "name": " People's Bank of China",
+     "url": "https://www.pbc.gov.cn/en/3688006/index.html"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jan 2026 meeting",
+   "title": "What will the People's Bank of China do at the January 2026 PBOC meeting?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCHINA-25DEC22",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.941667Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCHINA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 22, 2025 meeting",
+   "title": "What will the People's Bank of China do at the Dec 2025 PBOC meeting?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCHINA-25NOV19",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.945327Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCHINA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "People's Bank of China",
+     "url": "http://www.pbc.gov.cn/english/130437/index.html"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 19, 2025 meeting",
+   "title": "What will the People's Bank of China do at the Nov 2025 PBOC meeting?"
+  }
+ ],
+ "KXCBDECISIONCANADA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-26DEC",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T01:23:20.670305Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Canada",
+     "url": "https://www.bankofcanada.ca"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://fred.stlouisfed.org"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://professional.bloomberg.com/products/bloomberg-terminal/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://www.marketwatch.com"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Dec 2026",
+   "title": "Bank of Canada decision in Dec 2026?"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-26OCT",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T08:59:42.761965Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Canada",
+     "url": "https://www.bankofcanada.ca"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://fred.stlouisfed.org"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://professional.bloomberg.com/products/bloomberg-terminal/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://www.marketwatch.com"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Oct 2026",
+   "title": "Bank of Canada decision in Oct 2026?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-26SEP",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:29:32.928265Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Sep 2026",
+   "title": "Bank of Canada decision in Sep 2026?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-26JUL",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:29:32.941731Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Jul 2026",
+   "title": "Bank of Canada decision in Jul 2026?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-26JUN",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:29:32.937427Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Jun 2026",
+   "title": "Bank of Canada decision in Jun 2026?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-26APR",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.931199Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Apr 2026",
+   "title": "Bank of Canada decision in Apr 2026?"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-26MAR",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.937926Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Mar 2026",
+   "title": "Bank of Canada Rate Decision in March"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-26JAN",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.934568Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Jan 2026",
+   "title": "Bank of Canada decision in Jan 2026?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-25DEC",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.924565Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Dec 2025",
+   "title": "Bank of Canada decision in Dec 2025?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONCANADA-25OCT",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.92812Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONCANADA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "central bank",
+     "url": "https://www.bankofcanada.ca/"
+    },
+    {
+     "name": "Bank of Canada",
+     "url": "https://www.bankofcanada.ca/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://www.marketwatch.com/?gaa_at=eafs&gaa_n=ASWzDAgGHy0N0yyDeDWSDvgxUwAOekHmff4Zi5kAbIpv0wuF1UacVg79pp2a&gaa_ts=68e42eef&gaa_sig=_s0h2xNS3nm_81GMctJBYlxCbxeYxqt3dF4wZlFmUpnCQCxRcxXppDUfC9q_Nm2FW-O2bhzCrXBqs_kaF_jWZQ%3D%3D"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "In Oct 2025",
+   "title": "Bank of Canada decision in Oct 2025?"
+  }
+ ],
+ "KXCBDISRAEL": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDISRAEL-26NOV23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-21T17:28:32.642476Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDISRAEL",
+   "settlement_sources": [
+    {
+     "name": "Bank of Israel",
+     "url": "https://www.boi.org.il/en/economic-roles/monetary-policy/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/israel/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 23, 2026 meeting",
+   "title": "Bank of Israel rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDISRAEL-26OCT21",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:51.929249Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDISRAEL",
+   "settlement_sources": [
+    {
+     "name": "Bank of Israel",
+     "url": "https://www.boi.org.il/en/economic-roles/monetary-policy/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/israel/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 21, 2026 meeting",
+   "title": "Bank of Israel rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDISRAEL-26AUG31",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T02:24:54.20784Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDISRAEL",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/israel/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Aug 31, 2026 meeting",
+   "title": "Bank of Israel rate decision in August"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDISRAEL-26JUL06",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:27:45.996562Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDISRAEL",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/israel/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jul 6, 2026 meeting",
+   "title": "Bank of Israel rate decision in July"
+  }
+ ],
+ "KXCBDTAIWAN": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDTAIWAN-26DEC17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-12T23:46:41.920667Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDTAIWAN",
+   "settlement_sources": [
+    {
+     "name": "Central Bank of the Republic of China (Taiwan)",
+     "url": "https://www.cbc.gov.tw/en/lp-1025-2.html"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/taiwan/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 17, 2026 meeting",
+   "title": "Taiwan rate decision in December"
+  }
+ ],
+ "KXCBDCHILE": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDCHILE-26DEC15",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:51:48.203366Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDCHILE",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/chile/interest-rate"
+    },
+    {
+     "name": "Central Bank of Chile",
+     "url": "https://www.bcentral.cl/en/areas/monetary-politics/monetary-policy-meeting-rpm"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 15, 2026 meeting",
+   "title": "Chile rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDCHILE-26OCT27",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:28:57.674861Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDCHILE",
+   "settlement_sources": [
+    {
+     "name": "Central Bank of Chile",
+     "url": "https://www.bcentral.cl/en/areas/monetary-politics/monetary-policy-meeting-rpm"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/chile/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 27, 2026 meeting",
+   "title": "Chile rate decision in October"
+  }
+ ],
+ "KXCBDCOLOMBIA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDCOLOMBIA-26DEC18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:40:36.263239Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDCOLOMBIA",
+   "settlement_sources": [
+    {
+     "name": "Banco de la Rep\u00fablica",
+     "url": "https://www.banrep.gov.co/en/tema/monetary-policy"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/colombia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 18, 2026 meeting",
+   "title": "Colombia rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDCOLOMBIA-26OCT30",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T16:29:11.692665Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDCOLOMBIA",
+   "settlement_sources": [
+    {
+     "name": "Banco de la Rep\u00fablica",
+     "url": "https://www.banrep.gov.co/en/tema/monetary-policy"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/colombia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 30, 2026 meeting",
+   "title": "Colombia rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDCOLOMBIA-26SEP30",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:52.10277Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDCOLOMBIA",
+   "settlement_sources": [
+    {
+     "name": "Banco de la Rep\u00fablica",
+     "url": "https://www.banrep.gov.co/en/tema/monetary-policy"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/colombia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 30, 2026 meeting",
+   "title": "Colombia rate decision in September"
+  }
+ ],
+ "KXCBDECISIONEU": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-26DEC17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:40:52.645741Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/euro-area/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 17, 2026 meeting",
+   "title": "European Central Bank rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-26OCT29",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T16:48:14.737072Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "European Central Bank",
+     "url": "https://www.ecb.europa.eu/press/govcdec/mopo/html/index.en.html"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/euro-area/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 29, 2026 meeting",
+   "title": "European Central Bank rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-26SEP10",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-08-27T22:51:30.624804Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/euro-area/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 10, 2026 meeting",
+   "title": "European Central Bank rate decision in September"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-26JUL23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:07:51.320983Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/euro-area/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jul 23, 2026 meeting",
+   "title": "European Central Bank rate decision in July"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-26JUN11",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:27:45.996562Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/euro-area/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jun 11, 2026 meeting",
+   "title": "European Central Bank rate decision in June"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-26APR30",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:49:48.085325Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/euro-area/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Apr 30, 2026 meeting",
+   "title": "European Central Bank rate decision in April"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-26MAR19",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/euro-area/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Mar 19, 2026 meeting",
+   "title": "European Central Bank Rate Decision in March"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-26FEB05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "European Central Bank",
+     "url": "https://www.ecb.europa.eu/home/html/index.en.html"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Feb 5, 2026 meeting",
+   "title": "What will the European Central Bank do at the February ECB meeting?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONEU-25DEC18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.961606Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONEU",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "European Central Bank",
+     "url": "https://www.ecb.europa.eu/home/html/index.en.html"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 18, 2025 meeting",
+   "title": "What will the European Central Bank do at the Dec 2025 ECB meeting?"
+  }
+ ],
+ "KXCBDSWISS": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSWISS-26DEC10",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:59:38.112741Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSWISS",
+   "settlement_sources": [
+    {
+     "name": "Swiss National Bank",
+     "url": "https://www.snb.ch/en/the-snb/mandates-goals/monetary-policy/decisions"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/switzerland/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 10, 2026 meeting",
+   "title": "Swiss National Bank rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSWISS-26SEP24",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T00:52:26.612838Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSWISS",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/switzerland/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 24, 2026 meeting",
+   "title": "Swiss National Bank rate decision in September"
+  }
+ ],
+ "KXCBDECISIONNZ": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONNZ-26DEC08",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:38:21.663784Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONNZ",
+   "settlement_sources": [
+    {
+     "name": "Reserve Bank of New Zealand",
+     "url": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/new-zealand/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 8, 2026 meeting",
+   "title": "New Zealand rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONNZ-26OCT27",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:51.970073Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONNZ",
+   "settlement_sources": [
+    {
+     "name": "Reserve Bank of New Zealand",
+     "url": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/new-zealand/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 27, 2026 meeting",
+   "title": "Reserve Bank of New Zealand rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONNZ-26SEP01",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T02:54:44.951824Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONNZ",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/new-zealand/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 1, 2026 meeting",
+   "title": "Reserve Bank of New Zealand rate decision in September "
+  }
+ ],
+ "KXCBDPOLAND": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDPOLAND-26DEC02",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:16:02.442107Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDPOLAND",
+   "settlement_sources": [
+    {
+     "name": "Narodowy Bank Polski",
+     "url": "https://nbp.pl/en/monetary-policy/mpc-documents/monetary-policy-council-press-releases/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/poland/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 2, 2026 meeting",
+   "title": "Poland rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDPOLAND-26NOV04",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T11:28:07.005329Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDPOLAND",
+   "settlement_sources": [
+    {
+     "name": "Narodowy Bank Polski",
+     "url": "https://nbp.pl/en/monetary-policy/mpc-documents/monetary-policy-council-press-releases/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/poland/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 4, 2026 meeting",
+   "title": "Poland rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDPOLAND-26OCT07",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T16:48:14.737072Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDPOLAND",
+   "settlement_sources": [
+    {
+     "name": "Narodowy Bank Polski",
+     "url": "https://nbp.pl/en/monetary-policy/mpc-documents/monetary-policy-council-press-releases/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/poland/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 7, 2026 meeting",
+   "title": "Poland rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDPOLAND-26SEP02",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T01:20:33.111188Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDPOLAND",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/poland/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 2, 2026 meeting",
+   "title": "Poland rate decision in September"
+  }
+ ],
+ "KXCBDHUNGARY": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDHUNGARY-26DEC15",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-15T21:16:35.170113Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDHUNGARY",
+   "settlement_sources": [
+    {
+     "name": "Magyar Nemzeti Bank",
+     "url": "https://www.mnb.hu/en/monetary-policy/the-monetary-council/press-releases"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/hungary/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 15, 2026 meeting",
+   "title": "Hungary rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDHUNGARY-26NOV17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T01:00:41.070213Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDHUNGARY",
+   "settlement_sources": [
+    {
+     "name": "Magyar Nemzeti Bank",
+     "url": "https://www.mnb.hu/en/monetary-policy/the-monetary-council/press-releases"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/hungary/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 17, 2026 meeting",
+   "title": "Hungary rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDHUNGARY-26OCT20",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:52.110802Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDHUNGARY",
+   "settlement_sources": [
+    {
+     "name": "Magyar Nemzeti Bank",
+     "url": "https://www.mnb.hu/en/monetary-policy/the-monetary-council/press-releases"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/hungary/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 20, 2026 meeting",
+   "title": "Hungary rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDHUNGARY-26SEP22",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T13:50:51.006849Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDHUNGARY",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/hungary/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 22, 2026 meeting",
+   "title": "Hungary rate decision in September"
+  }
+ ],
+ "KXCBDTHAILAND": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDTHAILAND-26DEC23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:24:20.935626Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDTHAILAND",
+   "settlement_sources": [
+    {
+     "name": "Bank of Thailand",
+     "url": "https://www.bot.or.th/en/our-roles/monetary-policy.html"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/thailand/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 23, 2026 meeting",
+   "title": "Bank of Thailand rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDTHAILAND-26OCT28",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:52.080826Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDTHAILAND",
+   "settlement_sources": [
+    {
+     "name": "Bank of Thailand",
+     "url": "https://www.bot.or.th/en/our-roles/monetary-policy.html"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/thailand/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 28, 2026 meeting",
+   "title": "Bank of Thailand rate decision in October"
+  }
+ ],
+ "KXCBDECISIONMEXICO": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-26DEC17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:45:44.017748Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "Banco de M\u00e9xico",
+     "url": "https://www.banxico.org.mx/publications-and-press/announcements-of-monetary-policy-decisions/monetary-policy-announcements.html"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/mexico/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 17, 2026 meeting",
+   "title": "Bank of Mexico rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-26NOV05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-27T19:53:03.065154Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "Banco de M\u00e9xico",
+     "url": "https://www.banxico.org.mx/publications-and-press/announcements-of-monetary-policy-decisions/monetary-policy-announcements.html"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/mexico/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 5, 2026 meeting",
+   "title": "Bank of Mexico rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-26SEP24",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-08-27T19:08:05.157053Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/mexico/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 24, 2026 meeting",
+   "title": "Bank of Mexico rate decision in September"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-26AUG06",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:00:28.035756Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/mexico/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Aug 6, 2026 meeting",
+   "title": "Bank of Mexico rate decision in August"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-26JUN25",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:27:45.996562Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/mexico/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jun 25, 2026 meeting",
+   "title": "Bank of Mexico rate decision in June"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-26MAY07",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:48:10.166761Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/mexico/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "May 7, 2026 meeting",
+   "title": "Bank of Mexico rate decision in May"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-26MAR26",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/mexico/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Mar 26, 2026 meeting",
+   "title": "Bank of Mexico Rate Decision in March"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-26FEB05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.975396Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "Bank of Mexico",
+     "url": "https://www.banxico.org.mx/indexen.html"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Feb 5, 2026 meeting",
+   "title": "What will the Bank of Mexico do at the February meeting?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONMEXICO-25DEC18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.972146Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONMEXICO",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bank of Mexico",
+     "url": "https://www.banxico.org.mx/indexen.html"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 18, 2025 meeting",
+   "title": "What will the Bank of Mexico do at the Dec 2025 BdeM meeting?"
+  }
+ ],
+ "KXCBDTURKEY": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDTURKEY-26DEC10",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:33:47.169519Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDTURKEY",
+   "settlement_sources": [
+    {
+     "name": "Central Bank of the Republic of T\u00fcrkiye",
+     "url": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/turkey/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 10, 2026 meeting",
+   "title": "Turkey rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDTURKEY-26OCT22",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:51.925362Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDTURKEY",
+   "settlement_sources": [
+    {
+     "name": "Central Bank of the Republic of T\u00fcrkiye",
+     "url": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/turkey/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 22, 2026 meeting",
+   "title": "Turkey rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDTURKEY-26SEP10",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T00:52:26.612838Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDTURKEY",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/turkey/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 10, 2026 meeting",
+   "title": "Turkey rate decision in September"
+  }
+ ],
+ "KXCBDCZECH": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDCZECH-26DEC17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:26:52.284544Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDCZECH",
+   "settlement_sources": [
+    {
+     "name": "Czech National Bank",
+     "url": "https://www.cnb.cz/en/monetary-policy/bank-board-decisions/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/czech-republic/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 17, 2026 meeting",
+   "title": "Czech National Bank rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDCZECH-26NOV05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:51.966579Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDCZECH",
+   "settlement_sources": [
+    {
+     "name": "Czech National Bank",
+     "url": "https://www.cnb.cz/en/monetary-policy/bank-board-decisions/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/czech-republic/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 5, 2026 meeting",
+   "title": "Czech National Bank rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDCZECH-26SEP17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T15:03:41.610427Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDCZECH",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/czech-republic/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 17, 2026 meeting",
+   "title": "Czech National Bank rate decision in September"
+  }
+ ],
+ "KXCBDECISIONJAPAN": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-26DEC17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T01:00:24.366455Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/japan/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 17, 2026 meeting",
+   "title": "Bank of Japan rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-26OCT29",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T14:34:59.037966Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "Bank of Japan",
+     "url": "https://www.boj.or.jp/en/mopo/mpmdeci/index.htm"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/japan/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 29, 2026 meeting",
+   "title": "Bank of Japan rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-26SEP17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-08-27T21:03:05.970514Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/japan/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 17, 2026 meeting",
+   "title": "Bank of Japan rate decision in September"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-26JUL30",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:06:31.829318Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "Bank of Japan",
+     "url": "https://www.boj.or.jp/en/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jul 30, 2026 meeting",
+   "title": "Bank of Japan rate decision in July"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-26JUN15",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:27:45.996562Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "Bank of Japan",
+     "url": "https://www.boj.or.jp/en/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jun 15, 2026 meeting",
+   "title": "Bank of Japan rate decision in June"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-26APR27",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:52:58.639175Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "Bank of Japan",
+     "url": "https://www.boj.or.jp/en/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Apr 27, 2026 meeting",
+   "title": "Bank of Japan rate decision in April"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-26MAR18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "Bank of Japan",
+     "url": "https://www.boj.or.jp/en/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Mar 18, 2026 meeting",
+   "title": "Bank of Japan Rate Decision in March"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-26JAN22",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "Bank of Japan",
+     "url": "https://www.boj.or.jp/en/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jan 22, 2026 meeting",
+   "title": "What will the Bank of Japan do at the January BOJ meeting?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONJAPAN-25DEC18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.965119Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONJAPAN",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bank of Japan",
+     "url": "https://www.boj.or.jp/en/"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 18, 2025 meeting",
+   "title": "What will the Bank of Japan do at the Dec 2025 BOJ meeting?"
+  }
+ ],
+ "KXCBDINDONESIA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDINDONESIA-26DEC16",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-16T16:44:20.708558Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDINDONESIA",
+   "settlement_sources": [
+    {
+     "name": "Bank Indonesia",
+     "url": "https://www.bi.go.id/en/statistik/indikator/BI-Rate.aspx"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/indonesia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 16, 2026 meeting",
+   "title": "Bank Indonesia rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDINDONESIA-26NOV18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:27:57.611652Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDINDONESIA",
+   "settlement_sources": [
+    {
+     "name": "Bank Indonesia",
+     "url": "https://www.bi.go.id/en/statistik/indikator/BI-Rate.aspx"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/indonesia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 18, 2026 meeting",
+   "title": "Bank Indonesia rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDINDONESIA-26OCT21",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:51.830922Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDINDONESIA",
+   "settlement_sources": [
+    {
+     "name": "Bank Indonesia",
+     "url": "https://www.bi.go.id/en/statistik/indikator/BI-Rate.aspx"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/indonesia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 21, 2026 meeting",
+   "title": "Bank Indonesia rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDINDONESIA-26SEP23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T00:52:26.612838Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDINDONESIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/indonesia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 23, 2026 meeting",
+   "title": "Bank Indonesia rate decision in September"
+  }
+ ],
+ "KXBOE": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "",
+   "event_ticker": "BOE-24NOV07",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:57:49.924229Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXBOE",
+   "settlement_sources": [
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates"
+    }
+   ],
+   "strike_date": "2024-11-07T15:00:00Z",
+   "strike_period": "",
+   "sub_title": "November meeting",
+   "title": "Bank of England interest rate in November?"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "",
+   "event_ticker": "BOE-24AUG01",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:57:49.924229Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXBOE",
+   "settlement_sources": [
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates"
+    }
+   ],
+   "strike_date": "2024-08-01T14:00:00Z",
+   "strike_period": "",
+   "sub_title": "August meeting",
+   "title": "Bank of England interest rate in August?"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "",
+   "event_ticker": "BOE-24JUN20",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:57:49.924229Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXBOE",
+   "settlement_sources": [
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates"
+    }
+   ],
+   "strike_date": "2024-06-20T14:00:00Z",
+   "strike_period": "",
+   "sub_title": "June meeting",
+   "title": "Bank of England interest rate in June?"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "",
+   "event_ticker": "BOE-24MAY09",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:57:49.924229Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXBOE",
+   "settlement_sources": [
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates"
+    }
+   ],
+   "strike_date": "2024-05-09T14:00:00Z",
+   "strike_period": "",
+   "sub_title": "May meeting",
+   "title": "Bank of England interest rate in May?"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "",
+   "event_ticker": "BOE-23MAR23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:57:49.924229Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXBOE",
+   "settlement_sources": [
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates"
+    }
+   ],
+   "strike_date": "2023-03-23T14:00:00Z",
+   "strike_period": "",
+   "sub_title": "Mar 23, 2023",
+   "title": "Bank of England bank rate, Mar 23, 2023?"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "",
+   "event_ticker": "BOE-23FEB02",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:57:49.924229Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXBOE",
+   "settlement_sources": [
+    {
+     "name": "Bank of England",
+     "url": "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates"
+    }
+   ],
+   "strike_date": "2023-02-02T15:00:00Z",
+   "strike_period": "",
+   "sub_title": "Feb 2, 2023",
+   "title": "Bank of England bank rate, Feb 2, 2023?"
+  }
+ ],
+ "KXCBDNORWAY": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDNORWAY-26DEC17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:00:12.064196Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDNORWAY",
+   "settlement_sources": [
+    {
+     "name": "Norges Bank",
+     "url": "https://www.norges-bank.no/en/topics/Monetary-policy/Policy-rate/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/norway/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 17, 2026 meeting",
+   "title": "Norway rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDNORWAY-26NOV05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T16:48:14.737072Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDNORWAY",
+   "settlement_sources": [
+    {
+     "name": "Norges Bank",
+     "url": "https://www.norges-bank.no/en/topics/Monetary-policy/Policy-rate/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/norway/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 5, 2026 meeting",
+   "title": "Norway rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDNORWAY-26SEP24",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T00:52:26.612838Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDNORWAY",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/norway/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 24, 2026 meeting",
+   "title": "Norway rate decision in September"
+  }
+ ],
+ "KXCBDECISIONBRAZIL": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONBRAZIL-26DEC09",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:15:14.818037Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONBRAZIL",
+   "settlement_sources": [
+    {
+     "name": "Central Bank of Brazil",
+     "url": "https://www.bcb.gov.br/en/monetarypolicy/copomstatements/cronologicos"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/brazil/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 9, 2026 meeting",
+   "title": "Central Bank of Brazil rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONBRAZIL-26NOV04",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:51.951734Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONBRAZIL",
+   "settlement_sources": [
+    {
+     "name": "Central Bank of Brazil",
+     "url": "https://www.bcb.gov.br/en/monetarypolicy/copomstatements/cronologicos"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/brazil/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 4, 2026 meeting",
+   "title": "Central Bank of Brazil rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONBRAZIL-26SEP16",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-08-27T19:15:27.545862Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONBRAZIL",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/brazil/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 16, 2026 meeting",
+   "title": "Central Bank of Brazil rate decision in September"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONBRAZIL-26AUG05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:04:49.951686Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONBRAZIL",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/brazil/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Aug 5, 2026 meeting",
+   "title": "Central Bank of Brazil rate decision in August"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONBRAZIL-26JUN17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:12:22.784299Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONBRAZIL",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/brazil/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jun 17, 2026 meeting",
+   "title": "Central Bank of Brazil rate decision in June"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONBRAZIL-26APR29",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:52:58.639175Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONBRAZIL",
+   "settlement_sources": [
+    {
+     "name": "Central Bank of Brazil",
+     "url": "https://www.bcb.gov.br/en"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "May 6, 2026 meeting",
+   "title": "Central Bank of Brazil Rate Decision in April"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "",
+   "event_ticker": "KXCBDECISIONBRAZIL-26MAR18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXCBDECISIONBRAZIL",
+   "settlement_sources": [
+    {
+     "name": "Central Bank of Brazil",
+     "url": "https://www.bcb.gov.br/en"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Mar 18, 2026 meeting",
+   "title": "Central Bank of Brazil Rate Decision in March?"
+  }
+ ],
+ "KXCBDECISIONRUSSIA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONRUSSIA-26DEC18",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:30:20.393758Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Russia",
+     "url": "https://cbr.ru/eng/hd_base/KeyRate/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/russia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 18, 2026 meeting",
+   "title": "Bank of Russia rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONRUSSIA-26OCT23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:51.959591Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Russia",
+     "url": "https://cbr.ru/eng/hd_base/KeyRate/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/russia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 23, 2026 meeting",
+   "title": "Bank of Russia rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONRUSSIA-26SEP11",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-08-27T22:15:47.857078Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/russia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 11, 2026 meeting",
+   "title": "Bank of Russia rate decision in September"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "",
+   "event_ticker": "KXCBDECISIONRUSSIA-26JUL24",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:03:19.605282Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/russia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jul 24, 2026 meeting",
+   "title": "Bank of Russia rate decision in July"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONRUSSIA-26JUN19",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:27:45.996562Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/russia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jun 19, 2026 meeting",
+   "title": "Bank of Russia rate decision in June"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONRUSSIA-26APR24",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:49:48.085325Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/russia/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Apr 24, 2026 meeting",
+   "title": "Bank of Russia rate decision in April"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONRUSSIA-26MAR20",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Russia",
+     "url": "https://www.cbr.ru/eng/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Mar 20, 2026 meeting",
+   "title": "Bank of Russia Rate Decision in March"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONRUSSIA-26FEB13",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Russia",
+     "url": "https://www.cbr.ru/eng/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Feb 13, 2026 meeting",
+   "title": "What will the Bank of Russia do at the February key rate meeting?"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "",
+   "event_ticker": "KXCBDECISIONRUSSIA-25DEC19",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": false,
+   "series_ticker": "KXCBDECISIONRUSSIA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Russia",
+     "url": "https://www.cbr.ru/eng/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 19, 2025 meeting",
+   "title": "What will the Bank of Russia do at the December key rate meeting?"
+  }
+ ],
+ "BOE": [],
+ "KXCBDSA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSA-27JAN28",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-20T02:21:15.339087Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSA",
+   "settlement_sources": [
+    {
+     "name": "South African Reserve Bank",
+     "url": "https://www.resbank.co.za/en/home/publications/statements"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-africa/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jan 28, 2027 meeting",
+   "title": "South Africa rate decision in January"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSA-26NOV19",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T01:14:47.10708Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSA",
+   "settlement_sources": [
+    {
+     "name": "South African Reserve Bank",
+     "url": "https://www.resbank.co.za/en/home/publications/statements"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-africa/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 19, 2026 meeting",
+   "title": "South Africa rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSA-26SEP23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-08-27T22:51:30.624804Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-africa/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Sep 23, 2026 meeting",
+   "title": "South African Reserve Bank rate decision in September"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDSA-26JUL23",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:12:22.784299Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDSA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-africa/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jul 23, 2026 meeting",
+   "title": "South African Reserve Bank rate decision in July"
+  }
+ ],
+ "KXEZDEPRATE": [],
+ "KXCBDPHILIPPINES": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDPHILIPPINES-26DEC17",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:06:31.729668Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDPHILIPPINES",
+   "settlement_sources": [
+    {
+     "name": "Bangko Sentral ng Pilipinas",
+     "url": "https://www.bsp.gov.ph/SitePages/PriceStability/MonetaryPolicyDecision.aspx"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/philippines/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 17, 2026 meeting",
+   "title": "Philippines rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDPHILIPPINES-26OCT22",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T17:26:52.10678Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDPHILIPPINES",
+   "settlement_sources": [
+    {
+     "name": "Bangko Sentral ng Pilipinas",
+     "url": "https://www.bsp.gov.ph/SitePages/PriceStability/MonetaryPolicyDecision.aspx"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/philippines/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 22, 2026 meeting",
+   "title": "Philippines rate decision in October"
+  }
+ ],
+ "KXCBDECISIONKOREA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONKOREA-26NOV25",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:34:02.475398Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONKOREA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Korea",
+     "url": "https://www.bok.or.kr/eng/main/contents.do?menuNo=400022"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-korea/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 25, 2026 meeting",
+   "title": "Bank of Korea rate decision in November"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONKOREA-26OCT21",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T14:36:30.041974Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONKOREA",
+   "settlement_sources": [
+    {
+     "name": "Bank of Korea",
+     "url": "https://www.bok.or.kr/eng/main/contents.do?menuNo=400022"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-korea/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 21, 2026 meeting",
+   "title": "Bank of Korea rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONKOREA-26AUG26",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-08-28T01:08:01.46053Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONKOREA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-korea/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Aug 26, 2026 meeting",
+   "title": "Bank of Korea rate decision in August"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONKOREA-26JUL15",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:15:40.622306Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONKOREA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-korea/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jul 15, 2026 meeting",
+   "title": "Bank of Korea rate decision in July"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONKOREA-26MAY27",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:27:45.996562Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONKOREA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-korea/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "May 27, 2026 meeting",
+   "title": "Bank of Korea rate decision in May"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONKOREA-26APR09",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:57:49.924229Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONKOREA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-korea/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Apr 9, 2026 meeting",
+   "title": "Bank of Korea rate decision in April"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONKOREA-26FEB25",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:37:14.530173Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONKOREA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/south-korea/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Feb 25, 2026 meeting",
+   "title": "Bank of Korea Rate Decision in February"
+  },
+  {
+   "category": "World",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONKOREA-25NOV26",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T04:56:20.968502Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONKOREA",
+   "settlement_sources": [
+    {
+     "name": "in hierarchical order",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bank of Korea",
+     "url": "https://www.bok.or.kr/eng/main/main.do"
+    },
+    {
+     "name": "Federal Reserve Economic Data",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg Terminal",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com"
+    },
+    {
+     "name": "Associated Press",
+     "url": "https://apnews.com"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com/"
+    },
+    {
+     "name": "BBC",
+     "url": "https://www.bbc.co.uk"
+    },
+    {
+     "name": "MarketWatch",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com"
+    },
+    {
+     "name": "Politico",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "Semafor",
+     "url": "https://semafor.com"
+    },
+    {
+     "name": "The Information",
+     "url": "https://www.theinformation.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "ABC",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "CBS",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com"
+    },
+    {
+     "name": "MSNBC",
+     "url": "https://www.msnbc.com"
+    },
+    {
+     "name": "NBC",
+     "url": "https://www.nbcnews.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Nov 26, 2025 meeting",
+   "title": "What will the Bank of Korea do at the Nov 2025 BOK meeting?"
+  }
+ ],
+ "KXCBDECISIONINDIA": [
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONINDIA-26DEC04",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-11-13T00:49:43.334454Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONINDIA",
+   "settlement_sources": [
+    {
+     "name": "Reserve Bank of India",
+     "url": "https://www.rbi.org.in/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/india/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Dec 4, 2026 meeting",
+   "title": "Reserve Bank of India rate decision in December"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONINDIA-26OCT07",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-15T19:03:01.420808Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONINDIA",
+   "settlement_sources": [
+    {
+     "name": "Reserve Bank of India",
+     "url": "https://www.rbi.org.in/"
+    },
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/india/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Oct 7, 2026 meeting",
+   "title": "Reserve Bank of India rate decision in October"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONINDIA-26AUG05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:10:55.079855Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONINDIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/india/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Aug 5, 2026 meeting",
+   "title": "Reserve Bank of India rate decision in August"
+  },
+  {
+   "category": "Economics",
+   "collateral_return_type": "MECNET",
+   "event_ticker": "KXCBDECISIONINDIA-26JUN05",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:24:48.885736Z",
+   "mutually_exclusive": true,
+   "series_ticker": "KXCBDECISIONINDIA",
+   "settlement_sources": [
+    {
+     "name": "Trading Economics",
+     "url": "https://tradingeconomics.com/india/interest-rate"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Jun 5, 2026 meeting",
+   "title": "Reserve Bank of India rate decision in June"
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+consensus.json sha256 a2326609fda4af63
+events/T with exactly one YES: 105 of 107 | bad: {('KXCBDECISIONINDIA-26JUN05', 'D7'): 0, ('KXCBDISRAEL-26JUL06', 'D7'): 0}
+P0 placebo (fade non-favourite, bid>=.04): n 47 bets / 27 meetings, losses 10, mean NO price 0.847, break-even loss rate 0.144, ROI -0.0802 [-0.2287,+0.0462] (meeting bootstrap)
+CB1 (fade non-consensus, s>=.90, bid>=.04): n 6 bets / 6 meetings, losses 0, mean NO price 0.932, break-even loss rate 0.064, ROI +0.0678 [+0.0468,+0.0953] (meeting bootstrap)
+  P0 D7: n 19 bets / 16 meetings, losses 5, mean NO price 0.831, break-even loss rate 0.160, ROI -0.1226 [-0.3533,+0.0698] (meeting bootstrap)
+  CB1 D7: n 1 bets / 1 meetings, losses 0, mean NO price 0.880, break-even loss rate 0.112, ROI +0.1261 [+0.1261,+0.1261] (meeting bootstrap)
+  P0 D1: n 28 bets / 23 meetings, losses 5, mean NO price 0.859, break-even loss rate 0.133, ROI -0.0523 [-0.2142,+0.0788] (meeting bootstrap)
+  CB1 D1: n 5 bets / 5 meetings, losses 0, mean NO price 0.942, break-even loss rate 0.054, ROI +0.0569 [+0.0443,+0.0741] (meeting bootstrap)
+CB1-P0 matched meetings 6 diff CI [-0.0081  0.0009  0.0146]
+Kalshi D1 calibration (dev):
+                 n    mid  realised  events
+bin                                       
+(0.0, 0.02]   171  0.012     0.000      54
+(0.02, 0.05]   35  0.032     0.029      25
+(0.05, 0.1]    16  0.075     0.062      15
+(0.1, 0.2]      5  0.148     0.200       5
+(0.2, 0.4]      6  0.310     0.000       6
+(0.4, 0.6]     18  0.487     0.278       7
+(0.6, 0.8]      7  0.734     1.000       7
+(0.8, 0.9]      4  0.862     0.250       4
+(0.9, 0.95]    12  0.933     1.000      12
+(0.95, 0.98]   18  0.971     1.000      18
+(0.98, 1.0]    17  0.989     1.000      17
+Kalshi favourite hit rate:
+      n  fav_mid  fav_hit
+T                       
+D1  65    0.889    0.877
+D7  44    0.828    0.818
+consensus hit rate by T:
+      n    hit
+T            
+D1  30  0.833
+D7  17  0.706
+consensus s>=.90 hit: {'size': 18.0, 'mean': 1.0}
+consensus == Kalshi favourite: 0.851 n 47
+                            event   T          median_bucket      s                   kfav               bucket
+0      KXCBDECISIONBRAZIL-26MAR18  D7    Cut 50 basis points    NaN    Cut 25 basis points  Cut 25 basis points
+4      KXCBDECISIONBRAZIL-26JUN17  D7              Cut 25bps    NaN  Maintain current rate            Cut 25bps
+12     KXCBDECISIONRUSSIA-26APR24  D7              Cut 50bps  0.842              Cut 25bps            Cut 50bps
+13     KXCBDECISIONRUSSIA-26APR24  D1              Cut 50bps  0.842              Cut 25bps            Cut 50bps
+17     KXCBDECISIONRUSSIA-26JUL24  D1  Maintain current rate    NaN              Cut 25bps            Cut 25bps
+19  KXCBDECISIONAUSTRALIA-26MAR16  D1  Maintain current rate  0.622           Hike 1-25bps         Hike 1-25bps
+26     KXCBDECISIONMEXICO-26MAY07  D7  Maintain current rate  0.622              Cut 25bps            Cut 25bps
