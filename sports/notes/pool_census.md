@@ -79,3 +79,38 @@ Pre-set reading rules (set now, before seeing outcomes):
 - Validation so far (validate_p2 partial, hourly vs exact tape, P2 windows): TAIL ratio KXHIGHNY 1.09, CHI 1.08, MIA
   1.06, AUS 1.17, DEN 0.95, KXTSAW 0.84; FULL ratio 1.000 on CHI/AUS (=> mean_dollars is the volume-weighted price).
   MIRROR is noisier with plain means (CHI 0.60, DEN 0.56); the rng variant is closer (CHI 0.87, DEN 0.76).
+- 06:25Z VALIDATION P2 (results/pool_census/validate_p2.json; hourly candles vs P2 exact tape, same window rule):
+  TAIL ratio candle/exact within [0.7, 1.3] for 19/19 complete series with exact TAIL >= $1k (range 0.79 KXEOWEEK ..
+  1.17 KXTSAD; weather 0.92-1.17) -> pre-set bar MET, mean variant used for TAIL. KXNFLFG incomplete (validate_p2
+  died on a 429 after 374/1192 markets) -> no in-game verdict from P2. MIRROR with plain means is biased low
+  (LAX 0.40, PHIL 0.41, TSAD 0.45); the rng variant is 0.61-1.13 -> MIRROR reported with the rng variant, labelled
+  approximate (decided after seeing this validation; secondary metric).
+  1-min candles vs exact tape on 2 KXBTC15M markets (validate_extra.log): TAIL 28,964 vs 35,362 (0.82), 71,005 vs
+  80,664 (0.88); FULL equal to <0.01% -> short-lived crypto pools are understated ~15%.
+  429s seen on the shared IP (validate_p2 crash) -> I now run at most 2 processes.
+- 06:35Z LEAD ADDITION (from gas_daily_v2: KXAAAGASD's $488k pool is collected by the quoting MM; far rungs ~8c wide,
+  177/579 low-prob rungs had a YES bid): add per row (i) median far-rung spread, (ii) share of far rungs two-sided at
+  decision time, (iii) TAKER-REACHABLE pool; rank on (iii), keep raw pool as a column. Implementation (set before
+  computing any of it):
+  * decision time = first candle of the P2 window; far rung = cheap side buyable at <= .15 (yes_ask <= .15 or
+    yes_bid >= .85); two-sided = yes_bid > 0 and yes_ask < 1; far spread = ask - bid on two-sided far rungs.
+    (candle_pool now stores a0/b0/far0/two_sided0; run_week restarted from scratch with K = 80, partial first run
+    archived in results/pool_census/old_run1/.)
+  * taker-reachable = a losing buyer whose order was RESTING (maker): on the tape, taker_side == winning side
+    (the taker sold the loser side into a resting bid). phi = reachable $ / pool $ on an exact-tape sample of each
+    series' top-tail markets (tape_phi.py, <= 5 pages per market, <= 14 per series, newest-first; truncation flagged);
+    reach_tail30 = phi_tail x candle TAIL; reach_mirror30 = phi_mirror x MIRROR(rng).
+- 06:50Z IN-GAME FINDING + FIX: hourly candles hid the whole in-game tail: KXNBAGAME-26NOV13NYKIND-NYK exact tape TAIL
+  $150,564 vs hourly $0 (the loser goes .4 -> .01 inside one hour; the hourly mean stays > .15). New resolution:
+  Sports series with life > 3 h = hourly up to the hour boundary <= close - 4 h, then 1-min to close; markets living
+  <= 3 h = 1-min; everything else hourly. Validation vs exact tape (validate_hybrid.json; n markets): TAIL ratio
+  KXBTC15M 1.05 (3), KXETH15M 0.77 (1), KXBTCD 0.94 (24), KXNBAGAME 1.10 (2), KXNCAAMBGAME 0.97 (4),
+  KXATPCHALLENGERMATCH 0.88 (4), KXNCAAMBTOTAL 1.00 (18), KXNBAPTS 1.08 (39); FULL 1.000 everywhere. MIRROR at 1-min
+  with plain means 0.89-1.08 (NBAGAME n.d., $2.8k exact) -> MIRROR = plain mean on 1-min markets, rng on hourly ones.
+  Second run archived (old_run2/); run_week restarted (K = 80) with the hybrid resolution + far-rung window stats
+  (per candle close: far = yes_ask <= .15 or yes_bid >= .85; two-sided share; far-spread histogram).
+- 06:40Z budget changes (documented, not outcome-driven): pass 1 series #1-28 CAP 30 calls / TOPN 10; #29-34 CAP 8 /
+  TOPN 3; #35+ CAP 8 / TOPN 3 and a bound floor MINB $5M (series with week bound < $5M are unmeasured in pass 1; across
+  measured series the tail/bound ratio was 0.01-0.30, so an unmeasured series' tail is very likely < $1.5M/30d).
+  Series flagged lower_bound when the call cap left no random rest sample (e.g. KXNBAPTS). 429s hit tape_phi once
+  (KXDOGE15M batch; retried by the loop).

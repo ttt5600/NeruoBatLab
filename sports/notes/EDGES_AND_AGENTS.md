@@ -488,3 +488,13 @@ confirm home state (CA vs CO) for venue legality.
   new print -> reads an intraday source, likely GasBuddy; scraping barred by its ToS). G2 dev n65 +5.4% [-2.9,+11.5]; retired.
 - The $488k loser pool: cheap-side buyers pay ~11c for ~4% events (-65%), but far rungs are ~8c wide -> the pool goes to the
   quoting maker, not reachable by a taker. Pool size is necessary, not sufficient.
+
+### source_shift (merged 2026-11-21, notes/source_shift.md, IDEA_PATTERNS P-4..P-7)
+- Base rate (open contracts, source changed mid-contract): Kalshi followed the NEW presentation 4/5, Jeffreys [0.37,0.98] (n<10,
+  anecdotal; critic cut the first count from 3/5). OLD only when Kalshi itself switched source (NWS -> Weather Company 08-14).
+  Applied to the OpenRouter T238 YES: likely below the 10-20% estimate; hold $14.08, no add. Settlement = 6th data point.
+- P-5 shutdown: cancelled prints settle near the book; delayed prints settle to the truth against the book.
+- P-6: weather.com/kalshi/api/climate/primary?date= = free JSON of the display all KXHIGH/KXLOW settle on (66 stations,
+  official/revised/preliminary) -> forward-only settlement-error watcher for E4.
+- scripts/source_shift_watch.py built + tested (5 runs, 0 alerts; forced-state test fired all 6 alert kinds); not installed (hourly suggested).
+- Tulsa DK promo credit: user chose NOT to hedge (11-21).

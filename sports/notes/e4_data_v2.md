@@ -93,8 +93,9 @@ and hourly METARs both miss it) + daytime 2m cold bias + hours<=18 window missin
 ### 2026-11-21 step 2 DGP of the CLI daily max (scripts/e4_data_v2.py dgp -> results/e4_data_v2/{dgp.json,dgp_days.parquet}; dev METARs
 from data/wx_lockin_obs.parquet, 5,365 station-days 2021-08..2026-02 dev; truth = Kalshi expiration_value)
 - **CLI max = the ASOS 24-hour max group.** The METAR issued at midnight LST carries `4snTxTxTx...` (24 h max/min in tenths C).
-  round_half_up(C*9/5+32) of that group equals the CLI/Kalshi value on 99.46% of 5,324 station-days (round-half-down: 98.70%,
-  so the conversion is half-up). Mismatches: 14 at +1, a handful of large negatives (bad groups). So the settlement value is
+  round_half_up(C*9/5+32) of that group equals the CLI/Kalshi value on 99.46% of 5,324 station-days. [critic correction: the
+  earlier 'round-half-down 98.70% -> half-up' line was a denominator bug (index-aligned NaNs); no group converts to an exact .5F,
+  so the rounding direction is NOT identified by these data.] Mismatches: 14 at +1, a handful of large negatives (bad groups). So the settlement value is
   the ASOS continuous-sensor max over the LST day (00:00-24:00 local STANDARD time), converted from 0.1 C to whole F.
 - **Hourly values under-state it.** CLI minus max of all hourly/special METARs (T-group, exact): mean +0.71F; 0F 2,221 days,
   +1F 2,578, +2F 487, +3..+6F 75. Adding the 6-hourly max groups (1snTTT) closes it: CLI == max(6h groups, obs) on 97.4%.
@@ -258,3 +259,43 @@ fresh window) before anyone trusts it.
   .0589; T1-kept: .0418 / .0365 / .0144; T3 NEW: .0498 / .0100 / .0171. The station MOS model is calibrated overall (PIT) but,
   conditional on "all 5 raw models far from the bracket", it OVER-states the hit rate 2.3x: the raw-model consensus carries
   information the MOS members lack, so MOS voters veto good picks (T1). And on its own NEW picks (T3) it UNDER-states (1.0% vs 1.7%).
+
+
+### 2026-11-21 critic review (fresh critic subagent; scratch /tmp/e4rev/*.py; verdict ACCEPT-WITH-CHANGES)
+Every number reproduced (own parser for the 24h group 5,324/5,324 identical, eq .99455; loser anatomy; bias decomposition exact;
+MOS leads 29 h / 36 h; date-shift test MAE vs ACIS lowest at lag 0 (nbs 1.91 vs 4.80/4.84 at +-1 day); D-7 placebo column equals
+the D-7 member on all 66,207 rows; T1 subset of E4 with 0 exceptions; frame_all 19,559 rows, 0 duplicate tickers; no sealed rows).
+Corrections adopted:
+- Rounding direction not identified (see DGP bullet). Every 24h group is issued at 23:5x LST, so it spans 23:5x-23:5x, not exactly
+  00-24 LST.
+- The bias decomposition is an accounting identity, not a causal split; the "hourly obs" include SPECIs (17% of obs). With routine
+  reports only the sampling premium is 0.80F, so ~0.04F of sampling sits in the "model" term, which also absorbs grid-vs-station
+  representativeness.
+- Headroom mechanism reworded: the market does NOT price the brackets correctly (it OVER-prices YES on exactly E4's brackets: E4
+  picks mid .0761 vs realised .0409). What is true: the MOS information is already in the price (T1-vetoed picks mid .0995 vs kept
+  .0418; on E4 picks the market beats EMOS-L on Brier .0369 vs .0423, critic's computation), so the remaining edge is a longshot
+  premium, not forecast error. The uniform-shrink oracle (R4) also overstates because it shrinks errors the models SHARE toward the
+  truth, and s = .8 came from an MAE ratio (1.85/2.30) that is mostly bias removal (raw +1.35F vs NBS +0.13F), and the warm-side
+  bias is already priced (above-side asks .933 vs .977).
+- T1 extra (critic): real-day minus wrong-day veto = +3.82u [-7.74,+15.63], not distinguishable; a random veto with the same counts
+  per NO-ask bucket is expected to give -23.25u -> the MOS veto carries about no information beyond the NO price. 294 of the 330 E4
+  picks with ask < .90 are vetoed.
+- Walk-forward fits/margins use truth through the day before the monthly cut, so the first scoring day of a month includes a D-1
+  truth that is not final at decision time (negligible; disclosed).
+Disclosures added:
+- The IEM CLI pull requests whole years (year=2025 for orig-7, 2026 for X1), so sealed-period CLI values were fetched into memory
+  and dropped before saving (filter in cmd_cli); nothing sealed was saved, printed or used. The notes' "nothing is requested" was
+  too strong for that one pull.
+- Before the step 3-4 prereg I had already seen NBS txn vs CLI bias/MAE (from e4p's existing nbs_19z archive, step 2), not only MOS
+  row counts.
+- Provenance: the descriptive numbers (taker prelim, market calibration, side asymmetry, asymmetric grid, bias decomposition, loser
+  anatomy, Open-Meteo check) were ad-hoc snippets; they are being moved into `scripts/e4_data_v2.py descriptive` so each output has a
+  generating command.
+- **As-issued CLI vs Kalshi vs final record** (IEM CLI archive, orig-7 2021-2024 only; results/e4_data_v2/cli_sources.json,
+  iem_cli.parquet; first pull attempt crashed on an 'M' value and was re-run for 2021-2024 only so no whole-year request touches
+  the sealed calendar): 3,708 events; Kalshi == IEM CLI 99.89%, Kalshi == ACIS 99.87%, IEM CLI == ACIS 99.97%. 5 disagreements,
+  e.g. HIGHCHI-23JAN04 Kalshi 46 vs corrected CLI (CCA issued 16:24Z next day) 45 -> Kalshi settles on the first-issued CLI, not on
+  later corrections; HIGHCHI-21OCT01 84 vs 86; KXHIGHMIA-24NOV27 84 vs 81 (later product). Settlement risk from corrections ~0.1%.
+  CLI-reported time of max at or after 18:00 LST on 10.8% of 2021-2024 days (Dec 14.5%, Jan 15.0%, Jun-Aug ~5%; KNYC 14.7%, KAUS 2.8%),
+  before 01:00 LST 3.3%. (Different definition from the METAR-based 3.2% "after 18:30 local clock" on dev days; in DST the fcsafe
+  window hour 18 local is 17:00 LST, so it can end an hour before an LST-18:00 max.)

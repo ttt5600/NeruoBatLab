@@ -98,6 +98,29 @@ Descriptive: per rung, hours after D+1 00:00Z until the outcome side's quote is 
 - OpenRouter share series have no point-in-time partial-week history: Wayback has 2 captures of author-market-share (wrong
   params: modality=all&traffic=batch, or/cdx_author_share.json); the endpoint is weekly only (period/interval/granularity params
   ignored). -> forward-log only; 10 settled events per series (R4 ~4/month).
+- **Fastest page timing (wayback_labs.py -> wayback/labs_panel.csv; only 4 raw /labs captures since 09-20).** The capture at
+  **2026-10-21 00:43Z already showed day 10-20 complete** (anthropic spend 30.43 vs settled 30.4; 43 min after the UTC day ended,
+  3 h 16 m before the lab market closed at 03:59Z); captures at 10-28 22:13Z, 11-12 20:29Z, 11-14 16:45Z show through D-1 only
+  (completed days). Revisions: day 10-18 values moved between settlement (10:00 ET 10-19) and the 10-21 capture (OpenAI requests
+  19.1 -> 19.40 -> now 19.45; DEEP 14.7 -> 14.92; GOOG 13.6 -> 13.83; open-weights tokens 62.9 -> 67.7 now); November days have
+  wayback == settled == now. So: day D is final-ish on the free page within an hour of 00:00Z D+1; occasional post-settlement
+  restatements of a few tenths (one 4.8).
+- **OpenRouter KXTOPUSAGEAI live definitional hazard (2026-11-21 ~06:20Z, live/or_books_*.json):** week of 11-16, byok=all model
+  chart top = tencent/hy4-flash-20261116 96.77T vs deepseek v4.1-flash 49.16T; default (BYOK-excluded since 11-19..21) top =
+  DeepSeek 49.19T. Book: DEEP .86/.99, TENC 0/.14 -> the book prices the BYOK-EXCLUDED chart (same as KXTOKENUSE). Settled history
+  cannot distinguish (both views agree on every settled week; 09-07 OpenAI 18.18T vs Tencent 16.82T byok=all). Rules question, not
+  a trade. KXTOPUSAGEAI lock-in from ai_nowcast's 71 Wayback captures is NOT computable cleanly (captures were BYOK-inclusive, the
+  current default is not; or/topusage_lockin.csv mixes definitions -- do not use).
+- OpenRouter share books track the free endpoint: KXDEEPSHARE-26NOV23 (week 11-16) every rung >= 28.5 at 0/.01 while the partial
+  week text-request share was 25.18% (or/authreq_text_*.json, both byok variants 25.18/25.19).
+
+## 6. Forward logger (proposal; NOT installed -- no launchd)
+results/vercel_share/poll.py = one read-only snapshot per run -> fwd/snapshots.jsonl: Vercel labs export + weightClass for the
+last 3 UTC days (cache-busted by explicit from/to) + every open Kalshi market of the 12 Vercel series (bid/ask/size/last/vol/OI).
+Ran in-session every 10 min from 2026-11-21T06:05Z (fwd/poll.log). Analyzer: fwd_lockin.py (|partial - final| by hours into
+the UTC day; post-midnight drift of the completed day). Proposed cadence if the lead installs it: every 15 min (2 Vercel GETs +
+12 Kalshi /markets GETs per run). What it answers that history cannot: (a) how fast the intraday share converges (lock-in curve),
+(b) whether the book's far rungs track the live partial share during day D, (c) post-midnight drift of day D before 10:00 ET D+1.
 
 ## Learnings
 (to be written)

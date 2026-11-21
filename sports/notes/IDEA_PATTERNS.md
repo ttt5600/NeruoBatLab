@@ -40,3 +40,54 @@ and against, the outcome, and the generalisation (where else to look). Update th
 2. Exchange behaviour as signal: new strike listings, rules edits, settlement holds (winners_transfer P4: a 155-h NY hold paid
    cheap-side buyers $410k) -- when does a hold flip the result, and is it predictable from source corrections?
 3. First-print vs revised archives (climate lesson) for every revised official series.
+
+## Patterns from source_shift (agent source_shift, 2026-11-21; notes/source_shift.md has every citation)
+How found, all of them: a per-series pull of every settled Kalshi market (results/source_shift/census.py, /historical + live),
+three detectors (late far strikes, rules-template changes, holds / odd settlements), then reading the rules text of the
+flagged events. Two steps did most of the work: (1) sorting holds by month (the 2025 shutdown lit up), (2) grepping every
+stored rules text for "Clarification" / "amendment" (31 distinct mid-contract clarifications = Kalshi's own archive of disputes).
+
+### P-4 How Kalshi settles when the source changes mid-contract (base rate for P-1 bets) -- revised after a critic review
+- **Rate (pre-registered, open contracts, determinable OLD/NEW):** NEW 4 of 5 decisions -- KXALBUMSALES (Hits Daily Double moved
+  its chart Fri -> Thu; Kalshi moved OPEN events to the Thursday chart "pursuant to Rule 7.2(a)"), KXWAYMOCITIES (app renamed,
+  "clear continuity"), KXAAAGASD 3 -> 4 decimals (no payout effect), weather material-error corrections -- vs KXGDP-25OCT30
+  (settled 3.8 = neither the cancelled Advance Estimate nor BEA's 4.3 that arrived inside the window). Jeffreys [0.37, 0.98];
+  n < 10 = anecdotal. The first draft (3 of 5) counted GTEMP, TROPSTORM and sea ice; the critic showed none had a payout-relevant
+  or verifiable OLD/NEW choice.
+- **Pattern:** on open contracts Kalshi followed the source's current presentation every time it was observable and mattered.
+  OLD appears only when Kalshi itself changes source (NWS -> Weather Company 2026-08-14: open events kept NWS) or writes a
+  definition into NEW contracts (LMArena "Remove Style Control" from 2025-12-31; 19/19 later events, ~4 independent stretches).
+  Rulebook 7.2 lets Kalshi re-designate the underlying mid-contract and it has used that to move open contracts to the new form.
+- **Applied to KXTOKENUSE-26NOV23 (P-1 bet):** the history leans NEW (= BYOK-excluded default). With Kalshi's new low strikes and
+  the sibling's "as displayed on the OpenRouter Top Models chart" (KXTOPUSAGEAI), the BYOK-inclusive YES is likely below P-1's
+  10-20%. Hold the $14.08; do not add. Record the settlement as the 6th decision.
+
+### P-5 A cancelled print settles near the book; a delayed print settles to the truth (2025 shutdown)
+- Never published (Oct-2025 CPI x4, Oct-2025 U3, Q3-2025 GDP "Advance Estimate", Oct eggs): every TRADED strike resolved to its
+  last-price side; but U3 4.4, core m/m 0.2 and GDP 3.8 also equal the last published print -- only one same-night CPI decision
+  (headline 0.2/3.3, core y/y 3.3 vs Sep 0.3/3.0/3.0) separates "book" from "last print". No edge either way.
+- Published late (Sep U3/NFP, Oct TSAW, PCE): Kalshi waited, past its stated windows, and settled on the real print against the
+  book (KXPAYROLLS-25SEP T100000 .10 and T75000 .20 -> YES; KXU3-25SEP T4.3 .31 -> YES).
+- Weather "no valid value" holds settle at scalar fair prices (KXLOWTMIA-26JUL07 B78.5 0.72 vs last .75).
+- **Generalise:** in the next shutdown, the trade is in series whose data will come out LATE (book priced at close, truth weeks
+  later), not in cancelled ones.
+
+### P-6 The settlement page has a free JSON behind it -- open the URL in settlement_sources and grep its JS for /api/
+- weather.com/kalshi (the Weather Company display all KXHIGH/KXLOW settle on) calls /kalshi/api/climate/primary?date=YYYY-MM-DD:
+  66 stations, max/min, status official/revised/preliminary, any past date (NY 11-13 shows the corrected 47 = settled value).
+  Same trick found OpenRouter's rankings endpoints (ai_nowcast) and Vercel's leaderboard export (vercel_share).
+- **Use:** revives winners_transfer I1 (settlement-error watcher, killed on hourly obs): log the TWC PRELIMINARY value through
+  the day vs the NWS CLI final; a >= 1F gap is the NY 11-13 signature. Forward-only (the display keeps no preliminary history).
+  scripts/source_shift_watch.py logs it now.
+
+### P-7 One source, two views, two different winners (OpenRouter BYOK, live 2026-11-21)
+- Week of 11-16: #1 model by tokens = tencent/hy4-flash (96.8T) with BYOK, deepseek-v4.1-flash (49.2T) without; #1 lab by
+  tokens = tencent 39.9% (author-market-share, BYOK-inclusive, ignores the byok param). Any "top model / top lab" market listed
+  on that week is a P-1 binary, not a ladder -- and one is open: KXTOPUSAGEAI-26NOV16 (closes 11-23 04:59Z; "the model author
+  company of the single model with the greatest weekly token volume as displayed on the OpenRouter Top Models chart"): organic
+  view -> DeepSeek, byok=all -> Tencent. Book 06:30Z: DEEP .88/.99, TENC 0/.14 (watcher snapshot). The book and the words "as
+  displayed" both point to the organic default; TENC at .14 is the same bet as our T238 YES but at a worse price (~7x vs ~13x). The share series (KXANTHSHARE/GOOG/DEEP) settle on TEXT REQUEST share
+  (modality-chart?routeSegment=text, verified: week 11-09 anthropic 6.27 -> settled 6.3), BYOK-inclusive today with no toggle;
+  if OpenRouter gives that chart an organic default too, tencent's 13.2% vanishes and every lab's share jumps ~15% relative.
+- **Status:** watch only (no evidence the share chart will change; the watcher alerts on a new byok filter, a different #1,
+  and new KXTOPUSAGEAI/KXTOKENUSE events).

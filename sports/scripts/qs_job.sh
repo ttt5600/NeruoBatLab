@@ -145,6 +145,13 @@ case "$job" in
       { echo "=== $(date '+%F %T %Z') $job"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi ;;
   # ---- ops_ot1_forward (11-15, notes/ops_ot1_forward.md): READ-ONLY; installed by scripts/install_ot1_agent.sh
+  source-shift) # source_shift_watch (11-21, notes/source_shift.md): READ-ONLY hourly snapshots of settlement sources under every
+                # known definition + Kalshi strikes/rules; prints ALERT lines -> log only when there is output or an error
+    out=$(/usr/bin/caffeinate -i "$PY" scripts/source_shift_watch.py 2>&1); rc=$?
+    echo "$(date '+%F %T %Z') rc=$rc" > state/source_shift_heartbeat
+    if [ $rc -ne 0 ] || printf '%s' "$out" | grep -q ALERT; then
+      { echo "=== $(date '+%F %T %Z') $job"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
+    fi ;;
   kfg1)         # KFG1 forward paper (notes/kalshi_fg_markets.md s5): READ-ONLY KXNFLFG FG ladders vs frozen M1.
                 # launchd 600 s, 24 h; tick decides games kicking off in [+50,+70] min, settle fills results 3 h after kickoff.
                 # Idle runs print nothing -> only the heartbeat file
