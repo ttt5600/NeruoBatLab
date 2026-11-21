@@ -24,6 +24,7 @@ orders; money changes stay with the user.
 - gas_daily_v2 -- KXAAAGASD sharper nowcast (largest untested pool) (notes/gas_daily_v2.md)
 - pool_census -- loser-paid pool for every Kalshi series, top-40 map + 3 untested DGP write-ups (notes/pool_census.md)
 - vercel_share -- Vercel AI Gateway / OpenRouter share series nowcast (notes/vercel_share.md)
+- source_shift -- base rate of exchange following old vs new settlement definitions + source_shift_watch.py (notes/source_shift.md)
 - trading_ways_survey -- all non-PM retail trading strategies ranked for CA + $1-2k, pre-reg top 1-2 (notes/trading_ways_survey.md)  [DONE 11-19: nothing doubles; promos/RSA/odd-lot = small one-offs]
 - altdata_kpi -- census + pre-reg of JBLU / foot traffic / card spend / TikTok Shop / SPR series (notes/altdata_kpi.md)  [DONE 11-19: dead, Carbon Arc paywalled]
 ## Done 11-16..19: e4_timing, ot1_extension, tropical_nhc, forward_review_1115, fed_vs_futures, mortgage_rates (see LEARNINGS_2026-11.md)
