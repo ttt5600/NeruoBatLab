@@ -449,3 +449,11 @@ confirm home state (CA vs CO) for venue legality.
 - EO1 KXEOWEEK locked-YES off Federal Register: 0 bets; market reprices off the White House posting (~13 h) vs FR ~5 days later.
 - NM1 KXTRUMPNOMNUM congress.gov nowcast (accurate 14/16 weeks): n10 -7.04% [-74,+31], YES side priced. Retired both.
 - Lesson: books reprice off the FASTEST official page, not the named settlement source. Watch: Spotify relist (kworb nowcast), KXKEVCOUNT >= 6 events.
+
+### ai_nowcast (merged 2026-11-21, notes/ai_nowcast.md) -- TOK1/TOK2 DEAD; live definitional question
+- KXTOKENUSE settlement rebuilt exactly from a free OpenRouter JSON endpoint (byok=all matched 7 settled weeks). Book is
+  bot-watched: market Brier .0674 beats our pace nowcast .1278 (bias-corrected n.d.); TOK1 kill clause, TOK2 0 rungs. Retired.
+- LIVE HAZARD 11-19/21: OpenRouter's default chart switched to EXCLUDE BYOK. Week 11-16 partial: default 154.0T vs byok=all 254.8T
+  (Tencent BYOK spike). Book now prices the BYOK-excluded number (T238 .80 -> .05). Rules: "token usage included in OpenRouter's
+  AI Model Rankings ... as observed at 10:00 AM ET Nov 23". Which view settles = open question (judgment bet offered to user).
+- Free LMArena history: HF dataset lmarena-ai/leaderboard-dataset (259 dates). Logger scripts/tokenuse_logger.py, not installed.

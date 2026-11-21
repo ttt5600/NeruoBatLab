@@ -89,3 +89,62 @@ fail it. Metric ROI per $ staked, week-cluster bootstrap. Placebo: same threshol
 Success: n >= 20 trades over >= 5 weeks, ROI CI lower bound > 0 and > placebo -> forward logger at the week boundary.
 Kill: < 5 rungs qualifying across all weeks (the book clears itself before 01:00Z) or ROI <= placebo.
 Also report descriptively: the yes_bid/yes_ask of every rung at the Mon 00:00Z and 01:00Z candles vs its result.
+
+### 4b. R-TOK2 result + R-TOK1 calibration (2026-11-21 ~05:10Z)
+- **R-TOK2 DEAD at its kill rule** (backtest_tok2.py -> tok2_boundary_quotes.csv): 420 hourly candles in [Mon 00:00Z, close] over
+  141 settled rungs, only 12 two-sided; 0 rungs qualify. At the Mon 00:00Z/01:00Z candles every rung is already .96-1.00 / 0-.01
+  on the correct side (e.g. week 11-02 V 209.48: T207 .99/1.00 won, T210 0/.01 lost). The book reprices to the free endpoint before
+  the week even ends. edgelab: tok2_openrouter_week_boundary retired.
+- **R-TOK1 Brier (prereg metric)** (brier_tok1.py, 115 capture x rung rows with two-sided quotes, 9 weeks): Kalshi mid .0674,
+  prereg pace nowcast .1278, bias-corrected (LOWO mean) .0786. Brier(mid) - Brier(prereg) = -.0604 [-.1396, -.0092] (week
+  bootstrap) -> the MARKET is better calibrated; bias-corrected -.0112 [-.0729, +.0307] not distinguishable. The R-TOK1 +22.7%
+  on 12 trades is noise on top of a model that loses to the price.
+- Live evidence the book is bot-watched: after OpenRouter's default view switched to BYOK-excluded (between the 11-19T21:07Z
+  capture, no BYOK field, and 11-21T03:55Z cachedAt with `significantByokSeries`), T238 went .80 -> .05 within minutes
+  (first trade 04:03Z) and Kalshi listed T137..T200 at 04:10Z.
+
+## 5. Forward plan (spec; no launchd installed)
+Script: scripts/tokenuse_logger.py (one read-only snapshot per run -> results/ai_nowcast/fwd/snapshots.jsonl; first run
+2026-11-21T04:45Z OK, 24 open rungs). Logs default AND byok=all weekly totals + every open rung's bid/ask/size.
+Cadence if the lead installs it: hourly. Offline scoring = R-TOK1 bias-corrected variant frozen now (mu, s by d bucket from
+nowcast_panel.csv, LOWO not needed forward), taker at logged ask, one trade per (week, rung, side), fee 10-lot ceil.
+Forward kill (pre-set): after 20 settled weeks, ROI CI lower bound <= 0 or Brier(model) >= Brier(mid) -> dead. At ~3 trades/week
+this is ~5 months for n ~60, below the SIZING_RULE 100-trade bar -> recommendation: LOW priority; run only because it is free
+and it also records which definition (BYOK in/out) Kalshi settles NOV23 and later weeks on (KXTOKENUSE-26NOV23 expiration_value
+vs default 7-day vs byok=all 7-day).
+
+## 6. Other AI series (not tested; data gate notes)
+- LMArena (KXLLM1 12 settled, KXCHINAAI 12, KXTOPMODEL 6, KXARENASCORE 3; PM US 20 "aimrc" rank questions at fee .095): arena.ai
+  page returns 403 to scripts, but HF dataset lmarena-ai/leaderboard-dataset is free with daily commits (last 2026-11-21T04:02Z)
+  and full history: text/full parquet 1,301,969 rows, 259 publish dates 2023-05-08..2026-11-19, columns model/org/rating/CI/
+  votes/rank/category/leaderboard_publish_date (text = no style control; text_style_control separate). R1 passes. Mechanism is
+  rank persistence vs model-release shocks (event-driven), not a count nowcast; <= 12 settled events per series -> R4 = 0.
+  Stub only: P(#1 org unchanged over k days) from 259 publish dates vs book price at T-k; forward-log only.
+- OpenRouter share series (KXANTHSHARE/KXGOOGSHARE/KXDEEPSHARE/KXOPENSHARE 10 settled each, KXTOPUSAGEAI 10): same endpoint
+  family (author-market-share, byok param); same bot-watched book is likely. Not tested.
+- Vercel AI Gateway shares (KXOPENSOURCESHARE 42 settled; 8 lab series 29 each): most settled events of any AI family; source
+  vercel.com/ai-gateway/leaderboards (not probed for an intra-period JSON). Next candidate if anyone continues.
+
+## 7. Verdict
+KXTOKENUSE: R1 source free and exact (data gate passed); the free source is near-real-time, and the book tracks it (beats our
+nowcast on Brier, CI excludes 0; clears completely by the week boundary). No stale far rungs found. Mechanism = "watched number",
+not "unwatched tail" -> priced. R-TOK2 dead; R-TOK1 not distinguishable and calibration-dominated -> optional free forward logger
+only. Rubric revision: R3 (neglect) for KXTOKENUSE should be 0, not 2 (STRATEGY_v2 row #14 scored 6).
+
+## Learnings
+### OpenRouter weekly token totals are reproducible from a free JSON endpoint
+`/api/frontend/v1/rankings/model-rankings-chart?byok=all` weekly bar = Kalshi KXTOKENUSE expiration_value (11-09 week 211.28 vs
+211.2812; 7 weeks match to rounding). Source: results/ai_nowcast/final_byok_all_20261121.json, kx_tokenuse_markets_20261121.json.
+### OpenRouter's default rankings chart switched to BYOK-excluded around 2026-11-20/21
+Default chart 11-09 week 171.21 vs byok=all 211.28; captures up to 11-19T21:07Z had no BYOK field and equalled settlement. The
+settlement definition of KXTOKENUSE is therefore unstable; T238 repriced .80 -> .05 within minutes. Source: wayback_panel_raw.csv,
+/tmp/tr238.json trades.
+### Wayback captures of an undocumented JSON endpoint give a lookahead-free partial-period panel
+71 captures of model-rankings-chart (gzip bodies via /web/<ts>id_/) gave the partial week as published; pace nowcast sd 1.5-4%
+from day 3 with a +3% upward bias (weekend dip). Source: nowcast_panel.csv.
+### A near-real-time free source makes a book efficient, not stale
+KXTOKENUSE rungs were .96-1.00 / 0-.01 at Mon 00:00Z (tok2_boundary_quotes.csv), and Kalshi mid beat the pace nowcast on Brier
+.0674 vs .1278 (diff -.060 [-.140,-.009]). The nowcast edge needs a source that is free but SLOW or hard to read; an hourly JSON
+the crowd's bots poll leaves nothing.
+### LMArena's leaderboard is free on Hugging Face despite the arena.ai 403
+lmarena-ai/leaderboard-dataset text/full: 1.3M rows, 259 publish dates since 2023-05-08, daily commits. Source: HF API, /tmp/lma.

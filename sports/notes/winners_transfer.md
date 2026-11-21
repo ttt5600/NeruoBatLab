@@ -62,3 +62,33 @@ Scratch: sports/results/winners_transfer/.
 
 ## Log
 - 04:35Z started row in inbox. 04:40Z launched researcher subagent for C1 (named winners, verified vs claimed).
+- 05:05Z P1 DEVSEAL computed (results/winners_transfer/devseal_pairs.csv = 15 trials with cited dev + sealed ROI;
+  devseal.py -> devseal_result.json). See RESULT P1 below.
+- 05:15Z P2 TAILPOOL smoke test on KXTSAW OK (114 requests, 38.5 s); full census launched in background
+  (tailpool.py -> tailpool_result.json, log tailpool.log; 35 series).
+
+## RESULT P1 DEVSEAL (2026-11-21; results/winners_transfer/devseal_result.json)
+Transfer ratio k = sealed ROI / dev ROI, same price model per trial (sources per row in devseal_pairs.csv):
+| class | n | k median | 90% bootstrap CI | per trial |
+|---|---|---|---|---|
+| NOWCAST | 6 | 0.664 | [0.415, 0.726] | E1 .737, X1 .640, E4 .689, E5 .522, TSA .726, R1 .142 |
+| NOWCAST passes only | 5 | 0.689 | [0.522, 0.737] | -- |
+| BIAS/MODEL/MAKER | 8 | 0.162 | [-0.573, 0.476] | M3 .104, Q003 .220, WCN .567, E2p -.568, L32 .732, L36 .385, R_REB -.578, CS2F -2.17 |
+| CROSSVENUE | 1 | 1.020 | -- | E3 |
+Leave-one-out validator (pre-registered): A "dev passed -> sealed pass" 6/15; B "k_class(-i) x dev > 0" 6/15;
+C "pass iff NOWCAST/CROSSVENUE" 14/15. Verdict vs prereg: SUCCESS branch met (NOWCAST k CI lower 0.415 > 0, usable
+haircut) AND the negative branch met for B (magnitude adds nothing beyond the class label: non-NOWCAST trials kept
+positive sealed point estimates -- WCN +12.2%, L32 +6.4% -- and failed on power, so a shrunk-magnitude rule cannot
+separate them). Reading:
+- A NOWCAST dev ROI keeps about two-thirds into sealed (plan with 0.66, worst case 0.42). This is the same shrinkage the
+  competitions showed CV->sealed (T2 0.59x, T4 0.65x; PLAYBOOKS 5i): the fund's dev->sealed step behaves like a
+  calibrated CV only for the NOWCAST class.
+- For BIAS/MODEL/MAKER, the median trial keeps ~16% with a CI spanning negative: a dev pass there carries almost no
+  information about sealed sign. The class gate (STRATEGY_v2) is the validator; dev magnitude is not.
+- Third stage (live/forward vs sealed) where it exists: E4 live maker +1.72% [-4.33,+6.11] n39 vs sealed +2.22%
+  (FUND_BOOK 3a) and X1 forward -0.6% n91 vs sealed +0.78% -- too few to estimate a third ratio.
+- Caveats: n = 6 vs 8; E5 sealed is at last trade (no executable channel, FUND_BOOK 3a); R_REB/CS2F dev n not in the
+  ledger; L36 uses the -110 reference on both sides. Use k as a planning haircut, not a test statistic.
+- Planning rule derived (proposal): before asking for a NOWCAST sealed shot, require dev ROI x 0.42 >= the effect the
+  sealed window can detect at its expected n (EDGE_MATH power table); for any other class, skip the sealed shot unless
+  the mechanism is moved into NOWCAST/SHARPLINE form.

@@ -14,7 +14,7 @@ orders; money changes stay with the user.
 - strategy_synthesis -- taxonomy of ~100 tests -> model-building lessons, candidate rubric, top-15 untested, 30-day plan (notes/STRATEGY_v2.md)  [DONE 11-20: notes/STRATEGY_v2.md; nowcast-of-free-official-source = 5/6 sealed passes, models/bias/maker 0/12]
 - derived_ladders -- generalise KFG1: census + shape-calibration of all Kalshi secondary sports ladders, dev test best 1-2 (notes/derived_ladders.md)  [DONE 11-20: dead; ladders calibrated]
 - ufc_tsa -- UFC method of victory + daily TSA  [DONE 11-20: both dead]
-- ai_nowcast -- OpenRouter / LMArena series vs intra-week public data (notes/ai_nowcast.md)
+- ai_nowcast -- OpenRouter / LMArena series vs intra-week public data (notes/ai_nowcast.md)  [DONE 11-21: dead; BYOK definition question live]
 - climate_nowcast -- NOAA global temp via ERA5, sea ice via NSIDC, CO2 (notes/climate_nowcast.md)  [DONE 11-20: CN1 dead; CN2 logger optional]
 - cbank_thin -- small central-bank decisions vs free consensus (notes/cbank_thin.md)
 - count_nowcast -- public charts/counts (Spotify, Netflix, box office, grid load...) sweep + top 2 (notes/count_nowcast.md)  [DONE 11-21: EO1/NM1 dead]

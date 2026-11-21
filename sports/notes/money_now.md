@@ -62,3 +62,15 @@ Broker voluntary-corporate-action fees (official, read 2026-11-20):
   The older $38 figure (trading_ways_survey) is superseded. Fidelity login is fragile (fidelity.login.lockout 11-19).
 - Public: "Tender offer / reorg processing (domestic) $50" (public.com/disclosures/fee-schedule PDF, "updated as of
   October 13, 2026") -> never tender a 99-share odd lot from Public unless profit > $50.
+
+## C. sports/scripts/oddlot_watch.py (written + tested 2026-11-21 ~04:46Z)
+- stdlib only; efts full-text search for "odd lot" / "odd-lot" / "odd lots" / "fewer than 100 shares" in root forms
+  SC TO-I, SC TO-T, SC TO-C (amendments come via root_forms); dedupe by accession; for new originals with a ticker,
+  fetches the offer doc and regex-extracts kind (dutch/fixed/exchange), price range, expiry date, odd-lot sentence,
+  under-100-excluded flag, financing-condition flag; appends to ~/.claude/quant-sports/data/oddlot/filings.jsonl.
+- WRONG TURN: listing "SC TO-I/A" in the efts forms filter made efts return ONLY amendments (the MYPS original
+  vanished). Fixed by passing root forms only; comment left in the code.
+- Test: `--lookback 60` -> 19 filings matched, 19 new (10 with a ticker), file has 19 lines; extraction matches my
+  manual read for MYPS ($4.3-5.5, DECEMBER 10, 2026), INVE ($2.85-3.4, NOVEMBER 19, 2026), GPUS (DECEMBER 18, 2026,
+  UNDER100-EXCLUDED). Second run (default lookback 4) -> 5 matched, 0 new (dedupe works). Exit 0 both.
+- Not installed (no launchd per brief). Suggested: daily 07:15 PT, `python3 sports/scripts/oddlot_watch.py`.
