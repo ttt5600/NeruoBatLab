@@ -19,7 +19,7 @@ orders; money changes stay with the user.
 - cbank_thin -- small central-bank decisions vs free consensus (notes/cbank_thin.md)  [DONE 11-21: CB1 dead, n=6]
 - count_nowcast -- public charts/counts (Spotify, Netflix, box office, grid load...) sweep + top 2 (notes/count_nowcast.md)  [DONE 11-21: EO1/NM1 dead]
 - money_now -- CA-legal prediction-venue promos + hedge math, open odd-lot tenders, EDGAR watcher (notes/money_now.md)  [DONE 11-21: promo list ~$300-450 face; no tender now; watcher built]
-- winners_transfer -- compete-winner lessons (C1-C26, DGP, headroom) + profitable-trader prior art -> 10 ideas, run 1-2 probes (notes/winners_transfer.md)
+- winners_transfer -- compete-winner lessons (C1-C26, DGP, headroom) + profitable-trader prior art -> 10 ideas, run 1-2 probes (notes/winners_transfer.md)  [DONE 11-21: P1-P4; top idea daily gas]
 - e4_data_v2 -- E4 headroom, CLI data-generating process, multi-year forecast backfill + calibrated distribution (notes/e4_data_v2.md)
 - trading_ways_survey -- all non-PM retail trading strategies ranked for CA + $1-2k, pre-reg top 1-2 (notes/trading_ways_survey.md)  [DONE 11-19: nothing doubles; promos/RSA/odd-lot = small one-offs]
 - altdata_kpi -- census + pre-reg of JBLU / foot traffic / card spend / TikTok Shop / SPR series (notes/altdata_kpi.md)  [DONE 11-19: dead, Carbon Arc paywalled]

@@ -471,3 +471,13 @@ confirm home state (CA vs CO) for venue legality.
   >= 90%, bid >= 4c): dev 6 bets / 62 meetings, 6-0, +6.8% but < min_n 20 -> kill; retired. Placebo (no poll) -8.0% [-22.9,+4.6].
 - Kalshi tails calibrated (2-5c settled 2.9%, n35; <=2c 0/171). Polls vs Kalshi favourite disagreed 7x: Kalshi 4, poll 3.
 - Traps: Kalshi close_time can be days AFTER the decision (anchor on meeting date); /historical candles `close` is dollars vs live `close_dollars`.
+
+### winners_transfer (merged 2026-11-21, notes/winners_transfer.md, results/winners_transfer/)
+- Verified winners: Theo (Polymarket API PnL $22.05M + $16.62M; edge = his own commissioned poll), gopfan2 ($1.71M, weather only
+  $317k). Recurring winner edges: own primary data, settlement-mechanics knowledge, market making, earliness.
+- P1 (C26 on our own trials): nowcast sealed/dev ROI median 0.664 [0.415,0.726] n6; bias/model/maker 0.162 [-0.573,0.476] n8;
+  mechanism class alone predicts 14/15 sealed verdicts (dev magnitude 6/15).
+- P2 loser-paid pool <=15c per 30d: orig7 weather $414,594; daily gas KXAAAGASD $488,558; AI share $14-19k; TSA weekly $1,373;
+  KXHMONTHRANGE $191; small CBs $26-62.
+- P3 E4 06:00 cancel dead; P4 settlement-error watcher (hourly obs) dead: 2 flips / 158 flags.
+- Top idea: re-test daily gas with a sharper nowcast (N6 placed 0 bets). E4: 66/70 dev losers are brackets ABOVE forecast (p .30).

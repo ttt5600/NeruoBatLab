@@ -1,0 +1,196 @@
+{
+ "NOWCAST": {
+  "n": 6,
+  "k_median": 0.664,
+  "k_90ci": [
+   0.415,
+   0.726
+  ],
+  "k_each": {
+   "E1": 0.737,
+   "X1": 0.64,
+   "E4": 0.689,
+   "E5": 0.522,
+   "TSA": 0.726,
+   "R1": 0.142
+  },
+  "k_pooled_n_weighted": null
+ },
+ "OTHER_nonNOWCAST_nonXV": {
+  "n": 8,
+  "k_median": 0.162,
+  "k_90ci": [
+   -0.573,
+   0.476
+  ],
+  "k_each": {
+   "M3": 0.104,
+   "Q003": 0.22,
+   "WCN": 0.567,
+   "E2p": -0.568,
+   "L32": 0.732,
+   "L36": 0.385,
+   "R_REB": -0.578,
+   "CS2F": -2.17
+  },
+  "k_pooled_n_weighted": null
+ },
+ "NOWCAST_passes_only": {
+  "n": 5,
+  "k_median": 0.689,
+  "k_90ci": [
+   0.522,
+   0.737
+  ],
+  "k_each": {
+   "E1": 0.737,
+   "X1": 0.64,
+   "E4": 0.689,
+   "E5": 0.522,
+   "TSA": 0.726
+  },
+  "k_pooled_n_weighted": null
+ },
+ "LOO_accuracy": {
+  "A": "6/15",
+  "B": "6/15",
+  "C": "14/15"
+ },
+ "LOO_detail(id,cls,k_class_minus_i,pred_sealed_roi,actual_pass,predB,predC)": [
+  [
+   "E1",
+   "NOWCAST",
+   0.64,
+   0.0126,
+   true,
+   true,
+   true
+  ],
+  [
+   "X1",
+   "NOWCAST",
+   0.689,
+   0.0084,
+   true,
+   true,
+   true
+  ],
+  [
+   "E4",
+   "NOWCAST",
+   0.64,
+   0.0206,
+   true,
+   true,
+   true
+  ],
+  [
+   "E5",
+   "NOWCAST",
+   0.689,
+   0.0906,
+   true,
+   true,
+   true
+  ],
+  [
+   "TSA",
+   "NOWCAST",
+   0.64,
+   0.0537,
+   true,
+   true,
+   true
+  ],
+  [
+   "R1",
+   "NOWCAST",
+   0.689,
+   0.0235,
+   false,
+   true,
+   true
+  ],
+  [
+   "E3",
+   "CROSSVENUE",
+   1.0,
+   0.0854,
+   true,
+   true,
+   true
+  ],
+  [
+   "M3",
+   "OTHER",
+   0.22,
+   0.0095,
+   false,
+   true,
+   false
+  ],
+  [
+   "Q003",
+   "OTHER",
+   0.104,
+   0.0073,
+   false,
+   true,
+   false
+  ],
+  [
+   "WCN",
+   "OTHER",
+   0.104,
+   0.0224,
+   false,
+   true,
+   false
+  ],
+  [
+   "E2p",
+   "OTHER",
+   0.22,
+   0.0251,
+   false,
+   true,
+   false
+  ],
+  [
+   "L32",
+   "OTHER",
+   0.104,
+   0.009,
+   false,
+   true,
+   false
+  ],
+  [
+   "L36",
+   "OTHER",
+   0.104,
+   0.0027,
+   false,
+   true,
+   false
+  ],
+  [
+   "R_REB",
+   "OTHER",
+   0.22,
+   0.0059,
+   false,
+   true,
+   false
+  ],
+  [
+   "CS2F",
+   "OTHER",
+   0.22,
+   0.0088,
+   false,
+   true,
+   false
+  ]
+ ]
+}

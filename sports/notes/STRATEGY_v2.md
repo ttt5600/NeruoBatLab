@@ -136,3 +136,10 @@ Weather multi-model (.1054 vs .1098), options (.04568 vs .04617) beat the price;
 showed base-rate-shape mispricing (placebo +5%). Source: results/strategy_synthesis/candidate_probe_*.json, kalshi_fg_markets.md.
 ### PM US fee .095 caps every PM US idea at the cost item
 No PM US candidate scored above 5/10. Source: pm_full_census.md, pmus_bbo.parquet.
+
+## Process amendments (2026-11-21, from winners_transfer section 4)
+1. Cite the series' loser-paid pool (<=15c, per 30d; results/winners_transfer/tailpool.py) before building; < $500/30d -> forward-log only.
+2. Write the settlement + quote data-generating process and audit >= 50 settled values before modelling.
+3. Plan nowcast sealed tests at dev ROI x 0.66; non-nowcast dev "passes" get no sealed test without a stacking coefficient over the market price.
+4. Report the top-5 contributors behind any pooled sum.
+5. Every brief lists >= 3 candidates from settlement/quote mechanics, reformulation, and negating one fund default.

@@ -1,0 +1,16 @@
+id,cls,dev_roi,dev_n,sealed_roi,sealed_n,sealed_verdict,price_model,dev_src,sealed_src
+E1,NOWCAST,0.019740,1269,0.014547,1844,pass,taker ask+fee,lab/ledger.jsonl kalshi_reject_safe_check 2026-10-07,lab/lockbox.jsonl 2026-10-08
+X1,NOWCAST,0.012189,444,0.007799,2464,pass,taker ask+fee,lab/ledger.jsonl wx_expand_X1_new_highs 2026-10-19,lab/lockbox.jsonl 2026-10-20
+E4,NOWCAST,0.032212,1239,0.022181,3456,pass,maker tape fill,lab/ledger.jsonl kalshi_temp_maker_M3_N10 2026-10-22,lab/lockbox.jsonl 2026-10-23
+E5,NOWCAST,0.131572,159,0.068724,219,pass_underpowered,FX last trade+.01,lab/ledger.jsonl forecastex_wx_T1_end 2026-10-28,lab/lockbox.jsonl forecastex_wx_FX1
+TSA,NOWCAST,0.084,89,0.0610,24,pass,maker tape fill,EDGES_AND_AGENTS.md l.339,notes/e1x_tsa.md l.79
+R1,NOWCAST,0.034198,361,0.004868,274,fail,taker ask+fee,lab/ledger.jsonl kalshi_rain_R1_dry_no 2026-10-19,lab/lockbox.jsonl 2026-10-20
+E3,CROSSVENUE,0.085396,2604,0.087081,2004,pass,soft-book best price,lab/ledger.jsonl soccer_best3_pow3 2026-10-18,lab/lockbox.jsonl 2026-10-20
+M3,BIAS,0.043242,293,0.004489,2674,fail,taker ask+fee,lab/ledger.jsonl kalshi_mentions_M3_d24 2026-10-22,lab/lockbox.jsonl 2026-10-23
+Q003,MAKER,0.070763,859,0.015555,920,fail,maker tape fill,lab/ledger.jsonl q003_IN1_d6 2026-10-28,lab/lockbox.jsonl q003_IN1_d6_sealed
+WCN,BIAS,0.215366,107,0.122179,99,fail,-110 spread,lab/ledger.jsonl west_coast_night 2026-10-09,lab/lockbox.jsonl 2026-10-30
+E2p,BIAS,0.1142,206,-0.0649,97,fail,PM price,lab/ledger.jsonl poly_earnings_E2_cheap_yes 2026-10-22,lab/lockbox.jsonl 2026-10-22
+L32,MODEL,0.087,1190,0.063703,575,fail,no-vig open,EDGES_AND_AGENTS.md l.149,lab/lockbox.jsonl nba_L32_tot_open
+L36,MODEL,0.026,3014,0.010,399,fail,-110 reference,notes/l36_cfb_totals_sealed.md l.5 (T04),notes/l36_cfb_totals_sealed.md l.118
+R_REB,MODEL,0.027,,-0.015593,1214,fail,book prop price,EDGES_AND_AGENTS.md l.67,lab/ledger.jsonl nba_props_R_REB_sealed
+CS2F,BIAS,0.040,,-0.0868,361,fail,Kalshi mid->ask (post-hoc band),notes/cs2_model.md l.103,EDGES_AND_AGENTS.md l.438
