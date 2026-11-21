@@ -1,0 +1,950 @@
+{
+ "KXHMONTH": {
+  "title": "Hottest month instance",
+  "freq": "monthly",
+  "fee_type": "quadratic",
+  "src": [
+   "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/global/time-series"
+  ],
+  "n_mkts": 34,
+  "n_events": 34,
+  "events": {
+   "HMONTH-24APR": {
+    "n": 1,
+    "vol": 29142,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-05-01T03:59:00Z"
+   },
+   "HMONTH-24AUG": {
+    "n": 1,
+    "vol": 12042,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-09-01T03:59:00Z"
+   },
+   "HMONTH-24FEB": {
+    "n": 1,
+    "vol": 31832,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-03-01T04:59:00Z"
+   },
+   "HMONTH-24JAN": {
+    "n": 1,
+    "vol": 15288,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-02-01T04:59:00Z"
+   },
+   "HMONTH-24JUL": {
+    "n": 1,
+    "vol": 13351,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-08-13T14:48:30.160917Z"
+   },
+   "HMONTH-24JUN": {
+    "n": 1,
+    "vol": 17479,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-07-13T03:59:00Z"
+   },
+   "HMONTH-24MAR": {
+    "n": 1,
+    "vol": 25735,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-04-01T03:59:00Z"
+   },
+   "HMONTH-24MAY": {
+    "n": 1,
+    "vol": 13409,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-06-14T03:59:00Z"
+   },
+   "HMONTH-24OCT": {
+    "n": 1,
+    "vol": 1633,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-11-14T15:00:01.862222Z"
+   },
+   "HMONTH-24SEP": {
+    "n": 1,
+    "vol": 10621,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-10-01T03:59:00Z"
+   },
+   "KXHMONTH-24DEC": {
+    "n": 1,
+    "vol": 126755,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-01-13T17:20:38.616393Z"
+   },
+   "KXHMONTH-24NOV": {
+    "n": 1,
+    "vol": 268651,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-12-01T04:59:00Z"
+   },
+   "KXHMONTH-25APR": {
+    "n": 1,
+    "vol": 59443,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-05-13T14:55:22.015436Z"
+   },
+   "KXHMONTH-25AUG": {
+    "n": 1,
+    "vol": 123615,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-09-16T03:59:00Z"
+   },
+   "KXHMONTH-25FEB": {
+    "n": 1,
+    "vol": 212409,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-03-12T17:05:06.911013Z"
+   },
+   "KXHMONTH-25JAN": {
+    "n": 1,
+    "vol": 882092,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-02-13T17:50:11.187789Z"
+   },
+   "KXHMONTH-25JUL": {
+    "n": 1,
+    "vol": 298374,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-08-13T17:34:05.474145Z"
+   },
+   "KXHMONTH-25JUN": {
+    "n": 1,
+    "vol": 110223,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-07-11T02:29:51.884444Z"
+   },
+   "KXHMONTH-25MAR": {
+    "n": 1,
+    "vol": 106407,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-04-10T15:48:33.835116Z"
+   },
+   "KXHMONTH-25MAY": {
+    "n": 1,
+    "vol": 87931,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-06-13T00:27:58.142627Z"
+   },
+   "KXHMONTH-25NOV": {
+    "n": 1,
+    "vol": 15717,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-12-16T04:59:00Z"
+   },
+   "KXHMONTH-25OCT": {
+    "n": 1,
+    "vol": 56003,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-11-16T03:59:00Z"
+   },
+   "KXHMONTH-25SEP": {
+    "n": 1,
+    "vol": 5803,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-10-16T03:59:00Z"
+   },
+   "KXHMONTH-26APR": {
+    "n": 1,
+    "vol": 63174,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-05-16T03:59:00Z"
+   },
+   "KXHMONTH-26AUG": {
+    "n": 1,
+    "vol": 147087,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-09-15T16:25:33Z"
+   },
+   "KXHMONTH-26FEB": {
+    "n": 1,
+    "vol": 49057,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-03-02T17:52:23Z"
+   },
+   "KXHMONTH-26JAN": {
+    "n": 1,
+    "vol": 300666,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-02-16T04:59:00Z"
+   },
+   "KXHMONTH-26JUL": {
+    "n": 1,
+    "vol": 222741,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-08-14T00:01:16Z"
+   },
+   "KXHMONTH-26JUN": {
+    "n": 1,
+    "vol": 142914,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-07-10T17:07:44Z"
+   },
+   "KXHMONTH-26MAR": {
+    "n": 1,
+    "vol": 695639,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-04-09T17:37:20Z"
+   },
+   "KXHMONTH-26MAY": {
+    "n": 1,
+    "vol": 30627,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-06-16T03:59:00Z"
+   },
+   "KXHMONTH-26NOV": {
+    "n": 1,
+    "vol": 123351,
+    "status": [
+     "active"
+    ],
+    "close": "2026-12-16T04:59:00Z"
+   },
+   "KXHMONTH-26OCT": {
+    "n": 1,
+    "vol": 162274,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-11-12T18:37:20Z"
+   },
+   "KXHMONTH-26SEP": {
+    "n": 1,
+    "vol": 48412,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-10-10T15:13:38Z"
+   }
+  }
+ },
+ "HMONTH": {
+  "title": "Hottest month instance",
+  "freq": "monthly",
+  "fee_type": "quadratic",
+  "src": [
+   "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/global/time-series"
+  ],
+  "n_mkts": 0,
+  "n_events": 0,
+  "events": {}
+ },
+ "KXHMONTHRANGE": {
+  "title": "Monthly Temperature Increase (\u00baC)",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://www.ncdc.noaa.gov/cag/global/time-series"
+  ],
+  "n_mkts": 180,
+  "n_events": 30,
+  "events": {
+   "HMONTHRANGE-24AUG": {
+    "n": 6,
+    "vol": 14620,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-09-13T03:59:00Z"
+   },
+   "HMONTHRANGE-24JUL": {
+    "n": 6,
+    "vol": 26757,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-08-13T14:48:57.310622Z"
+   },
+   "HMONTHRANGE-24JUN": {
+    "n": 6,
+    "vol": 23205,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-07-13T03:59:00Z"
+   },
+   "HMONTHRANGE-24MAY": {
+    "n": 6,
+    "vol": 902,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-06-14T03:59:00Z"
+   },
+   "HMONTHRANGE-24OCT": {
+    "n": 6,
+    "vol": 1838,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-11-14T15:00:02.379084Z"
+   },
+   "HMONTHRANGE-24SEP": {
+    "n": 6,
+    "vol": 1865,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-10-16T03:59:00Z"
+   },
+   "KXHMONTHRANGE-24DEC": {
+    "n": 6,
+    "vol": 61784,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-01-13T17:20:13.44497Z"
+   },
+   "KXHMONTHRANGE-24NOV": {
+    "n": 6,
+    "vol": 45738,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-12-12T17:16:47.781294Z"
+   },
+   "KXHMONTHRANGE-25APR": {
+    "n": 6,
+    "vol": 26026,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-05-13T15:06:04.0515Z"
+   },
+   "KXHMONTHRANGE-25AUG": {
+    "n": 6,
+    "vol": 40897,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-09-16T03:59:00Z"
+   },
+   "KXHMONTHRANGE-25FEB": {
+    "n": 6,
+    "vol": 79631,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-03-12T17:04:48.16256Z"
+   },
+   "KXHMONTHRANGE-25JAN": {
+    "n": 6,
+    "vol": 94469,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-02-13T17:50:25.052219Z"
+   },
+   "KXHMONTHRANGE-25JUL": {
+    "n": 6,
+    "vol": 62778,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-08-16T03:59:00Z"
+   },
+   "KXHMONTHRANGE-25JUN": {
+    "n": 6,
+    "vol": 33230,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-07-11T02:29:40.594871Z"
+   },
+   "KXHMONTHRANGE-25MAR": {
+    "n": 6,
+    "vol": 52143,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-04-10T15:48:58.856802Z"
+   },
+   "KXHMONTHRANGE-25MAY": {
+    "n": 6,
+    "vol": 36741,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-06-13T00:28:55.909223Z"
+   },
+   "KXHMONTHRANGE-25NOV": {
+    "n": 6,
+    "vol": 34647,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-12-16T04:59:00Z"
+   },
+   "KXHMONTHRANGE-25OCT": {
+    "n": 6,
+    "vol": 21734,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-11-16T04:59:00Z"
+   },
+   "KXHMONTHRANGE-25SEP": {
+    "n": 6,
+    "vol": 12700,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-10-16T03:59:00Z"
+   },
+   "KXHMONTHRANGE-26APR": {
+    "n": 6,
+    "vol": 125032,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-05-16T03:59:00Z"
+   },
+   "KXHMONTHRANGE-26AUG": {
+    "n": 6,
+    "vol": 46722,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-09-13T23:20:09Z"
+   },
+   "KXHMONTHRANGE-26FEB": {
+    "n": 6,
+    "vol": 21050,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-03-16T03:59:00Z"
+   },
+   "KXHMONTHRANGE-26JAN": {
+    "n": 6,
+    "vol": 34973,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-02-16T04:59:00Z"
+   },
+   "KXHMONTHRANGE-26JUL": {
+    "n": 6,
+    "vol": 35259,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-08-16T03:59:00Z"
+   },
+   "KXHMONTHRANGE-26JUN": {
+    "n": 6,
+    "vol": 128113,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-07-16T03:59:00Z"
+   },
+   "KXHMONTHRANGE-26MAR": {
+    "n": 6,
+    "vol": 48137,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-04-15T23:01:06Z"
+   },
+   "KXHMONTHRANGE-26MAY": {
+    "n": 6,
+    "vol": 69356,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-06-14T21:02:15Z"
+   },
+   "KXHMONTHRANGE-26NOV": {
+    "n": 6,
+    "vol": 19101,
+    "status": [
+     "active"
+    ],
+    "close": "2026-12-16T04:59:00Z"
+   },
+   "KXHMONTHRANGE-26OCT": {
+    "n": 6,
+    "vol": 31918,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-11-12T18:39:44Z"
+   },
+   "KXHMONTHRANGE-26SEP": {
+    "n": 6,
+    "vol": 38407,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-10-16T03:59:00Z"
+   }
+  }
+ },
+ "KXTEMPMON": {
+  "title": "Global monthly temperature average",
+  "freq": "monthly",
+  "fee_type": "quadratic",
+  "src": [
+   "https://www.ncdc.noaa.gov/cag/global/time-series"
+  ],
+  "n_mkts": 1,
+  "n_events": 1,
+  "events": {
+   "TEMPMON-21OCT": {
+    "n": 1,
+    "vol": 9917,
+    "status": [
+     "finalized"
+    ],
+    "close": "2021-11-02T14:00:00Z"
+   }
+  }
+ },
+ "TEMPMON": {
+  "title": "Global monthly temperature average",
+  "freq": "monthly",
+  "fee_type": "quadratic",
+  "src": [
+   "https://www.ncdc.noaa.gov/cag/global/time-series"
+  ],
+  "n_mkts": 0,
+  "n_events": 0,
+  "events": {}
+ },
+ "KXGTEMP": {
+  "title": "Hottest year ever",
+  "freq": "annual",
+  "fee_type": "quadratic",
+  "src": [
+   "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+  ],
+  "n_mkts": 6,
+  "n_events": 6,
+  "events": {
+   "GTEMP-22": {
+    "n": 1,
+    "vol": 79693,
+    "status": [
+     "finalized"
+    ],
+    "close": "2023-01-01T04:59:00Z"
+   },
+   "GTEMP-23": {
+    "n": 1,
+    "vol": 200744,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-01-01T04:59:00Z"
+   },
+   "GTEMP-24": {
+    "n": 1,
+    "vol": 113670,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-12-31T04:59:00Z"
+   },
+   "KXGTEMP-25": {
+    "n": 1,
+    "vol": 260013,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-12-31T16:00:00Z"
+   },
+   "KXGTEMP-26": {
+    "n": 1,
+    "vol": 650901,
+    "status": [
+     "active"
+    ],
+    "close": "2027-01-01T04:59:00Z"
+   },
+   "KXGTEMP-27": {
+    "n": 1,
+    "vol": 35472,
+    "status": [
+     "active"
+    ],
+    "close": "2027-01-01T04:59:00Z"
+   }
+  }
+ },
+ "GTEMP": {
+  "title": "Hottest year ever",
+  "freq": "annual",
+  "fee_type": "quadratic",
+  "src": [
+   "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+  ],
+  "n_mkts": 0,
+  "n_events": 0,
+  "events": {}
+ },
+ "KXHOTYEAR": {
+  "title": "Global heat",
+  "freq": "annual",
+  "fee_type": "quadratic",
+  "src": [
+   "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+  ],
+  "n_mkts": 10,
+  "n_events": 1,
+  "events": {
+   "HOTYEAR-23": {
+    "n": 10,
+    "vol": 128610,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-01-01T04:59:00Z"
+   }
+  }
+ },
+ "HOTYEAR": {
+  "title": "Global heat",
+  "freq": "annual",
+  "fee_type": "quadratic",
+  "src": [
+   "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+  ],
+  "n_mkts": 0,
+  "n_events": 0,
+  "events": {}
+ },
+ "KXWARMING": {
+  "title": "Global warming",
+  "freq": "one_off",
+  "fee_type": "quadratic",
+  "src": [
+   "https://berkeleyearth.org/data/",
+   "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt",
+   "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/global/time-series",
+   "https://crudata.uea.ac.uk/cru/data/temperature/"
+  ],
+  "n_mkts": 1,
+  "n_events": 1,
+  "events": {
+   "KXWARMING-50": {
+    "n": 1,
+    "vol": 21887,
+    "status": [
+     "active"
+    ],
+    "close": "2050-01-01T04:59:00Z"
+   }
+  }
+ },
+ "KXARCTICICEMAX": {
+  "title": "Arctic sea ice max extent",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://nsidc.org/data/seaice_index/data-and-image-archive"
+  ],
+  "n_mkts": 38,
+  "n_events": 4,
+  "events": {
+   "ARCTICICEMAX-24APR01": {
+    "n": 9,
+    "vol": 42827,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-04-02T03:59:00Z"
+   },
+   "KXARCTICICEMAX-25APR01": {
+    "n": 9,
+    "vol": 202902,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-03-09T15:36:48.060791Z"
+   },
+   "KXARCTICICEMAX-26APR01": {
+    "n": 9,
+    "vol": 58795,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-04-01T17:59:00Z"
+   },
+   "KXARCTICICEMAX-27APR01": {
+    "n": 11,
+    "vol": 3313,
+    "status": [
+     "active"
+    ],
+    "close": "2027-04-02T03:59:00Z"
+   }
+  }
+ },
+ "ARCTICICEMAX": {
+  "title": "Arctic sea ice max extent",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://nsidc.org/data/seaice_index/archives"
+  ],
+  "n_mkts": 0,
+  "n_events": 0,
+  "events": {}
+ },
+ "KXARCTICICEMIN": {
+  "title": "Arctic sea ice min extent",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://nsidc.org/data/seaice_index/data-and-image-archive"
+  ],
+  "n_mkts": 41,
+  "n_events": 4,
+  "events": {
+   "ARCTICICEMIN-23OCT01": {
+    "n": 8,
+    "vol": 91769,
+    "status": [
+     "finalized"
+    ],
+    "close": "2023-10-02T03:59:00Z"
+   },
+   "ARCTICICEMIN-24OCT01": {
+    "n": 11,
+    "vol": 85785,
+    "status": [
+     "finalized"
+    ],
+    "close": "2024-10-02T03:59:00Z"
+   },
+   "KXARCTICICEMIN-25OCT01": {
+    "n": 13,
+    "vol": 78183,
+    "status": [
+     "finalized"
+    ],
+    "close": "2025-10-02T03:59:00Z"
+   },
+   "KXARCTICICEMIN-26OCT01": {
+    "n": 9,
+    "vol": 18528,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-10-02T03:59:00Z"
+   }
+  }
+ },
+ "ARCTICICEMIN": {
+  "title": "Arctic sea ice min extent",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://nsidc.org/data/seaice_index/archives"
+  ],
+  "n_mkts": 0,
+  "n_events": 0,
+  "events": {}
+ },
+ "KXARTICICE": {
+  "title": "Arctic sea ice",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://nsidc.org/data/seaice_index/data-and-image-archive"
+  ],
+  "n_mkts": 1,
+  "n_events": 1,
+  "events": {
+   "ARTICICE-22DEC31": {
+    "n": 1,
+    "vol": 8814,
+    "status": [
+     "finalized"
+    ],
+    "close": "2023-01-01T04:59:00Z"
+   }
+  }
+ },
+ "ARTICICE": {
+  "title": "Arctic sea ice",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://nsidc.org/data/seaice_index/archives"
+  ],
+  "n_mkts": 0,
+  "n_events": 0,
+  "events": {}
+ },
+ "KXSEAICE": {
+  "title": "Sea ice totals",
+  "freq": "monthly",
+  "fee_type": "quadratic",
+  "src": [
+   "https://nsidc.org/data/seaice_index/archives"
+  ],
+  "n_mkts": 2,
+  "n_events": 2,
+  "events": {
+   "SEAICE-21OCT": {
+    "n": 1,
+    "vol": 12616,
+    "status": [
+     "finalized"
+    ],
+    "close": "2021-11-02T14:00:00Z"
+   },
+   "SEAICE-21SEP": {
+    "n": 1,
+    "vol": 8437,
+    "status": [
+     "finalized"
+    ],
+    "close": "2021-10-02T14:00:00Z"
+   }
+  }
+ },
+ "SEAICE": {
+  "title": "Sea ice totals",
+  "freq": "monthly",
+  "fee_type": "quadratic",
+  "src": [
+   "https://nsidc.org/data/seaice_index/archives"
+  ],
+  "n_mkts": 0,
+  "n_events": 0,
+  "events": {}
+ },
+ "KXCO2LEVEL": {
+  "title": "CO2 level",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://gml.noaa.gov/ccgg/trends/",
+   "https://science.nasa.gov/earth/explore/earth-indicators/carbon-dioxide/"
+  ],
+  "n_mkts": 5,
+  "n_events": 1,
+  "events": {
+   "KXCO2LEVEL-30": {
+    "n": 5,
+    "vol": 15884,
+    "status": [
+     "active"
+    ],
+    "close": "2030-01-01T04:59:00Z"
+   }
+  }
+ },
+ "KXLANINA": {
+  "title": "Will La Ni\u00f1a conditions be declared?",
+  "freq": "custom",
+  "fee_type": "quadratic",
+  "src": [
+   "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
+   "https://www.weather.gov",
+   "https://iri.columbia.edu/our-expertise/climate/forecasts/enso/current/"
+  ],
+  "n_mkts": 1,
+  "n_events": 1,
+  "events": {
+   "KXLANINA-27JUN30": {
+    "n": 1,
+    "vol": 0,
+    "status": [
+     "active"
+    ],
+    "close": "2027-07-01T03:59:00Z"
+   }
+  }
+ },
+ "KXELNINO": {
+  "title": "Will El Ni\u00f1o conditions be declared?",
+  "freq": "one_off",
+  "fee_type": "quadratic",
+  "src": [
+   "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
+   "https://www.weather.gov",
+   "https://iri.columbia.edu/our-expertise/climate/forecasts/enso/current/"
+  ],
+  "n_mkts": 5,
+  "n_events": 1,
+  "events": {
+   "KXELNINO-26": {
+    "n": 5,
+    "vol": 21881,
+    "status": [
+     "finalized"
+    ],
+    "close": "2026-06-14T21:04:05Z"
+   }
+  }
+ }
+}

@@ -797,3 +797,35 @@ def pm_wallet_signal():
 
 
 LOADERS["pm_wallet_signal"] = pm_wallet_signal
+
+
+# ------------------------------------------------------------------ Kalshi NOAA monthly global temp (scripts/climate_nowcast.py)
+def kalshi_climate_nowcast():
+    """data/climate_nowcast/frame.parquet: one row per settled KXHMONTHRANGE / KXHMONTH contract (+ hidden result);
+    attrs['candles'] = hourly candles around the day-4 decision (candles.json)."""
+    D = DATA / "climate_nowcast"
+    f, fc = D / "frame.parquet", D / "candles.json"
+    x = pd.read_parquet(f)
+    x = x[x["result"].isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["candles"] = json.loads(fc.read_text())
+    return x, [str(f), str(fc), str(D / "inputs.json")]
+
+
+LOADERS["kalshi_climate_nowcast"] = kalshi_climate_nowcast
+
+
+# ------------------------------------------------------------------ Kalshi weekly executive orders (results/count_nowcast/eo1.py)
+def kalshi_eo_week():
+    """data/count_nowcast/eo_frame.parquet: one row per settled KXEOWEEK rung (dev weeks fetched only) + hidden result;
+    attrs['candles'] = lifetime hourly candles (eo_candles.json); FR EO list fr_eo.json."""
+    D = DATA / "count_nowcast"
+    f, fc = D / "eo_frame.parquet", D / "eo_candles.json"
+    x = pd.read_parquet(f)
+    x = x[x["result"].isin(["yes", "no"])].copy()
+    x["date"] = pd.to_datetime(x["date"])
+    x.attrs["candles"] = json.loads(fc.read_text())
+    return x, [str(f), str(fc), str(D / "fr_eo.json")]
+
+
+LOADERS["kalshi_eo_week"] = kalshi_eo_week

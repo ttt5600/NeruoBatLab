@@ -406,3 +406,7 @@ Untraded global PM markets show ~0.5 in CLOB price history -- never use it as a 
 ### Kalshi derived sports ladders are calibrated at T-60 (derived_ladders, 11-20)
 339 shape cells across 32 series: excess over chance came from wide-spread series and multi-week level drift, not rung shape.
 A "shape" seen in a few weeks of one season is window noise until a later window repeats it (NFLUP dev -19.3%).
+
+### Settle-on-first-print series need first-print history (climate_nowcast, 11-20)
+NOAA revises monthly global temps; Kalshi settles on the first print. Fitting to today's archive fits a different series
+(8/16 dev months land in a different bracket). Archive every vintage from day 1 of any logger.

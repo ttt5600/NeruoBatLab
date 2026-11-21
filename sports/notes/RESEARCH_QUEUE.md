@@ -15,7 +15,7 @@ orders; money changes stay with the user.
 - derived_ladders -- generalise KFG1: census + shape-calibration of all Kalshi secondary sports ladders, dev test best 1-2 (notes/derived_ladders.md)  [DONE 11-20: dead; ladders calibrated]
 - ufc_tsa -- UFC method of victory + daily TSA  [DONE 11-20: both dead]
 - ai_nowcast -- OpenRouter / LMArena series vs intra-week public data (notes/ai_nowcast.md)
-- climate_nowcast -- NOAA global temp via ERA5, sea ice via NSIDC, CO2 (notes/climate_nowcast.md)
+- climate_nowcast -- NOAA global temp via ERA5, sea ice via NSIDC, CO2 (notes/climate_nowcast.md)  [DONE 11-20: CN1 dead; CN2 logger optional]
 - cbank_thin -- small central-bank decisions vs free consensus (notes/cbank_thin.md)
 - count_nowcast -- public charts/counts (Spotify, Netflix, box office, grid load...) sweep + top 2 (notes/count_nowcast.md)
 - money_now -- CA-legal prediction-venue promos + hedge math, open odd-lot tenders, EDGAR watcher (notes/money_now.md)

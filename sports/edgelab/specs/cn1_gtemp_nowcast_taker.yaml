@@ -1,0 +1,22 @@
+id: cn1_gtemp_nowcast_taker
+family: kalshi_data_ladders
+dataset: kalshi_climate_nowcast
+rule: edgelab.rules.climate_nowcast:cn1_taker
+params:
+  pred_col: pred
+  edge: 0.05
+hypothesis: 'CN1: Kalshi KXHMONTHRANGE / KXHMONTH settle on NOAA cag monthly land+ocean anomaly (~day 8-16 of M+1).
+  By day 4 of M+1 the whole month of Copernicus Climate Pulse ERA5 daily global 2 m anomaly is public; pred = ERA5 mean
+  + calendar-month offset (fit 2001-2023), sd = residual sd x 1.25. Buy the side whose N(pred, sd) probability beats the
+  hourly-candle ask + taker fee (C=10) by >= 0.05 at day 4 16:00Z; hold to settlement. Prereg notes/climate_nowcast.md.'
+decision_time: 16:00 UTC on day 4 of the month after the measured month
+price_model: taker
+split: vault:kalshi_climate_nowcast
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: cent
+legacy: 'new 2026-11-20 (agent climate_nowcast). Kalshi sibling of FC1 (ForecastEx GTM, dead n2 on trade-only files);
+  here real hourly bid/ask candles exist.'

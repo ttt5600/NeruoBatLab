@@ -1,0 +1,15 @@
+id: cb1_cbank_consensus_fade
+family: kalshi_data_ladders
+dataset: kalshi_cbank_thin
+rule: edgelab.rules.forward:unwired
+hypothesis: 'CB1 (notes/cbank_thin.md prereg): Kalshi non-Fed central-bank decision series (KXCBD*, KXCBDECISION*). At T = close-7d and close-1d, consensus C = latest free-news economist poll published before T; if poll strength s >= .90, buy NO taker at 1-yes_bid on every non-C bucket with yes_bid >= .04; fee ceil_cent(.07*10*p(1-p))/10. Placebo P0 = same with C := Kalshi favorite. Meeting-cluster bootstrap. Dev decisions <= 2026-08-31, sealed 2026-09-01..2026-11-20.'
+decision_time: close-7d / close-1d
+price_model: taker
+split: vault:kalshi_cbank_thin
+min_n: 20
+kill:
+  kind: roi_ci_below_zero
+  after_n: 20
+fee:
+  rounding: up
+legacy: 'new 2026-11-20 (agent cbank_thin). Registered after prereg, before any price/outcome/consensus computed. Dev backtest offline in results/cbank_thin/.'

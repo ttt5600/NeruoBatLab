@@ -436,3 +436,10 @@ confirm home state (CA vs CO) for venue legality.
   retired nflup_upper_rungs_t60-4e8e6ef1. Implication: KFG1's +5% placebo is likely window drift too; its forward paper decides.
 - CS2F sealed (11-20, scored once by lead with the scorer unchanged since prereg commit e67ceac): favourites mid .65-.80 at ask
   n361 ROI -8.68% [-14.07,-3.35] -> KILL, retired cs2f_fav_65_80_t60-2e024a72. The dev +4.0% band was post-hoc noise.
+
+### climate_nowcast (merged 2026-11-20, notes/climate_nowcast.md) -- CN1 DEAD
+- Only KXHMONTHRANGE (29 settled) + KXHMONTH (33) settle monthly, both on the same NOAA number (~1 independent month/month).
+  Sea ice / CO2 / hottest-year / ENSO: 1-4 events each.
+- CN1 ERA5 -> NOAA bracket taker: dev n23 +17.47% [-60,+106], fails min_n/halves/concentration; retired. Two model errors:
+  Kalshi settles on NOAA FIRST PRINT (archive differs on 8/16 dev months) and the ERA5->NOAA offset drifted (-0.060 C).
+  CLV +0.080 day4->day8 (prices move to ERA5 side). CN2 forward logger written (scripts/climate_nowcast.py), NOT installed: ~2 decisions/month.

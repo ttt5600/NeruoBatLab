@@ -1,0 +1,19 @@
+id: eo1_locked_yes
+family: kalshi_data_ladders
+dataset: kalshi_eo_week
+rule: edgelab.rules.eo_week:eo1_locked_yes
+params: {}
+hypothesis: 'EO1-Y: Kalshi KXEOWEEK settles on the Federal Register signing date of numbered EOs. Once FR has published
+  the (k+1)-th EO signed in the week (12:00Z on its publication date), rung "above k" is determined YES. Buy YES at the
+  hourly-candle ask (window Tk-6h..Tk+1h) if 0.50 <= ask <= 0.98 and the rung is still open; hold to settlement.
+  Prereg notes/count_nowcast.md (2026-11-21, before any candle).'
+decision_time: 12:00 UTC on the FR publication date of the (k+1)-th EO signed in the week (+1 h quote window)
+price_model: taker
+split: vault:kalshi_eo_week
+min_n: 30
+kill:
+  kind: roi_ci_below_zero
+  after_n: 30
+fee:
+  rounding: cent
+legacy: 'new 2026-11-21 (agent count_nowcast). Placebo (base-rate shape) and NO-side descriptive in notes only.'

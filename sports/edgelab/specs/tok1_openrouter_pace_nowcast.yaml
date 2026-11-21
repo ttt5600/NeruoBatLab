@@ -1,0 +1,15 @@
+id: tok1_openrouter_pace_nowcast
+family: kalshi_data_ladders
+dataset: kalshi_tokenuse_wayback
+rule: edgelab.rules.forward:unwired
+hypothesis: 'R-TOK1 (notes/ai_nowcast.md section 3 prereg): Kalshi KXTOKENUSE weekly OpenRouter tokens. At each Wayback capture T of /api/frontend/v1/rankings/model-rankings-chart with >= 2 days of the week observed, pace nowcast N = partial x 7/d x BYOK ratio; p = Phi((lnN - lnK)/s(d)); buy the side with model prob >= .80 when p - ask - fee >= .05; fee ceil_cent(.07*10*q(1-q))/10; placeholder filter bid>0, ask<.99, spread<=.10. Placebo P0 = N := prior settled week. Week-cluster bootstrap. Dev weeks <= 2026-10-12, hold 10-19..11-09; < 20 settled weeks so dev cannot pass -> forward logger decision only.'
+decision_time: wayback capture T (d >= 2 days into week)
+price_model: taker
+split: vault:kalshi_tokenuse_wayback
+min_n: 20
+kill:
+  kind: roi_ci_below_zero
+  after_n: 20
+fee:
+  rounding: up
+legacy: 'new 2026-11-21 (agent ai_nowcast). Registered after prereg, before any historical price/return computed. Offline dev in results/ai_nowcast/.'

@@ -301,6 +301,15 @@ datasets:
       dev: [2025-01-01, 2026-08-31]        # notes/billboard_top.md before any price/outcome join
       sealed: [2026-09-01, 2026-11-08]
       forward: [2026-11-09, null]
+  kalshi_climate_nowcast:
+    loader: kalshi_climate_nowcast
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = first day of M+1 (release month); set 2026-11-20 before any candle look
+      dev: [2024-06-01, 2025-09-30]        # months 2024-05..2025-08
+      sealed: [2025-10-01, 2026-11-15]     # months 2025-09..2026-10 (user yes only)
+      forward: [2026-11-16, null]
   fx_climate:
     loader: fx_climate
     family: kalshi_data_ladders
@@ -646,3 +655,12 @@ datasets:
       dev: [2026-01-21, 2026-07-31]
       sealed: [2026-08-01, 2026-11-15]     # untouched
       forward: [2026-11-20, null]
+  kalshi_eo_week:          # count_nowcast 11-21: KXEOWEEK locked-YES once the Federal Register shows count > k; prereg notes/count_nowcast.md
+    loader: kalshi_eo_week
+    family: kalshi_data_ladders
+    hidden: [result, expiration_value]
+    outcome: {kind: result_equals_side, key: ticker}
+    splits:                                # date = week end (Sat); set 2026-11-21 before any candle look
+      dev: [2025-09-01, 2026-08-31]
+      sealed: [2026-09-01, 2026-11-14]     # candles not fetched; user yes only
+      forward: [2026-11-15, null]
