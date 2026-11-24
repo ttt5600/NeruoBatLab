@@ -5,10 +5,10 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 
 ## Live money (Kalshi; launchd from ~/.claude/quant-kalshi)
 - E4 orig7 maker + X1 ($30 sub-cap): 137 settled / 134 wins, P&L +$21.02. DUL/TSA/NHL-late as before.
-- 11-24 06:00Z: Kalshi cash dropped (non-bot activity 11-23 evening; details kept out of the repo, see local memory
-  feedback_money_gate_before_any_spend). Shard 0 (all weather) is nearly empty -> E4 orig7 24-ct orders will be rejected
-  until shard 0 is funded. Fix (money move, user's call): `cd ~/.claude/quant-kalshi && .venv/bin/python scripts/bet.py
-  allocate 0=100 --confirm` (dry run without --confirm; the classifier blocked even the dry run for the agent).
+- 11-24 06:47Z: shard 0 funded ($113.57) after the user set target_balance_allocation 0=100 and deposited; $83.87 still
+  sits in shard 3 (allocation did not move existing cash this time; new money lands in 0). Sizing per SIZING_RULE.md: NO
+  step-up now (24 ct = depth ceiling; real E4 bankroll ~$250 < configured KALSHI_BANKROLL_USD 400; next step >= 11-26 and
+  needs new depth evidence + bankroll >= ~$370 for 48 ct at 1/4 Kelly).
 - EXPERIMENT BUDGET $50 (notes/EXPERIMENT_BUDGET.md): spend $24.66. OpenRouter T238 LOST -$14.08 (Kalshi settled on the
   displayed BYOK-excluded total 210.11T). KFG1 live $2 IOC per pick via exp_exec in the kfg1 job: 11-22 7 fills, 5 won, +$2.01.
   Stop: touch ~/.claude/quant-kalshi/data/EXP_STOP. Settlement check: sports/scripts/exp_settle_probe.py.
