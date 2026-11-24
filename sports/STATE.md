@@ -1,5 +1,5 @@
 # fund STATE -- Updated: 2026-11-24 ~03:15Z (session 11-19..24; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
-Next: merge agents e4_coldmargin + wx_bot_flow (both launched 11-24 ~03:10Z; inbox rows). Then: KFG1 Thanksgiving (11-26) + Sun
+Next: merge agent e4_coldmargin (launched 11-24 ~03:10Z; wx_bot_flow merged: dead). Then: KFG1 Thanksgiving (11-26) + Sun
   11-29 live picks (auto, exp_exec); DK claim ~11-28 (one favourite .94-.97); weekly forward scorecards; next agents from
   STRATEGY_v2 / IDEA_PATTERNS "where to look next".
 
@@ -20,7 +20,7 @@ Next: merge agents e4_coldmargin + wx_bot_flow (both launched 11-24 ~03:10Z; inb
 
 ## Running agents (notes/RESEARCH_QUEUE.md)
 - e4_coldmargin: pre-registered fresh-window test (post-sealed 2026-10-07+) of E4 cold margin 3F -> 1F (in-sample +21.3u).
-- wx_bot_flow: replicate open-source KXHIGH retail bots; are their buys the overpriced longshots E4 sells? (I4)
+- wx_bot_flow DONE 11-24: I4 dead (bot flow not identifiable; bot-BUY brackets fair; E4's premium = diffuse YES demand).
 
 ## Results since 11-21 (EDGES_AND_AGENTS.md "Lead scoring 2026-11-23"; IDEA_PATTERNS P-1/P-4)
 - ~30 ideas tested this month; only E4 (live) and KFG1 (forward, n tiny) alive. Dead 11-21..23: UFC JSON latency (JSON trails the

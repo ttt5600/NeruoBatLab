@@ -573,3 +573,14 @@ confirm home state (CA vs CO) for venue legality.
 - Launched 11-24 ~03:10Z: **e4_coldmargin** (fresh-window test of cold margin 3F -> 1F; notes/e4_coldmargin.md) and
   **wx_bot_flow** (replicate open-source KXHIGH retail bots, test whether their buys are the overpriced longshots E4 sells;
   notes/wx_bot_flow.md). Both are angles on E4, the only money edge.
+
+### wx_bot_flow (merged 2026-11-24, notes/wx_bot_flow.md) -- I4 DEAD
+- Window orig-7 D 2026-10-08..11-23 (329 events, 101,704 trades; days from 10-22 are in E4's forward split, used for research
+  only, not for any E4 rule). Main public bot (suislanchez, 844 stars) is paper-only; live public bots lost money.
+- Net taker YES flow follows the 12Z GEFS run, but just as much BEFORE the run is public: diff +0.144 [-0.390,+0.623] (pre-reg
+  timing placebo failed); same slope in cities bots don't trade -> ordinary information flow. Bot-BUY brackets are priced
+  fairly: -0.023 [-0.115,+0.075]; cheap bot-BUY minus other +0.8c [-2.8c,+4.5c]. No E4 veto / pick class.
+- Who pays E4: ~2/3 of D-1 taker contracts on <= 15c brackets are YES buys, regardless of GEFS (diffuse retail demand).
+- Reusable: GEFS-on-AWS as-issued ensemble archive replicates Open-Meteo to 0.1 F (scripts/wx_bot_flow_gefs.py); orig-7 tape
+  results/wx_bot_flow/trades.parquet. Permuted-outcome dry run caught a mechanical regression slope (+.27) before scoring.
+- Ops: research pulls share the live bot's Kalshi rate budget -> throttle, pause 03-06Z. Live exec unaffected (04:06Z run ok).

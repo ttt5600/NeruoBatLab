@@ -35,7 +35,7 @@ orders; money changes stay with the user.
 
 ## Running (2026-11-24, lead launched)
 - e4_coldmargin -- fresh-window (post-sealed) test of E4 cold margin 3F -> 1F; paper-arm proposal (notes/e4_coldmargin.md)
-- wx_bot_flow -- replicate open-source KXHIGH retail bots; is their flow the longshot YES E4 sells? (notes/wx_bot_flow.md)
+- wx_bot_flow -- replicate open-source KXHIGH retail bots; is their flow the longshot YES E4 sells? (notes/wx_bot_flow.md)  [DONE 11-24: dead; flow not identifiable, bot brackets fair]
 
 ## Next up (priority order)
 1. K-NFL/K50-NFL/K1 forward scoring after Sunday's games (judge on CLV vs Kalshi's own strike, not ROI).
