@@ -556,3 +556,20 @@ confirm home state (CA vs CO) for venue legality.
 - Q013 idle (picks only at close-24h/-6h; KXRT closes Mon 07:00 PT); health rule -> active Sun+Mon, zero_days 2; err_re added
   for both (would have flagged Q014 at 11-18 06:00Z instead of 11-21). IDEA_PATTERNS P-8 = source plumbing change.
 - Correction: forward_review_1119's "13/13" was 12 exact + 1 skipped (float(" <5") error counted as pass).
+
+### Lead scoring 2026-11-23 (settlements + forward checks)
+- **OpenRouter P-1 bet LOST (-$14.08):** KXTOKENUSE-26NOV23 expiration_value 210.1096 = the BYOK-excluded default chart total
+  exactly (watcher snapshot 16:27Z). KXTOPUSAGEAI-26NOV16 -> DEEP. P-4 base rate NEW 5/6 [0.442, 0.981]. IDEA_PATTERNS P-1/P-4.
+- **UFC latency angle DEAD:** JSON Result trails the spoken winner (+20.3 s on the clean fight); pre-set kill met 7/7.
+  notes/ufc_decision_gap.md "Forward result"; results/ufc_decision_gap/out_fwd_score.txt. fwd_logger stopped itself 11-21.
+- **LX1 logical arb DEAD:** 1 distinct leg set vs bar 5 (lx1.log report, window closed 11-20 08:00Z). Never in edgelab.
+  The lx1 launchd job still writes a daily report (harmless; user may unload).
+- **KFG1 first live bets (11-22):** 7 IOC fills, 5 won, +$2.01 net (scripts/exp_settle_probe.py). n=7: measurement only.
+  Experiment spend $24.66 / $50.
+- **DK credit = stake-returned:** Tulsa $49.92 Predictions Dollars paid $52.00 cash. Next claims ~11-28, 12-05, 12-12:
+  one favourite .94-.97 each (side-hustle session operates DK; user's account).
+- **Ops: DNS outage 11-23 ~10:00-18:51 PT** (all launchd jobs: NameResolutionError). kalshi_exec failed 9 hourly runs;
+  recovered at the 19:03 PT tick (11-24 picks placed). No code fault.
+- Launched 11-24 ~03:10Z: **e4_coldmargin** (fresh-window test of cold margin 3F -> 1F; notes/e4_coldmargin.md) and
+  **wx_bot_flow** (replicate open-source KXHIGH retail bots, test whether their buys are the overpriced longshots E4 sells;
+  notes/wx_bot_flow.md). Both are angles on E4, the only money edge.

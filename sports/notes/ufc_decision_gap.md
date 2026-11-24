@@ -174,3 +174,16 @@ Source: out_window_summary.txt; fwd_logger.py.
 ### An out-of-time judges model from UFCStats round stats is ~84% accurate
 Round model P = sigma(k * sum_r(2 sigma(w.x_r) - 1)): 2025-26 test log loss .319, Brier .1025, acc 84.1% (n 465); a 10-8
 dominance term adds nothing. Sig strikes, head strikes, control and knockdowns carry most weight. Source: judges.py.
+
+## Forward result (scored 2026-11-23 by the lead; results/ufc_decision_gap/fwd_score.py -> out_fwd_score.txt) -- LATENCY ANGLE DEAD
+UFC FN 11-21 (fmid 1348): 8 decision fights. Per fight: seconds from the spoken-winner stamp (unofficial_winner_decision)
+to (a) Kalshi winner best bid >= .95 and (b) our first poll showing the JSON Result block (Method + FightScores):
+13200 jump +5.0 / JSON +23.3; 13195 -1.8 / +70.6; 13198 +13.3 / +13.3; 13193 +61.6 / +59.9 (lead 1.7 s < 3 s);
+13194, 13192, 13199: book >= .95 100-133 s BEFORE the name (lopsided fights); 13262: no .95 crossing logged, JSON +20.3 s.
+Pre-set kill (JSON not earlier than Kalshi jump - 3 s on >= 5 decisions): met on 7 of 7 fights with a measurable jump -> DEAD.
+Caveat: the endpoint returned non-JSON (empty body) 2,663 times, so first-seen is an upper bound on 7 of 8 fights; the one
+error-free fight (13262) still shows the Result block 20.3 s AFTER the name was read. The JSON's own unofficial_winner action
+appeared 5-10 s after its stamp on clean polls. The UFC JSON trails the broadcast; Kalshi follows the broadcast.
+### The UFC live JSON publishes the decision about 20 s after the announcer reads it
+On the clean-polling fight the Result block appeared +20.3 s after the unofficial_winner_decision stamp; Kalshi reprices
+within ~1-5 s of the name. A JSON-polling bot is a loser here. Source: results/ufc_decision_gap/out_fwd_score.txt.

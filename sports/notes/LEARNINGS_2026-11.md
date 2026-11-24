@@ -425,3 +425,10 @@ execution and coverage, not forecasting. The warm tail is 5x heavier (hourly obs
 ### A sim that is biased low and too narrow loses on every side (props_forward_1121, 11-21)
 NBA prop sim ran 3.1pp below the mids with narrow distributions -> 84% NO picks, -8.97%. Check a model's mean bias and spread
 vs the market's BEFORE a forward trial; one-sided pick shares are a red flag (traps fired at the first look).
+### Kalshi settles on the source as displayed, even after the source redefines its default (OpenRouter, 11-23)
+All 7 prior KXTOKENUSE weeks matched the BYOK-inclusive total because that WAS the default view. When OpenRouter's default
+switched to BYOK-excluded mid-week, Kalshi settled on the new display (210.11T exact). NEW definition now 5 of 6 cases
+[0.442, 0.981]. Our $14.08 bet on the old definition lost. Source: IDEA_PATTERNS.md P-1/P-4.
+### An official live JSON can trail the TV broadcast (UFC, 11-23)
+UFC's live-stats JSON showed the decision ~20 s after the announcer read it; Kalshi moved within ~1-5 s of the name. Time
+any "faster data" source against the broadcast before building on it. Source: notes/ufc_decision_gap.md.

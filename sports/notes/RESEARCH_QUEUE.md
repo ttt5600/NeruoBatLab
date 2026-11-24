@@ -33,6 +33,10 @@ orders; money changes stay with the user.
 - altdata_kpi -- census + pre-reg of JBLU / foot traffic / card spend / TikTok Shop / SPR series (notes/altdata_kpi.md)  [DONE 11-19: dead, Carbon Arc paywalled]
 ## Done 11-16..19: e4_timing, ot1_extension, tropical_nhc, forward_review_1115, fed_vs_futures, mortgage_rates (see LEARNINGS_2026-11.md)
 
+## Running (2026-11-24, lead launched)
+- e4_coldmargin -- fresh-window (post-sealed) test of E4 cold margin 3F -> 1F; paper-arm proposal (notes/e4_coldmargin.md)
+- wx_bot_flow -- replicate open-source KXHIGH retail bots; is their flow the longshot YES E4 sells? (notes/wx_bot_flow.md)
+
 ## Next up (priority order)
 1. K-NFL/K50-NFL/K1 forward scoring after Sunday's games (judge on CLV vs Kalshi's own strike, not ROI).
 2. Information edges (the only lever left given execution cost): late news timing (news_lag), goalie confirmations

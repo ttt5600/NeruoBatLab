@@ -1,0 +1,10 @@
+fight winner bid@horn jump95-uw(s) json_result-uw(s) json_errors_in_window
+(13262, 'MOT', 0, None, 20.3, 0)
+(13193, 'ABD', 0.97, 61.6, 59.9, 59)
+(13200, 'TEI', 0.72, 5.0, 23.3, 22)
+(13194, 'LUN', 0.96, -100.9, 43.3, 47)
+(13192, 'ALI', 0.99, -133.0, 70.0, 66)
+(13195, 'HOR', 0.82, -1.8, 70.6, 47)
+(13199, 'HOO', 0.96, -123.8, 27.4, 18)
+(13198, 'VAL', 0.81, 13.3, 13.3, 28)
+json errors by type [('Expecting value: line 1 column 1 (char 0)', 2663), ("'LiveEventDetail'", 17)]

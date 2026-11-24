@@ -1,37 +1,40 @@
-# fund STATE -- Updated: 2026-11-21 ~12:00Z (session 11-19..21; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
-Next: all agents merged (11-21 15:30Z); launch next from STRATEGY_v2 top list / IDEA_PATTERNS; score settlements: Tulsa DK credit (11-21, decides
-  SR vs SNR credit policy, notes/money_now.md), KFG1 first live $2 picks (Sun 11-22), OpenRouter T238 (11-23 10:00 ET).
-  Also: UFC JSON-latency logger result (results/ufc_decision_gap/fwd/1348.jsonl, notes/ufc_decision_gap.md kill rule).
+# fund STATE -- Updated: 2026-11-24 ~03:15Z (session 11-19..24; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
+Next: merge agents e4_coldmargin + wx_bot_flow (both launched 11-24 ~03:10Z; inbox rows). Then: KFG1 Thanksgiving (11-26) + Sun
+  11-29 live picks (auto, exp_exec); DK claim ~11-28 (one favourite .94-.97); weekly forward scorecards; next agents from
+  STRATEGY_v2 / IDEA_PATTERNS "where to look next".
 
 ## Live money (Kalshi; launchd from ~/.claude/quant-kalshi)
-- E4 orig7 maker + X1 ($30 sub-cap): live 133 settled / 130 wins, P&L +$19.52, 7d +$14.44 (`kalshi_exec.py status`, 11-21).
-  orig7 not cap-bound since 11-03; X1 picks hit its $30 cap 6-9/day by design. DUL/TSA/NHL-late as before; DUL took U45 IND@HOU.
-- EXPERIMENT BUDGET $50 (user 11-21, "be aggressive"; notes/EXPERIMENT_BUDGET.md; journal ~/.claude/quant-kalshi/data/exp_budget.jsonl):
-  OpenRouter KXTOKENUSE-26NOV23-T238 YES 180 @ .0735 = $14.08 (likely loses: Kalshi followed NEW definition 4/5, source_shift);
-  KFG1 $2 IOC per pick via scripts/exp_exec.py inside the kfg1 launchd job (cap = $50 total spend). Stop: touch data/EXP_STOP.
-- DraftKings Predictions (user's own account, side-hustle session operates it): $50 credit on Tulsa 52 ct, UNHEDGED by user choice;
-  3 more $50 credits ~11-28/12-05/12-12. Policy: SR -> favourite unhedged; SNR -> .10-.25 dog hedged on Kalshi (money_now.md).
+- E4 orig7 maker + X1 ($30 sub-cap): 137 settled / 134 wins, P&L +$21.02, balance $571.12 (`kalshi_exec.py status`, 11-24 03:00Z).
+  DUL/TSA/NHL-late as before. X1 picks hit their cap daily by design.
+- EXPERIMENT BUDGET $50 (notes/EXPERIMENT_BUDGET.md): spend $24.66. OpenRouter T238 LOST -$14.08 (Kalshi settled on the
+  displayed BYOK-excluded total 210.11T). KFG1 live $2 IOC per pick via exp_exec in the kfg1 job: 11-22 7 fills, 5 won, +$2.01.
+  Stop: touch ~/.claude/quant-kalshi/data/EXP_STOP. Settlement check: sports/scripts/exp_settle_probe.py.
+- DraftKings Predictions (user's account, side-hustle session operates it): credit trades pay the FULL payout (Tulsa $49.92 PD
+  -> $52.00 cash). Claims ~11-28 / 12-05 / 12-12 (168 h expiry): one favourite .94-.97 each, unhedged.
 
-## Monitoring / jobs added this session
-- kfg1 (KFG1 forward paper + exp_exec live), installed by user. source-shift watcher: job case deployed; launchd NOT installed
-  (user: `bash sports/scripts/install_source_shift_agent.sh`). health: gas-books max_gap 14->20h.
+## Jobs / ops
+- source-shift watcher installed (hourly); AAA rollover guard; Q014 Roll Call endpoint fixed (count 58 = RSS 58).
+- DNS outage 11-23 ~10:00-18:51 PT broke every launchd job (NameResolutionError); recovered at the 19:03 PT tick. No code fault.
+- LX1 scanner window over (KILLED); its job still writes a daily report (user may unload). early-form idle (optional unload).
 - odd-lot tender watcher scripts/oddlot_watch.py built, not scheduled.
 
 ## Running agents (notes/RESEARCH_QUEUE.md)
-ALL agents finished 11-21 (last: ufc_decision_gap). E4 edge = longshot-YES overpricing (e4_data_v2); props KILLED.
+- e4_coldmargin: pre-registered fresh-window test (post-sealed 2026-10-07+) of E4 cold margin 3F -> 1F (in-sample +21.3u).
+- wx_bot_flow: replicate open-source KXHIGH retail bots; are their buys the overpriced longshots E4 sells? (I4)
 
-## Session results (EDGES_AND_AGENTS.md, LEARNINGS_2026-11.md, STRATEGY_v2.md, IDEA_PATTERNS.md)
-- ~25 ideas tested, all dead except KFG1 (dev +23% [-0.7,+47.3] n56, forward). Only free-official-source nowcasts survive sealed
-  (sealed/dev 0.664 vs 0.162 for models; winners_transfer). Fastest public page sets price. Pool census: Kalshi loser money is
-  in in-play sports + 15m crypto ($659M/30d); weather $1.49M; wide far rungs -> pool goes to the quoting maker.
-- PM US taker fee is .095 (docs corrected). DK Predictions fee schedule in notes/venues.md.
+## Results since 11-21 (EDGES_AND_AGENTS.md "Lead scoring 2026-11-23"; IDEA_PATTERNS P-1/P-4)
+- ~30 ideas tested this month; only E4 (live) and KFG1 (forward, n tiny) alive. Dead 11-21..23: UFC JSON latency (JSON trails the
+  broadcast ~20 s), LX1 logical arb (1 distinct set vs bar 5), OpenRouter definition bet, props, E4 data_v2 T1-T3, tennis, eSoccer.
+- P-4: Kalshi follows the NEW source definition 5/6 [0.442, 0.981] -> bet with the display, not with history.
 
 ## Waiting on user
-1. Re-lock GOAL.md (hub doctor FAIL; sha in notes/STATE_HISTORY). User asked for 2x in 1 month: explained ~1-3% base rate;
-   12-month goal unchanged until they re-lock. 2. Install source-shift watcher. 3. vault.yaml windows for forward trials.
-4. Branch not pushed (push blocked by permission classifier): `! git push origin worktree-quant-trader`.
+1. Re-lock GOAL.md (hub doctor FAIL). 12-month goal unchanged until re-lock. 2. vault.yaml windows for forward trials.
+3. Optional: unload lx1 + early-form jobs; schedule oddlot watcher; promos needing sign-up (money_now.md: Gemini ~$38,
+   ProphetX ~$36.5, PM US $15.30, Novig $45 unverified, Webull ~$18.7) -- identity steps are the user's.
 
 ## Standing authorizations + rules
 "Approval on everything" (prepared/tested/reversible) + $50 experiment budget; never identity-acting steps; never bring
-browser windows forward (memory feedback_no_tab_focus_during_user_activity). Traps: Kalshi cash per shard; close_time != event
-time; /historical `close` dollars vs live `close_dollars`; first-print settlements; robots.txt (Vercel /api/ disallowed).
+browser windows forward (no `open <url>`); no DK trades / Kalshi hedges without the user's OK. Push over HTTPS
+(`git push https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`; SSH 22 blocked); never force-push.
+Traps: Kalshi cash per shard; close_time != event time; /historical `close` dollars vs live `close_dollars`; first-print
+settlements; robots.txt (Vercel /api/ disallowed).

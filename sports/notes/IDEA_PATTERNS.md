@@ -19,7 +19,13 @@ and against, the outcome, and the generalisation (where else to look). Update th
   now displays the exclusive number. Kalshi ITSELF listed new low strikes T137..T200 at 04:10Z, 7 minutes after the first
   post-switch trade -> the exchange expects the exclusive number. Fast bots agree. My estimate: roughly 10-20%, vs ~7% priced.
   Not confident enough to add size.
-- **Outcome:** pending (settles 2026-11-23 10:00 ET). Record which view Kalshi used here and in LEARNINGS.
+- **Outcome (2026-11-23): LOST $14.08.** KXTOKENUSE-26NOV23 expiration_value 210.109583915801 = EXACTLY the default
+  (organic, BYOK-EXCLUDED) chart's week-of-11-16 total in our watcher snapshot at 16:27Z (chart_default weeks_T 210.1096;
+  ~/.claude/quant-sports/data/source_shift/snapshots.jsonl). Kalshi read the page as displayed -> NEW definition (6th P-4 case).
+  Sibling KXTOPUSAGEAI-26NOV16 settled DEEP (organic view), TENC no. The value also drifted 210.11 -> 212.83 one hour later:
+  "as observed at 10:00 AM ET" means a snapshot, so the exact rebuild must be taken at the stated minute.
+  Lesson: when the source's DISPLAY changes, bet with the display, not with the settlement history; our 10-20% estimate was
+  too high -- the book's ~7% and Kalshi's own new low strikes were the better forecasts.
 - **Generalise:** every series we can rebuild exactly gets a daily rebuild + alternative-definition rebuild; alert when
   (a) the rebuild diverges from prior captures, (b) the source page changes format/toggles/default, (c) the exchange lists
   new strikes or edits rules text. Candidates: OpenRouter/Vercel share series, NOAA vintages (first print vs revised),
@@ -61,6 +67,10 @@ stored rules text for "Clarification" / "amendment" (31 distinct mid-contract cl
 - **Applied to KXTOKENUSE-26NOV23 (P-1 bet):** the history leans NEW (= BYOK-excluded default). With Kalshi's new low strikes and
   the sibling's "as displayed on the OpenRouter Top Models chart" (KXTOPUSAGEAI), the BYOK-inclusive YES is likely below P-1's
   10-20%. Hold the $14.08; do not add. Record the settlement as the 6th decision.
+- **6th decision (2026-11-23): NEW.** KXTOKENUSE-26NOV23 settled on the BYOK-excluded default view (210.11T, exact match).
+  Rate now NEW 5 of 6, Jeffreys 95% interval [0.442, 0.981] (Beta(5.5, 1.5), scipy; the 4/5 check reproduces [0.371, 0.977]).
+  Operating rule: on an open contract, assume Kalshi settles on the source as DISPLAYED at the settlement minute; a
+  definition-change bet needs a reason the display will revert, not history.
 
 ### P-5 A cancelled print settles near the book; a delayed print settles to the truth (2025 shutdown)
 - Never published (Oct-2025 CPI x4, Oct-2025 U3, Q3-2025 GDP "Advance Estimate", Oct eggs): every TRADED strike resolved to its
