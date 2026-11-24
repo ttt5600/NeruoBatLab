@@ -1,0 +1,25 @@
+{
+ "primary_exec": "maker_tt",
+ "verdict": "LEAD",
+ "conditions": {
+  "S>0": true,
+  "p<.05": true,
+  "halves>0": true,
+  "S>P2": true,
+  "S>P1_p90": false
+ },
+ "insample_roi_per_fill_inside_ci": true
+}
+EXTRA         picks  217 cov 1.0 | TT fills 77 L 2 +4.07 [-0.002, 8.22] p 0.025 halves [2.395, 1.679] | N10 135 +5.38 | taker 217 L 2 +4.52 [0.602, 8.347]
+EXTRA_orig7   picks   66 cov 1.0 | TT fills 36 L 0 +4.11 [1.951, 7.121] p 0.000 halves [1.746, 2.359] | N10 58 +4.65 | taker 66 L 0 +3.79 [1.891, 6.434]
+EXTRA_x1      picks  151 cov 1.0 | TT fills 41 L 2 -0.03 [-3.243, 2.369] p 0.483 halves [0.649, -0.68] | N10 77 +0.72 | taker 151 L 2 +0.73 [-2.497, 3.112]
+E4_ref        picks  611 cov 1.0 | TT fills 288 L 16 +4.38 [-8.073, 15.21] p 0.224 halves [3.811, 0.57] | N10 417 +9.18 | taker 611 L 16 +6.02 [-6.316, 16.782]
+P2_wrongday   picks  308 cov 0.9935 | TT fills 242 L 84 -30.97 [-53.127, -8.81] p 0.998 halves [-15.189, -15.781] | N10 264 -30.84 | taker 308 L 84 -28.39 [-51.648, -5.738]
+P3_warm_band  picks  810 cov 1.0 | TT fills 623 L 136 -33.00 [-68.443, 0.34] p 0.973 halves [-5.972, -27.028] | N10 705 -31.18 | taker 810 L 136 -36.41 [-72.269, -2.826]
+P1 {'col': 'tt_pnl', 'mean': 1.155, 'p90': 5.28, 'p95': 6.68, 'actual': 4.074, 'actual_pctile': 0.8155, 'shortfall_picks': 1, 'cells': 92, 'pool_tape_cov': 0.9993} 
+P1 taker {'col': 'tk_pnl', 'mean': 1.241, 'p90': 5.308, 'p95': 6.536, 'actual': 4.518, 'actual_pctile': 0.851, 'shortfall_picks': 1, 'cells': 92}
+U_live {'city_nights': 445, 'EXTRA_live': {'picks': 92, 'tt': 1.542, 'tt_ci': [-1.473, 4.322], 'fills': 30, 'L': 1, 'taker': 1.765}, 'E4_live': {'picks': 461, 'tt': 4.735, 'tt_ci': [-4.591, 14.312], 'fills': 200, 'L': 9, 'taker': 4.862}}
+recon {'live_e4_picks_in_window': 456, 'fcsafe_e4_picks': 611, 'overlap': 407, 'live_picks_in_fcsafe_extra': 1, 'fcsafe_minus_live_by_model': {'gfs_seamless': -0.477, 'ecmwf_ifs025': 0.003, 'icon_seamless': 0.062, 'gem_seamless': 0.096, 'ncep_nbm_conus': 0.013}, 'U_live_extra_vs_fcsafe_extra_overlap': 70}
+                       ticker cohort       date strike_type  floor_strike  cap_strike  expiration_value  yes_bid  yes_ask     q  tt_filled  fc_gfs_seamless  fc_ecmwf_ifs025  fc_icon_seamless  fc_gem_seamless  fc_ncep_nbm_conus  coldest
+3204   KXHIGHTHOU-26NOV18-T69     x1 2026-11-18        less           NaN        69.0              68.0     0.01     0.02  0.98       True             71.3             71.4              72.8             74.5               70.6     70.6
+4609  KXHIGHTSATX-26NOV07-T70     x1 2026-11-07        less           NaN        70.0              69.0     0.63     0.66  0.35       True             73.2             70.6              70.1             73.3               72.3     70.1

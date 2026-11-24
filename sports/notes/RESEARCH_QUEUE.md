@@ -34,7 +34,7 @@ orders; money changes stay with the user.
 ## Done 11-16..19: e4_timing, ot1_extension, tropical_nhc, forward_review_1115, fed_vs_futures, mortgage_rates (see LEARNINGS_2026-11.md)
 
 ## Running (2026-11-24, lead launched)
-- e4_coldmargin -- fresh-window (post-sealed) test of E4 cold margin 3F -> 1F; paper-arm proposal (notes/e4_coldmargin.md)
+- e4_coldmargin -- fresh-window (post-sealed) test of E4 cold margin 3F -> 1F; paper-arm proposal (notes/e4_coldmargin.md)  [DONE 11-24: LEAD +4.07u [-0.002,+8.22], placebo 81.6th pct; paper arm deployed]
 - wx_bot_flow -- replicate open-source KXHIGH retail bots; is their flow the longshot YES E4 sells? (notes/wx_bot_flow.md)  [DONE 11-24: dead; flow not identifiable, bot brackets fair]
 
 ## Next up (priority order)

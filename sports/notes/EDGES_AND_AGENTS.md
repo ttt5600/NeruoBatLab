@@ -584,3 +584,15 @@ confirm home state (CA vs CO) for venue legality.
 - Reusable: GEFS-on-AWS as-issued ensemble archive replicates Open-Meteo to 0.1 F (scripts/wx_bot_flow_gefs.py); orig-7 tape
   results/wx_bot_flow/trades.parquet. Permuted-outcome dry run caught a mechanical regression slope (+.27) before scoring.
 - Ops: research pulls share the live bot's Kalshi rate budget -> throttle, pause 03-06Z. Live exec unaffected (04:06Z run ok).
+
+### e4_coldmargin (merged 2026-11-24, notes/e4_coldmargin.md) -- E4C cold margin 1F = LEAD; paper arm DEPLOYED
+- Fresh window F (no dev/sealed dates): orig-7 D 10-07..11-22 + X1 10-19..11-22 (10-22+ = E4 forward split; 2nd look at that data).
+- Extra picks only (cold band 1-3F below the coldest model), maker trade-through: +4.07u [-0.002,+8.22], 217 picks / 77 fills /
+  2 losses, one-sided p .025, both halves > 0; taker +4.52u [+0.60,+8.35]; live-forecast subset +1.54u [-1.47,+4.32].
+- Price-matched random placebo +1.16u (90th pct +5.28): actual at the 81.6th pct -> FAIL -> LEAD, not pass. Most of the gain is
+  the longshot premium at those prices (NO < .90: 11 picks +2.34u; NO .99: 145 picks -0.47u); X1 -0.03u (both losses X1).
+- Critic: accept-with-changes (a missing-expiration bug moved only the placebos; v1 kept in score_v1_prefix.json).
+- Lead deployed the paper arm 11-24 04:50Z (no orders): scripts/e4c_cold_paper.py in the quant-sports e4p job (hourly with e4p
+  settle), output ~/.claude/quant-sports/data/kx_forward/e4c_cold.jsonl, FORWARD_FROM 11-25; tests 11/11. edgelab trial
+  e4c_cold1_maker_fwd-c7e0b93e, pre-set kill roi_ci_below_zero after 60 fills; study decision at 150 fills (~3 months,
+  through the Dec-Feb season). No money before that and the user's yes. vault.yaml entry proposed (user's file).

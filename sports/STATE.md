@@ -1,5 +1,5 @@
 # fund STATE -- Updated: 2026-11-24 ~03:15Z (session 11-19..24; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
-Next: merge agent e4_coldmargin (launched 11-24 ~03:10Z; wx_bot_flow merged: dead). Then: KFG1 Thanksgiving (11-26) + Sun
+Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: KFG1 Thanksgiving (11-26) + Sun
   11-29 live picks (auto, exp_exec); DK claim ~11-28 (one favourite .94-.97); weekly forward scorecards; next agents from
   STRATEGY_v2 / IDEA_PATTERNS "where to look next".
 
@@ -18,8 +18,9 @@ Next: merge agent e4_coldmargin (launched 11-24 ~03:10Z; wx_bot_flow merged: dea
 - LX1 scanner window over (KILLED); its job still writes a daily report (user may unload). early-form idle (optional unload).
 - odd-lot tender watcher scripts/oddlot_watch.py built, not scheduled.
 
-## Running agents (notes/RESEARCH_QUEUE.md)
-- e4_coldmargin: pre-registered fresh-window test (post-sealed 2026-10-07+) of E4 cold margin 3F -> 1F (in-sample +21.3u).
+## Agents (notes/RESEARCH_QUEUE.md) -- none running
+- e4_coldmargin DONE 11-24: LEAD +4.07u [-0.002,+8.22] n217 extra picks, placebo 81.6th pct (fail). PAPER arm deployed in the
+  quant-sports e4p job (e4c_cold.jsonl, from 11-25); kill roi_ci_below_zero after 60 fills; decide at 150 fills (~3 mo).
 - wx_bot_flow DONE 11-24: I4 dead (bot flow not identifiable; bot-BUY brackets fair; E4's premium = diffuse YES demand).
 
 ## Results since 11-21 (EDGES_AND_AGENTS.md "Lead scoring 2026-11-23"; IDEA_PATTERNS P-1/P-4)
@@ -28,7 +29,7 @@ Next: merge agent e4_coldmargin (launched 11-24 ~03:10Z; wx_bot_flow merged: dea
 - P-4: Kalshi follows the NEW source definition 5/6 [0.442, 0.981] -> bet with the display, not with history.
 
 ## Waiting on user
-1. Re-lock GOAL.md (hub doctor FAIL). 12-month goal unchanged until re-lock. 2. vault.yaml windows for forward trials.
+1. Re-lock GOAL.md (hub doctor FAIL). 12-month goal unchanged until re-lock. 2. vault.yaml windows for forward trials (incl. kalshi_temp_e4c_fwd text in notes/e4_coldmargin.md).
 3. Optional: unload lx1 + early-form jobs; schedule oddlot watcher; promos needing sign-up (money_now.md: Gemini ~$38,
    ProphetX ~$36.5, PM US $15.30, Novig $45 unverified, Webull ~$18.7) -- identity steps are the user's.
 

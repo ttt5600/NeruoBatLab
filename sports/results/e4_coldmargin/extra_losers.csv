@@ -1,0 +1,3 @@
+ticker,cohort,date,strike_type,floor_strike,cap_strike,expiration_value,yes_bid,yes_ask,q,tt_filled,fc_gfs_seamless,fc_ecmwf_ifs025,fc_icon_seamless,fc_gem_seamless,fc_ncep_nbm_conus,coldest
+KXHIGHTHOU-26NOV18-T69,x1,2026-11-18,less,,69.0,68.0,0.01,0.02,0.98,True,71.3,71.4,72.8,74.5,70.6,70.6
+KXHIGHTSATX-26NOV07-T70,x1,2026-11-07,less,,70.0,69.0,0.63,0.66,0.35,True,73.2,70.6,70.1,73.3,72.3,70.1

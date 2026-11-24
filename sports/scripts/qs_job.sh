@@ -213,7 +213,8 @@ case "$job" in
       { echo "=== $(date '+%F %T %Z') $job: e4p_paper.py tick"; printf '%s\n' "$out"; echo "exit $rc"; } >> "$LOG"
     fi
     now=$(date +%s); last=$(cat state/e4p_settle_last 2>/dev/null || echo 0)
-    if [ $((now - last)) -ge 3600 ]; then run scripts/e4p_paper.py settle && echo "$now" > state/e4p_settle_last; fi ;;
+    if [ $((now - last)) -ge 3600 ]; then run scripts/e4p_paper.py settle && echo "$now" > state/e4p_settle_last
+      run scripts/e4c_cold_paper.py tick; fi ;;   # E4C cold-band paper (notes/e4_coldmargin.md): reads e4p.jsonl, no orders
   # ---- crypto_barrier (11-16, notes/crypto_barrier.md): READ-ONLY; installed by scripts/install_crypto_barrier_agent.sh
   crypto-barrier)   # CB1 monthly crypto one-touch paper: decide once per UTC day at the first run >= 16:00 UTC (idle runs
                     # print nothing -> heartbeat only); settle picks at most once per hour. launchd 300 s.

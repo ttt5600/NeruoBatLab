@@ -1,0 +1,756 @@
+{
+ "n_markets": 5544,
+ "n_scored_rows": 5535,
+ "days": 47,
+ "half_split": "2026-10-30",
+ "primary_exec": "maker_tt",
+ "EXTRA": {
+  "picks": 217,
+  "tape_cov": 1.0,
+  "maker_tt": {
+   "fills": 77,
+   "losses": 2,
+   "loss_rate": 0.026,
+   "loss_wilson": [
+    0.0072,
+    0.0898
+   ],
+   "breakeven_loss": 0.0709,
+   "mean_q": 0.9291,
+   "sum": 4.074,
+   "ci95": [
+    -0.002,
+    8.22
+   ],
+   "p_le0": 0.02525,
+   "halves": [
+    2.395,
+    1.679
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.0529,
+   "roi_per_fill_ci": [
+    0.0007,
+    0.1072
+   ]
+  },
+  "maker_n10": {
+   "fills": 135,
+   "losses": 2,
+   "loss_rate": 0.0148,
+   "loss_wilson": [
+    0.0041,
+    0.0524
+   ],
+   "breakeven_loss": 0.0499,
+   "mean_q": 0.9501,
+   "sum": 5.376,
+   "ci95": [
+    1.287,
+    9.531
+   ],
+   "p_le0": 0.006,
+   "halves": [
+    3.146,
+    2.23
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.0398,
+   "roi_per_fill_ci": [
+    0.0097,
+    0.0725
+   ]
+  },
+  "taker": {
+   "bets": 217,
+   "losses": 2,
+   "loss_wilson": [
+    0.0025,
+    0.033
+   ],
+   "mean_ask": 0.9702,
+   "sum": 4.518,
+   "ci95": [
+    0.602,
+    8.347
+   ],
+   "p_le0": 0.0135,
+   "halves": [
+    2.726,
+    1.792
+   ],
+   "roi": 0.0208
+  }
+ },
+ "E4_ref": {
+  "picks": 611,
+  "tape_cov": 1.0,
+  "maker_tt": {
+   "fills": 288,
+   "losses": 16,
+   "loss_rate": 0.0556,
+   "loss_wilson": [
+    0.0345,
+    0.0883
+   ],
+   "breakeven_loss": 0.0629,
+   "mean_q": 0.9371,
+   "sum": 4.381,
+   "ci95": [
+    -8.073,
+    15.21
+   ],
+   "p_le0": 0.22425,
+   "halves": [
+    3.811,
+    0.57
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.0152,
+   "roi_per_fill_ci": [
+    -0.0259,
+    0.0536
+   ]
+  },
+  "maker_n10": {
+   "fills": 417,
+   "losses": 16,
+   "loss_rate": 0.0384,
+   "loss_wilson": [
+    0.0238,
+    0.0614
+   ],
+   "breakeven_loss": 0.0525,
+   "mean_q": 0.9475,
+   "sum": 9.18,
+   "ci95": [
+    -3.523,
+    20.503
+   ],
+   "p_le0": 0.07075,
+   "halves": [
+    5.301,
+    3.879
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.022,
+   "roi_per_fill_ci": [
+    -0.0069,
+    0.0507
+   ]
+  },
+  "taker": {
+   "bets": 611,
+   "losses": 16,
+   "loss_wilson": [
+    0.0162,
+    0.0421
+   ],
+   "mean_ask": 0.9662,
+   "sum": 6.024,
+   "ci95": [
+    -6.316,
+    16.782
+   ],
+   "p_le0": 0.157,
+   "halves": [
+    3.716,
+    2.308
+   ],
+   "roi": 0.0099
+  }
+ },
+ "MC1_union": {
+  "picks": 828,
+  "tape_cov": 1.0,
+  "maker_tt": {
+   "fills": 365,
+   "losses": 18,
+   "loss_rate": 0.0493,
+   "loss_wilson": [
+    0.0314,
+    0.0766
+   ],
+   "breakeven_loss": 0.0646,
+   "mean_q": 0.9354,
+   "sum": 8.455,
+   "ci95": [
+    -5.111,
+    20.412
+   ],
+   "p_le0": 0.1005,
+   "halves": [
+    6.206,
+    2.249
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.0232,
+   "roi_per_fill_ci": [
+    -0.0127,
+    0.0559
+   ]
+  },
+  "maker_n10": {
+   "fills": 552,
+   "losses": 18,
+   "loss_rate": 0.0326,
+   "loss_wilson": [
+    0.0207,
+    0.051
+   ],
+   "breakeven_loss": 0.0518,
+   "mean_q": 0.9482,
+   "sum": 14.556,
+   "ci95": [
+    1.134,
+    26.768
+   ],
+   "p_le0": 0.02,
+   "halves": [
+    8.447,
+    6.109
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.0264,
+   "roi_per_fill_ci": [
+    0.0025,
+    0.0492
+   ]
+  },
+  "taker": {
+   "bets": 828,
+   "losses": 18,
+   "loss_wilson": [
+    0.0138,
+    0.0341
+   ],
+   "mean_ask": 0.9673,
+   "sum": 10.542,
+   "ci95": [
+    -2.699,
+    22.263
+   ],
+   "p_le0": 0.058,
+   "halves": [
+    6.442,
+    4.1
+   ],
+   "roi": 0.0127
+  }
+ },
+ "P2_wrongday": {
+  "picks": 306,
+  "tape_cov": 1.0,
+  "maker_tt": {
+   "fills": 240,
+   "losses": 82,
+   "loss_rate": 0.3417,
+   "loss_wilson": [
+    0.2846,
+    0.4037
+   ],
+   "breakeven_loss": 0.2891,
+   "mean_q": 0.7109,
+   "sum": -28.969,
+   "ci95": [
+    -50.765,
+    -7.312
+   ],
+   "p_le0": 0.997,
+   "halves": [
+    -13.189,
+    -15.781
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": -0.1207,
+   "roi_per_fill_ci": [
+    -0.2167,
+    -0.0332
+   ]
+  },
+  "maker_n10": {
+   "fills": 262,
+   "losses": 82,
+   "loss_rate": 0.313,
+   "loss_wilson": [
+    0.2599,
+    0.3715
+   ],
+   "breakeven_loss": 0.2673,
+   "mean_q": 0.7327,
+   "sum": -28.838,
+   "ci95": [
+    -50.016,
+    -7.363
+   ],
+   "p_le0": 0.99625,
+   "halves": [
+    -13.382,
+    -15.456
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": -0.1101,
+   "roi_per_fill_ci": [
+    -0.1974,
+    -0.0294
+   ]
+  },
+  "taker": {
+   "bets": 306,
+   "losses": 82,
+   "loss_wilson": [
+    0.2214,
+    0.3203
+   ],
+   "mean_ask": 0.7633,
+   "sum": -26.387,
+   "ci95": [
+    -48.919,
+    -4.066
+   ],
+   "p_le0": 0.9905,
+   "halves": [
+    -13.938,
+    -12.449
+   ],
+   "roi": -0.0862
+  }
+ },
+ "P3_warm_band": {
+  "picks": 810,
+  "tape_cov": 1.0,
+  "maker_tt": {
+   "fills": 623,
+   "losses": 136,
+   "loss_rate": 0.2183,
+   "loss_wilson": [
+    0.1876,
+    0.2524
+   ],
+   "breakeven_loss": 0.1953,
+   "mean_q": 0.8047,
+   "sum": -33.0,
+   "ci95": [
+    -68.443,
+    0.34
+   ],
+   "p_le0": 0.973,
+   "halves": [
+    -5.972,
+    -27.028
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": -0.053,
+   "roi_per_fill_ci": [
+    -0.1089,
+    0.0016
+   ]
+  },
+  "maker_n10": {
+   "fills": 705,
+   "losses": 136,
+   "loss_rate": 0.1929,
+   "loss_wilson": [
+    0.1655,
+    0.2237
+   ],
+   "breakeven_loss": 0.1766,
+   "mean_q": 0.8234,
+   "sum": -31.178,
+   "ci95": [
+    -67.377,
+    3.21
+   ],
+   "p_le0": 0.9595,
+   "halves": [
+    -4.505,
+    -26.673
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": -0.0442,
+   "roi_per_fill_ci": [
+    -0.0954,
+    0.0049
+   ]
+  },
+  "taker": {
+   "bets": 810,
+   "losses": 136,
+   "loss_wilson": [
+    0.1437,
+    0.1952
+   ],
+   "mean_ask": 0.8465,
+   "sum": -36.407,
+   "ci95": [
+    -72.269,
+    -2.826
+   ],
+   "p_le0": 0.98475,
+   "halves": [
+    -6.121,
+    -30.286
+   ],
+   "roi": -0.0449
+  }
+ },
+ "P1_random": {
+  "col": "tt_pnl",
+  "mean": 1.525,
+  "p90": 5.619,
+  "p95": 7.016,
+  "actual": 4.074,
+  "actual_pctile": 0.7845,
+  "shortfall_picks": 1,
+  "cells": 92,
+  "pool_tape_cov": 1.0
+ },
+ "P1_random_taker": {
+  "col": "tk_pnl",
+  "mean": 1.588,
+  "p90": 5.603,
+  "p95": 6.856,
+  "actual": 4.518,
+  "actual_pctile": 0.8325,
+  "shortfall_picks": 1,
+  "cells": 92
+ },
+ "EXTRA_orig7": {
+  "picks": 66,
+  "tape_cov": 1.0,
+  "maker_tt": {
+   "fills": 36,
+   "losses": 0,
+   "loss_rate": 0.0,
+   "loss_wilson": [
+    0.0,
+    0.0964
+   ],
+   "breakeven_loss": 0.0825,
+   "mean_q": 0.9175,
+   "sum": 4.105,
+   "ci95": [
+    1.951,
+    7.121
+   ],
+   "p_le0": 0.0,
+   "halves": [
+    1.746,
+    2.359
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.114,
+   "roi_per_fill_ci": [
+    0.0575,
+    0.202
+   ]
+  },
+  "maker_n10": {
+   "fills": 58,
+   "losses": 0,
+   "loss_rate": 0.0,
+   "loss_wilson": [
+    0.0,
+    0.0621
+   ],
+   "breakeven_loss": 0.0603,
+   "mean_q": 0.9397,
+   "sum": 4.651,
+   "ci95": [
+    2.514,
+    7.616
+   ],
+   "p_le0": 0.0,
+   "halves": [
+    2.118,
+    2.533
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.0802,
+   "roi_per_fill_ci": [
+    0.0443,
+    0.1374
+   ]
+  },
+  "taker": {
+   "bets": 66,
+   "losses": 0,
+   "loss_wilson": [
+    0.0,
+    0.055
+   ],
+   "mean_ask": 0.9542,
+   "sum": 3.786,
+   "ci95": [
+    1.891,
+    6.434
+   ],
+   "p_le0": 0.0,
+   "halves": [
+    1.655,
+    2.131
+   ],
+   "roi": 0.0574
+  }
+ },
+ "EXTRA_x1": {
+  "picks": 151,
+  "tape_cov": 1.0,
+  "maker_tt": {
+   "fills": 41,
+   "losses": 2,
+   "loss_rate": 0.0488,
+   "loss_wilson": [
+    0.0135,
+    0.1614
+   ],
+   "breakeven_loss": 0.0607,
+   "mean_q": 0.9393,
+   "sum": -0.031,
+   "ci95": [
+    -3.243,
+    2.369
+   ],
+   "p_le0": 0.48325,
+   "halves": [
+    0.649,
+    -0.68
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": -0.0008,
+   "roi_per_fill_ci": [
+    -0.0751,
+    0.057
+   ]
+  },
+  "maker_n10": {
+   "fills": 77,
+   "losses": 2,
+   "loss_rate": 0.026,
+   "loss_wilson": [
+    0.0072,
+    0.0898
+   ],
+   "breakeven_loss": 0.0419,
+   "mean_q": 0.9581,
+   "sum": 0.725,
+   "ci95": [
+    -2.553,
+    3.156
+   ],
+   "p_le0": 0.29225,
+   "halves": [
+    1.028,
+    -0.302
+   ],
+   "unfilled_losses": 0,
+   "roi_per_fill": 0.0094,
+   "roi_per_fill_ci": [
+    -0.0346,
+    0.0398
+   ]
+  },
+  "taker": {
+   "bets": 151,
+   "losses": 2,
+   "loss_wilson": [
+    0.0036,
+    0.047
+   ],
+   "mean_ask": 0.9772,
+   "sum": 0.732,
+   "ci95": [
+    -2.497,
+    3.112
+   ],
+   "p_le0": 0.2905,
+   "halves": [
+    1.07,
+    -0.339
+   ],
+   "roi": 0.0048
+  }
+ },
+ "U_live": {
+  "city_nights": 445,
+  "EXTRA_live": {
+   "picks": 92,
+   "tape_cov": 1.0,
+   "maker_tt": {
+    "fills": 30,
+    "losses": 1,
+    "loss_rate": 0.0333,
+    "loss_wilson": [
+     0.0059,
+     0.1667
+    ],
+    "breakeven_loss": 0.0637,
+    "mean_q": 0.9363,
+    "sum": 1.542,
+    "ci95": [
+     -1.473,
+     4.322
+    ],
+    "p_le0": 0.144,
+    "halves": [
+     0.481,
+     1.061
+    ],
+    "unfilled_losses": 0,
+    "roi_per_fill": 0.0514,
+    "roi_per_fill_ci": [
+     -0.0514,
+     0.1329
+    ]
+   },
+   "maker_n10": {
+    "fills": 52,
+    "losses": 1,
+    "loss_rate": 0.0192,
+    "loss_wilson": [
+     0.0034,
+     0.1012
+    ],
+    "breakeven_loss": 0.0462,
+    "mean_q": 0.9538,
+    "sum": 2.045,
+    "ci95": [
+     -0.872,
+     4.817
+    ],
+    "p_le0": 0.08075,
+    "halves": [
+     0.687,
+     1.357
+    ],
+    "unfilled_losses": 0,
+    "roi_per_fill": 0.0393,
+    "roi_per_fill_ci": [
+     -0.0166,
+     0.0922
+    ]
+   },
+   "taker": {
+    "bets": 92,
+    "losses": 1,
+    "loss_wilson": [
+     0.0019,
+     0.059
+    ],
+    "mean_ask": 0.9738,
+    "sum": 1.765,
+    "ci95": [
+     -1.055,
+     4.219
+    ],
+    "p_le0": 0.0955,
+    "halves": [
+     0.623,
+     1.142
+    ],
+    "roi": 0.0192
+   }
+  },
+  "E4_live": {
+   "picks": 461,
+   "tape_cov": 1.0,
+   "maker_tt": {
+    "fills": 200,
+    "losses": 9,
+    "loss_rate": 0.045,
+    "loss_wilson": [
+     0.0239,
+     0.0833
+    ],
+    "breakeven_loss": 0.0545,
+    "mean_q": 0.9456,
+    "sum": 4.735,
+    "ci95": [
+     -4.591,
+     14.312
+    ],
+    "p_le0": 0.16175,
+    "halves": [
+     1.066,
+     3.669
+    ],
+    "unfilled_losses": 0,
+    "roi_per_fill": 0.0237,
+    "roi_per_fill_ci": [
+     -0.0247,
+     0.0715
+    ]
+   },
+   "maker_n10": {
+    "fills": 297,
+    "losses": 9,
+    "loss_rate": 0.0303,
+    "loss_wilson": [
+     0.016,
+     0.0566
+    ],
+    "breakeven_loss": 0.0439,
+    "mean_q": 0.9561,
+    "sum": 6.939,
+    "ci95": [
+     -2.483,
+     16.622
+    ],
+    "p_le0": 0.07275,
+    "halves": [
+     1.914,
+     5.026
+    ],
+    "unfilled_losses": 0,
+    "roi_per_fill": 0.0234,
+    "roi_per_fill_ci": [
+     -0.0095,
+     0.056
+    ]
+   },
+   "taker": {
+    "bets": 461,
+    "losses": 9,
+    "loss_wilson": [
+     0.0103,
+     0.0367
+    ],
+    "mean_ask": 0.9734,
+    "sum": 4.862,
+    "ci95": [
+     -4.047,
+     13.745
+    ],
+    "p_le0": 0.14075,
+    "halves": [
+     1.25,
+     3.612
+    ],
+    "roi": 0.0105
+   }
+  }
+ },
+ "recon": {
+  "live_e4_picks_in_window": 456,
+  "fcsafe_e4_picks": 611,
+  "overlap": 407,
+  "live_picks_in_fcsafe_extra": 1,
+  "fcsafe_minus_live_by_model": {
+   "gfs_seamless": -0.477,
+   "ecmwf_ifs025": 0.003,
+   "icon_seamless": 0.062,
+   "gem_seamless": 0.096,
+   "ncep_nbm_conus": 0.013
+  },
+  "U_live_extra_vs_fcsafe_extra_overlap": 70
+ },
+ "conditions": {
+  "S>0": true,
+  "p<.05": true,
+  "halves>0": true,
+  "S>P2": true,
+  "S>P1_p90": false
+ },
+ "verdict": "LEAD",
+ "insample_roi_per_fill_inside_ci": true
+}
