@@ -596,3 +596,11 @@ confirm home state (CA vs CO) for venue legality.
   settle), output ~/.claude/quant-sports/data/kx_forward/e4c_cold.jsonl, FORWARD_FROM 11-25; tests 11/11. edgelab trial
   e4c_cold1_maker_fwd-c7e0b93e, pre-set kill roi_ci_below_zero after 60 fills; study decision at 150 fills (~3 months,
   through the Dec-Feb season). No money before that and the user's yes. vault.yaml entry proposed (user's file).
+
+### promo_verify_1124 (merged 2026-11-24, notes/promo_verify_1124.md) -- promo terms re-verified
+- NEW: Fanatics Markets Offer 1 (CA named; KYC 11-16..12-13): first cash buy <= $0.90 each rolling day for 10 days -> FanCash
+  = its size up to $10/day; ~+$88 hedged / +$91.5 EV unhedged. No hedging clause. Pitfall: the day's FIRST cash buy is the
+  qualifier, so make it >= $10.
+- Polymarket US $25 Bonus is a loss absorber (official docs) -> unhedged $25 cash trade is a free roll, EV ~+$25, max loss ~0.
+- Gemini ($40, qualifier must stay unhedged incl. other venues), ProphetX ($40), Novig ($45 hedged, CA unconfirmed), OG.com
+  (+$23 + boost; CA via "all U.S. states"; 7 vs 30-day credit conflict) unchanged; FanDuel/Webull unconfirmed.

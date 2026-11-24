@@ -90,7 +90,7 @@ Venue price assumed = Kalshi ask for the same side (+0/+1/+2c sensitivity); venu
 - DraftKings $50 credit if SR (unconfirmed): BUF@.92/MIA@.09 -> +$47.92 (+1c 47.02), Kalshi capital $4.77;
   CAR@.59/BAL@.42 -> +$45.59. If SNR: NO/CHI -> +$30.04 (capital $181). => 4 x $50: ~$180-192 SR, ~$110-120 SNR.
 
-## A. Promo terms (subagents A1/A2, raw quotes: results/money_now/promos_A1.md, promos_A2.md; all read 2026-11-20)
+## A. Promo terms  (SUPERSEDED 2026-11-24 by notes/promo_verify_1124.md: Fanatics Markets added, PM US Bonus = loss absorber) (subagents A1/A2, raw quotes: results/money_now/promos_A1.md, promos_A2.md; all read 2026-11-20)
 Official-source method: most venue pages are JS/403; A2 used each exchange's CFTC Rule 40.6 promo filings (cftc.gov PDFs)
 and docs sites; A1 used official pages and, where 403, search snippets of the official domain (marked "snippet").
 The affiliate leads were stale on all three venues they covered: Gemini is $40, not "up to $100" (the 50% football match was replaced 10-23); ProphetX is $40, not $75 (changed 10-29);

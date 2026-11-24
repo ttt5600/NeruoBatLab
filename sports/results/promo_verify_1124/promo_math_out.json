@@ -1,0 +1,68 @@
+{
+ "fanatics_day": {
+  "qual_hedged": -0.4,
+  "qual_unhedged_EV": -0.25,
+  "qual_maxloss_unhedged": 10.99,
+  "fancash_lock": 9.25,
+  "fc_contracts": 10,
+  "day_hedged": 8.85,
+  "x10_hedged": 88.48,
+  "x10_unhedged_EV": 91.48,
+  "kalshi_cap_per_day": 2.16
+ },
+ "gemini": {
+  "credit_contracts": 42,
+  "credit_lock": 38.86,
+  "qual_EV": 0.0,
+  "qual_maxloss": 20.0,
+  "total_EV": 38.86,
+  "worst_case_if_credit_paid": 18.86
+ },
+ "prophetx": {
+  "qual_hedged": -1.29,
+  "per10_lock": 9.11,
+  "total": 35.15,
+  "qual_maxloss_unhedged": 40.0,
+  "kalshi_cap_qual": 11.09
+ },
+ "novig": {
+  "per_credit_lock": 9.16,
+  "total": 45.8,
+  "kalshi_cap_per_credit": 6.84
+ },
+ "pmus_freeroll_q0.2": {
+  "EV_one_round": 20.0,
+  "EV_unlimited_rounds": 25.0,
+  "p_profit_round1": 0.2,
+  "profit_if_win": 100.0,
+  "maxloss_if_docs_hold": 0.0
+ },
+ "pmus_freeroll_q0.35": {
+  "EV_one_round": 16.25,
+  "EV_unlimited_rounds": 25.0,
+  "p_profit_round1": 0.35,
+  "profit_if_win": 46.43,
+  "maxloss_if_docs_hold": 0.0
+ },
+ "pmus_freeroll_q0.5": {
+  "EV_one_round": 12.5,
+  "EV_unlimited_rounds": 25.0,
+  "p_profit_round1": 0.5,
+  "profit_if_win": 25.0,
+  "maxloss_if_docs_hold": 0.0
+ },
+ "pmus_hedged_q0.16": {
+  "kalshi_N": 131.2,
+  "lock": 17.06,
+  "kalshi_cap": 111.56
+ },
+ "og": {
+  "qual_cost": 25.65,
+  "qual_unhedged_EV": -0.53,
+  "qual_maxloss": 25.65,
+  "qual_hedged": -1.08,
+  "bonus_lock": 23.8,
+  "boost_EV_at_p50": 12.5,
+  "boost_maxloss": 25.0
+ }
+}
