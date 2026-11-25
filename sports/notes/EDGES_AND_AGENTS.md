@@ -618,3 +618,8 @@ confirm home state (CA vs CO) for venue legality.
   "Charmander" settled YES at 190.24 (~Charizard) after trading 0.02 -> ambiguous-label settlement risk (IDEA_PATTERNS-type).
 - small_capacity_census RUNNING (user framing: inefficiencies too small for big firms).
 - Ops: odd-lot watcher scheduled (launchd quant-sports-oddlot, daily >= 07:15 PT; open offers in SessionStart hook).
+
+## Merge 2026-11-25 ~04:40Z: small_capacity_census
+- DONE: rubric + 40 candidates (notes/small_capacity_census.md). Only code-workable capped lead: MC1 MTG singles -> Card Kingdom
+  cash buylist (14 cards / +$101.76 on $346.92 one snapshot; no critic yet). MINT1 US Mint household-limit flips (paper 3 releases).
+  AI red-team / bug bounty -> compete project. Rest below $50/mo (FUND_BOOK 3d SC-misc). Next: MC1 7-day scanner + user spot-check.

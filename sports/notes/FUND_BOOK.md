@@ -216,6 +216,8 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | RYU | NFL rush-yard unders in low-total games / big-dog RB rush unders | game script | C7 +7.7pp p .039 n 155; C3 ROI +12% p .078 n 99 (2024 only) [L:nfl_props_script] | tier 3; L4 as a whole dead [PL] | scripts/nfl_props_script.py |
 | ALT | NBA altitude home teams | altitude | +1.0 pt ATS p .055 [PL] | tier 3 | -- |
 | W99 | Weather maker NO at 99c (tape subset) | descriptive | 275 fills, 0 losses (~1c/contract) [PL] | descriptive only | notes/wx_lockin.md |
+| MC1 | MTG singles -> Card Kingdom cash buylist (small_capacity_census 11-25): CK buys 1-5 copies/card, flat foil tiers | capacity cap + condition grading | 1-day snapshot: 14 cards (12 old foils) +$101.76 on $346.92 at 1 copy; vintage rows were condition artefacts (no critic yet) | prereg: 7-day daily scan >= 15 flags/day + user spot-check >= 6/10 real NM listings -> <= $100 live batch (pass >= +$15 net, <= 1 downgrade) | notes/small_capacity_census.md |
+| MINT1 | US Mint household-limit releases resold on eBay | per-household cap | CoinNews 2026-07-06 examples | paper 3 releases: 2/3 with eBay sold median >= 1.25x(cost)+$5; CA sales tax open | notes/small_capacity_census.md |
 
 ### 3d. DEAD -- the do-not-redo list (one line each: why it died)
 
@@ -344,6 +346,7 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | P1-OR | Bet on the OLD settlement definition after a source change (OpenRouter BYOK, 11-21..23) | lost $14.08; Kalshi used the displayed view; NEW 5/6 | Kalshi settles on the display | notes/IDEA_PATTERNS.md P-1/P-4 |
 | PK1 | Pokemon cards (user idea via Triumph/Rips, 11-25): rip apps, MSRP->secondary flips, redeem-and-sell, JP import | rip apps return 86.9-88.1% of spend (Crypto.com research 11-10); ETB release-month median +$5.9 (n13), 3 mo +$2.8, 4/11 lose; platform FMV vs eBay sold ratio 0.988 (n6) | house edge ~12%; MSRP premium needs a queue win and decays | notes/pokemon_cards.md |
 | XV-US2 | Cross-venue arb Kalshi / PM US / Gemini game winners (boost_hedge 11-25) | 0 cases >= 1c net @10 ct; best -0.39c (410 snaps), Gemini copies Kalshi quotes | fees + same makers; in-game check pending | notes/boost_hedge.md |
+| SC-misc | Small-capacity census rejects (11-25): mutual-bank conversions (~$3-6/mo, deposits locked years), CEF tenders (~$2/mo), gov surplus (no data; GovDeals blocks scripts), retired LEGO (~T-bill), tax-defaulted land, allocated whiskey (licence), reservation resale (CA AB 1640), sneakers, CS2 skins, textbooks, pallets | per-event rationing or fees | below $50/mo | notes/small_capacity_census.md |
 
 **Cross-venue / soft venues**
 | ID | Idea | Evidence | Why dead | File |
