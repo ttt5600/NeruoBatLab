@@ -1,0 +1,254 @@
+[
+{
+"ticker": "KXHIGHPHIL-26NOV12-B67.5",
+"ts": "2026-11-12T03:03:19+00:00",
+"maker_q": 0.97,
+"count": 12,
+"filled": 12.0,
+"result": "no",
+"expiration_time": 1794549600
+},
+{
+"ticker": "KXHIGHCHI-26NOV12-B50.5",
+"ts": "2026-11-12T04:03:18+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1794553200
+},
+{
+"ticker": "KXHIGHDEN-26NOV12-B70.5",
+"ts": "2026-11-12T05:18:45+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1794556800
+},
+{
+"ticker": "KXHIGHAUS-26NOV15-B65.5",
+"ts": "2026-11-15T05:03:33+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0,
+"result": null,
+"expiration_time": 1794812400
+},
+{
+"ticker": "KXHIGHDEN-26NOV15-T54",
+"ts": "2026-11-15T05:03:33+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 0,
+"result": null,
+"expiration_time": 1794816000
+},
+{
+"ticker": "KXHIGHCHI-26NOV16-T56",
+"ts": "2026-11-16T05:03:12+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1794898800
+},
+{
+"ticker": "KXHIGHAUS-26NOV17-B68.5",
+"ts": "2026-11-17T04:06:37+00:00",
+"maker_q": 0.51,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1794985200
+},
+{
+"ticker": "KXHIGHAUS-26NOV17-T69",
+"ts": "2026-11-17T04:06:37+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1794985200
+},
+{
+"ticker": "KXHIGHPHIL-26NOV17-B62.5",
+"ts": "2026-11-17T04:06:37+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1794981600
+},
+{
+"ticker": "KXHIGHMIA-26NOV18-B84.5",
+"ts": "2026-11-18T03:04:59+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1795068000
+},
+{
+"ticker": "KXHIGHAUS-26NOV18-T73",
+"ts": "2026-11-18T04:04:22+00:00",
+"maker_q": 0.94,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1795071600
+},
+{
+"ticker": "KXHIGHMIA-26NOV19-B84.5",
+"ts": "2026-11-19T03:03:14+00:00",
+"maker_q": 0.91,
+"count": 19,
+"filled": 19.0,
+"result": "no",
+"expiration_time": 1795154400
+},
+{
+"ticker": "KXHIGHPHIL-26NOV19-B69.5",
+"ts": "2026-11-19T03:03:14+00:00",
+"maker_q": 0.89,
+"count": 19,
+"filled": 19.0,
+"result": "no",
+"expiration_time": 1795154400
+},
+{
+"ticker": "KXHIGHPHIL-26NOV19-T70",
+"ts": "2026-11-19T03:03:14+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795154400
+},
+{
+"ticker": "KXHIGHPHIL-26NOV20-T71",
+"ts": "2026-11-20T03:03:12+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1795240800
+},
+{
+"ticker": "KXHIGHCHI-26NOV20-B72.5",
+"ts": "2026-11-20T04:03:15+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795244400
+},
+{
+"ticker": "KXHIGHLAX-26NOV20-T69",
+"ts": "2026-11-20T06:03:11+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1795251600
+},
+{
+"ticker": "KXHIGHAUS-26NOV21-B80.5",
+"ts": "2026-11-21T04:03:20+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795330800
+},
+{
+"ticker": "KXHIGHDEN-26NOV21-T49",
+"ts": "2026-11-21T05:03:14+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795334400
+},
+{
+"ticker": "KXHIGHMIA-26NOV23-B83.5",
+"ts": "2026-11-23T03:08:19+00:00",
+"maker_q": 0.97,
+"count": 24,
+"filled": 24.0,
+"result": "no",
+"expiration_time": 1795500000
+},
+{
+"ticker": "KXHIGHAUS-26NOV23-B67.5",
+"ts": "2026-11-23T04:06:39+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795503600
+},
+{
+"ticker": "KXHIGHAUS-26NOV23-B65.5",
+"ts": "2026-11-23T04:06:39+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795503600
+},
+{
+"ticker": "KXHIGHDEN-26NOV23-B44.5",
+"ts": "2026-11-23T05:08:11+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795507200
+},
+{
+"ticker": "KXHIGHMIA-26NOV24-B83.5",
+"ts": "2026-11-24T03:05:18+00:00",
+"maker_q": 0.95,
+"count": 19,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795586400
+},
+{
+"ticker": "KXHIGHPHIL-26NOV24-T56",
+"ts": "2026-11-24T03:05:18+00:00",
+"maker_q": 0.98,
+"count": 9,
+"filled": 9.0,
+"result": null,
+"expiration_time": 1795586400
+},
+{
+"ticker": "KXHIGHCHI-26NOV24-B46.5",
+"ts": "2026-11-24T04:06:50+00:00",
+"maker_q": 0.98,
+"count": 0,
+"filled": 0,
+"result": null,
+"expiration_time": null
+},
+{
+"ticker": "KXHIGHMIA-26NOV25-B81.5",
+"ts": "2026-11-25T03:06:58+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795672800
+},
+{
+"ticker": "KXHIGHPHIL-26NOV25-B54.5",
+"ts": "2026-11-25T03:06:58+00:00",
+"maker_q": 0.98,
+"count": 24,
+"filled": 0.0,
+"result": null,
+"expiration_time": 1795672800
+}
+]

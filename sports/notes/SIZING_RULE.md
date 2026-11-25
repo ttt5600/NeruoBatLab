@@ -97,3 +97,17 @@ results/e4_evidence/t2b_x1_sealed_ci.json), so item 1 is met on its own cohort. 
 10 nights 11-03..11-12, 3 losses): conservative tape-through ROI +7.1%, 95% CI [-10.7, +26.4]; N10 rule +5.7%
 [-7.5, +19.7] (results/e4_evidence/t2_x1_forward.json). Live X1 before the pause: 21 fills, 0 losses. Item 2 (95% upper
 > 0) is met. X1 is eligible at minimum units if the user restarts it (the 11-03 pause is the user's call).
+
+## PRE-REGISTERED 2026-11-25 ~04:30Z (before any tape is pulled): E4 orig-7 step 3, 24 -> 48 ct, c >= .97 orders only
+User 11-25: "I think it's time to up the weather ... let's be aggressive". Step 3 happens on/after 2026-11-26 (14 days after
+step 2) only if ALL hold:
+1. Live orig-7 record since 11-12 not significantly negative. Read 04:25Z from the live journal (proper date parse):
+   14 maker fills / 28 orders since 11-12 (50% fill), 13 settled, 0 losses, +$22.64 on $267.36 (+8.47%) -> MET.
+2. Depth (primary, the rule's text): on orig-7 maker orders since 11-12 that filled, public-tape volume STRICTLY through our
+   NO price (no_price < q, after our post, before expiration) >= 96 contracts (2x the new 48) on MORE THAN HALF of them.
+   Secondary (reported, not decisive): >= 48 (1x new size, the step-2 practice) and the same counts on unfilled orders.
+3. Real bankroll >= $370 at the step (exchange balance + open cost; 11-25 04:20Z: $245.44 -> NOT MET until the user adds cash).
+4. No kill fired, no open incident on kalshi_exec.
+Size at step: KALSHI_PRICE_BAND_CAPS 0.97:48,0:19 (c <= .96 stays 19), MAX_CONTRACTS 48, MAX_ORDER_USD 49.60; caps scale
+with the real bankroll (bankroll setting = real balance, not 400). Revert to 24 if orig-7 loses >= 10% of bankroll since
+the step or a kill fires. Script: results/e4_live_audit/q5_depth_step3.py -> q5_depth_step3.json.
