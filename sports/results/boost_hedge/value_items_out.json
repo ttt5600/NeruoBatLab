@@ -1,0 +1,103 @@
+{
+ "gemini_trade_match_t1 DAL@.79 maker / PHI K .21": {
+  "N": 317,
+  "gemini_cash": 250.43,
+  "kalshi_cash": 70.26,
+  "net_cost": 2.59,
+  "rebate": 1.1,
+  "net_locked_tier1": 25.79,
+  "capital": 328.89
+ },
+ "gemini_trade_match_t1 DAL@.80 taker / PHI K .21": {
+  "N": 313,
+  "gemini_cash": 253.91,
+  "kalshi_cash": 69.37,
+  "net_cost": 10.28,
+  "rebate": 0.0,
+  "net_locked_tier1": 18.1,
+  "capital": 331.48
+ },
+ "gemini_trade_match_t1 BUF@.58 maker / KC K .42": {
+  "N": 432,
+  "gemini_cash": 250.56,
+  "kalshi_cash": 188.81,
+  "net_cost": 5.16,
+  "rebate": 2.21,
+  "net_locked_tier1": 23.22,
+  "capital": 447.57
+ },
+ "gemini_trade_match_t1 BUF@.59 taker / KC K .42": {
+  "N": 424,
+  "gemini_cash": 257.34,
+  "kalshi_cash": 185.32,
+  "net_cost": 18.66,
+  "rebate": 0.0,
+  "net_locked_tier1": 9.72,
+  "capital": 450.86
+ },
+ "gemini_trade_match_t2 (cum $1,000 -> $110) DAL@.79 maker": {
+  "N": 1266,
+  "gemini_cash": 1000.14,
+  "kalshi_cash": 280.57,
+  "net_cost": 10.3,
+  "rebate": 4.41,
+  "net_locked": 94.79
+ },
+ "gemini_trade_match_t2 (cum $1,000 -> $110) DAL@.80 taker": {
+  "N": 1250,
+  "gemini_cash": 1014.0,
+  "kalshi_cash": 277.02,
+  "net_cost": 41.02,
+  "rebate": 0.0,
+  "net_locked": 64.07
+ },
+ "gemini_trade_match_t1_unhedged_maker": {
+  "EV": 28.38,
+  "max_loss": 250.0
+ },
+ "predict_cash_30_lock (DAL .80 Gemini, PHI .21 Kalshi)": {
+  "lock": 28.38,
+  "kalshi_capital": 8.2
+ },
+ "pmus_tradesgiving_per_day": {
+  "credit_assumed": 5.0,
+  "qualifier_hedged_cost": 0.37,
+  "credit_hedged_lock": 3.26,
+  "kalshi_capital_for_harvest": 22.1,
+  "unhedged_EV_per_day": 5.0,
+  "hedged_lock_per_day": 2.89,
+  "days_left_11_25_to_11_30": 6
+ },
+ "og_streak_w1_boost_S75_q.79": {
+  "S": 75.0,
+  "q": 0.79,
+  "b": 0.5,
+  "a": 0.22,
+  "N_venue": 94.94,
+  "M_kalshi": 105,
+  "kalshi_capital": 24.37,
+  "lock": 4.44,
+  "if_venue_wins": 4.44,
+  "if_kalshi_wins": 4.53,
+  "unhedged_EV_at_fair": 6.77
+ },
+ "og_streak_w2_boost_S150_q.79 (cap $20)": {
+  "S": 150.0,
+  "q": 0.79,
+  "b": 0.5,
+  "a": 0.22,
+  "N_venue": 189.87,
+  "M_kalshi": 210,
+  "kalshi_capital": 48.73,
+  "lock": 8.87,
+  "if_venue_wins": 8.87,
+  "if_kalshi_wins": 9.06,
+  "unhedged_EV_at_fair": 13.54
+ },
+ "og_streak_qualifiers_per_week": {
+  "two_trades_usd": 20,
+  "max_loss": 20.0,
+  "EV": -0.7,
+  "note": "unhedged (bona fide market risk clause)"
+ }
+}

@@ -37,13 +37,42 @@ def bot_status() -> str:
     return "\n".join(out)
 
 
+ODDLOT = Path.home() / ".claude" / "quant-sports" / "data" / "oddlot" / "filings.jsonl"
+
+
+def oddlot_recent(days: int = 10, n: int = 6) -> str:
+    """Odd-lot tender filings with a ticker: filed in the last `days` days OR still open by parsed expiry (newest first)."""
+    import datetime as dt
+    try:
+        cut = (dt.date.today() - dt.timedelta(days=days)).isoformat()
+        rows = [json.loads(l) for l in ODDLOT.read_text().splitlines() if l.strip()]
+    except (OSError, ValueError) as e:
+        return f"(oddlot file unreadable: {type(e).__name__})"
+    def open_offer(r: dict) -> bool:  # expiry parsed from the filing ("DECEMBER 10, 2026") is today or later
+        try:
+            return dt.datetime.strptime(str((r.get("terms") or {}).get("expires_date")).title(), "%B %d, %Y").date() >= dt.date.today()
+        except ValueError:
+            return False
+    rows = [r for r in rows if r.get("tickers") and (str(r.get("file_date", "")) >= cut or open_offer(r))]
+    if not rows:
+        return f"none with a ticker filed since {cut}"
+    out = []
+    for r in sorted(rows, key=lambda r: str(r.get("file_date")), reverse=True)[:n]:
+        x = r.get("terms") or {}
+        px = x.get("price_fixed") or (f"{x.get('price_lo')}-{x.get('price_hi')}" if x.get("price_lo") else "?")
+        out.append(f"- {r.get('file_date')} {r.get('form')} {','.join(r['tickers'])} {x.get('kind') or '?'} ${px} "
+                   f"exp {x.get('expires_date') or '?'}{' UNDER100-EXCLUDED' if x.get('under100_excluded') else ''}")
+    return "\n".join(out) + "\n(read the filing + check price vs floor before acting; notes/money_now.md section B)"
+
+
 def main() -> None:
     ctx = ("## Re-injected after compact/clear/resume (sports/scripts/ctx_inject.py)\n"
            "Quant-trader lead. Source of truth = files, not memory: sports/STATE.md (top = latest), "
            "notes/ACT_LIST.md (what is live), notes/FUND_BOOK.md (every edge), notes/EDGES_AND_AGENTS.md (log), "
            "`cd sports && ../.venv_quant/bin/python -m edgelab status`.\n\n"
            "### sports/STATE.md (top 40 lines)\n" + head(SPORTS / "STATE.md", 40) +
-           "\n\n### Live bots now\n" + bot_status())
+           "\n\n### Live bots now\n" + bot_status() +
+           "\n\n### Odd-lot tender filings: open or filed in the last 10 days (oddlot_watch, daily 07:15 PT)\n" + oddlot_recent())
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": ctx}}))
 
 

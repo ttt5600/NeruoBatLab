@@ -19,7 +19,8 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 - source-shift watcher installed (hourly); AAA rollover guard; Q014 Roll Call endpoint fixed (count 58 = RSS 58).
 - DNS outage 11-23 ~10:00-18:51 PT broke every launchd job (NameResolutionError); recovered at the 19:03 PT tick. No code fault.
 - LX1 scanner window over (KILLED); its job still writes a daily report (user may unload). early-form idle (optional unload).
-- odd-lot tender watcher scripts/oddlot_watch.py built, not scheduled.
+- odd-lot tender watcher SCHEDULED 11-25 (launchd quant-sports-oddlot, daily >= 07:15 PT; open offers show in the
+  SessionStart hook). MYPS Dutch $4.30-5.50 open to 12-10, price $4.93 (11-24) > floor -> not riskless; watch.
 
 ## Agents (notes/RESEARCH_QUEUE.md) -- running 11-25: boost_hedge (existing-customer promos + cross-venue arb), pokemon_cards
   (Triumph/Rips pack EV, MSRP vs secondary). promo_hunt_2 DONE: Kraken via Rakuten $150 (if new), eToro $50; PROMO_TRACKER priority table.
@@ -34,7 +35,7 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 
 ## Waiting on user
 1. Re-lock GOAL.md (hub doctor FAIL). 12-month goal unchanged until re-lock. 2. vault.yaml windows for forward trials (incl. kalshi_temp_e4c_fwd text in notes/e4_coldmargin.md).
-3. Optional: unload lx1 + early-form jobs; schedule oddlot watcher; promos needing sign-up (money_now.md: Gemini ~$38,
+3. Optional: unload lx1 + early-form jobs; promos needing sign-up (money_now.md: Gemini ~$38,
    ProphetX ~$36.5, PM US $15.30, Novig $45 unverified, Webull ~$18.7) -- identity steps are the user's.
 
 ## Standing authorizations + rules

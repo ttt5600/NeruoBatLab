@@ -20,6 +20,8 @@
 #               installed by scripts/install_ot1_agent.sh)
 #   e4p         READ-ONLY E4 probabilistic rule C / C-agree maker forward paper (11-16, notes/ops_e4p_forward.md;
 #               installed by scripts/install_e4p_agent.sh)
+#   oddlot      READ-ONLY EDGAR odd-lot tender watcher, daily >= 07:15 PT (11-25, notes/money_now.md C;
+#               installed by scripts/install_oddlot_agent.sh)
 #   snow-markets READ-ONLY TG1/SD1/SD2 snow paper, daily ~15:30Z (11-16, notes/snow_markets.md;
 #               installed by scripts/install_snow_markets_agent.sh)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
@@ -226,6 +228,12 @@ case "$job" in
     now=$(date +%s); last=$(cat state/crypto_barrier_settle_last 2>/dev/null || echo 0)
     if [ $((now - last)) -ge 3600 ]; then run scripts/crypto_barrier_forward.py settle && echo "$now" > state/crypto_barrier_settle_last; fi ;;
   # ---- ops_snow_logger (11-16, notes/snow_markets.md 'Ops'): READ-ONLY; installed by scripts/install_snow_markets_agent.sh
+  oddlot)       # odd-lot tender watcher (notes/money_now.md section C): READ-ONLY EDGAR full-text search, once per PT day
+                # at the first run >= 07:15 PT; appends new Schedule TO filings to data/oddlot/filings.jsonl (stdlib only;
+                # no orders, no keys). New rows surface in the SessionStart hook (scripts/ctx_inject.py). launchd 1800 s.
+    [ "$((10#$hm))" -ge 715 ] || exit 0
+    done_today oddlot_day && exit 0
+    run scripts/oddlot_watch.py && echo "$d" > state/oddlot_day ;;
   snow-markets) # TG1/SD1/SD2 snow paper: one `log` snapshot per UTC day at the first run >= 15:30 UTC through 2027-04-01;
                 # `settle` (fired tickers' Kalshi result / scalar value) once per UTC day from 2026-11-27. launchd 1800 s.
     ud=$(TZ=UTC date +%F); uhm=$(TZ=UTC date +%H%M)
