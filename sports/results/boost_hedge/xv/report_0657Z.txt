@@ -1,0 +1,61 @@
+pairing gap (s): median 22.4, p95 60.9, max 96.9; PM view age median 14s max 29s; dropped gap > 60 s: 454
+
+== venues GK: 266 direction-rows, 133 game-snapshots, games 18 {'nba': 13, 'nfl': 5}, span 11-25 02:57..11-25 06:50Z
+  C=  1: n 266 max net/ct -0.0300 p99 -0.0365 median -0.0500 | >=0: 0 | >=.01: 0
+  C= 10: n 266 max net/ct -0.0150 p99 -0.0215 median -0.0460 | >=0: 0 | >=.01: 0
+  C= 50: n 266 max net/ct -0.0136 p99 -0.0205 median -0.0450 | >=0: 0 | >=.01: 0
+  C=100: n 266 max net/ct -0.0135 p99 -0.0204 median -0.0449 | >=0: 0 | >=.01: 0
+  C=500: n 230 max net/ct -0.0195 p99 -0.0214 median -0.0448 | >=0: 0 | >=.01: 0
+  EVENT rows (net >= 1c/ct @10): 0 in 0 games; 0/133 game-snapshots = 0.00%
+  EXECUTABLE-CANDIDATE consecutive pairs: 0 in 0 games
+  closest approach per game (max net/ct at C=1 / C=10):
+                                    n1    n10
+    slug                                     
+    aec-nba-bos-was-2026-11-24 -0.0300 -0.015
+    aec-nba-bkn-tor-2026-11-27 -0.0400 -0.026
+    aec-nba-dal-den-2026-11-24 -0.0400 -0.030
+    aec-nfl-gb-lar-2026-11-25  -0.0400 -0.036
+    aec-nba-lac-mem-2026-11-25 -0.0400 -0.030
+    aec-nba-bkn-mil-2026-11-25 -0.0400 -0.036
+    aec-nba-mia-phi-2026-11-25 -0.0498 -0.046
+    aec-nba-phi-ind-2026-11-27 -0.0500 -0.046
+
+== venues GP: 5508 direction-rows, 2754 game-snapshots, games 18 {'nba': 13, 'nfl': 5}, span 11-25 02:57..11-25 06:50Z
+  C=  1: n 5455 max net/ct +0.0066 p99 -0.0319 median -0.0537 | >=0: 1 | >=.01: 0
+  C= 10: n 5454 max net/ct +0.0096 p99 -0.0249 median -0.0513 | >=0: 1 | >=.01: 0
+  C= 50: n 5454 max net/ct +0.0098 p99 -0.0247 median -0.0510 | >=0: 1 | >=.01: 0
+  C=100: n 5454 max net/ct +0.0099 p99 -0.0246 median -0.0510 | >=0: 1 | >=.01: 0
+  C=500: n 4899 max net/ct +0.0099 p99 -0.0259 median -0.0510 | >=0: 1 | >=.01: 0
+  EVENT rows (net >= 1c/ct @10): 0 in 0 games; 0/2754 game-snapshots = 0.00%
+  EXECUTABLE-CANDIDATE consecutive pairs: 0 in 0 games
+  closest approach per game (max net/ct at C=1 / C=10):
+                                    n1     n10
+    slug                                      
+    aec-nba-dal-den-2026-11-24  0.0066  0.0096
+    aec-nba-bos-was-2026-11-24 -0.0136 -0.0066
+    aec-nba-mil-det-2026-11-27 -0.0358 -0.0278
+    aec-nfl-den-pit-2026-11-27 -0.0381 -0.0351
+    aec-nfl-phi-dal-2026-11-26 -0.0381 -0.0301
+    aec-nfl-gb-lar-2026-11-25  -0.0385 -0.0365
+    aec-nba-atl-bos-2026-11-27 -0.0396 -0.0346
+    aec-nba-lac-mem-2026-11-25 -0.0403 -0.0353
+
+== venues KP: 2662 direction-rows, 1331 game-snapshots, games 113 {'cfb': 69, 'nba': 29, 'nfl': 15}, span 11-25 02:52..11-25 06:51Z
+  C=  1: n 2662 max net/ct -0.0086 p99 -0.0191 median -0.0477 | >=0: 0 | >=.01: 0
+  C= 10: n 2662 max net/ct -0.0039 p99 -0.0121 median -0.0440 | >=0: 0 | >=.01: 0
+  C= 50: n 2662 max net/ct -0.0033 p99 -0.0119 median -0.0443 | >=0: 0 | >=.01: 0
+  C=100: n 2662 max net/ct -0.0033 p99 -0.0118 median -0.0444 | >=0: 0 | >=.01: 0
+  C=500: n 2662 max net/ct -0.0032 p99 -0.0126 median -0.0451 | >=0: 0 | >=.01: 0
+  EVENT rows (net >= 1c/ct @10): 0 in 0 games; 0/1331 game-snapshots = 0.00%
+  EXECUTABLE-CANDIDATE consecutive pairs: 0 in 0 games
+  closest approach per game (max net/ct at C=1 / C=10):
+                                         n1     n10
+    slug                                           
+    aec-cfb-kentst-emich-2026-11-24 -0.0086 -0.0056
+    aec-nba-bos-was-2026-11-24      -0.0119 -0.0039
+    aec-cfb-wvir-utah-2026-11-27    -0.0154 -0.0094
+    aec-cfb-boise-colst-2026-11-28  -0.0162 -0.0112
+    aec-cfb-gtech-ga-2026-11-28     -0.0164 -0.0084
+    aec-cfb-nd-syra-2026-11-28      -0.0191 -0.0121
+    aec-cfb-boscol-mia-2026-11-28   -0.0191 -0.0121
+    aec-cfb-mspst-miss-2026-11-27   -0.0193 -0.0163

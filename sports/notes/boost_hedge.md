@@ -246,3 +246,27 @@ OG wk1 50% boost capped at $10 extra on a 0.79 contract: EV $6.77 unhedged, $4.4
 ### Kalshi LIP is still large ($116k/day, 6,475 programs on 11-25) but covers no game-winner market and failed our paper test
 GET /incentive_programs 02:42Z: 0 volume programs; L40b FINAL: P2 net -$26.69/-$256.11, P3 -$6,059/-$18,407 (deployed
 lip_paper_b.py report). Fill losses exceed LIP payouts; do not re-study without a new mechanism.
+
+## B2 RESULT (historical minute census, run 06:10-06:50Z; results/boost_hedge/xv_hist/report_0651Z.txt, diag_0655Z.txt)
+- Pulled 93 of 94 sampled games (cfb 40, nba 40, nfl 14; one Kalshi connection reset), 25,511 game-minutes; 23,170 usable.
+- Raw: pregame 2 of 9,344 minutes crossed >= 1c (0.02%, 1 game); in-game 1,182 of 13,826 (8.5%, 85 games), max net +$0.81
+  -> "too good", inspected per the pre-registration (58 runs >= 3 min in 35 games).
+- Diagnosis: the crossings are minute-stamp asynchrony during price moves, not arbs.
+  - When all six quotes (Kalshi bid/ask x2, PM US long/short) are unchanged from the previous minute: 0 of 3,053 in-game
+    minutes crossed, max net -0.20c.
+  - Lagging the PM US series one minute behind Kalshi: 0 crossings; leading it one more minute: 16.5%. The rate rises
+    monotonically with PM US look-ahead -> the PM stamp is effectively later than Kalshi's candle close at the same ts.
+  - Example (OKC-MIA pregame 11-22): PM US shows OKC 0.40 -> 0.31 at ts 1795383000 while the Kalshi candle at the same
+    stamp still shows 0.40; the next Kalshi minute is 0.31 -> one-minute artefact. End-of-game rows (PM 0.01/0.99 vs Kalshi
+    0.84) are the same thing at settlement.
+  - Own-venue round trips below $1 (Kalshi min 0.970, PM US min 0.990) confirm the minute closes are not simultaneous.
+- Live sampler final (report_0657Z.txt, 02:52-06:51Z): Kalshi-PM US 1,331 game-snapshots, 0 >= 1c, max -0.39c @10;
+  PM US-Gemini 2,754 snapshots, 0 >= 1c (one at +0.96c), Kalshi-Gemini 133, max -1.5c. Sampler stopped 06:57Z.
+- VERDICT B (pre-registered): KILL -- no cross-venue game-winner arb that a person can execute. Any real crossing lives
+  inside sub-minute in-game moves, which is the latency race already found dead (XV-PM: Kalshi leads PM by 10-20 s; PM US
+  public views are cached up to 30 s).
+
+### Learning (B2): minute-stamped histories from two venues create fake arbs during price moves
+Kalshi 1-min candles vs PM US 1-min price-history: 8.5% of in-game minutes "crossed" (max +81c), but 0 of 3,053 minutes
+with all quotes unchanged, and 0 after lagging PM one minute (results/boost_hedge/xv_hist/diag_0655Z.txt). Require quote
+stability (or tick-level simultaneous books) before calling any cross-venue gap an arb.

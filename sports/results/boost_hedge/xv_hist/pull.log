@@ -1,0 +1,13 @@
+matched sample: 94 games {'cfb': 40, 'nba': 40, 'nfl': 14}
+0/94 aec-cfb-ark-tx-2026-11-21 rows 317
+10/94 aec-cfb-dxst-webst-2026-11-21 rows 229
+20/94 aec-cfb-jackst-alcst-2026-11-21 rows 196
+30/94 aec-cfb-samf-aubrn-2026-11-21 rows 99
+40/94 aec-nba-atl-okc-2026-11-18 rows 257
+50/94 aec-nba-det-no-2026-11-18 rows 267
+60/94 aec-nba-mem-min-2026-11-21 rows 256
+70/94 aec-nba-pho-sac-2026-11-18 rows 254
+kalshi fail aec-nba-uta-lal-2026-11-18 ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+80/94 aec-nfl-ari-kc-2026-11-22 rows 288
+90/94 aec-nfl-nyj-lac-2026-11-22 rows 285
+saved 25511 game-minutes 93 games

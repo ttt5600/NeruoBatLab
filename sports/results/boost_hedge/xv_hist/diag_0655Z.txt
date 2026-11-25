@@ -1,0 +1,26 @@
+ingame all: minutes 13826 crossed>=1c 1182 (8.549%) games 85 max +0.8091
+ingame, all quotes in [.03,.97]: minutes 12802 crossed>=1c 1115 (8.710%) games 81 max +0.5339
+ingame, mid + own-venue round trips >= $1: minutes 12680 crossed>=1c 1091 (8.604%) games 81 max +0.5339
+ingame, mid + sane + all 6 quotes unchanged vs previous minute: minutes 3053 crossed>=1c 0 (0.000%) games 0 max -0.0020
+shift PM by -1 min: ingame mid sane crossed>=1c 2089 (16.477%)
+shift PM by +1 min: ingame mid sane crossed>=1c 0 (0.000%)
+pregame (mid+sane): pregame: minutes 9226 crossed>=1c 2 (0.022%) games 1 max +0.0641
+stable crossings sample:
+Empty DataFrame
+Columns: [slug, t, askA, bidA, askB, bidB, long, short, net]
+Index: []
+pregame crossing game(s): <ArrowStringArray>
+['aec-nba-okc-mia-2026-11-22']
+Length: 1, dtype: str
+                t  askA  bidA  askB  bidB  long  short      net
+17716  1795382700  0.40  0.38  0.61  0.60  0.40   0.61 -0.04960
+17717  1795382760  0.40  0.39  0.61  0.60  0.40   0.61 -0.04960
+17718  1795382820  0.40  0.38  0.61  0.60  0.40   0.61 -0.04960
+17719  1795382880  0.40  0.38  0.61  0.60  0.40   0.61 -0.04960
+17720  1795382940  0.40  0.39  0.61  0.60  0.40   0.61 -0.04960
+17721  1795383000  0.40  0.39  0.61  0.60  0.31   0.71  0.04268
+17722  1795383060  0.31  0.30  0.70  0.69  0.31   0.70 -0.04495
+17723  1795383120  0.31  0.30  0.70  0.69  0.31   0.70 -0.04495
+17724  1795383180  0.31  0.30  0.70  0.69  0.31   0.70 -0.04495
+17725  1795383240  0.31  0.30  0.70  0.69  0.31   0.70 -0.04495
+17726  1795383300  0.31  0.30  0.70  0.69  0.30   0.71 -0.03495

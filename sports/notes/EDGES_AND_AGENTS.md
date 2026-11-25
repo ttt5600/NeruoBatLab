@@ -630,3 +630,7 @@ confirm home state (CA vs CO) for venue legality.
   template bot ~$842-1,450; value per skill falling ~24%/season. Only 21% of sampled MiniBench questions match our nowcast pipelines.
   Path: user creates Metaculus + bot accounts and applies for LLM credits/AskNews (no money) -> fork open-source bot (~20-30 h) ->
   2 MiniBench rounds with prereg pass/kill (from 11-30 / 12-14) -> Spring 2027 (~Jan). LLM spend cap $50/mo. Hand to compete project?
+- boost_hedge FINAL 11-25 06:58Z: XV-US2 DEAD in-game too. 93 games: 8.5% of in-game minutes show >= 1c but 0 of 3,053 minutes with
+  steady quotes on both venues (best -0.20c); shifting PM +1 min -> 0 gaps, -1 min -> 16.5% => non-synchronous minute bars, not arb.
+  Live 02:52-06:51Z: best K/PM -0.39c, PM/G +0.96c (1 snapshot), K/G -1.5c. Lesson: require steady or same-instant quotes before
+  calling a cross-venue gap real. Samplers stopped (nothing running).

@@ -1,0 +1,19 @@
+game-minutes 23170, games 92 {'cfb': 39, 'nba': 39, 'nfl': 14}
+own-venue round trip: Kalshi median 1.010 (min 0.970); PM US median 1.010 (min 0.990)
+ingame: minutes 13826, crossed >=1c 1182 (8.549%), >=0 1801, games with a crossing 85, max net +0.8091, median net -0.0247
+pregame: minutes 9344, crossed >=1c 2 (0.021%), >=0 5, games with a crossing 1, max net +0.0641, median net -0.0394
+crossing runs: 914; length minutes: median 1, max 7, >=3 min: 58 in 35 games
+top crossing rows:
+                                slug   phase           t  askA  bidA  askB  bidB   long   short      dir       net
+19552      aec-nba-por-ny-2026-11-21  ingame  1795315980  0.84  0.83  0.17  0.16  0.010  0.9900  P:A|K:B  0.809059
+8027   aec-cfb-rice-templ-2026-11-19  ingame  1795146480  0.27  0.26  0.74  0.73  0.985  0.0200  K:A|P:B  0.694138
+22102     aec-nfl-cin-was-2026-11-23  ingame  1795493820  0.61  0.60  0.40  0.39  0.045  0.9575  P:A|K:B  0.533917
+20366     aec-nba-tor-det-2026-11-20  ingame  1795230300  0.35  0.34  0.65  0.64  0.890  0.1200  K:A|P:B  0.503968
+12272     aec-nba-cha-lal-2026-11-17  ingame  1794983940  0.96  0.94  0.06  0.05  0.440  0.5700  P:A|K:B  0.472592
+16063     aec-nba-mem-cle-2026-11-18  ingame  1795055400  0.43  0.41  0.59  0.56  0.910  0.1000  K:A|P:B  0.443450
+5075     aec-cfb-ind-wash-2026-11-21  ingame  1795306380  0.45  0.44  0.57  0.55  0.010  0.9900  P:A|K:B  0.411059
+3994   aec-cfb-gast-marsh-2026-11-21  ingame  1795306620  0.44  0.43  0.57  0.56  0.010  0.9900  P:A|K:B  0.401060
+5899    aec-cfb-mphs-navy-2026-11-21  ingame  1795293000  0.53  0.52  0.48  0.46  0.115  0.9450  P:A|K:B  0.377331
+21794     aec-nfl-bal-car-2026-11-22  ingame  1795382040  0.40  0.39  0.61  0.60  0.010  0.9900  P:A|K:B  0.362059
+16062     aec-nba-mem-cle-2026-11-18  ingame  1795055340  0.83  0.82  0.18  0.17  0.440  0.5900  P:A|K:B  0.345592
+18224     aec-nba-orl-bkn-2026-11-20  ingame  1795230120  0.28  0.27  0.72  0.70  0.670  0.3400  K:A|P:B  0.343682
