@@ -4,7 +4,11 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
   STRATEGY_v2 / IDEA_PATTERNS "where to look next".
 
 ## Live money (Kalshi; launchd from ~/.claude/quant-kalshi)
-- E4 orig7 maker + X1 ($30 sub-cap): 137 settled / 134 wins, P&L +$21.02. DUL/TSA/NHL-late as before.
+- E4 live (journal, mode=live, 11-25 04:25Z): 142 settled / 139 wins, +$22.34 (orig7 62 / 1 loss / +$26.01 = +6.18%; X1 80 / 2 /
+  -$3.67). Since step 2 (11-12) orig7 13 settled, 0 losses, +$22.64, 14/28 maker orders filled. X1 since 11-18: 10, 1 loss, kill not
+  fired. (Portfolio's +$37.27 = live + 15 dry settles.) Needle KXDHOUSESEATS-27-249 87 ct ($83.78) open to Feb 2027, outside journal P&L.
+- STEP 3 PRE-REGISTERED (SIZING_RULE.md 11-25): 24 -> 48 ct at c >= .97 from 11-26 if depth check passes (q5_depth_step3, runs
+  06:12Z 11-25) AND real bankroll >= $370 (now $245; user must add cash). User 11-25: 'time to up the weather ... be aggressive'.
 - 11-24 06:47Z: shard 0 funded ($113.57) after the user set target_balance_allocation 0=100 and deposited; $83.87 still
   sits in shard 3 (allocation did not move existing cash this time; new money lands in 0). Sizing per SIZING_RULE.md: NO
   step-up now (24 ct = depth ceiling; real E4 bankroll ~$250 < configured KALSHI_BANKROLL_USD 400; next step >= 11-26 and
