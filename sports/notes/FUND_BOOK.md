@@ -342,6 +342,8 @@ logger (built, NOT installed; PK1 pass = >= 200 legs, ROI > 0, p < .05) [EA].
 | -- | Polymarket negRisk "overround legs" | +10-14% is display-price artefact [EA] | live median spread 63c | same |
 | LX1 | Logical arb across dependent Kalshi contracts (11-12..20) | 1 distinct leg set vs bar 5 in 7 days | too rare | notes/lx1_logical_arb.md |
 | P1-OR | Bet on the OLD settlement definition after a source change (OpenRouter BYOK, 11-21..23) | lost $14.08; Kalshi used the displayed view; NEW 5/6 | Kalshi settles on the display | notes/IDEA_PATTERNS.md P-1/P-4 |
+| PK1 | Pokemon cards (user idea via Triumph/Rips, 11-25): rip apps, MSRP->secondary flips, redeem-and-sell, JP import | rip apps return 86.9-88.1% of spend (Crypto.com research 11-10); ETB release-month median +$5.9 (n13), 3 mo +$2.8, 4/11 lose; platform FMV vs eBay sold ratio 0.988 (n6) | house edge ~12%; MSRP premium needs a queue win and decays | notes/pokemon_cards.md |
+| XV-US2 | Cross-venue arb Kalshi / PM US / Gemini game winners (boost_hedge 11-25) | 0 cases >= 1c net @10 ct; best -0.39c (410 snaps), Gemini copies Kalshi quotes | fees + same makers; in-game check pending | notes/boost_hedge.md |
 
 **Cross-venue / soft venues**
 | ID | Idea | Evidence | Why dead | File |

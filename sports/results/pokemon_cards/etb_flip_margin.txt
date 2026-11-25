@@ -1,0 +1,17 @@
+cost basis at MSRP incl tax: 54.49
+first_month | set | P_first | P_+3mo | P_now | net_sell_first | net_sell_+3mo | net_sell_now | n_months
+2023-09 | scarlet-&-violet-151 | 52 | 39 | 480 | -17.2 | -28.6 | +355.1 | 39
+2024-11 | surging-sparks | 57 | 82 | 123 | -12.7 | +8.9 | +44.7 | 25
+2025-01 | prismatic | 103 | 128 | 118 | +26.9 | +49.0 | +40.5 | 23
+2025-05 | destined-rivals | 105 | 90 | 99 | +28.7 | +16.2 | +23.6 | 19
+2025-07 | black-bolt | 79 | 75 | 145 | +5.9 | +2.8 | +63.5 | 17
+2025-07 | white-flare | 77 | 75 | 140 | +4.5 | +2.8 | +59.1 | 17
+2025-11 | phantasmal-flames | 74 | 84 | 134 | +2.1 | +10.8 | +54.3 | 13
+2026-01 | ascended-heroes | 119 | 150 | 120 | +40.9 | +68.0 | +41.9 | 11
+2026-03 | perfect-order | 77 | 66 | 64 | +4.5 | -4.7 | -6.5 | 9
+2026-04 | chaos-rising | 114 | 67 | 63 | +36.6 | -4.2 | -7.3 | 8
+2026-07 | pitch-black | 78 | 70 | 62 | +5.4 | -1.6 | -8.3 | 5
+2026-09 | 30th-celebration | 165 | 110 | 110 | +81.1 | +33.6 | +33.6 | 3
+2026-10 | delta-reign | 106 | 79 | 79 | +29.7 | +6.2 | +6.2 | 2
+first n 13 median 5.9 mean 18.2 n_neg 2
++3mo n 11 median 2.8 mean 10.9 n_neg 4

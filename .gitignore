@@ -33,3 +33,6 @@ sports/notes/thesis_v2_private.md
 sports/lab/edgelab_runs/
 sports/results/wx_bot_flow/tape_checkpoint.jsonl
 sports/results/promo_hunt_2/html/
+sports/results/pokemon_cards/tcgcsv_archive/
+sports/results/pokemon_cards/tcgcsv/
+sports/results/pokemon_cards/raw/

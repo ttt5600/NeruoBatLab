@@ -1,0 +1,26 @@
+KXPOKEMON-26NOV151ULTCO-832.19 | yes bids [(0.26, 43.0), (0.72, 100.0), (0.73, 50.0)] | no bids [(0.09, 20.0), (0.11, 6.55), (0.17, 100.0)] | total yes-bid qty 50958 no-bid qty 828
+KXPOKEMON-26NOV30TCELPO-274.94 | yes bids [] | no bids [(0.67, 41.0), (0.68, 53.0), (0.95, 101.0)] | total yes-bid qty 0 no-bid qty 7251
+KXPOKEMON-26NOVASCHEREL-124.75 | yes bids [(0.06, 1.0), (0.17, 1.0), (0.21, 5.5)] | no bids [(0.38, 1.0), (0.43, 1.0), (0.62, 15.0)] | total yes-bid qty 682 no-bid qty 6197
+KXPOKEMON-26NOVASCHERPO-325.5 | yes bids [] | no bids [(0.59, 215.0), (0.71, 43.0), (0.94, 98.6)] | total yes-bid qty 0 no-bid qty 7465
+KXPOKEMON-26NOVBLOWATPR-323.29 | yes bids [(0.04, 100.0), (0.05, 20.0), (0.06, 50.0)] | no bids [(0.54, 149.0), (0.55, 20.0), (0.86, 100.0)] | total yes-bid qty 170 no-bid qty 6291
+KXPOKEMON-26NOVBUL-17.79 | yes bids [(0.25, 100.0), (0.27, 15.0), (0.67, 100.0)] | no bids [(0.25, 50.0), (0.27, 50.0), (0.28, 19.31)] | total yes-bid qty 50914 no-bid qty 1357
+KXPOKEMON-26NOVCELULTPR-1206.87 | yes bids [(0.01, 100.0)] | no bids [(0.65, 71.0), (0.91, 100.0), (0.92, 50.0)] | total yes-bid qty 100 no-bid qty 6771
+KXPOKEMON-26NOVCHA2FD-26.76 | yes bids [] | no bids [(0.56, 64.0), (0.67, 10.0), (0.94, 100.0)] | total yes-bid qty 0 no-bid qty 822
+KXPOKEMON-26NOVCHA5D7-155.37 | yes bids [(0.01, 90.11)] | no bids [(0.76, 40.0), (0.93, 100.0), (0.98, 25.0)] | total yes-bid qty 90 no-bid qty 7333
+KXPOKEMON-26NOVCHAEX-300.78 | yes bids [] | no bids [(0.71, 48.0), (0.93, 100.0), (0.94, 50.0)] | total yes-bid qty 0 no-bid qty 6340
+KXPOKEMON-26NOVFIRPARIL-58.52 | yes bids [] | no bids [(0.6, 7.0), (0.94, 1.0), (0.95, 100.0)] | total yes-bid qty 0 no-bid qty 5576
+KXPOKEMON-26NOVGENCOSHO-171.26 | yes bids [(0.05, 37.0), (0.06, 20.0), (0.18, 100.0)] | no bids [(0.49, 42.0), (0.72, 100.0), (0.73, 4.0)] | total yes-bid qty 167 no-bid qty 6911
+KXPOKEMON-26NOVMEGCHAXE579-25.63 | yes bids [(0.02, 100.0)] | no bids [(0.55, 20.0), (0.62, 10.0), (0.88, 100.0)] | total yes-bid qty 100 no-bid qty 6227
+KXPOKEMON-26NOVMEGCHAXEC41-219.53 | yes bids [] | no bids [(0.65, 18.0), (0.94, 100.0), (0.95, 50.0)] | total yes-bid qty 0 no-bid qty 6576
+KXPOKEMON-26NOVMEGGENEX-710.52 | yes bids [(0.02, 100.0)] | no bids [(0.54, 150.0), (0.55, 20.0), (0.88, 100.0)] | total yes-bid qty 100 no-bid qty 7091
+KXPOKEMON-26NOVMEW514-3529.24 | yes bids [] | no bids [(0.25, 0.16), (0.41, 9.84), (0.5, 100.0)] | total yes-bid qty 0 no-bid qty 5838
+KXPOKEMON-26NOVMEW785-4152.8 | yes bids [(0.04, 70.0), (0.12, 25.0), (0.5, 100.0)] | no bids [(0.21, 100.0), (0.22, 93.0), (0.4, 100.0)] | total yes-bid qty 50355 no-bid qty 5744
+KXPOKEMON-26NOVMEW8FE-4678.5 | yes bids [(0.01, 100.0)] | no bids [(0.52, 71.0), (0.53, 20.0), (0.89, 100.0)] | total yes-bid qty 100 no-bid qty 6361
+KXPOKEMON-26NOVMEWEX0AF-45.54 | yes bids [] | no bids [(0.62, 67.0), (0.81, 20.0), (0.94, 100.0)] | total yes-bid qty 0 no-bid qty 5656
+KXPOKEMON-26NOVMEWEXA13-32.69 | yes bids [] | no bids [(0.6, 54.0), (0.71, 10.0), (0.94, 100.0)] | total yes-bid qty 0 no-bid qty 5459
+KXPOKEMON-26NOVPERORDBO-173.16 | yes bids [(0.23, 100.0)] | no bids [(0.34, 128.0), (0.35, 20.0), (0.67, 100.0)] | total yes-bid qty 100 no-bid qty 1528
+KXPOKEMON-26NOVPERORDPO-121.35 | yes bids [(0.01, 100.0)] | no bids [(0.63, 38.0), (0.64, 44.0), (0.94, 100.0)] | total yes-bid qty 100 no-bid qty 6866
+KXPOKEMON-26NOVPIKEX-594.25 | yes bids [] | no bids [(0.77, 5.88), (0.94, 101.0), (0.95, 14.0)] | total yes-bid qty 0 no-bid qty 7027
+KXPOKEMON-26NOVPIKEX109-103.56 | yes bids [(0.01, 100.0)] | no bids [(0.64, 54.0), (0.86, 6.54), (0.92, 100.0)] | total yes-bid qty 100 no-bid qty 7797
+KXPOKEMON-26NOVSQU-22.76 | yes bids [] | no bids [(0.01, 20.0), (0.09, 1.0)] | total yes-bid qty 0 no-bid qty 21
+sum resting yes-bid qty 154037 no-bid qty 135331

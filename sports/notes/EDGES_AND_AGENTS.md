@@ -604,3 +604,17 @@ confirm home state (CA vs CO) for venue legality.
 - Polymarket US $25 Bonus is a loss absorber (official docs) -> unhedged $25 cash trade is a free roll, EV ~+$25, max loss ~0.
 - Gemini ($40, qualifier must stay unhedged incl. other venues), ProphetX ($40), Novig ($45 hedged, CA unconfirmed), OG.com
   (+$23 + boost; CA via "all U.S. states"; 7 vs 30-day credit conflict) unchanged; FanDuel/Webull unconfirmed.
+
+## Merge 2026-11-25 ~04:00Z: promo_hunt_2, boost_hedge (interim), pokemon_cards
+- promo_hunt_2 DONE: Kraken via Rakuten $150 (re-read live 11-25 02:45Z; new Kraken customers; one >= $200 non-stable trade;
+  ~+$146, max loss ~$10), eToro via Rakuten $50 (~+$45), Coinbase+Rakuten (~+$20, only if never had Coinbase), Acorns (skip).
+  Ranked with prediction promos by $/hour in notes/PROMO_TRACKER.md. User to confirm prior Kraken/Coinbase/eToro/Rakuten accounts.
+- boost_hedge (interim; samplers PIDs 35885/41717 run to 08:45Z): XV-US2 dead pregame (0 >= 1c net); no existing-customer promo
+  locks money now; conditional Gemini Football Trade Match ~+$18/wk hedged (needs Gemini acct + designated week); OG weekly
+  streak small; PM US Tradesgiving to 11-30 (likely excludes sign-up bonus). Kalshi APY 3.5% at >= $250 avg balance.
+  Finish: `scripts/boost_hedge_xv_sampler.py report`, `scripts/boost_hedge_xv_hist.py report`.
+- pokemon_cards DONE: PK1 DEAD (rip apps ~-12% by design; MSRP ETB flips median +$5.9 release month, decays). Optional $0 paper
+  test on Kalshi KXPOKEMON month-end markets (Dec/Jan) -- low ceiling (~$20/mo). Anomaly: KXPOKEMON-26SEPCHA-39.87
+  "Charmander" settled YES at 190.24 (~Charizard) after trading 0.02 -> ambiguous-label settlement risk (IDEA_PATTERNS-type).
+- small_capacity_census RUNNING (user framing: inefficiencies too small for big firms).
+- Ops: odd-lot watcher scheduled (launchd quant-sports-oddlot, daily >= 07:15 PT; open offers in SessionStart hook).

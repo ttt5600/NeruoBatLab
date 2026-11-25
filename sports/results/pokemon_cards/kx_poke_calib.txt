@@ -1,0 +1,23 @@
+KXPOKEMON-26OCT30TCELPO-313.44 no strike 313.44 exp 277.53 | T-14 bid/ask 0.06 0.55 | T-7 0.05 0.12 | T-2 0.04 0.1
+KXPOKEMON-26OCTCHA-194.14 no strike 194.14 exp 154.37 | T-14 bid/ask 0.03 0.11 | T-7 0.06 0.11 | T-2 0.06 0.12
+KXPOKEMON-26OCTMEWEX-84.4 no strike 84.4 exp 44.04 | T-14 bid/ask 0.04 0.13 | T-7 0.06 0.13 | T-2 0.03 0.08
+KXPOKEMON-26OCTMEWGRG-3738.75 no strike 3738.75 exp No | T-14 bid/ask 0.14 0.23 | T-7 0.05 0.12 | T-2 0.08 0.16
+KXPOKEMON-26OCTMEWRRG-6000.27 no strike 6000.27 exp No | T-14 bid/ask 0.21 0.23 | T-7 0.0 0.07 | T-2 0.06 0.1
+KXPOKEMON-26OCTPIKEX109-299.99 no strike 299.99 exp 146.7 | T-14 bid/ask 0.05 0.06 | T-7 0.06 0.07 | T-2 0.05 0.1
+KXPOKEMON-26SEP151ULTCO-932.18 no strike 932.18 exp 879.17 | T-14 bid/ask 0.28 0.35 | T-7 0.06 0.13 | T-2 0.04 0.14
+KXPOKEMON-26SEPASCHEREL-169.14 no strike 169.14 exp 151.62 | T-14 bid/ask 0.13 0.19 | T-7 0.08 0.15 | T-2 0.08 0.14
+KXPOKEMON-26SEPASCHERPO-407.86 no strike 407.86 exp 356.52 | T-14 bid/ask 0.08 0.13 | T-7 0.02 0.06 | T-2 0.06 0.11
+KXPOKEMON-26SEPBLOWATPR-326.19 yes strike 326.19 exp 336.49 | T-14 bid/ask 0.43 0.52 | T-7 0.75 0.82 | T-2 0.78 0.82
+KXPOKEMON-26SEPBUL-28.81 no strike 28.81 exp 19.43 | T-14 bid/ask 0.1 0.19 | T-7 0.06 0.14 | T-2 0.05 0.13
+KXPOKEMON-26SEPCELULTPR-1237.81 no strike 1237.81 exp 1227.74 | T-14 bid/ask 0.48 0.56 | T-7 0.45 0.52 | T-2 0.18 0.26
+KXPOKEMON-26SEPCHA-39.87 yes strike 39.87 exp 190.24 | T-14 bid/ask 0.01 0.07 | T-7 0.07 0.15 | T-2 0.03 0.1
+KXPOKEMON-26SEPCHAEX-364.08 no strike 364.08 exp 351.74 | T-14 bid/ask 0.64 0.72 | T-7 0.19 0.25 | T-2 0.04 0.12
+KXPOKEMON-26SEPFIRPARIL-68.79 no strike 68.79 exp 64.86 | T-14 bid/ask 0.36 0.44 | T-7 0.07 0.15 | T-2 0.13 0.22
+KXPOKEMON-26SEPGENCOSHO-183.5 no strike 183.5 exp 182.28 | T-14 bid/ask 0.52 0.61 | T-7 0.55 0.64 | T-2 0.42 0.5
+KXPOKEMON-26SEPMEGCHAXE-34.21 no strike 34.21 exp 25.86 | T-14 bid/ask 0.09 0.15 | T-7 0.07 0.14 | T-2 0.06 0.14
+KXPOKEMON-26SEPPERORDBO-174.14 no strike 174.14 exp 171.63 | T-14 bid/ask 0.56 0.65 | T-7 0.48 0.56 | T-2 0.82 0.89
+KXPOKEMON-26SEPPERORDPO-121.39 yes strike 121.39 exp 123.3 | T-14 bid/ask 0.7 0.98 | T-7 0.72 0.78 | T-2 0.82 0.87
+KXPOKEMON-26SEPSQU-27.82 no strike 27.82 exp 21.53 | T-14 bid/ask 0.1 0.19 | T-7 0.06 0.15 | T-2 0.06 0.15
+T-14: buy NO at no_ask, n=19, wins=17, sum pnl/contract=+3.00, mean=+0.158 (pre-fee; excludes SEPCHA anomaly)
+T-7: buy NO at no_ask, n=19, wins=16, sum pnl/contract=+1.84, mean=+0.097 (pre-fee; excludes SEPCHA anomaly)
+T-2: buy NO at no_ask, n=19, wins=17, sum pnl/contract=+1.86, mean=+0.098 (pre-fee; excludes SEPCHA anomaly)
