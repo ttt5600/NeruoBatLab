@@ -1,0 +1,16 @@
+{
+ "_note": "Hand-written stand-ins for recorded LLM answers, in the formats the prompts request (no paid call was made).",
+ "binary_ok": "(a) The outcome is known on Dec 5, about five days away.\n(b) Status quo: the AAA average is $3.09 today and has fallen 2c/week.\n(c) NO path: the decline continues for five more days at the recent pace.\n(d) YES path: prices flatten.\n(e) Base rate: 5-day moves above 9c are rare.\nProbability: 78%",
+ "binary_two_lines": "Initial guess Probability: 40% but after checking the data I revise.\nProbability: 35%",
+ "binary_resolved_claim": "The question has already resolved YES according to the report.\nProbability: 99%",
+ "binary_bad": "I think it is fairly likely, maybe two in three.",
+ "mc_ok": "Status quo favours the incumbent party.\nDemocratic: 55%\nRepublican: 40%\nOther: 5%",
+ "mc_prefixed": "- Option: Democratic: 50%\n- Option: Republican: 45%\n- Option: Other: 5%",
+ "mc_missing": "Democratic: 60%\nRepublican: 40%",
+ "numeric_ok": "Recent: 4.12%. Trend flat.\nPercentile 10: 3.85\nPercentile 20: 3.95\nPercentile 40: 4.07\nPercentile 60: 4.15\nPercentile 80: 4.27\nPercentile 90: 4.38",
+ "numeric_commas": "Percentile 10: 1,200 cases\nPercentile 20: 1,450\nPercentile 40: 1,800\nPercentile 60: 2,150\nPercentile 80: 2,900\nPercentile 90: 3,600",
+ "numeric_suffix": "Percentile 10: 1.2 billion\nPercentile 20: 1.5 billion\nPercentile 40: 1.9 billion\nPercentile 60: 2.2 billion\nPercentile 80: 2.8 billion\nPercentile 90: 3.3 billion",
+ "numeric_decreasing": "Percentile 10: 5\nPercentile 20: 4\nPercentile 40: 3\nPercentile 60: 2\nPercentile 80: 1\nPercentile 90: 0",
+ "discrete_ok": "Percentile 10: 2\nPercentile 20: 3\nPercentile 40: 5\nPercentile 60: 6\nPercentile 80: 8\nPercentile 90: 10",
+ "date_ok": "Percentile 10: 2027-02-01\nPercentile 20: 2027-03-15\nPercentile 40: 2027-05-01\nPercentile 60: 2027-06-20\nPercentile 80: 2027-09-01\nPercentile 90: 2027-11-15"
+}

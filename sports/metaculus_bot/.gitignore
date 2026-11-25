@@ -1,0 +1,9 @@
+.venv/
+.venv_official/
+.pytest_cache/
+__pycache__/
+*.pyc
+state/
+backtest_fixtures/
+backtest_results/
+.env

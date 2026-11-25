@@ -634,3 +634,7 @@ confirm home state (CA vs CO) for venue legality.
   steady quotes on both venues (best -0.20c); shifting PM +1 min -> 0 gaps, -1 min -> 16.5% => non-synchronous minute bars, not arb.
   Live 02:52-06:51Z: best K/PM -0.39c, PM/G +0.96c (1 snapshot), K/G -1.5c. Lesson: require steady or same-instant quotes before
   calling a cross-venue gap real. Samplers stopped (nothing running).
+- metaculus_bot_build DONE 11-25: sports/metaculus_bot/ (merged from agent branch dd62120). 69 pass / 4 skip (fund venv); numeric CDFs
+  match forecasting-tools 0.3.7 within 1e-9; offline dry run 9/9 fixtures, nothing sent; $0 spent. Go/kill prereg in `mbot evaluate`
+  (kill: coverage < 90% or mean spot peer < 0 or spend > $50/mo; go: coverage >= 95% and mean >= +5 over >= 40 scored). Waiting on
+  the USER: bot account + token, credits form (OpenRouter key), AskNews signup. Est. $0.37-0.87/question at 5 Opus samples (estimate).

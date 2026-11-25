@@ -1,0 +1,63 @@
+{
+ "id": 9101,
+ "title": "Resolved binary: will X happen?",
+ "status": "resolved",
+ "open_time": "2026-11-30T12:00:00Z",
+ "scheduled_close_time": "2026-11-30T15:00:00Z",
+ "projects": {
+  "tournament": [
+   {
+    "id": 33200,
+    "slug": "minibench"
+   }
+  ],
+  "default_project": {
+   "id": 33200,
+   "visibility": "not_in_main_feed"
+  }
+ },
+ "question": {
+  "id": 8101,
+  "post_id": 9101,
+  "title": "Resolved binary: will X happen?",
+  "type": "binary",
+  "status": "resolved",
+  "open_time": "2026-11-30T12:00:00Z",
+  "scheduled_close_time": "2026-11-30T15:00:00Z",
+  "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+  "resolution_criteria": "Resolves per the official source named in the title.",
+  "fine_print": "",
+  "unit": "",
+  "options": null,
+  "label": null,
+  "open_upper_bound": null,
+  "open_lower_bound": null,
+  "inbound_outcome_count": null,
+  "scaling": {
+   "range_min": null,
+   "range_max": null,
+   "zero_point": null,
+   "open_upper_bound": null,
+   "open_lower_bound": null,
+   "inbound_outcome_count": null,
+   "continuous_range": null
+  },
+  "my_forecasts": {
+   "history": [],
+   "latest": null,
+   "score_data": {}
+  },
+  "aggregations": {
+   "recency_weighted": {
+    "latest": {
+     "forecast_values": [
+      0.3,
+      0.7
+     ]
+    },
+    "history": null
+   }
+  },
+  "resolution": "yes"
+ }
+}

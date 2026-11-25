@@ -1,0 +1,27 @@
+[project]
+name = "mbot"
+version = "0.1.0"
+description = "Metaculus FutureEval / MiniBench forecasting bot (fund side project). Official REST submission path, pluggable LLMs, free data tools."
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32,<3",
+    "numpy>=2.0,<3",
+]
+
+[project.optional-dependencies]
+# TSA wrapper reuses sports/scripts/e1x_tsa_logger.py, which needs pandas.
+fund = ["pandas>=2.2,<3"]
+# Official framework, pinned to the version range the official template pins (metac-bot-template pyproject,
+# commit bcbd016b, 2026-10-31: forecasting-tools>=0.2.90,<0.4.0). Only the CDF parity test imports it.
+# forecasting-tools needs Python 3.11-3.13 (nest_asyncio breaks on 3.14, per the template README).
+official = ["forecasting-tools==0.3.7"]
+dev = ["pytest>=8"]
+# Claude via the official SDK. 2.14.0 was installed and checked on 2026-11-25: beta.messages.stream accepts
+# betas / fallbacks / output_config (tests/test_llm.py::test_real_sdk_request_on_the_wire, MockTransport, no call).
+llm = ["anthropic>=2.14,<3"]
+# AskNews SDK (import asknews_sdk), pinned as the official template pins it (pyproject); never installed or called here.
+news = ["asknews>=0.13.11,<0.14"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

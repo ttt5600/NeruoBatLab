@@ -1,0 +1,594 @@
+{
+ "next": null,
+ "previous": null,
+ "results": [
+  {
+   "id": 9001,
+   "title": "Will the AAA national average price of regular gasoline be above $3.00 on December 5, 2026?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T15:00:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "question": {
+    "id": 8001,
+    "post_id": 9001,
+    "title": "Will the AAA national average price of regular gasoline be above $3.00 on December 5, 2026?",
+    "type": "binary",
+    "status": "open",
+    "open_time": "2026-11-30T12:00:00Z",
+    "scheduled_close_time": "2026-11-30T15:00:00Z",
+    "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+    "resolution_criteria": "Resolves per the official source named in the title.",
+    "fine_print": "",
+    "unit": "",
+    "options": null,
+    "label": null,
+    "open_upper_bound": null,
+    "open_lower_bound": null,
+    "inbound_outcome_count": null,
+    "scaling": {
+     "range_min": null,
+     "range_max": null,
+     "zero_point": null,
+     "open_upper_bound": null,
+     "open_lower_bound": null,
+     "inbound_outcome_count": null,
+     "continuous_range": null
+    },
+    "my_forecasts": {
+     "history": [],
+     "latest": null,
+     "score_data": {}
+    },
+    "aggregations": {
+     "recency_weighted": {
+      "history": null,
+      "latest": null
+     }
+    },
+    "resolution": null
+   }
+  },
+  {
+   "id": 9002,
+   "title": "Which party will win the 2026 Example State gubernatorial special election?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T15:00:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "question": {
+    "id": 8002,
+    "post_id": 9002,
+    "title": "Which party will win the 2026 Example State gubernatorial special election?",
+    "type": "multiple_choice",
+    "status": "open",
+    "open_time": "2026-11-30T12:00:00Z",
+    "scheduled_close_time": "2026-11-30T15:00:00Z",
+    "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+    "resolution_criteria": "Resolves per the official source named in the title.",
+    "fine_print": "",
+    "unit": "",
+    "options": [
+     "Democratic",
+     "Republican",
+     "Other"
+    ],
+    "label": null,
+    "open_upper_bound": null,
+    "open_lower_bound": null,
+    "inbound_outcome_count": null,
+    "scaling": {
+     "range_min": null,
+     "range_max": null,
+     "zero_point": null,
+     "open_upper_bound": null,
+     "open_lower_bound": null,
+     "inbound_outcome_count": null,
+     "continuous_range": null
+    },
+    "my_forecasts": {
+     "history": [],
+     "latest": null,
+     "score_data": {}
+    },
+    "aggregations": {
+     "recency_weighted": {
+      "history": null,
+      "latest": null
+     }
+    },
+    "resolution": null
+   }
+  },
+  {
+   "id": 9003,
+   "title": "What will the 10-year Treasury yield (FRED DGS10) be on December 10, 2026?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T15:00:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "question": {
+    "id": 8003,
+    "post_id": 9003,
+    "title": "What will the 10-year Treasury yield (FRED DGS10) be on December 10, 2026?",
+    "type": "numeric",
+    "status": "open",
+    "open_time": "2026-11-30T12:00:00Z",
+    "scheduled_close_time": "2026-11-30T15:00:00Z",
+    "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+    "resolution_criteria": "Resolves per the official source named in the title.",
+    "fine_print": "",
+    "unit": "%",
+    "options": null,
+    "label": null,
+    "open_upper_bound": true,
+    "open_lower_bound": true,
+    "inbound_outcome_count": 200,
+    "scaling": {
+     "range_min": 3.0,
+     "range_max": 5.5,
+     "zero_point": null,
+     "open_lower_bound": true,
+     "open_upper_bound": true,
+     "inbound_outcome_count": 200,
+     "continuous_range": null
+    },
+    "my_forecasts": {
+     "history": [],
+     "latest": null,
+     "score_data": {}
+    },
+    "aggregations": {
+     "recency_weighted": {
+      "history": null,
+      "latest": null
+     }
+    },
+    "resolution": null
+   }
+  },
+  {
+   "id": 9004,
+   "title": "How many reported measles cases will the US CDC count in 2026?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T15:00:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "question": {
+    "id": 8004,
+    "post_id": 9004,
+    "title": "How many reported measles cases will the US CDC count in 2026?",
+    "type": "numeric",
+    "status": "open",
+    "open_time": "2026-11-30T12:00:00Z",
+    "scheduled_close_time": "2026-11-30T15:00:00Z",
+    "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+    "resolution_criteria": "Resolves per the official source named in the title.",
+    "fine_print": "",
+    "unit": "cases",
+    "options": null,
+    "label": null,
+    "open_upper_bound": true,
+    "open_lower_bound": false,
+    "inbound_outcome_count": 200,
+    "scaling": {
+     "range_min": 100.0,
+     "range_max": 100000.0,
+     "zero_point": 0.0,
+     "open_lower_bound": false,
+     "open_upper_bound": true,
+     "inbound_outcome_count": 200,
+     "continuous_range": null
+    },
+    "my_forecasts": {
+     "history": [],
+     "latest": null,
+     "score_data": {}
+    },
+    "aggregations": {
+     "recency_weighted": {
+      "history": null,
+      "latest": null
+     }
+    },
+    "resolution": null
+   }
+  },
+  {
+   "id": 9005,
+   "title": "How many executive orders will be signed between December 1 and December 14, 2026?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T15:00:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "question": {
+    "id": 8005,
+    "post_id": 9005,
+    "title": "How many executive orders will be signed between December 1 and December 14, 2026?",
+    "type": "discrete",
+    "status": "open",
+    "open_time": "2026-11-30T12:00:00Z",
+    "scheduled_close_time": "2026-11-30T15:00:00Z",
+    "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+    "resolution_criteria": "Resolves per the official source named in the title.",
+    "fine_print": "",
+    "unit": "orders",
+    "options": null,
+    "label": null,
+    "open_upper_bound": true,
+    "open_lower_bound": false,
+    "inbound_outcome_count": 20,
+    "scaling": {
+     "range_min": -0.5,
+     "range_max": 19.5,
+     "zero_point": null,
+     "open_lower_bound": false,
+     "open_upper_bound": true,
+     "inbound_outcome_count": 20,
+     "continuous_range": null
+    },
+    "my_forecasts": {
+     "history": [],
+     "latest": null,
+     "score_data": {}
+    },
+    "aggregations": {
+     "recency_weighted": {
+      "history": null,
+      "latest": null
+     }
+    },
+    "resolution": null
+   }
+  },
+  {
+   "id": 9006,
+   "title": "When will Example Corp announce its next CEO?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T15:00:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "question": {
+    "id": 8006,
+    "post_id": 9006,
+    "title": "When will Example Corp announce its next CEO?",
+    "type": "date",
+    "status": "open",
+    "open_time": "2026-11-30T12:00:00Z",
+    "scheduled_close_time": "2026-11-30T15:00:00Z",
+    "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+    "resolution_criteria": "Resolves per the official source named in the title.",
+    "fine_print": "",
+    "unit": "",
+    "options": null,
+    "label": null,
+    "open_upper_bound": true,
+    "open_lower_bound": true,
+    "inbound_outcome_count": 200,
+    "scaling": {
+     "range_min": 1798761600.0,
+     "range_max": 1830297600.0,
+     "zero_point": null,
+     "open_lower_bound": true,
+     "open_upper_bound": true,
+     "inbound_outcome_count": 200,
+     "continuous_range": null
+    },
+    "my_forecasts": {
+     "history": [],
+     "latest": null,
+     "score_data": {}
+    },
+    "aggregations": {
+     "recency_weighted": {
+      "history": null,
+      "latest": null
+     }
+    },
+    "resolution": null
+   }
+  },
+  {
+   "id": 9007,
+   "title": "Will Example event happen by 2027?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T15:00:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "question": {
+    "id": 8007,
+    "post_id": 9007,
+    "title": "Will Example event happen by 2027?",
+    "type": "binary",
+    "status": "open",
+    "open_time": "2026-11-30T12:00:00Z",
+    "scheduled_close_time": "2026-11-30T15:00:00Z",
+    "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+    "resolution_criteria": "Resolves per the official source named in the title.",
+    "fine_print": "",
+    "unit": "",
+    "options": null,
+    "label": null,
+    "open_upper_bound": null,
+    "open_lower_bound": null,
+    "inbound_outcome_count": null,
+    "scaling": {
+     "range_min": null,
+     "range_max": null,
+     "zero_point": null,
+     "open_upper_bound": null,
+     "open_lower_bound": null,
+     "inbound_outcome_count": null,
+     "continuous_range": null
+    },
+    "my_forecasts": {
+     "history": [
+      {
+       "start_time": 1798700000.0,
+       "end_time": null,
+       "forecast_values": [
+        0.7,
+        0.3
+       ]
+      }
+     ],
+     "latest": {
+      "start_time": 1798700000.0,
+      "end_time": null,
+      "forecast_values": [
+       0.7,
+       0.3
+      ]
+     },
+     "score_data": {}
+    },
+    "aggregations": {
+     "recency_weighted": {
+      "history": null,
+      "latest": null
+     }
+    },
+    "resolution": null
+   }
+  },
+  {
+   "id": 9008,
+   "title": "Will a question closing soon be skipped?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T13:05:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "question": {
+    "id": 8008,
+    "post_id": 9008,
+    "title": "Will a question closing soon be skipped?",
+    "type": "binary",
+    "status": "open",
+    "open_time": "2026-11-30T12:00:00Z",
+    "scheduled_close_time": "2026-11-30T13:05:00Z",
+    "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+    "resolution_criteria": "Resolves per the official source named in the title.",
+    "fine_print": "",
+    "unit": "",
+    "options": null,
+    "label": null,
+    "open_upper_bound": null,
+    "open_lower_bound": null,
+    "inbound_outcome_count": null,
+    "scaling": {
+     "range_min": null,
+     "range_max": null,
+     "zero_point": null,
+     "open_upper_bound": null,
+     "open_lower_bound": null,
+     "inbound_outcome_count": null,
+     "continuous_range": null
+    },
+    "my_forecasts": {
+     "history": [],
+     "latest": null,
+     "score_data": {}
+    },
+    "aggregations": {
+     "recency_weighted": {
+      "history": null,
+      "latest": null
+     }
+    },
+    "resolution": null
+   }
+  },
+  {
+   "id": 9009,
+   "title": "Example group: which teams make the playoffs?",
+   "status": "open",
+   "open_time": "2026-11-30T12:00:00Z",
+   "scheduled_close_time": "2026-11-30T15:00:00Z",
+   "projects": {
+    "tournament": [
+     {
+      "id": 33200,
+      "slug": "minibench"
+     }
+    ],
+    "default_project": {
+     "id": 33200,
+     "visibility": "not_in_main_feed"
+    }
+   },
+   "group_of_questions": {
+    "description": "Group description.",
+    "resolution_criteria": "Group criteria.",
+    "fine_print": "",
+    "questions": [
+     {
+      "id": 8091,
+      "post_id": 9009,
+      "title": "Example group",
+      "type": "binary",
+      "status": "open",
+      "open_time": "2026-11-30T12:00:00Z",
+      "scheduled_close_time": "2026-11-30T15:00:00Z",
+      "description": null,
+      "resolution_criteria": null,
+      "fine_print": "",
+      "unit": "",
+      "options": null,
+      "label": "Team A",
+      "open_upper_bound": null,
+      "open_lower_bound": null,
+      "inbound_outcome_count": null,
+      "scaling": {
+       "range_min": null,
+       "range_max": null,
+       "zero_point": null,
+       "open_upper_bound": null,
+       "open_lower_bound": null,
+       "inbound_outcome_count": null,
+       "continuous_range": null
+      },
+      "my_forecasts": {
+       "history": [],
+       "latest": null,
+       "score_data": {}
+      },
+      "aggregations": {
+       "recency_weighted": {
+        "history": null,
+        "latest": null
+       }
+      },
+      "resolution": null
+     },
+     {
+      "id": 8092,
+      "post_id": 9009,
+      "title": "Example group",
+      "type": "binary",
+      "status": "open",
+      "open_time": "2026-11-30T12:00:00Z",
+      "scheduled_close_time": "2026-11-30T15:00:00Z",
+      "description": null,
+      "resolution_criteria": null,
+      "fine_print": "",
+      "unit": "",
+      "options": null,
+      "label": "Team B",
+      "open_upper_bound": null,
+      "open_lower_bound": null,
+      "inbound_outcome_count": null,
+      "scaling": {
+       "range_min": null,
+       "range_max": null,
+       "zero_point": null,
+       "open_upper_bound": null,
+       "open_lower_bound": null,
+       "inbound_outcome_count": null,
+       "continuous_range": null
+      },
+      "my_forecasts": {
+       "history": [],
+       "latest": null,
+       "score_data": {}
+      },
+      "aggregations": {
+       "recency_weighted": {
+        "history": null,
+        "latest": null
+       }
+      },
+      "resolution": null
+     }
+    ]
+   }
+  }
+ ]
+}

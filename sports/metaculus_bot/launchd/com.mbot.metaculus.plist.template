@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TEMPLATE ONLY. NOT INSTALLED. Nothing in this repo loads it.
+  To use: replace every __PLACEHOLDER__, save as ~/Library/LaunchAgents/com.mbot.metaculus.plist, then
+      launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.mbot.metaculus.plist
+  Stop:   launchctl bootout gui/$(id -u)/com.mbot.metaculus
+  Runs `python -m mbot run` every 20 minutes (the official template's GitHub Actions cadence). Questions stay open
+  ~3 h, so a 20-min poll gives ~8 chances per question; the run lock makes overlapping ticks harmless.
+  Secrets: keep them in __BOT_DIR__/.env (chmod 600, git-ignored; the command below exports them); do NOT put keys
+  in this plist (plists are world-readable by default).
+  A laptop that sleeps misses windows: for full coverage use an always-on machine or the GitHub Actions route
+  (README "Scheduling").
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.mbot.metaculus</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-c</string>
+    <string>cd __BOT_DIR__ &amp;&amp; set -a &amp;&amp; . ./.env &amp;&amp; set +a &amp;&amp; exec .venv/bin/python -m mbot run</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>1200</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>__STATE_DIR__/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>__STATE_DIR__/launchd.err.log</string>
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>

@@ -40,8 +40,9 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 - P-4: Kalshi follows the NEW source definition 5/6 [0.442, 0.981] -> bet with the display, not with history.
 
 ## Waiting on user
-0. Metaculus bot tournament (notes/metaculus_bot_tourney.md): conditional GO, ~$480-850/season EV; needs the user to create a
-   Metaculus + bot account and apply for free LLM credits/AskNews; then a ~20-30 h build (fund or compete project -- user's pick).
+0. Metaculus bot BUILT (sports/metaculus_bot/README.md, $0, tests pass): user creates bot account + token, credits form, AskNews;
+   then smoke -> dry run -> bot-testing-area -> MiniBench. Needle exit ticket ready (sell 87 KXDHOUSESEATS-27-249 @ .996 -> +$86.62
+   to shard 0; hub verify: user's call) -- user reply 'sell it'.
 1. Re-lock GOAL.md (hub doctor FAIL). 12-month goal unchanged until re-lock. 2. vault.yaml windows for forward trials (incl. kalshi_temp_e4c_fwd text in notes/e4_coldmargin.md).
 3. Optional: unload lx1 + early-form jobs; promos needing sign-up (money_now.md: Gemini ~$38,
    ProphetX ~$36.5, PM US $15.30, Novig $45 unverified, Webull ~$18.7) -- identity steps are the user's.

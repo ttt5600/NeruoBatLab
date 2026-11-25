@@ -1,0 +1,58 @@
+{
+ "id": 9104,
+ "title": "Annulled binary",
+ "status": "resolved",
+ "open_time": "2026-11-30T12:00:00Z",
+ "scheduled_close_time": "2026-11-30T15:00:00Z",
+ "projects": {
+  "tournament": [
+   {
+    "id": 33200,
+    "slug": "minibench"
+   }
+  ],
+  "default_project": {
+   "id": 33200,
+   "visibility": "not_in_main_feed"
+  }
+ },
+ "question": {
+  "id": 8104,
+  "post_id": 9104,
+  "title": "Annulled binary",
+  "type": "binary",
+  "status": "resolved",
+  "open_time": "2026-11-30T12:00:00Z",
+  "scheduled_close_time": "2026-11-30T15:00:00Z",
+  "description": "Synthetic fixture modelled on the Metaculus API schema (docs/openapi.yml).",
+  "resolution_criteria": "Resolves per the official source named in the title.",
+  "fine_print": "",
+  "unit": "",
+  "options": null,
+  "label": null,
+  "open_upper_bound": null,
+  "open_lower_bound": null,
+  "inbound_outcome_count": null,
+  "scaling": {
+   "range_min": null,
+   "range_max": null,
+   "zero_point": null,
+   "open_upper_bound": null,
+   "open_lower_bound": null,
+   "inbound_outcome_count": null,
+   "continuous_range": null
+  },
+  "my_forecasts": {
+   "history": [],
+   "latest": null,
+   "score_data": {}
+  },
+  "aggregations": {
+   "recency_weighted": {
+    "history": null,
+    "latest": null
+   }
+  },
+  "resolution": "annulled"
+ }
+}
