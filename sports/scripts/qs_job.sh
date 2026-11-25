@@ -22,6 +22,8 @@
 #               installed by scripts/install_e4p_agent.sh)
 #   oddlot      READ-ONLY EDGAR odd-lot tender watcher, daily >= 07:15 PT (11-25, notes/money_now.md C;
 #               installed by scripts/install_oddlot_agent.sh)
+#   mc1         READ-ONLY MC1 Card Kingdom buylist vs TCGplayer/Manapool scanner, daily >= 06:30 PT (11-25,
+#               notes/small_capacity_census.md 'MC1 scanner'; installed by scripts/install_mc1_agent.sh)
 #   snow-markets READ-ONLY TG1/SD1/SD2 snow paper, daily ~15:30Z (11-16, notes/snow_markets.md;
 #               installed by scripts/install_snow_markets_agent.sh)
 # Every run is wrapped in `caffeinate -i` so the Mac cannot idle-sleep mid-run. A file named STOP in the deployed
@@ -234,6 +236,17 @@ case "$job" in
     [ "$((10#$hm))" -ge 715 ] || exit 0
     done_today oddlot_day && exit 0
     run scripts/oddlot_watch.py && echo "$d" > state/oddlot_day ;;
+  mc1)          # MC1 / T-MTG paper scanner (notes/small_capacity_census.md 'MC1 scanner'): READ-ONLY public downloads
+                # (MTGJSON AllPricesToday.json.xz, CK v2 pricelist gzip, Scryfall /cards/collection), once per PT day at
+                # the first run >= 06:30 PT; writes data/mc1/<date>.json + .md, appends data/mc1/daily.jsonl (stdlib only;
+                # no orders, no keys). Exit 2 = network failure -> retried on the next run, at most 6 tries per day.
+                # launchd 1800 s.
+    [ "$((10#$hm))" -ge 630 ] || exit 0
+    done_today mc1_day && exit 0
+    t=$(cat state/mc1_tries 2>/dev/null); n=0; [ "${t% *}" = "$d" ] && n="${t#* }"
+    [ "$n" -lt 6 ] || exit 0
+    echo "$d $((n + 1))" > state/mc1_tries
+    run scripts/mc1_buylist_scan.py --date "$d" && echo "$d" > state/mc1_day ;;
   snow-markets) # TG1/SD1/SD2 snow paper: one `log` snapshot per UTC day at the first run >= 15:30 UTC through 2027-04-01;
                 # `settle` (fired tickers' Kalshi result / scalar value) once per UTC day from 2026-11-27. launchd 1800 s.
     ud=$(TZ=UTC date +%F); uhm=$(TZ=UTC date +%H%M)

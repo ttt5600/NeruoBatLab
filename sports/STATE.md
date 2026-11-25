@@ -23,6 +23,8 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 - source-shift watcher installed (hourly); AAA rollover guard; Q014 Roll Call endpoint fixed (count 58 = RSS 58).
 - DNS outage 11-23 ~10:00-18:51 PT broke every launchd job (NameResolutionError); recovered at the 19:03 PT tick. No code fault.
 - LX1 scanner window over (KILLED); its job still writes a daily report (user may unload). early-form idle (optional unload).
+- MC1 T-MTG paper phase LIVE 11-25 (launchd quant-sports-mc1, daily >= 06:30 PT; data/mc1/daily.jsonl): judge 12-02 on median
+  n_signal >= 15/day, then the USER spot-checks 10 flags (>= 6/10 real NM listings) before any <= $100 batch. notes/small_capacity_census.md.
 - odd-lot tender watcher SCHEDULED 11-25 (launchd quant-sports-oddlot, daily >= 07:15 PT; open offers show in the
   SessionStart hook). MYPS Dutch $4.30-5.50 open to 12-10, price $4.93 (11-24) > floor -> not riskless; watch.
 

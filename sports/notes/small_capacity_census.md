@@ -356,6 +356,99 @@ Ranking key = expected net $/month at realistic hours. DNR rows are listed for c
 Top-3 tests: T-MTG, T-MINT, T-BOUNTY (above). Thrift = plant-and-forget suggestion only (no <= $100 test can see an outcome
 within a year).
 
+## MC1 scanner (agent mc1_scanner, built 2026-11-25 UTC; T-MTG paper phase tooling)
+Files: `scripts/mc1_buylist_scan.py` (stdlib only, `python3 -I` safe, py3.9+), `scripts/qs_job.sh` case `mc1`,
+`scripts/install_mc1_agent.sh`, `tests/test_mc1_buylist_scan.py` (10 offline tests), run logs in `results/mc1_scanner/`.
+
+**What it does.** Downloads MTGJSON `AllPricesToday.json.xz` + the Card Kingdom v2 pricelist (gzip) into a temp dir
+(deleted on exit), applies the strict filter of `scripts/mtg_name_strict.py` UNCHANGED (price = max(TCGplayer,
+Manapool) < $50; net = CK cash buy - (price x 1.0925 + $1) >= $3; name = CK (buy, retail, foil) tier row whose Scryfall
+TCGplayer price equals MTGJSON's to the cent, exactly one hit), then the pre-registered exclusions (Scryfall
+released_at < 1995-01-01, Scryfall `reserved`, CK qty_buying < 1). Writes `~/.claude/quant-sports/data/mc1/<PT date>.json`
+(flags + unresolved + excluded + data stamps), `<date>.md` (click-through table + seeded 10-card spot-check checklist) and
+appends one line to `daily.jsonl` (date, n_flags, net/cost one copy, net/cost full qty_buying, n_signal, n_unresolved,
+mtgjson_date, ck_created_at, run_utc). Exit 0 ok, 2 network/download failure (nothing written), 1 bug.
+
+**Terms checked 2026-11-24.** mtgjson.com/robots.txt disallows `/api/v5/*.json` only (we fetch the `.xz`); licence MIT.
+api.cardkingdom.com/robots.txt = `Disallow:` (empty); no API terms page reachable (www.cardkingdom.com is behind a
+Cloudflare challenge); one GET/day. Scryfall (scryfall.com/docs/api/rate-limits): UA + Accept required;
+**`/cards/collection` hard limit 2 req/s (500 ms)**, not the general 10/s; a 429 = 30 s lockout. The census scripts spaced
+calls 0.3 s (3.3/s, over the limit); the scanner uses 0.6 s and backs off 35 s on a 429. ~12 POSTs per run (841 ids on 11-24).
+
+**Reproduction (cached census files, Scryfall live 2026-11-25 04:31Z;** `results/mc1_scanner/repro_20261124.log`): 19 signal
+rows -> 4 unresolved (3 `no_ck_retail`, 1 `no_match`; same 4 as mtg_strict_named.json) -> Bad Moon (Unlimited, 1993)
+excluded pre-1995, 0 Reserved List, 0 qty 0 -> **14 flags, identical (name, finish, CK buy, TCG, Manapool, qty) tuples to
+mtg_strict_named.json; net $101.76 on $346.92 one copy; $423.56 on $1,515.79 at full qty (70 units)** = the census
+numbers to the cent (cost totals sum UNROUNDED per-card costs, nets sum cent-rounded nets: the census convention).
+
+**Count definition -- decide BEFORE day 1.** The T-MTG bar is "median >= 15 flagged cards/day". The scanner's
+`n_flags` = named, post-exclusion cards (the only ones a human can buy or spot-check). On 11-24 that is **14, i.e. just
+BELOW the bar**; the census line "Today's count (19) sits just above the T-MTG paper bar" counted pre-naming signal
+rows (`n_signal`, incl. 4 unnamed rows and the pre-1995 Bad Moon). Recommendation: judge on `n_flags` (the
+pre-registered signal includes the exclusions and a flag must be buyable); `n_signal` is logged alongside so the other
+reading can be reported, not chosen after the fact.
+
+**Live end-to-end run** (2026-11-25 04:35-04:38Z, --out /tmp/mc1_live_out, `results/mc1_scanner/live_run.log`,
+table `results/mc1_scanner/live_20261124.md`): downloads OK (MTGJSON meta 2026-11-24 = same build as the census -- MTGJSON
+had not rebuilt yet; CK pricelist REFRESHED, created 2026-11-24 20:07:34 vs census 19:07:54, 155,033 rows; Scryfall 836
+cards), exit 0, 225 s wall, peak RSS ~0.8 GB, temp dir removed. Result **identical to the census: 14 flags, net $101.76 on
+$346.92 one copy, $423.56 on $1,515.79 at full qty (70 units)**; n_signal 19, unresolved 4, pre-1995 1. The CK refresh one
+hour later changed none of the 14 rows. This proves the pipeline on live endpoints; it is NOT a second independent day.
+
+**Timing / risks found while building.**
+- MTGJSON AllPricesToday.json.xz Last-Modified = 2026-11-24 06:14:16 GMT (HEAD request) -> builds ~22:15 PT the evening
+  before, labelled with the UTC date, so the 06:30 PT run gets the same-dated build (the scanner warns if MTGJSON is
+  > 1 day older than the run date).
+- Naming needs Scryfall's TCGplayer price = MTGJSON's to the cent. That held at ~04:30Z (census + reruns). Whether it
+  holds at the 06:30 PT (14:30Z) run is unverified (Scryfall bulk files refreshed ~22:00Z 11-24; API price refresh time
+  unknown). If the two snapshots drift, rows move to `unresolved` (reason `no_match`) and n_flags falls for a data-timing
+  reason, not a market one. **Check day 1's n_unresolved** (baseline 4 of 19: 3 `no_ck_retail` structural + 1
+  `no_match`). If it jumps, fix the naming step (e.g. MTGJSON uuid -> scryfall_id via identifiers) BEFORE the week
+  counts -- not after seeing the counts.
+- Wrong turn (logged): while checking build times I GET-requested mtgjson.com/api/v5/Meta.json once; robots.txt
+  disallows /api/v5/*.json. One small request; the scanner only fetches the .xz. Use a HEAD on the .xz instead.
+
+### How to run
+- Installed job (lead): `bash sports/scripts/install_mc1_agent.sh` -> launchd `com.jonathanwang.quant-sports-mc1`
+  every 1800 s; `qs_job.sh mc1` runs the scan once per PT day at the first run >= 06:30 PT (exit 2 -> retried on the
+  next run, at most 6 tries/day; state in `state/mc1_day`, `state/mc1_tries`; log `logs/mc1.log`).
+- Manual: `python3 -I sports/scripts/mc1_buylist_scan.py --out /tmp/mc1test` (live) or add
+  `--mtgjson-file F --ck-file F --date YYYY-MM-DD` for cached inputs. Tests:
+  `cd sports && ../.venv_quant/bin/python -m pytest tests/test_mc1_buylist_scan.py -q`.
+- Optional (not done): a `health_jobs.json` entry, e.g. `{"job": "mc1 (T-MTG paper scanner)", "label":
+  "quant-sports-mc1", "logs": ["$S/logs/mc1.log"], "stderr": ["$S/logs/launchd-mc1.err"], "outputs": [{"path":
+  "$S/data/mc1/daily.jsonl", "max_gap_h": 30, "ts": "run_utc", "keys": ["date", "mtgjson_date"]}]}`, and a
+  ctx_inject.py line showing the last daily.jsonl row.
+
+### Pre-registered test (copied verbatim from T-MTG above, written 2026-11-25 ~04:20Z)
+- Signal (fixed): CK cash buy >= max(TCGplayer, Manapool retail) x 1.0925 + $1 + $3; CK qty_buying >= 1; TCG price < $50;
+  EXCLUDE pre-1995 sets and Reserved List (vintage condition artefacts, cross-check 1).
+- Paper phase (7 days, $0): run the scanner daily; user spot-checks 10 random flagged cards for a real NM listing
+  (with seller shipping) at <= the scanned price. Success: median >= 15 flagged cards/day AND >= 6/10 confirmed with
+  net >= $3. Kill: < 5/day OR < 4/10 confirmed.
+(Implementation note: the scanner caps max(TCG, Manapool) < $50, as mtg_name_strict.py did -- stricter than "TCG price
+< $50", never looser. Results between the success and kill bars, e.g. 5-14/day or 4-5/10, are neither; the
+pre-registration does not say what happens then -- lead/user decide extend-or-stop and write it down before judging.)
+
+### Judge date
+Seven daily scans starting the PT day the lead installs the job (launchd's first tick comes ~30 min after bootstrap,
+so an install before ~22:00 PT scans the same day). **Judge date = install date + 7 days**, using the last
+`daily.jsonl` row per date for the 7 scan dates (median of `n_flags`) plus the user's spot-check sheet. Example: install
+2026-11-25 -> scan days 11-25..12-01 -> judge 2026-12-02. Lead: write the actual install date here: INSTALL_DATE = ____.
+Missing days (exit 2 all 6 tries) count as missing, not as 0; if >= 2 of 7 are missing, extend by the missing days.
+
+### What the user must do (spot-check, ~20-30 min, $0, no purchases)
+1. On ONE scan day inside the week (same morning as the scan -- prices move daily), open
+   `~/.claude/quant-sports/data/mc1/<that date>.md`. Use the "Spot-check sample" list at the bottom: 10 flags drawn at
+   random with seed = date (fewer if fewer flags; if < 10, take the next day's sample too until 10 cards are checked).
+   Do not swap cards for "nicer" ones.
+2. For each card: click the TCGplayer link (opens the product filtered to English / Near Mint / the right printing; check
+   the filter took), find the cheapest NEAR MINT listing, note listing price + seller shipping + seller rating. Manapool
+   (via the Scryfall card link) counts too.
+3. Confirmed iff listing price <= the card's "price used" AND CK buy - (listing x 1.0925 + seller shipping) >= $3. Fill the
+   blanks in the checklist (or tell the lead the numbers). Nothing is bought.
+4. Optional: open the CK link and note whether CK's buylist still shows the same cash price (CK pages may need a browser).
+
 ## Learnings
 ### Per-person-rationed angles pay per EVENT, so event frequency, not capital, caps income
 US Mint household limits, mutual-bank 100-share floors and odd-lot 99-share tenders each pay ~$20-400 per event, but
@@ -386,3 +479,17 @@ MTGJSON AllPricesToday.json.xz is 4.4 MB (robots.txt disallows raw /api/v5/*.jso
 api.cardkingdom.com/api/v2/pricelist (robots "Disallow:" empty) is 9.8 MB gzipped vs 69 MB raw (use --compressed); it
 has scryfall_id, price_buy, qty_buying and per-condition retail. Scryfall requires an accurate User-Agent + Accept and
 supports exact-price search (q=usd=12.34). This Mac's link ran at ~25 KB/s during the session: batch, cache, retry.
+### Scryfall /cards/collection is limited to 2 requests/second, not the general 10/s
+scryfall.com/docs/api/rate-limits (read 2026-11-25): /cards/search, /named, /random and /collection are 2/s (500 ms);
+other endpoints 10/s; a 429 locks the client out for 30 s. The census scripts used 0.3 s spacing (3.3/s). The MC1 scanner
+uses 0.6 s and a 35 s back-off on 429. Read the endpoint-specific limit, not the headline one.
+### Define the counted unit of a paper-test bar before day 1
+The T-MTG bar is ">= 15 flagged cards/day". On 2026-11-24 the same data gives 19 signal rows but 14 buyable, named,
+post-exclusion flags -- one reading passes the bar and the other fails it (results/mc1_scanner/repro_20261124.log).
+The census note used 19. Write which count is judged before the first scan day, and log both.
+
+**Lead decision on the count definition (2026-11-25 ~05:00Z, before day 1 of the paper phase):** T-MTG's bar was written
+at ~04:20Z when "flagged" meant the scan SIGNAL rows (11-24: 19). Changing it to the named count after seeing 14 would
+move the goalpost in the test's disfavour, so the bar stays as written: **primary = median `n_signal` >= 15/day** over
+the 7 days; `n_flags` (named, buyable) is logged as secondary, and buyability is judged by the spot-check gate
+(>= 6/10 real NM listings at <= the scanned price), which only samples named cards. Judge date = install date + 7.

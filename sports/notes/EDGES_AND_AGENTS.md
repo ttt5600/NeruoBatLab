@@ -623,3 +623,5 @@ confirm home state (CA vs CO) for venue legality.
 - DONE: rubric + 40 candidates (notes/small_capacity_census.md). Only code-workable capped lead: MC1 MTG singles -> Card Kingdom
   cash buylist (14 cards / +$101.76 on $346.92 one snapshot; no critic yet). MINT1 US Mint household-limit flips (paper 3 releases).
   AI red-team / bug bounty -> compete project. Rest below $50/mo (FUND_BOOK 3d SC-misc). Next: MC1 7-day scanner + user spot-check.
+- mc1_scanner DONE 11-25: sports/scripts/mc1_buylist_scan.py reproduces the census strict list to the cent (14 named, $101.76 /
+  $346.92; full qty $423.56 / $1,515.79); 10 tests pass; installed (launchd quant-sports-mc1). Count bar kept as written (n_signal).

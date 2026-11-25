@@ -1,0 +1,20 @@
+cmd: python3 -I scripts/mc1_buylist_scan.py --out /tmp/mc1_repro2.qoZC --date 2026-11-24 --mtgjson-file results/small_capacity_census/dl_mtgjson/AllPricesToday.json --ck-file results/small_capacity_census/dl_ck/ck_pricelist_v2.json
+start 2026-11-25T04:41:36Z
+mc1: {"date": "2026-11-24", "n_flags": 14, "net_1copy": 101.76, "net_fullqty": 423.56, "cost_1copy": 346.92, "cost_fullqty": 1515.79, "units_fullqty": 70, "n_signal": 19, "n_unresolved": 4, "mtgjson_date": "2026-11-24", "ck_created_at": "2026-11-24 19:07:54", "run_utc": "2026-11-25T04:41:36Z"}
+  Cateran Overlord               | Mercadian Masques        #  123 | F | tcg  13.20 mp  32.30 ck  55.00 q 3 net  18.71
+  Arcbound Ravager               | Darksteel                #  100 | F | tcg  38.80 mp  37.14 ck  56.00 q 1 net  12.61
+  Cover of Darkness              | Onslaught                #  133 | F | tcg  49.40 mp  44.88 ck  65.00 q 2 net  10.03
+  Crusading Knight               | Invasion                 #   12 | F | tcg   6.49 mp   6.18 ck  16.50 q 5 net   8.41
+  Numot, the Devastator          | Planar Chaos             #  160 | F | tcg  19.28 mp  19.86 ck  30.00 q 5 net   7.30
+  Patron of the Orochi           | Betrayers of Kamigawa    #  138 | F | tcg  42.63 mp  36.45 ck  54.00 q 5 net   6.43
+  Ral, Storm Conduit             | War of the Spark Promos  # 211p | F | tcg   1.14 mp   0.95 ck   8.40 q 5 net   6.15
+  Ravenous Rats                  | Urza's Destiny           #   68 | F | tcg  21.36 mp  18.44 ck  30.00 q 5 net   5.66
+  Yet Another Aether Vortex      | Unhinged                 #   91 | F | tcg  16.95 mp  14.12 ck  25.00 q 3 net   5.48
+  Horn of Ramos                  | Mercadian Masques        #  299 | F | tcg  15.49 mp  12.14 ck  22.80 q 5 net   4.88
+  Perilous Research              | Coldsnap                 #   41 | F | tcg   8.00 mp   8.75 ck  15.00 q 5 net   4.44
+  Bruna, the Fading Light        | Secret Lair Drop         # 1388 | N | tcg  18.33 mp  13.49 ck  25.00 q16 net   3.97
+  Urza                           | Vanguard Series          #  407 | N | tcg  15.65 mp  10.11 ck  22.00 q 5 net   3.90
+  Sickening Dreams               | Torment                  #   83 | F | tcg  17.58 mp  17.40 ck  24.00 q 5 net   3.79
+rc=0 end 2026-11-25T04:43:32Z
+census strict list (post-1995 named) n=14; scanner flags n=14; identical tuples: True
+unresolved reasons ['no_ck_retail', 'no_ck_retail', 'no_ck_retail', 'no_match'] excluded [('Bad Moon', ['pre1995'])]
