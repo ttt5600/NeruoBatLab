@@ -8,9 +8,14 @@ import kalshi_temp_maker as K
 
 NEW = 48
 orders = json.load(open("results/e4_live_audit/q5_orders.json"))
+# 1 of 28 orders (KXHIGHCHI-26NOV24-B46.5, unfilled) has no expiration_time in the journal -> use the median order
+# lifetime of the others (affects only the secondary unfilled-order count).
+_life = sorted(int(o["expiration_time"]) - int(pd.Timestamp(o["ts"]).timestamp()) for o in orders if o["expiration_time"])
+LIFE = _life[len(_life) // 2]
 rows = []
 for o in orders:
-    t0 = int(pd.Timestamp(o["ts"]).timestamp()); t1 = int(o["expiration_time"])
+    t0 = int(pd.Timestamp(o["ts"]).timestamp())
+    t1 = int(o["expiration_time"]) if o["expiration_time"] else t0 + LIFE
     tp = pd.DataFrame(K._tape(o["ticker"], t0, t1)); time.sleep(1.1)
     q = float(o["maker_q"])
     if len(tp):

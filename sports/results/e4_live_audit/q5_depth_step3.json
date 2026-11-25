@@ -1,0 +1,13 @@
+{
+ "orders": 28,
+ "filled": 14,
+ "new_size": 48,
+ "PRIMARY_filled_vol_lt_q_ge_2x_new(96)": "13/14",
+ "primary_pass": true,
+ "filled_vol_lt_q_ge_1x_new(48)": "13/14",
+ "filled_vol_le_q_ge_2x_new(96)": "13/14",
+ "unfilled_vol_lt_q_ge_48": "1/14",
+ "unfilled_vol_le_q_ge_1": "6/14",
+ "median_vol_lt_q_filled": 875.7549999999999,
+ "median_vol_le_q_filled": 1953.085
+}

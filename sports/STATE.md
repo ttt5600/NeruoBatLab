@@ -49,6 +49,7 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 ## Standing authorizations + rules
 "Approval on everything" (prepared/tested/reversible) + $50 experiment budget; never identity-acting steps; never bring
 browser windows forward (no `open <url>`); no DK trades / Kalshi hedges without the user's OK. Push over HTTPS
-(`git push https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`; SSH 22 blocked); never force-push.
+(`git -c http.version=HTTP/1.1 -c http.postBuffer=157286400 push https://github.com/ttt5600/NeruoBatLab.git worktree-quant-trader`;
+SSH 22 blocked; plain HTTP/2 push dies with 'unexpected disconnect while reading sideband packet' on 11-25); never force-push.
 Traps: Kalshi cash per shard; close_time != event time; /historical `close` dollars vs live `close_dollars`; first-print
 settlements; robots.txt (Vercel /api/ disallowed).

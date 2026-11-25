@@ -111,3 +111,14 @@ step 2) only if ALL hold:
 Size at step: KALSHI_PRICE_BAND_CAPS 0.97:48,0:19 (c <= .96 stays 19), MAX_CONTRACTS 48, MAX_ORDER_USD 49.60; caps scale
 with the real bankroll (bankroll setting = real balance, not 400). Revert to 24 if orig-7 loses >= 10% of bankroll since
 the step or a kill fires. Script: results/e4_live_audit/q5_depth_step3.py -> q5_depth_step3.json.
+### Step-3 depth result (run 2026-11-25 06:19Z; results/e4_live_audit/q5_depth_step3.json / .csv)
+- PRIMARY: 13/14 filled orig-7 maker orders since 11-12 had >= 96 contracts trade strictly through our NO price -> PASS
+  (c >= .97 subset 9/10; the miss is KXHIGHMIA-26NOV23-B83.5, 0 through, filled at 24). Median through-volume 876 ct.
+- Unfilled orders (14): 13/14 had < 48 through and 8/14 had no print at <= q at all -> the market never came to our bid;
+  a bigger order would not change that (size is not why we miss). KXHIGHMIA-26NOV24-B83.5 (1,983 through, 0 filled) was
+  the 11-24 empty-shard reject, not a queue loss.
+- Script fix before the run: 1 unfilled order lacked expiration_time -> median order lifetime used (secondary count only).
+Verdict: criteria 1 (record), 2 (depth) and 4 (no kill) MET; criterion 3 (real bankroll >= $370) NOT MET ($245.44).
+Step 3 applies on/after 2026-11-26 once the exchange balance + open cost >= $370 -- prepared .env diff (backup first):
+KALSHI_PRICE_BAND_CAPS=0.97:48,0:19 ; KALSHI_MAX_CONTRACTS=48 ; KALSHI_MAX_ORDER_USD=49.60 ; KALSHI_BANKROLL_USD=<real
+balance, rounded down> ; KALSHI_ORIG7_FRAC=49.60/<bankroll> ; NIGHT_FRAC .375 and caps 150/150 unchanged (3 orders/night).
