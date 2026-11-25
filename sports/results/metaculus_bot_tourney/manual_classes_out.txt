@@ -1,0 +1,7 @@
+MiniBench questions: 180 rounds: ['2026-10-19'] ...
+A:  13 (7%)  types {'discrete': 8, 'binary': 1, 'numeric': 3, 'multiple_choice': 1}  m-ad bot scored n=7 mean peer 16.7 median 17.6
+B:  24 (13%)  types {'numeric': 16, 'binary': 5, 'multiple_choice': 2, 'discrete': 1}  m-ad bot scored n=11 mean peer 2.4 median 4.0
+C:  73 (41%)  types {'binary': 7, 'discrete': 35, 'numeric': 29, 'multiple_choice': 2}  m-ad bot scored n=43 mean peer 7.1 median 11.0
+D:  70 (39%)  types {'binary': 57, 'discrete': 5, 'multiple_choice': 8}  m-ad bot scored n=36 mean peer 10.5 median 9.7
+official-data resolvable (A+B+C): 110 of 180
+fund-pipeline or price-model (A+B): 37 of 180

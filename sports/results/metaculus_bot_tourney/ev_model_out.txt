@@ -1,0 +1,18 @@
+fall25: k=16.79  pred avg7 823 vs table 837;  pred avg5 420 vs table 431
+spring26: k=12.87  pred avg7 631 vs table 639;  pred avg5 322 vs table 328
+summer26: k=9.79  pred avg7 480 vs table 484;  pred avg5 245 vs table 248
+k ratio per season: 0.767, 0.761
+Spring-2027 k range: 5.66 .. 9.79
+  [low k] bad: outages/old model p=0.20 avg=  4.0 cov=0.70 -> $      0
+  [low k] template-level         p=0.40 avg=  7.5 cov=0.90 -> $    258
+  [low k] good template+         p=0.30 avg= 10.0 cov=0.95 -> $    511
+  [low k] nostreambot-level      p=0.10 avg= 12.5 cov=0.95 -> $    799
+[low k] seasonal EV = $337
+  [high k] bad: outages/old model p=0.20 avg=  4.0 cov=0.70 -> $     77
+  [high k] template-level         p=0.40 avg=  7.5 cov=0.90 -> $    446
+  [high k] good template+         p=0.30 avg= 10.0 cov=0.95 -> $    884
+  [high k] nostreambot-level      p=0.10 avg= 12.5 cov=0.95 -> $   1381
+[high k] seasonal EV = $597
+MiniBench per season: $144-$256
+API cost at $0.5/q: seasonal 350q $175; MiniBench 480q $240
+API cost at $1.4/q: seasonal 350q $490; MiniBench 480q $672

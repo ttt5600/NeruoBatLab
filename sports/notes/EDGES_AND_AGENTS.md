@@ -625,3 +625,8 @@ confirm home state (CA vs CO) for venue legality.
   AI red-team / bug bounty -> compete project. Rest below $50/mo (FUND_BOOK 3d SC-misc). Next: MC1 7-day scanner + user spot-check.
 - mc1_scanner DONE 11-25: sports/scripts/mc1_buylist_scan.py reproduces the census strict list to the cent (14 named, $101.76 /
   $346.92; full qty $423.56 / $1,515.79); 10 tests pass; installed (launchd quant-sports-mc1). Count bar kept as written (n_signal).
+- metaculus_bot_tourney DONE 11-25: conditional GO as a capped trial. Prize share ~ score^2 (official FAQ), $50 floor; past seasons
+  paid 30-41 bots, median ~$850-1,500 (secondary: Bowen1314 RESEARCH.md, sums to $50k; formula reproduces top-10 within ~9%);
+  template bot ~$842-1,450; value per skill falling ~24%/season. Only 21% of sampled MiniBench questions match our nowcast pipelines.
+  Path: user creates Metaculus + bot accounts and applies for LLM credits/AskNews (no money) -> fork open-source bot (~20-30 h) ->
+  2 MiniBench rounds with prereg pass/kill (from 11-30 / 12-14) -> Spring 2027 (~Jan). LLM spend cap $50/mo. Hand to compete project?
