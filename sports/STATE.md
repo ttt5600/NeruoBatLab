@@ -21,7 +21,8 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 - LX1 scanner window over (KILLED); its job still writes a daily report (user may unload). early-form idle (optional unload).
 - odd-lot tender watcher scripts/oddlot_watch.py built, not scheduled.
 
-## Agents (notes/RESEARCH_QUEUE.md) -- none running
+## Agents (notes/RESEARCH_QUEUE.md) -- running 11-25: boost_hedge (existing-customer promos + cross-venue arb), pokemon_cards
+  (Triumph/Rips pack EV, MSRP vs secondary). promo_hunt_2 DONE: Kraken via Rakuten $150 (if new), eToro $50; PROMO_TRACKER priority table.
 - e4_coldmargin DONE 11-24: LEAD +4.07u [-0.002,+8.22] n217 extra picks, placebo 81.6th pct (fail). PAPER arm deployed in the
   quant-sports e4p job (e4c_cold.jsonl, from 11-25); kill roi_ci_below_zero after 60 fills; decide at 150 fills (~3 mo).
 - wx_bot_flow DONE 11-24: I4 dead (bot flow not identifiable; bot-BUY brackets fair; E4's premium = diffuse YES demand).

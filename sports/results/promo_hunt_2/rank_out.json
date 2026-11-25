@@ -1,0 +1,93 @@
+{
+ "kraken_draw_ev": 15.1,
+ "rows": [
+  {
+   "offer": "Kraken via Rakuten ($150)",
+   "reward": 150.0,
+   "costs": {
+    "instant_buy_1pct": 2.05,
+    "spread_est_0.5pct": 1.025,
+    "pro_maker_sell_0.4pct": 0.8200000000000001
+   },
+   "net": 146.1,
+   "max_loss": 10.04,
+   "capital": 205.0,
+   "minutes": 35,
+   "net_per_hour": 250.5,
+   "src": "rakuten.com/shop/kraken; kraken.com/legal/promotions; kraken.com/features/fee-schedule (snip)",
+   "note": "possible extra BTC draw EV 15.10 if Rakuten counts as 'participating partner' (unverified, not counted)"
+  },
+  {
+   "offer": "eToro via Rakuten ($50)",
+   "reward": 50.0,
+   "costs": {
+    "withdrawal_fee_worst": 5.0,
+    "etf_spread_est": 0.02
+   },
+   "net": 44.98,
+   "max_loss": 5.52,
+   "capital": 101.0,
+   "minutes": 30,
+   "net_per_hour": 90.0,
+   "src": "rakuten.com/shop/etoro; etoro.com/en-us/trading/live-states; etoro.com/trading/fees",
+   "note": ""
+  },
+  {
+   "offer": "Coinbase new-user + Rakuten ($22.50 floor)",
+   "reward": 22.5,
+   "costs": {
+    "round_trip_est_4pct": 2.04
+   },
+   "net": 20.46,
+   "max_loss": 4.59,
+   "capital": 51.0,
+   "minutes": 25,
+   "net_per_hour": 49.1,
+   "src": "rakuten.com/shop/coinbase; help.coinbase.com new-customer-incentive (snippet)",
+   "note": "ONLY if user has never had Coinbase"
+  },
+  {
+   "offer": "MoneyGram via Rakuten ($15)",
+   "reward": 15.0,
+   "costs": {
+    "fee_first_transfer": 0.0
+   },
+   "net": 15.0,
+   "max_loss": 5.0,
+   "capital": 50.0,
+   "minutes": 20,
+   "net_per_hour": 45.0,
+   "src": "rakuten.com/shop/moneygram; moneygram.com send-money-online FAQ (snip)",
+   "note": "needs a real recipient; max loss = a fee if $0 promo not applied (est $5)"
+  },
+  {
+   "offer": "Acorns ACORNS20 ($20 shares)",
+   "reward": 20.0,
+   "costs": {
+    "subscription_2mo": 8.0
+   },
+   "net": 12.0,
+   "max_loss": 12.0,
+   "capital": 25.0,
+   "minutes": 30,
+   "net_per_hour": 24.0,
+   "src": "acorns.com/acorns-20-bonus-investment-promotion-terms; acorns.com program agreement (snip)",
+   "note": "max loss assumes bonus denied + a 3rd month billed"
+  },
+  {
+   "offer": "Western Union via Rakuten (<= $10)",
+   "reward": 10.0,
+   "costs": {
+    "fee_est": 5.0
+   },
+   "net": 5.0,
+   "max_loss": 5.0,
+   "capital": 100.0,
+   "minutes": 20,
+   "net_per_hour": 15.0,
+   "src": "rakuten.com/shop/westernunion",
+   "note": "fee UNVERIFIED"
+  }
+ ],
+ "assumptions": "ESTIMATES: Kraken spread 0.5%, 3% adverse move cap, Coinbase 4% round trip, ETF spread $0.02, WU fee $5, MoneyGram fallback fee $5, Acorns 2 billed months"
+}
