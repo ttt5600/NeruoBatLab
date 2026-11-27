@@ -493,3 +493,11 @@ at ~04:20Z when "flagged" meant the scan SIGNAL rows (11-24: 19). Changing it to
 move the goalpost in the test's disfavour, so the bar stays as written: **primary = median `n_signal` >= 15/day** over
 the 7 days; `n_flags` (named, buyable) is logged as secondary, and buyability is judged by the spot-check gate
 (>= 6/10 real NM listings at <= the scanned price), which only samples named cards. Judge date = install date + 7.
+
+**2026-11-26 ops (lead):** Card Kingdom's API went behind a Cloudflare managed challenge on 11-25 (HTTP 403 to every
+non-browser client, robots.txt included) -> 7 failed tries 11-25/26, no data. We do not get past such blocks. Fix: the
+scanner now degrades to SIGNAL-ONLY mode when the CK pricelist is unavailable (n_signal from MTGJSON's cardkingdom buylist
+field, n_flags = null, ck_blocked = true; new test). Day 2 logged: mtgjson_date 2026-11-25, n_signal 18. Day count = distinct
+mtgjson_date values; the judge moves to the 7th distinct date (~12-01/02). The spot-check gate needs NAMES: before judging,
+name the signal rows another way (MTGJSON AllIdentifiers uuid -> name/set/number, or Scryfall search by price as in
+results/small_capacity_census/scripts/mtg_resolve.py); CK buy quantities must then be read in a real browser by a person.

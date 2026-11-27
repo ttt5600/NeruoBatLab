@@ -226,3 +226,24 @@ def test_live_download_path_deletes_files(tmp_path, inputs, monkeypatch):
     assert [u for u, _, _ in seen] == [M.MTGJSON_URL, M.CK_URL]
     assert seen[1][2]["Accept-Encoding"] == "gzip"
     assert all(not d.exists() and not d.parent.exists() for _, d, _ in seen)
+
+
+def test_ck_blocked_degrades_to_signal_only(tmp_path, inputs):
+    """2026-11-25: CK's API went behind a Cloudflare challenge (403). MTGJSON still gives the primary T-MTG count."""
+    mj, ck, out = inputs
+
+    def ck_403_dl(url, dest, headers=None):
+        if "mtgjson" in url:
+            dest.write_bytes(mj.read_bytes())
+        else:
+            raise M.NetError("HTTPError 403: 'Forbidden'")
+
+    def no_post(ids):
+        raise AssertionError("Scryfall must not be called without CK naming rows")
+
+    assert M.main(["--out", str(out), "--date", D], dl=ck_403_dl, post=no_post) == 0
+    line = json.loads((out / "daily.jsonl").read_text().splitlines()[-1])
+    assert line["n_flags"] is None and line["n_signal"] > 0
+    rep = json.loads((out / f"{D}.json").read_text())
+    assert rep["summary"]["ck_blocked"] is True and any("SIGNAL-ONLY" in w for w in rep["summary"]["warnings"])
+    assert rep["flags"] == []

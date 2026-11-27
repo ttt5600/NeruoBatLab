@@ -397,25 +397,34 @@ def main(argv=None, *, dl=download, post=scry_post) -> int:
             meta = mj.get("meta") or {}
             cands = signal_candidates(mj["data"])
             del mj
-            if a.ck_file:
-                ck_path = Path(a.ck_file)
-            else:
-                ck_path = tmp / "ck_pricelist_v2.bin"
-                dl(CK_URL, ck_path, headers={"Accept": "application/json", "Accept-Encoding": "gzip"})
+            # CK's API went behind a Cloudflare managed challenge on 2026-11-25 (HTTP 403 to any non-browser client,
+            # robots.txt included). We do NOT try to get past it. The T-MTG primary bar (median n_signal >= 15/day)
+            # needs only MTGJSON, so a blocked CK pricelist degrades to SIGNAL-ONLY mode: n_signal is logged, naming /
+            # qty / flags are skipped (n_flags None), and the run still counts as done for the day.
+            ck_blocked = None
             try:
-                ck = load_json(ck_path)
-            except (EOFError, OSError, ValueError) as e:
-                raise NetError(f"CK pricelist unreadable (truncated download?): {e!r}") from e
-            if not a.ck_file:
-                ck_path.unlink()
+                if a.ck_file:
+                    ck_path = Path(a.ck_file)
+                else:
+                    ck_path = tmp / "ck_pricelist_v2.bin"
+                    dl(CK_URL, ck_path, headers={"Accept": "application/json", "Accept-Encoding": "gzip"})
+                try:
+                    ck = load_json(ck_path)
+                except (EOFError, OSError, ValueError) as e:
+                    raise NetError(f"CK pricelist unreadable (truncated download or challenge page?): {e!r}") from e
+                if not a.ck_file:
+                    ck_path.unlink()
+                n_ck_rows = len(ck.get("data") or [])
+                if n_ck_rows < MIN_CK_ROWS:
+                    raise NetError(f"CK pricelist has only {n_ck_rows} rows (partial or error response)")
+            except NetError as e:
+                ck_blocked = str(e)[:300]
+                ck, n_ck_rows = {}, 0
             ck_meta = ck.get("meta") or {}
             keys = {cand_key(c) for c in cands if cand_key(c)}
-            idx = ck_index(ck.get("data") or [], keys)
-            n_ck_rows = len(ck.get("data") or [])
+            idx = ck_index(ck.get("data") or [], keys) if ck else {}
             del ck
-            if n_ck_rows < MIN_CK_ROWS:
-                raise NetError(f"CK pricelist has only {n_ck_rows} rows (partial or error response)")
-            scry = fetch_scryfall(needed_ids(cands, idx), post=post)
+            scry = fetch_scryfall(needed_ids(cands, idx), post=post) if idx else {}
         except NetError as e:
             print(f"mc1: NETWORK FAILURE, nothing written: {e}", file=sys.stderr)
             return 2
@@ -430,11 +439,16 @@ def main(argv=None, *, dl=download, post=scry_post) -> int:
             warnings.append(f"MTGJSON data is {lag} days older than the run date")
     except (TypeError, ValueError):
         warnings.append("MTGJSON meta date missing")
+    if ck_blocked:
+        warnings.append(f"SIGNAL-ONLY: CK pricelist unavailable ({ck_blocked}); flags/naming skipped")
     stamps = dict(mtgjson_date=mjd, mtgjson_version=meta.get("version"), ck_created_at=ck_meta.get("created_at"),
-                  ck_rows=n_ck_rows, scryfall_cards=len(scry), run_utc=run_utc, warnings=warnings,
+                  ck_rows=n_ck_rows, ck_blocked=bool(ck_blocked), scryfall_cards=len(scry), run_utc=run_utc,
+                  warnings=warnings,
                   assumptions=dict(tax=TAX, ship_per_card=SHIP, margin=MARGIN, price_cap=PRICE_CAP,
                                    pre_cutoff=PRE_CUTOFF))
     summary = summarize(date, res, len(cands), stamps)
+    if ck_blocked:
+        summary["n_flags"] = None   # not "0 flags": naming was impossible, the count is unknown
     report = dict(summary=summary, flags=res["flags"], spot_sample=spot_sample(date, res["flags"]),
                   unresolved=res["unresolved"], excluded=res["excluded"])
     line = write_outputs(report, Path(a.out).expanduser())
