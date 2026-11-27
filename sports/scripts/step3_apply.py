@@ -35,6 +35,14 @@ def bankroll(c) -> tuple[float, float]:
     return bal, sum(float(p.get("market_exposure_dollars") or 0) for p in pos)
 
 
+def orig7_live_settles() -> list[float]:
+    """P&L of live orig7 settles. Settle rows carry no cohort, so the cohort comes from the live order rows (by ticker)."""
+    rows = [json.loads(l) for l in (DEPLOY / "data" / "kalshi_exec.jsonl").read_text().splitlines() if l.strip()]
+    cohort = {r["ticker"]: r.get("cohort") for r in rows if r.get("event") == "order" and r.get("mode") == "live"}
+    return [float(r.get("pnl") or 0) for r in rows
+            if r.get("event") == "settle" and r.get("mode") == "live" and cohort.get(r.get("ticker")) == "orig7"]
+
+
 def new_env(text: str, br: float) -> str:
     want = dict(NEW, KALSHI_BANKROLL_USD=str(math.floor(br)), KALSHI_ORIG7_FRAC=f"{49.60 / math.floor(br):.4f}")
     out, seen = [], set()
@@ -90,9 +98,11 @@ def main() -> int:
     tmp = envp.with_suffix(".tmp")
     tmp.write_text(new)
     tmp.replace(envp)
+    settles = orig7_live_settles()
     (DEPLOY / "data" / "step3.json").write_text(json.dumps(dict(
         applied_utc=datetime.now(timezone.utc).isoformat(timespec="seconds"), bankroll=round(br, 2),
-        revert_if_orig7_loss_usd=round(0.10 * br, 2), backup=str(bak)), indent=1))
+        revert_if_orig7_loss_usd=round(0.10 * br, 2), orig7_live_pnl_at_step=round(sum(settles), 2),
+        orig7_live_settled_at_step=len(settles), backup=str(bak)), indent=1))
     print(f"APPLIED; backup {bak}; revert baseline data/step3.json")
     return 0
 
