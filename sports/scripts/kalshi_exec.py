@@ -628,6 +628,9 @@ def reconcile(client: Kalshi, mode: str, cfg: dict, now: datetime) -> None:
         if abs(pos.get(t, 0.0) - mine) > 1e-6 and (t in state or t.split("-")[0] in series):
             if pos.get(t, 0.0) == 0 and (client.market(t) or {}).get("status") not in ("active", "open"):
                 continue  # exchange already settled it; our settle event follows once the result is published
+            if t in state and state[t].get("settled") and abs(pos.get(t, 0.0) - held(state[t])) < 1e-6:
+                continue  # mirror case (11-26/27): we booked the settle from the published result; Kalshi still shows
+                #           the same position until it clears it. Any OTHER exchange count after a settle still alerts.
             append({"event": "reconcile_mismatch", "ts": now.isoformat(timespec="seconds"), "mode": mode,
                     "market": t, "journal_no": mine, "exchange_no": pos.get(t, 0.0)})
             notify_once(f"mismatch:{mode}:{t}:{pos.get(t, 0.0)}", f"Kalshi {mode} position mismatch",

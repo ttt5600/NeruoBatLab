@@ -750,3 +750,19 @@ def test_market_on_other_shard_is_skipped(root):
     ex.markets[T1]["exchange_index"] = 2
     run(root, ex)
     assert orders_of(root)[T1]["status"] == "skip_shard" and not ex.posts()
+
+
+def test_settled_position_awaiting_exchange_clear_is_not_a_mismatch(root):
+    """11-26/27: the paper result books our settle before Kalshi clears the position -> was a false reconcile_mismatch."""
+    ex = setup(root, [_pick(T1, "KXHIGHNY", "orig7")])
+    run(root, ex)
+    n = orders_of(root)[T1]["filled"]
+    assert n > 0 and ex.positions[T1] == -n
+    _settle_paper(root, "no")
+    run(root, ex, now=NOW + timedelta(hours=30))           # books the settle; the exchange still shows the position
+    assert orders_of(root)[T1]["settled"]
+    run(root, ex, now=NOW + timedelta(hours=31))
+    assert not any(r.get("event") == "reconcile_mismatch" for r in kx.journal())
+    ex.positions[T1] -= 5                                    # a different count after the settle still alerts
+    run(root, ex, now=NOW + timedelta(hours=32))
+    assert any(r.get("event") == "reconcile_mismatch" for r in kx.journal())

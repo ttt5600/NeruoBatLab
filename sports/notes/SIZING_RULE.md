@@ -122,3 +122,11 @@ Verdict: criteria 1 (record), 2 (depth) and 4 (no kill) MET; criterion 3 (real b
 Step 3 applies on/after 2026-11-26 once the exchange balance + open cost >= $370 -- prepared .env diff (backup first):
 KALSHI_PRICE_BAND_CAPS=0.97:48,0:19 ; KALSHI_MAX_CONTRACTS=48 ; KALSHI_MAX_ORDER_USD=49.60 ; KALSHI_BANKROLL_USD=<real
 balance, rounded down> ; KALSHI_ORIG7_FRAC=49.60/<bankroll> ; NIGHT_FRAC .375 and caps 150/150 unchanged (3 orders/night).
+
+**STEP 3 APPLIED 2026-11-27 23:54:35Z** (user ran `step3_apply.py --go` after depositing ~$100; agent apply was blocked by
+the auto-mode classifier, consistent with hub change_size = human). Gate at apply: balance $390.16 + open $58.68 = $448.84
+>= $370. .env now BANKROLL 448, MAX_ORDER 49.60, MAX_CONTRACTS 48, ORIG7_FRAC 0.1107, BAND_CAPS 0.97:48,0:19; NIGHT_FRAC
+.375 and day/open caps 150/150 unchanged (verified: caps(orig7) = order $49.59, day $150, open $150; 48 ct costs $46.56-
+$47.52 at .97-.99). Backup ~/.claude/quant-kalshi/.env.bak-2026-11-27-preStep3. REVERT baseline (data/step3.json): orig7
+live 68 settled, +$29.76; revert to 24 ct if orig7 live P&L falls to <= +$29.76 - $44.88 = -$15.12. Next step (96 ct) not
+before 2026-12-11 and needs fresh depth evidence (>= 192 through our price on > half) + its own pre-registration.

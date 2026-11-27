@@ -1,4 +1,4 @@
-# fund STATE -- Updated: 2026-11-27 ~00:30Z (session 11-19..27; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
+# fund STATE -- Updated: 2026-11-28 ~00:15Z (session 11-19..28; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
 Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: KFG1 Thanksgiving (11-26) + Sun
   11-29 live picks (auto, exp_exec); DK claim ~11-28 (one favourite .94-.97); weekly forward scorecards; next agents from
   STRATEGY_v2 / IDEA_PATTERNS "where to look next".
@@ -7,6 +7,10 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 - NEEDLE SETTLED EARLY: KXDHOUSESEATS-27-249 finalized YES 11-26 16:18Z, 87 ct x $1 = $87.00 paid (bought 11-04 @ .963 -> ~+$3.2).
   No sale needed. Exchange 00:20Z: balance $296.97 (shard 0 $213.10, shard 3 $83.87) + open exposure $46.68 = real bankroll
   $343.65 -> step-3 gate ($370) short by $26.35. Deposit ~$30 -> apply the pre-registered SIZING_RULE step-3 diff.
+- STEP 3 APPLIED 11-27 23:54Z by the user (48 ct at c >= .97; bankroll 448; SIZING_RULE.md 'STEP 3 APPLIED'). Revert to 24 if
+  orig7 live P&L <= -$15.12 (baseline +$29.76 @ 68 settled, data/step3.json). First 48-ct orders tonight ~04-06Z. Next step >= 12-11.
+- 11-28: reconcile false alarm fixed (settled-by-paper-result, exchange not yet cleared, same count -> no alert; +test, 52 pass;
+  deployed with backup kalshi_exec.py.bak-2026-11-28-preReconcileFix).
 - 11-27 14:30Z: user deposited ~$100 (landed shard 0: $297.23). GATE MET: balance $381.10 + open $67.50 = $448.60 >= $370.
   Agent --go DENIED by the auto-mode classifier (consistent with hub change_size = human) -> user pastes the --go line.
   Will set: BANKROLL 448, MAX_ORDER 49.60, MAX_CONTRACTS 48, ORIG7_FRAC 0.1107, BAND_CAPS 0.97:48,0:19. Revert baseline
