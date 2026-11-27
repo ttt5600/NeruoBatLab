@@ -7,6 +7,8 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
 - NEEDLE SETTLED EARLY: KXDHOUSESEATS-27-249 finalized YES 11-26 16:18Z, 87 ct x $1 = $87.00 paid (bought 11-04 @ .963 -> ~+$3.2).
   No sale needed. Exchange 00:20Z: balance $296.97 (shard 0 $213.10, shard 3 $83.87) + open exposure $46.68 = real bankroll
   $343.65 -> step-3 gate ($370) short by $26.35. Deposit ~$30 -> apply the pre-registered SIZING_RULE step-3 diff.
+- STEP 3 READY: sports/scripts/step3_apply.py (check / --go / --wait). hub verify change_size = human (exit 3) -> the USER runs
+  the --go line after depositing ~$30 (00:40Z bankroll $342.15, short $27.85). Script refuses below $370; backs up .env first.
 - KFG1 Thanksgiving: CHI@DET CHI2 NO won (+$0.52); PHI@DAL DAL2 NO x4 @.41 + PHI2 YES x4 @.45 filled live (open); KC@BUF skipped (edge < .04).
 - User 11-26: never had Kraken/Coinbase/eToro/Rakuten; will do the bonuses. Rakuten offers re-verified 11-27 00:20Z (Kraken $150,
   eToro $50, Coinbase $12.50). Playbook with fixed exits: notes/PROMO_TRACKER.md "Playbook handed to the user 11-26".
