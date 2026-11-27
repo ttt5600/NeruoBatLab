@@ -1,7 +1,17 @@
-# fund STATE -- Updated: 2026-11-24 ~03:15Z (session 11-19..24; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
+# fund STATE -- Updated: 2026-11-27 ~00:30Z (session 11-19..27; previous STATE: notes/STATE_HISTORY_2026-11-19_to_21.md)
 Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: KFG1 Thanksgiving (11-26) + Sun
   11-29 live picks (auto, exp_exec); DK claim ~11-28 (one favourite .94-.97); weekly forward scorecards; next agents from
   STRATEGY_v2 / IDEA_PATTERNS "where to look next".
+
+## 2026-11-27 00:30Z
+- NEEDLE SETTLED EARLY: KXDHOUSESEATS-27-249 finalized YES 11-26 16:18Z, 87 ct x $1 = $87.00 paid (bought 11-04 @ .963 -> ~+$3.2).
+  No sale needed. Exchange 00:20Z: balance $296.97 (shard 0 $213.10, shard 3 $83.87) + open exposure $46.68 = real bankroll
+  $343.65 -> step-3 gate ($370) short by $26.35. Deposit ~$30 -> apply the pre-registered SIZING_RULE step-3 diff.
+- KFG1 Thanksgiving: CHI@DET CHI2 NO won (+$0.52); PHI@DAL DAL2 NO x4 @.41 + PHI2 YES x4 @.45 filled live (open); KC@BUF skipped (edge < .04).
+- User 11-26: never had Kraken/Coinbase/eToro/Rakuten; will do the bonuses. Rakuten offers re-verified 11-27 00:20Z (Kraken $150,
+  eToro $50, Coinbase $12.50). Playbook with fixed exits: notes/PROMO_TRACKER.md "Playbook handed to the user 11-26".
+- 11-26 reconcile_mismatch on KXHIGHDEN-26NOV25-B53.5/B55.5: benign ordering at settle (journal filled 24 each, settle rows
+  +$0.72/+$0.48 written same tick; exchange fills = our NO maker buys at .97/.98).
 
 ## Live money (Kalshi; launchd from ~/.claude/quant-kalshi)
 - E4 live (journal, mode=live, 11-25 04:25Z): 142 settled / 139 wins, +$22.34 (orig7 62 / 1 loss / +$26.01 = +6.18%; X1 80 / 2 /

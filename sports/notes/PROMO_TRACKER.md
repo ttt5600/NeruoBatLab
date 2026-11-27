@@ -22,9 +22,32 @@ Tier A ~= $455 for ~3 h (~$144/h), worst case ~$20 if Fanatics is hedged. Tier B
 Withdrawals (PM US docs, read 11-25): free; deposits must fully clear first (ACH/debit 3-4 business days); money returns only
 to the same funding source, FIFO. Fanatics: "withdraw any remaining funds ... subject to the Customer Agreement" (hold unread).
 
+## 2026-11-26 (PT) user answer + re-check
+- User 11-26: never had Kraken, Coinbase, eToro or Rakuten -> eligible for all three Rakuten cash-back offers.
+- Re-read 2026-11-27 00:20Z (rakuten.com/shop/{kraken,etoro,coinbase}, plain curl, robots allows /shop/): Kraken **$150**
+  (page "Last Edited: November 18, 2026"; elevated rate, NO end date -> do it first), eToro **$50**, Coinbase **$12.50**
+  (+ "$10 in Bitcoin after your first trade" shown on the page). Kraken special terms unchanged: first-time U.S. customer, ONE
+  trade >= $200 excluding fees within 30 days of sign-up; cash-to-stablecoin, stablecoin-to-stablecoin, staking, off-platform
+  transfers, wash trades do not count; any Kraken referral code / coupon NEGATES the cash back. eToro: "opens an eToro account
+  and trades a minimum of $100.00". Coinbase: "first trade exceeds $50", new U.S. customers. Rakuten welcome bonus (help FAQ):
+  qualifying purchase >= $25 within 90 days; amount not stated on the FAQ.
+- etoro.com is behind Cloudflare (403) -> SGOV/BIL availability on eToro US not checked; the user looks it up in the app.
+
+## Playbook handed to the user 11-26 (exits fixed at entry; the user does sign-up/KYC/orders)
+0. Rakuten: sign up (same browser for everything below; ad blocker off). Shopping Black Friday anyway? Click through Rakuten
+   first on one >= $25 order -> welcome bonus.
+1. Kraken (~35 min, cash ~$210 back after ~7-day ACH hold, max loss ~$10): Rakuten -> Kraken "Shop Now" -> sign up -> verify ID
+   (Intermediate) -> link bank (ACH, free) -> deposit $210 -> ONE buy of $205 BTC -> SELL it all back to USD in the same sitting
+   (that is the exit; never hold) -> withdraw the USD once the hold clears. No referral codes.
+2. eToro (~30 min, cash ~$105, max loss ~$5.5): Rakuten -> eToro -> sign up -> verify -> deposit $105 -> ONE buy of $101 of a
+   T-bill ETF (SGOV, else BIL) -> hold it (it is cash-like and earns T-bill interest; no exit needed) -> withdraw whenever ($5 fee assumed).
+3. Coinbase (~25 min, cash ~$55, max loss ~$5): Rakuten -> Coinbase -> sign up -> verify -> ONE buy of $55 BTC -> sell back same sitting.
+4. Polymarket US (row 1 below).
+Total cash out ~$395, all comes back; worst case all-in ~-$21 if every cash back failed; expected ~+$200 + PM US.
+
 | # | venue | status | qualifier | credit -> use | deadline / expiry | max loss | est. net |
 |---|---|---|---|---|---|---|---|
-| 1 | Polymarket US (polymarket.us) | todo | first deposit $25 (>= $10 counts) -> $25 Bonus <= 24h | ~$25 limit buy at 0.50-0.80; lose -> Bonus refunds; win -> repeat | Bonus expiry: read in app | ~$0 | ~+$25 |
+| 1 | Polymarket US (polymarket.us) | todo (user 11-26: will do bonuses) | first deposit $25 (>= $10 counts) -> $25 Bonus <= 24h | ~$25 limit buy at 0.50-0.80; lose -> Bonus refunds; win -> repeat | Bonus expiry: read in app | ~$0 | ~+$25 |
 | 2 | Fanatics Markets (fanaticsmarkets.com) | todo | elect OFFER 1 at sign-up; ACH ~$25; each 24h Day from KYC: FIRST cash buy >= $10 at <= 0.90 (no small test trade first) | $10 FanCash/day (72h) -> ~0.94 favourite | register+KYC by 12-13; FanCash expires 7 d; 10 Days | ~$11/day unhedged (or ~$0.40/day hedged on Kalshi) | ~+$88-91 |
 | 3 | DraftKings Predictions | live | -- | $50 claim -> one favourite 0.94-0.97 | claims ~11-28, 12-05, 12-12; each expires 168 h | the credit | ~+$150 |
 | 4 | Novig (novig.com) | todo (CA unconfirmed) | deposit $10 | 5 x $10 credits, one per trade, side priced <= 0.60 | see app | ~$0 hedged | ~+$45 |
