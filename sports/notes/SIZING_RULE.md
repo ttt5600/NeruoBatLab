@@ -130,3 +130,11 @@ the auto-mode classifier, consistent with hub change_size = human). Gate at appl
 $47.52 at .97-.99). Backup ~/.claude/quant-kalshi/.env.bak-2026-11-27-preStep3. REVERT baseline (data/step3.json): orig7
 live 68 settled, +$29.76; revert to 24 ct if orig7 live P&L falls to <= +$29.76 - $44.88 = -$15.12. Next step (96 ct) not
 before 2026-12-11 and needs fresh depth evidence (>= 192 through our price on > half) + its own pre-registration.
+
+**First night at step 3 (orders 2026-11-28 03:03Z, kalshi_exec.jsonl):** NY B54.5 19 ct (ask .97 -> maker q .96 -> band
+"0:19"; the band keys on OUR posted price, same convention as step 2) + MIA B77.5 29 ct at q .98 (48 allowed by band, cut by
+the $150 OPEN cap: open $149.84 after). 3 more orig7 + 7 X1 picks skip_cap. Mechanism: the prior day's positions (26NOV27,
+~$103 open) are still live at 03Z, so two nights share the $150 open cap -> ~1.5 full 48-ct orders/night, not the
+"3 orders/night" assumed in the pre-registration. Raising KALSHI_MAX_OPEN_USD = raise_caps = human gate and a NEW step
+(not part of step 3); recommendation: keep 150 until >= 2 weeks at 48. Loss-stop interplay: one 48-ct loss (~$47) ~= the
+weekly stop (7 d net <= -10% of B = -$44.80 -> KILL file, user removes) ~= the step-3 revert line (-$44.88 since step).

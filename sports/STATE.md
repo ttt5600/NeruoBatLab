@@ -9,6 +9,9 @@ Next: both 11-24 agents merged (E4C paper arm live from 11-25; I4 dead). Then: K
   $343.65 -> step-3 gate ($370) short by $26.35. Deposit ~$30 -> apply the pre-registered SIZING_RULE step-3 diff.
 - STEP 3 APPLIED 11-27 23:54Z by the user (48 ct at c >= .97; bankroll 448; SIZING_RULE.md 'STEP 3 APPLIED'). Revert to 24 if
   orig7 live P&L <= -$15.12 (baseline +$29.76 @ 68 settled, data/step3.json). First 48-ct orders tonight ~04-06Z. Next step >= 12-11.
+- 11-28 03:03Z first step-3 night: NY 19 ct (maker q .96 < .97 band), MIA 29 ct (cut by $150 OPEN cap; prior day's ~$103 still open),
+  others skip_cap -> the open cap, not 48 ct, binds (~1.5 full orders/night). Raising it = user gate + new step; keep 150 for now.
+  One 48-ct loss ~= weekly KILL (-$44.80) ~= revert line -> on a loss: user removes KILL + runs revert (both human gates).
 - 11-28: reconcile false alarm fixed (settled-by-paper-result, exchange not yet cleared, same count -> no alert; +test, 52 pass;
   deployed with backup kalshi_exec.py.bak-2026-11-28-preReconcileFix).
 - 11-27 14:30Z: user deposited ~$100 (landed shard 0: $297.23). GATE MET: balance $381.10 + open $67.50 = $448.60 >= $370.
